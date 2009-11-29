@@ -1,3 +1,5 @@
+import external.deps as deps
+import os.path
 # Django settings for booking project.
 
 DEBUG = True
@@ -72,9 +74,29 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+# For Django-dependencies
+PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
+DEPENDENCY_ROOT = os.path.join(PROJECT_PATH, 'external')
+
+DEPENDENCIES = (
+    deps.HG(
+    'http://bitbucket.org/andrewgodwin/south/',
+    app_name='south',
+    revision='0.6.2',
+    root=DEPENDENCY_ROOT,
+    ),
+
+    deps.SVN(
+    'http://django-registration.googlecode.com/svn/trunk/registration',
+    app_name='registration',
+    root=DEPENDENCY_ROOT,
+    ),
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'registration',
 )
