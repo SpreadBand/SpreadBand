@@ -19,3 +19,6 @@ class Command(BaseCommand):
                     return
             else:
                 dependency.up()
+
+        if app_name:
+            print "There is no such app !"

@@ -80,17 +80,17 @@ DEPENDENCY_ROOT = os.path.join(PROJECT_PATH, 'external')
 
 DEPENDENCIES = (
     deps.HG(
-    'http://bitbucket.org/andrewgodwin/south/',
-    app_name='south',
-    revision='0.6.2',
-    root=DEPENDENCY_ROOT,
+        'http://bitbucket.org/andrewgodwin/south/',
+        revision='0.6.2',
+        pathtomodule='south',
+        root=DEPENDENCY_ROOT,
     ),
 
-    deps.SVN(
-    'http://django-registration.googlecode.com/svn/trunk/registration',
-    app_name='registration',
-    root=DEPENDENCY_ROOT,
-    ),
+    # deps.SVN(
+    #     'http://django-registration.googlecode.com/svn/trunk/registration',
+    #     app_name='registration',
+    #     root=DEPENDENCY_ROOT,
+    # ),
 )
 
 INSTALLED_APPS = (
@@ -99,5 +99,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'south',
     'registration',
 )
