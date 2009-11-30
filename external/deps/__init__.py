@@ -45,9 +45,6 @@ class VersionControl(object):
         # The path to add the PYTHONPATH so that python will find it
         self.python_path = os.path.join(self.dl_path,
                                         self.pathtomodule)
-
-        print self.python_path
-
     
     def __repr__(self):
         return "<VersionControl: %s>" % self.app_name
@@ -114,16 +111,25 @@ class SVN(VersionControl):
     Backend for Subversion (SVN)
     """
     def checkout(self):
-        logger.info('checking out %s' % self.project_name)
-        os.system('svn co %s %s' % (self.url, self.path))
+        old_dir = os.path.abspath(os.curdir)
+
+        # Make the download dir
+        os.mkdir(self.dl_path)
+        os.chdir(self.dl_path)
+
+        # Checkout
+        logger.info('Checking out %s' % self.app_name)
+        os.system('svn co %s %s' % (self.url, self.app_name))
+
+        os.chdir(old_dir)
     
     def up(self):
         logger.info('%s' % self)
-        if not os.path.exists(self.path):
+        if not os.path.exists(self.checkout_path):
             self.checkout()
+            return
+
         os.system('svn up %s' % self.path)
-
-
 
 def add_all_to_path(settings, auto_update=False, position=1):
     for dependency in settings.DEPENDENCIES:

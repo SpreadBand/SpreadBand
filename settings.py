@@ -86,11 +86,12 @@ DEPENDENCIES = (
         root=DEPENDENCY_ROOT,
     ),
 
-    # deps.SVN(
-    #     'http://django-registration.googlecode.com/svn/trunk/registration',
-    #     app_name='registration',
-    #     root=DEPENDENCY_ROOT,
-    # ),
+    deps.SVN(
+        'http://django-registration.googlecode.com/svn/trunk/',
+        app_name='registration',
+        pathtomodule='registration',
+        root=DEPENDENCY_ROOT,
+    ),
 )
 
 INSTALLED_APPS = (
