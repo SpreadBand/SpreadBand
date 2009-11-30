@@ -1,4 +1,4 @@
-import external.deps as deps
+import external.autodeps as deps
 import os.path
 # Django settings for booking project.
 

@@ -1,6 +1,10 @@
 #!/usr/bin/python
 import sys, os.path
-import external.deps as deps
+try:
+    import external.autodeps as deps
+except ImportError:
+    sys.stderr.write("Error: you should download django-autodeps and put the 'autodeps' module under the 'external/' directory.\n")
+    sys.exit(1)
 
 try:
     import settings # Assumed to be in the same directory.
