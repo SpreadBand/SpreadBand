@@ -4,3 +4,4 @@ syntax: glob
 .pydevproject
 *.pyc
 *.db
+external/

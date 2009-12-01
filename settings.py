@@ -90,14 +90,21 @@ DEPENDENCIES = (
         revision='0.6.2',
         pathtomodule='south',
         root=DEPENDENCY_ROOT,
-    ),
+        ),
 
     deps.SVN(
         'http://django-registration.googlecode.com/svn/trunk/',
         app_name='registration',
         pathtomodule='registration',
         root=DEPENDENCY_ROOT,
-    ),
+        ),
+
+    deps.GIT(
+        'git://github.com/thauber/django-schedule.git',
+        app_name='django-schedule',
+        pathtomodule='django-schedule',
+        root=DEPENDENCY_ROOT,
+        ),
 )
 
 INSTALLED_APPS = (
@@ -108,4 +115,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'registration',
+    'schedule',
 )
