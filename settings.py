@@ -28,7 +28,13 @@ TIME_ZONE = 'Eupore/Paris'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'fr-FR'
+LANGUAGE_CODE = 'en'
+
+_ = lambda s: s
+LANGUAGES = (
+    ('fr', _('French')),
+    ('en', _('English')),
+)
 
 SITE_ID = 1
 
@@ -74,7 +80,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-# For Django-dependencies
+# For Django-autodeps
 PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
 DEPENDENCY_ROOT = os.path.join(PROJECT_PATH, 'external')
 

@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-01 13:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: settings.py:35
+msgid "French"
+msgstr ""
+
+#: settings.py:36
+msgid "English"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:38
+msgid "username"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:41
+msgid "email address"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:43
+msgid "password"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:45
+msgid "password (again)"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:57
+msgid "This username is already taken. Please choose another."
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:69
+msgid "You must type the same password each time"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:98
+msgid "I have read and agree to the Terms of Service"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:107
+msgid "You must agree to the terms to register"
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:123
+msgid ""
+"This email address is already in use. Please supply a different email "
+"address."
+msgstr ""
+
+#: external/registration/registration/registration/forms.py:149
+msgid ""
+"Registration using free email addresses is prohibited. Please supply a "
+"different email address."
+msgstr ""
+
+#: external/registration/registration/registration/models.py:190
+msgid "user"
+msgstr ""
+
+#: external/registration/registration/registration/models.py:191
+msgid "activation key"
+msgstr ""
+
+#: external/registration/registration/registration/models.py:196
+msgid "registration profile"
+msgstr ""
+
+#: external/registration/registration/registration/models.py:197
+msgid "registration profiles"
+msgstr ""
