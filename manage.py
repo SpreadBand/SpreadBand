@@ -1,5 +1,10 @@
 #!/usr/bin/python
 import sys, os.path
+
+# Internal apps
+sys.path.append("apps/")
+
+# External apps
 try:
     import external.autodeps as deps
 except ImportError:
