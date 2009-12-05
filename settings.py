@@ -94,34 +94,37 @@ DEPENDENCY_ROOT = os.path.join(PROJECT_PATH, 'external')
 
 DEPENDENCIES = (
     # SOUTH
-    deps.HG(
-        'http://bitbucket.org/andrewgodwin/south/',
-        revision='0.6.2',
-        pathtomodule='south',
-        root=DEPENDENCY_ROOT,
-        ),
+    deps.HG('http://bitbucket.org/andrewgodwin/south/',
+            revision='0.6.2',
+            pathtomodule='south',
+            root=DEPENDENCY_ROOT,
+            ),
 
     # REGISTRATION
-    deps.SVN(
-        'http://django-registration.googlecode.com/svn/trunk/',
-        app_name='registration',
-        root=DEPENDENCY_ROOT,
-        ),
+    deps.SVN('http://django-registration.googlecode.com/svn/trunk/',
+             app_name='registration',
+             root=DEPENDENCY_ROOT,
+             ),
 
     # SCHEDULE
-    deps.GIT(
-        'git://github.com/thauber/django-schedule.git',
-        app_name='django-schedule',
-        pathtomodule='django-schedule',
-        root=DEPENDENCY_ROOT,
-        ),
+    deps.GIT('git://github.com/thauber/django-schedule.git',
+             app_name='django-schedule',
+             pathtomodule='django-schedule',
+             root=DEPENDENCY_ROOT,
+             ),
 
     # AUTHORITY
-    deps.HG(
-        'http://bitbucket.org/jezdez/django-authority/',
-        pathtomodule='django-authority/src/',
-        root=DEPENDENCY_ROOT,
-        ),
+    deps.HG('http://bitbucket.org/jezdez/django-authority/',
+            pathtomodule='django-authority/src/',
+            root=DEPENDENCY_ROOT,
+            ),
+
+    # TAGGING
+    deps.SVN('http://django-tagging.googlecode.com/svn/trunk/',
+             app_name='django-tagging',
+             pathtomodule='django-tagging',
+             root=DEPENDENCY_ROOT,
+             ),
 )
 
 INSTALLED_APPS = (
@@ -131,12 +134,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.gis',
 
     # External
     'south',
     'registration',
     'schedule',
     'authority',
+    'tagging',
 
     # Internal
     'actors',
