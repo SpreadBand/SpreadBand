@@ -1,6 +1,8 @@
 from actors.models import Actor
+from django.db.models import CharField
 
 class Band(Actor):
-    pass
+    name = CharField(max_length=200)
+
 
 
