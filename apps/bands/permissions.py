@@ -5,7 +5,7 @@ from .models import Band
 
 class BandPermission(permissions.BasePermission):
     label = 'band_permission'
-    checks = ('change',)
+    checks = ('add', 'change', 'manage')
 
 authority.register(Band, BandPermission)
 

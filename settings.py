@@ -86,6 +86,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    'templates/',
 )
 
 # For Django-autodeps
@@ -125,7 +126,14 @@ DEPENDENCIES = (
              pathtomodule='django-tagging',
              root=DEPENDENCY_ROOT,
              ),
-)
+
+    # Photologue
+    deps.SVN('http://django-photologue.googlecode.com/svn/trunk',
+             app_name='photologue',
+             pathtomodule='photologue',
+             root=DEPENDENCY_ROOT,
+             ),
+    )
 
 INSTALLED_APPS = (
     # Built-in
@@ -142,6 +150,7 @@ INSTALLED_APPS = (
     'schedule',
     'authority',
     'tagging',
+    'photologue',
 
     # Internal
     'actors',
