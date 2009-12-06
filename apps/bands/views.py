@@ -1,4 +1,5 @@
 from django.views.generic.create_update import create_object
+from django.views.generic.list_detail import object_list
 
 from authority.decorators import permission_required_or_403
 
@@ -16,3 +17,12 @@ def new(request):
                          )
 
 
+def list(request):
+    """
+    list all bands
+    """
+    return object_list(request,
+                       queryset=Band.objects.all(),
+                       template_name='bands/list.html',
+                       template_object_name='band',
+                       )

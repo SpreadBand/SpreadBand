@@ -3,7 +3,8 @@ from django.conf import settings
 
 import views
 
-urlpatterns = patterns('',
+urlpatterns = patterns('django.views.generic.simple',
+    (r'^$', 'redirect_to', {'url': 'list'}),
     (r'^new$', views.new),
-#    (r'^my/list$', views.mylist),
+    (r'^list$', views.list),
 )
