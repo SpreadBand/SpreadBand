@@ -4,6 +4,7 @@ from django.views.generic.list_detail import object_list
 from authority.decorators import permission_required_or_403
 
 from .models import Band
+from .forms import BandForm
 
 
 @permission_required_or_403('band_permission.add_band')
@@ -11,8 +12,14 @@ def new(request):
     """
     register a new band
     """
+##     if request.method == 'POST':
+##         form = BandForm(request.method)
+##         if form.is_valid():
+##             form.save()
+##             return HttpResponseRedirect('/thanks/') # Redirect after POST
+        
     return create_object(request,
-                         model=Band,
+                         form_class=BandForm,
                          template_name='bands/new.html',
                          )
 
