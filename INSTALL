@@ -1,0 +1,5 @@
+Required packages (debian):
+ - python-django
+ - python-django-debug-toolbar
+ - python-gdal
+ - libspatialite2

@@ -2,6 +2,8 @@ import external.autodeps as deps
 import os.path
 # Django settings for booking project.
 
+INTERNAL_IPS = ('127.0.0.1',)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -75,6 +77,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -104,6 +107,7 @@ DEPENDENCIES = (
     # REGISTRATION
     deps.SVN('http://django-registration.googlecode.com/svn/trunk/',
              app_name='registration',
+             pathtomodule='registration',
              root=DEPENDENCY_ROOT,
              ),
 
@@ -145,6 +149,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
 
     # External
+    'debug_toolbar',
     'south',
     'registration',
     'schedule',
@@ -155,4 +160,17 @@ INSTALLED_APPS = (
     # Internal
     'actors',
     'bands',
+)
+
+### DEBUG TOOLBAR
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
 )
