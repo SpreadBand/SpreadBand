@@ -31,6 +31,7 @@ class BandMember(models.Model):
         return "%s (%s)" % (self.user,
                             self.role)
 
+
 class Band(Actor):
     """
     A music band
@@ -56,16 +57,23 @@ class Band(Actor):
                               help_text=_('Active members')
                               )
 
-    calendar = models.ForeignKey(Calendar,
-                                 help_text=_('Event calendar')
-                                 )
     
     photos = models.ForeignKey(Gallery,
+                               null=True,
                                help_text=_('Photo gallery')
                                )
+
+    #-- Properties
+    def _get_calendar(self):
+        return Calendar.objects.get_or_create_calendar_for_object(self)
     
+    calendar = property(_get_calendar)
+
+    #-- Functions
     def __unicode__(self):
         return self.name
 
-
+    @models.permalink
+    def get_absolute_url(self):
+        return ('bands.views.detail', [str(self.id)])
 

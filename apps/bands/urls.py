@@ -5,6 +5,10 @@ import views
 
 urlpatterns = patterns('django.views.generic.simple',
     (r'^$', 'redirect_to', {'url': 'list'}),
-    (r'^new$', views.new),
-    (r'^list$', views.list),
+)
+
+urlpatterns += patterns('',                       
+    (r'^new$', 'bands.views.new'),
+    (r'^list$', 'bands.views.list'),
+    (r'^detail/(?P<band_id>\d+)$', views.detail),
 )

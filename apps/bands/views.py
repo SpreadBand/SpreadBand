@@ -1,5 +1,5 @@
 from django.views.generic.create_update import create_object
-from django.views.generic.list_detail import object_list
+from django.views.generic.list_detail import object_list, object_detail
 
 from authority.decorators import permission_required_or_403
 
@@ -12,24 +12,27 @@ def new(request):
     """
     register a new band
     """
-##     if request.method == 'POST':
-##         form = BandForm(request.method)
-##         if form.is_valid():
-##             form.save()
-##             return HttpResponseRedirect('/thanks/') # Redirect after POST
-        
     return create_object(request,
                          form_class=BandForm,
-                         template_name='bands/new.html',
+                         template_name='bands/band_new.html',
                          )
 
-
+def detail(request, band_id):
+    """
+    Show details about a band
+    """
+    return object_detail(request,
+                         queryset=Band.objects.all(),
+                         object_id=band_id,
+                         template_object_name='band'
+                         )
+                          
 def list(request):
     """
     list all bands
     """
     return object_list(request,
                        queryset=Band.objects.all(),
-                       template_name='bands/list.html',
+                       template_name='bands/band_list.html',
                        template_object_name='band',
                        )

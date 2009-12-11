@@ -8,3 +8,9 @@ class BandForm(forms.ModelForm):
         exclude = ('calendar', 'photos')
 
 
+    
+
+
+    
+
+
