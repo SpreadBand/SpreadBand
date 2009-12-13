@@ -1,6 +1,16 @@
+{% extends "base.html" %}
+
+{% load scheduletags %}
+
+{% block content %}
 
 Das band :
 
 {{ band.name }}
 
-{{ band.calendar }}
+
+<p align="center"><b>Calendrier pour {{ band.calendar.name }}</b></p>
+{% month_table band.calendar period "regular" %}
+
+
+{% endblock %}

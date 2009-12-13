@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django.db.models import CharField, ManyToManyField, DateField, DateTimeField, TextField
+from django.db.models import CharField, ManyToManyField, DateField, DateTimeField, TextField, ForeignKey
 from django.contrib.auth.models import User
 
 from schedule.models import Calendar
@@ -8,7 +8,6 @@ from tagging.fields import TagField
 from photologue.models import Gallery
 
 from actors.models import Actor
-
 
 class BandRole(models.Model):
     """
@@ -23,9 +22,9 @@ class BandMember(models.Model):
     """
     A membership link between users and bands
     """
-    user = models.ForeignKey(User)
-    role = models.ForeignKey(BandRole,
-                             unique=True)
+    user = ForeignKey(User)
+    role = ForeignKey(BandRole,
+                      unique=True)
 
     def __unicode__(self):
         return "%s (%s)" % (self.user,
@@ -58,10 +57,10 @@ class Band(Actor):
                               )
 
     
-    photos = models.ForeignKey(Gallery,
-                               null=True,
-                               help_text=_('Photo gallery')
-                               )
+    photos = ForeignKey(Gallery,
+                        null=True,
+                        help_text=_('Photo gallery')
+                        )
 
     #-- Properties
     def _get_calendar(self):

@@ -3,6 +3,8 @@ from django.views.generic.list_detail import object_list, object_detail
 
 from authority.decorators import permission_required_or_403
 
+from schedule.periods import Month
+
 from .models import Band
 from .forms import BandForm
 
@@ -21,10 +23,12 @@ def detail(request, band_id):
     """
     Show details about a band
     """
+    period = [Month]
     return object_detail(request,
                          queryset=Band.objects.all(),
                          object_id=band_id,
-                         template_object_name='band'
+                         template_object_name='band',
+                         extra_context={"period" : period},
                          )
                           
 def list(request):
