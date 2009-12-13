@@ -19,6 +19,7 @@ def new(request):
                          template_name='bands/band_new.html',
                          )
 
+
 def detail(request, band_id):
     """
     Show details about a band

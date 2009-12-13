@@ -39,28 +39,33 @@ class Band(Actor):
 
     founded_on = DateField(help_text=_('When the band was founded'))
     
-    registered_on = DateTimeField(auto_now_add=True,
-                                  help_text=_('When the band was registered')
-                                  )
-    
-    last_activity = DateTimeField(auto_now_add=True,
-                                  help_text=_('The last time something happened')
-                                  )
-    
     style_tags = TagField('Styles')
 
-    biography = TextField(help_text=_('Band biography'))
+    biography = TextField(blank=True,
+                          help_text=_('Band biography'))
     
     members = ManyToManyField(BandMember,
                               blank=True,
                               help_text=_('Active members')
                               )
-
     
     photos = ForeignKey(Gallery,
                         null=True,
                         help_text=_('Photo gallery')
                         )
+
+    def _get_visibility(self):
+        """
+        Return the visibility based on the subscription
+
+        XXX: For now, it's hardcoded as 'one month visibility'
+        """
+        from datetime import datetime
+        now = datetime.now()
+        next_month = now.replace(month=now.month + 1)
+        return next_month
+    
+    visibility = property(_get_visibility)
 
     #-- Properties
     def _get_calendar(self):
