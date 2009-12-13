@@ -167,6 +167,7 @@ INSTALLED_APPS = (
     # Internal
     'actors',
     'bands',
+    'gigplaces',
     'bargain',
 )
 

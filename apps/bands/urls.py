@@ -10,5 +10,6 @@ urlpatterns = patterns('django.views.generic.simple',
 urlpatterns += patterns('',                       
     (r'^new$', 'bands.views.new'),
     (r'^list$', 'bands.views.list'),
-    (r'^detail/(?P<band_id>\d+)$', views.detail),
+    (r'^view/(?P<band_id>\d+)$', views.detail),
+    (r'^view/(?P<band_id>\d+)/', include('photologue.urls')),
 )

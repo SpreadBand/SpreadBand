@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load scheduletags %}
+
+{% block content %}
+
+El' gig place :
+
+{{ gigplace.name }}
+
+
+<p align="center"><b>Calendrier pour {{ gigplace.calendar.name }}</b></p>
+{% month_table gigplace.calendar period "regular" %}
+
+
+{% endblock %}

@@ -16,3 +16,7 @@ class GigPlace(Actor):
                         null=True,
                         help_text=_('Photo gallery')
                         )
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('gigplaces.views.detail', [str(self.id)])
