@@ -171,6 +171,9 @@ INSTALLED_APPS = (
     'bargain',
 )
 
+
+###--- Application settings ---###
+
 ### DEBUG TOOLBAR
 DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
@@ -187,3 +190,7 @@ DEBUG_TOOLBAR_PANELS = (
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS' : False,
     }
+
+
+### Registration
+ACCOUNT_ACTIVATION_DAYS = 7
