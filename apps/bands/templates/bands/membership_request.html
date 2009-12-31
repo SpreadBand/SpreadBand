@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+<form action="request" method="POST">
+  {{ form.as_p }}
+  <input type="submit" value="{% trans "Submit" %}" />
+</form>
+
+
+{% endblock %}
