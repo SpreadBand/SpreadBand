@@ -105,7 +105,7 @@ DEPENDENCIES = (
             ),
 
     # REGISTRATION
-    deps.SVN('http://django-registration.googlecode.com/svn/trunk/',
+    deps.HG('http://bitbucket.org/ubernostrum/django-registration/',
              app_name='registration',
              pathtomodule='registration',
              root=DEPENDENCY_ROOT,

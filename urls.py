@@ -8,6 +8,9 @@ admin.autodiscover()
 authority.autodiscover()
 
 urlpatterns = patterns('',
+    # users
+    (r'^accounts/', include('registration.backends.default.urls')),
+
     # Bands
     (r'^bands/', include('bands.urls')),
     # Gigplaces
