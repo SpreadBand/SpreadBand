@@ -40,6 +40,9 @@ class Party(models.Model):
     """
     A party of a contract
     """
+    class Meta:
+        verbose_name_plural = "Parties"
+
     contract = ForeignKey(Contract, related_name="parties")
         
     content_type = ForeignKey(ContentType, related_name="contracts")

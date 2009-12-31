@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block content %}
 
 <h2>Bands</h2>
@@ -8,5 +10,7 @@
     <li><a href="{{ band.get_absolute_url }}">{{ band.name }}</a></li>
   {% endfor %}
 </ul>
+
+<a href="{% url bands.views.new %}">{% trans "Add new" %}
 
 {% endblock %}

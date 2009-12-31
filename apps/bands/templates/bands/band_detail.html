@@ -8,9 +8,19 @@ Das band :
 
 {{ band.name }}
 
+<p>
+  Members<br>
+  <ul>
+    {% for member in band.members.all %}
+    <li>{{ member.user.first_name }} {{ member.user.last_name }} 
+      ({{ member.user.username }}) as {{ member.role.label }}</li>
+    {% endfor %}
+  </ul>
+</p>
 
-<p align="center"><b>Calendrier pour {{ band.calendar.name }}</b></p>
-{% month_table band.calendar period "regular" %}
-
-
+<p>
+  Calendar<br>
+  {% month_table band.calendar period "regular" %}
+</p>
+  
 {% endblock %}
