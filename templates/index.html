@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<p>
+
+Users
+<ul>
+<li><a href="{% url registration_register %}">new</a>
+<li><a href="{% url auth_login %}">login</a>
+</ul>
+
+</p>
+
+
+<p>
+
+Bands
+<ul>
+<li><a href="{% url bands.views.new %}">new</a>
+<li><a href="{% url bands.views.list %}">list</a>
+</ul>
+
+</p>
+
+
+<p>
+
+BigBrother
+<ul>
+<li><a href="{% url bigbrother.views.show %}">show</a>
+</ul>
+
+</p>
+
+<p>
+<a href="/admin/">Admin</a>
+</p>
+
+{% endblock %}

@@ -169,6 +169,8 @@ INSTALLED_APPS = (
     'bands',
     'gigplaces',
     'bargain',
+
+    'bigbrother',
 )
 
 
