@@ -76,3 +76,7 @@ class Band(Actor):
     def get_absolute_url(self):
         return ('bands.views.detail', [str(self.id)])
 
+
+from .myportlets import TextPortlet
+from portlets.utils import register_portlet
+register_portlet(TextPortlet, "TextPortlet")

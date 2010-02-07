@@ -9,6 +9,7 @@ from matplotlib.figure import Figure
 from django.shortcuts import render_to_response
 
 from django.http import HttpResponse
+from django.core import serializers
 
 from .models import BandStatsDaily
 
@@ -27,6 +28,30 @@ from datetime import timedelta
 from collections import defaultdict
 
 import calendar
+
+import simplejson as json
+
+def monthly_data(request):
+    today = date.today()
+    
+    site = Site.objects.get(id=settings.SITE_ID)
+    data_set = BandStatsDaily.objects.filter(site=site)
+
+    first_day = date(today.year, today.month, 1)
+    days_in_month = calendar.monthrange(today.year, today.month)[1]
+    last_day = date(today.year, today.month, days_in_month)
+
+    data_set = data_set.filter(date__range=(first_day, last_day))
+
+    data = [0 for i in range(1, days_in_month+1)]
+    for d in data_set:
+        data[int(d.date.day)-1] = d.count
+
+    print data, "...", data_set
+
+    this_month = zip(range(1, days_in_month+1), data)
+    
+    return HttpResponse(json.dumps(this_month), mimetype='application/json')
 
 def make_monthly_graph(request):
     today = date.today()

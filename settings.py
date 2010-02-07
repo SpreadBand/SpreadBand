@@ -2,6 +2,8 @@ import external.autodeps as deps
 import os.path
 # Django settings for booking project.
 
+PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
+
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG = True
@@ -46,12 +48,12 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://localhost:8000/media/'
+MEDIA_URL = 'http://localhost:8000/site_media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -77,7 +79,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -93,7 +95,6 @@ TEMPLATE_DIRS = (
 )
 
 # For Django-autodeps
-PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
 DEPENDENCY_ROOT = os.path.join(PROJECT_PATH, 'external')
 
 DEPENDENCIES = (
@@ -142,7 +143,13 @@ DEPENDENCIES = (
     deps.SVN('http://django-reversion.googlecode.com/svn/tags/1.2/src/reversion',
              app_name='reversion',
              root=DEPENDENCY_ROOT,
-             ),             
+             ),
+
+    deps.SVN('http://django-portlets.googlecode.com/svn/trunk/', 
+             app_name='portlets',
+             pathtomodule='portlets',
+             root=DEPENDENCY_ROOT,
+             ),
     )
 
 INSTALLED_APPS = (
@@ -155,7 +162,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
 
     # External
-    'debug_toolbar',
+#    'debug_toolbar',
     'south',
     'registration',
     'schedule',
@@ -163,6 +170,7 @@ INSTALLED_APPS = (
     'tagging',
     'photologue',
     'reversion',
+    'portlets',
 
     # Internal
     'actors',

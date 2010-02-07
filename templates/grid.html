@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL}}/css/jquery.easywidgets.css" />
+
+<style>
+.resizehandle {
+	background-color: green;
+	cursor: e-resize;
+	font-size: 0.1em;
+	min-height:25px;
+	width:16px;
+margin-left: auto;
+margin-right: 0px;
+}
+</style>
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easywidgets.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.qtip.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/grider.js"></script>
+
+    <script type="text/javascript">
+      $(function() 
+      {
+      $.fn.EasyWidgets();
+      $.fn.Grider();
+      });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<h3>Params</h3>
+<p>
+<div id="grider_editor">
+
+<!-- Selected : <input type="text" id="grider_selected" value=""/><br> -->
+<input type="button" id="grider_grow" value="Grow"/>
+<input type="button" id="grider_shrink" value="Shrink"/>
+<br>
+<input type="text" id="grider_size" value="2"/><input type="button" id="grider_add" value="Add"/>
+<br>
+<input type="button" id="grider_del" value="Del"/>
+</div>
+</p>
+<!-- <a href="#" id="add">Ajouter</a> -->
+
+<h3>Result</h3>
+
+<div id="grider_container" class="container_12" style="background-color: red;
+						min-height: 100px;">
+
+  <div class="grid_12">HEADER</div>
+  <div class="clear"></div>
+
+  <div class="grid_3" style="background-color: #eee; opacity: 0.6; min-height: 100px;">menu</div>
+  <div class="grid_5" style="background-color: #eee; opacity: 0.6; min-height: 100px;">
+    <!-- <div class="widget-place"> -->
+    <!--   <div class="widget movable"> -->
+    <!-- 	<div class="widget-header">header</div> -->
+    <!-- 	<div class="widget-content">a widget</div> -->
+    <!--   </div> -->
+    <!-- </div> -->
+  </div>
+  <div class="grid_4" style="background-color: #eee; opacity: 0.6; min-height: 100px;">
+    <!-- <div class="widget-place"> -->
+    <!-- </div> -->
+  </div>
+  <div class="clear"></div>
+  
+  <div class="grid_12">FOOTER</div>
+  <div class="clear"></div>
+</div>
+
+{% endblock %}
