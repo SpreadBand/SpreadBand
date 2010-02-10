@@ -28,4 +28,4 @@ def new_user_cb(instance, created, **kwargs):
         bs.save()
 
 
-post_save.connect(new_user_cb, sender=User)
+#post_save.connect(new_user_cb, sender=User)

@@ -6,7 +6,13 @@
 
 Das band :
 
-{{ band.name }}
+{{ band.name }} 
+
+{% if band.website %}
+( <a href="{% url minisite:detail band.website.id %}">site</a> )
+{% else %}
+( this band has no website )
+{% endif %}
 
 <p>
   Members<br>

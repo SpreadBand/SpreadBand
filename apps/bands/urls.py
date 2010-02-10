@@ -8,8 +8,11 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',                       
+    (r'^web/', include('minisite.urls', namespace='minisite')),
+
     (r'^new$', 'bands.views.new'),
     (r'^list$', 'bands.views.list'),
+
     (r'^(?P<band_id>\d+)$', views.detail),
     (r'^(?P<band_id>\d+)/', include('photologue.urls')),
     (r'^(?P<band_id>\d+)/membership/request', 'bands.views.membership_request'),

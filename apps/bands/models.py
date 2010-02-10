@@ -7,6 +7,7 @@ from tagging.fields import TagField
 from photologue.models import Gallery
 
 from actors.models import Actor
+from minisite.models import Minisite
 
 class BandRole(models.Model):
     """
@@ -65,6 +66,8 @@ class Band(Actor):
         now = datetime.now()
         next_month = now.replace(month=now.month + 1)
         return next_month
+
+    website = ForeignKey(Minisite, blank=True, null=True)
     
     visibility = property(_get_visibility)
 
@@ -75,8 +78,3 @@ class Band(Actor):
     @models.permalink
     def get_absolute_url(self):
         return ('bands.views.detail', [str(self.id)])
-
-
-from .myportlets import TextPortlet
-from portlets.utils import register_portlet
-register_portlet(TextPortlet, "TextPortlet")

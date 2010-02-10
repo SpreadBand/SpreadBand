@@ -163,6 +163,7 @@ INSTALLED_APPS = (
 
     # External
 #    'debug_toolbar',
+    'django_extensions',
     'south',
     'registration',
     'schedule',
@@ -173,6 +174,8 @@ INSTALLED_APPS = (
     'portlets',
 
     # Internal
+    'minisite',
+    'minisite.portlets.freetext',
     'actors',
     'bands',
     'gigplaces',

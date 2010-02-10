@@ -12,6 +12,7 @@ authority.autodiscover()
 urlpatterns = patterns('',
     # temporary index page
     (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
+
     (r'^grid.html$', 'django.views.generic.simple.direct_to_template', {'template': 'grid.html'}),
                        
     # users
@@ -19,6 +20,7 @@ urlpatterns = patterns('',
 
     # Bands
     (r'^bands/', include('bands.urls')),
+
     # Gigplaces
     (r'^places/', include('gigplaces.urls')),
 

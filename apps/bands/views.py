@@ -39,6 +39,7 @@ def detail(request, band_id):
                          queryset=Band.objects.all(),
                          object_id=band_id,
                          template_object_name='band',
+                         template_name='bands/band_detail.html',
                          extra_context={"period" : period},
                          )
 
