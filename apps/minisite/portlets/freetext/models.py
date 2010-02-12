@@ -9,6 +9,9 @@ class FreetextPortlet(Portlet):
     """
     A simple portlet to display some text.
     """
+    class Meta:
+        app_label = 'portlets'
+
     text = models.TextField(_(u'Text'), blank=True)
 
     def __unicode__(self):
