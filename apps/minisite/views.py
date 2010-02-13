@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import Context, Template
 
-from portlets.models import Slot, PortletRegistration
+from .models.portlet import Slot, PortletRegistration
+from .models.minisite import Minisite, Layout
 
-from .models import Minisite, Layout
 from .forms import LayoutForm
 
 from bands.models import Band
