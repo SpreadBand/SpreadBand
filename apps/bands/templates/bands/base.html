@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('#band_navtab').tabs();
+  $('#band_navtab ul li a').click(function () {location.hash = $(this).attr('href'); });
+  });
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ band.name }}</h2>
+{% if band.website %}
+( <a href="{% url band:minisite:detail band.website.id %}">Minisite</a> )
+{% else %}
+( this band has no website )
+{% endif %}
+
+
+<div id="band_navtab">
+     <ul>
+         <li><a href="#tab-overview">Overview</a></li>
+         <li><a href="/bands/{{ band.id }}/album/">Albums</a></li>
+     </ul>
+
+     <div id="tab-overview">
+       {% block band_content %}
+       {% endblock %}
+     </div>
+
+</div>
+
+{% endblock %}
+

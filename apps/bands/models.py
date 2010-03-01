@@ -7,7 +7,7 @@ from tagging.fields import TagField
 from photologue.models import Gallery
 
 from actors.models import Actor
-from minisite.models import Minisite
+from minisite.models.minisite import Minisite
 
 class BandRole(models.Model):
     """
