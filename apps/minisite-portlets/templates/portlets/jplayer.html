@@ -1,0 +1,44 @@
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.jplayer.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#audioplayer").jPlayer({
+         ready: function() {
+    this.element.jPlayer("setFile", "{{ portlet.song.file.url }}");
+          },
+         swfPath: '{{ MEDIA_URL }}/flash/',
+         nativeSupport: true, 
+      });
+
+    $("#play").click(function() {
+      $("#audioplayer").jPlayer("play");
+        return false;
+    });
+
+    $("#pause").click(function() {
+      $("#audioplayer").jPlayer("pause");
+        return false;
+    });
+
+    
+    });
+</script>
+
+<div>
+  <div>{{ portlet.title }} - 
+    <ul class="widget-config-icons ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all">
+	<a class="qtip_loaded" href='{% url band:minisite:portlet-config minisite.id slot.id %}'>
+	  <span class="ui-icon ui-icon-wrench">config</span>
+	</a>
+      </li>
+    </ul>
+  </div>
+  <div class='audioplayer' id='audioplayer'></div>
+  <div id='playercontainer'>
+    <ul id="icons" class="ui-widget ui-helper-clearfix">
+      <li id="play" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-play"></span></li>
+      <li id="pause" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-pause"></span></li>
+    </ul>
+    <div id="trackname">{{ portlet.song.album.band }} - {{ portlet.song.title }}</div>
+  </div>
+</div>

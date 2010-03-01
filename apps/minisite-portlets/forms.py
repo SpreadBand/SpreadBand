@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import FreetextPortlet
+from .models import FreetextPortlet, TwitterPortlet
 
 class FreetextPortletForm(forms.ModelForm):
     """
@@ -9,5 +9,12 @@ class FreetextPortletForm(forms.ModelForm):
     class Meta:
         model = FreetextPortlet
 
+class TwitterPortletForm(forms.ModelForm):
+    """
+    Form for the TwitterPortlet.
+    """
+    class Meta:
+        model = TwitterPortlet
+        exclude = ('title',)
 
 
