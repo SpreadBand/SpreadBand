@@ -1,33 +1,49 @@
 {% extends "base.html" %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL}}/css/jquery.easywidgets.css" />
-
-<style>
-.resizehandle {
-	background-color: green;
-	cursor: e-resize;
-	font-size: 0.1em;
-	min-height:25px;
-	width:16px;
-margin-left: auto;
-margin-right: 0px;
-}
-</style>
-
-
+<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" />
+<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL}}/css/jquery/jquery.easywidgets.css" />
 {% endblock %}
 
 {% block javascript %}
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easywidgets.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.qtip.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}/js/grider.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.grider.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.xmlutils.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.json.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/json2.js"></script>
 
+    <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+  
     <script type="text/javascript">
-      $(function() 
+      $(document).ready(function() 
       {
       $.fn.EasyWidgets();
       $.fn.Grider();
+      $('#switcher').themeswitcher();
+
+      $('.ui-state-default').hover(
+      function(){$(this).addClass('ui-state-hover');}, 
+      function(){$(this).removeClass('ui-state-hover');}
+      );
+
+      function saveit() {
+      var el = $('#grider_container').get(0);
+      //alert(el);
+      var layout = $.xmlToJSON(el);
+
+      $.ajax({url: 'save',
+      type: 'GET',
+      async: false,
+      data: {layout: $.toJSON(layout)},
+      contentType: 'application/json; charset=utf-8',
+      success: function(data) { alert('done'); },
+      error: function(data) { alert('error'); },
+      });
+      };
+
+      $('#grider_save').click(saveit);
+
       });
     </script>
 {% endblock %}
@@ -35,16 +51,22 @@ margin-right: 0px;
 {% block content %}
 
 <h3>Params</h3>
-<p>
-<div id="grider_editor">
 
-<!-- Selected : <input type="text" id="grider_selected" value=""/><br> -->
-<input type="button" id="grider_grow" value="Grow"/>
-<input type="button" id="grider_shrink" value="Shrink"/>
+
+<div id="switcher"></div>
+
+<p>
+<input id='grider_save' type='button' value='save'/>
+
+<div id="grider_editor" class='ui-helper-hidden'>
+
+Selected : <input type="text" id="grider_selected" value=""/><br>
+<input class="ui-state-default" type="button" id="grider_grow" value="Grow"/>
+<input class="ui-state-default" type="button" id="grider_shrink" value="Shrink"/>
 <br>
-<input type="text" id="grider_size" value="2"/><input type="button" id="grider_add" value="Add"/>
+<input type="text" id="grider_size" value="2"/><input class="ui-state-default" type="button" id="grider_add" value="Add"/>
 <br>
-<input type="button" id="grider_del" value="Del"/>
+<input class="ui-state-default" type="button" id="grider_del" value="Del"/>
 </div>
 </p>
 <!-- <a href="#" id="add">Ajouter</a> -->
@@ -59,16 +81,16 @@ margin-right: 0px;
 
   <div class="grid_3" style="background-color: #eee; opacity: 0.6; min-height: 100px;">menu</div>
   <div class="grid_5" style="background-color: #eee; opacity: 0.6; min-height: 100px;">
-    <!-- <div class="widget-place"> -->
-    <!--   <div class="widget movable"> -->
-    <!-- 	<div class="widget-header">header</div> -->
-    <!-- 	<div class="widget-content">a widget</div> -->
-    <!--   </div> -->
-    <!-- </div> -->
+    <div class="widget-place">
+      <div class="widget movable">
+    	<div class="widget-header">header</div>
+    	<div class="widget-content">a widget</div>
+      </div>
+    </div>
   </div>
   <div class="grid_4" style="background-color: #eee; opacity: 0.6; min-height: 100px;">
-    <!-- <div class="widget-place"> -->
-    <!-- </div> -->
+    <div class="widget-place">
+    </div>
   </div>
   <div class="clear"></div>
   

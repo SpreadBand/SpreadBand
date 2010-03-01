@@ -1,0 +1,7 @@
+{% if portlets %}
+    {% for portlet in portlets %}
+        {{ portlet|safe }}
+    {% endfor %}
+{% else %}
+   [Slot doesn't exist or no portlet assigned]
+{% endif %}

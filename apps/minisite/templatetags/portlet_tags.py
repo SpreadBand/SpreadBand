@@ -11,7 +11,7 @@ from minisite.models.portlet import Slot
 
 register = template.Library()
 
-@register.inclusion_tag('portlets/portlet_slot.html', takes_context=True)
+@register.inclusion_tag('minisite/portlet_slot.html', takes_context=True)
 def portlet_slot(context, slot_name, instance=None):
     """
     Returns the portlets for given slot and instance. If the instance
@@ -24,6 +24,8 @@ def portlet_slot(context, slot_name, instance=None):
 
     try:
         slot = Slot.objects.get(name=slot_name)
+        # Set current slot
+        context.update({'slot': slot})
     except Slot.DoesNotExist:
         return { "portlets" : [] }
 
@@ -58,6 +60,8 @@ def portlet_slot(context, slot_name, instance=None):
                 temp.insert(0, p)
 
     rendered_portlets = []
+
+    # Render portlets
     for portlet in temp:
         rendered_portlets.append(portlet.render(context))
 

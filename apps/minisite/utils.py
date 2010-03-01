@@ -11,7 +11,8 @@ from .models.portlet import PortletRegistration
 from .models.portlet import Slot
 
 def get_slots(obj):
-    """Returns slot with all assigned portlets as dict.
+    """
+    Returns slot with all assigned portlets as dict.
     """
     portlet_types = get_registered_portlets()
     ct = ContentType.objects.get_for_model(obj)
@@ -56,7 +57,8 @@ def is_blocked(obj, slot):
     return True
 
 def has_portlets(slot, obj):
-    """Returns True if the given obj has portlets for given slot.
+    """
+    Returns True if the given obj has portlets for given slot.
     """
     while obj:
         if len(get_portlets(slot, obj)) > 0:
@@ -68,7 +70,8 @@ def has_portlets(slot, obj):
     return False
 
 def get_portlets(slot, obj):
-    """Returns portlet objs for a given slot and obj (content object).
+    """
+    Returns portlet objs for a given slot and obj (content object).
     """
     print slot, obj
 
@@ -88,7 +91,8 @@ def get_portlets(slot, obj):
     return portlets
 
 def get_registered_portlets():
-    """Returns registered portlet types as dict.
+    """
+    Returns registered portlet types as dict.
     """
     portlet_types = {}
     for pr in PortletRegistration.objects.all():
@@ -97,7 +101,8 @@ def get_registered_portlets():
     return portlet_types
 
 def register_portlet(obj, name):
-    """Registers a portlet.
+    """
+    Registers a portlet.
     """
     type = obj.__name__.lower()
     try:
@@ -106,7 +111,8 @@ def register_portlet(obj, name):
         pass
 
 def unregister_portlet(obj):
-    """Unregisters portlet with given type
+    """
+    Unregisters portlet with given type
     """
     type = obj.__name__.lower()
     try:

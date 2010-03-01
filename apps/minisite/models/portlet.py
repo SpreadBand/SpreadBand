@@ -30,17 +30,10 @@ class Portlet(models.Model):
         abstract = True
         app_label = 'minisite'
 
-    def render(self):
+    def render(self, context):
         """
         Renders the portlet as html. Have to be implemented by sub
         classes.
-        """
-        raise NotImplemented
-
-    def form(self, **kwargs):
-        """
-        Returns the form for the portlet. Have to be implemented by
-        sub classes.
         """
         raise NotImplemented
 
@@ -50,15 +43,15 @@ class PortletAssignment(models.Model):
     """
     class Meta:
         app_label = 'minisite'
-        ordering = ["position"]
+        ordering = ['position']
 
     slot = models.ForeignKey(Slot)
 
-    content_type = models.ForeignKey(ContentType, related_name="pa_content")
+    content_type = models.ForeignKey(ContentType, related_name='pa_content')
     content_id = models.PositiveIntegerField()
     content = generic.GenericForeignKey('content_type', 'content_id')
 
-    portlet_type = models.ForeignKey(ContentType, related_name="pa_portlets")
+    portlet_type = models.ForeignKey(ContentType, related_name='pa_portlets')
     portlet_id = models.PositiveIntegerField()
     portlet = generic.GenericForeignKey('portlet_type', 'portlet_id')
 
@@ -67,9 +60,9 @@ class PortletAssignment(models.Model):
 
     def __unicode__(self):
         try:
-            return "%s (%s)" % (self.portlet.title, self.slot.name)
+            return '%s (%s)' % (self.portlet.title, self.slot.name)
         except AttributeError:
-            return ""
+            return '<unnamed>'
 
 class PortletBlocking(models.Model):
     """
@@ -77,19 +70,19 @@ class PortletBlocking(models.Model):
     """
     class Meta:
         app_label = 'minisite'
-        unique_together = ["slot", "content_id", "content_type"]
+        unique_together = ['slot', 'content_id', 'content_type']
 
-    slot = models.ForeignKey("Slot")
+    slot = models.ForeignKey('Slot')
 
-    content_type = models.ForeignKey(ContentType, related_name="pb_content")
+    content_type = models.ForeignKey(ContentType, related_name='pb_content')
     content_id = models.PositiveIntegerField()
     content = generic.GenericForeignKey('content_type', 'content_id')
 
     def __unicode__(self):
         try:
-            return "%s (%s)" % (self.content.title, self.slot.name)
+            return '%s (%s)' % (self.content.title, self.slot.name)
         except AttributeError:
-            return "<unnamed>"
+            return '<unnamed>'
 
 class PortletRegistration(models.Model):
     """
@@ -109,13 +102,13 @@ class PortletRegistration(models.Model):
      """
     class Meta:
         app_label = 'minisite'
-        ordering = ("name", )
+        ordering = ('name', )
 
     type = models.CharField(max_length=30, unique=True)
     name = models.CharField(max_length=50, unique=True)
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return "%s %s" % (self.type, self.name)
+        return '%s %s' % (self.type, self.name)
 
 
