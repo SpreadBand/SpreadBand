@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.default.urls')),
 
     # Bands
-    (r'^bands/', include('bands.urls')),
+    (r'^bands/', include('bands.urls', namespace='band')),
 
     # Gigplaces
     (r'^places/', include('gigplaces.urls')),

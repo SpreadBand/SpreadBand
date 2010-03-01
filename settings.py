@@ -144,12 +144,6 @@ DEPENDENCIES = (
              app_name='reversion',
              root=DEPENDENCY_ROOT,
              ),
-
-    deps.SVN('http://django-portlets.googlecode.com/svn/trunk/', 
-             app_name='portlets',
-             pathtomodule='portlets',
-             root=DEPENDENCY_ROOT,
-             ),
     )
 
 INSTALLED_APPS = (
@@ -171,15 +165,15 @@ INSTALLED_APPS = (
     'tagging',
     'photologue',
     'reversion',
-    'portlets',
 
     # Internal
     'minisite',
-    'minisite.portlets.freetext',
+    'minisite-portlets',
     'actors',
     'bands',
     'gigplaces',
     'bargain',
+    'album',
 
     'bigbrother',
 )
