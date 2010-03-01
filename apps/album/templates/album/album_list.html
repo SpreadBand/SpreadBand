@@ -1,0 +1,14 @@
+{% block band_content %}
+
+<h2>Albums</h2>
+
+<ul>
+{% for album in album_list %}
+  <li><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></li>
+{% endfor %}
+</ul>
+
+{# <a href="{% url band:album:create  %}">Create new</a> #}
+<a href="album/create">Create new</a>
+
+{% endblock %}

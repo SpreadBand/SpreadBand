@@ -1,0 +1,19 @@
+{% extends "bands/base.html" %}
+
+{% block band_content %}
+
+<h2>Album</h2>
+
+<p>
+<i>{{ album.name }}</i> from <b>{{ album.band.name }}</b>
+
+<p>
+
+<h3>Tracks</h3>
+<ul>
+{% for track in album.tracks.all %}
+<li><a href="{{ track.file.url }}">{{ track.title }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
