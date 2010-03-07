@@ -139,11 +139,25 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
+    # ImageKit
+    deps.HG('http://bitbucket.org/jdriscoll/django-imagekit/',
+            app_name='imagekit',
+            pathtomodule='imagekit',
+            root=DEPENDENCY_ROOT,
+            ),
+
     # Reversion
     deps.SVN('http://django-reversion.googlecode.com/svn/tags/1.2/src/reversion',
              app_name='reversion',
              root=DEPENDENCY_ROOT,
              ),
+
+    # Annoying
+    deps.HG('http://bitbucket.org/offline/django-annoying/',
+            app_name='annoying',
+            pathtomodule='annoying',
+            root=DEPENDENCY_ROOT,
+            ),
     )
 
 INSTALLED_APPS = (
@@ -165,6 +179,8 @@ INSTALLED_APPS = (
     'tagging',
     'photologue',
     'reversion',
+    'imagekit',
+    'annoying',
 
     # Internal
     'minisite',
