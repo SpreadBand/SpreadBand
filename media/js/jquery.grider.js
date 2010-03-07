@@ -6,11 +6,11 @@ function Grider()
 {
     var selected = null;
 
-    $(".container_12").dblclick(on_dblclick);
+    $(".container_12").live('dblclick', on_dblclick);
     //$("div[class^='grid_']").map(resizehandle);
     //    $("div[class^='grid_']").resizable();
 
-    $(".container_12").click(select);
+    //$(".container_12").live('click', select);
 
     maketip();
 
@@ -61,25 +61,34 @@ function Grider()
 
     function maketip()
     {
-	r = jQuery(".container_12 div[class^='grid_']").qtip(
+	r = jQuery("div[class^='grid_']").qtip(
 	    {
 		content: jQuery("#grider_editor"),
 		show: {
 		    solo: true,
 		    when: {
-			event: 'click' } },
+			event: 'click'
+		    }
+		},
 		hide: {
-		    when: 'click',
-		    fixed: true },
+		    when: 'unfocus',
+		    fixed: true
+		},
 		position: {
 		    adjust: {
-			screen: true },
-			corner: {
-			    target: 'topMiddle',
-			    tooltip: 'bottomMiddle'
-			}
+			screen: true
+		    },
+		    corner: {
+			target: 'topMiddle',
+			tooltip: 'bottomMiddle'
+		    }
 		},
-		style: { tip: 'bottomMiddle' }
+		style: {
+		    tip: 'bottomMiddle'
+		},
+		api: {
+		    beforeShow: select
+		}
 	    }
 	);
 
@@ -313,5 +322,9 @@ function Grider()
     }
 }
 
-jQuery.fn.Grider = Grider
+jQuery.fn.Grider = function()
+{
+    Grider();
+    return true;
+}
 
