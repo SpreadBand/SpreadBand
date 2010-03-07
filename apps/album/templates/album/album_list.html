@@ -1,10 +1,14 @@
+{% extends "bands/base.html" %}
+
 {% block band_content %}
 
 <h2>Albums</h2>
 
 <ul>
 {% for album in album_list %}
-  <li><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></li>
+  <li><div><img src="{{ album.cover.thumbnail_image.url }}"></div>
+      <div><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></div>
+  </li>
 {% endfor %}
 </ul>
 

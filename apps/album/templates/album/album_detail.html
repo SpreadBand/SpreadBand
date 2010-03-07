@@ -2,18 +2,146 @@
 
 {% block band_content %}
 
+{% block band_css %}
+
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/jquery/colorbox/colorbox.css" />
+<style type="text/css">
+  #tracks { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #tracks li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #tracks li span { position: absolute; margin-left: -1.3em; }
+</style>
+{% endblock %}
+
+{% block band_javascript %}
+
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/ajaxupload.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.colorbox.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".edit").editable("/bands/1/album/1/edit-one", {
+         indicator : 'Saving...',
+         submit: 'OK',
+         tooltip   : 'Click to edit...',
+         width: 255,
+         height: 30,
+         style  : "inherit",
+         callback : function(value, settings) {
+           $(this).effect('highlight', 1500);
+         }
+     });
+
+    $("#album-type-edit").editable("/bands/1/album/1/edit-one", { 
+     data   : "{'EP': 'Extended', 'LP': 'Long-Playing', 'DM': 'Demo'}",
+     type   : 'select',
+     submit : 'OK'
+     });
+
+
+  var stop = false;
+  $("#tracks > div").click(function(event) {
+  	if (stop) {
+  		event.stopImmediatePropagation();
+  		event.preventDefault();
+  		stop = false;
+  	}
+  });
+  $("#tracks").accordion({
+  header: "> div > :first-child",
+  collapsible: true,
+  active: false,
+  }).sortable({
+    axis: "y",
+    handle: "span",
+    stop: function(event, ui) {
+     stop = true;
+    }
+  });
+
+  $(".track_delete").click(function(event) {
+  event.preventDefault();
+   var target = this;
+    $.get(this.href, {}, function(response) {
+  $(target).parent().remove();
+  });
+  });
+
+
+  new AjaxUpload('track_upload', {
+                 action: '1/track/new',
+                 name: 'file',
+       responseType: 'json',
+  onSubmit : function(file, ext){
+  var button = $('#track_upload');
+  // change button text, when user selects file
+  button.text('Uploading');
+  
+  // If you want to allow uploading only 1 file at time,
+// you can disable upload button
+  this.disable();
+  
+  // Uploding -> Uploading. -> Uploading...
+  interval = window.setInterval(function(){
+  var button = $('#track_upload');
+  var text = button.text();
+  if (text.length < 13){
+		    button.text(text + '.');
+		    } else {
+		    button.text('Uploading');
+		    }
+		    }, 200);
+		    },
+		    onComplete: function(file, response){
+
+		    var button = $('#track_upload');
+		    button.text('Upload');
+		    
+		    window.clearInterval(interval);
+		    
+		    // enable upload button
+		    this.enable();
+		    
+		    // add file to the list
+		    $('<li class="ui-state-default"></li>').appendTo('#tracks').text(response[0].fields.title);
+		    }
+                    });
+
+		    $("#album-cover-front > a").colorbox({title: "{{ band.name }} - {{ album.name }} (change)"});
+  });
+</script>
+
+{% endblock %}
+
 <h2>Album</h2>
 
-<p>
-<i>{{ album.name }}</i> from <b>{{ album.band.name }}</b>
+<div style="float: left" id="album-cover-front"><a href="{{ album.albumcover.original_image.url }}"><img src="{{ album.albumcover.thumbnail_image.url }}" alt="Cover for {{ album.name }}"></a></div>
 
-<p>
+<div style="float: left" id="album-title">
+<h3 id="name" class="edit">{{ album.name }}</h3>
+<p>Album type: <span id="album-type-edit">{{ album.get_kind_display }}</span></p>
+
+<p>Tagged with: <span id="style_tags" class="edit">{{ album.style_tags }}</span></p>
+</div>
+
+<div style="clear: both"></div>
 
 <h3>Tracks</h3>
-<ul>
+<div id="tracks">
+
 {% for track in album.tracks.all %}
-<li><a href="{{ track.file.url }}">{{ track.title }}</a></li>
+<div>
+  <div id="track_header">
+    <span>{{ track.no }} - {{ track.title }}</span><!--(<a class="track_delete" href="{{ album.id }}/track/{{ track.id }}/delete">delete</a>) -->
+  </div>
+  <div id="track_details">Title: {{ track.title }}</div>
+</div>
 {% endfor %}
-</ul>
+</div>
+
+<div class="wrapper">
+  <div id="track_upload">Upload new track</div>
+</div>
+
+<!-- <a href="/bands/1/album/1/track/new">Upload new</a>-->
 
 {% endblock %}
