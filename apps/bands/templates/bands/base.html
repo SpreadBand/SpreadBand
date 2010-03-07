@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 
+{% block css %}
+
+{% block band_css %}
+{% endblock %}
+
+{% endblock %}
+
 {% block javascript %}
 <script type="text/javascript">
   $(document).ready(function() {
   $('#band_navtab').tabs();
-  $('#band_navtab ul li a').click(function () {location.hash = $(this).attr('href'); });
+  //$('#band_navtab ul li a').click(function (event, ui) {location.hash = $(this).data('load.tabs'); });
   });
 </script>
+
+{% block band_javascript %}
+{% endblock %}
 
 {% endblock %}
 
 {% block content %}
 
 <h2>{{ band.name }}</h2>
+({{ band.style_tags }})
+
+
 {% if band.website %}
 ( <a href="{% url band:minisite:detail band.website.id %}">Minisite</a> )
 {% else %}
@@ -32,6 +45,12 @@
      </div>
 
 </div>
+
+
+FOOOOOOOOTER<br>
+FOOOOTER<br>
+FOOORTER
+
 
 {% endblock %}
 

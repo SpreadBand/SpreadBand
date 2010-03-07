@@ -4,8 +4,11 @@
 
 {% block band_content %}
 
+<h4>Biography</h4>
+<p>{{ band.biography }}</p>
+
+<h4>Members</h4>
 <p>
-  Members<br>
   <ul>
     {% for member in band.members.all %}
     <li>{{ member.user.first_name }} {{ member.user.last_name }} 
@@ -14,13 +17,13 @@
   </ul>
 </p>
 
+<h4>Calendar</h4>
 <p>
-  Calendar<br>
   {% month_table band.calendar period "regular" %}
 </p>
 
+<h4>Albums</h4>
 <p>
-  Albums<br>
   <ul>
     {% for album in band.albums.all %}
     <li>{{ album.name }}</li>

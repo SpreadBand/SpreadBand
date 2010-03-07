@@ -77,4 +77,4 @@ class Band(Actor):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('bands.views.detail', [str(self.id)])
+        return ('band:detail', [str(self.id)])

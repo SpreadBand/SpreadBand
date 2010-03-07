@@ -8,8 +8,8 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',                       
-    (r'^new$', 'bands.views.new'),
-    (r'^list$', 'bands.views.list'),
+    url(r'^new$', views.new, name='create'),
+    url(r'^list$', views.list, name='list'),
 
     url(r'^(?P<band_id>\d+)/$', views.detail, name='detail'),
 
