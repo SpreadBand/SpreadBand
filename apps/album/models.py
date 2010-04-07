@@ -19,21 +19,36 @@ class Album(models.Model):
     band = ForeignKey(Band, related_name='albums')
 
     name = CharField(max_length=100)
+    slug = models.SlugField(max_length=40, unique=True)
+
     kind = CharField(max_length=2, choices=ALBUM_KINDS, default='LP', blank=True)
 
     is_public = BooleanField(help_text=_('If the album is visible by visitors'))
 
     style_tags = TagField()
 
-    #@models.permalink
+    @models.permalink
     def get_absolute_url(self):
-        # return ('band:album:detail', (), {'album_id': self.id})
-        # XXX: hardcoded
-        return '/bands/%d/album/%d' % (self.band.id, self.id)
+        return ('album:detail', (), {'band_slug': self.band.slug, 'album_slug': self.slug})
 
     def __unicode__(self):
         return '%s - %s' % (self.band.name,
                             self.name)
+
+from bigbrother.models import ModelStats, InstanceCount, StatsIndex
+from bigbrother.hooks import collect_stats
+
+class AlbumStats(ModelStats):
+    class Meta:
+        model = Album
+
+    # names = StatsIndex('name')
+    count = InstanceCount()
+    
+
+collect_stats(AlbumStats)
+
+
 
 def get_cover_path(anAlbumCover, filename):
     dst = 'bands/%d/albums/%d/covers/front/%s' % (anAlbumCover.album.band.id,
@@ -60,8 +75,8 @@ class AlbumCover(ImageModel):
 ###-- Track
 
 def get_track_path(aTrack, filename):
-    return 'bands/%d/albums/%d/tracks/%s' % (aTrack.album.band.id,
-                                             aTrack.album.id,
+    return 'bands/%d/albums/%d/tracks/%s' % (aTrack.album.band_id,
+                                             aTrack.album_id,
                                              filename)
 
 from mutagen.easyid3 import EasyID3

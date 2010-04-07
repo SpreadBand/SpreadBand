@@ -2,17 +2,20 @@
 
 {% block band_content %}
 
+{% block band_javascript %}
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slugify.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#id_name").slugify("#id_slug");
+  });
+</script>
+{% endblock %}
+
+
 <h2>Create an album</h2>
 
 <form method="POST" enctype="multipart/form-data">
   {{ form.as_p }}
-
-  Upload tracks (optional)<br>
-  <table>
-    {{ track_formset }}
-  </table>
-
-
   <input type="submit"/>
 </form>
 

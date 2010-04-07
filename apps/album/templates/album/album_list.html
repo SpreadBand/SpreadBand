@@ -6,13 +6,12 @@
 
 <ul>
 {% for album in album_list %}
-  <li><div><img src="{{ album.cover.thumbnail_image.url }}"></div>
+  <li><div><img src="{{ album.albumcover.thumbnail_image.url }}"></div>
       <div><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></div>
   </li>
 {% endfor %}
 </ul>
 
-{# <a href="{% url band:album:create  %}">Create new</a> #}
-<a href="album/create">Create new</a>
+<a href="{% url album:create band.slug  %}">Create new</a>
 
 {% endblock %}

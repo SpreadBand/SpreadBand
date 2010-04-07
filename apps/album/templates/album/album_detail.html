@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $(".edit").editable("/bands/1/album/1/edit-one", {
+    $(".edit").editable("{% url album:edit-one band.slug album.slug %}", {
          indicator : 'Saving...',
          submit: 'OK',
          tooltip   : 'Click to edit...',
@@ -31,7 +31,7 @@
          }
      });
 
-    $("#album-type-edit").editable("/bands/1/album/1/edit-one", { 
+    $("#album-type-edit").editable("{% url album:edit-one band.slug album.slug %}", { 
      data   : "{'EP': 'Extended', 'LP': 'Long-Playing', 'DM': 'Demo'}",
      type   : 'select',
      submit : 'OK'
@@ -67,8 +67,8 @@
   });
 
 
-  new AjaxUpload('track_upload', {
-                 action: '1/track/new',
+  new AjaxUpload('track_upload_disabled', {
+                 action: '{% url album:track-new band.slug album.slug %}',
                  name: 'file',
        responseType: 'json',
   onSubmit : function(file, ext){
@@ -113,6 +113,7 @@
 {% endblock %}
 
 <h2>Album</h2>
+( <a href="{% url album:edit band.slug album.slug %}">edit</a> )
 
 <div style="float: left" id="album-cover-front"><a href="{{ album.albumcover.original_image.url }}"><img src="{{ album.albumcover.thumbnail_image.url }}" alt="Cover for {{ album.name }}"></a></div>
 
@@ -125,23 +126,14 @@
 
 <div style="clear: both"></div>
 
-<h3>Tracks</h3>
+<h3>Tracks</h3><a href="{% url album:track-new band.slug album.slug %}" id="track_upload">Upload new track</a>
+
 <div id="tracks">
-
-{% for track in album.tracks.all %}
-<div>
-  <div id="track_header">
-    <span>{{ track.no }} - {{ track.title }}</span><!--(<a class="track_delete" href="{{ album.id }}/track/{{ track.id }}/delete">delete</a>) -->
-  </div>
-  <div id="track_details">Title: {{ track.title }}</div>
+  <ul>
+    {% for track in album.tracks.all %}
+    <li>{{ track.no }} - {{ track.title }} (<a href="{% url album:track-delete band.slug album.slug track.id %}">delete</a>)</li>
+    {% endfor %}
+  </ul>
 </div>
-{% endfor %}
-</div>
-
-<div class="wrapper">
-  <div id="track_upload">Upload new track</div>
-</div>
-
-<!-- <a href="/bands/1/album/1/track/new">Upload new</a>-->
 
 {% endblock %}

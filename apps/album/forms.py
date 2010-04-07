@@ -14,7 +14,7 @@ class TrackForm(forms.ModelForm):
 class NewTrackForm(forms.ModelForm):
     class Meta:
         model = Track
-        fields = ['file', 'album']
+        fields = ['file']
 
 
 

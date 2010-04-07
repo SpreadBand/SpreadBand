@@ -1,4 +1,4 @@
-from django.views.generic.create_update import create_object
+from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 from django.forms.models import inlineformset_factory
 from django.template import RequestContext
@@ -16,20 +16,17 @@ from .forms import TrackForm, AlbumForm, NewTrackForm
 from utils.template import direct_block_to_template
 
 # XXX: Security
-def track_new(request, band_id, album_id):
-    band = get_object_or_404(Band, id=band_id)
-    album = get_object_or_404(Album, id=album_id)
-
-    # ajax ?
-    if request.is_ajax():
-        print "yay ajax"
+def track_new(request, band_slug, album_slug):
+    band = get_object_or_404(Band, slug=band_slug)
+    album = get_object_or_404(Album, slug=album_slug)
 
     if request.method == 'POST':
         data = {'album' : album.id}
     
         track_form = NewTrackForm(data, request.FILES)
         if track_form.is_valid():
-            track = track_form.save()
+            track = track_form.save(commit=False)
+            track.album = album
 
             # Fill the infos from the file
             from mutagen.easyid3 import EasyID3
@@ -41,33 +38,40 @@ def track_new(request, band_id, album_id):
             # print "filled", track
             track.save()
 
-            return HttpResponse(serializers.serialize('json', [track]), 
-                                mimetype='text/javascript')
-        else:
-            return HttpResponseBadRequest()
-    else:
-            return HttpResponseNotAllowed(['POST'])
+            # ajax ?
+            if request.is_ajax():
+                return HttpResponse(serializers.serialize('json', [track]), 
+                                    mimetype='text/javascript')
+            else:
+                return redirect(album)
+
+    track_form = NewTrackForm()
+    return render_to_response(template_name='album/track_create.html',
+                              dictionary={'track_form': track_form,
+                                          'band': band},
+                              context_instance=RequestContext(request)
+                              )
 
 # XXX: Security
-def track_delete(request, band_id, album_id, track_id):
-    band = get_object_or_404(Band, id=band_id)
-    album = get_object_or_404(Album, id=album_id)    
+def track_delete(request, band_slug, album_slug, track_id):
+    band = get_object_or_404(Band, slug=band_slug)
+    album = get_object_or_404(Album, slug=album_slug)    
     track = get_object_or_404(Track, id=track_id)
 
+    track.delete()
+
     if request.is_ajax():
-        track.delete()
-
         return HttpResponse()
+    else:
+        return redirect(album)
 
-    return HttpResponseBadRequest()
 
 
-
-def album_list(request, band_id):
+def album_list(request, band_slug):
     """
     list all albums for the given band
     """
-    band = get_object_or_404(Band, id=band_id)
+    band = get_object_or_404(Band, slug=band_slug)
 
     if request.is_ajax():
         return direct_block_to_template(request,
@@ -84,11 +88,11 @@ def album_list(request, band_id):
                            )
 
 # XXX: security
-def album_create(request, band_id):
+def album_create(request, band_slug):
     """
     Create a new album
     """
-    band = get_object_or_404(Band, id=band_id)
+    band = get_object_or_404(Band, slug=band_slug)
 
     TrackInlineFormSet = inlineformset_factory(Album, Track, form=TrackForm, can_delete=False)
 
@@ -96,27 +100,18 @@ def album_create(request, band_id):
         # Force the album's band to be us
         initial = Album(band=band)
         album_form = AlbumForm(request.POST, request.FILES, instance=initial)
-        track_formset = TrackInlineFormSet(request.POST, request.FILES)
 
-        if album_form.is_valid() and track_formset.is_valid():
+        if album_form.is_valid():
             # Save the album
             album = album_form.save()
-
-            # Save the tracks
-            track_formset = TrackInlineFormSet(request.POST, request.FILES, instance=album)
-            track_formset.save()
             
-            # XXX: Hardcoded ! Should be 'return redirect(album)'
-            #return redirect('/bands/%d/album/%d' % (band.id, album.id))
             return redirect(album)
             
     else:
         album_form = AlbumForm()
-        track_formset = TrackInlineFormSet()
 
     return render_to_response(template_name='album/album_create.html', 
                               dictionary={'form' : album_form,
-                                          'track_formset': track_formset,
                                           'band': band,
                                           },
                               context_instance=RequestContext(request),
@@ -125,45 +120,37 @@ def album_create(request, band_id):
 
 from utils.views.jeditable import jeditable_save
 # XXX: security
-def album_edit_one(request, band_id, album_id):
+def album_edit_one(request, band_slug, album_slug):
     """
     Edit only one field of an album.
     This is usually by inline edits.
     """
-    album = get_object_or_404(Album, id=album_id)
+    album = get_object_or_404(Album, id=album_slug)
     return jeditable_save(request,
                           album,
                           AlbumForm)
     
 # XXX: security
-def album_edit(request, band_id, album_id):
+def album_edit(request, band_slug, album_slug):
     """
     Edit an album
     """
-    band = get_object_or_404(Band, id=band_id)
-    album = get_object_or_404(Album, id=album_id)
+    band = get_object_or_404(Band, slug=band_slug)
+    return update_object(request,
+                         Album,
+                         slug=album_slug,
+                         template_name='album/album_edit.html',
+                         extra_context={'band': band})
 
-    if request.method == 'POST':
-        data = request.POST.copy()
-        # If we have an inline edit, use it
-        if request.POST.has_key('id'):
-            data.update({request.POST['id']: request.POST['value']})
-            
-        album_form = AlbumForm(data, instance=album)
-
-        if album_form.is_valid():
-            album_form.save()
-            return HttpResponse()
-
-def album_details(request, band_id, album_id):
+def album_details(request, band_slug, album_slug):
     """
     Show details about an album
     """
-    band = get_object_or_404(Band, id=band_id)
+    band = get_object_or_404(Band, slug=band_slug)
 
     return object_detail(request,
                          queryset=Album.objects.all(),
-                         object_id=album_id,
+                         slug=album_slug,
                          template_object_name='album',
                          template_name='album/album_detail.html',
                          extra_context={'band': band},

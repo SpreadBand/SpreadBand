@@ -1,0 +1,12 @@
+{% extends "bands/base.html" %}
+
+{% block band_content %}
+
+<h2>Create a track</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  {{ track_form.as_p }}
+  <input type="submit"/>
+</form>
+
+{% endblock %}
