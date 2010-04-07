@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django.db.models import CharField, FileField, ForeignKey, ImageField, BooleanField, OneToOneField, IntegerField
+from django.db.models import CharField, FileField, ForeignKey, ImageField, BooleanField, OneToOneField, IntegerField, TextField
 
 from imagekit.models import ImageModel
 from tagging.fields import TagField
@@ -22,6 +22,8 @@ class Album(models.Model):
     slug = models.SlugField(max_length=40, unique=True)
 
     kind = CharField(max_length=2, choices=ALBUM_KINDS, default='LP', blank=True)
+
+    description = TextField()
 
     is_public = BooleanField(help_text=_('If the album is visible by visitors'))
 
@@ -51,8 +53,11 @@ collect_stats(AlbumStats)
 
 
 def get_cover_path(anAlbumCover, filename):
-    dst = 'bands/%d/albums/%d/covers/front/%s' % (anAlbumCover.album.band.id,
-                                                  anAlbumCover.album.id,
+    print "cover=", anAlbumCover
+    print "filename=", filename
+
+    dst = 'bands/%d/albums/%d/covers/front/%s' % (anAlbumCover.album.band_id,
+                                                  anAlbumCover.album_id,
                                                   filename)
     return dst
 
@@ -65,7 +70,7 @@ class AlbumCover(ImageModel):
         spec_module = 'album.imagespecs'
 
     original_image = models.ImageField(upload_to=get_cover_path)
-    album = OneToOneField(Album, primary_key=True)
+    album = ForeignKey(Album, related_name='cover')
 
     def __unicode__(self):
         return "Cover for %s" % self.album

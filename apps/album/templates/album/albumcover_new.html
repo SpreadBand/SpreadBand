@@ -1,0 +1,14 @@
+{% extends "bands/base.html" %}
+
+{% load i18n %}
+
+{% block band_content %}
+
+<h3>Upload a picture for {{ album.name }}</h3>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {{ form.as_p }}
+  <input type="submit" value="{% trans "Upload" %}">
+</form>
+
+{% endblock %}

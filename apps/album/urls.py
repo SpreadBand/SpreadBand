@@ -10,8 +10,12 @@ urlpatterns = patterns('',
    url(r'^(?P<band_slug>[-\w]+)/album/(?P<album_slug>[-\w]+)/edit-one$', views.album_edit_one, name='edit-one'),
    url(r'^(?P<band_slug>[-\w]+)/album/(?P<album_slug>[-\w]+)/$', views.album_details, name='detail'),
 
+   # Tracks
    url(r'^(?P<band_slug>[-\w]+)/album/(?P<album_slug>[-\w]+)/track/new$', views.track_new, name='track-new'),
    url(r'^(?P<band_slug>[-\w]+)/album/(?P<album_slug>[-\w]+)/track/(?P<track_id>\d+)/delete$', views.track_delete, name='track-delete'),
+
+   # Cover
+   url(r'^(?P<band_slug>[-\w]+)/album/(?P<album_slug>[-\w]+)/cover/new$', views.cover_new, name='cover-new'),
 )
 
 

@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAll
 from bands.models import Band
 
 from .models import Album, Track
-from .forms import TrackForm, AlbumForm, NewTrackForm
+from .forms import TrackForm, AlbumForm, NewTrackForm, AlbumCoverForm
 
 from utils.template import direct_block_to_template
 
@@ -156,3 +156,26 @@ def album_details(request, band_slug, album_slug):
                          extra_context={'band': band},
                          )
 
+def cover_new(request, band_slug, album_slug):
+    band = get_object_or_404(Band, slug=band_slug)
+    album = get_object_or_404(Album, slug=album_slug)
+
+    if request.method == 'POST':
+        cover_form = AlbumCoverForm(request.POST, request.FILES)
+
+        if cover_form.is_valid():
+            cover = cover_form.save(commit=False)
+            cover.album = album
+
+            cover.save()
+
+            return redirect(album)
+    else:
+        cover_form = AlbumCoverForm()
+
+    return render_to_response(template_name='album/albumcover_new.html',
+                              dictionary={'form': cover_form,
+                                          'band': band
+                                          },
+                              context_instance=RequestContext(request),
+                              )

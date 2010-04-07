@@ -115,16 +115,26 @@
 <h2>Album</h2>
 ( <a href="{% url album:edit band.slug album.slug %}">edit</a> )
 
-<div style="float: left" id="album-cover-front"><a href="{{ album.albumcover.original_image.url }}"><img src="{{ album.albumcover.thumbnail_image.url }}" alt="Cover for {{ album.name }}"></a></div>
-
-<div style="float: left" id="album-title">
+<div id="album-title">
 <h3 id="name" class="edit">{{ album.name }}</h3>
-<p>Album type: <span id="album-type-edit">{{ album.get_kind_display }}</span></p>
-
-<p>Tagged with: <span id="style_tags" class="edit">{{ album.style_tags }}</span></p>
 </div>
 
-<div style="clear: both"></div>
+<p>Album type: <span id="album-type-edit">{{ album.get_kind_display }}</span></p>
+<p>Tagged with: <span id="style_tags" class="edit">{{ album.style_tags }}</span></p>
+
+<h5>Description</h5>
+
+{{ album.description }}
+
+<h5>Covers</h5>
+
+<div id="album-cover-front">
+{% for cover in album.cover.all %}
+<a href="{{ cover.original_image.url }}"><img src="{{ cover.thumbnail_image.url }}" alt="Cover for {{ album.name }}"></a>
+{% endfor %}
+( <a href="{% url album:cover-new band.slug album.slug %}">Upload new</a> )
+</div>
+
 
 <h3>Tracks</h3><a href="{% url album:track-new band.slug album.slug %}" id="track_upload">Upload new track</a>
 

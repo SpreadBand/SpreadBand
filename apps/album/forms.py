@@ -1,11 +1,11 @@
 from django import forms
 
-from .models import Album, Track
+from .models import Album, Track, AlbumCover
 
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        exclude = ['band']
+        exclude = ('band',)
 
 class TrackForm(forms.ModelForm):
     class Meta:
@@ -14,7 +14,12 @@ class TrackForm(forms.ModelForm):
 class NewTrackForm(forms.ModelForm):
     class Meta:
         model = Track
-        fields = ['file']
+        fields = ('file',)
+
+class AlbumCoverForm(forms.ModelForm):
+    class Meta:
+        model = AlbumCover
+        fields = ('original_image',)
 
 
 
