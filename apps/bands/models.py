@@ -4,7 +4,7 @@ from django.db.models import CharField, ManyToManyField, DateField, TextField, F
 from django.contrib.auth.models import User
 
 from tagging.fields import TagField
-from photologue.models import Gallery
+from imagekit.models import ImageModel
 
 from actors.models import Actor
 from minisite.models.minisite import Minisite
@@ -19,62 +19,65 @@ class BandRole(models.Model):
     def __unicode__(self):
         return self.label
 
-class BandMember(models.Model):
-    """
-    A membership link between users and bands
-    """
-    user = ForeignKey(User)
-    role = ForeignKey(BandRole)
-    approved = BooleanField(default=False,
-                            help_text=_('Whether the membership has been approved'))
-
-    def __unicode__(self):
-        return "%s (%s)" % (self.user,
-                            self.role)
-
 
 class Band(Actor):
     """
     A music band
     """
     name = CharField(max_length=200)
+    
+    slug = models.SlugField(max_length=40, unique=True)
 
-    founded_on = DateField(help_text=_('When the band was founded'))
+    founded_on = DateField(help_text=_('When the band was founded'),
+                           blank=True,
+                           null=True)
     
     style_tags = TagField('Styles')
 
     biography = TextField(blank=True,
                           help_text=_('Band biography'))
-    
-    members = ManyToManyField(BandMember,
-                              blank=True,
-                              help_text=_('Active members')
-                              )
-    
-    photos = ForeignKey(Gallery,
-                        null=True,
-                        help_text=_('Photo gallery')
-                        )
 
-    def _get_visibility(self):
-        """
-        Return the visibility based on the subscription
-
-        XXX: For now, it's hardcoded as 'one month visibility'
-        """
-        from datetime import datetime
-        now = datetime.now()
-        next_month = now.replace(month=now.month + 1)
-        return next_month
 
     website = ForeignKey(Minisite, blank=True, null=True)
     
-    visibility = property(_get_visibility)
-
     #-- Functions
     def __unicode__(self):
         return self.name
 
     @models.permalink
     def get_absolute_url(self):
-        return ('band:detail', [str(self.id)])
+        return ('band:detail',  (self.slug,))
+
+def get_bandpicture_path(aBandPicture, filename):
+    dst = 'bands/%d/pictures/%s' % (aBandPicture.band.id,
+                                    filename)
+    return dst
+
+class BandPicture(ImageModel):
+    """
+    A picture of a band
+    """
+    class IKOptions:
+        image_field = 'original_image'
+        spec_module = 'bands.imagespecs'
+
+    original_image = models.ImageField(upload_to=get_bandpicture_path)
+    band = ForeignKey(Band, related_name='pictures')
+
+    def __unicode__(self):
+        return "Picture for band %s" % self.band.name
+
+class BandMember(models.Model):
+    """
+    A membership link between users and bands
+    """
+    user = ForeignKey(User, related_name='band_memberships')
+    band = ForeignKey(Band, related_name='members')
+    role = ForeignKey(BandRole)
+
+    approved = BooleanField(default=False,
+                            help_text=_('Whether the membership has been approved'))
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.user,
+                            self.role)

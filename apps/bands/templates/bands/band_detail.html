@@ -1,34 +1,55 @@
 {% extends "bands/base.html" %}
 
 {% load scheduletags %}
+{% load i18n %}
 
 {% block band_content %}
 
-<h4>Biography</h4>
+( <a href="{% url band:edit band.slug %}">edit</a> )
+
+<h4>Whois {{ band.name }} ?</h4>
 <p>{{ band.biography }}</p>
 
-<h4>Members</h4>
+<h5>Pictures</h5>
+{% for picture in band.pictures.all %}
+<img src="{{ picture.thumbnail_image.url }}">
+{% endfor %}
+
+( <a href="{% url band:picture-new band.slug %}">Upload new</a> )
+
+<h5>Members</h5>
 <p>
   <ul>
     {% for member in band.members.all %}
     <li>{{ member.user.first_name }} {{ member.user.last_name }} 
       ({{ member.user.username }}) as {{ member.role.label }}</li>
     {% endfor %}
+
+    ( <a href="{% url band:membership-request band.slug %}">Join band</a> )
   </ul>
 </p>
 
-<h4>Calendar</h4>
+
+
+<h4>Upcoming events</h4>
 <p>
-  {% month_table band.calendar period "regular" %}
+  {% get_or_create_calendar band band.id as calendar %}
+  <ul>
+    {% for event in calendar.event_set.all %}
+    <li>{{ event }}</li>
+    {% endfor %}
+  </ul>
+  ( <a href="{% url band:event-new band.slug %}">Add a new event</a> )
 </p>
 
-<h4>Albums</h4>
+<h4>Latest Albums</h4>
 <p>
   <ul>
     {% for album in band.albums.all %}
-    <li>{{ album.name }}</li>
+    <li><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></li>
     {% endfor %}
   </ul>
+  ( <a href="{% url album:create band.slug %}">Add a new album</a> )
 </p>
 </div>
 

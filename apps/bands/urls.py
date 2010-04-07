@@ -9,15 +9,27 @@ urlpatterns = patterns('django.views.generic.simple',
 
 urlpatterns += patterns('',                       
     url(r'^new$', views.new, name='create'),
+
     url(r'^list$', views.list, name='list'),
 
-    url(r'^(?P<band_id>\d+)/$', views.detail, name='detail'),
+    url(r'^(?P<band_slug>[-\w]+)/edit$', views.edit, name='edit'),
 
-    (r'^(?P<band_id>\d+)/membership/request', 'bands.views.membership_request'),
+    url(r'^(?P<band_slug>[-\w]+)/$', views.detail, name='detail'),
+
+    # pictures
+    url(r'^(?P<band_slug>[-\w]+)/pictures/new$', views.picture_new, name='picture-new'),
+
+    # events
+    url(r'^(?P<band_slug>[-\w]+)/events/$', views.event_detail, name='event-detail'),
+    url(r'^(?P<band_slug>[-\w]+)/events/new$', views.event_new, name='event-new'),
+
+    # membership
+    url(r'^(?P<band_slug>[-\w]+)/membership/request', views.membership_request, name='membership-request'),
+
+    # bargain
     (r'^(?P<band_id>\d+)/bargain/', include('bargain.urls')),
 
-
-    url(r'^(?P<band_id>\d+)/album/', include('album.urls', namespace='album')),
+#    url(r'^(?P<band_id>\d+)/album/', include('album.urls', namespace='album')),
 
     (r'^(?P<band_id>\d+)/', include('photologue.urls')),
     (r'^web/', include('minisite.urls', namespace='minisite')),

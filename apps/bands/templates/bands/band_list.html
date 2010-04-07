@@ -7,7 +7,7 @@
 <h2>Bands</h2>
 <ul>
   {% for band in band_list %}
-    <li><a href="{{ band.get_absolute_url }}">{{ band.name }}</a></li>
+    <li><a href="{% url band:detail band.slug  %}">{{ band.name }}</a></li>
   {% endfor %}
 </ul>
 

@@ -1,17 +1,25 @@
 from django import forms
 
-from .models import Band, BandMember
+from .models import Band, BandMember, BandPicture
 
-class BandForm(forms.ModelForm):
+class BandCreateForm(forms.ModelForm):
     class Meta:
         model = Band
-        exclude = ('calendar', 'photos', 'website')
+        fields = ('name', 'slug')
+
+class BandUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Band
 
 class BandMemberRequestForm(forms.ModelForm):
     class Meta:
         model = BandMember
-        exclude = ('user', 'approved')
+        fields = ('role',)
 
+class BandPictureForm(forms.ModelForm):
+    class Meta:
+        model = BandPicture
+        fields = ('original_image',)
     
 
 
