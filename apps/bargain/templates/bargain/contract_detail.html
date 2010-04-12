@@ -1,0 +1,26 @@
+{% load bargaintags %}
+
+<H3> contract </h3>
+{% if contract.is_concluded %}
+contract concluded
+{% else %}
+contract not concluded
+{% endif %}
+
+<h5>Parties</h5>
+
+<ul>
+{% for contract_party in contract_parties %}
+<li>{{ contract_party.party.content_object }} -- {{ contract_party.approved }}
+{% if contract_party.initiator %}
+  [initiator]
+{% endif %}
+</li>
+{% endfor %}
+</ul>
+
+<a href="{% url bargain:contract-update contract.id %}">update</a>
+
+<h5>Terms</h5>
+
+{{ contract.terms.content_object }}
