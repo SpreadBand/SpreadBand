@@ -1,0 +1,10 @@
+<h3>Date, Lieu</h3>
+Date: {{ contract.terms.gigbargain.date }}. Opens: {{ contract.terms.gigbargain.opens_at }}, Closes: {{ contract.terms.gigbargain.closes_at }}<br>
+
+<h3>Groupes</h3>
+
+<ul>
+  {% for band in contract.terms.gigbargain.gigbargainband_set.all %}
+  <li>{{ band.band.name }} ({{ band.band.style }}) -- ({{ band.starts_at }} - {{ band.ends_at }})</li>
+  {% endfor %}
+</ul>
