@@ -1,0 +1,23 @@
+{% extends "bands/base.html" %}
+{% load i18n %}
+
+{% block band_content %}
+
+{% block band_javascript %}
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slugify.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#id_name").slugify("#id_slug");
+  });
+</script>
+
+{% endblock %}
+
+<h3>Update a band</h3>
+
+<form action="" method="POST">
+  {{ form.as_p }}
+  <input type="submit" value="{% trans "Submit" %}" />
+</form>
+
+{% endblock %}
