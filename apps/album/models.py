@@ -5,7 +5,7 @@ from django.db.models import CharField, FileField, ForeignKey, ImageField, Boole
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 
-from bands.models import Band
+from band.models import Band
 
 ###-- Album
 
@@ -37,6 +37,7 @@ class Album(models.Model):
         return '%s - %s' % (self.band.name,
                             self.name)
 
+#-- Bigbrother test
 from bigbrother.models import ModelStats, InstanceCount, StatsIndex
 from bigbrother.hooks import collect_stats
 
@@ -49,8 +50,7 @@ class AlbumStats(ModelStats):
     
 
 collect_stats(AlbumStats)
-
-
+#-- End of BigBrother test
 
 def get_cover_path(anAlbumCover, filename):
     print "cover=", anAlbumCover

@@ -8,7 +8,7 @@ from django.db import transaction
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 
-from bands.models import Band
+from band.models import Band
 
 from .models import Album, Track
 from .forms import TrackForm, AlbumForm, NewTrackForm, AlbumCoverForm

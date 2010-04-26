@@ -21,5 +21,10 @@ class AlbumCoverForm(forms.ModelForm):
         model = AlbumCover
         fields = ('original_image',)
 
+from .models import AlbumTerms
 
+class AlbumTermsForm(forms.ModelForm):
+    class Meta:
+        model = AlbumTerms
+        fields = ('name',)
 
