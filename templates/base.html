@@ -1,10 +1,11 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/text.css" />
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/960.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/text.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/960.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/smoothness/jquery-ui-1.8rc3.custom.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/smoothness/jquery-ui-1.8rc3.custom.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/openid/openid.css" />
 
     {% block css %}
     {% endblock %}
@@ -12,6 +13,7 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.jeditable.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.openid.js"></script>
 
     {% block javascript %}
     {% endblock %}
@@ -20,7 +22,82 @@
   </head>
   <body>
     <h1>Booking</h1>
-    <div style="float: left; width: 20%;">miam</div>
+    <div style="float: left; width: 20%;">
+      <a href="/">Home</a>
+
+      {% if user.is_authenticated %}
+      <p>
+        Logged in as <a href="{% url account:detail %}">{{ user.username }}</a> ({{ user.get_full_name }}) - <a href="{% url social_logout %}">logout</a>
+      </p>
+
+      <p>
+	My bands:
+	<ul>
+	  {% for membership in user.band_memberships.all %}
+	  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
+	  {% endfor %}
+	</ul>  
+      </p>
+      {% else %}
+      <p>
+        <a href="{% url auth_login %}">Login</a> or <a href="{% url registration_register %}">Signup</a>
+      </p>
+      
+    <script type="text/javascript">
+      $(document).ready(function() { $("#openid_login").openid(); });
+    </script>
+
+
+    <form id="openid_login" class="openid" method="GET" action="{% url openid_redirect %}"> 
+      <div><ul class="providers"> 
+	  <li class="direct" title="Google"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/googleW.png" alt="icon" /><span>https://www.google.com/accounts/o8/id</span>
+	  </li> 
+	  <li class="direct" title="Yahoo"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/yahooW.png" alt="icon" /><span>http://yahoo.com/</span>
+	  </li> 
+	  <li class="username" title="MySpace screen name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/myspaceW.png" alt="icon" /><span>http://www.myspace.com/<strong>username</strong></span>
+	  </li> 
+	  <li class="username" title="AOL screen name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/aolW.png" alt="icon" /><span>http://openid.aol.com/<strong>username</strong></span></li> 
+	  <li class="username" title="MyOpenID user name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/myopenidW.png" alt="icon" /><span>http://<strong>username</strong>.myopenid.com/</span></li> 
+	  <li class="username" title="Flickr user name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/flickrW.png" alt="icon" /><span>http://flickr.com/<strong>username</strong>/</span></li> 
+	  <li class="openid" title="OpenID"><img src="{{ MEDIA_URL }}/css/jquery/openid/images/openidW.png" alt="icon" /> 
+	    <span><strong>http://{your-openid-url}</strong></span></li> 
+	  <li class="username" title="Technorati user name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/technorati.png" alt="icon" /><span>http://technorati.com/people/technorati/<strong>username</strong>/</span></li> 
+	  <li class="username" title="Wordpress blog name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/wordpress.png" alt="icon" /><span>http://<strong>username</strong>.wordpress.com</span></li> 
+	  <li class="username" title="Blogger blog name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/blogger.png" alt="icon" /><span>http://<strong>username</strong>.blogspot.com/</span></li> 
+	  <li class="username" title="LiveJournal blog name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/livejournal.png" alt="icon" /><span>http://<strong>username</strong>.livejournal.com</span></li> 
+	  <li class="username" title="ClaimID user name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/claimid.png" alt="icon" /><span>http://claimid.com/<strong>username</strong></span></li> 
+	  <li class="username" title="Vidoop user name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/vidoop.png" alt="icon" /><span>http://<strong>username</strong>.myvidoop.com/</span></li> 
+	  <li class="username" title="Verisign user name"> 
+	    <img src="{{ MEDIA_URL }}/css/jquery/openid/images/verisign.png" alt="icon" /><span>http://<strong>username</strong>.pip.verisignlabs.com/</span></li> 
+      </ul></div> 
+      <fieldset> 
+	<label for="openid_username">Enter your <span>Provider user name</span></label> 
+	<div><span></span><input type="text" name="openid_username" /><span></span> 
+	  <input type="submit" value="Login" /></div> 
+      </fieldset> 
+      <fieldset> 
+	<label for="openid_identifier">Enter your <a class="openid_logo" href="http://openid.net">OpenID</a></label> 
+	<div><input type="text" name="openid_provider" /> 
+	  <input type="submit" value="Login" /></div> 
+      </fieldset> 
+
+    </form>
+      {% endif %}
+
+    <a href="{% url backcap:feedback-new request.path %}">Leave</a>|<a href="{% url backcap:feedback-list %}">See</a> feedback
+    </div>
     <div style="float: left; width: 70%; clear: right;">
     {% block content %}
     {% endblock %}
