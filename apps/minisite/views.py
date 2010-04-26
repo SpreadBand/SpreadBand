@@ -9,7 +9,7 @@ from .models.minisite import Minisite, Layout
 
 from .forms import LayoutForm
 
-from bands.models import Band
+from band.models import Band
 
 ## MINISITE
 def detail(request, minisite_id, template='minisite/minisite_detail.html'):
