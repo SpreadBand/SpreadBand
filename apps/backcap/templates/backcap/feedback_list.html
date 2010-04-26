@@ -1,0 +1,20 @@
+<h3>Feedbacks</h3>
+
+<a href="{% url backcap:feedback-new %}">New feedback</a>
+
+<h4>Opened issues</h4>
+<ul>
+  {% for feedback in feedback_list %}
+  <li>{{ feedback.get_kind_display }} - <a href="{% url backcap:feedback-detail feedback.id %}">{{ feedback.title }}</a> [karma={{ feedback.vote_balance }}]</li>
+  {% endfor %}
+</ul>
+
+{% if page_obj.has_previous %}
+<a href="{% url backcap:feedback-list page=page_obj.previous_page_number %}">previous</a>
+{% endif %}
+
+
+{% if page_obj.has_next %}
+<a href="{% url backcap:feedback-list page=page_obj.next_page_number %}">next</a>
+{% endif %}
+
