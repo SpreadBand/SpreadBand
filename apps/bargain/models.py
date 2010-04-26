@@ -79,8 +79,8 @@ class ContractParty(models.Model):
                                    help_text=_("Designates whether the party has approved the latest revision of the contract."))
 
     def __unicode__(self):
-        return "Relation between contract '%d' and '%s'" % (self.contract_id,
-                                                            self.party)
+        return u"Relation between contract '%d' and '%s'" % (self.contract_id,
+                                                             self.party)
     
 
 class Terms(models.Model):

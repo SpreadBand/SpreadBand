@@ -1,9 +1,11 @@
 from django.views.generic.create_update import create_object
 from django.views.generic.list_detail import object_list, object_detail
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.contrib.contenttypes.models import ContentType
 from django.template import RequestContext
 
 from .models import Contract, Party, ContractParty
+from .signals import contract_concluded, contract_new_init
 
 def contract_list(request, queryset=Contract.objects.all()):
     return object_list(request,
@@ -12,64 +14,69 @@ def contract_list(request, queryset=Contract.objects.all()):
                        template_object_name='contract',
                        )
 
-def contract_new(request, aTermsClass, participants=[], model_before_save_cb=None, extra_context={}):
-    terms_form_class = aTermsClass.getForm()
+def get_or_create_party(aModel, aContract, is_initiator=False):
+    party_type = ContentType.objects.get_for_model(aModel)
 
-    if request.POST:
-        terms_form = terms_form_class(request.POST)
-        if terms_form.is_valid():
+    try:
+        party = Party.objects.get(content_type__pk=party_type.id,
+                                  object_id=aModel.id)
+    except Party.DoesNotExist:
+        party = Party.objects.create(content_object=aModel)
+
+    finally:
+        return ContractParty.objects.create(contract=aContract,
+                                            initiator=is_initiator,
+                                            approved=is_initiator,
+                                            party=party)
+    
+
+def contract_new(request, aTermsClass, participants=[], initial=None, formset_initial=None, extra_context={}):
+    from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
+
+    terms_form_class, formsetform_class = aTermsClass.getForm()
+    formset_class = formsetform_class #modelformset_factory(formsetform_class.Meta.model, extra=0)
+    #formset_class = inlineformset_factory(aTermsClass, formsetform_class.Meta.model, extra=1)    
+
+    if request.method == 'POST':
+        terms_form = terms_form_class(request.POST, request.FILES)
+        formset = formset_class(request.POST, request.FILES)
+
+        if terms_form.is_valid() and formset.is_valid():
             terms = terms_form.save(commit=False)
 
             # Create the contract and set it
             contract = Contract.objects.create()
 
             terms.contract = contract
-
-            # Call the before save callback if needed
-            if model_before_save_cb:
-                model_before_save_cb(request, terms)
-
             terms.save()
 
+            # Renew the formset by binding it to our terms
+            formset = formset_class(request.POST, request.FILES)
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.bargain = terms
+                instance.save()
+            formset.save_m2m()
+
+            # FIXME: Not sure if we need that, but it seems to...
+            terms_form.save_m2m()
 
             # Create the parties and link them
-            from django.contrib.contenttypes.models import ContentType
-            initiator_type = ContentType.objects.get_for_model(request.user)
-
-            try:
-                initiator = Party.objects.get(content_type__pk=initiator_type.id,
-                                              object_id=request.user.id)
-            except Party.DoesNotExist:
-                initiator = Party.objects.create(content_object=request.user)
-
-            finally:
-                ContractParty.objects.create(contract=contract,
-                                             initiator=True,
-                                             approved=True,
-                                             party=initiator)
-            
-            # For each participant, look up its party object and link
-            # it to this contract
+            initiator = get_or_create_party(request.user, contract, is_initiator=True)
             for participant in participants:
-                participant_type = ContentType.objects.get_for_model(participant)
-
-                try:
-                    party = Party.objects.get(content_type__pk=participant_type.id,
-                                              object_id=participant.id)
-                except Party.DoesNotExist:
-                    party = Party.objects.create(content_object=participant)
-
-                finally:
-                    ContractParty.objects.create(contract=contract,
-                                                 party=party)
+                get_or_create_party(participant, contract, is_initiator=False)
 
             return redirect('bargain:contract-list')
 
-    else:
-        terms_form = terms_form_class()
+    terms_form = terms_form_class(request.POST or None, request.FILES or None, initial=initial)
+    formset = formset_class(request.POST or None, request.FILES or None, initial=formset_initial)
+
+    # Send the "contract new init" callback
+    contract_new_init.send(terms_form)
 
     return render_to_response(template_name='bargain/contract_new.html',
-                              dictionary={'form': terms_form},
+                              dictionary={'form': terms_form,
+                                          'formset': formset},
                               context_instance=RequestContext(request,
                                                               extra_context),
                               )
@@ -134,7 +141,7 @@ def contract_update(request, contract_id, aTermClass, participant):
     """
     Updating a contract means altering its terms. When one party
     performs this action, all other parties gets their approval
-    resetted.
+    resetted to false.
     """
     # Look up needed objects
     contract = get_object_or_404(Contract, pk=contract_id)
@@ -146,32 +153,34 @@ def contract_update(request, contract_id, aTermClass, participant):
                               object_id=participant.id)
 
     # Get the form from the model
-    terms_form_class = aTermClass.getForm()
+    terms_form_class, formset_class = aTermClass.getForm()
+
+    terms_form = terms_form_class(request.POST or None, request.FILES or None,
+                                  instance=terms)
+    terms_formset = formset_class(request.POST or None, request.FILES or None,
+                                  instance=terms)
 
     if request.method == 'POST':
-        terms_form = terms_form_class(request.POST, request.FILES,
-                                      instance=terms)
-
-        if terms_form.is_valid():
+        if terms_form.is_valid() and terms_formset.is_valid():
             # Unvalidate contract for every party except the participant
             ContractParty.objects.filter(contract=contract).exclude(party=party).update(approved=False)
             ContractParty.objects.filter(contract=contract, party=party).update(approved=True)
 
             # Save the terms
             terms = terms_form.save()
+            terms_formset.save()
 
             return redirect(contract)
-    else:
-        terms_form = terms_form_class(instance=terms)
 
     return render_to_response(template_name='bargain/contract_update.html',
                               dictionary={'contract': contract,
                                           'terms': terms,
-                                          'terms_form': terms_form},
+                                          'terms_form': terms_form,
+                                          'terms_formset': terms_formset},
                               )
                               
 
-def contract_detail(request, contract_id):
+def contract_detail(request, contract_id, subtemplate_name):
     contract = get_object_or_404(Contract, id=contract_id)
 
     contract_parties = ContractParty.objects.filter(contract=contract)
@@ -181,5 +190,6 @@ def contract_detail(request, contract_id):
                          object_id=contract_id,
                          template_object_name='contract',
                          template_name='bargain/contract_detail.html',
-                         extra_context={'contract_parties': contract_parties},
+                         extra_context={'contract_parties': contract_parties,
+                                        'subtemplate_name': subtemplate_name},
                          )
