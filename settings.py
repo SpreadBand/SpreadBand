@@ -78,7 +78,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -186,7 +186,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
 
     # External
-#    'debug_toolbar',
+    'debug_toolbar',
     'django_extensions',
     'south',
     'registration',
