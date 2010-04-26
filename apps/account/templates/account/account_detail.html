@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+Da user
+<form method="POST" action="#">
+{{ user_form.as_p }}
+<input type="submit" value="Submit">
+</form>
+
+Da profile
+<form method="POST" action="#">
+{{ profile_form.as_p }}
+<input type="submit" value="Submit">
+</form>
+
+{% endblock %}
