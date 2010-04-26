@@ -11,7 +11,6 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.core import serializers
 
-from .models import BandStatsDaily
 
 from django.views.decorators.cache import cache_page
 
