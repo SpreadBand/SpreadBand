@@ -10,7 +10,6 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('atiberghien', 'alban.tiberghien@gmail.com'),
      ('glibersat', 'glibersat@sigill.org'),
 )
 
@@ -83,6 +82,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'openid_consumer.middleware.OpenIDMiddleware',
 )
 
 ROOT_URLCONF = 'booking.urls'
@@ -158,6 +158,21 @@ DEPENDENCIES = (
             pathtomodule='annoying',
             root=DEPENDENCY_ROOT,
             ),
+
+    # SocialAuth
+    deps.GIT('git://github.com/uswaretech/Django-Socialauth.git',
+             app_name='socialauth',
+             pathtomodule='socialauth',
+             root=DEPENDENCY_ROOT,
+             ),
+
+    deps.GIT('git://github.com/flashingpumpkin/django-socialregistration.git',
+             #revision='v0.2-dev',
+             app_name='socialregistration',
+             pathtomodule='socialregistration',
+             root=DEPENDENCY_ROOT,
+             ),
+
     )
 
 INSTALLED_APPS = (
@@ -167,6 +182,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.comments',
     'django.contrib.gis',
 
     # External
@@ -181,13 +197,17 @@ INSTALLED_APPS = (
     'reversion',
     'imagekit',
     'annoying',
+    'socialregistration',
 
     # Internal
+    'backcap',
+    'account',
     'minisite',
     'minisite-portlets',
     'actors',
-    'bands',
-    'gigplaces',
+    'event',
+    'band',
+    'venue',
     'bargain',
     'album',
 
@@ -217,3 +237,14 @@ DEBUG_TOOLBAR_CONFIG = {
 
 ### Registration
 ACCOUNT_ACTIVATION_DAYS = 7
+
+### LOGIN
+# General
+LOGIN_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
+                           'socialregistration.auth.OpenIDAuth',
+                           )
+
+### PROFILES
+AUTH_PROFILE_MODULE  = 'account.UserProfile'

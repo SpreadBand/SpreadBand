@@ -13,15 +13,28 @@ urlpatterns = patterns('',
     # temporary index page
     (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
 
-    # users
-    (r'^accounts/', include('registration.backends.default.urls')),
+    # auth + profile
+    (r'^account/', include('socialregistration.urls')),
+    (r'^account/reg/classical/', include('registration.backends.default.urls')),
+    (r'^account/', include('account.urls', namespace='account')),
+
+    # comments
+    (r'^comments/', include('django.contrib.comments.urls')),
+
+    # Feedback
+    (r'^feedback/', include('backcap.urls', namespace='backcap')),
 
     # Bands
-    (r'^bands/', include('bands.urls', namespace='band')),
+    (r'^bands/', include('band.urls', namespace='band')),
+    (r'^bands/', include('album.urls', namespace='album')),
 
-    # Gigplaces
-    (r'^places/', include('gigplaces.urls')),
+    # Venues
+    (r'^venue/', include('venue.urls', namespace='venue')),
 
+    # bargain
+    (r'^bargain/', include('bargain.urls', namespace='bargain')),
+
+    # BigBrother
     (r'^bb/', include('bigbrother.urls')),
 
     # Django admin
