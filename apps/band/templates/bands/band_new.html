@@ -18,7 +18,7 @@
 <form action="new" method="POST">
   {{ form.errors }}
   <p>{{ form.name.label_tag }}: {{ form.name }}</p>
-  <p>Your homepage: <b>http://{{ request.get_host }}/bands/{{ form.slug }}</b></p>
+  <p>Your homepage: <b>http://{{ request.get_host }}/b/{{ form.slug }}</b></p>
   <input type="submit" value="{% trans "Submit" %}" />
 </form>
 

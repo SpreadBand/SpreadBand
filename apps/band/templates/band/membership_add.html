@@ -1,0 +1,13 @@
+{% extends "bands/base.html" %}
+
+
+{% block band_content %}
+
+<form method='POST' action='{% url band:membership-add band.slug %}'> 
+{{ form.as_p }}
+<input type='submit'>
+</form>
+
+{% endblock %}
+
+

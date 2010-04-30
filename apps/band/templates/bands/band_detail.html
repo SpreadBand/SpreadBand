@@ -25,7 +25,8 @@
       ({{ member.user.username }}) as {{ member.role.label }}</li>
     {% endfor %}
 
-    ( <a href="{% url band:membership-request band.slug %}">Join band</a> )
+    ( <a href="{% url band:membership-request band.slug %}">Join band</a> )<br>
+    ( <a href="{% url band:membership-add band.slug %}">Invite Member</a> )
   </ul>
 </p>
 
@@ -39,20 +40,20 @@
     <li>{{ event }}</li>
     {% endfor %}
   </ul>
-  ( <a href="{% url band:event-new band.slug %}">Add a new event</a> )
+  ( <a href="{% url event:bargain-new band.slug %}">Add a new event</a> )
 </p>
 
 <h4>Bargains</h4>
 <p>
   <ul>
     {% for contract in contracts %}
-    <li><a href="{% url band:event-bargain-detail band.slug contract.id %}">{{ contract.terms.gigbargain }}</a>
-      [<a href="{% url band:event-bargain-approve band.slug contract.id %}">Approve</a>|
-      <a href="{% url band:event-bargain-disapprove band.slug contract.id %}">Disapprove</a>|
-      <a href="{% url band:event-bargain-update band.slug contract.id %}">Edit</a>]</li>
+    <li><a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
+      [<a href="{% url event:bargain-approve contract.id %}">Approve</a>|
+      <a href="{% url event:bargain-disapprove contract.id %}">Disapprove</a>|
+      <a href="{% url event:bargain-update contract.id %}">Edit</a>]</li>
     {% endfor %}
   </ul>
-  ( <a href="{% url band:event-bargain-new band.slug %}">New bargain</a> )
+  ( <a href="{% url event:bargain-new band.slug %}">New bargain</a> )
 </p>
 
 <h4>Released Albums</h4>

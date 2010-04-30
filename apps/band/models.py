@@ -81,3 +81,8 @@ class BandMember(models.Model):
     def __unicode__(self):
         return "%s (%s)" % (self.user,
                             self.role)
+
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('band:membership-manage', (self.band.slug,))

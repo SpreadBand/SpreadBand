@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 import views
+import views.members
 
 urlpatterns = patterns('django.views.generic.simple',
     (r'^$', 'redirect_to', {'url': 'list'}),
@@ -22,14 +23,11 @@ urlpatterns += patterns('',
     url(r'^(?P<band_slug>[-\w]+)/events/new$', views.event_new, name='event-new'),
 
     # membership
-    url(r'^(?P<band_slug>[-\w]+)/membership/request$', views.membership_request, name='membership-request'),
+    url(r'^(?P<band_slug>[-\w]+)/members/request$', views.members.membership_request, name='membership-request'),
+    url(r'^(?P<band_slug>[-\w]+)/members/add$', views.members.membership_add, name='membership-add'),
+    url(r'^(?P<band_slug>[-\w]+)/members/(?P<member_id>\d+)/remove$', views.members.membership_remove, name='membership-remove'),
+    url(r'^(?P<band_slug>[-\w]+)/members/manage$', views.members.membership_manage, name='membership-manage'),
 
-    # bargain
-    url(r'^(?P<band_slug>[-\w]+)/bargain/$', views.event_bargain_new, name='event-bargain-new'),
-    url(r'^(?P<band_slug>[-\w]+)/bargain/(?P<contract_id>\d+)/approve$', views.event_bargain_approve, name='event-bargain-approve'),
-    url(r'^(?P<band_slug>[-\w]+)/bargain/(?P<contract_id>\d+)/disapprove$', views.event_bargain_disapprove, name='event-bargain-disapprove'),
-    url(r'^(?P<band_slug>[-\w]+)/bargain/(?P<contract_id>\d+)/update$', views.event_bargain_update, name='event-bargain-update'),
-    url(r'^(?P<band_slug>[-\w]+)/bargain/(?P<contract_id>\d+)/detail$', views.event_bargain_detail, name='event-bargain-detail'),
 
     (r'^web/', include('minisite.urls', namespace='minisite')),
 
