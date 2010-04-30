@@ -19,8 +19,8 @@ class Party(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
-        return "Party of type %s: %s" % (self.content_type,
-                                         self.content_object)
+        return "%s (%s)" % (self.content_object,
+                            self.content_type)
 
 
 class Contract(models.Model):
@@ -58,8 +58,8 @@ class Contract(models.Model):
         else:
             concluded_str = 'not concluded'
 
-        return "Contract (%s) -- %s" % (self.parties.all(),
-                                        concluded_str)
+        return u"Contract (%s) -- %s" % (self.parties.all(),
+                                         concluded_str)
 
 class ContractParty(models.Model):
     """

@@ -4,8 +4,8 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.template import RequestContext
 
-from .models import Contract, Party, ContractParty
-from .signals import contract_concluded, contract_new_init
+from ..models import Contract, Party, ContractParty
+from ..signals import contract_concluded, contract_new_init
 
 def contract_list(request, queryset=Contract.objects.all()):
     return object_list(request,
@@ -30,12 +30,10 @@ def get_or_create_party(aModel, aContract, is_initiator=False):
                                             party=party)
     
 
-def contract_new(request, aTermsClass, participants=[], initial=None, formset_initial=None, extra_context={}):
-    from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
+from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
 
-    terms_form_class, formsetform_class = aTermsClass.getForm()
-    formset_class = formsetform_class #modelformset_factory(formsetform_class.Meta.model, extra=0)
-    #formset_class = inlineformset_factory(aTermsClass, formsetform_class.Meta.model, extra=1)    
+def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra_context={}, next=None):
+    terms_form_class, formset_class = aTermsClass.getForm()
 
     if request.method == 'POST':
         terms_form = terms_form_class(request.POST, request.FILES)
@@ -51,30 +49,31 @@ def contract_new(request, aTermsClass, participants=[], initial=None, formset_in
             terms.save()
 
             # Renew the formset by binding it to our terms
-            formset = formset_class(request.POST, request.FILES)
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.bargain = terms
-                instance.save()
-            formset.save_m2m()
+            for i in range(0, formset.total_form_count()):
+                form = formset.forms[i]
+                if form.is_valid():
+                    model = form.save(commit=False)
+                    # XXX: hardcoded
+                    model.bargain = terms
+                    model.save()
 
             # FIXME: Not sure if we need that, but it seems to...
             terms_form.save_m2m()
 
             # Create the parties and link them
-            initiator = get_or_create_party(request.user, contract, is_initiator=True)
-            for participant in participants:
-                get_or_create_party(participant, contract, is_initiator=False)
+            # First one is considered to be the initiator
+            for i, participant in enum(terms.getParticipants()):
+                get_or_create_party(participant, contract, is_initiator=(i==0))
 
-            return redirect('bargain:contract-list')
+            return redirect('bargain:contract-detail', contract.id)
 
     terms_form = terms_form_class(request.POST or None, request.FILES or None, initial=initial)
     formset = formset_class(request.POST or None, request.FILES or None, initial=formset_initial)
 
     # Send the "contract new init" callback
-    contract_new_init.send(terms_form)
+    # contract_new_init.send(terms_form)
 
-    return render_to_response(template_name='bargain/contract_new.html',
+    return render_to_response(template_name='bargain/%s_new.html' % aTermsClass.__name__.lower(),
                               dictionary={'form': terms_form,
                                           'formset': formset},
                               context_instance=RequestContext(request,
@@ -83,7 +82,7 @@ def contract_new(request, aTermsClass, participants=[], initial=None, formset_in
 
 from django.contrib.contenttypes.models import ContentType
 
-from .signals import contract_concluded
+from ..signals import contract_concluded
 
 def contract_approve(request, contract_id, aTermClass, participant):
     """

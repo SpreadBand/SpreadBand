@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 {% load bargaintags %}
 
 <H3> contract </h3>
@@ -19,10 +23,11 @@ contract not concluded
 {% endfor %}
 </ul>
 
-<a href="{% url bargain:contract-update contract.id %}">update</a>
+{# <a href="{% url bargain:contract-update contract.id %}">update</a> #}
 
 <h5>Terms</h5>
 
 {% include subtemplate_name %}
 
+{% endblock %}
 
