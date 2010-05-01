@@ -8,9 +8,9 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',                       
-    (r'^new$', views.new),
-    (r'^list$', views.list),
-    (r'^detail/(?P<venue_id>\d+)$', views.detail),
+    url(r'^new$', views.new, name='create'),
+    url(r'^list$', views.list, name='list'),
+    url(r'^(?P<venue_slug>[-\w]+)$', views.detail, name='detail'),
 )
 
 

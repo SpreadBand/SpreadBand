@@ -15,7 +15,7 @@ contract not concluded
 
 <ul>
 {% for contract_party in contract_parties %}
-<li>{{ contract_party.party.content_object }} -- {{ contract_party.approved }}
+<li><a href="{{ contract_party.party.content_object.get_absolute_url }}">{{ contract_party.party.content_object }}</a> -- {{ contract_party.approved }}
 {% if contract_party.initiator %}
   [initiator]
 {% endif %}

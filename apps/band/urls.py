@@ -28,7 +28,6 @@ urlpatterns += patterns('',
     url(r'^(?P<band_slug>[-\w]+)/members/(?P<member_id>\d+)/remove$', views.members.membership_remove, name='membership-remove'),
     url(r'^(?P<band_slug>[-\w]+)/members/manage$', views.members.membership_manage, name='membership-manage'),
 
-
     (r'^web/', include('minisite.urls', namespace='minisite')),
 
     # Catch-all for the band name

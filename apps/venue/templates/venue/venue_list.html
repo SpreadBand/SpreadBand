@@ -4,13 +4,13 @@
 
 {% block content %}
 
-<h2>Gig places</h2>
+<h2>{% trans "Venues" %}</h2>
 <ul>
-  {% for place in gigplace_list %}
-    <li><a href="{{ place.get_absolute_url }}">{{ place.name }}</a></li>
+  {% for venue in venue_list %}
+    <li><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></li>
   {% endfor %}
 </ul>
 
-<a href="{% url gigplaces.views.new %}">{% trans "Add new" %}
+<a href="{% url venue:create %}">{% trans "Add new" %}
 
 {% endblock %}

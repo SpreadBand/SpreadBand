@@ -36,7 +36,7 @@ class Contract(models.Model):
         Check if all parties approves this contract
         """
         ccl = True
-        for party in ContractParty.objects.filter(contract=self):
+        for party in ContractParty.objects.filter(pk=self.id):
             ccl = ccl and party.approved
 
         return ccl

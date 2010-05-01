@@ -6,11 +6,26 @@
 
 El' gig place :
 
-{{ gigplace.name }}
+{{ venue.name }}
+<br>
 
+Ambiance: {{ venue.ambiance }}
+<br>
 
-<p align="center"><b>Calendrier pour {{ gigplace.calendar.name }}</b></p>
-{% month_table gigplace.calendar period "regular" %}
+Description : {{ venue.description }}
 
+<br>
+
+<h4>Bargains</h4>
+<p>
+  <ul>
+    {% for contract in contracts %}
+    <li><a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
+      [<a href="{% url event:bargain-approve-venue contract.id venue.slug %}">Approve</a>|
+      <a href="{% url event:bargain-disapprove-venue contract.id venue.slug %}">Disapprove</a>|
+      <a href="{% url event:bargain-update contract.id %}">Edit</a>]</li>
+    {% endfor %}
+  </ul>
+<a href="{% url event:bargain-new venue.slug %}">Propose a gig to this venue !</a>
 
 {% endblock %}
