@@ -37,16 +37,23 @@ class GigBargain(Terms):
     
     @staticmethod
     def getForm():
-        from django.forms.models import inlineformset_factory, modelformset_factory
+        from django.forms.models import formset_factory
         from .forms import GigBargainForm, GigBargainBandForm
         
-        # GigBargainBandFormset = inlineformset_factory(GigBargain, GigBargainBand, max_num=1)
-        GigBargainBandForm = modelformset_factory(GigBargainBand, exclude=('bargain',), extra=1)
+        GigBargainBandFormSet = formset_factory(GigBargainBandForm)
 
-        return GigBargainForm, GigBargainBandForm
+        return GigBargainForm, ['bargain', GigBargainBandFormSet]
+
+    def getParticipants(self):
+        parties = [b for b in self.bands.all()] + [self.venue]
+        return parties
 
     def __unicode__(self):
         return u'Gig bargain at [%s]' % (self.venue)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('event:bargain-detail', (self.id,))
     
 class GigBargainBand(models.Model):
     """

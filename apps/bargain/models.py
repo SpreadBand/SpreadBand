@@ -19,8 +19,8 @@ class Party(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
-        return "%s (%s)" % (self.content_object,
-                            self.content_type)
+        return u"%s (%s)" % (self.content_object,
+                             self.content_type)
 
 
 class Contract(models.Model):
@@ -58,8 +58,7 @@ class Contract(models.Model):
         else:
             concluded_str = 'not concluded'
 
-        return u"Contract (%s) -- %s" % (self.parties.all(),
-                                         concluded_str)
+        return u"Contract -- %s" % (concluded_str)
 
 class ContractParty(models.Model):
     """
@@ -91,7 +90,7 @@ class Terms(models.Model):
         raise "Not implemented"
 
     def __unicode__(self):
-        return "Terms for %s" % self.contract
+        return u"Terms for %s" % self.contract
 
 
 # REVERSION

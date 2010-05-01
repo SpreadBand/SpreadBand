@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block content %}
+
+<h3>Create a new bargain</h3>
+
+<form method="POST">
+
+<h4>When and Where ?</h4>
+
+{{ form.as_p }}
+
+<h4>Bands</h4>
+
+{{ formset.management_form }}
+{% for form in formset.forms %}
+ <h5>{{ forloop.counter|ordinal }} band</h5>
+ {{ form.as_p }}
+{% endfor %}
+
+<input type="submit">
+</form>
+
+{% endblock %}

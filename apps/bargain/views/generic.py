@@ -32,8 +32,10 @@ def get_or_create_party(aModel, aContract, is_initiator=False):
 
 from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
 
-def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra_context={}, next=None):
-    terms_form_class, formset_class = aTermsClass.getForm()
+def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra_context={}, post_create_redirect=None):
+    terms_form_class, inline_formset = aTermsClass.getForm()
+    formset_fk = inline_formset[0]
+    formset_class = inline_formset[1]
 
     if request.method == 'POST':
         terms_form = terms_form_class(request.POST, request.FILES)
@@ -53,8 +55,7 @@ def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra
                 form = formset.forms[i]
                 if form.is_valid():
                     model = form.save(commit=False)
-                    # XXX: hardcoded
-                    model.bargain = terms
+                    setattr(model, formset_fk, terms)
                     model.save()
 
             # FIXME: Not sure if we need that, but it seems to...
@@ -62,10 +63,12 @@ def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra
 
             # Create the parties and link them
             # First one is considered to be the initiator
-            for i, participant in enum(terms.getParticipants()):
+            for i, participant in enumerate(terms.getParticipants()):
                 get_or_create_party(participant, contract, is_initiator=(i==0))
 
-            return redirect('bargain:contract-detail', contract.id)
+            # Compute the redirect page
+            return redirect(post_create_redirect or 'bargain:contract-detail',
+                            contract.id)
 
     terms_form = terms_form_class(request.POST or None, request.FILES or None, initial=initial)
     formset = formset_class(request.POST or None, request.FILES or None, initial=formset_initial)
@@ -84,7 +87,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from ..signals import contract_concluded
 
-def contract_approve(request, contract_id, aTermClass, participant):
+def contract_approve(request, contract_id, aTermClass, participant, post_approve_redirect):
     """
     Approving a contract means a party agrees to the current terms.
     """
@@ -109,9 +112,9 @@ def contract_approve(request, contract_id, aTermClass, participant):
     if contract.is_concluded:
         contract_concluded.send(sender=aTermClass, aContract=contract)
 
-    return redirect(contract)
+    return redirect(post_approve_redirect, contract.id)
 
-def contract_disapprove(request, contract_id, aTermClass, participant):
+def contract_disapprove(request, contract_id, aTermClass, participant, post_disapprove_redirect):
     """
     Disapproving a contract means a party disaagrees to the current terms.
     """
@@ -132,7 +135,7 @@ def contract_disapprove(request, contract_id, aTermClass, participant):
     contractparty.approved = False
     contractparty.save()
 
-    return redirect(contract)
+    return redirect(post_disapprove_redirect, contract.id)
 
 
 
