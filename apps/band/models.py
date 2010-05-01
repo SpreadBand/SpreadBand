@@ -71,16 +71,19 @@ class BandMember(models.Model):
     """
     A membership link between users and bands
     """
+    class Meta:
+        unique_together = ('user', 'band')
+
     user = ForeignKey(User, related_name='band_memberships')
     band = ForeignKey(Band, related_name='members')
-    role = ForeignKey(BandRole)
+    roles = ManyToManyField(BandRole)
 
     approved = BooleanField(default=False,
                             help_text=_('Whether the membership has been approved'))
 
     def __unicode__(self):
-        return "%s (%s)" % (self.user,
-                            self.role)
+        return "%s of %s" % (self.user,
+                             self.band)
 
 
     @models.permalink

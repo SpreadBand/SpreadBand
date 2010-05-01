@@ -6,7 +6,10 @@
 <h4>Members in {{ band.name }}</h4>
 <ul>
   {% for bandmember in bandmember_list %}
-  <li>{{ bandmember.user.username }} - {{ bandmember.role }} [<a href="{% url band:membership-remove band.slug bandmember.user.id %}">X</a>]</li>
+  <li>{{ bandmember.user.username }} - 
+    {{ bandmember.roles.all|join:", " }}
+    [<a href="{% url band:membership-remove band.slug bandmember.user.id %}">X</a>]
+  </li>
   {% endfor %}
 </ul>
 

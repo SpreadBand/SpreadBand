@@ -30,7 +30,7 @@ from django.contrib.auth.models import User
 class BandMemberAddForm(forms.ModelForm):
     class Meta:
         model = BandMember
-        fields = ('user', 'role')
+        fields = ('user', 'roles')
     
     user = CharField(max_length=50, 
                      help_text='Enter the username of the person to add')

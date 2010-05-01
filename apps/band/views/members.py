@@ -46,9 +46,13 @@ def membership_add(request, band_slug):
         addform = BandMemberAddForm(request.POST)
 
         if addform.is_valid():
+            # Set band
             bandmember = addform.save(commit=False)
             bandmember.band = band
+
+            # Save to DB
             bandmember.save()
+            addform.save_m2m()
 
             return redirect(bandmember)
 
