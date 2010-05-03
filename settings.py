@@ -132,19 +132,26 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
-    # Photologue
-    deps.SVN('http://django-photologue.googlecode.com/svn/trunk',
-             app_name='photologue',
-             pathtomodule='photologue',
-             root=DEPENDENCY_ROOT,
-             ),
-
     # ImageKit
     deps.HG('http://bitbucket.org/jdriscoll/django-imagekit/',
             app_name='imagekit',
             pathtomodule='imagekit',
             root=DEPENDENCY_ROOT,
             ),
+
+    # Voting
+    deps.SVN('http://django-voting.googlecode.com/svn/trunk/',
+             app_name='django-voting',
+             pathtomodule='django-voting/trunk/',
+             root=DEPENDENCY_ROOT,
+             ),
+
+    # Compress
+    deps.GIT('http://github.com/pelme/django-compress.git',
+             app_name='django-compress',
+             pathtomodule='django-compress',
+             root=DEPENDENCY_ROOT,
+             ),
 
     # Reversion
     deps.SVN('http://django-reversion.googlecode.com/svn/tags/1.2/src/reversion',
@@ -166,12 +173,19 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
+    deps.GIT('git://github.com/glamkit/glamkit-eventtools.git',
+             app_name='eventtools',
+             pathtomodule='eventtools',
+             root=DEPENDENCY_ROOT,
+             ),
+
     deps.GIT('git://github.com/flashingpumpkin/django-socialregistration.git',
              #revision='v0.2-dev',
              app_name='socialregistration',
              pathtomodule='socialregistration',
              root=DEPENDENCY_ROOT,
              ),
+
 
     )
 
@@ -184,20 +198,24 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.comments',
     'django.contrib.gis',
+    'django.contrib.humanize',
+    'django.contrib.localflavor',
 
     # External
+    'compress',
     'debug_toolbar',
     'django_extensions',
     'south',
     'registration',
-    'schedule',
+    #'schedule',
     'authority',
     'tagging',
-    'photologue',
     'reversion',
     'imagekit',
     'annoying',
     'socialregistration',
+    'eventtools',
+    'voting',
 
     # Internal
     'backcap',
@@ -240,6 +258,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 ### LOGIN
 # General
+LOGIN_URL = '/account/reg/classical/login'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
@@ -248,3 +267,9 @@ AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
 
 ### PROFILES
 AUTH_PROFILE_MODULE  = 'account.UserProfile'
+
+### TAGGING
+FORCE_LOWERCASE_TAGS = True
+
+### SCHEDULE
+FIRST_DAY_OF_WEEK = 1 # Monday
