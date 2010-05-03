@@ -1,4 +1,5 @@
 {% load comments %}
+{% load voting_tags %}
 
 <h3>Show feedback</h3>
 
@@ -6,18 +7,13 @@
 A {{ feedback.get_kind_display|lower }} submitted by {{ feedback.user.get_full_name }} ({{feedback.user.username}}) at {{ feedback.created_on }}.
 
 <hr/>
+{% score_for_object feedback as score %}
+{{ score.score }} point{{ score.score|pluralize }}
+after {{ score.num_votes }} vote{{ score.num_votes|pluralize }}
 
-<p>Popularity: for[{{ feedback.vote_for }}], against[{{feedback.vote_against}}], average[{{feedback.vote_balance}}]
-
-<form action="{% url backcap:feedback-vote feedback.id %}" method="POST">
-  <input type="submit" value="Vote for!">
-  <input type="hidden" name="choice" value="1">
-</form>
-
-<form action="{% url backcap:feedback-vote feedback.id %}" method="POST">
-  <input type="submit" value="Vote against!">
-  <input type="hidden" name="choice" value="0">
-</form>
+{% vote_by_user request.user on feedback as vote %}
+<br>
+{{ vote }}
 
 <hr/>
 

@@ -1,13 +1,64 @@
+{% load voting_tags %}
+
 <h3>Feedbacks</h3>
 
 <a href="{% url backcap:feedback-new %}">New feedback</a>
 
 <h4>Opened issues</h4>
-<ul>
-  {% for feedback in feedback_list %}
-  <li>{{ feedback.get_kind_display }} - <a href="{% url backcap:feedback-detail feedback.id %}">{{ feedback.title }}</a> [karma={{ feedback.vote_balance }}]</li>
-  {% endfor %}
-</ul>
+
+{% votes_by_user request.user on feedback_list as vote_dict %}
+{% scores_for_objects feedback_list as score_dict %}
+
+<table>
+<col width="1"></col>
+<col></col>
+<thead>
+  <tr>
+    <th>Vote</th>
+    <th>Feedback</th>
+  </tr>
+</thead>
+<tbody>
+  {% for feedback in feedback_list %}<tr class="{% cycle odd,even %}">
+    <td class="vote">
+      {% dict_entry_for_item feedback from vote_dict as vote %}
+      {% dict_entry_for_item feedback from score_dict as score %}
+       <form class="feedbackvote" id="feedbackup{{ feedback.id }}" action="
+{% if vote and vote.is_upvote %}
+  {% url backcap:feedback-vote feedback.id 'clear' %}
+{% else %}
+  {% url backcap:feedback-vote feedback.id 'up' %}
+{% endif %}
+" method="POST">
+        <input type="submit" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}Clear{% else %}Up{% endif %}">
+      </form>
+
+      <form class="feedbackvote" id="feedbackdown{{ feedback.id }}" action="
+{% if vote and vote.is_downvote %}
+  {% url backcap:feedback-vote feedback.id 'clear' %}
+{% else %}
+  {% url backcap:feedback-vote feedback.id 'down' %}
+{% endif %}
+" method="POST">
+
+        <input type="submit" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}Clear{% else %}Down{% endif %}">
+      </form>
+      </td>
+    <td class="item">
+      <a href="{{ feedback.get_absolute_url }}">{{ feedback.title|escape }}</a></h2>
+      <p class="details">
+        <span class="score" id="feedbackscore{{ feedback.id }}"
+              title="after {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}">
+         {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
+        </span>
+        posted {{ feedback.created_on|timesince }} ago by
+        <span class="user"><a href="{{ feedback.user.get_absolute_url }}">{{ feedback.user.username|escape }}</a></span>
+        <span class="details"><a href="{{ feedback.get_absolute_url }}">details</a></span>
+      </p>
+    </td>
+  </tr>{% endfor %}
+</tbody>
+</table>
 
 {% if page_obj.has_previous %}
 <a href="{% url backcap:feedback-list page=page_obj.previous_page_number %}">previous</a>

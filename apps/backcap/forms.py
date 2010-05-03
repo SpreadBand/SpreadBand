@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.forms import CharField, HiddenInput
 
-from .models import Feedback, Vote
+from .models import Feedback
 
 class FeedbackNewForm(ModelForm):
     class Meta:
@@ -14,7 +14,3 @@ class FeedbackEditForm(ModelForm):
     class Meta:
         model = Feedback
 
-class VoteForm(ModelForm):
-    class Meta:
-        model = Vote
-        fields = ('choice',)

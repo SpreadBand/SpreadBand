@@ -4,8 +4,8 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import update_object
 from django.contrib.auth.decorators import login_required
 
-from .models import Feedback, Vote
-from .forms import FeedbackNewForm, FeedbackEditForm, VoteForm
+from .models import Feedback
+from .forms import FeedbackNewForm, FeedbackEditForm
 
 @login_required
 def feedback_new(request, referer=None):
@@ -52,10 +52,10 @@ def feedback_list(request, page=1):
     Display all the feedbacks
     """
     return object_list(request,
-                       queryset=Feedback.objects.exclude(status='C').order_by('-vote_balance'),
+                       queryset=Feedback.objects.exclude(status='C'),
                        template_name='backcap/feedback_list.html',
                        template_object_name='feedback',
-                       paginate_by=10,
+                       paginate_by=7,
                        page=page,
                        )
 
@@ -84,35 +84,13 @@ def feedback_close(request, feedback_id):
     return redirect(feedback)
         
 
-    
-@login_required
-def feedback_vote(request, feedback_id):
-    """
-    Vote for or against a feedback
-    """
-    feedback = get_object_or_404(Feedback, id=feedback_id)
+from voting.views import vote_on_object
 
-    # Check we haven't voted yet
-    try:
-        Vote.objects.get(user=request.user, feedback=feedback)
-    except Vote.DoesNotExist, e:
-        vote_form = VoteForm(request.POST)
-        if vote_form.is_valid():
-            # Save our vote
-            vote = vote_form.save(commit=False)
-            vote.feedback = feedback
-            vote.user = request.user
-            
-            # Update feedback vote count
-            if vote.choice:
-                feedback.vote_for += 1
-            else:
-                feedback.vote_against +=1
-
-            feedback.vote_balance = (feedback.vote_for - feedback.vote_against)
-
-            feedback.save()
-            
-            vote.save()
-    finally:
-        return redirect(feedback)
+def feedback_vote(request, feedback_id, direction):
+    return vote_on_object(request,
+                          model=Feedback,
+                          direction=direction,
+                          object_id=feedback_id,
+                          template_object_name='vote',
+                          template_name='kb/link_confirm_vote.html',
+                          allow_xmlhttprequest=True)

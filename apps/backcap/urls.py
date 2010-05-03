@@ -19,8 +19,8 @@ urlpatterns += patterns('',
     url(r'^(?P<feedback_id>\d+)/close$', views.feedback_close, name='feedback-close'),
 
     # Votes
-    url(r'^(?P<feedback_id>\d+)/vote$', views.feedback_vote, name='feedback-vote'),
-                        
+    url(r'^(?P<feedback_id>\d+)/(?P<direction>up|down|clear)vote/?$', views.feedback_vote, name='feedback-vote'),
+
 )
 
 

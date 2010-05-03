@@ -34,11 +34,6 @@ class Feedback(models.Model):
     # State
     status = CharField(max_length=1, choices=STATUS_CHOICES, default='O')
 
-    # Votes
-    vote_for = PositiveIntegerField(default=0)
-    vote_against = PositiveIntegerField(default=0)
-    vote_balance = IntegerField(default=0)
-
     def __unicode__(self):
         return '%s - %s' % (self.kind, self.title)
 
@@ -47,15 +42,3 @@ class Feedback(models.Model):
         return ('backcap:feedback-detail', (self.id,))
     
 
-class Vote(models.Model):
-    """
-    A vote for a Feedback
-    """
-    user = ForeignKey(User, related_name='feedback_votes')
-    feedback = ForeignKey(Feedback, related_name='votes')
-    choice = BooleanField()
-
-    def __unicode__(self):
-        return "%s - %s - %s" % (self.feedback.title,
-                                 self.user.username,
-                                 self.choice)

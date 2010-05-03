@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import Feedback, Vote
+from .models import Feedback
 
-admin.site.register((Feedback, Vote))
+admin.site.register((Feedback,))
 
 
 
