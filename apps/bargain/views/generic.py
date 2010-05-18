@@ -104,13 +104,14 @@ def contract_approve(request, contract_id, aTermClass, participant, post_approve
                                       contract=contract,
                                       party=party)
 
-    # Set to approved
-    contractparty.approved = True
-    contractparty.save()
+    # Don't do anything if we had already approved it
+    if not contractparty.approved:
+        contractparty.approved = True
+        contractparty.save()
 
-    # Check if this contract is concluded. If so, trigger the signal
-    if contract.is_concluded:
-        contract_concluded.send(sender=aTermClass, aContract=contract)
+        # Check if this contract is concluded. If so, trigger the signal
+        if contract.is_concluded:
+            contract_concluded.send(sender=aTermClass, aContract=contract, aUser=request.user)
 
     return redirect(post_approve_redirect, contract.id)
 
@@ -131,9 +132,11 @@ def contract_disapprove(request, contract_id, aTermClass, participant, post_disa
                                       contract=contract,
                                       party=party)
 
-    # Set to disapproved
-    contractparty.approved = False
-    contractparty.save()
+    # Don't do anything if already disapproved
+    if contractparty.approved:
+        # Set to disapproved
+        contractparty.approved = False
+        contractparty.save()
 
     return redirect(post_disapprove_redirect, contract.id)
 
