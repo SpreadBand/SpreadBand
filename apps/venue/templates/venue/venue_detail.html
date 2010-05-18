@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 
-{% load scheduletags %}
+{# {% load scheduletags %} #}
 
 {% block content %}
 
-El' gig place :
-
-{{ venue.name }}
-<br>
+<h1>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></h1>
 
 Ambiance: {{ venue.ambiance }}
 <br>
-
 Description : {{ venue.description }}
-
 <br>
+
+<h4>Calendar</h4>
+
+<a href="{% url event:venue-calendar venue.slug %}">View calendar</a>
 
 <h4>Bargains</h4>
 <p>
