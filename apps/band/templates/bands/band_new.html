@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% load i18n %}
+{% load uni_form_tags %}
 
 {% block content %}
 
@@ -11,15 +13,22 @@
   });
 </script>
 
+
+
 {% endblock %}
+<div class="alpha grid_16 omega">
+   <h3>Register your Band</h3>
+</div>
 
-<h3>Register a new band</h3>
+<div class="alpha grid_10">
+  <form action="new" method="POST" class="uniForm">
+    {{ form|as_uni_form }}
+    <input type="submit" value="{% trans "Submit" %}" />
+  </form>
+</div>
 
-<form action="new" method="POST">
-  {{ form.errors }}
-  <p>{{ form.name.label_tag }}: {{ form.name }}</p>
-  <p>Your homepage: <b>http://{{ request.get_host }}/b/{{ form.slug }}</b></p>
-  <input type="submit" value="{% trans "Submit" %}" />
-</form>
+<div class="grid_4 omega">
+  Lorem ipsum fuck dorbidien
+</div>
 
 {% endblock %}

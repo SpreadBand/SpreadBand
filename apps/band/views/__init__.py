@@ -5,8 +5,6 @@ from django.shortcuts import get_object_or_404, redirect
 
 from authority.decorators import permission_required_or_403
 
-from schedule.periods import Month
-
 from django.contrib.auth.decorators import login_required
 
 from ..models import Band

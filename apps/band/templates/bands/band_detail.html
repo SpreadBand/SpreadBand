@@ -1,13 +1,11 @@
 {% extends "bands/base.html" %}
 
-{% load scheduletags %}
 {% load i18n %}
 
 {% block band_content %}
 
 ( <a href="{% url band:edit band.slug %}">edit</a> )
 
-<h4>{{ band.name }}</h4>
 <p>{{ band.biography }}</p>
 
 <h5>Pictures</h5>
@@ -34,13 +32,7 @@
 
 <h4>Upcoming events</h4>
 <p>
-  {% get_or_create_calendar band band.id as calendar %}
-  <ul>
-    {% for event in calendar.event_set.all %}
-    <li>{{ event }}</li>
-    {% endfor %}
-  </ul>
-  ( <a href="{% url event:bargain-new band.slug %}">Add a new event</a> )
+  ( <a href="{% url event:gig-new band.slug %}">Add a new gig</a> - <a href="{% url event:band-calendar band.slug %}">View calendar</a> )
 </p>
 
 <h4>Bargains</h4>

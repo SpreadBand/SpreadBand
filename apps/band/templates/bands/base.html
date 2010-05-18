@@ -29,7 +29,7 @@
 
 {% block content %}
 
-<h2><a href="{% url band:detail band.slug %}">{{ band.name }}</a></h2>
+<h1>Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a></h1>
 Genres &raquo; {{ band.genres }}
 
 <div id="breadcrumbs"></div>
@@ -40,26 +40,12 @@ Genres &raquo; {{ band.genres }}
 ( this band has no website )
 {% endif %}
 
-
-<div id="band_navtab">
-     <ul>
-         <li><a href="#tab-overview">Overview</a></li>
-         <li><a href="#album-overview">Albums</a></li>
-     </ul>
-
-     <div id="tab-overview">
-       {% block band_content %}
-       {% endblock %}
-     </div>
-
-
+<div id="tab-overview">
+  {% block band_content %}
+  {% endblock %}
 </div>
 
-
-FOOOOOOOOTER<br>
-FOOOOTER<br>
-FOOORTER
-
+</div>
 
 {% endblock %}
 
