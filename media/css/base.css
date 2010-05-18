@@ -1,0 +1,128 @@
+body {
+    background-color: white;
+    background-image: url('../images/header_bg.png');
+    background-position: top left;
+    background-repeat: repeat-x;
+}
+
+hr {
+	border: none;
+	height: 1px; line-height: 1px;
+	background: #CCC;	
+	margin-bottom: 20px;
+	padding: 0;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #ff9900;
+}
+
+/* HEADER */
+#header {
+    padding-top: 20px;
+    /* padding-right: 15px; */
+    height: 70px;
+}
+
+/* Logo */
+#header #logo {
+    padding-left: 15px;
+}
+
+/* Menu */
+#header #mainfuncs {
+    text-align: right;
+}
+
+#header #menu {
+    padding-top: 30px;
+}
+
+#header #menu ul { 
+    margin:0;
+    padding:0; 
+}
+#header #menu ul li { 
+    display:block;
+    padding:0; 
+    float:left;
+    text-align:left;
+    margin-right:2em; 
+}
+#header #menu ul li a { 
+    font:bold 14px georgia;
+    line-height: 1.3em; 
+    display:block; 
+}
+
+#header #menu ul li span { 
+    font:11px arial; 
+    color:#666;
+    margin:0; 
+}
+#header #menu ul li span:hover {
+    color:#999;
+}
+
+/* User box */
+#header #user {
+    padding-top: 20px;
+    padding-right: 15px;
+    vertical-align: bottom;
+}
+
+#header #user img {
+    border: 2px solid #222;
+    width: 35px;
+    height: 35px;
+    vertical-align: text-bottom;
+}
+
+#header #user #username {
+    font-weight: bold;
+    background-color: black;
+    vertical-align: bottom;
+    border: 2px solid black;
+}
+
+/* CONTENT */
+#content {
+}
+
+#content-header {
+    background-image: url('../images/content-head-background.png');
+    background-repeat: no-repeat;
+    min-height: 105px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    z-index: -1;
+}
+
+#content-data {
+    background-image: url('../images/content-tail-background.png');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    min-height: 300px;
+
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+#content-tail {
+    
+}
+
+#footer {
+    padding-top: 20px;
+}
+
+#footer ul {
+    list-style-type: none;
+    font-size: 11px;
+}
