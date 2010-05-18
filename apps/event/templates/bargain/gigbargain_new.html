@@ -4,23 +4,34 @@
 
 {% block content %}
 
-<h3>Create a new bargain</h3>
+{% load uni_form_tags %}
 
-<form method="POST">
+<div class="alpha grid_16 omega">
+  <h1>Propose a gig</h1>
+</div>
 
-<h4>When and Where ?</h4>
+<div class="alpha grid_10">
 
-{{ form.as_p }}
+  <form method="POST" class="uniForm">
 
-<h4>Bands</h4>
+    <h2>When and Where ?</h2>
+    {{ form|as_uni_form }}
 
-{{ formset.management_form }}
-{% for form in formset.forms %}
- <h5>{{ forloop.counter|ordinal }} band</h5>
- {{ form.as_p }}
-{% endfor %}
+    <h2>Bands</h2>
 
-<input type="submit">
-</form>
+    {{ formset.management_form }}
+    {% for form in formset.forms %}
+    <h3>{{ forloop.counter|ordinal }} band</h3>
+    {{ form|as_uni_form }}
+    {% endfor %}
+
+    <input type="submit">
+  </form>
+</div>
+
+<div class="grid_4 omega">
+  Lorem ipsum fuck dorbidien
+</div>
+
 
 {% endblock %}

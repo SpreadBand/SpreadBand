@@ -1,12 +1,13 @@
 from django import forms
 
-from schedule.forms import EventForm
+# from schedule.forms import SpanForm
 
 from .models import Gig, GigBargain, GigBargainBand
 
-class GigForm(forms.ModelForm):
+class GigCreateForm(forms.ModelForm):
     class Meta:
         model = Gig
+        # fields = ('venue', 'start', 'end', 'bands', 'title', 'description',)
 
 class GigBargainForm(forms.ModelForm):
     class Meta:

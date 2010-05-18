@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load eventtags %}
+
+{% block content %}
+
+<h4>Calendar</h4>
+
+<h5>Past events</h5>
+<ul>
+  {% for event in past_events %}
+  <li>{{ event.event_date|timesince }} ago : {{ event.event_date }} - {{ event.title }} at <a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue }}</a></li>
+  {% endfor %}
+
+</ul>
+
+
+<h5>Future events</h5>
+<ul>
+  {% for event in future_events %}
+  <li>in {{ event.event_date|timeuntil }} : {{ event.event_date }} - {{ event.title }} at <a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue }}</li>
+  {% endfor %}
+</ul>
+
+
+
+{% endblock %}

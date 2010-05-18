@@ -4,8 +4,7 @@ from band.models import Band
 from venue.models import Venue
 from bargain.views.generic import contract_new, contract_approve, contract_disapprove, contract_update, contract_detail
 
-from .models import GigBargain
-from .forms import GigForm
+from ..models import GigBargain
 
 def event_bargain_new(request, venue_slug):
     venue = get_object_or_404(Venue, slug=venue_slug)

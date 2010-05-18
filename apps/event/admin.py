@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import GigBargain, GigBargainBand
+from .models import GigBargain, GigBargainBand, Gig
 
-admin.site.register((GigBargainBand, GigBargain))
+admin.site.register((GigBargainBand, GigBargain, Gig))
 
 
