@@ -25,11 +25,14 @@ urlpatterns = patterns('',
     (r'^feedback/', include('backcap.urls', namespace='backcap')),
 
     # Bands
-    (r'^bands/', include('band.urls', namespace='band')),
-    (r'^bands/', include('album.urls', namespace='album')),
+    (r'^b/', include('band.urls', namespace='band')),
+    (r'^b/', include('album.urls', namespace='album')),
 
     # Venues
-    (r'^venue/', include('venue.urls', namespace='venue')),
+    (r'^v/', include('venue.urls', namespace='venue')),
+
+    # Events
+    (r'^e/', include('event.urls', namespace='event')),
 
     # bargain
     (r'^bargain/', include('bargain.urls', namespace='bargain')),
