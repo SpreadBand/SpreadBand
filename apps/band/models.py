@@ -48,6 +48,14 @@ class Band(Actor):
     def get_absolute_url(self):
         return ('band:detail',  (self.slug,))
 
+# This should be in actors.models, but django currently doesn't deal
+# well with signals and inheritance
+from django.db.models.signals import post_save
+from actors.models import actor_after_save
+
+post_save.connect(actor_after_save, sender=Band)
+
+
 def get_bandpicture_path(aBandPicture, filename):
     dst = 'bands/%d/pictures/%s' % (aBandPicture.band.id,
                                     filename)

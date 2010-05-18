@@ -1,8 +1,9 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django.db.models import DateTimeField
+from django.db.models import DateTimeField, OneToOneField
 
-from schedule.models import Calendar
+
+from agenda.models import Calendar
 
 class Actor(models.Model):
     """
@@ -16,15 +17,28 @@ class Actor(models.Model):
                                   help_text=_('When it was was registered')
                                   )
     
-    last_activity = DateTimeField(auto_now_add=True,
+    last_activity = DateTimeField(auto_now=True,
                                   help_text=_('The last time something happened')
                                   )
 
-    #-- Properties
-    def _get_calendar(self):
-        return Calendar.objects.get_or_create_calendar_for_object(self)
-    
-    calendar = property(_get_calendar)
+    calendar = OneToOneField(Calendar, null=True, blank=True)
+
+def actor_after_save(sender, instance, created, **kwargs):
+    """
+    Called to ensure the calendar is created for a given actor
+    """
+    if created:
+        print "eyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        cal = Calendar(name='%s' % instance.name)
+        cal.save()
+        instance.calendar = cal
+        instance.save()
+
+
+
+
+
+
 
 
 

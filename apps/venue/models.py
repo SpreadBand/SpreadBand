@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models import CharField, SlugField, TextField
 from django.db.models import ForeignKey
 
-from photologue.models import Gallery
 from tagging.fields import TagField
 
 from actors.models import Actor
@@ -25,3 +24,10 @@ class Venue(Actor):
     @models.permalink
     def get_absolute_url(self):
         return ('venue:detail', (self.slug,))
+
+# This should be in actors.models, but django currently doesn't deal
+# well with signals and inheritance
+from django.db.models.signals import post_save
+from actors.models import actor_after_save
+
+post_save.connect(actor_after_save, sender=Venue)
