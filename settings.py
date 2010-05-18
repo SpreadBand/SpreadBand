@@ -112,13 +112,6 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
-    # SCHEDULE
-    deps.GIT('git://github.com/thauber/django-schedule.git',
-             app_name='django-schedule',
-             pathtomodule='django-schedule',
-             root=DEPENDENCY_ROOT,
-             ),
-
     # AUTHORITY
     deps.HG('http://bitbucket.org/jezdez/django-authority/',
             pathtomodule='django-authority/src/',
@@ -146,10 +139,16 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
-    # Compress
-    deps.GIT('http://github.com/pelme/django-compress.git',
-             app_name='django-compress',
-             pathtomodule='django-compress',
+    # Compressor (Css+JS)
+    deps.GIT('http://github.com/mintchaos/django_compressor.git',
+             app_name='django-compressor',
+             pathtomodule='django-compressor',
+             root=DEPENDENCY_ROOT,
+             ),
+
+    deps.GIT('http://github.com/pydanny/django-uni-form.git',
+             app_name='django-uni-form',
+             pathtomodule='django-uni-form',
              root=DEPENDENCY_ROOT,
              ),
 
@@ -173,12 +172,7 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
-    deps.GIT('git://github.com/glamkit/glamkit-eventtools.git',
-             app_name='eventtools',
-             pathtomodule='eventtools',
-             root=DEPENDENCY_ROOT,
-             ),
-
+    # Social registration
     deps.GIT('git://github.com/flashingpumpkin/django-socialregistration.git',
              #revision='v0.2-dev',
              app_name='socialregistration',
@@ -186,6 +180,13 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
+
+    # Agenda
+    deps.GIT('git://github.com/glibersat/django-agenda.git',
+             app_name='django-agenda',
+             pathtomodule='django-agenda',
+             root=DEPENDENCY_ROOT,
+             ),
 
     )
 
@@ -202,20 +203,20 @@ INSTALLED_APPS = (
     'django.contrib.localflavor',
 
     # External
-    'compress',
+    'compressor',
     'debug_toolbar',
     'django_extensions',
     'south',
     'registration',
-    #'schedule',
     'authority',
     'tagging',
     'reversion',
     'imagekit',
     'annoying',
     'socialregistration',
-    'eventtools',
     'voting',
+    'agenda',
+    'uni_form',
 
     # Internal
     'backcap',
