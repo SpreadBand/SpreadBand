@@ -3,34 +3,69 @@
 {% load i18n %}
 {% load openid_tags %}
 
+{% block javascript %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.featureList-1.0.0.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+      $('#feature-tabs li a').featureList({
+        output		: '#feature-output li',
+	start_item	: 1
+      });
+      });
+    </script>
+
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/featurelist/featurelist.css" />
+{% endblock %}
+
 {% block content %}
 
+<h1>SpreadBand is a place for music addicts</h1>
 
-<h2>Welcome to our fucking ubercool site !</h2>
-
-
-<p>
-
-Bands
-<ul>
-<li><a href="{% url band:create %}">new</a>
-<li><a href="{% url band:list %}">list</a>
-</ul>
-
-</p>
-
-
-<p>
-
-BigBrother
-<ul>
-<li><a href="{% url bigbrother.views.show %}">show</a>
-</ul>
-
-</p>
-
-<p>
-<a href="/admin/">Admin</a>
-</p>
+<div id="feature_list">
+  <ul id="feature-tabs">
+    <li>
+      <a href="javascript:;">
+	<img src="{{ MEDIA_URL }}/images/featurelist/band_icon.png" />
+	<h3>Bands</h3>
+	
+	<span>More fans, more gigs</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;">
+	<img src="{{ MEDIA_URL }}/images/featurelist/venue_icon.png" />
+	<h3>Venues</h3>
+	<span>Easy, lightning-fast booking</span>
+	
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;">
+	<img src="{{ MEDIA_URL }}/images/featurelist/fan_icon.png" />
+	<h3>Fans</h3>
+	<span>Never miss a gig, discover new bands</span>
+      </a>
+      
+    </li>
+  </ul>
+  <ul id="feature-output">
+    <li>
+      <img src="{{ MEDIA_URL }}/images/featurelist/band.jpg" />
+      <a href="{% url band:create %}">Register your band !</a>
+    </li>
+    <li>
+      
+      <img src="{{ MEDIA_URL }}/images/featurelist/venue.jpg" />
+      <a href="{% url venue:create %}">Add your venue now !</a>
+    </li>
+    <li>
+      <img src="{{ MEDIA_URL }}/images/featurelist/fan.jpg" />
+      <a href="#">Register now !</a>
+    </li>
+  </ul>  
+</div>
 
 {% endblock %}
