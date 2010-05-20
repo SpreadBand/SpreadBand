@@ -5,8 +5,6 @@ from django.shortcuts import get_object_or_404
 
 from authority.decorators import permission_required_or_403
 
-from schedule.periods import Month
-
 from bargain.models import Party, Contract
 
 from .models import Venue

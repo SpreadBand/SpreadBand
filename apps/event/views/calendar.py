@@ -14,29 +14,27 @@ def gig_create(request, band_slug):
     """
     Create an event of type gig and links it to any involved actor
     """
-    band = get_object_or_404(Band, slug=band_slug)
-
-    # calendar_slug = "band_%d" % band.id
-    # calendar = Calendar.objects.get_or_create_calendar_for_object(band, name=calendar_slug)
+    requesting_band = get_object_or_404(Band, slug=band_slug)
 
     gigform = GigCreateForm(data=request.POST or None)
 
     if request.method == 'POST':
         if gigform.is_valid():
+            # XXX: It seems that integrity cannot be checked before throwing an error.
             gig = gigform.save(commit=False)
-            #gig.creator = request.user
-            #gig.calendar = calendar
+            gig.creator = request.user
             gig.save()
-            
-            # Also add this gig to the venue calendar
-            # venue = gigform.cleaned_data['venue']
-            # venue_slug = "venue_%d" % venue.id
-            # venue_calendar = Calendar.objects.get_or_create_calendar_for_object(venue,
-            #                                                                     name=venue_slug)
-            # venue_calendar.events.add(gig)
-            # venue_calendar.save()
+            gigform.save_m2m()
 
-            redirect(gig)
+            # Add this gig to the band calendar
+            # XXX: Should save to every band involved, not only the creator.
+            for band in gig.bands.all():
+                band.calendar.events.add(gig)
+
+            # Also add this gig to the venue calendar            
+            gig.venue.calendar.events.add(gig)
+
+            redirect(requesting_band)
 
     return render_to_response(template_name='event/create_event.html',
                               dictionary={'gigform': gigform},

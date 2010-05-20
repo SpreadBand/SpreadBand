@@ -9,20 +9,20 @@ from venue.models import Venue
 from bargain.models import Terms
 from bargain.signals import contract_concluded
 
-from agenda.models import EventManager
+#from agenda.models import EventManager
 
 class Gig(Event):
     """
     A gig related to a Venue and one or more Bands
     """
-    objects = EventManager()
+    #objects = EventManager()
 
     venue = ForeignKey(Venue, related_name='gigs')
     bands = ManyToManyField(Band, related_name='gigs')
 
     @models.permalink
     def get_absolute_url(self):
-        return ('band-calendar', (self.id,))
+        return ('home', ())
 
 #-- Bargain
 

@@ -24,6 +24,7 @@
     {% endfor %}
 
     ( <a href="{% url band:membership-request band.slug %}">Join band</a> )<br>
+    ( <a href="{% url band:membership-manage band.slug %}">Manage members</a> )<br>
     ( <a href="{% url band:membership-add band.slug %}">Invite Member</a> )
   </ul>
 </p>
