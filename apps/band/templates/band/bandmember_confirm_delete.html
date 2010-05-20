@@ -11,4 +11,8 @@ Are you sure you want to remove <b>{{ bandmember.user.get_full_name }} ({{ bandm
   <input type="submit" value="yes">
 </form>
 
+<form method="GET" action="{% url band:membership-manage band.slug %}">
+  <input type="submit" value="no">
+</form>
+
 {% endblock %}
