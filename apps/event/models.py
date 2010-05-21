@@ -102,24 +102,28 @@ def bargain_concluded_callback(sender, aContract, aUser, **kwargs):
     Callback when a gig bargain has been concluded
     """
     gigbargain = aContract.terms.gigbargain
-    gig = Gig.objects.create(venue_id=gigbargain.venue.id,
-                             calendar=gigbargain.venue.calendar,
-                             start=gigbargain.date,
-                             end=gigbargain.date,
-                             title='Gig at %s' % gigbargain.venue.name,
-                             creator=aUser)
 
-    for band in gigbargain.bands.all():
-        gig.bands.add(band.band)
+    gig = Gig(venue_id=gigbargain.venue.id,
+              event_date=gigbargain.date,
+              start_time=gigbargain.opens_at,
+              end_time=gigbargain.closes_at,
+              description='no description',
+              title="gig at %s" % gigbargain.venue.name,
+              slug="gig-at-%s" % gigbargain.venue.slug,
+              author=aUser)
+
     gig.save()
 
-    # Add the gig to all parties calendar
-    for party in aContract.parties.all():
-        object = party.content_object
-        calendar = Calendar.objects.get_calendar_for_object(object)
-        calendar.event_set.add(gig)
-        calendar.save()
+    # Add all participating bands to the gig event
+    for band in gigbargain.bands.all():
+        gig.bands.add(band)
 
+    # Add this gig to the band calendars
+    for band in gigbargain.bands.all():
+        band.calendar.events.add(gig)
+
+    # Also add this gig to the venue calendar            
+    gig.venue.calendar.events.add(gig)
 
     
 contract_concluded.connect(bargain_concluded_callback, sender=GigBargain)
