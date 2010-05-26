@@ -7,7 +7,7 @@
 <h5>Past events</h5>
 <ul>
   {% for event in past_events %}
-    <li>{{ event.event_date|timesince }} ago : {{ event.event_date }} - {{ event.title }} at <a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue }}</a> with 
+    <li>{{ event.event_date|timesince }} ago : {{ event.event_date }} - <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> at <a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue }}</a> with 
     {% for band in event.gig.bands.all %}
     <a href="{{ band.get_absolute_url }}">{{ band }}</a>
     {% if not forloop.last %}
@@ -22,7 +22,7 @@
 <h5>Future events</h5>
 <ul>
   {% for event in future_events %}
-  <li>in {{ event.event_date|timeuntil }} : {{ event.event_date }} - {{ event.title }} at <a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue }}</a> with 
+  <li>in {{ event.event_date|timeuntil }} : {{ event.event_date }} - <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> at <a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue }}</a> with 
     {% for band in event.gig.bands.all %}
     <a href="{{ band.get_absolute_url }}">{{ band }}</a>
     {% if not forloop.last %}

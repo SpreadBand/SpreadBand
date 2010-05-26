@@ -9,7 +9,9 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',                       
+    # gigs
     url(r'^gig/new/(?P<band_slug>[-\w]+)/$', views.calendar.gig_create, name='gig-new'),
+    url(r'^gig/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/$', views.calendar.gig_detail, name='gig-detail'),
 
     url(r'^calendar/band/(?P<band_slug>[-\w]+)/$', views.calendar.band_calendar_detail, name='band-calendar'),
     url(r'^calendar/venue/(?P<venue_slug>[-\w]+)/$', views.calendar.venue_calendar_detail, name='venue-calendar'),

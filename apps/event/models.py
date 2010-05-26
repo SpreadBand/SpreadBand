@@ -15,15 +15,21 @@ class Gig(Event):
     """
     A gig related to a Venue and one or more Bands
     """
-    #objects = EventManager()
+    # objects = EventManager()
 
     venue = ForeignKey(Venue, related_name='gigs')
     bands = ManyToManyField(Band, related_name='gigs')
 
-    @models.permalink
+    @models.permalink                                               
     def get_absolute_url(self):
-        return ('home', ())
-
+        return ('event:gig-detail', 
+                (),
+                {'year'  : self.event_date.year, 
+                 'month' : self.event_date.month, 
+                 'day'   : self.event_date.day, 
+                 'slug'  : self.slug }
+                )
+    
 #-- Bargain
 
 class GigBargain(Terms):

@@ -52,7 +52,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://10.42.43.1:8000/site_media/'
+MEDIA_URL = 'http://192.168.1.1:8000/site_media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -188,6 +188,13 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
+    # Reviews
+    deps.HG('http://bitbucket.org/diefenbach/django-reviews',
+            app_name='reviews',
+            pathtomodule='reviews',
+            root=DEPENDENCY_ROOT,
+            ),
+
     )
 
 INSTALLED_APPS = (
@@ -217,6 +224,7 @@ INSTALLED_APPS = (
     'voting',
     'agenda',
     'uni_form',
+    'reviews',
 
     # Internal
     'backcap',
@@ -272,5 +280,6 @@ AUTH_PROFILE_MODULE  = 'account.UserProfile'
 ### TAGGING
 FORCE_LOWERCASE_TAGS = True
 
-### SCHEDULE
-FIRST_DAY_OF_WEEK = 1 # Monday
+### REVIEWS
+REVIEWS_SHOW_PREVIEW = True
+REVIEWS_IS_MODERATED = False

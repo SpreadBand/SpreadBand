@@ -1,14 +1,25 @@
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 
-#from schedule.periods import Month
-#from schedule.models import Calendar
-#from schedule.views import create_or_edit_event, calendar_by_periods
+import agenda.views
 
 from band.models import Band
 from venue.models import Venue
 
+from ..models import Gig
 from ..forms import GigCreateForm
+
+def gig_detail(request, year, month, day, slug):
+    """
+    Get details about a gig
+    """
+    return agenda.views.date_based.object_detail(request, 
+                                                 Gig.objects.all(), 
+                                                 'event_date',
+                                                 year, month, day, slug, 
+                                                 template_name='event/gig_detail.html', 
+                                                 template_object_name='gig', 
+                                                 )
 
 def gig_create(request, band_slug):
     """
