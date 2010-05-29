@@ -1,7 +1,5 @@
 {% extends "bands/base.html" %}
 
-{% block band_content %}
-
 {% block band_css %}
 
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/jquery/colorbox/colorbox.css" />
@@ -14,11 +12,42 @@
 
 {% block band_javascript %}
 
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/ajaxupload.js"></script>
+<!-- <script type="text/javascript" src="{{ MEDIA_URL }}/js/ajaxupload.js"></script>-->
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.colorbox.js"></script>
+
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.jplayer.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
+
+      $("#audioplayer").jPlayer({
+         ready: function() {
+		    this.element.jPlayer("setFile", "{{ MEDIA_URL }}/bands/7/albums/2/tracks/01-at_the_behest_of_their_death.mp3");
+          },
+         swfPath: '{{ MEDIA_URL }}/flash/',
+         nativeSupport: false, 
+      });
+
+    $("#play").click(function() {
+      $("#audioplayer").jPlayer("play");
+        return false;
+    });
+
+    $("#pause").click(function() {
+      $("#audioplayer").jPlayer("pause");
+        return false;
+    });
+
+  $(".track").click( changeTrack );
+  
+  function changeTrack(e) {
+    $("#audioplayer").jPlayer("setFile", $(this).attr("href")).jPlayer("play");
+    $(this).blur();
+    return false;
+  }
+
+
+
     $(".edit").editable("{% url album:edit-one band.slug album.slug %}", {
          indicator : 'Saving...',
          submit: 'OK',
@@ -66,51 +95,16 @@
   });
   });
 
-
-  new AjaxUpload('track_upload_disabled', {
-                 action: '{% url album:track-new band.slug album.slug %}',
-                 name: 'file',
-       responseType: 'json',
-  onSubmit : function(file, ext){
-  var button = $('#track_upload');
-  // change button text, when user selects file
-  button.text('Uploading');
-  
-  // If you want to allow uploading only 1 file at time,
-// you can disable upload button
-  this.disable();
-  
-  // Uploding -> Uploading. -> Uploading...
-  interval = window.setInterval(function(){
-  var button = $('#track_upload');
-  var text = button.text();
-  if (text.length < 13){
-		    button.text(text + '.');
-		    } else {
-		    button.text('Uploading');
-		    }
-		    }, 200);
-		    },
-		    onComplete: function(file, response){
-
-		    var button = $('#track_upload');
-		    button.text('Upload');
-		    
-		    window.clearInterval(interval);
-		    
-		    // enable upload button
-		    this.enable();
-		    
-		    // add file to the list
-		    $('<li class="ui-state-default"></li>').appendTo('#tracks').text(response[0].fields.title);
-		    }
-                    });
-
-		    $("#album-cover-front > a").colorbox({title: "{{ band.name }} - {{ album.name }} (change)"});
   });
 </script>
 
 {% endblock %}
+
+
+
+{% block band_content %}
+
+
 
 <h2>Album</h2>
 ( <a href="{% url album:edit band.slug album.slug %}">edit</a> )
@@ -138,10 +132,19 @@
 
 <h3>Tracks</h3><a href="{% url album:track-new band.slug album.slug %}" id="track_upload">Upload new track</a>
 
+
+<div class='audioplayer' id='audioplayer'></div>
+<div id='playercontainer'>
+  <ul id="icons" class="ui-widget ui-helper-clearfix">
+    <li id="play" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-play"></span></li>
+    <li id="pause" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-pause"></span></li>
+  </ul>
+</div>
+
 <div id="tracks">
   <ul>
     {% for track in album.tracks.all %}
-    <li>{{ track.no }} - {{ track.title }} (<a href="{% url album:track-delete band.slug album.slug track.id %}">delete</a>)</li>
+    <li>{{ track.no }} - <a class="track" href="{{ MEDIA_URL }}/{{ track.file }}">{{ track.title }}</a> (<a href="{% url album:track-delete band.slug album.slug track.id %}">delete</a>)</li>
     {% endfor %}
   </ul>
 </div>
