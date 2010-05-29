@@ -4,6 +4,7 @@ from django.forms.models import inlineformset_factory
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.core import serializers
+from django.core.files.uploadhandler import TemporaryFileUploadHandler
 from django.db import transaction
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
@@ -17,6 +18,8 @@ from utils.template import direct_block_to_template
 
 # XXX: Security
 def track_new(request, band_slug, album_slug):
+    request.upload_handlers = [TemporaryFileUploadHandler()]
+
     band = get_object_or_404(Band, slug=band_slug)
     album = get_object_or_404(Album, slug=album_slug)
 
