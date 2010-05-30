@@ -38,7 +38,7 @@ class BandMemberAddForm(forms.ModelForm):
     def clean_user(self):
         value = self.cleaned_data['user']
         try:
-            user = User.objects.get(username=value)
+            user = User.objects.get(username__iexact=value)
         except User.DoesNotExist, e:
             raise forms.ValidationError(_("The user's nickname you have entered doesn't exist"))
 
