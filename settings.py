@@ -52,7 +52,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://192.168.1.1:8000/site_media/'
+MEDIA_URL = 'http://localhost:8000/site_media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -81,6 +81,7 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'openid_consumer.middleware.OpenIDMiddleware',
 )
@@ -146,6 +147,7 @@ DEPENDENCIES = (
              root=DEPENDENCY_ROOT,
              ),
 
+    # Uni forms
     deps.GIT('http://github.com/pydanny/django-uni-form.git',
              app_name='django-uni-form',
              pathtomodule='django-uni-form',
@@ -270,7 +272,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_URL = '/account/reg/classical/login'
 LOGIN_REDIRECT_URL = '/'
 
-AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
+AUTHENTICATION_BACKENDS = ('utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
                            'socialregistration.auth.OpenIDAuth',
                            )
 
