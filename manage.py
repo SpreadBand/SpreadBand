@@ -5,11 +5,11 @@ import sys, os.path
 sys.path.append("apps/")
 
 # External apps
-try:
-    import external.autodeps as deps
-except ImportError:
-    sys.stderr.write("Error: you should download django-autodeps and put the 'autodeps' module under the 'external/' directory.\n")
-    sys.exit(1)
+# try:
+#     import external.autodeps as deps
+# except ImportError:
+#     sys.stderr.write("Error: you should download django-autodeps and put the 'autodeps' module under the 'external/' directory.\n")
+#     sys.exit(1)
 
 try:
     import settings # Assumed to be in the same directory.
@@ -22,15 +22,15 @@ except ImportError:
 # For django-dependencies
 # remove '.' from the path (you should use the project package to reference 
 # anything in here)
-sys.path.pop(0)
-sys.path.insert(0, os.path.dirname(settings.PROJECT_PATH))
+# sys.path.pop(0)
+# sys.path.insert(0, os.path.dirname(settings.PROJECT_PATH))
 
-if len(sys.argv) > 1 and sys.argv[1] == 'up':
-    deps.add_all_to_path(settings, auto_update=True)
-    sys.exit(0)
-else:
-    deps.add_all_to_path(settings, auto_update=False)
-# End django-dependencies
+# if len(sys.argv) > 1 and sys.argv[1] == 'up':
+#     deps.add_all_to_path(settings, auto_update=True)
+#     sys.exit(0)
+# else:
+#     deps.add_all_to_path(settings, auto_update=False)
+# # End django-dependencies
 
 from django.core.management import execute_manager
 
