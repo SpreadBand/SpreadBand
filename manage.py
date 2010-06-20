@@ -4,13 +4,6 @@ import sys, os.path
 # Internal apps
 sys.path.append("apps/")
 
-# External apps
-# try:
-#     import external.autodeps as deps
-# except ImportError:
-#     sys.stderr.write("Error: you should download django-autodeps and put the 'autodeps' module under the 'external/' directory.\n")
-#     sys.exit(1)
-
 try:
     import settings # Assumed to be in the same directory.
 except ImportError:

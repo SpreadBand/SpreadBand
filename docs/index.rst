@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   setup_postgresql
    coding_guidelines
 
 Indices and tables
