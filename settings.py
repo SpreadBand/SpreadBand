@@ -1,4 +1,4 @@
-import external.autodeps as deps
+# import external.autodeps as deps
 import os.path
 # Django settings for spreadband project.
 
@@ -15,9 +15,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'dev.db'             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'spreadband'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'spreadband'             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
@@ -27,11 +27,11 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Eupore/Paris'
+TIME_ZONE = 'Europe/Paris'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fr'
 
 _ = lambda s: s
 LANGUAGES = (
@@ -83,7 +83,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'openid_consumer.middleware.OpenIDMiddleware',
+    #'openid_consumer.middleware.OpenIDMiddleware',
 )
 
 ROOT_URLCONF = 'spreadband.urls'
@@ -94,110 +94,6 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     'templates/',
 )
-
-# For Django-autodeps
-DEPENDENCY_ROOT = os.path.join(PROJECT_PATH, 'external')
-
-DEPENDENCIES = (
-    # SOUTH
-    deps.HG('http://bitbucket.org/andrewgodwin/south/',
-            revision='0.6.2',
-            pathtomodule='south',
-            root=DEPENDENCY_ROOT,
-            ),
-
-    # REGISTRATION
-    deps.HG('http://bitbucket.org/ubernostrum/django-registration/',
-             app_name='registration',
-             pathtomodule='registration',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # AUTHORITY
-    deps.HG('http://bitbucket.org/jezdez/django-authority/',
-            pathtomodule='django-authority/src/',
-            root=DEPENDENCY_ROOT,
-            ),
-
-    # TAGGING
-    deps.SVN('http://django-tagging.googlecode.com/svn/trunk/',
-             app_name='django-tagging',
-             pathtomodule='django-tagging',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # ImageKit
-    deps.HG('http://bitbucket.org/jdriscoll/django-imagekit/',
-            app_name='imagekit',
-            pathtomodule='imagekit',
-            root=DEPENDENCY_ROOT,
-            ),
-
-    # Voting
-    deps.SVN('http://django-voting.googlecode.com/svn/trunk/',
-             app_name='django-voting',
-             pathtomodule='django-voting/trunk/',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # Compressor (Css+JS)
-    deps.GIT('http://github.com/mintchaos/django_compressor.git',
-             app_name='django-compressor',
-             pathtomodule='django-compressor',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # Uni forms
-    deps.GIT('http://github.com/pydanny/django-uni-form.git',
-             app_name='django-uni-form',
-             pathtomodule='django-uni-form',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # Reversion
-    deps.SVN('http://django-reversion.googlecode.com/svn/tags/1.2/src/reversion',
-             app_name='reversion',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # Annoying
-    deps.HG('http://bitbucket.org/offline/django-annoying/',
-            app_name='annoying',
-            pathtomodule='annoying',
-            root=DEPENDENCY_ROOT,
-            ),
-
-    # SocialAuth
-    deps.GIT('git://github.com/uswaretech/Django-Socialauth.git',
-             app_name='socialauth',
-             pathtomodule='socialauth',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # Social registration
-    deps.GIT('git://github.com/flashingpumpkin/django-socialregistration.git',
-             #revision='v0.2-dev',
-             app_name='socialregistration',
-             pathtomodule='socialregistration',
-             root=DEPENDENCY_ROOT,
-             ),
-
-
-    # Agenda
-    deps.GIT('git://github.com/glibersat/django-agenda.git',
-             app_name='django-agenda',
-             pathtomodule='django-agenda',
-             root=DEPENDENCY_ROOT,
-             ),
-
-    # Reviews
-    deps.HG('http://bitbucket.org/diefenbach/django-reviews',
-            app_name='reviews',
-            pathtomodule='reviews',
-            root=DEPENDENCY_ROOT,
-            ),
-
-    )
 
 INSTALLED_APPS = (
     # Built-in
@@ -232,7 +128,7 @@ INSTALLED_APPS = (
     'backcap',
     'account',
     'minisite',
-    'minisite-portlets',
+#    'minisite-portlets', <-- bug avec pgsql..
     'actors',
     'event',
     'band',
