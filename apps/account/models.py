@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import ForeignKey, CharField
+from django.db.models import ForeignKey, CharField, DateField
 from django.db.models.signals import post_save
 
 from django.contrib.auth.models import User
@@ -8,7 +8,9 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = ForeignKey(User, unique=True)
 
-    favorite_band = CharField(max_length=100, blank=True)
+    country = CharField(max_length=50, blank=True)
+    town = CharField(max_length=50, blank=True)
+    birthdate = DateField(null=True, blank=True)
 
 
 # Create a profile as soon as we create a user

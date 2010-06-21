@@ -4,11 +4,12 @@ from django.conf import settings
 import views
 
 urlpatterns = patterns('django.views.generic.simple',
-    (r'^$', 'redirect_to', {'url': 'detail'}),
+    (r'^$', 'redirect_to', {'url': 'my/edit'}),
 )
 
 urlpatterns += patterns('',                       
-    url(r'^detail$', views.detail, name='detail'),
+    url(r'^(?P<username>[-\w]+)/detail$', views.detail, name='detail'),
+    url(r'^(?P<username>[-\w]+)/edit$', views.edit, name='edit'),
 )
 
 
