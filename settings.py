@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'agenda',
     'uni_form',
     'reviews',
+    'profiles',
 
     # Internal
     'backcap',
@@ -163,14 +164,15 @@ DEBUG_TOOLBAR_CONFIG = {
 ### Registration
 ACCOUNT_ACTIVATION_DAYS = 7
 
-### LOGIN
+### LOGIN, AUTHENTICATION
 # General
 LOGIN_URL = '/account/reg/classical/login'
 LOGIN_REDIRECT_URL = '/'
 
-AUTHENTICATION_BACKENDS = ('utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
-                           'socialregistration.auth.OpenIDAuth',
-                           )
+AUTHENTICATION_BACKENDS = (
+    'utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
+    'socialregistration.auth.OpenIDAuth',
+    )
 
 ### PROFILES
 AUTH_PROFILE_MODULE  = 'account.UserProfile'
