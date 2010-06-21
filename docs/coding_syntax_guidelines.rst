@@ -5,7 +5,7 @@ General Python
 ==============
 
 Imports
-^^^^^^^
+-------
 
 Order your imports like this, adding a blank line when changing to
 another category:
@@ -34,7 +34,7 @@ Here's an example::
 .. _guidelines-python-functions:
 
 Blocks and blank spaces
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 Assignations have one blank space at each side of the equal sign::
 
@@ -54,7 +54,7 @@ algorithms in their head and understand faster each little part::
     do_return()
 
 Comments
-^^^^^^^^
+--------
 
 Don't forget to comment *classes*, *methods*, *functions* and
 *modules* whenever it is not a trivial operation. Don't explain your
@@ -76,7 +76,7 @@ for example), make sure to put a space after the # sign::
   loader.run(target=Mars)
 
 Strings
-^^^^^^^
+-------
 
 Since Python doesn't make a difference between using single and double
 quote, prefer to use the single ones, they take less space::
@@ -84,7 +84,7 @@ quote, prefer to use the single ones, they take less space::
   say('hello')
 
 Functions
-^^^^^^^^^
+---------
 
 Name your functions with underscores::
 
@@ -94,7 +94,7 @@ Name your functions with underscores::
 A function name that involves multiple words should never be abbreviated.
 
 Classes
-^^^^^^^
+-------
 
 Class naming should follow the **UpperCamelCase** convention::
 
@@ -102,7 +102,7 @@ Class naming should follow the **UpperCamelCase** convention::
    ...
 
 Methods
-"""""""
+^^^^^^^
 
 Use the **lowerCamelCase** convention::
 
@@ -113,7 +113,7 @@ Use the **lowerCamelCase** convention::
 A method name that involves multiple words should never be abbreviated.
 
 Properties
-^^^^^^^^^^
+----------
 
 Use the new way of declaring properties and differenciate method names::
 
@@ -130,7 +130,7 @@ Use the new way of declaring properties and differenciate method names::
     ...
 
 Named arguments
-===============
+---------------
 
 When declaring a method or function signature, we make a distinction
 between objects of type :class:`str`, :class:`int` and
@@ -216,7 +216,7 @@ naming convention (and don't forget to make your class name plural !)::
 
 
 Calling functions and methods
-=============================
+-----------------------------
 
 Always tries to make your calls explicit by using the named
 arguments. This prevents swapping of arguments and makes it easier for
@@ -243,13 +243,13 @@ Django
 ======
 
 Models
-^^^^^^
+------
 
 Forms
-^^^^^
+-----
 
 Views
-^^^^^
+-----
 
 Views are functions, so follow the python function syntax guidelines
 (see :ref:`guidelines-python-functions`).
@@ -266,5 +266,5 @@ does::
  def band_remove(request, ...): ...
 
 URLs
-^^^^
+----
 
