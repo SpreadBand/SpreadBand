@@ -1,5 +1,5 @@
-Django==1.1.1
-south==0.6.2
+Django==1.2.1
+south==0.7.1
 django-authority==0.4.0
 django-tagging==0.3.1
 django-imagekit==0.3.3
@@ -14,11 +14,10 @@ django-profiles==0.2
 mutagen==1.19
 
 
-
 -e hg+http://bitbucket.org/ubernostrum/django-registration#egg=django-registration
 -e git+http://github.com/mintchaos/django_compressor.git#egg=django-compressor
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
--e git+http://github.com/flashingpumpkin/django-socialregistration.git@v0.2-tag#egg=django-socialregistration
+-e git+http://github.com/flashingpumpkin/django-socialregistration.git@v0.4-tag#egg=django-socialregistration
 -e git+http://github.com/glibersat/django-agenda.git#egg=django-agenda
 
 
