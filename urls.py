@@ -11,15 +11,18 @@ authority.autodiscover()
 
 urlpatterns = patterns('',
     # temporary index page
-    (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
+    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}, name='home'),
 
     # auth + profile
-    (r'^account/', include('socialregistration.urls')),
-    (r'^account/reg/classical/', include('registration.backends.default.urls')),
-    (r'^account/', include('account.urls', namespace='account')),
+    (r'^user/', include('socialregistration.urls')),
+    (r'^user/reg/classical/', include('registration.backends.default.urls')),
+    (r'^user/', include('account.urls', namespace='account')),
 
     # comments
     (r'^comments/', include('django.contrib.comments.urls')),
+
+    # reviews
+    (r'^reviews/', include('reviews.urls')),
 
     # Feedback
     (r'^feedback/', include('backcap.urls', namespace='backcap')),
