@@ -1,9 +1,12 @@
 syntax: glob
 
-.project
-.pydevproject
-.orig
+*.project
+*.pydevproject
+*.orig
 *\#
 *.pyc
 *.db
 external/
+docs/_build
+proto/
+media/cache/

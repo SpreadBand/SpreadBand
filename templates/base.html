@@ -51,7 +51,7 @@
 	  <div class="grid_4 omega">
 	    <div id="user">
 	      {% if user.is_authenticated %}
-              <a id="username" href="{% url account:detail %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ MEDIA_URL}}/images/no_avatar.png"> {# <a href="{% url social_logout %}"> #}
+              <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ MEDIA_URL}}/images/no_avatar.png"> {# <a href="{% url social_logout %}"> #}
 		{% endif %}
 	    </div>
 	  </div>
