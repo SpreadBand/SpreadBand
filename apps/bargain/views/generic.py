@@ -142,7 +142,7 @@ def contract_disapprove(request, contract_id, aTermClass, participant, post_disa
 
 
 
-def contract_update(request, contract_id, aTermClass, participant):
+def contract_update(request, contract_id, aTermClass, participant, post_update_redirect):
     """
     Updating a contract means altering its terms. When one party
     performs this action, all other parties gets their approval
@@ -158,14 +158,24 @@ def contract_update(request, contract_id, aTermClass, participant):
                               object_id=participant.id)
 
     # Get the form from the model
-    terms_form_class, formset_class = aTermClass.getForm()
+    terms_form_class, inline_formset_class = aTermClass.getForm()
 
     terms_form = terms_form_class(request.POST or None, request.FILES or None,
                                   instance=terms)
-    terms_formset = formset_class(request.POST or None, request.FILES or None,
-                                  instance=terms)
+
+    # Rebuild the formset using a modelformset from the model given by
+    # the modelformset (total crap, but don't know how to do better)
+    inline_model = inline_formset_class[1].form.Meta.model
+    inline_modelformset_class = modelformset_factory(inline_model, 
+                                                     exclude=getattr(inline_formset_class[1].form.Meta, 'exclude', None),
+                                                     fields=getattr(inline_formset_class[1].form.Meta, 'fields', None),
+                                                     extra=0)
+                                                     
+
 
     if request.method == 'POST':
+        terms_formset = inline_modelformset_class(request.POST, request.FILES or None)
+
         if terms_form.is_valid() and terms_formset.is_valid():
             # Unvalidate contract for every party except the participant
             ContractParty.objects.filter(contract=contract).exclude(party=party).update(approved=False)
@@ -175,26 +185,28 @@ def contract_update(request, contract_id, aTermClass, participant):
             terms = terms_form.save()
             terms_formset.save()
 
-            return redirect(contract)
+            return redirect(post_update_redirect, (contract.id))
+    else:
+        terms_formset = inline_modelformset_class(queryset=inline_model.objects.filter(bargain__id=contract_id))
 
-    return render_to_response(template_name='bargain/contract_update.html',
+    return render_to_response(template_name='bargain/%s_update.html' % aTermClass.__name__.lower(),
                               dictionary={'contract': contract,
                                           'terms': terms,
                                           'terms_form': terms_form,
                                           'terms_formset': terms_formset},
+                              context_instance=RequestContext(request)
                               )
                               
 
-def contract_detail(request, contract_id, subtemplate_name):
+def contract_detail(request, contract_id, aTermClass):
     contract = get_object_or_404(Contract, id=contract_id)
 
     contract_parties = ContractParty.objects.filter(contract=contract)
-    
-    return object_detail(request,
-                         queryset=Contract.objects.all(),
-                         object_id=contract_id,
-                         template_object_name='contract',
-                         template_name='bargain/contract_detail.html',
-                         extra_context={'contract_parties': contract_parties,
-                                        'subtemplate_name': subtemplate_name},
-                         )
+
+    extra_context={'contract': contract,
+                   'contract_parties': contract_parties}
+
+    return render_to_response(template_name='bargain/%s_detail.html' % aTermClass.__name__.lower(),
+                              context_instance=RequestContext(request,
+                                                              extra_context),
+                              )

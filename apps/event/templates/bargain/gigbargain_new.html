@@ -2,6 +2,16 @@
 
 {% load humanize %}
 
+{% block css %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/autocomplete/jquery.autocomplete.css" />
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.autocomplete.js"></script>
+{{ form.media.js }}
+{% endblock %}
+
+
 {% block content %}
 
 {% load uni_form_tags %}

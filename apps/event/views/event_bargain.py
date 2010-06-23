@@ -11,7 +11,7 @@ def event_bargain_new(request, venue_slug):
 
     initial = {'venue': venue.id}
     formset_initial = []
-    
+
     return contract_new(request,
                         aTermsClass=GigBargain,
                         initial=initial,
@@ -72,18 +72,29 @@ def event_bargain_disapprove_venue(request, venue_slug, contract_id):
                                )
 
 
-def event_bargain_update(request, band_slug, contract_id):
+def event_bargain_update_venue(request, venue_slug, contract_id):
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    return contract_update(request,
+                           contract_id=contract_id,
+                           aTermClass=GigBargain,
+                           participant=venue,
+                           post_update_redirect='event:bargain-detail')
+
+def event_bargain_update_band(request, band_slug, contract_id):
     band = get_object_or_404(Band, slug=band_slug)
 
     return contract_update(request,
                            contract_id=contract_id,
                            aTermClass=GigBargain,
-                           participant=band)
+                           participant=band,
+                           post_update_redirect='event:bargain-detail')
+
                          
 
 def event_bargain_detail(request, contract_id):
     return contract_detail(request,
-                           contract_id=contract_id,
-                           subtemplate_name='bargain/gigbargain_detail.html')
+                           aTermClass=GigBargain,
+                           contract_id=contract_id)
 
 

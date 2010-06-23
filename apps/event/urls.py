@@ -20,14 +20,16 @@ urlpatterns += patterns('',
     url(r'^bargain/new/(?P<venue_slug>[-\w]+)/$', views.event_bargain.event_bargain_new, name='bargain-new'),
 
     # Bargain, band specific
-    url(r'^bargain/(?P<contract_id>\d+)/approve/band/(?P<band_slug>[-\w]+)$', views.event_bargain.event_bargain_approve_band, name='bargain-approve-band'),
-    url(r'^bargain/(?P<contract_id>\d+)/disapprove/band/(?P<band_slug>[-\w]+)$', views.event_bargain.event_bargain_disapprove_band, name='bargain-disapprove-band'),
+    url(r'^bargain/(?P<contract_id>\d+)/band/(?P<band_slug>[-\w]+)/approve$', views.event_bargain.event_bargain_approve_band, name='bargain-approve-band'),
+    url(r'^bargain/(?P<contract_id>\d+)/band/(?P<band_slug>[-\w]+)/disapprove$', views.event_bargain.event_bargain_disapprove_band, name='bargain-disapprove-band'),
+    url(r'^bargain/(?P<contract_id>\d+)/band/(?P<band_slug>[-\w]+)/update$', views.event_bargain.event_bargain_update_band, name='bargain-update-band'),
 
     # Bargain, venue specific
-    url(r'^bargain/(?P<contract_id>\d+)/approve/venue/(?P<venue_slug>[-\w]+)$', views.event_bargain.event_bargain_approve_venue, name='bargain-approve-venue'),
-    url(r'^bargain/(?P<contract_id>\d+)/disapprove/venue/(?P<venue_slug>[-\w]+)$', views.event_bargain.event_bargain_disapprove_venue, name='bargain-disapprove-venue'),
+    url(r'^bargain/(?P<contract_id>\d+)/venue/(?P<venue_slug>[-\w]+)/approve$', views.event_bargain.event_bargain_approve_venue, name='bargain-approve-venue'),
+    url(r'^bargain/(?P<contract_id>\d+)/venue/(?P<venue_slug>[-\w]+)/disapprove$', views.event_bargain.event_bargain_disapprove_venue, name='bargain-disapprove-venue'),
+    url(r'^bargain/(?P<contract_id>\d+)/venue/(?P<venue_slug>[-\w]+)/update$', views.event_bargain.event_bargain_update_venue, name='bargain-update-venue'),
 
-    url(r'^bargain/(?P<contract_id>\d+)/update$', views.event_bargain.event_bargain_update, name='bargain-update'),
+
     url(r'^bargain/(?P<contract_id>\d+)/detail$', views.event_bargain.event_bargain_detail, name='bargain-detail'),
 )
 

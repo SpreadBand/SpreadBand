@@ -43,7 +43,7 @@
     <li><a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
       [<a href="{% url event:bargain-approve-band contract.id band.slug %}">Approve</a>|
       <a href="{% url event:bargain-disapprove-band contract.id band.slug %}">Disapprove</a>|
-      <a href="{% url event:bargain-update contract.id %}">Edit</a>]</li>
+      <a href="{% url event:bargain-update-band contract.id band.slug %}">Edit</a>]</li>
     {% endfor %}
   </ul>
   ( <a href="{% url event:bargain-new band.slug %}">New bargain</a> )

@@ -1,10 +1,16 @@
-<h5>Date, Lieu</h5>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Date, Lieu</h3>
 Date: {{ contract.terms.gigbargain.date }}. Opens: {{ contract.terms.gigbargain.opens_at }}, Closes: {{ contract.terms.gigbargain.closes_at }}<br>
 
-<h5>Groupes</h5>
+<h4>Groupes</h4>
 
 <ul>
   {% for band in contract.terms.gigbargain.gigbargainband_set.all %}
   <li><a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a> ({{ band.band.genres }}) -- ({{ band.starts_at }} - {{ band.ends_at }})</li>
   {% endfor %}
 </ul>
+
+{% endblock %}

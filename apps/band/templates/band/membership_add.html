@@ -3,7 +3,7 @@
 
 {% block band_content %}
 
-<form method='POST' action='{% url band:membership-add band.slug %}'> 
+<form method='POST' action='{% url band:membership-add band.slug %}'> {% csrf_token %}
 {{ form.as_p }}
 <input type='submit'>
 </form>

@@ -18,7 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'NAME': 'spreadband',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'USER': 'spreadband',
         'PASSWORD': '',
         },
@@ -83,7 +83,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
+
+    # CSRF Attacks
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfResponseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -128,6 +132,7 @@ INSTALLED_APPS = (
     'uni_form',
     'reviews',
     'profiles',
+    'ajax_select',
 
     # Internal
     'backcap',
@@ -170,7 +175,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 ### LOGIN, AUTHENTICATION
 # General
-LOGIN_URL = '/account/reg/classical/login'
+LOGIN_URL = '/user/reg/classical/login'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
@@ -187,3 +192,18 @@ FORCE_LOWERCASE_TAGS = True
 ### REVIEWS
 REVIEWS_SHOW_PREVIEW = True
 REVIEWS_IS_MODERATED = False
+
+
+### AUTOCOMPLETE
+AJAX_LOOKUP_CHANNELS = {
+    # the simplest case, pass a DICT with the model and field to search against :
+    'band' : dict(model='band.Band', search_field='name'),
+    'venue' : dict(model='venue.Venue', search_field='name'),
+    # this generates a simple channel
+    # specifying the model Track in the music app, and searching against the 'title' field
+
+    # or write a custom search channel and specify that using a TUPLE
+    # 'contact' : ('peoplez.lookups', 'ContactLookup'),
+    # this specifies to look for the class `ContactLookup` in the `peoplez.lookups` module
+}
+

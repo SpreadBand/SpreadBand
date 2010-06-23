@@ -1,10 +1,15 @@
-<h5>contract</h5>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Contract</h3>
 {{ contract }}
 
-<h5>terms</h5>
-{{ terms }}
+<h4>terms</h4>
 
-<h5>form</h5>
+{% include subtemplate_name %}
+
+<h4>form</h4>
 
 <form method="POST" action="">
 {{ terms_form.as_p }}
@@ -15,3 +20,5 @@
 
 <input type="submit">
 </form>
+
+{% endblock %}

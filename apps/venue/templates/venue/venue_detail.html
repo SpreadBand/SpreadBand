@@ -22,7 +22,7 @@ Description : {{ venue.description }}
     <li><a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
       [<a href="{% url event:bargain-approve-venue contract.id venue.slug %}">Approve</a>|
       <a href="{% url event:bargain-disapprove-venue contract.id venue.slug %}">Disapprove</a>|
-      <a href="{% url event:bargain-update contract.id %}">Edit</a>]</li>
+      <a href="{% url event:bargain-update-venue contract.id venue.slug %}">Edit</a>]</li>
     {% endfor %}
   </ul>
 <a href="{% url event:bargain-new venue.slug %}">Propose a gig to this venue !</a>

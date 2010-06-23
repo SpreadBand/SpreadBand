@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Contract</h3>
+
+{{ contract }}
+
+<h4>terms</h4>
+
+<form method="POST" action="">
+{{ terms_form.as_p }}
+
+<table>
+{{ terms_formset }}
+</table>
+
+<input type="submit" value="Reply">
+</form>
+
+<form method="POST" action="approve">
+  <input type="submit" value="Approve">
+</form>
+
+<form method="POST" action="reject">
+  <input type="submit" value="Reject (TODO)">
+</form>
+
+
+{% endblock %}

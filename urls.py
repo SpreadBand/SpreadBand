@@ -43,6 +43,9 @@ urlpatterns = patterns('',
     # BigBrother
     (r'^bb/', include('bigbrother.urls')),
 
+    # Ajax select channels
+    (r'^ajax_select/', include('ajax_select.urls')),
+
     # Django admin
     (r'^admin/', include(admin.site.urls)),
 )
