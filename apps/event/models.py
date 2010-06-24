@@ -100,10 +100,10 @@ class GigBargainBand(models.Model):
         return u'%s' % self.band
     
 
-#from schedule.models.calendars import Calendar
-
 ## Signals
-def bargain_concluded_callback(sender, aContract, aUser, **kwargs):
+from bargain.signals import contract_new
+
+def gigbargain_concluded_callback(sender, aContract, aUser, **kwargs):
     """
     Callback when a gig bargain has been concluded
     """
@@ -132,4 +132,20 @@ def bargain_concluded_callback(sender, aContract, aUser, **kwargs):
     gig.venue.calendar.events.add(gig)
 
     
-contract_concluded.connect(bargain_concluded_callback, sender=GigBargain)
+contract_concluded.connect(gigbargain_concluded_callback, sender=GigBargain)
+
+import notification.models as notification
+
+# FIXME: This is suboptimal and people can get notified many times if they are in multiple bands
+def gigbargain_new_callback(sender, aContract, **kwargs):
+    terms = aContract.terms.gigbargain
+
+    # Collect users from bands to send notification to
+    users = []
+    for band in terms.bands.all():
+        for member in band.members.all():
+            users.append(member.user)
+    
+    notification.send(users, 'new_gig_bargain')
+
+contract_new.connect(gigbargain_new_callback, sender=GigBargain)

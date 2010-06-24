@@ -46,6 +46,12 @@ urlpatterns = patterns('',
     # Ajax select channels
     (r'^ajax_select/', include('ajax_select.urls')),
 
+    # Activity stream
+    (r'^activity/', include('actstream.urls')),
+
+    # Notifications
+    (r'^notification/', include('notification.urls')),
+
     # Django admin
     (r'^admin/', include(admin.site.urls)),
 )

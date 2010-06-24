@@ -1,11 +1,14 @@
+from django.contrib.contenttypes.models import ContentType
+from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
+from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.template import RequestContext
 from django.views.generic.create_update import create_object
 from django.views.generic.list_detail import object_list, object_detail
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.contrib.contenttypes.models import ContentType
-from django.template import RequestContext
 
 from ..models import Contract, Party, ContractParty
-from ..signals import contract_concluded, contract_new_init
+
+from ..signals import contract_new as signal_contract_new
+from ..signals import contract_concluded as signal_contract_concluded
 
 def contract_list(request, queryset=Contract.objects.all()):
     return object_list(request,
@@ -30,7 +33,7 @@ def get_or_create_party(aModel, aContract, is_initiator=False):
                                             party=party)
     
 
-from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
+
 
 def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra_context={}, post_create_redirect=None):
     terms_form_class, inline_formset = aTermsClass.getForm()
@@ -66,6 +69,9 @@ def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra
             for i, participant in enumerate(terms.getParticipants()):
                 get_or_create_party(participant, contract, is_initiator=(i==0))
 
+            # Send the "contract new init" callback
+            signal_contract_new.send(sender=aTermsClass, aContract=contract)
+
             # Compute the redirect page
             return redirect(post_create_redirect or 'bargain:contract-detail',
                             contract.id)
@@ -73,19 +79,12 @@ def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra
     terms_form = terms_form_class(request.POST or None, request.FILES or None, initial=initial)
     formset = formset_class(request.POST or None, request.FILES or None, initial=formset_initial)
 
-    # Send the "contract new init" callback
-    # contract_new_init.send(terms_form)
-
     return render_to_response(template_name='bargain/%s_new.html' % aTermsClass.__name__.lower(),
                               dictionary={'form': terms_form,
                                           'formset': formset},
                               context_instance=RequestContext(request,
                                                               extra_context),
                               )
-
-from django.contrib.contenttypes.models import ContentType
-
-from ..signals import contract_concluded
 
 def contract_approve(request, contract_id, aTermClass, participant, post_approve_redirect):
     """

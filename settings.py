@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'django.contrib.humanize',
     'django.contrib.localflavor',
+    'django.contrib.syndication',
 
     # External
     'compressor',
@@ -133,6 +134,8 @@ INSTALLED_APPS = (
     'reviews',
     'profiles',
     'ajax_select',
+    'actstream',
+    'notification',
 
     # Internal
     'backcap',
