@@ -197,13 +197,13 @@ def contract_update(request, contract_id, aTermClass, participant, post_update_r
                               )
                               
 
-def contract_detail(request, contract_id, aTermClass):
+def contract_detail(request, contract_id, aTermClass, extra_context={}):
     contract = get_object_or_404(Contract, id=contract_id)
 
     contract_parties = ContractParty.objects.filter(contract=contract)
 
-    extra_context={'contract': contract,
-                   'contract_parties': contract_parties}
+    extra_context.update({'contract': contract,
+                          'contract_parties': contract_parties})
 
     return render_to_response(template_name='bargain/%s_detail.html' % aTermClass.__name__.lower(),
                               context_instance=RequestContext(request,

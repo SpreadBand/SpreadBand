@@ -91,6 +91,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    'reversion.middleware.RevisionMiddleware',
+
+
+    # Request (stats)
+    'request.middleware.RequestMiddleware',
     #'openid_consumer.middleware.OpenIDMiddleware',
 )
 
@@ -136,6 +142,7 @@ INSTALLED_APPS = (
     'ajax_select',
     'actstream',
     'notification',
+    'request',
 
     # Internal
     'backcap',

@@ -71,30 +71,55 @@ def event_bargain_disapprove_venue(request, venue_slug, contract_id):
                                post_disapprove_redirect='event:bargain-detail'
                                )
 
+def event_bargain_update(request, participant, contract_id):
+    response = contract_update(request,
+                               contract_id=contract_id,
+                               aTermClass=GigBargain,
+                               participant=participant,
+                               post_update_redirect='event:bargain-detail')
+
+    return response
+
 
 def event_bargain_update_venue(request, venue_slug, contract_id):
     venue = get_object_or_404(Venue, slug=venue_slug)
 
-    return contract_update(request,
-                           contract_id=contract_id,
-                           aTermClass=GigBargain,
-                           participant=venue,
-                           post_update_redirect='event:bargain-detail')
+    return event_bargain_update(request, venue, contract_id)
 
 def event_bargain_update_band(request, band_slug, contract_id):
     band = get_object_or_404(Band, slug=band_slug)
 
-    return contract_update(request,
-                           contract_id=contract_id,
-                           aTermClass=GigBargain,
-                           participant=band,
-                           post_update_redirect='event:bargain-detail')
+    return event_bargain_update(request, band, contract_id)
 
-                         
+
+from reversion.models import Version
+from bargain.models import Contract
+
+from utils.differs import DictDiffer
 
 def event_bargain_detail(request, contract_id):
+    contract = get_object_or_404(Contract, pk=contract_id)
+
+
+    # Compute changes between two latest revisions
+    # XXX: Can be optimized, cached, ...
+    available_versions = Version.objects.get_for_object_reference(GigBargain, contract.terms.id)
+    
+    changes = {}
+    max = len(available_versions)
+    if max >= 2:
+        old_version = available_versions[max-2]
+        new_version = available_versions[max-1]
+    
+        d = DictDiffer(old_version.field_dict,
+                       new_version.field_dict)
+
+        for change in d.changed():
+            changes[change] = (old_version.field_dict[change], new_version.field_dict[change])
+
     return contract_detail(request,
                            aTermClass=GigBargain,
-                           contract_id=contract_id)
+                           contract_id=contract_id,
+                           extra_context={'changes' : changes})
 
 

@@ -13,4 +13,12 @@ Date: {{ contract.terms.gigbargain.date }}. Opens: {{ contract.terms.gigbargain.
   {% endfor %}
 </ul>
 
+<h3>Recent changes</h3>
+
+{% for field, value in changes.items %}
+  {{ field }} - {% for v in value %} {{ v }} {% endfor %}
+{% empty %}
+Nothing was changed
+{% endfor %}
+
 {% endblock %}
