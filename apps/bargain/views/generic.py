@@ -9,6 +9,9 @@ from ..models import Contract, Party, ContractParty
 
 from ..signals import contract_new as signal_contract_new
 from ..signals import contract_concluded as signal_contract_concluded
+from ..signals import contract_approved as signal_contract_approved
+from ..signals import contract_disapproved as signal_contract_disapproved
+from ..signals import contract_amended as signal_contract_amended
 
 def contract_list(request, queryset=Contract.objects.all()):
     return object_list(request,
@@ -108,9 +111,12 @@ def contract_approve(request, contract_id, aTermClass, participant, post_approve
         contractparty.approved = True
         contractparty.save()
 
+        # Send signal
+        signal_contract_approved.send(sender=aTermClass, aContract=contract, aParticipant=participant)
+
         # Check if this contract is concluded. If so, trigger the signal
         if contract.is_concluded:
-            contract_concluded.send(sender=aTermClass, aContract=contract, aUser=request.user)
+            signal_contract_concluded.send(sender=aTermClass, aContract=contract, aUser=request.user)
 
     return redirect(post_approve_redirect, contract.id)
 
@@ -137,13 +143,16 @@ def contract_disapprove(request, contract_id, aTermClass, participant, post_disa
         contractparty.approved = False
         contractparty.save()
 
+        # Send signal
+        signal_contract_disapproved.send(sender=aTermClass, aContract=contract, aParticipant=participant)
+
     return redirect(post_disapprove_redirect, contract.id)
 
 
 
 def contract_update(request, contract_id, aTermClass, participant, post_update_redirect):
     """
-    Updating a contract means altering its terms. When one party
+    Updating a contract means amending its terms. When one party
     performs this action, all other parties gets their approval
     resetted to false.
     """
@@ -183,6 +192,9 @@ def contract_update(request, contract_id, aTermClass, participant, post_update_r
             # Save the terms
             terms = terms_form.save()
             terms_formset.save()
+
+            # Send signal
+            signal_contract_amended.send(sender=aTermClass, aContract=contract, aParticipant=participant)
 
             return redirect(post_update_redirect, (contract.id))
     else:

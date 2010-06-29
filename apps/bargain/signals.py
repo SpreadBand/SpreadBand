@@ -1,10 +1,15 @@
 import django.dispatch
 
-contract_concluded = django.dispatch.Signal(providing_args=["aContract", "aUser"])
-
-
 # When a contract is created
 contract_new = django.dispatch.Signal(providing_args=["aContract"])
 
-# Unused for now, should be removed
-contract_needs_participants = django.dispatch.Signal(providing_args=["aContract"])
+# When someone updates a contract
+contract_amended = django.dispatch.Signal(providing_args=["aContract", "aParticipant"])
+
+# When someone (dis)approve a contract
+contract_approved = django.dispatch.Signal(providing_args=["aContract", "aParticipant"])
+contract_disapproved = django.dispatch.Signal(providing_args=["aContract", "aParticipant"])
+
+# When a contract is concluded
+contract_concluded = django.dispatch.Signal(providing_args=["aContract", "aUser"])
+

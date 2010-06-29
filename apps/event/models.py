@@ -101,7 +101,7 @@ class GigBargainBand(models.Model):
     
 
 ## Signals
-from bargain.signals import contract_new
+from bargain.signals import contract_new, contract_approved, contract_disapproved, contract_amended
 
 def gigbargain_concluded_callback(sender, aContract, aUser, **kwargs):
     """
@@ -136,8 +136,7 @@ contract_concluded.connect(gigbargain_concluded_callback, sender=GigBargain)
 
 import notification.models as notification
 
-# FIXME: This is suboptimal and people can get notified many times if they are in multiple bands
-def gigbargain_new_callback(sender, aContract, **kwargs):
+def collect_users_from_contract(aContract):
     terms = aContract.terms.gigbargain
 
     # Collect users from bands to send notification to
@@ -145,7 +144,31 @@ def gigbargain_new_callback(sender, aContract, **kwargs):
     for band in terms.bands.all():
         for member in band.members.all():
             users.append(member.user)
+
+    return users
     
-    notification.send(users, 'new_gig_bargain')
+
+# FIXME: This is suboptimal and people can get notified many times if they are in multiple bands
+def gigbargain_new_callback(sender, aContract, **kwargs):
+    users = collect_users_from_contract(aContract)
+    notification.send(users, 'gigbargain_new')
 
 contract_new.connect(gigbargain_new_callback, sender=GigBargain)
+
+def gigbargain_approved_callback(sender, aContract, aParticipant,  **kwargs):
+    users = collect_users_from_contract(aContract)
+    notification.send(users, 'gigbargain_approved')
+
+contract_approved.connect(gigbargain_approved_callback, sender=GigBargain)
+
+def gigbargain_disapproved_callback(sender, aContract, aParticipant,  **kwargs):
+    users = collect_users_from_contract(aContract)
+    notification.send(users, 'gigbargain_disapproved')
+
+contract_disapproved.connect(gigbargain_disapproved_callback, sender=GigBargain)
+
+def gigbargain_amended_callback(sender, aContract, aParticipant,  **kwargs):
+    users = collect_users_from_contract(aContract)
+    notification.send(users, 'gigbargain_amended')
+
+contract_amended.connect(gigbargain_amended_callback, sender=GigBargain)
