@@ -98,6 +98,10 @@ def contract_approve(request, contract_id, aTermClass, participant, post_approve
     contract = get_object_or_404(Contract,
                                  pk=contract_id)
 
+    # If a contract is concluded, we can't approve it anymore
+    if contract.is_concluded:
+        return redirect('bargain:contract-closed', contract.id)
+
     party = get_object_or_404(Party,
                               content_type__pk=participant_type.id,
                               object_id=participant.id)
@@ -122,12 +126,16 @@ def contract_approve(request, contract_id, aTermClass, participant, post_approve
 
 def contract_disapprove(request, contract_id, aTermClass, participant, post_disapprove_redirect):
     """
-    Disapproving a contract means a party disaagrees to the current terms.
+    Disapproving a contract means a party disagrees on the current terms.
     """
     participant_type = ContentType.objects.get_for_model(participant)
 
     contract = get_object_or_404(Contract,
                                  pk=contract_id)
+
+    # If a contract is concluded, we can't disapprove it anymore
+    if contract.is_concluded:
+        return redirect('bargain:contract-closed', contract.id)
 
     party = get_object_or_404(Party,
                               content_type__pk=participant_type.id,
@@ -158,6 +166,11 @@ def contract_update(request, contract_id, aTermClass, participant, post_update_r
     """
     # Look up needed objects
     contract = get_object_or_404(Contract, pk=contract_id)
+
+    # If a contract is concluded, we can't edit it anymore
+    if contract.is_concluded:
+        return redirect('bargain:contract-closed', contract.id)
+
     terms = get_object_or_404(aTermClass, contract=contract)
 
     participant_type = ContentType.objects.get_for_model(participant)
@@ -220,4 +233,18 @@ def contract_detail(request, contract_id, aTermClass, extra_context={}):
     return render_to_response(template_name='bargain/%s_detail.html' % aTermClass.__name__.lower(),
                               context_instance=RequestContext(request,
                                                               extra_context),
+                              )
+
+def contract_closed(request, contract_id):
+    """
+    View to send an error to the user when a contract is closed
+    """
+    
+    contract = get_object_or_404(Contract, id=contract_id)
+
+    extra_context = {'contract': contract}
+
+    return render_to_response(template_name='bargain/contract_closed.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
                               )
