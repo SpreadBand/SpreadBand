@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> &raquo; Calendar</h4>
+
+[ <a href="{% url event:venue-calendar-ics venue.slug %}">Download as ics</a> ]
+
+{% include 'event/abstract_timeline.html' %}
+
+{% endblock %}

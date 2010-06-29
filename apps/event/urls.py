@@ -13,8 +13,14 @@ urlpatterns += patterns('',
     url(r'^gig/new/(?P<band_slug>[-\w]+)/$', views.calendar.gig_create, name='gig-new'),
     url(r'^gig/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/$', views.calendar.gig_detail, name='gig-detail'),
 
-    url(r'^calendar/band/(?P<band_slug>[-\w]+)/$', views.calendar.band_calendar_detail, name='band-calendar'),
-    url(r'^calendar/venue/(?P<venue_slug>[-\w]+)/$', views.calendar.venue_calendar_detail, name='venue-calendar'),
+    # Band calendar 
+    url(r'^calendar/band/(?P<band_slug>[-\w]+).ics$', views.calendar.band_calendar_ics, name='band-calendar-ics'),
+    url(r'^calendar/band/(?P<band_slug>[-\w]+)$', views.calendar.band_calendar_detail, name='band-calendar'),
+
+    # Venue calendar
+    url(r'^calendar/venue/(?P<venue_slug>[-\w]+).ics$', views.calendar.venue_calendar_ics, name='venue-calendar-ics'),
+    url(r'^calendar/venue/(?P<venue_slug>[-\w]+)$', views.calendar.venue_calendar_detail, name='venue-calendar'),
+
 
     # Bargain
     url(r'^bargain/new/(?P<venue_slug>[-\w]+)/$', views.event_bargain.event_bargain_new, name='bargain-new'),

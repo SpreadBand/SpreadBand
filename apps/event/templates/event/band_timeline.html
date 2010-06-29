@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; Calendar</h4>
+
+[ <a href="{% url event:band-calendar-ics band.slug %}">Download as ics</a> ]
+
+{% include 'event/abstract_timeline.html' %}
+
+{% endblock %}

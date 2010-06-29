@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 
 import agenda.views
+from agenda.views.vobject_django import icalendar
 
 from band.models import Band
 from venue.models import Venue
@@ -67,7 +68,34 @@ def band_calendar_detail(request, band_slug):
     return timeline(request,
                     model=Gig,
                     calendar=band.calendar,
-                    template_name='event/calendar_by_period.html')
+                    template_name='event/band_timeline.html',
+                    extra_context={'band': band},
+                    )
+
+def band_calendar_ics(request, band_slug):
+    band = get_object_or_404(Band, slug=band_slug)
+
+    return icalendar(request,
+                     queryset=band.calendar.events.all(),
+                     date_field='event_date',
+                     ical_filename='%s.ics' % band.slug,
+                     last_modified_field='mod_field',
+                     location_field='location',
+                     start_time_field='start_time',
+                     end_time_field='end_time')
+
+def venue_calendar_ics(request, venue_slug):
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    return icalendar(request,
+                     queryset=venue.calendar.events.all(),
+                     date_field='event_date',
+                     ical_filename='%s.ics' % venue.slug,
+                     last_modified_field='mod_field',
+                     location_field='location',
+                     start_time_field='start_time',
+                     end_time_field='end_time')
+
 
 def venue_calendar_detail(request, venue_slug):
     """
@@ -78,7 +106,8 @@ def venue_calendar_detail(request, venue_slug):
     return timeline(request,
                     model=Gig,
                     calendar=venue.calendar,
-                    template_name="event/calendar_by_period.html",
+                    template_name="event/venue_timeline.html",
+                    extra_context={'venue': venue},
                     )
 
     
