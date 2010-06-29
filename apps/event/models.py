@@ -67,7 +67,8 @@ class GigBargain(Terms):
         return parties
 
     def __unicode__(self):
-        return u'Gig bargain at [%s]' % (self.venue)
+        return u'Gig bargain at [%s] with [%s]' % (self.venue,
+                                                   [b.name for b in self.bands.all()])
 
     @models.permalink
     def get_absolute_url(self):
