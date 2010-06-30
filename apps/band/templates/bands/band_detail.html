@@ -23,7 +23,7 @@
       ({{ member.user.username }}) as {{ member.roles.all|join:', ' }}</li>
     {% endfor %}
 
-    ( <a href="{% url band:membership-request band.slug %}">Join band</a> )<br>
+    <strike>( <a href="{% url band:membership-request band.slug %}">Join band</a> )<br></strike>
     ( <a href="{% url band:membership-manage band.slug %}">Manage members</a> )<br>
     ( <a href="{% url band:membership-add band.slug %}">Invite Member</a> )
   </ul>
@@ -41,9 +41,15 @@
   <ul>
     {% for contract in contracts %}
     <li><a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
+      
+      {% if not contract.is_concluded %}
       [<a href="{% url event:bargain-approve-band contract.id band.slug %}">Approve</a>|
       <a href="{% url event:bargain-disapprove-band contract.id band.slug %}">Disapprove</a>|
-      <a href="{% url event:bargain-update-band contract.id band.slug %}">Edit</a>]</li>
+      <a href="{% url event:bargain-update-band contract.id band.slug %}">Edit</a>]
+      {% else %}
+      (concluded)
+      {% endif %}
+    </li>
     {% endfor %}
   </ul>
   ( <a href="{% url event:bargain-new band.slug %}">New bargain</a> )

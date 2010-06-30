@@ -5,6 +5,10 @@
 <h3>Date, Lieu</h3>
 Date: {{ contract.terms.gigbargain.date }}. Opens: {{ contract.terms.gigbargain.opens_at }}, Closes: {{ contract.terms.gigbargain.closes_at }}<br>
 
+{% with contract.terms.gigbargain.venue as venue %}
+Venue : <a href="{{ venue.get_absolute_url }}">{{ venue }}</a>
+{% endwith %}
+
 <h4>Groupes</h4>
 
 <ul>
@@ -20,5 +24,6 @@ Date: {{ contract.terms.gigbargain.date }}. Opens: {{ contract.terms.gigbargain.
 {% empty %}
 Nothing was changed
 {% endfor %}
+
 
 {% endblock %}
