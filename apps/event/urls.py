@@ -13,6 +13,9 @@ urlpatterns += patterns('',
     url(r'^gig/new/(?P<band_slug>[-\w]+)/$', views.calendar.gig_create, name='gig-new'),
     url(r'^gig/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/$', views.calendar.gig_detail, name='gig-detail'),
 
+    url(r'^gig/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/cancel$', views.calendar.gig_cancel, name='gig-cancel'),
+    url(r'^gig/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/uncancel$', views.calendar.gig_uncancel, name='gig-uncancel'),
+
     # Band calendar 
     url(r'^calendar/band/(?P<band_slug>[-\w]+).ics$', views.calendar.band_calendar_ics, name='band-calendar-ics'),
     url(r'^calendar/band/(?P<band_slug>[-\w]+)$', views.calendar.band_calendar_detail, name='band-calendar'),

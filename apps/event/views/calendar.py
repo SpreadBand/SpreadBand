@@ -52,6 +52,31 @@ def gig_create(request, band_slug):
                               dictionary={'gigform': gigform},
                               context_instance=RequestContext(request)
                               )
+
+from datetime import date
+
+def gig_cancel(request, year, month, day, slug):
+    gig_date = date(int(year), int(month), int(day))
+    gig = get_object_or_404(Gig, event_date=gig_date, slug=slug)
+
+    # Set to canceled
+    gig.state = 'C'
+    
+    gig.save()
+
+    return redirect(gig)
+
+def gig_uncancel(request, year, month, day, slug):
+    gig_date = date(int(year), int(month), int(day))
+    gig = get_object_or_404(Gig, event_date=gig_date, slug=slug)
+
+    # Set to canceled
+    gig.state = 'V'
+    
+    gig.save()
+
+    return redirect(gig)
+
             
 
 from agenda.models import Calendar
