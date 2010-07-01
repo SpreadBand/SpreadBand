@@ -30,23 +30,29 @@ class Contract(models.Model):
     """
     parties = ManyToManyField(Party, through='ContractParty', related_name='contracts')
 
+    #-- is_concluded property
     @property
     def is_concluded(self):
         """
         Check if all parties approves this contract
         """
-        ccl = True
-        for contract_party in ContractParty.objects.filter(contract__id=self.id):
-            ccl = ccl and contract_party.approved
+        parties = ContractParty.objects.filter(contract__id=self.id)
 
-        return ccl
+        concluded = False
+        if len(parties):
+            concluded = True
+            for contract_party in parties:
+                concluded = concluded and contract_party.approved
+
+        return concluded
 
     @is_concluded.setter
-    def _set_is_concluded(self, aBoolean):
+    def is_concluded(self, aBoolean):
         """
         Set state of all parties about conclusion
         """
         ContractParty.objects.filter(contract=self).update(approved=aBoolean)
+    #--#
 
     @models.permalink
     def get_absolute_url(self):
