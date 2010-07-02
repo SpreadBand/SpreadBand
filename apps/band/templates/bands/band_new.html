@@ -21,7 +21,7 @@
 </div>
 
 <div class="alpha grid_10">
-  <form action="new" method="POST" class="uniForm">{% csrf_token %}
+  <form method="POST" class="uniForm">{% csrf_token %}
     {{ form|as_uni_form }}
     <input type="submit" value="{% trans "Submit" %}" />
   </form>

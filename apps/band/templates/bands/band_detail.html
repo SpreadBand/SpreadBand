@@ -6,6 +6,14 @@
 
 ( <a href="{% url band:edit band.slug %}">edit</a> )
 
+{% if not band.owned %}
+<p>
+  <a href="{% url band:own band.slug%}">This is my band !</a>
+</p>
+{% else %}
+This band is owned.
+{% endif %}
+
 <p>{{ band.biography }}</p>
 
 <h5>Pictures</h5>

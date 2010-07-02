@@ -9,10 +9,11 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',                       
-    url(r'^new$', views.new, name='create'),
+    url(r'^new$', views.new_or_own, name='create'),
 
     url(r'^list$', views.list, name='list'),
 
+    url(r'^(?P<band_slug>[-\w]+)/own$', views.new_or_own, name='own'),
     url(r'^(?P<band_slug>[-\w]+)/edit$', views.edit, name='edit'),
 
     # pictures

@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django.db.models import DateTimeField, OneToOneField
+from django.db.models import DateTimeField, BooleanField, OneToOneField
 
 
 from agenda.models import Calendar
@@ -20,6 +20,10 @@ class Actor(models.Model):
     last_activity = DateTimeField(auto_now=True,
                                   help_text=_('The last time something happened')
                                   )
+
+    owned = BooleanField(default=False,
+                         help_text=_('Wether this actor is owned by at least one user')
+                         )
 
     calendar = OneToOneField(Calendar, null=True, blank=True)
 
