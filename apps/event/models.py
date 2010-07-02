@@ -84,7 +84,7 @@ class GigBargainBand(models.Model):
     starts_at = TimeField()
     ends_at = TimeField()
 
-    eq_starts_at = TimeField()
+    eq_starts_at = TimeField(blank=True, null=True)
     
     REMUNERATION_CHOICES = (
         ('NONE', 'No remuneration'),
