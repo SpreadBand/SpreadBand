@@ -78,6 +78,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.csrf',
     'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,6 +90,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfResponseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'django.contrib.messages.middleware.MessageMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
@@ -121,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.localflavor',
     'django.contrib.syndication',
+    'django.contrib.messages',
 
     # External
     'compressor',
@@ -128,7 +132,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'registration',
-    'authority',
+    'guardian',
     'tagging',
     'reversion',
     'imagekit',
@@ -191,6 +195,7 @@ LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = (
     'utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
     'socialregistration.auth.OpenIDAuth',
+    'guardian.backends.ObjectPermissionBackend',
     )
 
 ### PROFILES
@@ -217,3 +222,5 @@ AJAX_LOOKUP_CHANNELS = {
     # this specifies to look for the class `ContactLookup` in the `peoplez.lookups` module
 }
 
+### GUARDIAN
+ANONYMOUS_USER_ID = -1

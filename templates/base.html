@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/base.css" />
 
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/ui.notify.css" />
+
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/uni_form/uni-form.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/uni_form/dark.uni-form.css" />
 
@@ -21,7 +23,8 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.jeditable.js"></script>
-    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.openid.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.openid.js"></script>    
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.notify.js"></script>
 
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.uni-form.js"></script>
 
@@ -65,6 +68,38 @@
 	  </div>
 	  <div class="grid_16 alpha omega">
 	    <div id="content-data">
+	      {% if messages %}
+	      <div id="message-container" style="display:none">
+		<div id="withIcon">
+			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+			<div style="float:left;margin:0 10px 0 0"><img src="#{icon}" alt="warning" /></div>
+			<p>#{text}</p>
+		</div>
+		
+
+		<div id="basic-template">
+		  <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+		  <p>#{text}</p>
+		</div>
+
+		<script type="text/javascript">
+		  $(document).ready(function() { $('#message-container').notify(); } );
+		</script>
+
+		{% for message in messages %}
+		  <script type="text/javascript">
+		    $(document).ready(function() {
+		     $('#message-container').notify('create', 'withIcon',
+		        { text: '{{ message }}',
+		          icon: '{{ MEDIA_URL }}/images/face-monkey.png',
+		          }
+              	    );
+                   });
+		  </script>
+		  
+		  {% endfor %}
+	      </div>
+	      {% endif %}
 	      {% block content %}
 	      {% endblock %}
 	    </div>
