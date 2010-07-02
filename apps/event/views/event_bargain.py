@@ -12,10 +12,25 @@ def event_bargain_new(request, venue_slug):
     initial = {'venue': venue.id}
     formset_initial = []
 
+    # Alter form-TOTAL_FORMS to allow multiple bands
+    if request.method == 'POST':
+        if request.POST.has_key('add_band'):
+            band_count = int(request.POST['form-TOTAL_FORMS']) + 1
+        else:
+            band_count = request.POST.get('form-TOTAL_FORMS', 1)
+
+        d = request.POST.copy()
+        d['form-TOTAL_FORMS'] = band_count
+        request.POST = d
+    else:
+        band_count = 1
+
+
     return contract_new(request,
                         aTermsClass=GigBargain,
                         initial=initial,
                         formset_initial=formset_initial,
+                        extra_inline=band_count,
                         post_create_redirect='event:bargain-detail'
                         )
 

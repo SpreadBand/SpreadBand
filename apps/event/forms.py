@@ -30,5 +30,5 @@ class GigBargainBandForm(forms.ModelForm):
         model = GigBargainBand
         exclude = ('bargain',)
 
-    band = AutoCompleteSelectField('band', required=True)
+    # band = AutoCompleteSelectField('band', required=True)
     

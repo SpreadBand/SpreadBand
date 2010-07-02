@@ -38,13 +38,16 @@ def get_or_create_party(aModel, aContract, is_initiator=False):
 
 
 
-def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra_context={}, post_create_redirect=None):
-    terms_form_class, inline_formset = aTermsClass.getForm()
+def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra_context={}, extra_inline=1, post_create_redirect=None):
+    terms_form_class, inline_formset = aTermsClass.getForm(extra_inline=extra_inline)
     formset_fk = inline_formset[0]
     formset_class = inline_formset[1]
 
     if request.method == 'POST':
         terms_form = terms_form_class(request.POST, request.FILES)
+
+        # d = request.POST.copy()
+        # d['form-TOTAL_FORMS'] = int(extra_inline) + 1
         formset = formset_class(request.POST, request.FILES)
 
         if terms_form.is_valid() and formset.is_valid():
@@ -79,8 +82,9 @@ def contract_new(request, aTermsClass, initial=None, formset_initial=None, extra
             return redirect(post_create_redirect or 'bargain:contract-detail',
                             contract.id)
 
-    terms_form = terms_form_class(request.POST or None, request.FILES or None, initial=initial)
-    formset = formset_class(request.POST or None, request.FILES or None, initial=formset_initial)
+    else:
+        terms_form = terms_form_class(request.POST or None, request.FILES or None, initial=initial)
+        formset = formset_class(request.POST or None, request.FILES or None, initial=formset_initial)
 
     return render_to_response(template_name='bargain/%s_new.html' % aTermsClass.__name__.lower(),
                               dictionary={'form': terms_form,

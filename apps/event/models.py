@@ -54,11 +54,11 @@ class GigBargain(Terms):
     fee_amount = PositiveSmallIntegerField(null=True, blank=True)
     
     @staticmethod
-    def getForm():
+    def getForm(extra_inline=0):
         from django.forms.models import formset_factory
         from .forms import GigBargainForm, GigBargainBandForm
         
-        GigBargainBandFormSet = formset_factory(GigBargainBandForm)
+        GigBargainBandFormSet = formset_factory(GigBargainBandForm, extra=extra_inline)
 
         return GigBargainForm, ['bargain', GigBargainBandFormSet]
 

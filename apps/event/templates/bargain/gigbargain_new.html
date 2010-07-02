@@ -8,6 +8,18 @@
 
 {% block javascript %}
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.formset.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#band_formset div").formset({
+        prefix: '{{ formset.prefix }}',
+      });
+    })
+</script>
+
+
 {{ form.media.js }}
 {% endblock %}
 
@@ -22,19 +34,26 @@
 
 <div class="alpha grid_10">
 
-  <form method="POST" class="uniForm">
+  <form id="gigbargain_form" method="POST" class="uniForm">
 
     <h2>When and Where ?</h2>
-    {{ form|as_uni_form }}
+    {{ form.as_p }}
 
     <h2>Bands</h2>
+    <div id="band_formset">
+    {% for form in formset.forms %}
+    <div>
+      <h3>{{ forloop.counter|ordinal|safe }} band</h3>
+      {{ form.as_p }}
+    </div>
+    {% endfor %}
+    </div>
+
+    <noscript>
+      <input type="submit" name="add_band" value="Add band">
+    </noscript>
 
     {{ formset.management_form }}
-    {% for form in formset.forms %}
-    <h3>{{ forloop.counter|ordinal }} band</h3>
-    {{ form|as_uni_form }}
-    {% endfor %}
-
     <input type="submit">
   </form>
 </div>
