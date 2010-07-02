@@ -2,7 +2,7 @@ Django==1.2.1
 mutagen==1.19
 # gdal==1.7.1
 south==0.7.1
-django-authority==0.4.0
+django-guardian==0.1.0
 django-tagging==0.3.1
 django-imagekit==0.3.3
 django-voting==0.1
