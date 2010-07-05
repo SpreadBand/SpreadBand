@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'actstream',
     'notification',
     'request',
+    'threadedcomments',
 
     # Internal
     'backcap',

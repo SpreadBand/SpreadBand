@@ -17,6 +17,7 @@ django-request==0.23
 vobject==0.8.1c
 python-dateutil==1.5
 
+-e git+http://github.com/ericflo/django-threadedcomments.git@ded46fc5bfd9a9d37a15351aeafec58df4ae9301#egg=django-threadedcomments
 -e hg+http://bitbucket.org/ubernostrum/django-registration#egg=django-registration
 -e git+http://github.com/mintchaos/django_compressor.git#egg=django-compressor
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
