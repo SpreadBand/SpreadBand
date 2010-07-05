@@ -6,6 +6,8 @@
 
 <h1>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></h1>
 
+( <a href="{% url venue:edit venue.slug %}">edit</a> )
+
 Ambiance: {{ venue.ambiance }}
 <br>
 Description : {{ venue.description }}

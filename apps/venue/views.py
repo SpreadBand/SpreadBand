@@ -1,17 +1,16 @@
-from django.views.generic.create_update import create_object
+from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-
-from authority.decorators import permission_required_or_403
 
 from bargain.models import Party, Contract
 
 from .models import Venue
-from .forms import VenueForm
+from .forms import VenueForm, VenueUpdateForm
 
 
-@permission_required_or_403('venue_permission.add_venue')
+@login_required
 def new(request):
     """
     register a new venue
@@ -54,5 +53,20 @@ def list(request):
                        template_name='venue/venue_list.html',
                        template_object_name='venue',
                        )
+
+
+@login_required
+def edit(request, venue_slug):
+    """
+    Edit a venue
+    """
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    return update_object(request,
+                         form_class=VenueUpdateForm,
+                         slug=venue_slug,
+                         template_name='venue/venue_update.html',
+                         extra_context={'venue': venue},
+                         )
 
 

@@ -8,4 +8,7 @@ class VenueForm(forms.ModelForm):
         exclude = ('calendar', 'photos')
 
 
-
+class VenueUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Venue
+        fields = ('name', 'slug', 'ambiance', 'description')

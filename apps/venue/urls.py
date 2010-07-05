@@ -11,6 +11,7 @@ urlpatterns += patterns('',
     url(r'^new$', views.new, name='create'),
     url(r'^list$', views.list, name='list'),
     url(r'^(?P<venue_slug>[-\w]+)$', views.detail, name='detail'),
+    url(r'^(?P<venue_slug>[-\w]+)/edit$', views.edit, name='edit'),
 )
 
 
