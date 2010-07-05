@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponse
 from django.template.context import RequestContext
 
+from notification.models import Notice
+
 from profiles.views import edit_profile, profile_detail
 
 from .forms import UserProfileForm, UserForm
@@ -20,4 +22,15 @@ def edit(request, username):
 @login_required
 def detail(request, username):
     return profile_detail(request, username)
+
+@login_required
+def dashboard(request):
+    notices = Notice.objects.notices_for(request.user, on_site=True)
+
+    context = {'notices': notices}
+
+    return render_to_response(template_name='account/user_dashboard.html',
+                              context_instance=RequestContext(request,
+                                                              context)
+                              )
 

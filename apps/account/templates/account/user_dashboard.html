@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Welcome, 
+{% if user.firstname %}
+  {{ user.firstname }}
+{% else %}
+  {{ user.username }}
+{% endif %}
+</h2>
+
+( <a href="{% url account:edit user %}">Edit your information</a> )
+
+<h3>Your bands</h3>
+
+<ul>
+  {% for membership in user.band_memberships.all %}
+  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
+  {% endfor %}
+</ul>
+
+<h3>Your notifications</h3>
+
+<ul>
+  {% for notice in notices %}
+  <li>{{ notice }}</li>
+  {% empty %}
+  <li>No notification</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
