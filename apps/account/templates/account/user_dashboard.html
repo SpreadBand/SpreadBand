@@ -22,6 +22,8 @@
 
 <h3>Your notifications</h3>
 
+( <a href="{% url notification_notice_settings %}">Settings</a> )
+
 <ul>
   {% for notice in notices %}
   <li>{{ notice }}</li>

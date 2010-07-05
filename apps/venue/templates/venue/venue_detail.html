@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{# {% load scheduletags %} #}
-
 {% block content %}
 
 <h1>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></h1>
@@ -16,6 +14,8 @@ Description : {{ venue.description }}
 <h4>Calendar</h4>
 
 <a href="{% url event:venue-calendar venue.slug %}">View calendar</a>
+
+{% load agenda %}
 
 <h4>Bargains</h4>
 <p>
