@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+Types :
+{% for type in notice_types %}
+{{ type }},
+{% endfor %}
+
+<br>
+<br>
+
+<form method="POST">
+<table>
+  <tr>
+    <td>
+      Type
+    </td>
+    {% for header in notice_settings.column_headers %}
+    <td>
+    {{ header }}
+    </td>
+    {% endfor %}
+  </tr>
+  {% for row in notice_settings.rows %}
+  <tr>
+    <td>
+      {{ row.notice_type }}
+    </td>
+    {% for cell in row.cells %}
+    <td>
+      <input type="checkbox"
+      {% for x in cell %}
+      {% if forloop.first %}
+	     label="{{ x }}"
+      {% endif %}
+      {% if forloop.last %}
+	     checked="{{ x }}">
+      {% endif %}
+      {% endfor %}
+    </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
+
+<input type="submit">
+</form>
+
+
+{% endblock %}
+
+
+
+
+
