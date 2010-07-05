@@ -36,6 +36,8 @@ def membership_request(request, band_slug):
 from ..forms import BandMemberAddForm
 from django.contrib.auth.models import User
 
+from guardian.shortcuts import assign
+
 def membership_add(request, band_slug):
     """
     Add a member in the band
@@ -53,6 +55,9 @@ def membership_add(request, band_slug):
             # Save to DB
             bandmember.save()
             addform.save_m2m()
+
+            # Assign rights to the user
+            assign('band.change_band', request.user, band)
 
             return redirect(bandmember)
 
