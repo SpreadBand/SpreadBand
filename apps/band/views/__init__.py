@@ -4,15 +4,13 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
-from authority.decorators import permission_required_or_403
+from django.http import HttpResponseForbidden
 
 from django.contrib.auth.decorators import login_required
 
 from ..models import Band
 from ..forms import BandCreateForm, BandUpdateForm, BandMemberRequestForm
 
-
-#@permission_required_or_403('band_permission.add_band')
 @login_required
 def new_or_own(request, band_slug=None):
     """
@@ -51,11 +49,17 @@ def new_or_own(request, band_slug=None):
                              template_name='bands/band_new.html',
                              )
 
+@login_required
 def edit(request, band_slug):
     """
     edit a band
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Check if we're allowed to edit this band
+    if not request.user.has_perm('band.change_band', band):
+        return HttpResponseForbidden('You are not allowed to edit this band')
+
     return update_object(request,
                          form_class=BandUpdateForm,
                          slug=band_slug,
