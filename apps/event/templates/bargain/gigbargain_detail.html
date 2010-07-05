@@ -25,5 +25,21 @@ Venue : <a href="{{ venue.get_absolute_url }}">{{ venue }}</a>
 Nothing was changed
 {% endfor %}
 
+<h3>Comments</h3>
+
+{% load threadedcomments_tags %}
+
+{% get_comment_list for contract as comments %}
+
+<ul>
+{% for comment in comments|fill_tree|annotate_tree %}
+
+<li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name }}</a> said : {{ comment.comment }}</li>
+
+{% endfor %}
+</ul>
+
+{% render_comment_form for contract %}
+
 
 {% endblock %}
