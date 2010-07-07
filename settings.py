@@ -185,6 +185,11 @@ DEBUG_TOOLBAR_CONFIG = {
     }
 
 
+### Mailer
+# Write emails to console if in development mode
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ### Registration
 ACCOUNT_ACTIVATION_DAYS = 7
 
