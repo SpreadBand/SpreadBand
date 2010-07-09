@@ -1,0 +1,15 @@
+{% load threadedcomments_tags %}
+
+{% get_comment_list for comment_thread as comments %}
+
+<ul>
+{% for comment in comments|fill_tree|annotate_tree %}
+
+<li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name }}</a> said : {{ comment.comment }}</li>
+
+{% empty %}
+There is no comment yet.
+{% endfor %}
+</ul>
+
+{% render_comment_form for comment_thread %}

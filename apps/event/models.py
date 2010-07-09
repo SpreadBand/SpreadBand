@@ -1,22 +1,23 @@
 from django.db import models
 from django.db.models import DateField, TimeField, CharField, PositiveSmallIntegerField
-from django.db.models import ManyToManyField, ForeignKey
+from django.db.models import ManyToManyField, ForeignKey, OneToOneField
+from django.utils.translation import ugettext as _
+
+from django_extensions.db.fields import UUIDField
+import reversion
 
 from agenda.models import Event
+from django_fsm.db.fields import FSMField, transition
 
 from band.models import Band
 from venue.models import Venue
-from bargain.models import Terms
 from bargain.signals import contract_concluded
 
-#from agenda.models import EventManager
 
 class Gig(Event):
     """
     A gig related to a Venue and one or more Bands
     """
-    # objects = EventManager()
-
     venue = ForeignKey(Venue, related_name='gigs')
     bands = ManyToManyField(Band, related_name='gigs')
 
@@ -31,75 +32,207 @@ class Gig(Event):
                 )
     
 #-- Bargain
+class GigBargainVenueState(models.Model):
+    """
+    The status of a venue in a gig bargain
+    """
+    STATE_CHOICES = (
+        ('waiting', 'Waiting for bands to reply'),
+        ('need_confirm', 'Need confirmation'),
+        )
 
-class GigBargain(Terms):
+    state = FSMField(default='waiting')
+    
+    @transition(source='waiting', target='need_confirm', save=True)
+    def need_confirmation(self):
+        pass
+
+    def __unicode__(self):
+        return "State : %s" % str(self.state)
+
+
+class GigBargain(models.Model):
     """
     Terms of a bargain between one or more Bands and a Venue.
     """
+    STATE_CHOICES = (
+        ('new', 'New bargain'),
+        ('need_venue_confirm', 'Need venue confirmation'),
+        ('band_nego', 'Bands negociating'),
+        ('band_ok', 'Approved by bands'),
+        ('concluded', 'Concluded'),
+        ('canceled', 'Canceled')
+        )
+
+    # XXX: Pgsql seems to support native uuid field. This extension may not use that.
+    uuid = UUIDField(primary_key=True, db_index=True, auto=True)
+
+    #-- State management
+    state = FSMField(default='new')
+
+    @transition(source=('new', 'need_venue_confirm'), target='band_nego', save=True)
+    def start_band_negociation(self):
+        """
+        Start negociation between bands.
+        """
+        for gigbargainband in self.gigbargainband_set.filter(state='accepted'):
+            gigbargainband.start_negociating()
+
+    @transition(source='new', target='need_venue_confirm', save=True)
+    def need_venue_confirmation(self):
+        """
+        When only /some/ of the bands have accepted to enter the bargain
+        """
+        pass
+
+    @transition(source=('band_nego', 'band_ok'), target='band_ok', save=True)
+    def bands_have_approved_parts(self):
+        """
+        When all bands have approved their parts
+        """
+        pass
+
+    @transition(source='band_ok', target='concluded', save=True)
+    def conclude(self):
+        """
+        Concluded the contract
+        """
+        pass
+
     date = DateField()
     opens_at = TimeField()
     closes_at = TimeField()
 
-    bands = ManyToManyField(Band, through='GigBargainBand')
-    venue = ForeignKey(Venue)
+    bands = ManyToManyField(Band, through='GigBargainBand', related_name='gigbargains')
 
-    ACCESS_CHOICES = (
+    venue = ForeignKey(Venue, related_name='gigbargains')
+    venue_state = OneToOneField(GigBargainVenueState, related_name='gigbargain')
+
+    ACCESS_CHOICES = [
         ('FREE', 'Free Access'),
         ('FEES', 'Entrance Fee'),
         ('DRNK', 'Drink'),
         ('TICK', 'Ticket'),
-        )
+        ]
     access = CharField(max_length=4, choices=ACCESS_CHOICES)
-
     fee_amount = PositiveSmallIntegerField(null=True, blank=True)
-    
-    @staticmethod
-    def getForm(extra_inline=0):
-        from django.forms.models import formset_factory
-        from .forms import GigBargainForm, GigBargainBandForm
-        
-        GigBargainBandFormSet = formset_factory(GigBargainBandForm, extra=extra_inline)
 
-        return GigBargainForm, ['bargain', GigBargainBandFormSet]
+    REMUNERATION_CHOICES = [
+        ('NONE', 'No remuneration'),
+        ('FIXE', 'Fixed Amount'),
+        ('PERC', 'Percentage'),
+        ]
+    remuneration = CharField(max_length=4, choices=REMUNERATION_CHOICES, 
+                             null=True, blank=True,
+                             help_text=_("How earned money will be dispatched "))
+                             
 
-    def getParticipants(self):
-        parties = [b for b in self.bands.all()] + [self.venue]
-        return parties
+    def save(self, *args, **kwargs):
+        # Auto create VenueState when creating this model
+        if not self.pk:
+            self.venue_state = GigBargainVenueState.objects.create()
+
+        models.Model.save(self, *args, **kwargs)
 
     def __unicode__(self):
-        return u'Gig bargain at [%s] with [%s]' % (self.venue,
+        text = u'Gig bargain at [%s] with [%s]' % (self.venue,
                                                    [b.name for b in self.bands.all()])
+        if self.state == 'concluded':
+            text += ' (concluded)'
+
+        return text
 
     @models.permalink
     def get_absolute_url(self):
-        return ('event:bargain-detail', (self.id,))
+        return ('event:gigbargain-detail', (self.uuid,))
+
     
 class GigBargainBand(models.Model):
     """
     Data related to a gig bargain for a given band 
     """
+    STATE_CHOICES = (
+        ('waiting', 'Waiting for reply'),
+        ('accepted', 'Bargain accepted'),
+        ('negociating', 'Negociating with others bands'),
+
+        ('part_validated', 'The band has validated its part'),
+
+        ('refused', 'Bargain refused'),
+        ('exited', 'Left bargain'),
+        ('kicked', 'Kicked from bargain'),
+        )
+
+    #-- State management
+    state = FSMField(default='waiting')
+
+    @transition(source='waiting', target='accepted', save=True)
+    def accept(self):
+        pass
+
+    @transition(source='waiting', target='refused', save=True)
+    def refuse(self):
+        pass
+
+    @transition(source='accepted', target='negociating', save=True)
+    def start_negociating(self):
+        pass
+
+    @transition(source=('negociating', 'part_validated'), target='part_validated', save=True)
+    def approve_part(self):
+        # Every band has accepted their parts
+        if len(GigBargainBand.objects.filter(bargain=self.bargain, 
+                                             state='negociating').exclude(id=self.id)) == 0:
+            self.bargain.bands_have_approved_parts()
+
+
     band = ForeignKey(Band)
     bargain = ForeignKey(GigBargain)
 
-    starts_at = TimeField()
-    ends_at = TimeField()
+    starts_at = TimeField(blank=True, null=True)
+    set_duration = TimeField(blank=True, null=True)
 
     eq_starts_at = TimeField(blank=True, null=True)
     
-    REMUNERATION_CHOICES = (
-        ('NONE', 'No remuneration'),
-        ('FIXE', 'Fixed Amount'),
-        ('PERC', 'Percentage'),
-        )
+    percentage = PositiveSmallIntegerField(blank=True, null=True, default=0)
+    amount = PositiveSmallIntegerField(blank=True, null=True, default=0)
+    defrayment = PositiveSmallIntegerField(blank=True, null=True, default=0)
 
-    remuneration = CharField(max_length=4, choices=REMUNERATION_CHOICES)
+    def clean(self):
+        from django.db.models import Sum
+        from django.core.exceptions import ValidationError
 
-    percentage = PositiveSmallIntegerField(blank=True, null=True, default=None)
-    amount = PositiveSmallIntegerField(blank=True, null=True, default=None)
+        # Make sure percentages of all bands don't exceed 100
+        # XXX: We have to filter out bands that have left the bargain
+        other_percentage = GigBargainBand.objects.filter(bargain=self.bargain).exclude(pk=self.pk).aggregate(Sum("percentage"))['percentage__sum']
+        if (other_percentage or 0) + (self.percentage or 0) > 100:
+            raise ValidationError(_("The sum of all band's percentages exceeds 100, please reduce yours."))
+
+        return models.Model.clean(self)
     
     def __unicode__(self):
         return u'%s' % self.band
-    
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('event:gigbargain-band-part-display', (self.bargain_id, self.band.slug))
+
+## Reversion
+reversion.register(GigBargain, follow=['bargainbands', 'venue_state'])
+reversion.register(GigBargainBand)
+reversion.register(GigBargainVenueState)
+
+
+class GigBargainCommentThread(models.Model):
+    """
+    A comment thread about a specific part of a GigBargain
+    """
+    class Meta:
+        unique_together = (('id', 'section'))
+
+    section = CharField(max_length=50, db_index=True)
+    gigbargain = ForeignKey(GigBargain, related_name='comment_threads')
+
 
 ## Signals
 from bargain.signals import contract_new, contract_approved, contract_disapproved, contract_amended

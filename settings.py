@@ -47,6 +47,9 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
+# For numerical stuff
+USE_L10N = True
+
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
@@ -148,6 +151,7 @@ INSTALLED_APPS = (
     'notification',
     'request',
     'threadedcomments',
+    'django_fsm',
 
     # Internal
     'backcap',
@@ -158,7 +162,6 @@ INSTALLED_APPS = (
     'event',
     'band',
     'venue',
-    'bargain',
     'album',
 
     'bigbrother',

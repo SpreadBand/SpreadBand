@@ -5,7 +5,7 @@ from .models import Venue
 class VenueForm(forms.ModelForm):
     class Meta:
         model = Venue
-        exclude = ('calendar', 'photos')
+        fields = ('name', 'slug', 'ambiance', 'description')
 
 
 class VenueUpdateForm(forms.ModelForm):

@@ -13,29 +13,24 @@ Description : {{ venue.description }}
 
 <h4>Calendar</h4>
 
-<a href="{% url event:venue-calendar venue.slug %}">View calendar</a>
+{# <a href="{% url event:venue-calendar venue.slug %}">View calendar</a> #}
 
 {% load agenda %}
 
-<h4>Bargains</h4>
+<h4>Gig Bargains</h4>
 <p>
   <ul>
-    {% for contract in contracts %}
+    {% for gigbargain in venue.gigbargains.all %}
     <li>
-      <a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
+      <a href="{% url event:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
  
-      {% if not contract.is_concluded %}
-      [<a href="{% url event:bargain-approve-venue contract.id venue.slug %}">Approve</a>|
-      <a href="{% url event:bargain-disapprove-venue contract.id venue.slug %}">Disapprove</a>|
-      <a href="{% url event:bargain-update-venue contract.id venue.slug %}">Edit</a>
-      ]
-      {% else %}
-       (concluded)
-      {% endif %}
-      
+      [<a href="{% url event:gigbargain-venue-confirm-bands gigbargain.pk venue.slug %}">Confirm bands</a>]
+      [<a href="{% url event:gigbargain-venue-conclude gigbargain.pk venue.slug %}">Conclude</a>]
     </li>
     {% endfor %}
   </ul>
-<a href="{% url event:bargain-new venue.slug %}">Propose a gig to this venue !</a>
+<a href="{#% url event:bargain-new venue.slug %#}">Propose a gig to this venue !</a>
+
+<a href="{% url event:gigbargain-new-from-venue  %}?venue={{venue.slug}}">Start a new bargain</a>
 
 {% endblock %}

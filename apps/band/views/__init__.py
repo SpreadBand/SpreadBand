@@ -1,3 +1,4 @@
+
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 
@@ -93,30 +94,17 @@ def event_new(request, band_slug):
     
 
 
-from bargain.models import Party, ContractParty, Contract
-from django.contrib.contenttypes.models import ContentType
-
 def detail(request, band_slug):
     """
     Show details about a band
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    # Get the bargains we're involved into
-    band_type = ContentType.objects.get_for_model(band)
-    try:
-        party = Party.objects.get(content_type__pk=band_type.id,
-                                  object_id=band.id)
-        contracts = Contract.objects.filter(parties__contractparty__party=party)
-    except Party.DoesNotExist:
-        contracts = []
-
     return object_detail(request,
                          queryset=Band.objects.all(),
                          slug=band_slug,
                          template_object_name='band',
                          template_name='bands/band_detail.html',
-                         extra_context={'contracts' : contracts},
                          )
 
 

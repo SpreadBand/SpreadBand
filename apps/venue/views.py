@@ -28,20 +28,11 @@ def detail(request, venue_slug):
     venue = get_object_or_404(Venue, slug=venue_slug)
 
     # Get the bargains we're involved into
-    venue_type = ContentType.objects.get_for_model(venue)
-    try:
-        party = Party.objects.get(content_type__pk=venue_type.id,
-                                  object_id=venue.id)
-        contracts = Contract.objects.filter(parties__contractparty__party=party)
-    except Party.DoesNotExist:
-        contracts = []
-
     return object_detail(request,
                          queryset=Venue.objects.all(),
                          slug=venue_slug,
                          template_name='venue/venue_detail.html',
                          template_object_name='venue',
-                         extra_context={'contracts': contracts},
                          )
                           
 def list(request):

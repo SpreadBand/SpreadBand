@@ -44,23 +44,20 @@ This band is owned.
   ( <a href="{% url event:gig-new band.slug %}">Add a new gig</a> - <a href="{% url event:band-calendar band.slug %}">View calendar</a> )
 </p>
 
-<h4>Bargains</h4>
+<h4>Gig Bargains</h4>
 <p>
   <ul>
-    {% for contract in contracts %}
-    <li><a href="{% url event:bargain-detail contract.id %}">{{ contract.terms.gigbargain }}</a>
-      
-      {% if not contract.is_concluded %}
-      [<a href="{% url event:bargain-approve-band contract.id band.slug %}">Approve</a>|
-      <a href="{% url event:bargain-disapprove-band contract.id band.slug %}">Disapprove</a>|
-      <a href="{% url event:bargain-update-band contract.id band.slug %}">Edit</a>]
-      {% else %}
-      (concluded)
-      {% endif %}
+    {% for gigbargain in band.gigbargains.all %}
+    <li><a href="{% url event:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
+
+
+      [<a href="{% url event:gigbargain-enter-for-band gigbargain.pk band.slug %}">Enter</a>|
+      <a href="{% url event:gigbargain-refuse-for-band gigbargain.pk band.slug %}">Reject</a>],
+      <a href="{#% url event:bargain-update-band contract.id band.slug %#}">Edit</a>
     </li>
     {% endfor %}
   </ul>
-  ( <a href="{% url event:bargain-new band.slug %}">New bargain</a> )
+  ( <a href="{#% url event:gigbargain-new band.slug %#}">New bargain</a> )
 </p>
 
 <h4>Released Albums</h4>

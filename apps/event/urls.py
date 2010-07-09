@@ -1,7 +1,10 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import url, patterns
 from django.conf import settings
 
-import views.event_bargain
+import views.bargain.band
+import views.bargain.venue
+
+
 import views.calendar
 
 urlpatterns = patterns('django.views.generic.simple',
@@ -26,20 +29,26 @@ urlpatterns += patterns('',
 
 
     # Bargain
-    url(r'^bargain/new/(?P<venue_slug>[-\w]+)/$', views.event_bargain.event_bargain_new, name='bargain-new'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)$', views.bargain.gigbargain_detail, name='gigbargain-detail'),
 
-    # Bargain, band specific
-    url(r'^bargain/(?P<contract_id>\d+)/band/(?P<band_slug>[-\w]+)/approve$', views.event_bargain.event_bargain_approve_band, name='bargain-approve-band'),
-    url(r'^bargain/(?P<contract_id>\d+)/band/(?P<band_slug>[-\w]+)/disapprove$', views.event_bargain.event_bargain_disapprove_band, name='bargain-disapprove-band'),
-    url(r'^bargain/(?P<contract_id>\d+)/band/(?P<band_slug>[-\w]+)/update$', views.event_bargain.event_bargain_update_band, name='bargain-update-band'),
+    # Bargain, comments
+    url(r'bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/comments/(?P<section>[-\w]+)$', views.bargain.comments_section_display, name='gigbargain-comments-section-display'),
 
     # Bargain, venue specific
-    url(r'^bargain/(?P<contract_id>\d+)/venue/(?P<venue_slug>[-\w]+)/approve$', views.event_bargain.event_bargain_approve_venue, name='bargain-approve-venue'),
-    url(r'^bargain/(?P<contract_id>\d+)/venue/(?P<venue_slug>[-\w]+)/disapprove$', views.event_bargain.event_bargain_disapprove_venue, name='bargain-disapprove-venue'),
-    url(r'^bargain/(?P<contract_id>\d+)/venue/(?P<venue_slug>[-\w]+)/update$', views.event_bargain.event_bargain_update_venue, name='bargain-update-venue'),
+    url(r'^bargain/gig/new/venue$', views.bargain.venue.gigbargain_new_from_venue, name='gigbargain-new-from-venue'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/(?P<venue_slug>[-\w]+)/confirm_bands$', views.bargain.venue.gigbargain_venue_confirm_bands, name='gigbargain-venue-confirm-bands'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/(?P<venue_slug>[-\w]+)/conclude$', views.bargain.venue.gigbargain_venue_conclude, name='gigbargain-venue-conclude'),
 
+    # Bargain, band specific
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/enter$', views.bargain.band.gigbargain_enter_for_band, name='gigbargain-enter-for-band'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/reject$', views.bargain.band.gigbargain_refuse_for_band, name='gigbargain-refuse-for-band'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/quit$', views.bargain.band.gigbargain_band_quit, name='gigbargain-band-quit'),
 
-    url(r'^bargain/(?P<contract_id>\d+)/detail$', views.event_bargain.event_bargain_detail, name='bargain-detail'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/approve$', views.bargain.band.gigbargain_band_part_approve, name='gigbargain-band-part-approve'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit$', views.bargain.band.gigbargain_band_part_edit, name='gigbargain-band-part-edit'),
+
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_band_part_display, name='gigbargain-band-part-display'),
+
 )
 
 

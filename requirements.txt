@@ -25,3 +25,4 @@ python-dateutil==1.5
 -e git+http://github.com/glibersat/django-agenda.git#egg=django-agenda
 -e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
 -e git+http://github.com/liberation/django-notification.git@38ad9cd9beba457e6e09fc619dd278b448781768#egg=django-notification
+-e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
