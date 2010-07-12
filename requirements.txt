@@ -29,3 +29,4 @@ django-countries==1.0.4
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
 -e git+http://github.com/jwmayfield/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
+-e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation
