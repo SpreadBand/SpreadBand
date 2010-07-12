@@ -4,6 +4,7 @@ from django.db.models import ManyToManyField, ForeignKey, OneToOneField
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import UUIDField
+from durationfield.db.models.fields.duration import DurationField
 import reversion
 
 from agenda.models import Event
@@ -190,7 +191,7 @@ class GigBargainBand(models.Model):
     bargain = ForeignKey(GigBargain)
 
     starts_at = TimeField(blank=True, null=True)
-    set_duration = TimeField(blank=True, null=True)
+    set_duration = DurationField(default=0)
 
     eq_starts_at = TimeField(blank=True, null=True)
     
@@ -204,9 +205,9 @@ class GigBargainBand(models.Model):
 
         # Make sure percentages of all bands don't exceed 100
         # XXX: We have to filter out bands that have left the bargain
-        other_percentage = GigBargainBand.objects.filter(bargain=self.bargain).exclude(pk=self.pk).aggregate(Sum("percentage"))['percentage__sum']
-        if (other_percentage or 0) + (self.percentage or 0) > 100:
-            raise ValidationError(_("The sum of all band's percentages exceeds 100, please reduce yours."))
+        # other_percentage = GigBargainBand.objects.filter(bargain=self.bargain).exclude(pk=self.pk).aggregate(Sum("percentage"))['percentage__sum']
+        # if (other_percentage or 0) + (self.percentage or 0) > 100:
+        #    raise ValidationError(_("The sum of all band's percentages exceeds 100, please reduce yours."))
 
         return models.Model.clean(self)
     

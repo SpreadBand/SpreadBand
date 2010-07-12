@@ -7,6 +7,8 @@ from django.utils.translation import ugettext as _
 
 from ajax_select.fields import AutoCompleteSelectMultipleField, AutoCompleteSelectField
 
+from durationfield.forms.fields import DurationField
+
 from utils.forms.fields import RangeField
 from utils.forms.widgets import RangeWidget, SliderRangeWidget
 
@@ -29,6 +31,15 @@ class GigBargainForm(forms.ModelForm):
 
     venue = AutoCompleteSelectField('venue', required=True)
 
+
+class GigBargainForBandForm(forms.ModelForm):
+    """
+    What a band can edit on a gig bargain
+    """
+    class Meta:
+        model = GigBargain
+        fields = ('access', 'fee_amount', 'remuneration')
+
 class GigBargainNewFromVenueForm(forms.ModelForm):
     class Meta:
         model = GigBargain
@@ -40,6 +51,10 @@ class GigBargainNewFromVenueForm(forms.ModelForm):
 
     # XXX: Filter here and display only our owned venues
     venue = ModelChoiceField(queryset=Venue.objects.all())
+
+    access = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
+                         required=False
+                         )
 
     remuneration = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
                                required=False
@@ -56,7 +71,7 @@ class GigBargainBandPartEditForm(forms.ModelForm):
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     starts_at = forms.TimeField(required=True)
-    set_duration = forms.TimeField(required=True)
+    set_duration = DurationField(required=True)
     percentage = forms.IntegerField(min_value=0, max_value=100)
 
 class GigBargainBandForm(forms.ModelForm):
