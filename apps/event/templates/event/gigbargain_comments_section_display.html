@@ -2,6 +2,8 @@
 
 {% get_comment_list for comment_thread as comments %}
 
+<h3>Comments about gig bargain, section {{ comment_thread.section }}</h3>
+
 <ul>
 {% for comment in comments|fill_tree|annotate_tree %}
 

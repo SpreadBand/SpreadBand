@@ -93,6 +93,14 @@ class GigBargain(models.Model):
         """
         pass
 
+    @transition(source=('band_nego', 'band_ok'), target='band_nego', save=True)
+    def bands_dont_agree_anymore(self):
+        """
+        When at least one of the bands don't agree anymore
+        """
+        pass
+
+
     @transition(source='band_ok', target='concluded', save=True)
     def conclude(self):
         """
@@ -136,10 +144,13 @@ class GigBargain(models.Model):
         models.Model.save(self, *args, **kwargs)
 
     def __unicode__(self):
-        text = u'Gig bargain at [%s] with [%s]' % (self.venue,
-                                                   [b.name for b in self.bands.all()])
+        text = u'Gig bargain at [%s] with [%s] on %s' % (self.venue,
+                                                         [b.name for b in self.bands.all()],
+                                                         self.date)
         if self.state == 'concluded':
             text += ' (concluded)'
+        else:
+            text += ' (in progress)'
 
         return text
 
@@ -179,12 +190,20 @@ class GigBargainBand(models.Model):
     def start_negociating(self):
         pass
 
+    # XXX Maybe the bargain state should be moved to save a few sql queries ?
     @transition(source=('negociating', 'part_validated'), target='part_validated', save=True)
     def approve_part(self):
         # Every band has accepted their parts
         if len(GigBargainBand.objects.filter(bargain=self.bargain, 
                                              state='negociating').exclude(id=self.id)) == 0:
             self.bargain.bands_have_approved_parts()
+
+    @transition(source='part_validated', target='negociating', save=True)
+    def cancel_approval(self):
+        """
+        Cancels the approval of the band's part
+        """
+        pass
 
 
     band = ForeignKey(Band)

@@ -1,5 +1,6 @@
-from django.contrib import messages
+from datetime import timedelta
 
+from django.contrib import messages
 from django.forms.models import inlineformset_factory
 from django.forms.models import model_to_dict
 from django.http import HttpResponseForbidden
@@ -7,6 +8,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
+from durationfield.utils.timestring import from_timedelta
 import notification.models as notification
 
 from apps.band.models import Band
@@ -114,7 +116,10 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
             return HttpResponseForbidden()
 
     # See if we have to ask for more informations
-    gigbargainband_form = GigBargainBandPartEditForm(model_to_dict(gigbargainband), instance=gigbargainband)
+    data = model_to_dict(gigbargainband)
+    data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
+    gigbargainband_form = GigBargainBandPartEditForm(data,
+                                                     instance=gigbargainband)
     gigbargainband_is_valid = gigbargainband_form.is_valid()
     print "IS VALID", gigbargainband_is_valid, gigbargainband_form.errors
 
@@ -141,7 +146,9 @@ def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
 
     # See if it can be approved with these information or if we need more
     # Redirect to form edit if can't be approved in state
-    gigbargainband_form = GigBargainBandPartEditForm(model_to_dict(gigbargainband),
+    data = model_to_dict(gigbargainband)
+    data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
+    gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargainband)
     if not gigbargainband_form.is_valid():
         return redirect('event:gigbargain-band-part-edit', 
@@ -184,5 +191,40 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
                               )
 
 
+from event.forms import GigBargainForBandForm
 
+def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
+    """
+    For a Band, edit the common conditions of the bargain.
+    If changed, it reset all other bargainers' state.
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
 
+    if gigbargain.state not in ('band_nego', 'band_ok'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargain_form = GigBargainForBandForm(request.POST or None,
+                                            instance=gigbargain)
+
+    if request.method == 'POST':
+        if gigbargain_form.is_valid():
+            gigbargain = gigbargain_form.save()
+
+            # We have to invalide every part that have approbed
+            for gigbargainband in gigbargain.gigbargainband_set.all():
+                if gigbargain.state == 'part_validated':
+                    gigbargainband.cancel_approval()
+
+            # Cancel the agreement if the gig bargain was approved by every band
+            gigbargain.bands_dont_agree_anymore()
+
+            return redirect(gigbargain)
+
+    extra_context = {'gigbargain': gigbargain,
+                     'gigbargain_form': gigbargain_form}        
+
+    return render_to_response(template_name='event/gigbargain_common_edit.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )

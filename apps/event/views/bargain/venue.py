@@ -130,3 +130,41 @@ def gigbargain_venue_conclude(request, gigbargain_uuid, venue_slug):
 
     return redirect(gigbargain)
 
+from event.forms import GigBargainForVenueForm
+
+def gigbargain_venue_common_edit(request, gigbargain_uuid):
+    """
+    For a Venue, edit the common conditions of the bargain.
+    If changed, it reset all bands' state.
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if gigbargain.state not in ('new', 'need_venue_confirm', 'band_nego', 'band_ok'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargain_form = GigBargainForVenueForm(request.POST or None,
+                                             instance=gigbargain)
+
+    if request.method == 'POST':
+        if gigbargain_form.is_valid():
+            gigbargain = gigbargain_form.save()
+
+            # If we were negociating, then invalidate required parts
+            if gigbargain.state in ('band_nego', 'band_ok'):
+                # We have to invalide every part that have approbed
+                for gigbargainband in gigbargain.gigbargainband_set.all():
+                    gigbargainband.cancel_approval()
+
+                # Cancel the agreement if the gig bargain was approved by every band
+                gigbargain.bands_dont_agree_anymore()
+
+            return redirect(gigbargain)
+
+    extra_context = {'gigbargain': gigbargain,
+                     'gigbargain_form': gigbargain_form}        
+
+    return render_to_response(template_name='event/gigbargain_common_edit.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )

@@ -7,6 +7,10 @@
 <a href="{{ gigbargain.venue.get_absolute_url }}">{{ gigbargain.venue.name }}</a> sent you the terms for <a href="{{ gigbargain.get_absolute_url }}">the gig bargain of {{ gigbargain.date }}</a>.
 
 <p>
+Click here to <a href="{% url event:gigbargain-band-common-edit gigbargain.pk gigbargainband.band.slug %}">alter general conditions</a> (access type, remunation kind, ...).
+</p>
+
+<p>
 <b>Here are the terms concerning your band (<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>).</b>
 </p>
 

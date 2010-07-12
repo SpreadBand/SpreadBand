@@ -49,6 +49,11 @@ urlpatterns += patterns('',
 
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_band_part_display, name='gigbargain-band-part-display'),
 
+    # Bargain, common parts
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/common/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_band_common_edit, name='gigbargain-band-common-edit'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/common/venue$', views.bargain.venue.gigbargain_venue_common_edit, name='gigbargain-venue-common-edit'),
+
+
 )
 
 

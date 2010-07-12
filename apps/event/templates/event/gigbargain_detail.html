@@ -22,7 +22,8 @@
 State : {{ gigbargain.state }}
 
 <h3>When and Where [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}">comments</a>]</h3>
-When: {{ gigbargain.date }}. Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }}<br>
+
+When: {{ gigbargain.date }}. Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }} [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>]<br>
 
 {% with gigbargain.venue as venue %}
 Venue : <a href="{{ venue.get_absolute_url }}">{{ venue }}</a>
@@ -31,7 +32,12 @@ Venue : <a href="{{ venue.get_absolute_url }}">{{ venue }}</a>
 <h3>Access [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'access' %}">comments</a>]</h3>
 
 <p>
+{% if gigbargain.access %}
 Entrance : {{ gigbargain.get_access_display }}<br>
+{% else %}
+Entrance is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
+{% endif %}
+
 {% if gigbargain.access == 'FEES' %}
 Fee amount : {{ gigbargain.fee_amount }}
 {% endif %}
@@ -52,7 +58,11 @@ Number of drinks : {{ gigbargain.fee_amount }}
 
 <h4>Remuneration [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}">comments</a>]</h4>
 
+{% if not gigbargain.remuneration %}
+Remuneration type is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>].
+{% else %}
 Type of remuneration : {{ gigbargain.get_remuneration_display }}
+{% endif %}
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -140,10 +150,14 @@ var json = {
   {% endfor %}
 </ul>
 
-<h3>Comments</h3>
+
 
 {% load threadedcomments_tags %}
+{% load comments %}
 
+{% get_comment_count for gigbargain as comment_count %}
+
+<h3>Comments ({{ comment_count }})</h3>
 {% get_comment_list for gigbargain as comments %}
 
 <ul>
