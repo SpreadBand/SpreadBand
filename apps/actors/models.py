@@ -14,25 +14,26 @@ class Actor(models.Model):
         abstract = True
 
     registered_on = DateTimeField(auto_now_add=True,
-                                  help_text=_('When it was was registered')
+                                  help_text=_('When it was was registered'),
+                                  editable=False
                                   )
     
     last_activity = DateTimeField(auto_now=True,
-                                  help_text=_('The last time something happened')
+                                  help_text=_('The last time something happened'),
+                                  editable=False
                                   )
 
     owned = BooleanField(default=False,
                          help_text=_('Wether this actor is owned by at least one user')
                          )
 
-    calendar = OneToOneField(Calendar, null=True, blank=True)
+    calendar = OneToOneField(Calendar, null=True, blank=True, editable=False)
 
 def actor_after_save(sender, instance, created, **kwargs):
     """
     Called to ensure the calendar is created for a given actor
     """
     if created:
-        print "eyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
         cal = Calendar(name='%s' % instance.name)
         cal.save()
         instance.calendar = cal
