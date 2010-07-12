@@ -213,13 +213,15 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
 
             # We have to invalide every part that have approbed
             for gigbargainband in gigbargain.gigbargainband_set.all():
-                if gigbargain.state == 'part_validated':
+                if gigbargainband.state == 'part_validated':
                     gigbargainband.cancel_approval()
 
             # Cancel the agreement if the gig bargain was approved by every band
             gigbargain.bands_dont_agree_anymore()
 
-            return redirect(gigbargain)
+
+            gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+            return redirect('event:gigbargain-band-part-edit', gigbargain.pk, band_slug)
 
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_form': gigbargain_form}        

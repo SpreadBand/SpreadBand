@@ -106,7 +106,7 @@ class GigBargainBandForm(forms.ModelForm):
         model = GigBargainBand
         fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
-    percentage = forms.IntegerField(min_value=0, max_value=100)
+    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
 
 class BaseGigBargainBandFormSet(formsets.BaseFormSet):
     def clean(self):

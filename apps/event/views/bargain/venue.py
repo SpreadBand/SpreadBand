@@ -99,7 +99,7 @@ def gigbargain_new_from_venue(request):
 
 
 
-def gigbargain_venue_confirm_bands(request, gigbargain_uuid, venue_slug):
+def gigbargain_venue_confirm_bands(request, gigbargain_uuid):
     """
     Let the venue confirm it wants to go on with the bands that have
     accepted.
@@ -116,7 +116,7 @@ def gigbargain_venue_confirm_bands(request, gigbargain_uuid, venue_slug):
 
     return redirect(gigbargain)
 
-def gigbargain_venue_conclude(request, gigbargain_uuid, venue_slug):
+def gigbargain_venue_conclude(request, gigbargain_uuid):
     """
     Once all bands have agreed, conclude the bargain
     """
@@ -154,7 +154,8 @@ def gigbargain_venue_common_edit(request, gigbargain_uuid):
             if gigbargain.state in ('band_nego', 'band_ok'):
                 # We have to invalide every part that have approbed
                 for gigbargainband in gigbargain.gigbargainband_set.all():
-                    gigbargainband.cancel_approval()
+                    if gigbargainband.state == 'part_validated':
+                        gigbargainband.cancel_approval()
 
                 # Cancel the agreement if the gig bargain was approved by every band
                 gigbargain.bands_dont_agree_anymore()

@@ -210,7 +210,7 @@ class GigBargainBand(models.Model):
     bargain = ForeignKey(GigBargain)
 
     starts_at = TimeField(blank=True, null=True)
-    set_duration = DurationField(default=0)
+    set_duration = DurationField(default='0h 0min')
 
     eq_starts_at = TimeField(blank=True, null=True)
     

@@ -24,8 +24,8 @@ Description : {{ venue.description }}
     <li>
       <a href="{% url event:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
  
-      [<a href="{% url event:gigbargain-venue-confirm-bands gigbargain.pk venue.slug %}">Confirm bands</a>]
-      [<a href="{% url event:gigbargain-venue-conclude gigbargain.pk venue.slug %}">Conclude</a>]
+      [<a href="{% url event:gigbargain-venue-confirm-bands gigbargain.pk %}">Confirm bands</a>]
+      [<a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">Conclude</a>]
     </li>
     {% endfor %}
   </ul>

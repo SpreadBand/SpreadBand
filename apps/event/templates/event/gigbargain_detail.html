@@ -21,6 +21,17 @@
 
 State : {{ gigbargain.state }}
 
+{% if gigbargain.state == 'need_venue_confirm' %}
+<p>
+<b>Venue, you need to <a href="{% url event:gigbargain-venue-confirm-bands gigbargain.pk %}">confirm</a> that you want to go on bargaining, even if all bands didn't accept to bargain</b>
+</p>
+{% else %}{% if gigbargain.state == 'band_ok' %}
+<p>
+<b>Venue, you may either <a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">conclude</a> this bargain or ask one or more bands to change their terms.</b>
+<p/>
+{% endif %}
+{% endif %}
+
 <h3>When and Where [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}">comments</a>]</h3>
 
 When: {{ gigbargain.date }}. Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }} [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>]<br>
