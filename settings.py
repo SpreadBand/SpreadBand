@@ -152,6 +152,8 @@ INSTALLED_APPS = (
     'request',
     'threadedcomments',
     'django_fsm',
+    'timezones',
+    'django_countries',
 
     # Internal
     'backcap',

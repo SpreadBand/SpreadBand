@@ -1,5 +1,9 @@
 <html>
   <head>
+    <title>SpreadBand</title>
+    {% block extra_head %}
+    {% endblock %}
+
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/960.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/text.css" />
@@ -15,8 +19,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/uni_form/uni-form.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/uni_form/dark.uni-form.css" />
 
-
-
     {% block css %}
     {% endblock %}
 
@@ -30,8 +32,6 @@
 
     {% block javascript %}
     {% endblock %}
-
-    <title>SpreadBand</title>
   </head>
   <body>
     <div class="container_16">
