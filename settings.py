@@ -238,3 +238,4 @@ ANONYMOUS_USER_ID = -1
 
 ### COMMENTS
 COMMENTS_APP = 'threadedcomments'
+PROFANITIES_LIST = ()
