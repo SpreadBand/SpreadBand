@@ -4,11 +4,16 @@ from django.db.models.signals import post_save
 
 from django.contrib.auth.models import User
 
+from django_countries import CountryField
+from timezones.fields import TimeZoneField
+
 # Create your models here.
 class UserProfile(models.Model):
     user = ForeignKey(User, unique=True)
 
-    country = CharField(max_length=50, blank=True)
+    country = CountryField()
+    timezone = TimeZoneField()
+
     town = CharField(max_length=50, blank=True)
     birthdate = DateField(null=True, blank=True)
 
