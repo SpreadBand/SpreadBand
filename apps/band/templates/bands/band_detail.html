@@ -45,6 +45,10 @@ This band is owned.
 </p>
 
 <h4>Gig Bargains</h4>
+
+<p>
+<a href="{% url event:gigbargain-new-from-band band.slug %}">Initiate a new gig bargain</a>
+</p>
 <p>
   <ul>
     {% for gigbargain in band.gigbargains.all %}

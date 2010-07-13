@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.contrib import messages
 from django.forms.models import inlineformset_factory
+from django.forms.formsets import formset_factory
 from django.forms.models import model_to_dict
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render_to_response, redirect
@@ -15,7 +16,68 @@ from apps.band.models import Band
 from apps.venue.models import Venue
 
 from event.models import GigBargain, GigBargainBand
-from event.forms import GigBargainBandPartEditForm
+from event.forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, GigBargainBandForm, BaseGigBargainBandFormSet, GigBargainMyBandForm
+from event.forms import GigBargainNewFullForm, GigBargainMyBandFullForm
+
+
+def gigbargain_new_from_band(request, band_slug):
+    """
+    For a Band, create a new gigbargain
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    gigbargain_form = GigBargainNewFromBandForm(request.user,
+                                                request.POST or None)
+    gigbargain_myband_form = GigBargainMyBandForm(request.POST or None)
+
+    # Create the formset for bands
+    GigBargainBandFormSet = formset_factory(GigBargainBandForm,
+                                            formset=BaseGigBargainBandFormSet,
+                                            extra=1,
+                                            )
+
+    gigbargain_bands_formset = GigBargainBandFormSet()
+    
+    if request.method == 'POST':
+        if gigbargain_form.is_valid() and gigbargain_myband_form.is_valid():
+            gigbargain = gigbargain_form.save()
+
+            # Set bargain and band to what is supposed to be our band form, then save
+            gigbargain_myband = gigbargain_myband_form.save(commit=False)
+            gigbargain_myband.bargain = gigbargain
+            gigbargain_myband.band = band
+
+            # Here, we have two cases :
+            #  - everything has been filled in by the band, we just need to ask the venue
+            #  - some informations are missing : enter a negociation phase
+            full = False
+            # Check if we have *all* informations
+            if GigBargainNewFullForm(request.POST).is_valid():
+                if GigBargainMyBandFullForm(gigbargain, request.POST).is_valid():
+                    full = True
+
+            if full:
+                gigbargain_myband.state = 'part_validated'
+                # Propose this complete gigbargain to the venue
+                gigbargain.propose_complete_bargain_to_venue()
+            else:
+                gigbargain_myband.state = 'accepted'
+                # Propose this incomplete gigbargain to the venue
+                gigbargain.propose_incomplete_bargain_to_venue()
+
+            gigbargain_myband.save()
+
+            return redirect(gigbargain)
+
+    extra_context = {'band': band,
+                     'gigbargain_form': gigbargain_form,
+                     'gigbargain_myband_form': gigbargain_myband_form,
+                     'gigbargain_bands_formset': gigbargain_bands_formset}
+
+    return render_to_response(template_name='event/gigbargain_new_from_band.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )
 
 def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
     """
@@ -121,7 +183,6 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
     gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargainband)
     gigbargainband_is_valid = gigbargainband_form.is_valid()
-    print "IS VALID", gigbargainband_is_valid, gigbargainband_form.errors
 
     extra_context = {'gigbargain': gigbargain,
                      'gigbargainband': gigbargainband,

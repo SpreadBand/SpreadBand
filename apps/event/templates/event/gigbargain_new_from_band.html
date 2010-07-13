@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Initiate a new gig bargain</h2>
+
+
+<form method='POST' action='{{ request.path }}'>
+
+<h3>Where and when</h3>
+{{ gigbargain_form.as_p }}
+
+<h3>My band : {{ band.name }}</h3>
+{{ gigbargain_myband_form.as_p }}
+
+<input type="submit" name="submit">
+
+<h3>Other Bands</h3>
+
+{{ gigbargain_bands_formset.management_form }}
+
+<table>
+  {% for error in gigbargain_bands_formset.non_form_errors %}
+  {{ error }}
+  {% endfor %}
+
+  {% for gigbargain_band_form in gigbargain_bands_formset.forms %}
+   {{ gigbargain_band_form }}
+  {% endfor %}
+</table>
+
+  <input title='Add another band' type='submit' name='add_band' value='Add band'/>
+
+<br/>
+<input type="submit" name="submit">
+</form>
+
+{% endblock %}

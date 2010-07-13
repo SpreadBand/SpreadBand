@@ -57,6 +57,9 @@ class GigBargainForVenueForm(forms.ModelForm):
         model = GigBargain
         fields = ('opens_at', 'closes_at', 'access', 'fee_amount', 'remuneration')
 
+    opens_at = forms.TimeField(required=True)
+    closes_at = forms.TimeField(required=True)
+
     access = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
                          required=False
                          )
@@ -86,8 +89,56 @@ class GigBargainNewFromVenueForm(forms.ModelForm):
     remuneration = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
                                required=False
                                )
-    
 
+
+class GigBargainNewFromBandForm(forms.ModelForm):
+    class Meta:
+        model = GigBargain
+        fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
+
+    def __init__(self, aUser, *args, **kwargs):
+        self.user = aUser
+        forms.ModelForm.__init__(self, *args, **kwargs)
+
+    # XXX: Filter here and display only our owned venues
+    venue = ModelChoiceField(queryset=Venue.objects.all())
+
+    access = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.ACCESS_CHOICES,
+                         required=False
+                         )
+
+    remuneration = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.REMUNERATION_CHOICES,
+                               required=False
+                               )
+
+    def clean(self):
+        access = self.cleaned_data.get('access')
+        fee_amount = self.cleaned_data.get('fee_amount')
+        if access and access != 'FREE':
+            if fee_amount is None:
+                raise forms.ValidationError("You need to provide a cost, since the access is not free")
+
+        return self.cleaned_data
+
+
+
+class GigBargainNewFullForm(forms.ModelForm):
+    """
+    Used to check wether we have all information or only a partial set
+    """
+    class Meta:
+        model = GigBargain
+        fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
+
+    date = forms.DateField(required=True)
+    access = ChoiceField(choices=GigBargain.ACCESS_CHOICES,
+                         required=True
+                         )
+
+    remuneration = ChoiceField(choices=GigBargain.REMUNERATION_CHOICES,
+                               required=True
+                               )
+    
 
 class GigBargainBandPartEditForm(forms.ModelForm):
     """
@@ -107,6 +158,35 @@ class GigBargainBandForm(forms.ModelForm):
         fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
+
+class GigBargainMyBandForm(forms.ModelForm):
+    class Meta:
+        model = GigBargainBand
+        fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
+
+    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0, required=False)
+    set_duration = DurationField(required=True)
+
+class GigBargainMyBandFullForm(GigBargainMyBandForm):
+    def __init__(self, aGigBargain, *args, **kwargs):
+        self._gigbargain = aGigBargain
+        GigBargainMyBandForm.__init__(self, *args, **kwargs)
+
+    starts_at = forms.TimeField(required=True)
+
+    def clean(self):
+        percentage = self.cleaned_data.get('percentage')
+        amount = self.cleaned_data.get('amount')
+
+        if self._gigbargain.remuneration == 'PERC':
+            if not percentage or percentage == 0:
+                raise forms.ValidationError(_("Percentage is missing"))
+
+        elif self._gigbargain.remuneration == 'FIXE':
+            if not amount or amount == 0:
+                raise forms.ValidationError(_("Remuneration amount is missing"))
+
+        return self.cleaned_data
 
 class BaseGigBargainBandFormSet(formsets.BaseFormSet):
     def clean(self):

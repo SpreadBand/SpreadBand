@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% load threadedcomments_tags %}
+{% load comments %}
+
 {% block css %}
 
 <link rel="profile" href="http://microformats.org/profile/hcalendar">
@@ -9,6 +12,33 @@
 
 {% block javascript %}
 {{ block.super }}
+
+<script type="text/javascript" charset="utf-8">
+function bindPostCommentHandler() {
+    $('#comment_form form input.submit-preview').remove();
+    $('#comment_form form').submit(function() {
+        $.ajax({
+            type: "POST",
+            data: $('#comment_form form').serialize(),
+            url: "{% comment_form_target %}",
+            cache: false,
+            dataType: "html",
+            success: function(html, textStatus) {
+                $('#comment_form form').replaceWith(html);
+                bindPostCommentHandler();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');
+            }
+        });
+        return false;
+    });
+}
+
+$(document).ready(function() {
+    bindPostCommentHandler();
+});
+</script>
 
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jit.js"></script>
 
@@ -25,11 +55,36 @@ State : {{ gigbargain.state }}
 <p>
 <b>Venue, you need to <a href="{% url event:gigbargain-venue-confirm-bands gigbargain.pk %}">confirm</a> that you want to go on bargaining, even if all bands didn't accept to bargain</b>
 </p>
-{% else %}{% if gigbargain.state == 'band_ok' %}
+{% endif %}
+
+{% if gigbargain.state == 'band_nego' %}
 <p>
-<b>Venue, you may either <a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">conclude</a> this bargain or ask one or more bands to change their terms.</b>
+The bands are negociating.
+</p>
+{% endif %}
+
+{% if gigbargain.state == 'band_ok' %}
+<p>
+<b>Venue, you may either <a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">conclude</a> this bargain, ask one or more bands to change their terms or <a href="{% url event:gigbargain-venue-decline gigbargain.pk %}">decline it completely</a>.</b>
 <p/>
 {% endif %}
+
+{% if gigbargain.state == 'complete_proposed_to_venue' %}
+<p>
+  <b>Venue, you may either <a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">accept and conclude</a> this bargain or <a href="{% url event:gigbargain-venue-enter gigbargain.pk %}">negociate the terms</a> or <a href="{% url event:gigbargain-venue-decline gigbargain.pk %}">completely decline</a> this proposal.</b>
+<p/>
+{% endif %}
+
+{% if gigbargain.state == 'incomplete_proposed_to_venue' %}
+<p>
+<b>Venue, you can either <a href="{% url event:gigbargain-venue-enter gigbargain.pk %}">accept to enter the negociations</a> or <a href="{% url event:gigbargain-venue-decline gigbargain.pk %}">refuse to bargain</a> with these bands.</b>
+<p/>
+{% endif %}
+
+{% if gigbargain.state == 'declined' %}
+<p>
+<b>This bargain was declined by the venue : it's dead.</b>
+</p>
 {% endif %}
 
 <h3>When and Where [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}">comments</a>]</h3>
@@ -162,10 +217,6 @@ var json = {
 </ul>
 
 
-
-{% load threadedcomments_tags %}
-{% load comments %}
-
 {% get_comment_count for gigbargain as comment_count %}
 
 <h3>Comments ({{ comment_count }})</h3>
@@ -179,7 +230,8 @@ var json = {
 {% endfor %}
 </ul>
 
+<div id="comment_form">
 {% render_comment_form for gigbargain %}
-
+</div>
 
 {% endblock %}

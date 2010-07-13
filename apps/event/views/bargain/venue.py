@@ -25,7 +25,7 @@ def gigbargain_new_from_venue(request):
     # Create the formset for bands
     GigBargainBandFormSet = formset_factory(GigBargainBandForm,
                                             formset=BaseGigBargainBandFormSet,
-                                            extra=1,
+                                            extra=1, # XXX Maybe I should increment this to prevent forms to be zeored
                                             )
 
     initial_form_data = {}
@@ -116,17 +116,66 @@ def gigbargain_venue_confirm_bands(request, gigbargain_uuid):
 
     return redirect(gigbargain)
 
+
+def gigbargain_venue_decline(request, gigbargain_uuid):
+    """
+    Decline a bargain
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    
+    if gigbargain.state not in ('band_ok', 'complete_proposed_to_venue', 'incomplete_proposed_to_venue'):
+        # XXX Maybe we should be more explicit
+        return HttpResponseForbidden()
+
+    gigbargain.decline()
+
+    return redirect(gigbargain)
+
 def gigbargain_venue_conclude(request, gigbargain_uuid):
     """
     Once all bands have agreed, conclude the bargain
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
 
-    if gigbargain.state != 'band_ok':
+    if gigbargain.state not in ('band_ok', 'compelete_proposed_to_venue'):
         # XXX Maybe we should be more explicit
         return HttpResponseForbidden()
     
     gigbargain.conclude()
+
+    return redirect(gigbargain)
+
+
+def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
+    """
+    When a gigbargain is proposed by bands to a venue, a venue can
+    choose to enter the negociations.
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if gigbargain.state not in ('complete_proposed_to_venue', 'incomplete_proposed_to_venue'):
+        # XXX Maybe we should be more explicit
+        return HttpResponseForbidden()
+    
+   
+    # if this is an incomplete bargain, just make the bands enter
+    # negociations
+    if gigbargain.state == 'incomplete_proposed_to_venue':
+        [gigbargainband.start_negociating()
+         for gigbargainband 
+         in gigbargain.gigbargainband_set.all()]
+        
+        
+    # else, if it is a complete bargain, we have to invalidate the
+    # bands approval
+    elif gigbargain.state == 'complete_proposed_to_venue':
+        [gigbargainband.cancel_approval()
+         for gigbargainband
+         in gigbargain.gigbargainband_set.all()]
+
+        
+    # Then, switch our gigbargain state by letting the venue enter
+    gigbargain.venue_enter_negociations()
 
     return redirect(gigbargain)
 

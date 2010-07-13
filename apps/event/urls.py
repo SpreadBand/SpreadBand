@@ -38,8 +38,11 @@ urlpatterns += patterns('',
     url(r'^bargain/gig/new/venue$', views.bargain.venue.gigbargain_new_from_venue, name='gigbargain-new-from-venue'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/confirm_bands$', views.bargain.venue.gigbargain_venue_confirm_bands, name='gigbargain-venue-confirm-bands'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/conclude$', views.bargain.venue.gigbargain_venue_conclude, name='gigbargain-venue-conclude'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/decline$', views.bargain.venue.gigbargain_venue_decline, name='gigbargain-venue-decline'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/enter$', views.bargain.venue.gigbargain_venue_enter_negociations, name='gigbargain-venue-enter'),
 
     # Bargain, band specific
+    url(r'^bargain/gig/new/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_new_from_band, name='gigbargain-new-from-band'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/enter$', views.bargain.band.gigbargain_enter_for_band, name='gigbargain-enter-for-band'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/reject$', views.bargain.band.gigbargain_refuse_for_band, name='gigbargain-refuse-for-band'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/quit$', views.bargain.band.gigbargain_band_quit, name='gigbargain-band-quit'),

@@ -2,6 +2,7 @@
 import os.path
 # Django settings for spreadband project.
 
+
 PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -239,3 +240,4 @@ ANONYMOUS_USER_ID = -1
 ### COMMENTS
 COMMENTS_APP = 'threadedcomments'
 PROFANITIES_LIST = ()
+

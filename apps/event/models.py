@@ -15,6 +15,12 @@ from venue.models import Venue
 from bargain.signals import contract_concluded
 
 
+# XXX Hack to make south happy with fsmfield
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^django_fsm\.db\.fields\.fsmfield\.FSMField"])
+add_introspection_rules([], ["^durationfield\.db\.models\.fields\.duration\.DurationField"])
+
+
 class Gig(Event):
     """
     A gig related to a Venue and one or more Bands
@@ -58,10 +64,13 @@ class GigBargain(models.Model):
     """
     STATE_CHOICES = (
         ('new', 'New bargain'),
+        ('complete_proposed_to_venue', 'Complete bargain proposed to venue'),
+        ('incomplete_proposed_to_venue', 'Incomplete bargain proposed to venue'),
         ('need_venue_confirm', 'Need venue confirmation'),
         ('band_nego', 'Bands negociating'),
         ('band_ok', 'Approved by bands'),
         ('concluded', 'Concluded'),
+        ('declined', 'Declined'),
         ('canceled', 'Canceled')
         )
 
@@ -79,10 +88,31 @@ class GigBargain(models.Model):
         for gigbargainband in self.gigbargainband_set.filter(state='accepted'):
             gigbargainband.start_negociating()
 
+    @transition(source='new', target='incomplete_proposed_to_venue', save=True)
+    def propose_incomplete_bargain_to_venue(self):
+        """
+        Propose this incomplete bargain to the venue (used when initiated from band)
+        """
+        pass
+
+    @transition(source='new', target='complete_proposed_to_venue', save=True)
+    def propose_complete_bargain_to_venue(self):
+        """
+        Propose this complete bargain to the venue (used when initiated from band)
+        """
+        pass
+
     @transition(source='new', target='need_venue_confirm', save=True)
     def need_venue_confirmation(self):
         """
         When only /some/ of the bands have accepted to enter the bargain
+        """
+        pass
+
+    @transition(source=('incomplete_proposed_to_venue', 'complete_proposed_to_venue'), target='band_nego', save=True)
+    def venue_enter_negociations(self):
+        """
+        When a venue accepts to enter negociations with bands.
         """
         pass
 
@@ -101,16 +131,24 @@ class GigBargain(models.Model):
         pass
 
 
-    @transition(source='band_ok', target='concluded', save=True)
+    @transition(source=('band_ok', 'complete_proposed_to_venue'), target='concluded', save=True)
     def conclude(self):
         """
         Concluded the contract
         """
         pass
 
+    @transition(source=('band_ok', 'complete_proposed_to_venue', 'incomplete_proposed_to_venue'), target='declined', save=True)
+    def decline(self):
+        """
+        Concluded the contract
+        """
+        pass
+
+
     date = DateField()
-    opens_at = TimeField()
-    closes_at = TimeField()
+    opens_at = TimeField(null=True, blank=True)
+    closes_at = TimeField(null=True, blank=True)
 
     bands = ManyToManyField(Band, through='GigBargainBand', related_name='gigbargains')
 
