@@ -69,18 +69,42 @@ class GigBargainForVenueForm(forms.ModelForm):
                                )
 
 
-
-class GigBargainNewFromVenueForm(forms.ModelForm):
-    class Meta:
-        model = GigBargain
-        fields = ('date', 'opens_at', 'closes_at', 'venue', 'access', 'fee_amount', 'remuneration')
-
+class GigBargainNewForm(forms.ModelForm):
+    """
+    Generic form to create a gig bargain
+    """
     def __init__(self, aUser, *args, **kwargs):
         self.user = aUser
         forms.ModelForm.__init__(self, *args, **kwargs)
 
+    def clean_date(self):
+        # Make sure this is a date in the future
+        date = self.cleaned_data.get('date')
+        if date < date.today():
+            raise forms.ValidationError(_("Date must be in the future, or today"))
+        return date
+
+    def clean(self):
+        access = self.cleaned_data.get('access')
+        fee_amount = self.cleaned_data.get('fee_amount')
+        if access and access != 'FREE':
+            if fee_amount is None:
+                raise forms.ValidationError("You need to provide a cost, since the access is not free")
+
+        return self.cleaned_data
+
     # XXX: Filter here and display only our owned venues
     venue = ModelChoiceField(queryset=Venue.objects.all())
+
+
+
+class GigBargainNewFromVenueForm(GigBargainNewForm):
+    """
+    Form to create a gig bargain, for Venues
+    """
+    class Meta:
+        model = GigBargain
+        fields = ('date', 'opens_at', 'closes_at', 'venue', 'access', 'fee_amount', 'remuneration')
 
     access = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
                          required=False
@@ -91,17 +115,14 @@ class GigBargainNewFromVenueForm(forms.ModelForm):
                                )
 
 
-class GigBargainNewFromBandForm(forms.ModelForm):
+
+class GigBargainNewFromBandForm(GigBargainNewForm):
+    """
+    Form to create a gig bargain, for Bands
+    """
     class Meta:
         model = GigBargain
         fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
-
-    def __init__(self, aUser, *args, **kwargs):
-        self.user = aUser
-        forms.ModelForm.__init__(self, *args, **kwargs)
-
-    # XXX: Filter here and display only our owned venues
-    venue = ModelChoiceField(queryset=Venue.objects.all())
 
     access = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.ACCESS_CHOICES,
                          required=False
@@ -111,14 +132,6 @@ class GigBargainNewFromBandForm(forms.ModelForm):
                                required=False
                                )
 
-    def clean(self):
-        access = self.cleaned_data.get('access')
-        fee_amount = self.cleaned_data.get('fee_amount')
-        if access and access != 'FREE':
-            if fee_amount is None:
-                raise forms.ValidationError("You need to provide a cost, since the access is not free")
-
-        return self.cleaned_data
 
 
 
@@ -158,6 +171,33 @@ class GigBargainBandForm(forms.ModelForm):
         fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
+
+from event.models import GigBargainBand
+
+class GigBargainBandInviteForm(GigBargainBandForm):
+    def __init__(self, aGigBargain, *args, **kwargs):
+        self._gigbargain = aGigBargain
+        GigBargainBandForm.__init__(self, *args, **kwargs)
+        
+    def clean(self):
+        cleaned_data = self.cleaned_data
+
+        gigbargainband = None
+        # Look up the band we want to add
+        try:
+            res = self._gigbargain.gigbargainband_set.filter(band=cleaned_data['band'])
+            if res:
+                gigbargainband = res[0]
+        except GigBargainBand.DoesNotExist:
+            pass
+
+        if gigbargainband:
+            if gigbargainband.state == 'kicked':
+                raise forms.ValidationError(_("You can't invite this band, it's been kicked"))
+            else:
+                raise forms.ValidationError(_("This band is already in this bargain"))
+
+        return cleaned_data
 
 class GigBargainMyBandForm(forms.ModelForm):
     class Meta:

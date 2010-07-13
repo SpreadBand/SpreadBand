@@ -40,6 +40,9 @@ urlpatterns += patterns('',
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/conclude$', views.bargain.venue.gigbargain_venue_conclude, name='gigbargain-venue-conclude'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/decline$', views.bargain.venue.gigbargain_venue_decline, name='gigbargain-venue-decline'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/enter$', views.bargain.venue.gigbargain_venue_enter_negociations, name='gigbargain-venue-enter'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/renegociate', views.bargain.venue.gigbargain_venue_renegociate, name='gigbargain-venue-renegociate'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/cancel', views.bargain.venue.gigbargain_venue_cancel, name='gigbargain-venue-cancel'),
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/venue/invite_band', views.bargain.venue.gigbargain_venue_invite_band, name='gigbargain-venue-invite-band'),
 
     # Bargain, band specific
     url(r'^bargain/gig/new/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_new_from_band, name='gigbargain-new-from-band'),
@@ -51,6 +54,14 @@ urlpatterns += patterns('',
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit$', views.bargain.band.gigbargain_band_part_edit, name='gigbargain-band-part-edit'),
 
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_band_part_display, name='gigbargain-band-part-display'),
+
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/submit_to_venue', views.bargain.band.gigbargain_band_submit_draft_to_venue, name='gigbargain-band-submit-to-venue'),
+
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/invite_band', views.bargain.band.gigbargain_band_invite_band, name='gigbargain-band-invite-band'),
+
+    url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/renegociate', views.bargain.band.gigbargain_band_draft_renegociate, name='gigbargain-band-draft-renegociate'),
+
+
 
     # Bargain, common parts
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/common/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_band_common_edit, name='gigbargain-band-common-edit'),

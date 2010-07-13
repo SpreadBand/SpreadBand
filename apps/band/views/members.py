@@ -1,12 +1,12 @@
 """
 Membership management for a band
 """
-
 from django.views.generic.create_update import create_object
 from django.shortcuts import get_object_or_404, redirect
+from django.views.generic.list_detail import object_list
 
 from ..forms import BandMemberRequestForm
-from ..models import Band
+from ..models import Band, BandMember
 
 def membership_request(request, band_slug):
     """
@@ -66,10 +66,6 @@ def membership_add(request, band_slug):
                          template_name='band/membership_add.html',
                          extra_context={'band': band},
                          )
-
-from django.views.generic.list_detail import object_list
-
-from ..models import BandMember
 
 def membership_manage(request, band_slug):
     """

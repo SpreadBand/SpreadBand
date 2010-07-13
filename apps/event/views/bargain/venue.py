@@ -137,11 +137,25 @@ def gigbargain_venue_conclude(request, gigbargain_uuid):
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
 
-    if gigbargain.state not in ('band_ok', 'compelete_proposed_to_venue'):
+    if gigbargain.state not in ('band_ok', 'complete_proposed_to_venue'):
         # XXX Maybe we should be more explicit
         return HttpResponseForbidden()
     
     gigbargain.conclude()
+
+    return redirect(gigbargain)
+
+def gigbargain_venue_cancel(request, gigbargain_uuid):
+    """
+    Cancel a bargain, even if bands are ok
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    
+    if gigbargain.state not in ('need_venue_confirm'):
+        # XXX Maybe we should be more explicit
+        return HttpResponseForbidden()
+
+    gigbargain.cancel()
 
     return redirect(gigbargain)
 
@@ -158,6 +172,7 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
         return HttpResponseForbidden()
     
    
+    # XXX not sure we want to keep this
     # if this is an incomplete bargain, just make the bands enter
     # negociations
     if gigbargain.state == 'incomplete_proposed_to_venue':
@@ -171,7 +186,7 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
     elif gigbargain.state == 'complete_proposed_to_venue':
         [gigbargainband.cancel_approval()
          for gigbargainband
-         in gigbargain.gigbargainband_set.all()]
+         in gigbargain.gigbargainband_set.filter(state='part_validated')]
 
         
     # Then, switch our gigbargain state by letting the venue enter
@@ -215,6 +230,61 @@ def gigbargain_venue_common_edit(request, gigbargain_uuid):
                      'gigbargain_form': gigbargain_form}        
 
     return render_to_response(template_name='event/gigbargain_common_edit.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )
+
+def gigbargain_venue_renegociate(request, gigbargain_uuid):
+    """
+    When a bargain has been approved, restart negociations if something is incorrect
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if gigbargain.state not in ('band_ok'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
+        gigbargainband.cancel_approval()
+
+    gigbargain.bands_dont_agree_anymore()
+
+    return redirect(gigbargain)
+
+from event.forms import GigBargainBandInviteForm
+from django.contrib import messages
+
+def gigbargain_venue_invite_band(request, gigbargain_uuid):
+    """
+    When a Venue invites another Band to join a bargain
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if gigbargain.state not in ('need_venue_confirm', 'band_nego'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargainband_form = GigBargainBandInviteForm(gigbargain,
+                                                   request.POST or None)
+
+    if request.method == 'POST':
+        if gigbargainband_form.is_valid():
+            gigbargainband = gigbargainband_form.save(commit=False)
+            gigbargainband.bargain = gigbargain
+            gigbargainband.save()
+
+            # If there were bands that had validated their part, invalidate them
+            for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
+                gigbargainband.cancel_approval()
+
+            messages.success(request, _("%s was successfully invited") % gigbargainband.band.name)
+
+            return redirect(gigbargain)
+
+    extra_context = {'gigbargain': gigbargain,
+                     'gigbargainband_form': gigbargainband_form}
+
+    return render_to_response(template_name='event/gigbargain_invite_band.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )

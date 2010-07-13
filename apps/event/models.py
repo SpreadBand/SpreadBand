@@ -64,14 +64,16 @@ class GigBargain(models.Model):
     """
     STATE_CHOICES = (
         ('new', 'New bargain'),
-        ('complete_proposed_to_venue', 'Complete bargain proposed to venue'),
-        ('incomplete_proposed_to_venue', 'Incomplete bargain proposed to venue'),
+        ('draft', 'A draft, not proposed to a venue'),
+        ('draft_ok', 'A draft, approved by bands'),
+        ('complete_proposed_to_venue', 'Complete draft bargain proposed to venue'),
+        ('incomplete_proposed_to_venue', 'Incomplete draft bargain proposed to venue'),
         ('need_venue_confirm', 'Need venue confirmation'),
         ('band_nego', 'Bands negociating'),
         ('band_ok', 'Approved by bands'),
         ('concluded', 'Concluded'),
         ('declined', 'Declined'),
-        ('canceled', 'Canceled')
+        ('canceled', 'Canceled by the initiator')
         )
 
     # XXX: Pgsql seems to support native uuid field. This extension may not use that.
@@ -95,7 +97,7 @@ class GigBargain(models.Model):
         """
         pass
 
-    @transition(source='new', target='complete_proposed_to_venue', save=True)
+    @transition(source=('new', 'draft_ok'), target='complete_proposed_to_venue', save=True)
     def propose_complete_bargain_to_venue(self):
         """
         Propose this complete bargain to the venue (used when initiated from band)
@@ -130,18 +132,47 @@ class GigBargain(models.Model):
         """
         pass
 
+    @transition(source='draft', target='draft_ok', save=True)
+    def bands_have_approved_draft(self):
+        """
+        When all bands have validated their parts during a draft
+        """
+        pass
+
+    @transition(source='draft_ok', target='draft', save=True)
+    def bands_have_disapproved_draft(self):
+        """
+        When we need to reset a draft (something is wrong with the draft)
+        """
+        pass
+
 
     @transition(source=('band_ok', 'complete_proposed_to_venue'), target='concluded', save=True)
     def conclude(self):
         """
-        Concluded the contract
+        Conclude the bargain
         """
         pass
 
     @transition(source=('band_ok', 'complete_proposed_to_venue', 'incomplete_proposed_to_venue'), target='declined', save=True)
     def decline(self):
         """
-        Concluded the contract
+        Decline the bargain
+        """
+        pass
+
+    @transition(source='need_venue_confirm', target='canceled', save=True)
+    def cancel(self):
+        """
+        Cancel the bargain
+        """
+        pass
+
+
+    @transition(source='new', target='draft', save=True)
+    def become_draft(self):
+        """
+        Make this gig bargain becomes a draft.
         """
         pass
 
@@ -228,13 +259,12 @@ class GigBargainBand(models.Model):
     def start_negociating(self):
         pass
 
-    # XXX Maybe the bargain state should be moved to save a few sql queries ?
     @transition(source=('negociating', 'part_validated'), target='part_validated', save=True)
     def approve_part(self):
-        # Every band has accepted their parts
-        if len(GigBargainBand.objects.filter(bargain=self.bargain, 
-                                             state='negociating').exclude(id=self.id)) == 0:
-            self.bargain.bands_have_approved_parts()
+        """
+        When a band approves its part of the contract
+        """
+        pass
 
     @transition(source='part_validated', target='negociating', save=True)
     def cancel_approval(self):
