@@ -398,3 +398,23 @@ def gigbargain_band_draft_renegociate(request, gigbargain_uuid):
     gigbargain.bands_have_disapproved_draft()
 
     return redirect(gigbargain)
+
+
+def gigbargain_band_kick(request, gigbargain_uuid, band_slug):
+    """
+    Kick the given band from the gig bargain
+    """
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+
+    if gigbargain.state not in ('draft'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargainband.kick()
+
+    for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
+        gigbargainband.cancel_approval()
+
+    return redirect(gigbargain)

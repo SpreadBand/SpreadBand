@@ -273,6 +273,13 @@ class GigBargainBand(models.Model):
         """
         pass
 
+    @transition(source='negociating', target='kicked', save=True)
+    def kick(self):
+        """
+        Kicks a band
+        """
+        pass
+
 
     band = ForeignKey(Band)
     bargain = ForeignKey(GigBargain)

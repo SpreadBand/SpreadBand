@@ -85,10 +85,11 @@ class GigBargainNewForm(forms.ModelForm):
         return date
 
     def clean(self):
+        # Make sure we give a cost if the access is not set to free
         access = self.cleaned_data.get('access')
         fee_amount = self.cleaned_data.get('fee_amount')
         if access and access != 'FREE':
-            if fee_amount is None:
+            if fee_amount in (0, None):
                 raise forms.ValidationError("You need to provide a cost, since the access is not free")
 
         return self.cleaned_data
@@ -153,7 +154,25 @@ class GigBargainNewFullForm(forms.ModelForm):
                                )
     
 
-class GigBargainBandPartEditForm(forms.ModelForm):
+class GigBargainBandForm(forms.ModelForm):
+    class Meta:
+        model = GigBargainBand
+        fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
+
+    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
+
+    def clean(self):
+        # Make sure the equalization isn't after the beginning of the set
+        equalization = self.cleaned_data.get('eq_starts_at')
+        starts_at = self.cleaned_data.get('starts_at')
+        if equalization:
+            if starts_at <= equalization:
+                raise forms.ValidationError(_("Equalizations must start before the gig itself"))
+
+        return self.cleaned_data
+
+
+class GigBargainBandPartEditForm(GigBargainBandForm):
     """
     When a band edits its part
     """
@@ -163,14 +182,37 @@ class GigBargainBandPartEditForm(forms.ModelForm):
 
     starts_at = forms.TimeField(required=True)
     set_duration = DurationField(required=True)
-    percentage = forms.IntegerField(min_value=0, max_value=100)
 
-class GigBargainBandForm(forms.ModelForm):
+
+class GigBargainMyBandForm(GigBargainBandForm):
     class Meta:
         model = GigBargainBand
-        fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
+        fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
-    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
+    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0, required=False)
+    set_duration = DurationField(required=True)
+
+class GigBargainMyBandFullForm(GigBargainMyBandForm):
+    def __init__(self, aGigBargain, *args, **kwargs):
+        self._gigbargain = aGigBargain
+        GigBargainMyBandForm.__init__(self, *args, **kwargs)
+
+    starts_at = forms.TimeField(required=True)
+
+    def clean(self):
+        percentage = self.cleaned_data.get('percentage')
+        amount = self.cleaned_data.get('amount')
+
+        if self._gigbargain.remuneration == 'PERC':
+            if not percentage or percentage == 0:
+                raise forms.ValidationError(_("Percentage is missing"))
+
+        elif self._gigbargain.remuneration == 'FIXE':
+            if not amount or amount == 0:
+                raise forms.ValidationError(_("Remuneration amount is missing"))
+
+        return self.cleaned_data
+
 
 from event.models import GigBargainBand
 
@@ -199,34 +241,6 @@ class GigBargainBandInviteForm(GigBargainBandForm):
 
         return cleaned_data
 
-class GigBargainMyBandForm(forms.ModelForm):
-    class Meta:
-        model = GigBargainBand
-        fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
-
-    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0, required=False)
-    set_duration = DurationField(required=True)
-
-class GigBargainMyBandFullForm(GigBargainMyBandForm):
-    def __init__(self, aGigBargain, *args, **kwargs):
-        self._gigbargain = aGigBargain
-        GigBargainMyBandForm.__init__(self, *args, **kwargs)
-
-    starts_at = forms.TimeField(required=True)
-
-    def clean(self):
-        percentage = self.cleaned_data.get('percentage')
-        amount = self.cleaned_data.get('amount')
-
-        if self._gigbargain.remuneration == 'PERC':
-            if not percentage or percentage == 0:
-                raise forms.ValidationError(_("Percentage is missing"))
-
-        elif self._gigbargain.remuneration == 'FIXE':
-            if not amount or amount == 0:
-                raise forms.ValidationError(_("Remuneration amount is missing"))
-
-        return self.cleaned_data
 
 class BaseGigBargainBandFormSet(formsets.BaseFormSet):
     def clean(self):

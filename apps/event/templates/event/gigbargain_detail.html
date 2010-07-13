@@ -140,7 +140,7 @@ Number of drinks : {{ gigbargain.fee_amount }}
 
 <ul>
   {% for band in gigbargain.gigbargainband_set.all %}
-  <li><a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a> ({{ band.band.genres }}). <i>State : {{ band.state }}</i> [<a href="{% url event:gigbargain-band-part-display gigbargain.pk band.band.slug %}">Show my part</a>]</li>
+  <li><a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a> ({{ band.band.genres }}). <i>State : {{ band.state }}</i> [<a href="{% url event:gigbargain-band-part-display gigbargain.pk band.band.slug %}">Show my part</a>] -- [<a href="{% url event:gigbargain-band-kick gigbargain.pk band.band.slug %}">kick</a>]</li>
   {% endfor %}
 </ul>
 
@@ -170,14 +170,14 @@ Type of remuneration : {{ gigbargain.get_remuneration_display }}
 Tips: {  
      enable: true,  
      onShow: function(tip, elem) {  
-      {% if gigbargain.remunation == 'PERC' %}
+      {% if gigbargain.remuneration == 'PERC' %}
        tip.innerHTML = "<b>" + elem.label + "</b>: " + elem.value + "%";  
       {% else %}
        tip.innerHTML = "<b>" + elem.label + "</b>: $" + elem.value;  
       {% endif %}
      }
    },
-   Label: { color: '#000', size: 12 },
+   Label: { type: 'HTML', color: '#000', size: 11 },
 
 
    });  
@@ -187,7 +187,7 @@ var json = {
      'values': [  
   {% for band in gigbargain.gigbargainband_set.all %}
      {  
-       'label': '{{ band.band.name }}',  
+       'label': '<a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a>',  
        {% if gigbargain.remuneration == 'PERC' %}
        'values': [ {{ band.percentage }} ],
        {% else %}
