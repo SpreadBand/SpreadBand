@@ -52,6 +52,9 @@ urlpatterns = patterns('',
     # Notifications
     (r'^notification/', include('notification.urls')),
 
+    # REST API
+    (r'^api/', include('api.urls')),
+
     # Django admin
     (r'^admin/', include(admin.site.urls)),
 )

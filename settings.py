@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.localflavor',
     'django.contrib.syndication',
     'django.contrib.messages',
+    'django.contrib.markup',
 
     # External
     'compressor',
@@ -168,6 +169,7 @@ INSTALLED_APPS = (
     'album',
 
     'bigbrother',
+    'api',
 )
 
 
