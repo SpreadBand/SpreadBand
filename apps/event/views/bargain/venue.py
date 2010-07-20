@@ -131,6 +131,7 @@ def gigbargain_venue_decline(request, gigbargain_uuid):
 
     return redirect(gigbargain)
 
+
 def gigbargain_venue_conclude(request, gigbargain_uuid):
     """
     Once all bands have agreed, conclude the bargain
@@ -140,7 +141,7 @@ def gigbargain_venue_conclude(request, gigbargain_uuid):
     if gigbargain.state not in ('band_ok', 'complete_proposed_to_venue'):
         # XXX Maybe we should be more explicit
         return HttpResponseForbidden()
-    
+
     gigbargain.conclude()
 
     return redirect(gigbargain)

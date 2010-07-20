@@ -4,8 +4,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
-from bargain.models import Party, Contract
-
 from .models import Venue
 from .forms import VenueForm, VenueUpdateForm
 

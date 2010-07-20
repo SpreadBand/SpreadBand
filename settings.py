@@ -174,6 +174,9 @@ INSTALLED_APPS = (
 ###--- Application settings ---###
 
 ### DEBUG TOOLBAR
+
+
+
 DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
     'debug_toolbar.panels.timer.TimerDebugPanel',
@@ -188,6 +191,7 @@ DEBUG_TOOLBAR_PANELS = (
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS' : False,
+    'EXTRA_SIGNALS': ['event.signals.gigbargain_concluded']
     }
 
 

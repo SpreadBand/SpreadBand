@@ -23,7 +23,6 @@ def gigbargain_detail(request, gigbargain_uuid):
 
 
 from reversion.models import Version
-from bargain.models import Contract
 
 from utils.differs import DictDiffer
 

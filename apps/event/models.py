@@ -7,19 +7,18 @@ from django_extensions.db.fields import UUIDField
 from durationfield.db.models.fields.duration import DurationField
 import reversion
 
-from agenda.models import Event
-from django_fsm.db.fields import FSMField, transition
-
-from band.models import Band
-from venue.models import Venue
-from bargain.signals import contract_concluded
-
-
 # XXX Hack to make south happy with fsmfield
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^django_fsm\.db\.fields\.fsmfield\.FSMField"])
 add_introspection_rules([], ["^durationfield\.db\.models\.fields\.duration\.DurationField"])
 
+from agenda.models import Event
+from django_fsm.db.fields import FSMField, transition
+
+from band.models import Band
+from venue.models import Venue
+
+from .signals import gigbargain_concluded
 
 class Gig(Event):
     """
@@ -146,13 +145,13 @@ class GigBargain(models.Model):
         """
         pass
 
-
     @transition(source=('band_ok', 'complete_proposed_to_venue'), target='concluded', save=True)
     def conclude(self):
         """
         Conclude the bargain
         """
-        pass
+        from event.signals import gigbargain_concluded
+        gigbargain_concluded.send(sender=self)
 
     @transition(source=('band_ok', 'complete_proposed_to_venue', 'incomplete_proposed_to_venue'), target='declined', save=True)
     def decline(self):
@@ -330,13 +329,11 @@ class GigBargainCommentThread(models.Model):
 
 
 ## Signals
-from bargain.signals import contract_new, contract_approved, contract_disapproved, contract_amended
-
-def gigbargain_concluded_callback(sender, aContract, aUser, **kwargs):
+def gigbargain_concluded_callback(sender, **kwargs):
     """
     Callback when a gig bargain has been concluded
     """
-    gigbargain = aContract.terms.gigbargain
+    gigbargain = sender
 
     gig = Gig(venue_id=gigbargain.venue.id,
               event_date=gigbargain.date,
@@ -344,8 +341,7 @@ def gigbargain_concluded_callback(sender, aContract, aUser, **kwargs):
               end_time=gigbargain.closes_at,
               description='no description',
               title="gig at %s" % gigbargain.venue.name,
-              slug="gig-at-%s" % gigbargain.venue.slug,
-              author=aUser)
+              slug="gig-at-%s" % gigbargain.venue.slug)
 
     gig.save()
 
@@ -360,8 +356,7 @@ def gigbargain_concluded_callback(sender, aContract, aUser, **kwargs):
     # Also add this gig to the venue calendar            
     gig.venue.calendar.events.add(gig)
 
-    
-contract_concluded.connect(gigbargain_concluded_callback, sender=GigBargain)
+gigbargain_concluded.connect(gigbargain_concluded_callback)
 
 import notification.models as notification
 
@@ -382,22 +377,18 @@ def gigbargain_new_callback(sender, aContract, **kwargs):
     users = collect_users_from_contract(aContract)
     notification.send(users, 'gigbargain_new')
 
-contract_new.connect(gigbargain_new_callback, sender=GigBargain)
 
 def gigbargain_approved_callback(sender, aContract, aParticipant,  **kwargs):
     users = collect_users_from_contract(aContract)
     notification.send(users, 'gigbargain_approved')
 
-contract_approved.connect(gigbargain_approved_callback, sender=GigBargain)
 
 def gigbargain_disapproved_callback(sender, aContract, aParticipant,  **kwargs):
     users = collect_users_from_contract(aContract)
     notification.send(users, 'gigbargain_disapproved')
 
-contract_disapproved.connect(gigbargain_disapproved_callback, sender=GigBargain)
 
 def gigbargain_amended_callback(sender, aContract, aParticipant,  **kwargs):
     users = collect_users_from_contract(aContract)
     notification.send(users, 'gigbargain_amended')
 
-contract_amended.connect(gigbargain_amended_callback, sender=GigBargain)
