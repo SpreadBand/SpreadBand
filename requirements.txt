@@ -24,9 +24,9 @@ docutils
 -e git+http://github.com/mintchaos/django_compressor.git#egg=django-compressor
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
 -e git+http://github.com/flashingpumpkin/django-socialregistration.git@v0.4-tag#egg=django-socialregistration
--e git+http://github.com/glibersat/django-agenda.git#egg=django-agenda
+-e git+http://github.com/SpreadBand/django-agenda.git#egg=django-agenda
 -e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
--e git+http://github.com/glibersat/django-notification.git#egg=django-notification
+-e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
 -e git+http://github.com/glibersat/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
