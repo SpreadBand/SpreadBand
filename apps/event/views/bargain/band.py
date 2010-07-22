@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.forms.models import inlineformset_factory
 from django.forms.formsets import formset_factory
 from django.forms.models import model_to_dict
@@ -20,11 +21,15 @@ from event.forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, G
 from event.forms import GigBargainNewFullForm, GigBargainMyBandFullForm, GigBargainBandInviteForm
 
 
+@login_required
 def gigbargain_new_from_band(request, band_slug):
     """
     For a Band, create a new gigbargain
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
 
     gigbargain_form = GigBargainNewFromBandForm(request.user,
                                                 request.POST or None)
@@ -74,11 +79,16 @@ def gigbargain_new_from_band(request, band_slug):
                                                               extra_context)
                               )
 
+@login_required
 def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
     """
     Enter a bargain, for a band
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
+
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
 
     gigbargain_band = get_object_or_404(GigBargainBand, 
@@ -137,11 +147,16 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
 
 
 # XXX: beware of state : should be more constrained
+@login_required
 def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
     """
     For a Band, don't enter a gigbargain and so refuse it.
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
+
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
 
     if gigbargain.state not in ('new', 'draft'):
@@ -181,6 +196,7 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
     return redirect(gigbargain)
 
 
+@login_required
 def gigbargain_band_quit(request, band_slug, gigbargain_uuid):
 
     """
@@ -189,10 +205,16 @@ def gigbargain_band_quit(request, band_slug, gigbargain_uuid):
     pass
 
 
+@login_required
 def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
     """
     Display the part of a bargain concerning the given band
     """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
+
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
@@ -217,11 +239,16 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
                                                               extra_context)
                               )
 
-
+@login_required
 def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     """
     During the band negociation phase, when a band accept its band part
     """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
+
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
@@ -259,10 +286,16 @@ def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     return redirect(gigbargain)
 
 
+@login_required
 def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
     """
     During the band negociation phase, when a band edit its band part
     """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
+
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
@@ -290,12 +323,17 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
 
 
 from event.forms import GigBargainForBandForm
-
+@login_required
 def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     """
     For a Band, edit the common conditions of the bargain.
     If changed, it reset all other bargainers' state.
     """
+    band = get_object_or_404(Band, band_slug)
+
+    if not request.user.has_perm('manages', band):
+        return HttpResponseForbidden()
+
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
 
     if gigbargain.state not in ('band_nego', 'band_ok'):
@@ -329,6 +367,8 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
                                                               extra_context)
                               )
 
+# XXX Security
+@login_required
 def gigbargain_band_submit_draft_to_venue(request, gigbargain_uuid):
     """
     Submits a draft to the targetted venue
@@ -345,7 +385,8 @@ def gigbargain_band_submit_draft_to_venue(request, gigbargain_uuid):
 
     return redirect(gigbargain)
 
-
+# XXX Security
+@login_required
 def gigbargain_band_invite_band(request, gigbargain_uuid):
     """
     When a Band invites another Band to join a bargain
@@ -381,7 +422,8 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
                                                               extra_context)
                               )
     
-
+# XXX Security
+@login_required
 def gigbargain_band_draft_renegociate(request, gigbargain_uuid):
     """
     When a draft has been approved, restart negociations if something is incorrect
@@ -400,6 +442,8 @@ def gigbargain_band_draft_renegociate(request, gigbargain_uuid):
     return redirect(gigbargain)
 
 
+# XXX Security
+@login_required
 def gigbargain_band_kick(request, gigbargain_uuid, band_slug):
     """
     Kick the given band from the gig bargain

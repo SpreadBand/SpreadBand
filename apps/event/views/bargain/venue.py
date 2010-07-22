@@ -98,7 +98,7 @@ def gigbargain_new_from_venue(request):
                               )
 
 
-
+@login_required
 def gigbargain_venue_confirm_bands(request, gigbargain_uuid):
     """
     Let the venue confirm it wants to go on with the bands that have
@@ -107,6 +107,9 @@ def gigbargain_venue_confirm_bands(request, gigbargain_uuid):
     to bargain, not all.
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
 
     if gigbargain.state != 'need_venue_confirm':
         # XXX Maybe we should be more explicit
@@ -117,11 +120,15 @@ def gigbargain_venue_confirm_bands(request, gigbargain_uuid):
     return redirect(gigbargain)
 
 
+@login_required
 def gigbargain_venue_decline(request, gigbargain_uuid):
     """
     Decline a bargain
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
     
     if gigbargain.state not in ('band_ok', 'complete_proposed_to_venue', 'incomplete_proposed_to_venue'):
         # XXX Maybe we should be more explicit
@@ -132,11 +139,15 @@ def gigbargain_venue_decline(request, gigbargain_uuid):
     return redirect(gigbargain)
 
 
+@login_required
 def gigbargain_venue_conclude(request, gigbargain_uuid):
     """
     Once all bands have agreed, conclude the bargain
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
 
     if gigbargain.state not in ('band_ok', 'complete_proposed_to_venue'):
         # XXX Maybe we should be more explicit
@@ -146,12 +157,17 @@ def gigbargain_venue_conclude(request, gigbargain_uuid):
 
     return redirect(gigbargain)
 
+
+@login_required
 def gigbargain_venue_cancel(request, gigbargain_uuid):
     """
     Cancel a bargain, even if bands are ok
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
-    
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
+
     if gigbargain.state not in ('need_venue_confirm'):
         # XXX Maybe we should be more explicit
         return HttpResponseForbidden()
@@ -161,12 +177,16 @@ def gigbargain_venue_cancel(request, gigbargain_uuid):
     return redirect(gigbargain)
 
 
+@login_required
 def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
     """
     When a gigbargain is proposed by bands to a venue, a venue can
     choose to enter the negociations.
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
 
     if gigbargain.state not in ('complete_proposed_to_venue', 'incomplete_proposed_to_venue'):
         # XXX Maybe we should be more explicit
@@ -197,12 +217,16 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
 
 from event.forms import GigBargainForVenueForm
 
+@login_required
 def gigbargain_venue_common_edit(request, gigbargain_uuid):
     """
     For a Venue, edit the common conditions of the bargain.
     If changed, it reset all bands' state.
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
 
     if gigbargain.state not in ('new', 'need_venue_confirm', 'band_nego', 'band_ok'):
         # XXX: Maybe it should more explicit
@@ -235,11 +259,16 @@ def gigbargain_venue_common_edit(request, gigbargain_uuid):
                                                               extra_context)
                               )
 
+
+@login_required
 def gigbargain_venue_renegociate(request, gigbargain_uuid):
     """
     When a bargain has been approved, restart negociations if something is incorrect
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
 
     if gigbargain.state not in ('band_ok'):
         # XXX: Maybe it should more explicit
@@ -255,11 +284,15 @@ def gigbargain_venue_renegociate(request, gigbargain_uuid):
 from event.forms import GigBargainBandInviteForm
 from django.contrib import messages
 
+@login_required
 def gigbargain_venue_invite_band(request, gigbargain_uuid):
     """
     When a Venue invites another Band to join a bargain
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    if not request.user.has_perm('manages', gigbargain.venue):
+        return HttpResponseForbidden()
 
     if gigbargain.state not in ('need_venue_confirm', 'band_nego'):
         # XXX: Maybe it should more explicit
