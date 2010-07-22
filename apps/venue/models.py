@@ -11,6 +11,11 @@ class Venue(Actor):
     """
     A place where a gig can happen
     """
+    class Meta:
+        permissions = (
+            ('manages', 'Manages this venue'),
+        )
+
     name = CharField(max_length=200)
     slug = SlugField(max_length=100, unique=True)
 
@@ -27,7 +32,7 @@ class Venue(Actor):
 
 # This should be in actors.models, but django currently doesn't deal
 # well with signals and inheritance
-from django.db.models.signals import post_save
-from actors.models import actor_after_save
+# from django.db.models.signals import post_save
+# from actors.models import actor_after_save
 
-post_save.connect(actor_after_save, sender=Venue)
+# post_save.connect(actor_after_save, sender=Venue)

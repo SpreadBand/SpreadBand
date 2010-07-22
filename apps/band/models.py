@@ -24,6 +24,11 @@ class Band(Actor):
     """
     A music band
     """
+    class Meta:
+        permissions = (
+            ('manages', 'Manages this band'),
+        )
+
     name = CharField(max_length=200)
     
     slug = models.SlugField(max_length=40, unique=True)
@@ -50,10 +55,10 @@ class Band(Actor):
 
 # This should be in actors.models, but django currently doesn't deal
 # well with signals and inheritance
-from django.db.models.signals import post_save
-from actors.models import actor_after_save
+# from django.db.models.signals import post_save
+# from actors.models import actor_after_save
 
-post_save.connect(actor_after_save, sender=Band)
+# post_save.connect(actor_after_save, sender=Band)
 
 
 def get_bandpicture_path(aBandPicture, filename):
