@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'django_fsm',
     'timezones',
     'django_countries',
+    'mailer',
 
     # Internal
     'backcap',
