@@ -117,7 +117,7 @@
 	      </p>
 	      {% else %}
 	      <p>
-		<a href="{% url auth_login %}">Login</a> or <a href="{% url registration_register %}">Signup</a>
+		<a href="{% url auth_login %}?next={{ request.get_full_path }}">Login</a> or <a href="{% url registration_register %}">Signup</a>
 	      </p>
 	      
 	      <script type="text/javascript">
@@ -184,7 +184,7 @@
 	</div>
 	<div class="grid_3 suffix_1 omega">
 	  <ul>
-	    <li><a href="{% url backcap:feedback-new request.path %}">Leave feedback</a></li>
+	    <li><a href="{% url backcap:feedback-new %}?referer={{ request.get_full_path }}">Leave feedback</a></li>
 	    <li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
 	  </ul>
 	</div>

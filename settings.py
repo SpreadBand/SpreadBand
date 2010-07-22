@@ -105,6 +105,9 @@ MIDDLEWARE_CLASSES = (
     # Request (stats)
     'request.middleware.RequestMiddleware',
     #'openid_consumer.middleware.OpenIDMiddleware',
+
+    # 403
+    'utils.middleware.403.Django403Middleware',
 )
 
 ROOT_URLCONF = 'spreadband.urls'
