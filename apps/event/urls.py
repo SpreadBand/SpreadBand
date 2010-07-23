@@ -3,8 +3,7 @@ from django.conf import settings
 
 import views.bargain.band
 import views.bargain.venue
-
-
+import views.bargain.dashboard
 import views.calendar
 
 urlpatterns = patterns('django.views.generic.simple',
@@ -30,6 +29,9 @@ urlpatterns += patterns('',
 
     # Bargain
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)$', views.bargain.gigbargain_detail, name='gigbargain-detail'),
+
+    # Dashboards
+    url(r'^bargain/gig/band/dashboard/(?P<band_slug>[-\w]+)$', views.bargain.dashboard.gigbargain_band_dashboard, name='gigbargain-band-dashboard'),
 
     # Bargain, comments
     url(r'bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/comments/(?P<section>[-\w]+)$', views.bargain.comments_section_display, name='gigbargain-comments-section-display'),
@@ -68,7 +70,6 @@ urlpatterns += patterns('',
     # Bargain, common parts
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/common/band/(?P<band_slug>[-\w]+)$', views.bargain.band.gigbargain_band_common_edit, name='gigbargain-band-common-edit'),
     url(r'^bargain/gig/(?P<gigbargain_uuid>[\w\d-]+)/common/venue$', views.bargain.venue.gigbargain_venue_common_edit, name='gigbargain-venue-common-edit'),
-
 
 )
 
