@@ -57,7 +57,7 @@ def membership_add(request, band_slug):
             addform.save_m2m()
 
             # Assign rights to the user
-            assign('band.change_band', request.user, band)
+            assign('band.can_manage', request.user, band)
 
             return redirect(bandmember)
 
