@@ -7,7 +7,8 @@ from django.utils.translation import ugettext as _
 
 from ajax_select.fields import AutoCompleteSelectMultipleField, AutoCompleteSelectField
 
-from durationfield.forms.fields import DurationField
+# from durationfield.forms.fields import DurationField
+from timedelta.forms import TimedeltaFormField
 
 from utils.forms.fields import RangeField
 from utils.forms.widgets import RangeWidget, SliderRangeWidget
@@ -183,7 +184,7 @@ class GigBargainBandPartEditForm(GigBargainBandForm):
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     starts_at = forms.TimeField(input_formats=('%H:%M', '%H'), required=True)
-    set_duration = DurationField(required=True)
+    set_duration = TimedeltaFormField(required=True)
 
 
 class GigBargainMyBandForm(GigBargainBandForm):
@@ -192,7 +193,7 @@ class GigBargainMyBandForm(GigBargainBandForm):
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     percentage = forms.IntegerField(min_value=0, max_value=100, initial=0, required=False)
-    set_duration = DurationField(required=True)
+    set_duration = TimedeltaFormField(required=True)
 
 class GigBargainMyBandFullForm(GigBargainMyBandForm):
     def __init__(self, aGigBargain, *args, **kwargs):

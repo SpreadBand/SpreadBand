@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
-{% load threadedcomments_tags %}
 {% load comments %}
+{% load threadedcomments_tags %}
+{% load timedelta %}
 
 {% block css %}
 
@@ -216,19 +217,17 @@ var json = {
 
 <div class="vcalendar">
   <!-- Venue opening -->
-  <div class="vevent">
-    <abbr title="{{ gigbargain.date }}T16:0000" class="dtstart">{{ gigbargain.date }}</abbr> – <abbr title="{{ gigbargain.date }}T16:30" class="dtend">{{ gigbargain.opens_at }}</abbr> : <span class="summary">{{ gigbargain.venue.name }} opens</span>
-  </div>
-  <!-- Events -->
-  {% for gigbargainband in gigbargain.gigbargainband_set.all %}
-  <div class="vevent">
-    <abbr title="{{ gigbargain.date }}T16:0000" class="dtstart">{{ gigbargain.date }}</abbr> – <abbr title="{{ gigbargain.date }}T16:30" class="dtend">{{ gigbargainband.starts_at }}</abbr> :  <span class="summary">{{ gigbargainband.band.name }} starts playing (set duration : {{ gigbargainband.set_duration }})</span>
-  </div>
-  {% endfor %}
-  <!-- Venue closing -->
-  <div class="vevent">
-    <abbr title="{{ gigbargain.date }}T16:0000" class="dtstart">{{ gigbargain.date }}</abbr> – <abbr title="{{ gigbargain.date }}T16:30" class="dtend">{{ gigbargain.closes_at }}</abbr> : <span class="summary">{{ gigbargain.venue.name }} closes</span>
-  </div>
+  <ul>
+    {% for gigbargainband in gigbargain.gigbargainband_set.all %}
+    <li>
+      <span class="vevent">
+	<abbr class="dtstart" title="{{ gigbargain.date|date:'Y-m-d' }}T{{ gigbargainband.starts_at|time:'H:i' }}">{{ gigbargainband.starts_at }}</abbr> --
+	<span class="summary">{{ gigbargainband.band.name }} plays during</span>
+	<abbr class="duration" title="{{ gigbargainband.set_duration|iso8601 }}">{{ gigbargainband.set_duration }}</abbr>
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
 <!-- XX: faked generation of hcal -->

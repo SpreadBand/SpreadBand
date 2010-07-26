@@ -1,24 +1,28 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Sum
 from django.db.models import DateField, TimeField, CharField, PositiveSmallIntegerField
 from django.db.models import ManyToManyField, ForeignKey, OneToOneField
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import UUIDField
-from durationfield.db.models.fields.duration import DurationField
+from timedelta.fields import TimedeltaField
 import reversion
 
 # XXX Hack to make south happy with fsmfield
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^django_fsm\.db\.fields\.fsmfield\.FSMField"])
-add_introspection_rules([], ["^durationfield\.db\.models\.fields\.duration\.DurationField"])
+# add_introspection_rules([], ["^durationfield\.db\.models\.fields\.duration\.TimeDeField"])
 
 from agenda.models import Event
 from django_fsm.db.fields import FSMField, transition
+import notification.models as notification
 
 from band.models import Band
+from event.signals import gigbargain_concluded
 from venue.models import Venue
 
-from .signals import gigbargain_concluded
+from .signals import gigbargain_concluded, gigbargain_new_from_venue
 
 class Gig(Event):
     """
@@ -56,11 +60,35 @@ class GigBargainVenueState(models.Model):
     def __unicode__(self):
         return "State : %s" % str(self.state)
 
+class GigBargainManager(models.Manager):
+    """
+    Objects manager for GigBargain
+    """
+    def new_gigbargains(self):
+        return self.filter(state__in=('new',
+                                      'need_venue_confirm'
+                                      )
+                           )
+
+    def inprogress_gigbargains(self):
+        return self.filter(state__in=('draft',
+                                      'draft_ok',
+                                      'complete_proposed_to_venue',
+                                      'incomplete_proposed_to_venue',
+                                      'band_nego',
+                                      'band_ok'
+                                      )
+                           )
+
+    def concluded_gigbargains(self):
+        return self.filter(state='concluded')
 
 class GigBargain(models.Model):
     """
     Terms of a bargain between one or more Bands and a Venue.
     """
+    objects = GigBargainManager()
+
     STATE_CHOICES = (
         ('new', 'New bargain'),
         ('draft', 'A draft, not proposed to a venue'),
@@ -150,7 +178,6 @@ class GigBargain(models.Model):
         """
         Conclude the bargain
         """
-        from event.signals import gigbargain_concluded
         gigbargain_concluded.send(sender=self)
 
     @transition(source=('band_ok', 'complete_proposed_to_venue', 'incomplete_proposed_to_venue'), target='declined', save=True)
@@ -284,7 +311,7 @@ class GigBargainBand(models.Model):
     bargain = ForeignKey(GigBargain)
 
     starts_at = TimeField(blank=True, null=True)
-    set_duration = DurationField(default='0h 0min')
+    set_duration = TimedeltaField()
 
     eq_starts_at = TimeField(blank=True, null=True)
     
@@ -293,9 +320,6 @@ class GigBargainBand(models.Model):
     defrayment = PositiveSmallIntegerField(blank=True, null=True, default=0)
 
     def clean(self):
-        from django.db.models import Sum
-        from django.core.exceptions import ValidationError
-
         # Make sure percentages of all bands don't exceed 100
         # XXX: We have to filter out bands that have left the bargain
         # other_percentage = GigBargainBand.objects.filter(bargain=self.bargain).exclude(pk=self.pk).aggregate(Sum("percentage"))['percentage__sum']
@@ -329,6 +353,9 @@ class GigBargainCommentThread(models.Model):
 
 
 ## Signals
+from annoying.decorators import signals
+
+@signals(gigbargain_concluded)
 def gigbargain_concluded_callback(sender, **kwargs):
     """
     Callback when a gig bargain has been concluded
@@ -356,39 +383,36 @@ def gigbargain_concluded_callback(sender, **kwargs):
     # Also add this gig to the venue calendar            
     gig.venue.calendar.events.add(gig)
 
-gigbargain_concluded.connect(gigbargain_concluded_callback)
 
-import notification.models as notification
-
-def collect_users_from_contract(aContract):
-    terms = aContract.terms.gigbargain
-
-    # Collect users from bands to send notification to
-    users = []
-    for band in terms.bands.all():
+# FIXME: This is suboptimal
+def collect_band_members_from_gigbargain(aGigBargain):
+    """
+    Collect users from bands to send notification to
+    """
+    users = set()
+    for band in aGigBargain.bands.all():
         for member in band.members.all():
-            users.append(member.user)
+            users.add(member.user)
 
     return users
     
-
-# FIXME: This is suboptimal and people can get notified many times if they are in multiple bands
-def gigbargain_new_callback(sender, aContract, **kwargs):
-    users = collect_users_from_contract(aContract)
+@signals(gigbargain_new_from_venue)
+def gigbargain_new_from_venue_callback(sender, aGigBargain, **kwargs):
+    users = collect_band_members_from_gigbargain(aGigBargain)
     notification.send(users, 'gigbargain_new')
 
 
 def gigbargain_approved_callback(sender, aContract, aParticipant,  **kwargs):
-    users = collect_users_from_contract(aContract)
+    users = collect_band_members_from_gigbargain(aContract)
     notification.send(users, 'gigbargain_approved')
 
 
 def gigbargain_disapproved_callback(sender, aContract, aParticipant,  **kwargs):
-    users = collect_users_from_contract(aContract)
+    users = collect_band_members_from_gigbargain(aContract)
     notification.send(users, 'gigbargain_disapproved')
 
 
 def gigbargain_amended_callback(sender, aContract, aParticipant,  **kwargs):
-    users = collect_users_from_contract(aContract)
+    users = collect_band_members_from_gigbargain(aContract)
     notification.send(users, 'gigbargain_amended')
 
