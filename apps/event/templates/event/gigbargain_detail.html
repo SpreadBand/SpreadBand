@@ -8,6 +8,83 @@
 
 <link rel="profile" href="http://microformats.org/profile/hcalendar">
 
+<style type="text/css">
+  .bargainbox {
+  background-color: #eee;
+  padding: 10px; 
+  margin-bottom: 20px;
+  }
+
+#mainNav li{
+  margin:0;
+  padding:0;
+  height:65px;
+  list-style:none;
+  float:left;
+  background-color:#EBEBEB;
+  background-image: url({{ MEDIA_URL }}/images/stepmenu/navBtn.gif);
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
+#mainNav li.current{
+	background-color:#C36615;
+	background-image: url({{ MEDIA_URL }}/images/stepmenu/navCurrentBtn.gif);
+}
+
+#mainNav li.lastDone{
+	background-color:#7C8437;
+	background-image: url({{ MEDIA_URL }}/images/stepmenu/navLastDoneBtn.gif);
+}
+
+#mainNav li.done{
+	background-color:#7C8437;
+	background-image: url({{ MEDIA_URL }}/images/stepmenu/navDoneBtn.gif);
+}
+
+#mainNav li a, #mainNav li a:link, #mainNav li a:visited, #mainNav li a:hover, #mainNav li a:active {
+color:#ccc;
+}
+
+#mainNav li.lastDone a, #mainNav li.lastDone a:link, #mainNav li.lastDone a:visited, #mainNav li.lastDone a:hover, #mainNav li.lastDone a:active, #mainNav li.current a, #mainNav li.current a:link, #mainNav li.current a:visited, #mainNav li.current a:hover, #mainNav li.current a:active, #mainNav li.done a, #mainNav li.done a:link, #mainNav li.done a:visited, #mainNav li.done a:hover, #mainNav li.done a:active {
+color:#fff;
+}
+
+#mainNav li.done a:hover, #mainNav li.lastDone a:hover  {
+color:#FFFF99;
+cursor:hand;
+}
+
+#mainNav li a em{
+width:100px;
+display:block;
+margin:6px 0 0 10px;
+font-style:normal;
+font-weight:bold;
+}
+
+#mainNav li a span{
+width:100%;
+display:block;
+margin-left:10px;
+font-weight:normal;
+}
+
+#mainNav li.mainNavNoBg{
+background-image:none;
+}
+
+#mainNav li a{
+height:71px;
+display:block;
+}
+
+/* #mainNav.fiveStep */
+#mainNav.fiveStep li{width:17%;}
+#mainNav.fiveStep li a{width:17%;}
+
+</style>
+
 {{ block.super }}
 {% endblock %}
 
@@ -50,7 +127,11 @@ $(document).ready(function() {
 
 <h2>Gig Bargain</h2>
 
-State : {{ gigbargain.state }}
+<div class="grid_11 alpha">
+
+  <div class="grid_11 alpha omega">
+
+<!--
 
 {% if gigbargain.state == 'draft' %}
 <p>
@@ -109,63 +190,139 @@ The bands are negociating.<br>
 <b>This bargain was canceled by the organizer : it's dead, you LOOSE.</b>
 </p>
 {% endif %}
-
-<h3>When and Where [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}">comments</a>]</h3>
-
-When: {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
-Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }} [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>]<br>
-
-{% with gigbargain.venue as venue %}
-Venue : <a href="{{ venue.get_absolute_url }}">{{ venue }}</a>
-{% endwith %}
-
-<h3>Access [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'access' %}">comments</a>]</h3>
-
-<p>
-{% if gigbargain.access %}
-Entrance : {{ gigbargain.get_access_display }}<br>
-{% else %}
-Entrance is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
-{% endif %}
-
-{% if gigbargain.access == 'FEES' %}
-Fee amount : {{ gigbargain.fee_amount }}
-{% endif %}
-
-{% if gigbargain.access == 'DRNK' %}
-Number of drinks : {{ gigbargain.fee_amount }}
-{% endif %}
-</p>
-
-<h4>Bands</h4>
-
-<ul>
-  {% for band in gigbargain.gigbargainband_set.all %}
-  <li><a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a> ({{ band.band.genres }}). <i>State : {{ band.state }}</i> [<a href="{% url event:gigbargain-band-part-display gigbargain.pk band.band.slug %}">Show my part</a>] -- [<a href="{% url event:gigbargain-band-kick gigbargain.pk band.band.slug %}">kick</a>]</li>
-  {% endfor %}
-</ul>
+-->
+</div>
 
 
-<h4>Remuneration [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}">comments</a>]</h4>
+  <div class="grid_11 alpha omega" style="margin-bottom: 20px">
 
-{% if not gigbargain.remuneration %}
-Remuneration type is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>].
-{% else %}
-Type of remuneration : {{ gigbargain.get_remuneration_display }}
-{% endif %}
+<!-- State : {{ gigbargain.state }} -->
+    
+    <ul id="mainNav" class="fiveStep">
+      <li class="done"><a title=""><em>Draft</em></a></li>
+      <li class="lastDone"><a title=""><em>Draft ok</em></a></li>
+      <li class="current"><a title=""><em>Submitted</em></a></li>
+      <li><a title=""><em>Negociation</em></a></li>
+      <li class="mainNavNoBg"><a title=""><em>Finished</em></a></li>
+    </ul>
+  </div>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-   var pieChart = new $jit.PieChart({  
-        //Where to inject the canvas. Any div container will do.  
-        injectInto:'infovis',  
-         //width and height for canvas.  
+
+<div class="grid_6 alpha">
+  <div class="ui-corner-all bargainbox">
+    <h3>Where and When [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}">comments</a>]</h3>
+
+    {% with gigbargain.venue as venue %}
+    <div class="vcard">
+      <img width='60px' height='60px' style="float:left; margin-right:4px" src="{{ MEDIA_URL }}/images/tmp_venue.jpg" alt="picture of {{ venue.name }}" class="photo"/>
+      <a class="url uid" href="{{ venue.get_absolute_url }}">
+	<div class="org fn">
+	  <span class="organization-name">{{ venue|capfirst }}</span>
+	</div>
+      </a>
+
+      <div class="adr">
+	<span class="locality">Lille</span>,
+	<span class="country-name">France</span>
+      </div>
+
+      <div class="tags">
+	{% load tagging_tags %}
+	{% tags_for_object venue as venue_tags %}
+	{% for tag in venue_tags %}
+	 <a href="#">{{ tag }}</a>
+	{% endfor %}
+      </div>
+    </div>
+    {% endwith %}
+    <br>
+    When: {{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
+    Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }} [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>]<br>
+    
+  </div>
+
+</div>
+
+<div class="grid_5 omega">
+  <div class="ui-corner-all bargainbox">
+    <h3>Access [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'access' %}">comments</a>]</h3>
+
+    
+    {% if gigbargain.access %}
+    Entrance : {{ gigbargain.get_access_display }}<br>
+    {% else %}
+    Entrance is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
+    {% endif %}
+    
+    {% if gigbargain.access == 'FEES' %}
+    Fee amount : {{ gigbargain.fee_amount }}
+    {% endif %}
+    
+    {% if gigbargain.access == 'DRNK' %}
+    Number of drinks : {{ gigbargain.fee_amount }}
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="grid_11 alpha omega">
+  <div class="ui-corner-all bargainbox">
+    
+    <h4>Bands</h4>
+    
+    <ul>
+      {% for band in gigbargain.gigbargainband_set.all %}
+      <li><a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a> ({{ band.band.genres }}). <i>State : {{ band.state }}</i> [<a href="{% url event:gigbargain-band-part-display gigbargain.pk band.band.slug %}">Show my part</a>] -- [<a href="{% url event:gigbargain-band-kick gigbargain.pk band.band.slug %}">kick</a>]</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div class="grid_11 alpha omega">
+  <div class="ui-corner-all bargainbox">
+    
+    <h3>Timeline [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'timeline' %}">comments</a>]</h3>
+    
+    <div class="vcalendar">
+      <!-- Venue opening -->
+      <ul>
+	{% for gigbargainband in gigbargain.gigbargainband_set.all %}
+	<li>
+	  <span class="vevent">
+	    <abbr class="dtstart" title="{{ gigbargain.date|date:'Y-m-d' }}T{{ gigbargainband.starts_at|time:'H:i' }}">{{ gigbargainband.starts_at }}</abbr> --
+	    <span class="summary">{{ gigbargainband.band.name }} plays during</span>
+	    <abbr class="duration" title="{{ gigbargainband.set_duration|iso8601 }}">{{ gigbargainband.set_duration }}</abbr>
+	  </span>
+	</li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="grid_6 alpha">
+  <div class="ui-corner-all bargainbox">
+
+    <h4>Remuneration [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}">comments</a>]</h4>
+    
+    {% if not gigbargain.remuneration %}
+    Remuneration type is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>].
+    {% else %}
+    Type of remuneration : {{ gigbargain.get_remuneration_display }}
+    {% endif %}
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+      var pieChart = new $jit.PieChart({  
+      //Where to inject the canvas. Any div container will do.  
+      injectInto:'infovis',  
+      //width and height for canvas.  
          //Default's to the container offsetWidth and Height.  
-         width: 300,  
-         height:300,
-        offset: 25,
-        sliceOffset: 1,
-        labelOffset: 15,
+      offset: 15,
+        sliceOffset: 10,
+        labelOffset: 50,
         type: 'stacked:gradient',
         hoveredColor: '#9fd4ff',
 Tips: {  
@@ -201,63 +358,64 @@ var json = {
   pieChart.loadJSON(json);
 
 });
-</script>
+    </script>
 
-<div id="infovis" style="width: 300px; height: 300px;"></div>
+    <div id="infovis" style="margin-left: 50px; width: 80%; height: 230px"></div>
 
-<h3>Defrayments [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}">comments</a>]</h3>
-
-<ul>
-{% for gigbargainband in gigbargain.gigbargainband_set.all %}
-<li>{{ gigbargainband.band.name }} asks ${{ gigbargainband.defrayment }}</li>
-{% endfor %}
-</ul>
-
-<h3>Timeline [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'timeline' %}">comments</a>]</h3>
-
-<div class="vcalendar">
-  <!-- Venue opening -->
-  <ul>
-    {% for gigbargainband in gigbargain.gigbargainband_set.all %}
-    <li>
-      <span class="vevent">
-	<abbr class="dtstart" title="{{ gigbargain.date|date:'Y-m-d' }}T{{ gigbargainband.starts_at|time:'H:i' }}">{{ gigbargainband.starts_at }}</abbr> --
-	<span class="summary">{{ gigbargainband.band.name }} plays during</span>
-	<abbr class="duration" title="{{ gigbargainband.set_duration|iso8601 }}">{{ gigbargainband.set_duration }}</abbr>
-      </span>
-    </li>
-    {% endfor %}
-  </ul>
+  </div>
 </div>
 
-<!-- XX: faked generation of hcal -->
+<div class="grid_5 omega">
 
-<h3>Recent changes</h3>
+  <div class="ui-corner-all bargainbox">
 
-<ul>
-  {% for old_version in old_versions %}
-  {% with old_version.revision as revision %}
-  <li>{{ revision.date_created }} - {{ revision.comment }}, by <a href="{{ revision.user.get_absolute_url }}">{{ revision.user }}</a></li>
-  {% endwith %}
-  {% endfor %}
-</ul>
+    <h3>Defrayments [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}">comments</a>]</h3>
+    
+    <ul>
+      {% for gigbargainband in gigbargain.gigbargainband_set.all %}
+      <li>{{ gigbargainband.band.name }} asks ${{ gigbargainband.defrayment }}</li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+</div>
 
 
-{% get_comment_count for gigbargain as comment_count %}
+</div>
 
-<h3>Comments ({{ comment_count }})</h3>
-{% get_comment_list for gigbargain as comments %}
+<div class="grid_3 omega" style="font-size: 11">
 
-<ul>
-{% for comment in comments|fill_tree|annotate_tree %}
+  <div class="grid_3 alpha omega">
+    <h3 style="font-size: 14">Latest changes</h3>
 
-<li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name }}</a> said : {{ comment.comment }}</li>
+    <ul>
+      {% for old_version in old_versions %}
+      {% with old_version.revision as revision %}
+      <li>{{ revision.date_created }} - {{ revision.comment }}, by <a href="{{ revision.user.get_absolute_url }}">{{ revision.user }}</a></li>
+      {% endwith %}
+      {% endfor %}
+    </ul>
+  </div>
 
-{% endfor %}
-</ul>
 
-<div id="comment_form">
-{% render_comment_form for gigbargain %}
+  <div class="grid_3 alpha omega">
+    {% get_comment_count for gigbargain as comment_count %}
+    
+    <h3 style="font-size: 14">Latest comments ({{ comment_count }})</h3>
+    {% get_comment_list for gigbargain as comments %}
+    
+    <ul>
+      {% for comment in comments|fill_tree|annotate_tree %}
+      
+      <li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name|default:comment.user.username }}</a> said : {{ comment.comment }}</li>
+      
+      {% endfor %}
+    </ul>
+    
+    <div id="comment_form">
+      {# {% render_comment_form for gigbargain %} #}
+    </div>
+  </div>
 </div>
 
 {% endblock %}
