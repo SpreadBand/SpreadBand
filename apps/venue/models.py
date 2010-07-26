@@ -13,7 +13,7 @@ class Venue(Actor):
     """
     class Meta:
         permissions = (
-            ('manages', 'Manages this venue'),
+            ('can_manage', 'Can manage this venue'),
         )
 
     name = CharField(max_length=200)
@@ -32,7 +32,7 @@ class Venue(Actor):
 
 # This should be in actors.models, but django currently doesn't deal
 # well with signals and inheritance
-# from django.db.models.signals import post_save
-# from actors.models import actor_after_save
+from django.db.models.signals import post_save
+from actors.models import actor_after_save
 
-# post_save.connect(actor_after_save, sender=Venue)
+post_save.connect(actor_after_save, sender=Venue)

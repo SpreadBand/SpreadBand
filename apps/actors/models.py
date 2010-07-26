@@ -27,17 +27,17 @@ class Actor(models.Model):
                          help_text=_('Wether this actor is owned by at least one user')
                          )
 
-    calendar = AutoOneToOneField(Calendar, null=True, blank=True, editable=False)
+    calendar = OneToOneField(Calendar, null=True, blank=True, editable=False)
 
-# def actor_after_save(sender, instance, created, **kwargs):
-#     """
-#     Called to ensure the calendar is created for a given actor
-#     """
-#     if created:
-#         cal = Calendar(name='%s' % instance.name)
-#         cal.save()
-#         instance.calendar = cal
-#         instance.save()
+def actor_after_save(sender, instance, created, **kwargs):
+    """
+    Called to ensure the calendar is created for a given actor
+    """
+    if created:
+        cal = Calendar(name='%s' % instance.name)
+        cal.save()
+        instance.calendar = cal
+        instance.save()
 
 
 
