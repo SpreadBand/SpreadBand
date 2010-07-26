@@ -28,7 +28,9 @@ docutils
 -e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
 -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
--e git+http://github.com/glibersat/django-durationfield.git#egg=django-durationfield
+-e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
+-e hg+http://bitbucket.org/schinckel/django-timedelta-field#egg=django-timedelta-field
+
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
 -e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation
 -e hg+http://bitbucket.org/jespern/django-piston#egg=django-piston
