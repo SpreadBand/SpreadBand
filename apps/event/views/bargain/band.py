@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
-from durationfield.utils.timestring import from_timedelta
+# from durationfield.utils.timestring import from_timedelta
 import notification.models as notification
 
 from apps.band.models import Band
@@ -28,7 +28,7 @@ def gigbargain_new_from_band(request, band_slug):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain_form = GigBargainNewFromBandForm(request.user,
@@ -86,7 +86,7 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
@@ -154,7 +154,7 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
@@ -212,7 +212,7 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
@@ -225,7 +225,8 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
 
     # See if we have to ask for more informations
     data = model_to_dict(gigbargainband)
-    data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
+    # data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
+    print data['set_duration']
     gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargainband)
     gigbargainband_is_valid = gigbargainband_form.is_valid()
@@ -246,7 +247,7 @@ def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
@@ -259,7 +260,8 @@ def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     # See if it can be approved with these information or if we need more
     # Redirect to form edit if can't be approved in state
     data = model_to_dict(gigbargainband)
-    data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
+    # XXX FIXME
+    # data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
     gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargainband)
     if not gigbargainband_form.is_valid():
@@ -293,7 +295,7 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
@@ -331,7 +333,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     """
     band = get_object_or_404(Band, band_slug)
 
-    if not request.user.has_perm('manages', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
