@@ -33,7 +33,7 @@
 <h3>New</h3>
 <ul>
 {% for gigbargain in new_gigbargains %}
-<li>{{ gigbargain }}</li>
+<li><a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain }}</a></li>
 {% endfor %}
 </ul>
 
