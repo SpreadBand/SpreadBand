@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>SpreadBand</title>
     {% block extra_head %}
@@ -38,7 +39,7 @@
       <div id="header" class="grid_16 alpha omega">
 	<div class="grid_5 alpha">
 	  <div id="logo">
-	    <a href="/"><img src="{{ MEDIA_URL }}/images/logo.png" alt="SpreadBand"></a>
+	    <a href="/"><img src="{{ MEDIA_URL }}/images/logo.png" alt="SpreadBand"/></a>
 	  </div>
 	</div>
 	<div id="mainfuncs" class="grid_11 omega">
@@ -54,10 +55,19 @@
 	  <div class="grid_4 omega">
 	    <div id="user">
 	      {% if user.is_authenticated %}
-              <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ MEDIA_URL}}/images/no_avatar.png"> {# <a href="{% url social_logout %}"> #}
+              <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ MEDIA_URL}}/images/tmp_user.jpg"> {# <a href="{% url social_logout %}"> #}
 		<a href="{% url social_logout %}">Logout</a>
-		{% endif %}
+		<ul>
+		  {% for membership in user.band_memberships.all %}
+		  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
+		  {% endfor %}
+		</ul>  
+	      {% else %}
+	      <p>
+		<a href="{% url auth_login %}?next={{ request.get_full_path }}">Login</a> or <a href="{% url registration_register %}">Signup</a>
+	      </p>
 	    </div>
+	    {% endif %}
 	  </div>
 	</div>
       </div>
@@ -105,21 +115,9 @@
 	    </div>
 	  </div>
 	  <div id="content-tail" class="grid_16 alpha omega">
+
 	    {% if user.is_authenticated %}
-	    <div style="">	  
-	      <p>
-		My bands:
-		<ul>
-		  {% for membership in user.band_memberships.all %}
-		  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
-		  {% endfor %}
-		</ul>  
-	      </p>
-	      {% else %}
-	      <p>
-		<a href="{% url auth_login %}?next={{ request.get_full_path }}">Login</a> or <a href="{% url registration_register %}">Signup</a>
-	      </p>
-	      
+	    <!--
 	      <script type="text/javascript">
 		//$(document).ready(function() { $("#openid_login").openid(); });
 	      </script>
@@ -175,6 +173,7 @@
 	    </div>
 	  </div>
 	</div>
+      -->
       </div>
       <div id="footer" class="grid_16 alpha omega">
 	<div class="alpha prefix_10 grid_2">
@@ -188,7 +187,6 @@
 	    <li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
 	  </ul>
 	</div>
-      </div>
     </div>
   </body>
 </html>
