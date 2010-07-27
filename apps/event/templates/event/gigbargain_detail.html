@@ -1,12 +1,147 @@
 {% extends "base.html" %}
 
 {% load comments %}
+{% load tagging_tags %}
 {% load threadedcomments_tags %}
 {% load timedelta %}
 
 {% block css %}
 
-<link rel="profile" href="http://microformats.org/profile/hcalendar">
+<link rel="profile" href="http://microformats.org/profile/hcalendar" />
+<link rel="profile" href="http://microformats.org/profile/hcard" />
+
+<style type="text/css">
+
+	
+/* button basics */
+	a.minibutton {
+		display:inline-block;
+		height:23px;
+		padding:0 0 0 3px;
+		font-size:11px;
+		font-weight:bold;
+		color:#333;
+		text-shadow:1px 1px 0 #fff; 
+		background:url({{ MEDIA_URL }}/images/buttons/minibutton_matrix.png) 0 0 no-repeat;
+		white-space:nowrap;
+		border:none;
+		overflow:visible;
+		cursor:pointer;
+		text-decoration:none;
+	}
+	
+	a.minibutton>span {
+		display:block;
+		height:23px;
+		padding:0 10px 0 8px;
+		line-height:23px;
+		background:url({{ MEDIA_URL }}/images/buttons/minibutton_matrix.png) 100% 0 no-repeat;
+	}
+	
+	a.minibutton:hover, a.minibutton:focus {
+		color:#fff;
+		text-decoration:none;
+		text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+		background-position:0 -30px;
+	}
+	a.minibutton:hover>span, a.minibutton:focus>span {background-position:100% -30px;}
+	
+	a.minibutton.mousedown{background-position:0 -60px; }
+	a.minibutton.mousedown>span{background-position:100% -60px; }
+	
+	/* with icon */
+	a.btn-download .icon {
+		float:left;
+		margin-left:-4px;
+		width:18px;
+		height:22px;
+		background:url({{ MEDIA_URL }}/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+	}
+	a.btn-download .icon {background-position:-40px 0;}
+	a.btn-download:hover .icon, a.btn-download:focus .icon {background-position:-40px -25px;}
+
+	/* with icon */
+	a.btn-fork .icon {
+		float:left;
+		margin-left:-4px;
+		width:18px;
+		height:22px;
+		background:url({{ MEDIA_URL }}/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+	}
+	a.btn-fork .icon {background-position:-80px 0;}
+	a.btn-fork:hover .icon, a.btn-download:focus .icon {background-position:-80px -25px;}
+
+	/* with icon */
+	a.btn-kick .icon {
+		float:left;
+		margin-left:-4px;
+		width:18px;
+		height:22px;
+		background:url({{ MEDIA_URL }}/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+	}
+	a.btn-kick .icon {background-position:-120px 0;}
+	a.btn-kick:hover .icon, a.btn-download:focus .icon {background-position:-120px -25px;}
+
+
+
+</style>
+
+
+<style type="text/css">
+/**
+         * CSS Timeline Styles
+         */
+
+         ul.events {
+             list-style-type: none;
+             margin: 0;
+         }
+
+         ul.events li {
+             margin-left: 0px;
+             -webkit-border-radius: 11px;
+             -moz-border-radius: 11px;
+             border-radius: 11px;
+             background: #eee;
+             border: 1px solid #ddd;
+             color: #707070;
+             font-size: 1.2em;
+             font-weight: bold;
+             margin-bottom: 6px;
+             position: relative;
+             text-align: center;
+         }
+
+         ul.events li em {
+             color: #aaa;
+             font-weight: normal;
+             font-size: 0.9em;
+         }
+
+         ul.intervals {
+             list-style-type: none;
+             padding: 0;
+             display: block;
+         }
+
+         /* The width depends on the number of intervals. For example 100 / 7 = 14.29% -- then subtract a little bit for room for the borders */
+         ul.intervals li {
+             color: #999;
+font-size: 1.2em;
+float: left;
+             margin: 0;
+             text-align: center;
+         }
+    </style>
+
+    <!--[if IE]>
+        <style type="text/css">
+            ul.intervals li {
+                width: 14.11%;
+            }
+        </style>
+    <![endif]-->
+
 
 <style type="text/css">
   .bargainbox {
@@ -80,8 +215,8 @@ display:block;
 }
 
 /* #mainNav.fiveStep */
-#mainNav.fiveStep li{width:17%;}
-#mainNav.fiveStep li a{width:17%;}
+#mainNav.fiveStep li{width:20%;}
+#mainNav.fiveStep li a{width:20%;}
 
 </style>
 
@@ -90,6 +225,29 @@ display:block;
 
 {% block javascript %}
 {{ block.super }}
+
+<script type="text/javascript">
+
+/* jQuery */
+$(document).ready(function() {
+	jQuery('a.minibutton').bind({
+		mousedown: function() {
+			jQuery(this).addClass('mousedown');
+		},
+		blur: function() {
+			jQuery(this).removeClass('mousedown');
+		},
+		mouseup: function() {
+			jQuery(this).removeClass('mousedown');
+		},
+                mouseleave: function() {
+                        jQuery(this).removeClass('mousedown');
+                },
+	});
+});
+
+</script>
+
 
 <script type="text/javascript" charset="utf-8">
 function bindPostCommentHandler() {
@@ -125,10 +283,16 @@ $(document).ready(function() {
 
 {% block content %}
 
-<h2>Gig Bargain</h2>
-
-<div class="grid_11 alpha">
-
+<div class="grid_11 alpha omega">
+  <h2 style="margin-bottom: 0px">Gig Bargain / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR</h2>
+  <div class="grid_11 alpha omega" style="font-size: 0.9em; font-style: italic;">
+    with
+    {% for band in gigbargain.bands.all %}
+    <a href="{{ band.get_absolute_url }}">{{ band.name }}</a>{% if not forloop.last %},{% else %}.{% endif %}
+    {% endfor %}
+  </div>
+  <div class="grid_11 alpha">
+    
   <div class="grid_11 alpha omega">
 
 <!--
@@ -193,8 +357,14 @@ The bands are negociating.<br>
 -->
 </div>
 
+  <div class="grid_11 alpha omega" style="text-align: right; margin-bottom: 10px; display: inline-block;">
+    <a href="{% url event:gigbargain-band-part-display gigbargain.pk 'nest' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate Nest's part</span></a>
+    <a href="{% url event:gigbargain-band-part-display gigbargain.pk 'lymbago' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate King Crimson's part</span></a>
+    <!-- <a href="{% url event:gigbargain-band-kick gigbargain.pk 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>Kick</span></a> -->
+  </div>
 
-  <div class="grid_11 alpha omega" style="margin-bottom: 20px">
+
+  <div class="grid_11 alpha omega" style="margin-bottom: 10px">
 
 <!-- State : {{ gigbargain.state }} -->
     
@@ -206,11 +376,19 @@ The bands are negociating.<br>
       <li class="mainNavNoBg"><a title=""><em>Finished</em></a></li>
     </ul>
   </div>
-
-
+  
+  </div>
 <div class="grid_6 alpha">
   <div class="ui-corner-all bargainbox">
-    <h3>Where and When [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}">comments</a>]</h3>
+
+    <img src="{{ MEDIA_URL }}/images/tmp_where.png" style="vertical-align: middle; " width="25"/>
+    <h3 style="display: inline; vertical-align: middle; ">Where and When</h3>
+    <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
+      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <span style="font-size: small">0</span>
+    </div>
+
+    <div class="clear" style="height: 15px"></div>
 
     {% with gigbargain.venue as venue %}
     <div class="vcard">
@@ -227,7 +405,6 @@ The bands are negociating.<br>
       </div>
 
       <div class="tags">
-	{% load tagging_tags %}
 	{% tags_for_object venue as venue_tags %}
 	{% for tag in venue_tags %}
 	 <a href="#">{{ tag }}</a>
@@ -235,9 +412,9 @@ The bands are negociating.<br>
       </div>
     </div>
     {% endwith %}
-    <br>
-    When: {{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
-    Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }} [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>]<br>
+    <br/>
+    <b>When</b> : {{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
+    <b>Opens</b> : {{ gigbargain.opens_at }}, <b>Closes</b> : {{ gigbargain.closes_at }}<!-- [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>] --><br/>
     
   </div>
 
@@ -245,11 +422,19 @@ The bands are negociating.<br>
 
 <div class="grid_5 omega">
   <div class="ui-corner-all bargainbox">
-    <h3>Access [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'access' %}">comments</a>]</h3>
+    <img src="{{ MEDIA_URL }}/images/tmp_access.png" style="vertical-align: middle; " width="25"/>
+    <h3 style="display: inline; vertical-align: middle; ">Access</h3>
+    <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
+      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'access' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <span style="font-size: small">2</span>
+    </div>
+
+    <div class="clear" style="height: 15px"></div>
+
 
     
     {% if gigbargain.access %}
-    Entrance : {{ gigbargain.get_access_display }}<br>
+    Entrance : {{ gigbargain.get_access_display }}<br/>
     {% else %}
     Entrance is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
     {% endif %}
@@ -261,6 +446,13 @@ The bands are negociating.<br>
     {% if gigbargain.access == 'DRNK' %}
     Number of drinks : {{ gigbargain.fee_amount }}
     {% endif %}
+
+    {% if gigbargain.access == 'FREE' %}
+    <p>
+      <br/>
+    <em>Free access means that people can attend the gigs without paying.</em>
+    </p>
+    {% endif %}
   </div>
 </div>
 
@@ -268,35 +460,105 @@ The bands are negociating.<br>
 <div class="grid_11 alpha omega">
   <div class="ui-corner-all bargainbox">
     
-    <h4>Bands</h4>
+    <div style="margin-bottom: 15px;">
+    <img src="{{ MEDIA_URL }}/images/tmp_bands.png" style="vertical-align: middle; " width="25"/>
+      <h4 style="display: inline;">Bands ({{ gigbargain.bands.count }})</h4>
+      <!-- Action buttons for bands -->
+      <div style="display: inline; float: right">
+	{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+	<a href="{% url event:gigbargain-band-invite-band gigbargain.pk %}" class="minibutton btn-fork"><span><span class="icon"></span>Invite band</span></a>
+	{% endif %}
+      </div>
+    </div>
     
-    <ul>
       {% for band in gigbargain.gigbargainband_set.all %}
-      <li><a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a> ({{ band.band.genres }}). <i>State : {{ band.state }}</i> [<a href="{% url event:gigbargain-band-part-display gigbargain.pk band.band.slug %}">Show my part</a>] -- [<a href="{% url event:gigbargain-band-kick gigbargain.pk band.band.slug %}">kick</a>]</li>
-      {% endfor %}
-    </ul>
+    <div class="grid_5" style="margin-bottom: 15px">
+      <div class="grid_5 alpha omega">
+	<div class="vcard">
+	  <img width='60px' height='60px' style="float:left; margin-right:4px" src="{{ MEDIA_URL }}/images/tmp_band{% cycle '' '2' '3' %}.jpg" alt="picture of {{ venue.name }}" class="photo"/>
+	  <a class="url uid" href="{{ band.band.get_absolute_url }}">
+	    <div class="org fn">
+	      <span class="organization-name">{{ band|capfirst }}</span>
+	    </div>
+	  </a>
+	  
+	  <div class="adr">
+	    <span class="locality">Lille</span>,
+	    <span class="country-name">France</span>
+	  </div>
+	  
+	  <div class="tags">
+	    {% tags_for_object band.band as band_tags %}
+	    {% for tag in band_tags %}
+	    <a href="#">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+	    {% endfor %}
+	  </div>
+	</div>
+	<div class="grid_5 alpha omega" style="background-color:
+	  {% if band.state == 'negociating' %}
+	  yellow
+	  {% endif %}
+	  {% if band.state == 'part_validated' %}
+	  lightgreen
+	  {% endif %}
+	  ;">
+	  {{ band.state }}
+	</div>
+
+      </div>
+
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clear"></div>
+    {% endif %}
+    {% endfor %}
+    <div class="clear"></div>
   </div>
 </div>
 
 <div class="grid_11 alpha omega">
   <div class="ui-corner-all bargainbox">
     
-    <h3>Timeline [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'timeline' %}">comments</a>]</h3>
-    
-    <div class="vcalendar">
-      <!-- Venue opening -->
+    <img src="{{ MEDIA_URL }}/images/tmp_timeline.png" style="vertical-align: middle; " width="25"/>
+    <h3 style="display: inline; vertical-align: middle; ">Timeline</h3>
+    <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
+      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'timeline' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <span style="font-size: small"><font color="red">3</font></span>
+    </div>
+
+    <div class="clear" style="height: 15px"></div>
+
+    <div class="grid_10 alpha omega clearfix" style="margin-bottom: 20px">
+        <ul class="events">
+	  {% for gig in timeline.bands %}
+          <li style="width: {% widthratio gig.duration.seconds timeline.global.duration.seconds 100 %}%; left: {% widthratio gig.delta_start.seconds timeline.global.duration.seconds 100 %}%;">{{ gig.band.name }} - <em>{{ gig.duration|timedelta }}</em></li>
+	  {% endfor %}
+        </ul> <!-- end .events -->
+
+	<ul class="intervals">
+	  {% for step in timeline.global.steps %}
+          <li style="border-{% cycle 'top' 'bottom' %}: 1px black solid; width: {% widthratio 1800 timeline.global.duration.seconds 100 %}%;">{{ step|time:"H:i" }}</li>
+	  {% endfor %}
+        </ul> <!-- end .intervals -->
+
+    </div> <!-- end .timeline -->
+
+    <div class="vcalendar grid_11 alpha omega">
       <ul>
-	{% for gigbargainband in gigbargain.gigbargainband_set.all %}
+	{% for gig in timeline.bands %}
 	<li>
 	  <span class="vevent">
-	    <abbr class="dtstart" title="{{ gigbargain.date|date:'Y-m-d' }}T{{ gigbargainband.starts_at|time:'H:i' }}">{{ gigbargainband.starts_at }}</abbr> --
-	    <span class="summary">{{ gigbargainband.band.name }} plays during</span>
-	    <abbr class="duration" title="{{ gigbargainband.set_duration|iso8601 }}">{{ gigbargainband.set_duration }}</abbr>
+	    <abbr class="dtstart" title="{{ gig.start|date:'c' }}">{{ gig.start }}</abbr> --
+	    <abbr class="dtend" title="{{ gig.end|date:'c' }}">{{ gig.end }}</abbr> :
+	    <span class="summary">{{ gig.band.name }} plays during</span>
+	    <abbr class="duration" title="{{ gig.duration|iso8601 }}">{{ gig.duration|timedelta }}</abbr>
 	  </span>
 	</li>
 	{% endfor %}
       </ul>
     </div>
+    
+    <div class="clear"></div>
   </div>
 
 </div>
@@ -305,7 +567,15 @@ The bands are negociating.<br>
 <div class="grid_6 alpha">
   <div class="ui-corner-all bargainbox">
 
-    <h4>Remuneration [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}">comments</a>]</h4>
+    <img src="{{ MEDIA_URL }}/images/tmp_remuneration.png" style="vertical-align: middle; " width="25"/>
+    <h3 style="display: inline; vertical-align: middle; ">Remuneration</h3>
+    <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
+      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <span style="font-size: small">0</span>
+    </div>
+
+    <div class="clear" style="height: 15px"></div>
+
     
     {% if not gigbargain.remuneration %}
     Remuneration type is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>].
@@ -321,8 +591,8 @@ The bands are negociating.<br>
       //width and height for canvas.  
          //Default's to the container offsetWidth and Height.  
       offset: 15,
-        sliceOffset: 10,
-        labelOffset: 50,
+        sliceOffset: 0,
+        labelOffset: 20,
         type: 'stacked:gradient',
         hoveredColor: '#9fd4ff',
 Tips: {  
@@ -369,13 +639,80 @@ var json = {
 
   <div class="ui-corner-all bargainbox">
 
-    <h3>Defrayments [<a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}">comments</a>]</h3>
-    
-    <ul>
-      {% for gigbargainband in gigbargain.gigbargainband_set.all %}
-      <li>{{ gigbargainband.band.name }} asks ${{ gigbargainband.defrayment }}</li>
-      {% endfor %}
-    </ul>
+    <img src="{{ MEDIA_URL }}/images/tmp_defrayment.png" style="vertical-align: middle; " width="25"/>
+    <h3 style="display: inline; vertical-align: middle; ">Defrayments</h3>
+    <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
+      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <span style="font-size: small"><font color="red">1</font></span>
+    </div>
+
+    <div class="clear" style="height: 15px"></div>
+
+
+<div id="defrayments_graph" style="margin-left: 20px; width: 80%; height: 246px;"></div>
+
+<script type="text/javascript">
+  var json = {
+    label: ['$'],
+  values: [
+  {% for gigbargainband in gigbargain.gigbargainband_set.all %}
+  {
+    label: '<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>',
+    values: [{{ gigbargainband.defrayment }},],
+  },
+  {% endfor %}
+  ]
+};
+
+  $(document).ready(function() {
+  var barChart = new $jit.BarChart({  
+     //id of the visualization container  
+    injectInto: 'defrayments_graph',  
+     //whether to add animations  
+    animate: true,  
+     //horizontal or vertical barcharts  
+     orientation: 'vertical',  
+     //bars separation  
+     barsOffset: 20,  
+     //visualization offset  
+     offset: 10,  
+     //labels offset position  
+     labelOffset: 5,  
+     //bars style  
+     type: 'stacked:gradient',
+     //whether to show the aggregation of the values  
+     showAggregates:true,  
+     //whether to show the labels for the bars  
+     showLabels:true,  
+  filterOnClick: true,  
+  restoreOnRightClick:true  ,
+     //labels style  
+     Label: {  
+       type: 'HTML', //Native or HTML  
+       size: 13,  
+       family: 'Arial',
+       color: 'black'  
+     },  
+     //add tooltips  
+     Tips: {  
+       enable: true,  
+       onShow: function(tip, elem) {  
+         tip.innerHTML = "<font color='white'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
+       }  
+     }  
+   });  
+   //load JSON data.  
+   barChart.loadJSON(json);  
+});
+</script>
+
+<noscript>
+  <ul>
+    {% for gigbargainband in gigbargain.gigbargainband_set.all %}
+    <li>{{ gigbargainband.band.name }} asks ${{ gigbargainband.defrayment }}</li>
+    {% endfor %}
+  </ul>
+</noscript>
     
   </div>
 </div>
@@ -383,10 +720,17 @@ var json = {
 
 </div>
 
-<div class="grid_3 omega" style="font-size: 11">
+<div class="grid_3 omega" style="font-size: 11px">
 
-  <div class="grid_3 alpha omega">
-    <h3 style="font-size: 14">Latest changes</h3>
+<!--  <div class="grid_3 alpha omega" style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
+    <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
+      <b>What to do now ?</b>
+      You can change whatever you want and then click on the Validate button.
+    </div>
+  </div>
+-->
+  <div class="grid_3 alpha omega" style="margin-top: 80px">
+    <h3 style="font-size: medium">Latest changes</h3>
 
     <ul>
       {% for old_version in old_versions %}
@@ -401,7 +745,7 @@ var json = {
   <div class="grid_3 alpha omega">
     {% get_comment_count for gigbargain as comment_count %}
     
-    <h3 style="font-size: 14">Latest comments ({{ comment_count }})</h3>
+    <h3 style="font-size: medium">Latest comments ({{ comment_count }})</h3>
     {% get_comment_list for gigbargain as comments %}
     
     <ul>
