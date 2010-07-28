@@ -56,13 +56,7 @@ This band is owned.
 <p>
   <ul>
     {% for gigbargain in band.gigbargains.all %}
-    <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
-
-
-      [<a href="{% url gigbargain:gigbargain-enter-for-band gigbargain.pk band.slug %}">Enter</a>|
-      <a href="{% url gigbargain:gigbargain-refuse-for-band gigbargain.pk band.slug %}">Reject</a>],
-      <a href="{#% url gigbargain:bargain-update-band contract.id band.slug %#}">Edit</a>
-    </li>
+    <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a></li>
     {% endfor %}
   </ul>
 </p>
