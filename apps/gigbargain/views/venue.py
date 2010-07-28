@@ -309,11 +309,11 @@ def gigbargain_venue_invite_band(request, gigbargain_uuid):
             gigbargainband.bargain = gigbargain
             gigbargainband.save()
 
+            messages.success(request, _("%s was successfully invited") % gigbargainband.band.name)
+
             # If there were bands that had validated their part, invalidate them
             for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
                 gigbargainband.cancel_approval()
-
-            messages.success(request, _("%s was successfully invited") % gigbargainband.band.name)
 
             return redirect(gigbargain)
 
