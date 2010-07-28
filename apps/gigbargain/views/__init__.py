@@ -5,6 +5,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 
 from django.db.models import Min, Max, F
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -33,7 +34,7 @@ def gigbargain_detail(request, gigbargain_uuid):
 
     # If we don't manage any of these bands and we're not the venue,
     # then forbid access
-    if not len(managed_bands) or not is_venue_managed:
+    if not len(managed_bands) and not is_venue_managed:
         return HttpResponseForbidden()
 
     # Compute changes between two latest revisions
@@ -55,35 +56,47 @@ def gigbargain_detail(request, gigbargain_uuid):
     # Take care of the timeline
     timeline = defaultdict(list)
     day = gigbargain.date
-    first_gig = gigbargain.gigbargainband_set.filter(starts_at__isnull=False).order_by('starts_at')[0]
-    last_gig = gigbargain.gigbargainband_set.filter(starts_at__isnull=False).order_by('-starts_at')[0]
+    try:
+        first_gig = gigbargain.gigbargainband_set.filter(starts_at__isnull=False).order_by('starts_at')[0]
+        last_gig = gigbargain.gigbargainband_set.filter(starts_at__isnull=False).order_by('-starts_at')[0]
+    except IndexError:
+        first_gig = last_gig = None
 
-    # Get global info
-    global_start = datetime.combine(day, first_gig.starts_at)
-    global_end = datetime.combine(day, last_gig.starts_at) + (last_gig.set_duration or timedelta(seconds=0))
+    if first_gig and last_gig:
+        # Get global info
+        global_start = datetime.combine(day, first_gig.starts_at)
+        global_end = datetime.combine(day, last_gig.starts_at) + (last_gig.set_duration or timedelta(seconds=0))
 
-    # Get info on all bands
-    for gigbargainband in gigbargain.gigbargainband_set.all().order_by('starts_at'):
-        if gigbargainband.starts_at and gigbargainband.set_duration:
-            print first_gig.band.name, global_start, datetime.combine(day, gigbargainband.starts_at)
-            timeline['bands'].append({'band': gigbargainband.band,
-                                      'start': datetime.combine(day, gigbargainband.starts_at),
-                                      'delta_start': datetime.combine(day, gigbargainband.starts_at) - global_start,
-                                      'duration': gigbargainband.set_duration,
-                                      'end': datetime.combine(day, gigbargainband.starts_at) + gigbargainband.set_duration
-                                      })
+        # Get info on all bands
+        for gigbargainband in gigbargain.gigbargainband_set.all().order_by('starts_at'):
+            if gigbargainband.starts_at and gigbargainband.set_duration:
+                print first_gig.band.name, global_start, datetime.combine(day, gigbargainband.starts_at)
+                timeline['bands'].append({'band': gigbargainband.band,
+                                          'start': datetime.combine(day, gigbargainband.starts_at),
+                                          'delta_start': datetime.combine(day, gigbargainband.starts_at) - global_start,
+                                          'duration': gigbargainband.set_duration,
+                                          'end': datetime.combine(day, gigbargainband.starts_at) + gigbargainband.set_duration
+                                          })
 
-    # Update global end in case the timeline is wrong
-    for gig in timeline['bands']:
-        if gig['end'] > global_end:
-            global_end = gig['end']
+        # Update global end in case the timeline is wrong
+        # and also compute time between two gigs
+        previous_gig = None
+        for gig in timeline['bands']:
+            if gig['end'] > global_end:
+                global_end = gig['end']
 
-    global_duration = global_end - global_start
-    timeline['global'] = {'start': global_start,
-                          'end': global_end, 
-                          'duration': global_duration,
-                          'steps': [global_start+timedelta(minutes=30*i) for i in range(0, global_duration.seconds / 60.0 / 30.0)], # Every 30min
-                          }
+            if previous_gig:
+                time_between = gig['start'] - previous_gig['end']
+                gig['time_before_previous'] = time_between
+
+            previous_gig = gig
+
+        global_duration = global_end - global_start
+        timeline['global'] = {'start': global_start,
+                              'end': global_end, 
+                              'duration': global_duration,
+                              'steps': [global_start+timedelta(minutes=30*i) for i in range(0, global_duration.seconds / 60 / 30)], # Every 30min
+                              }
 
 
     extra_context = {'gigbargain': gigbargain,

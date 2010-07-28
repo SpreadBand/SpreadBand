@@ -149,8 +149,8 @@ class GigBargainBandForm(forms.ModelForm):
         fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
-    starts_at = forms.TimeField(input_formats=('%H:%M', '%H'), required=False)
-    eq_starts_at = forms.TimeField(input_formats=('%H:%M', '%H'), required=False)
+    starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
+    eq_starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
 
     def clean(self):
         # Make sure the equalization isn't after the beginning of the set

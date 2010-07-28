@@ -241,9 +241,9 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
 
 
 @login_required
-def gigbargain_band_part_disapprove(request, band_slug, gigbargain_uuid):
+def gigbargain_band_part_unlock(request, band_slug, gigbargain_uuid):
     """
-    During the band negociation phase, when a band disapprove its band part
+    During the band negociation phase, when a band unlock its part
     """
     band = get_object_or_404(Band, slug=band_slug)
 
@@ -253,26 +253,27 @@ def gigbargain_band_part_disapprove(request, band_slug, gigbargain_uuid):
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
-    if gigbargainband.state != 'part_validated':
+    if gigbargain.state not in ('band_nego') \
+            or gigbargainband.state != 'part_validated':
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
     # if all bands agreed, then come back to "negociating" phase
-    if gigbargain.state == 'band_ok':
-        gigbargain.bands_dont_agree_anymore()
+    # if gigbargain.state == 'band_ok':
+    #    gigbargain.bands_dont_agree_anymore()
 
     # Cancel approval for this band
     gigbargainband.cancel_approval()
 
-    messages.success(request, _("You have disapproved your part"))
+    messages.success(request, _("You have unlocked your part"))
 
     return redirect(gigbargain)
 
 
 @login_required
-def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
+def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
     """
-    During the band negociation phase, when a band accept its band part
+    During the band negociation phase, when a band accepts and locks its part
     """
     band = get_object_or_404(Band, slug=band_slug)
 
@@ -282,7 +283,8 @@ def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
-    if gigbargainband.state not in ('negociating', 'part_validated'):
+    if gigbargain.state not in ('draft', 'band_nego') \
+            or gigbargainband.state not in ('negociating', 'part_validated'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
@@ -294,12 +296,12 @@ def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargainband)
     if not gigbargainband_form.is_valid():
-        return redirect('event:gigbargain-band-part-edit', 
+        return redirect('gigbargain:gigbargain-band-part-edit', 
                         gigbargain_uuid=gigbargain.pk, 
                         band_slug=gigbargainband.band.slug)
 
     gigbargainband.approve_part()
-    messages.success(request, _("You have approved your part"))
+    messages.success(request, _("You have locked your part"))
 
     # If all bands have accepted their parts, then either :
     #  - set as band_ok if we were in band_nego
@@ -330,7 +332,7 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
-    if gigbargain.state not in ('draft', 'draft_ok', 'band_nego') \
+    if gigbargain.state not in ('draft', 'band_nego') \
             or  gigbargainband.state not in ('negociating'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()

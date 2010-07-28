@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Sum
 from django.db.models import DateField, TimeField, CharField, PositiveSmallIntegerField
-from django.db.models import ManyToManyField, ForeignKey, OneToOneField
+from django.db.models import ManyToManyField, ForeignKey, OneToOneField, DateTimeField
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import UUIDField
@@ -231,11 +231,20 @@ class GigBargainBandManager(models.Manager):
         Return bands that are still concurring for this bargain
         """
         return self.filter(state__in=('waiting', 'accepted', 'negociating', 'part_validated'))
+
+    def not_concurring(self):
+        """
+        Returns the bands that are no more concurring
+        """
+        return self.exclude(state__in=('waiting', 'accepted', 'negociating', 'part_validated'))        
     
 class GigBargainBand(models.Model):
     """
     Data related to a gig bargain for a given band 
     """
+    class Meta:
+        ordering = ('band__name',)
+
     objects = GigBargainBandManager()
 
     STATE_CHOICES = (
@@ -289,6 +298,8 @@ class GigBargainBand(models.Model):
 
     band = ForeignKey(Band)
     bargain = ForeignKey(GigBargain)
+
+    joined_on = DateTimeField(auto_now_add=True)
 
     starts_at = TimeField(blank=True, null=True)
     set_duration = TimedeltaField(blank=True, null=True)

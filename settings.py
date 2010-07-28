@@ -181,9 +181,6 @@ INSTALLED_APPS = (
 ###--- Application settings ---###
 
 ### DEBUG TOOLBAR
-
-
-
 DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
     'debug_toolbar.panels.timer.TimerDebugPanel',

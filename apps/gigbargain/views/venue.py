@@ -296,7 +296,7 @@ def gigbargain_venue_invite_band(request, gigbargain_uuid):
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
 
-    if gigbargain.state not in ('need_venue_confirm', 'band_nego'):
+    if gigbargain.state not in ('new', 'need_venue_confirm', 'band_nego'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
