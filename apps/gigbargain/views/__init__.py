@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from django.db.models import Min, Max, F
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 from reversion.models import Version
 
@@ -14,11 +15,26 @@ from utils.differs import DictDiffer
 
 from ..models import GigBargain, GigBargainCommentThread
 
+@login_required
 def gigbargain_detail(request, gigbargain_uuid):
     """
     Get details about a Gig Bargain
     """
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+
+    # Get bands we're allowed to manage
+    managed_bands = []
+    for band in gigbargain.gigbargainband_set.concurring():
+        if request.user.has_perm('band.can_manage', band.band):
+            managed_bands.append(band)
+
+    # Check if we managed this venue
+    is_venue_managed = request.user.has_perm('venue.can_manage', gigbargain.venue)
+
+    # If we don't manage any of these bands and we're not the venue,
+    # then forbid access
+    if not len(managed_bands) or not is_venue_managed:
+        return HttpResponseForbidden()
 
     # Compute changes between two latest revisions
     # XXX: Can be optimized, cached, ...
@@ -35,7 +51,6 @@ def gigbargain_detail(request, gigbargain_uuid):
 
         for change in d.changed():
             changes[change] = (old_version.field_dict[change], new_version.field_dict[change])
-
     
     # Take care of the timeline
     timeline = defaultdict(list)
@@ -72,10 +87,11 @@ def gigbargain_detail(request, gigbargain_uuid):
 
 
     extra_context = {'gigbargain': gigbargain,
+                     'managed_bands': managed_bands,
+                     'is_venue_managed': is_venue_managed,
                      'old_versions': old_versions,
-                     'timeline': timeline}
-
-
+                     'timeline': timeline,
+                     }
 
     return render_to_response(template_name='gigbargain/gigbargain_detail.html',
                               context_instance=RequestContext(request,
