@@ -42,24 +42,6 @@ class Gig(Event):
                 )
     
 #-- Bargain
-class GigBargainVenueState(models.Model):
-    """
-    The status of a venue in a gig bargain
-    """
-    STATE_CHOICES = (
-        ('waiting', 'Waiting for bands to reply'),
-        ('need_confirm', 'Need confirmation'),
-        )
-
-    state = FSMField(default='waiting')
-    
-    @transition(source='waiting', target='need_confirm', save=True)
-    def need_confirmation(self):
-        pass
-
-    def __unicode__(self):
-        return "State : %s" % str(self.state)
-
 class GigBargainManager(models.Manager):
     """
     Objects manager for GigBargain
@@ -210,7 +192,7 @@ class GigBargain(models.Model):
     bands = ManyToManyField(Band, through='GigBargainBand', related_name='gigbargains')
 
     venue = ForeignKey(Venue, related_name='gigbargains')
-    venue_state = OneToOneField(GigBargainVenueState, related_name='gigbargain')
+    # venue_state = OneToOneField(GigBargainVenueState, related_name='gigbargain')
 
     ACCESS_CHOICES = [
         ('FREE', 'Free Access'),
@@ -233,8 +215,8 @@ class GigBargain(models.Model):
 
     def save(self, *args, **kwargs):
         # Auto create VenueState when creating this model
-        if not self.pk:
-            self.venue_state = GigBargainVenueState.objects.create()
+        # if not self.pk:
+        #    self.venue_state = GigBargainVenueState.objects.create()
 
         models.Model.save(self, *args, **kwargs)
 
@@ -338,8 +320,6 @@ class GigBargainBand(models.Model):
 ## Reversion
 reversion.register(GigBargain, follow=['bargainbands', 'venue_state'])
 reversion.register(GigBargainBand)
-reversion.register(GigBargainVenueState)
-
 
 class GigBargainCommentThread(models.Model):
     """
