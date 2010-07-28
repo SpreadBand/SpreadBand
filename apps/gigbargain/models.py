@@ -219,13 +219,25 @@ class GigBargain(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('event:gigbargain-detail', (self.uuid,))
+        return ('gigbargain:gigbargain-detail', (self.uuid,))
 
+
+class GigBargainBandManager(models.Manager):
+    """
+    Objects manager for GigBargainBand
+    """
+    def concurring(self):
+        """
+        Return bands that are still concurring for this bargain
+        """
+        return self.filter(state__in=('waiting', 'accepted', 'negociating', 'part_validated'))
     
 class GigBargainBand(models.Model):
     """
     Data related to a gig bargain for a given band 
     """
+    objects = GigBargainBandManager()
+
     STATE_CHOICES = (
         ('waiting', 'Waiting for reply'),
         ('accepted', 'Bargain accepted'),
@@ -279,7 +291,7 @@ class GigBargainBand(models.Model):
     bargain = ForeignKey(GigBargain)
 
     starts_at = TimeField(blank=True, null=True)
-    set_duration = TimedeltaField()
+    set_duration = TimedeltaField(blank=True, null=True)
 
     eq_starts_at = TimeField(blank=True, null=True)
     
@@ -301,7 +313,7 @@ class GigBargainBand(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('event:gigbargain-band-part-display', (self.bargain_id, self.band.slug))
+        return ('gigbargain:gigbargain-band-part-display', (self.bargain_id, self.band.slug))
 
 ## Reversion
 reversion.register(GigBargain, follow=['bargainbands', 'venue_state'])
@@ -320,6 +332,7 @@ class GigBargainCommentThread(models.Model):
 
 ## Signals
 from annoying.decorators import signals
+from event.models import Gig
 
 @signals(gigbargain_concluded)
 def gigbargain_concluded_callback(sender, **kwargs):
