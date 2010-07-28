@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit common part of bargain</h2>
+
+<p>
+<font color="red">WARNING</font> : After altering these terms, all
+bands will have to approve the bargain again.
+</p>
+
+<p>
+<b>Bargain</b> : <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain }}</a>
+</p>
+
+<form method='POST' action='{{ request.url }}'>
+{{ gigbargain_form.as_p }}
+<input type='submit'>
+</form>
+
+{% endblock %}

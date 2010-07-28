@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Invite a band</h3>
+
+<p>
+<b>Gig Bargain</b> : <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain }}</a>
+</p>
+
+<form method='POST' action='{{ request.url }}'>
+{{ gigbargainband_form.as_p }}
+
+<input type='submit' value='invite'>
+</form>
+
+{% endblock %}
