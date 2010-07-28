@@ -172,7 +172,7 @@ INSTALLED_APPS = (
     'band',
     'venue',
     'album',
-
+    'gigbargain',
     'bigbrother',
     'api',
 )
@@ -198,7 +198,7 @@ DEBUG_TOOLBAR_PANELS = (
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS' : False,
-    'EXTRA_SIGNALS': ['event.signals.gigbargain_concluded']
+    'EXTRA_SIGNALS': ['gigbargain.signals.gigbargain_concluded']
     }
 
 

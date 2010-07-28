@@ -38,7 +38,7 @@ urlpatterns = patterns('',
     (r'^e/', include('event.urls', namespace='event')),
 
     # bargain
-    (r'^bargain/', include('bargain.urls', namespace='bargain')),
+    (r'^e/gigbargain/', include('gigbargain.urls', namespace='gigbargain')),
 
     # BigBrother
     (r'^bb/', include('bigbrother.urls')),

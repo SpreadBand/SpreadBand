@@ -19,11 +19,9 @@ from django_fsm.db.fields import FSMField, transition
 import notification.models as notification
 
 from band.models import Band
-from event.signals import gigbargain_concluded
 from venue.models import Venue
 
 from .signals import gigbargain_concluded, gigbargain_new_from_venue
-
 
 class GigBargainManager(models.Manager):
     """

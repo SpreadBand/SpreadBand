@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseForbidden
@@ -13,8 +14,9 @@ import notification.models as notification
 from apps.band.models import Band
 from apps.venue.models import Venue
 
-import ..signals as signals
-from ..forms import GigBargainNewFromVenueForm, GigBargainBandForm, BaseGigBargainBandFormSet
+import gigbargain.signals as signals
+from ..forms import GigBargainNewFromVenueForm, GigBargainBandForm, BaseGigBargainBandFormSet, GigBargainForVenueForm
+from ..forms import GigBargainBandInviteForm
 from ..models import GigBargain
 
 @login_required
@@ -97,7 +99,7 @@ def gigbargain_new_from_venue(request):
     context = {'gigbargain_form': gigbargain_form,
                'gigbargain_bands_formset': gigbargain_bands_formset}
 
-    return render_to_response(template_name='event/gigbargain_new_from_venue.html',
+    return render_to_response(template_name='gigbargain/gigbargain_new_from_venue.html',
                               context_instance=RequestContext(request,
                                                               context)
                               )
@@ -220,8 +222,6 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
 
     return redirect(gigbargain)
 
-from event.forms import GigBargainForVenueForm
-
 @login_required
 def gigbargain_venue_common_edit(request, gigbargain_uuid):
     """
@@ -259,7 +259,7 @@ def gigbargain_venue_common_edit(request, gigbargain_uuid):
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_form': gigbargain_form}        
 
-    return render_to_response(template_name='event/gigbargain_common_edit.html',
+    return render_to_response(template_name='gigbargain/gigbargain_common_edit.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )
@@ -285,9 +285,6 @@ def gigbargain_venue_renegociate(request, gigbargain_uuid):
     gigbargain.bands_dont_agree_anymore()
 
     return redirect(gigbargain)
-
-from event.forms import GigBargainBandInviteForm
-from django.contrib import messages
 
 @login_required
 def gigbargain_venue_invite_band(request, gigbargain_uuid):
@@ -323,7 +320,7 @@ def gigbargain_venue_invite_band(request, gigbargain_uuid):
     extra_context = {'gigbargain': gigbargain,
                      'gigbargainband_form': gigbargainband_form}
 
-    return render_to_response(template_name='event/gigbargain_invite_band.html',
+    return render_to_response(template_name='gigbargain/gigbargain_invite_band.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )

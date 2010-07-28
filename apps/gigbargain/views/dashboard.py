@@ -136,7 +136,7 @@ def gigbargain_band_dashboard(request, band_slug):
                      'yearly_stats': yearly_stats,
                      'yearly_values': yearly_values}
 
-    return render_to_response(template_name='event/gigbargain_band_dashboard.html',
+    return render_to_response(template_name='gigbargain/gigbargain_band_dashboard.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )

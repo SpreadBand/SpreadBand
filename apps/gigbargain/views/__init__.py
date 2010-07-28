@@ -1,14 +1,18 @@
 __all__ = ['band', 'venue', 'dashboard']
 
+from collections import defaultdict
+
+from datetime import datetime, timedelta
+
+from django.db.models import Min, Max, F
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-
-from event.models import GigBargain
 
 from reversion.models import Version
 
 from utils.differs import DictDiffer
 
+from ..models import GigBargain, GigBargainCommentThread
 
 def gigbargain_detail(request, gigbargain_uuid):
     """
@@ -34,9 +38,6 @@ def gigbargain_detail(request, gigbargain_uuid):
 
     
     # Take care of the timeline
-    from collections import defaultdict
-    from datetime import datetime, timedelta
-    from django.db.models import Min, Max, F
     timeline = defaultdict(list)
     day = gigbargain.date
     first_gig = gigbargain.gigbargainband_set.filter(starts_at__isnull=False).order_by('starts_at')[0]
@@ -76,16 +77,11 @@ def gigbargain_detail(request, gigbargain_uuid):
 
 
 
-    return render_to_response(template_name='event/gigbargain_detail.html',
+    return render_to_response(template_name='gigbargain/gigbargain_detail.html',
                               context_instance=RequestContext(request,
                                                               extra_context),
                               )
 
-
-
-
-
-from event.models import GigBargainCommentThread
 
 def comments_section_display(request, gigbargain_uuid, section):
     """
@@ -99,7 +95,7 @@ def comments_section_display(request, gigbargain_uuid, section):
     extra_context = {'gigbargain': gigbargain,
                      'comment_thread': comment_thread}
 
-    return render_to_response(template_name='event/gigbargain_comments_section_display.html',
+    return render_to_response(template_name='gigbargain/gigbargain_comments_section_display.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )

@@ -47,21 +47,21 @@ This band is owned.
 <h4>Gig Bargains</h4>
 
 <p>
-  <a href="{% url event:gigbargain-band-dashboard band.slug %}">Bargain dashboard</a>
+  <a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}">Bargain dashboard</a>
 </p>
 
 <p>
-<a href="{% url event:gigbargain-new-from-band band.slug %}">Initiate a new gig bargain</a>
+<a href="{% url gigbargain:gigbargain-new-from-band band.slug %}">Initiate a new gig bargain</a>
 </p>
 <p>
   <ul>
     {% for gigbargain in band.gigbargains.all %}
-    <li><a href="{% url event:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
+    <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
 
 
-      [<a href="{% url event:gigbargain-enter-for-band gigbargain.pk band.slug %}">Enter</a>|
-      <a href="{% url event:gigbargain-refuse-for-band gigbargain.pk band.slug %}">Reject</a>],
-      <a href="{#% url event:bargain-update-band contract.id band.slug %#}">Edit</a>
+      [<a href="{% url gigbargain:gigbargain-enter-for-band gigbargain.pk band.slug %}">Enter</a>|
+      <a href="{% url gigbargain:gigbargain-refuse-for-band gigbargain.pk band.slug %}">Reject</a>],
+      <a href="{#% url gigbargain:bargain-update-band contract.id band.slug %#}">Edit</a>
     </li>
     {% endfor %}
   </ul>

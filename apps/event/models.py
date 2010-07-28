@@ -5,7 +5,6 @@ from django.utils.translation import ugettext as _
 from agenda.models import Event
 
 from band.models import Band
-from event.signals import gigbargain_concluded
 from venue.models import Venue
 
 class Gig(Event):

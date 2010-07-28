@@ -18,8 +18,7 @@ from apps.venue.models import Venue
 
 from ..models import GigBargain, GigBargainBand
 from ..forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, GigBargainBandForm, BaseGigBargainBandFormSet, GigBargainMyBandForm
-from ..forms import GigBargainNewFullForm, GigBargainMyBandFullForm, GigBargainBandInviteForm
-
+from ..forms import GigBargainNewFullForm, GigBargainMyBandFullForm, GigBargainBandInviteForm, GigBargainForBandForm
 
 @login_required
 def gigbargain_new_from_band(request, band_slug):
@@ -74,7 +73,7 @@ def gigbargain_new_from_band(request, band_slug):
                      'gigbargain_form': gigbargain_form,
                      'gigbargain_myband_form': gigbargain_myband_form}
 
-    return render_to_response(template_name='event/gigbargain_new_from_band.html',
+    return render_to_response(template_name='gigbargain/gigbargain_new_from_band.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )
@@ -235,7 +234,7 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
                      'gigbargainband': gigbargainband,
                      'gigbargainband_is_valid': gigbargainband_is_valid}
 
-    return render_to_response(template_name='event/gigbargain_band_part.html',
+    return render_to_response(template_name='gigbargain/gigbargain_band_part.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )
@@ -318,13 +317,12 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
                      'gigbargainband': gigbargainband,
                      'gigbargainband_form': gigbargainband_form}
 
-    return render_to_response(template_name='event/gigbargain_band_part_edit.html',
+    return render_to_response(template_name='gigbargain/gigbargain_band_part_edit.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )
 
 
-from event.forms import GigBargainForBandForm
 @login_required
 def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     """
@@ -364,7 +362,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_form': gigbargain_form}        
 
-    return render_to_response(template_name='event/gigbargain_common_edit.html',
+    return render_to_response(template_name='gigbargain/gigbargain_common_edit.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )
@@ -419,7 +417,7 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
     extra_context = {'gigbargain': gigbargain,
                      'gigbargainband_form': gigbargainband_form}
 
-    return render_to_response(template_name='event/gigbargain_invite_band.html',
+    return render_to_response(template_name='gigbargain/gigbargain_invite_band.html',
                               context_instance=RequestContext(request,
                                                               extra_context)
                               )

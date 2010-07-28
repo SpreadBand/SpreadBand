@@ -299,33 +299,33 @@ $(document).ready(function() {
 
 {% if gigbargain.state == 'draft' %}
 <p>
-<b>Bands, this is a draft. You should negociate all together until you agree, then you'll be able to submit it to the venue. You can still <a href="{% url event:gigbargain-band-invite-band gigbargain.pk %}">invite other bands</a></b>.
+<b>Bands, this is a draft. You should negociate all together until you agree, then you'll be able to submit it to the venue. You can still <a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.pk %}">invite other bands</a></b>.
 <p/>
 {% endif %}
 
 {% if gigbargain.state == 'draft_ok' %}
 <p>
-<b>Bands, this draft has been validated by all of you. If you are the bargain initiator, you may consider <a href="{% url event:gigbargain-band-submit-to-venue gigbargain.pk %}">submitting this bargain to the venue ({{ gigbargain.venue.name }})</a> or <a href="{% url event:gigbargain-band-draft-renegociate gigbargain.pk %}">restart the negociations</a> if something is incorrect.</b>
+<b>Bands, this draft has been validated by all of you. If you are the bargain initiator, you may consider <a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.pk %}">submitting this bargain to the venue ({{ gigbargain.venue.name }})</a> or <a href="{% url gigbargain:gigbargain-band-draft-renegociate gigbargain.pk %}">restart the negociations</a> if something is incorrect.</b>
 <p/>
 {% endif %}
 
 
 {% if gigbargain.state == 'need_venue_confirm' %}
 <p>
-<b>Venue, you need to <a href="{% url event:gigbargain-venue-confirm-bands gigbargain.pk %}">confirm</a> that you want to go on bargaining, even if all bands didn't accept to bargain. You can also <a href="{% url event:gigbargain-venue-invite-band gigbargain.pk %}">invite another band</a> or <a href="{% url event:gigbargain-venue-cancel gigbargain.pk %}">cancel this bargain</a> if it doesn't meet anymore your requirements.</b>
+<b>Venue, you need to <a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.pk %}">confirm</a> that you want to go on bargaining, even if all bands didn't accept to bargain. You can also <a href="{% url gigbargain:gigbargain-venue-invite-band gigbargain.pk %}">invite another band</a> or <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.pk %}">cancel this bargain</a> if it doesn't meet anymore your requirements.</b>
 </p>
 {% endif %}
 
 {% if gigbargain.state == 'band_nego' %}
 <p>
 The bands are negociating.<br>
-<b>Venue, you can <a href="{% url event:gigbargain-venue-invite-band gigbargain.pk %}">invite another band</a> if you wish to</b>
+<b>Venue, you can <a href="{% url gigbargain:gigbargain-venue-invite-band gigbargain.pk %}">invite another band</a> if you wish to</b>
 </p>
 {% endif %}
 
 {% if gigbargain.state == 'band_ok' %}
 <p>
-<b>Venue, you may either <a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">conclude</a> this bargain, ask one or more bands to change their terms (by letting a comment), <a href="{% url event:gigbargain-venue-renegociate gigbargain.pk %}">restart the negociations</a> or <a href="{% url event:gigbargain-venue-decline gigbargain.pk %}">decline it completely</a>.</b>
+<b>Venue, you may either <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.pk %}">conclude</a> this bargain, ask one or more bands to change their terms (by letting a comment), <a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.pk %}">restart the negociations</a> or <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.pk %}">decline it completely</a>.</b>
 <p/>
 {% endif %}
 
@@ -333,13 +333,13 @@ The bands are negociating.<br>
 <p>
   <b>Bands, this bargain has been submitted to {{ gigbargain.venue.name }}, you have to wait for them to reply.</b>
   <br/>
-  <b>Venue, you may either <a href="{% url event:gigbargain-venue-conclude gigbargain.pk %}">accept and conclude</a> this bargain or <a href="{% url event:gigbargain-venue-enter gigbargain.pk %}">negociate the terms</a> or <a href="{% url event:gigbargain-venue-decline gigbargain.pk %}">completely decline</a> this proposal.</b>
+  <b>Venue, you may either <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.pk %}">accept and conclude</a> this bargain or <a href="{% url gigbargain:gigbargain-venue-enter gigbargain.pk %}">negociate the terms</a> or <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.pk %}">completely decline</a> this proposal.</b>
 <p/>
 {% endif %}
 
 {% if gigbargain.state == 'incomplete_proposed_to_venue' %}
 <p>
-<b>Venue, you can either <a href="{% url event:gigbargain-venue-enter gigbargain.pk %}">accept to enter the negociations</a> or <a href="{% url event:gigbargain-venue-decline gigbargain.pk %}">refuse to bargain</a> with these bands.</b>
+<b>Venue, you can either <a href="{% url gigbargain:gigbargain-venue-enter gigbargain.pk %}">accept to enter the negociations</a> or <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.pk %}">refuse to bargain</a> with these bands.</b>
 <p/>
 {% endif %}
 
@@ -358,9 +358,9 @@ The bands are negociating.<br>
 </div>
 
   <div class="grid_11 alpha omega" style="text-align: right; margin-bottom: 10px; display: inline-block;">
-    <a href="{% url event:gigbargain-band-part-display gigbargain.pk 'nest' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate Nest's part</span></a>
-    <a href="{% url event:gigbargain-band-part-display gigbargain.pk 'lymbago' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate King Crimson's part</span></a>
-    <!-- <a href="{% url event:gigbargain-band-kick gigbargain.pk 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>Kick</span></a> -->
+    <a href="{% url gigbargain:gigbargain-band-part-display gigbargain.pk 'nest' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate Nest's part</span></a>
+    <a href="{% url gigbargain:gigbargain-band-part-display gigbargain.pk 'lymbago' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate King Crimson's part</span></a>
+    <!-- <a href="{% url gigbargain:gigbargain-band-kick gigbargain.pk 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>Kick</span></a> -->
   </div>
 
 
@@ -384,7 +384,7 @@ The bands are negociating.<br>
     <img src="{{ MEDIA_URL }}/images/tmp_where.png" style="vertical-align: middle; " width="25"/>
     <h3 style="display: inline; vertical-align: middle; ">Where and When</h3>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
-      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small">0</span>
     </div>
 
@@ -414,7 +414,7 @@ The bands are negociating.<br>
     {% endwith %}
     <br/>
     <b>When</b> : {{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
-    <b>Opens</b> : {{ gigbargain.opens_at }}, <b>Closes</b> : {{ gigbargain.closes_at }}<!-- [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>] --><br/>
+    <b>Opens</b> : {{ gigbargain.opens_at }}, <b>Closes</b> : {{ gigbargain.closes_at }}<!-- [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}">Venue, change that</a>] --><br/>
     
   </div>
 
@@ -425,7 +425,7 @@ The bands are negociating.<br>
     <img src="{{ MEDIA_URL }}/images/tmp_access.png" style="vertical-align: middle; " width="25"/>
     <h3 style="display: inline; vertical-align: middle; ">Access</h3>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
-      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'access' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'access' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small">2</span>
     </div>
 
@@ -436,7 +436,7 @@ The bands are negociating.<br>
     {% if gigbargain.access %}
     Entrance : {{ gigbargain.get_access_display }}<br/>
     {% else %}
-    Entrance is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
+    Entrance is not set [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
     {% endif %}
     
     {% if gigbargain.access == 'FEES' %}
@@ -466,7 +466,7 @@ The bands are negociating.<br>
       <!-- Action buttons for bands -->
       <div style="display: inline; float: right">
 	{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
-	<a href="{% url event:gigbargain-band-invite-band gigbargain.pk %}" class="minibutton btn-fork"><span><span class="icon"></span>Invite band</span></a>
+	<a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.pk %}" class="minibutton btn-fork"><span><span class="icon"></span>Invite band</span></a>
 	{% endif %}
       </div>
     </div>
@@ -522,7 +522,7 @@ The bands are negociating.<br>
     <img src="{{ MEDIA_URL }}/images/tmp_timeline.png" style="vertical-align: middle; " width="25"/>
     <h3 style="display: inline; vertical-align: middle; ">Timeline</h3>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
-      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'timeline' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'timeline' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small"><font color="red">3</font></span>
     </div>
 
@@ -570,7 +570,7 @@ The bands are negociating.<br>
     <img src="{{ MEDIA_URL }}/images/tmp_remuneration.png" style="vertical-align: middle; " width="25"/>
     <h3 style="display: inline; vertical-align: middle; ">Remuneration</h3>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
-      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small">0</span>
     </div>
 
@@ -578,7 +578,7 @@ The bands are negociating.<br>
 
     
     {% if not gigbargain.remuneration %}
-    Remuneration type is not set [<a href="{% url event:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>].
+    Remuneration type is not set [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>].
     {% else %}
     Type of remuneration : {{ gigbargain.get_remuneration_display }}
     {% endif %}
@@ -642,7 +642,7 @@ var json = {
     <img src="{{ MEDIA_URL }}/images/tmp_defrayment.png" style="vertical-align: middle; " width="25"/>
     <h3 style="display: inline; vertical-align: middle; ">Defrayments</h3>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
-      <a href="{% url event:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small"><font color="red">1</font></span>
     </div>
 
