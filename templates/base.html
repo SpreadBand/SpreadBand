@@ -58,7 +58,7 @@
               <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ MEDIA_URL}}/images/tmp_user.jpg"> {# <a href="{% url social_logout %}"> #}
 		<a href="{% url social_logout %}">Logout</a>
 		<ul>
-		  {% for membership in user.band_memberships.all %}
+		  {% for membership in user.bands.all %}
 		  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
 		  {% endfor %}
 		</ul>  
@@ -169,11 +169,8 @@
 		</fieldset> 
 		
 	      </form>
+	      -->
 	      {% endif %}
-	    </div>
-	  </div>
-	</div>
-      -->
       </div>
       <div id="footer" class="grid_16 alpha omega">
 	<div class="alpha prefix_10 grid_2">
