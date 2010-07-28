@@ -94,7 +94,7 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
                                         bargain__pk=gigbargain_uuid,
                                         band__slug=band_slug)
     
-    if gigbargain.state not in ('new', 'draft'):
+    if gigbargain.state not in ('new', 'draft', 'band_nego'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
@@ -122,7 +122,7 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
                 gigbargain.need_venue_confirmation()
 
         # If negociations have already started
-        elif gigbargain.state == 'draft':
+        elif gigbargain.state in ('draft', 'band_nego'):
             gigbargain_band.start_negociating()
 
             messages.success(request, _("You have joined the bargain"))
@@ -157,14 +157,14 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
-
-    if gigbargain.state not in ('new', 'draft'):
-        # XXX: Maybe it should more explicit
-        return HttpResponseForbidden()
-
     gigbargain_band = get_object_or_404(GigBargainBand, 
                                         bargain__pk=gigbargain_uuid,
                                         band__slug=band_slug)
+
+    if gigbargain.state not in ('new', 'draft', 'band_nego'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
     
     # If we were waiting, switch to "refused" and save
     if gigbargain_band.state == 'waiting':
@@ -239,6 +239,36 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
                                                               extra_context)
                               )
 
+
+@login_required
+def gigbargain_band_part_disapprove(request, band_slug, gigbargain_uuid):
+    """
+    During the band negociation phase, when a band disapprove its band part
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden()
+
+    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+
+    if gigbargainband.state != 'part_validated':
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    # if all bands agreed, then come back to "negociating" phase
+    if gigbargain.state == 'band_ok':
+        gigbargain.bands_dont_agree_anymore()
+
+    # Cancel approval for this band
+    gigbargainband.cancel_approval()
+
+    messages.success(request, _("You have disapproved your part"))
+
+    return redirect(gigbargain)
+
+
 @login_required
 def gigbargain_band_part_approve(request, band_slug, gigbargain_uuid):
     """
@@ -300,7 +330,8 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
     gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
-    if gigbargain.state not in ('draft', 'draft_ok', 'band_nego', 'band_ok'):
+    if gigbargain.state not in ('draft', 'draft_ok', 'band_nego') \
+            or  gigbargainband.state not in ('negociating'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
@@ -308,10 +339,12 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
 
     if request.method == 'POST':
         if gigbargainband_form.is_valid():
-            # Save and approve our part
+            # Save
             gigbargainband = gigbargainband_form.save()
 
-            return redirect('event:gigbargain-band-part-approve', gigbargain.pk, gigbargainband.band.slug)
+            messages.success(request, _("Changes saved"))
+
+            return redirect(gigbargain)
 
     extra_context = {'gigbargain': gigbargain,
                      'gigbargainband': gigbargainband,
@@ -357,7 +390,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
 
 
             gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
-            return redirect('event:gigbargain-band-part-edit', gigbargain.pk, band_slug)
+            return redirect('gigbargain:gigbargain-band-part-edit', gigbargain.pk, band_slug)
 
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_form': gigbargain_form}        

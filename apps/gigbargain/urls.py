@@ -27,11 +27,12 @@ urlpatterns = patterns('',
 
     # Bargain, band specific
     url(r'^new/band/(?P<band_slug>[-\w]+)$', views.band.gigbargain_new_from_band, name='gigbargain-new-from-band'),
-    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/enter$', views.band.gigbargain_enter_for_band, name='gigbargain-enter-for-band'),
-    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/reject$', views.band.gigbargain_refuse_for_band, name='gigbargain-refuse-for-band'),
+    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/enter$', views.band.gigbargain_enter_for_band, name='gigbargain-band-enter'),
+    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/reject$', views.band.gigbargain_refuse_for_band, name='gigbargain-band-refuse'),
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/quit$', views.band.gigbargain_band_quit, name='gigbargain-band-quit'),
 
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/approve$', views.band.gigbargain_band_part_approve, name='gigbargain-band-part-approve'),
+    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/disapprove$', views.band.gigbargain_band_part_disapprove, name='gigbargain-band-part-disapprove'),
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit$', views.band.gigbargain_band_part_edit, name='gigbargain-band-part-edit'),
 
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)$', views.band.gigbargain_band_part_display, name='gigbargain-band-part-display'),
