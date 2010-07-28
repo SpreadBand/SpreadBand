@@ -9,16 +9,6 @@ from imagekit.models import ImageModel
 from actors.models import Actor
 from minisite.models.minisite import Minisite
 
-class BandRole(models.Model):
-    """
-    A typed role in a band. Eg: guitarist
-    """
-    label = CharField(max_length=30,
-                      unique=True)
-
-    def __unicode__(self):
-        return self.label
-
 
 class Band(Actor):
     """
@@ -44,6 +34,8 @@ class Band(Actor):
 
 
     website = ForeignKey(Minisite, blank=True, null=True)
+
+    members = ManyToManyField(User, through='BandMember', related_name='bands')
     
     #-- Functions
     def __unicode__(self):
@@ -59,7 +51,6 @@ from django.db.models.signals import post_save
 from actors.models import actor_after_save
 
 post_save.connect(actor_after_save, sender=Band)
-
 
 def get_bandpicture_path(aBandPicture, filename):
     dst = 'bands/%d/pictures/%s' % (aBandPicture.band.id,
@@ -80,6 +71,17 @@ class BandPicture(ImageModel):
     def __unicode__(self):
         return "Picture for band %s" % self.band.name
 
+
+class BandRole(models.Model):
+    """
+    A typed role in a band. Eg: guitarist
+    """
+    label = CharField(max_length=30,
+                      unique=True)
+
+    def __unicode__(self):
+        return self.label
+
 class BandMember(models.Model):
     """
     A membership link between users and bands
@@ -88,8 +90,8 @@ class BandMember(models.Model):
         unique_together = ('user', 'band')
 
     user = ForeignKey(User, related_name='band_memberships')
-    band = ForeignKey(Band, related_name='members')
-    roles = ManyToManyField(BandRole)
+    band = ForeignKey(Band, related_name='band_members')
+    roles = ManyToManyField(BandRole, related_name='roles')
 
     approved = BooleanField(default=False,
                             help_text=_('Whether the membership has been approved'))

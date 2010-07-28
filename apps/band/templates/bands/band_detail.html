@@ -26,9 +26,9 @@ This band is owned.
 <h5>Members</h5>
 <p>
   <ul>
-    {% for member in band.members.all %}
-    <li><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name }}</a> 
-      ({{ member.user.username }}) as {{ member.roles.all|join:', ' }}</li>
+    {% for member in band.band_members.all %}
+    <li><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> 
+      as {{ member.roles.all|join:', ' }}</li>
     {% endfor %}
 
     <strike>( <a href="{% url band:membership-request band.slug %}">Join band</a> )<br></strike>
@@ -45,6 +45,10 @@ This band is owned.
 </p>
 
 <h4>Gig Bargains</h4>
+
+<p>
+  <a href="{% url event:gigbargain-band-dashboard band.slug %}">Bargain dashboard</a>
+</p>
 
 <p>
 <a href="{% url event:gigbargain-new-from-band band.slug %}">Initiate a new gig bargain</a>
