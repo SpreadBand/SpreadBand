@@ -220,11 +220,21 @@ display:block;
 
 </style>
 
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/tipsy.css" /> 
+
 {{ block.super }}
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
+
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.tipsy.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('a.button-tip').tipsy({gravity: $.fn.tipsy.autoNS});
+  });
+</script>
 
 <script type="text/javascript">
 
@@ -292,7 +302,7 @@ $(document).ready(function() {
     {% endfor %}
   </div>
   <div class="grid_11 alpha">
-    
+    {{ gigbargain.state }}
   <div class="grid_11 alpha omega">
 
 <!--
@@ -358,8 +368,28 @@ The bands are negociating.<br>
 </div>
 
   <div class="grid_11 alpha omega" style="text-align: right; margin-bottom: 10px; display: inline-block;">
-    <a href="{% url gigbargain:gigbargain-band-part-display gigbargain.pk 'nest' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate Nest's part</span></a>
-    <a href="{% url gigbargain:gigbargain-band-part-display gigbargain.pk 'lymbago' %}" class="minibutton btn-download"><span><span class="icon"></span>Validate King Crimson's part</span></a>
+    {% if is_venue_managed %}
+    {% if gigbargain.state == 'band_ok' %}
+    <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.pk %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Conclude</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.pk %}" class="button-tip minibutton btn-download" title="Restart the negociations"><span><span class="icon"></span>Renegociate</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.pk %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Decline</span></a>    
+    {% endif %}
+    {% endif %}
+
+
+    {% for band in managed_bands %}
+
+    {% if band.state == 'waiting' %}
+    <a href="{% url gigbargain:gigbargain-band-enter gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to bargain with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Enter negociations</span></a>
+    <a href="{% url gigbargain:gigbargain-band-refuse gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Refuse proposition</span></a>
+    {% else %}{% if band.state == 'negociating' %}
+    <a href="{% url gigbargain:gigbargain-band-part-approve gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Lock the terms related to your band"><span><span class="icon"></span>{{ band.band.name }}: Lock your part</span></a>
+    {% else %} {% if band.state == 'part_validated' %}
+    <a href="{% url gigbargain:gigbargain-band-part-disapprove gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Unlock the terms related to your band"><span><span class="icon"></span>{{ band.band.name }}: Unlock your part</span></a>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
     <!-- <a href="{% url gigbargain:gigbargain-band-kick gigbargain.pk 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>Kick</span></a> -->
   </div>
 
@@ -369,8 +399,8 @@ The bands are negociating.<br>
 <!-- State : {{ gigbargain.state }} -->
     
     <ul id="mainNav" class="fiveStep">
-      <li class="done"><a title=""><em>Draft</em></a></li>
-      <li class="lastDone"><a title=""><em>Draft ok</em></a></li>
+      <li class="done"><a style="cursor: help" title="Yeah yeah, draft"><em>Draft</em></a></li>
+      <li class="lastDone"><a style="cursor: help" title=""><em>Draft ok</em></a></li>
       <li class="current"><a title=""><em>Submitted</em></a></li>
       <li><a title=""><em>Negociation</em></a></li>
       <li class="mainNavNoBg"><a title=""><em>Finished</em></a></li>
@@ -466,7 +496,12 @@ The bands are negociating.<br>
       <!-- Action buttons for bands -->
       <div style="display: inline; float: right">
 	{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+	{% if managed_bands|length %}
 	<a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.pk %}" class="minibutton btn-fork"><span><span class="icon"></span>Invite band</span></a>
+	{% endif %}
+	{% if is_venue_managed %}
+	<a href="{% url gigbargain:gigbargain-venue-invite-band gigbargain.pk %}" class="minibutton btn-fork"><span><span class="icon"></span>Venue: Invite band</span></a>
+	{% endif %}
 	{% endif %}
       </div>
     </div>
@@ -500,6 +535,12 @@ The bands are negociating.<br>
 	  {% endif %}
 	  {% if band.state == 'part_validated' %}
 	  lightgreen
+	  {% else %}{% if band.state == 'waiting' %}
+	  purple
+	  {% else %}{% if band.state == 'refused' %}
+	  red
+	  {% endif %}
+	  {% endif %}
 	  {% endif %}
 	  ;">
 	  {{ band.state }}
@@ -523,6 +564,16 @@ The bands are negociating.<br>
     <h3 style="display: inline; vertical-align: middle; ">Timeline</h3>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
       <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'timeline' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
+      <div style="display: inline; float: right">
+	{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+	{% for band in managed_bands %}
+	{% if band.state == 'negociating' %}
+	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.pk band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+      </div>
+
       <span style="font-size: small"><font color="red">3</font></span>
     </div>
 
@@ -572,6 +623,17 @@ The bands are negociating.<br>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
       <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'remuneration' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small">0</span>
+
+      <div style="display: inline; float: right">
+	{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+	{% for band in managed_bands %}
+	{% if band.state == 'negociating' %}
+	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.pk band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+      </div>
+
     </div>
 
     <div class="clear" style="height: 15px"></div>
@@ -644,6 +706,16 @@ var json = {
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
       <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'defrayments' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small"><font color="red">1</font></span>
+      <div style="display: inline; float: right">
+	{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+	{% for band in managed_bands %}
+	{% if band.state == 'negociating' %}
+	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.pk band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+      </div>
+
     </div>
 
     <div class="clear" style="height: 15px"></div>
