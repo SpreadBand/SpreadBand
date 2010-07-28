@@ -171,7 +171,7 @@ class GigBargainBandPartEditForm(GigBargainBandForm):
         model = GigBargainBand
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
-    starts_at = forms.TimeField(input_formats=('%H:%M', '%H'), required=True)
+    starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=True)
     set_duration = TimedeltaFormField(required=True)
 
 
