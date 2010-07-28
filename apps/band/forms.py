@@ -10,7 +10,7 @@ class BandCreateForm(forms.ModelForm):
 class BandUpdateForm(forms.ModelForm):
     class Meta:
         model = Band
-        exclude = ('owned',)
+        fields = ('name', 'founded_on', 'genres', 'biography')
 
 class BandMemberRequestForm(forms.ModelForm):
     class Meta:
