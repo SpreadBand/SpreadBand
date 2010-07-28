@@ -5,11 +5,7 @@ import views.band
 import views.venue
 import views.dashboard
 
-urlpatterns = patterns('django.views.generic.simple',
-    (r'^$', 'redirect_to', {'url': 'list'}),
-)
-
-urlpatterns += patterns('',                       
+urlpatterns = patterns('',
     # Bargain
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)$', views.gigbargain_detail, name='gigbargain-detail'),
 
