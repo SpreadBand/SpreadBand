@@ -537,7 +537,7 @@ The bands are negociating.<br>
     <div class="grid_5" style="margin-bottom: 15px">
       <div class="grid_5 alpha omega">
 	<div class="vcard">
-	  <img width='60px' height='60px' style="float:left; margin-right:4px" src="{{ MEDIA_URL }}/images/tmp_band{% cycle '' '2' '3' %}.jpg" alt="picture of {{ venue.name }}" class="photo"/>
+	  <img width='60px' height='60px' style="float:left; margin-right:4px" src="{{ band.band.avatar_url }}" alt="picture of {{ venue.name }}" class="photo"/>
 	  <a class="url uid" href="{{ band.band.get_absolute_url }}">
 	    <div class="org fn">
 	      <span class="organization-name">{{ band|capfirst }}</span>
