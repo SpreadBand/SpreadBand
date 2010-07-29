@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAll
 
 from band.models import Band
 
-from .models import Album, Track
+from .models import Album, AlbumTrack
 from .forms import TrackForm, AlbumForm, NewTrackForm, AlbumCoverForm
 
 from utils.template import direct_block_to_template
@@ -59,7 +59,7 @@ def track_new(request, band_slug, album_slug):
 def track_delete(request, band_slug, album_slug, track_id):
     band = get_object_or_404(Band, slug=band_slug)
     album = get_object_or_404(Album, slug=album_slug)    
-    track = get_object_or_404(Track, id=track_id)
+    track = get_object_or_404(AlbumTrack, id=track_id)
 
     track.delete()
 
@@ -97,7 +97,7 @@ def album_create(request, band_slug):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
-    TrackInlineFormSet = inlineformset_factory(Album, Track, form=TrackForm, can_delete=False)
+    TrackInlineFormSet = inlineformset_factory(Album, AlbumTrack, form=TrackForm, can_delete=False)
 
     if request.method == "POST":
         # Force the album's band to be us

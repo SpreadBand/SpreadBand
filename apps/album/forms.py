@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Album, Track, AlbumCover
+from .models import Album, AlbumTrack, AlbumCover
 
 class AlbumForm(forms.ModelForm):
     class Meta:
@@ -9,11 +9,11 @@ class AlbumForm(forms.ModelForm):
 
 class TrackForm(forms.ModelForm):
     class Meta:
-        model = Track
+        model = AlbumTrack
 
 class NewTrackForm(forms.ModelForm):
     class Meta:
-        model = Track
+        model = AlbumTrack
         fields = ('file',)
 
 class AlbumCoverForm(forms.ModelForm):

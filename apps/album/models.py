@@ -62,30 +62,15 @@ class AlbumCover(ImageModel):
         return "Cover for %s" % self.album
 
 
+from media.models import Track
 
-###-- Track
+class AlbumTrack(Track):
+    @staticmethod
+    def get_track_path(aTrack, filename):
+        return 'bands/%d/albums/%d/tracks/%s' % (aTrack.album.band_id,
+                                                 aTrack.album_id,
+                                                 filename)
 
-def get_track_path(aTrack, filename):
-    return 'bands/%d/albums/%d/tracks/%s' % (aTrack.album.band_id,
-                                             aTrack.album_id,
-                                             filename)
-
-from mutagen.easyid3 import EasyID3
-
-class Track(models.Model):
-    album = ForeignKey(Album, related_name='tracks')
     no = IntegerField(blank=True, default=0)
-    title = CharField(max_length=255, default='Unnamed', blank=True)
-    file = FileField(upload_to=get_track_path)
+    album = ForeignKey(Album, related_name='tracks')
 
-    def __unicode__(self):
-        return '%s - %s - %s' % (self.album.band.name,
-                                 self.album.name,
-                                 self.title)
-    
-    # def save(self, *args, **kwargs):
-    #     """
-    #     Here, we fill the track fields if there are not yet here.
-    #     Then, we regularly save the model to the DB.
-    #     """
-    #     return models.Model.save(*args, **kwargs)
