@@ -10,7 +10,7 @@ class BandCreateForm(forms.ModelForm):
 class BandUpdateForm(forms.ModelForm):
     class Meta:
         model = Band
-        fields = ('name', 'founded_on', 'genres', 'biography')
+        fields = ('name', 'founded_on', 'genres', 'biography', 'technical_sheet')
 
 class BandMemberRequestForm(forms.ModelForm):
     class Meta:
@@ -20,7 +20,7 @@ class BandMemberRequestForm(forms.ModelForm):
 class BandPictureForm(forms.ModelForm):
     class Meta:
         model = BandPicture
-        fields = ('original_image',)
+        fields = ('original_image', 'is_avatar')
     
 
 from django.forms import CharField
