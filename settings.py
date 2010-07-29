@@ -161,6 +161,7 @@ INSTALLED_APPS = (
     'timezones',
     'django_countries',
     'mailer',
+    'oembed',
 
     # Internal
     'backcap',
@@ -170,6 +171,7 @@ INSTALLED_APPS = (
     'actors',
     'event',
     'band',
+    'presskit',
     'venue',
     'album',
     'gigbargain',
