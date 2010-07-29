@@ -37,6 +37,18 @@ $(document).ready(function() {
     paused: true,
     filmstrip_position: 'bottom',
     overlay_position: 'bottom'});
+
+	function changeTrack(e) {
+		$("#trackname").text($(this).text());
+		$("#audio_player").jPlayer("setFile", $(this).attr("mp3"), $(this).attr("ogg")).jPlayer("play");
+		$(this).blur();
+		return false;
+	};
+
+
+ $(".track").click( changeTrack );
+
+
 });
 </script>
 
@@ -63,7 +75,7 @@ $(document).ready(function() {
       <ul>
       {% for role in member.roles.all %}
       <li>{{ role }}</li>
-	{% endfor %}
+      {% endfor %}
       </ul>
     </li>
     {% endfor %}
@@ -108,7 +120,11 @@ $(document).ready(function() {
   <div class="grid_11 alpha omega">
     <div class="ui-corner-all greybox">
       <h4>Featured Tracks</h4>
-      ...TODO
+      <ul>
+	{% for track in presskit.tracks.all %}
+	<li><a class="track" href="#" ogg="{{ track.file.url|urlencode }}">{{ track.title }}</a> {% if track.albumtrack %}(Album: <a href="{{ track.albumtrack.album.get_absolute_url }}">{{ track.albumtrack.album.name }}</a>){% endif %}</li>
+	{% endfor %}
+      </ul>
     </div>
   </div>
 
@@ -157,10 +173,6 @@ $(document).ready(function() {
     <div class="ui-corner-all greybox">
       <h4>Latest reviews ({% average_for_instance band %})</h4>
       {% reviews_for_instance band %}
-      {% for review in reviews %}
-      {{ review }}
-      {% endfor %}
-      
     </div>
   </div>
 

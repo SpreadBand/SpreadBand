@@ -1,5 +1,8 @@
 {% for review in reviews %}
-{{ review }}
+<p>
+{{ review.user.get_full_name }} - {{ review.score }}<br/>
+{{ review.comment }}
+</p>
 {% empty %}
 No reviews yet.
 {% endfor %}
