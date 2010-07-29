@@ -36,8 +36,23 @@ class Band(Actor):
     website = ForeignKey(Minisite, blank=True, null=True)
 
     members = ManyToManyField(User, through='BandMember', related_name='bands')
-    
+
+    technical_sheet = TextField(blank=True, null=True)
+
     #-- Functions
+    def avatar_url(self):
+        import settings
+        """
+        Return the url of the avatar, or default to a 'no picture'
+        picture
+        """
+        try:
+            avatar = self.pictures.avatar()
+            return avatar.avatar_image.url
+        except:
+            return settings.MEDIA_URL + '/images/tmp_band.jpg'
+            
+
     def __unicode__(self):
         return self.name
 
@@ -57,16 +72,37 @@ def get_bandpicture_path(aBandPicture, filename):
                                     filename)
     return dst
 
+
+class BandPictureManager(models.Manager):
+    def avatar(self):
+        """
+        Return the avatar of the band
+        """
+        return self.get(is_avatar=True)
+
 class BandPicture(ImageModel):
     """
     A picture of a band
     """
+    objects = BandPictureManager()
+
     class IKOptions:
         image_field = 'original_image'
         spec_module = 'band.imagespecs'
 
+    class Meta:
+        unique_together = ('band', 'is_avatar')
+
     original_image = models.ImageField(upload_to=get_bandpicture_path)
     band = ForeignKey(Band, related_name='pictures')
+
+    title = CharField(max_length=100,
+                      null=True, blank=True)
+
+    description = CharField(max_length=255,
+                            null=True, blank=True)
+
+    is_avatar = BooleanField(default=False)
 
     def __unicode__(self):
         return "Picture for band %s" % self.band.name
