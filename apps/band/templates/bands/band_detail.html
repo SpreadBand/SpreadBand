@@ -14,11 +14,13 @@
 This band is owned.
 {% endif %}
 
+<a href="{% url presskit:presskit-detail band.slug %}">Presskit</a>
+
 <p>{{ band.biography }}</p>
 
 <h5>Pictures</h5>
 {% for picture in band.pictures.all %}
-<a href="{{ picture.original_image.url }}"><img src="{{ picture.thumbnail_image.url }}"></a>
+<a href="{{ picture.original_image.url }}"><img src="{{ picture.thumbnail_image.url }}"></a><img src="{{ picture.avatar_image.url }}">
 {% endfor %}
 <br>
 ( <a href="{% url band:picture-new band.slug %}">Upload new</a> )
