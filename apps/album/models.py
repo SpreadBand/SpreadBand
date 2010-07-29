@@ -37,20 +37,6 @@ class Album(models.Model):
         return '%s - %s' % (self.band.name,
                             self.name)
 
-#-- Bigbrother test
-from bigbrother.models import ModelStats, InstanceCount, StatsIndex
-from bigbrother.hooks import collect_stats
-
-class AlbumStats(ModelStats):
-    class Meta:
-        model = Album
-
-    # names = StatsIndex('name')
-    count = InstanceCount()
-    
-
-collect_stats(AlbumStats)
-#-- End of BigBrother test
 
 def get_cover_path(anAlbumCover, filename):
     print "cover=", anAlbumCover
