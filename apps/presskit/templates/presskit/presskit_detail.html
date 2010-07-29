@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{{ block.super }}
+
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/galleryview/galleryview.css"/>
+
+<style type="text/css">
+  .greybox {
+  background-color: #eee;
+  padding: 10px; 
+  margin-bottom: 20px;
+  }
+</style>
+
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.timers-1.2.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.galleryview-2.1.1.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+ $('#gallery').galleryView({
+    panel_width: 320,
+    panel_height: 300,
+    gallery_width: 300,
+    gallery_height: 300,
+    frame_height: 50,
+    frame_width: 90,
+    nav_theme: '../../../css/jquery/galleryview/themes/dark',
+    transition_interval: 10000,
+    pause_on_hover: true,
+    paused: true,
+    filmstrip_position: 'bottom',
+    overlay_position: 'bottom'});
+});
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="grid_3 alpha">
+  <div class="grid_3 alpha omega">
+    <img src="{{ band.avatar_url }}"/>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    {{ band.genres }}
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Members ({{ band.band_members.count }})</h4>
+    <ul>
+    {% for member in band.band_members.all %}
+    <li><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>:
+      <ul>
+      {% for role in member.roles.all %}
+      <li>{{ role }}</li>
+	{% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Latest Gigs</h4>
+    <ul>
+    {% for gig in latest_gigs %}
+    <li>
+      {{ gig.event_date }}: <a href="{{ gig.get_absolute_url }}">{{ gig.venue.name }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Social links</h4>
+    ...TODO
+  </div>
+
+</div>
+
+<div class="grid_11 omega">
+  <h2>PressKit &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> (Lille, FR)</h2>
+
+  <div class="grid_7 alpha">
+    <div class="ui-corner-all greybox">
+      <h4>Biography</h4>
+      {{ band.biography|truncatewords:100 }}[<a href="#">Read more</a>]
+    </div>
+  </div>
+
+  <div class="grid_4 omega">
+    <div class="ui-corner-all greybox">
+      <h4>Press highlights</h4>
+      ...TODO
+    </div>
+  </div>
+
+  <div class="grid_11 alpha omega">
+    <div class="ui-corner-all greybox">
+      <h4>Featured Tracks</h4>
+      ...TODO
+    </div>
+  </div>
+
+  <div class="grid_6 alpha">
+    <div class="ui-corner-all greybox">
+      <h4>Pictures</h4>
+      <div id="gallery">
+	{% for picture in band.pictures.all %}
+	<div class="panel"><img src="{{ picture.thumbnail_image.url }}" alt="image1" /></div>
+	{% endfor %}
+	
+	<div class="strip_wrapper">
+	  <ul class="filmstrip">
+	    {% for picture in band.pictures.all %}
+	    <li><img src="{{ picture.original_image.url }}" alt="hoy joy" title="fuckin' title"/>
+	      <div class="panel-overlay">
+		<p>Some more information about this photo, perhaps with a <a href="http://some.web.site" target="_blank">link</a> to another page.</p>
+	      </div>
+</li>
+	    {% endfor %}
+	  </ul>
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid_5 omega">
+    <div class="ui-corner-all greybox" style="text-align: center">
+      <h4>Videos</h4>
+      {% load oembed_tags %}
+      {% oembed 320x240 %}
+      http://www.youtube.com/watch?v=uBZbhrm05qI
+      {% endoembed %}
+    </div>
+  </div>
+
+  <div class="grid_6 alpha">
+    <div class="ui-corner-all greybox">
+      <h4>Technical Sheet</h4>
+      {{ band.technical_sheet }}
+    </div>
+  </div>
+
+  {% load reviews_tags %}
+  <div class="grid_5 omega">
+    <div class="ui-corner-all greybox">
+      <h4>Latest reviews ({% average_for_instance band %})</h4>
+      {% reviews_for_instance band %}
+      {% for review in reviews %}
+      {{ review }}
+      {% endfor %}
+      
+    </div>
+  </div>
+
+
+</div>
+
+{% endblock %}
