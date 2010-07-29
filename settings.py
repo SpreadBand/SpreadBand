@@ -164,6 +164,7 @@ INSTALLED_APPS = (
     'oembed',
 
     # Internal
+    'media',
     'backcap',
     'account',
     'minisite',
