@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     # Bands
     (r'^b/', include('band.urls', namespace='band')),
     (r'^b/', include('album.urls', namespace='album')),
+    (r'^b/', include('presskit.urls', namespace='presskit')),
 
     # Venues
     (r'^v/', include('venue.urls', namespace='venue')),
