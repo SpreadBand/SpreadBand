@@ -417,6 +417,7 @@ The bands are negociating.<br>
 
   <div class="grid_11 alpha omega" style="text-align: right; margin-bottom: 10px; display: inline-block;">
     {% if is_venue_managed %}
+
     {% if gigbargain.state == 'band_ok' %}
     <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.pk %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Conclude</span></a>    
     <a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.pk %}" class="button-tip minibutton btn-download" title="Restart the negociations"><span><span class="icon"></span>Renegociate</span></a>    
@@ -430,8 +431,8 @@ The bands are negociating.<br>
     {% endif %}
 
     {% if gigbargain.state == 'need_venue_confirm' %}
-    <a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.pk %}" class="button-tip minibutton btn-download" title="Go on with the bands that have accepted"><span><span class="icon"></span>Go on</span></a>    
-    <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.pk %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Cancel</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.pk %}" class="button-tip minibutton btn-download" title="Go on with the bands that have accepted"><span><span class="icon"></span>Begin negociations</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.pk %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Abort</span></a>    
     {% endif %}
 
 
@@ -488,6 +489,11 @@ The bands are negociating.<br>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
       <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'whenwhere' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small">0</span>
+      {% if is_venue_managed %}
+      {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
+      <a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}" class="minibutton btn-download"><span><span class="icon"></span>Edit</span></a>  
+      {% endif %}
+      {% endif %}
     </div>
 
     <div class="clear" style="height: 15px"></div>
@@ -532,6 +538,11 @@ The bands are negociating.<br>
     <div style="display: inline; margin-left: 20px; vertical-align: middle; ">
       <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.pk 'access' %}"><img width="20px" src="{{ MEDIA_URL }}/images/blurp_comment.png" alt="Comment on section timeline" style="vertical-align: middle"/></a>
       <span style="font-size: small">2</span>
+      {% if is_venue_managed %}
+      {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
+      <a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}" class="minibutton btn-download"><span><span class="icon"></span>Edit</span></a>  
+      {% endif %}
+      {% endif %}
     </div>
 
     <div class="clear" style="height: 15px"></div>
@@ -541,7 +552,7 @@ The bands are negociating.<br>
     {% if gigbargain.access %}
     Entrance : {{ gigbargain.get_access_display }}<br/>
     {% else %}
-    Entrance is not set [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}">Venue, set it</a>]
+    Entrance is not set.
     {% endif %}
     
     {% if gigbargain.access == 'FEES' %}
@@ -594,6 +605,9 @@ The bands are negociating.<br>
 	      <span class="organization-name">{{ band|capfirst }}</span>
 	    </div>
 	  </a>
+	  {% if band.band.presskit %}
+	  (<a href="{{ band.band.presskit.get_absolute_url }}">PressKit</a>)
+	  {% endif %}
 	  
 	  <div class="adr">
 	    <span class="locality">Lille</span>,

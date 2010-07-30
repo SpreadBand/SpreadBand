@@ -269,3 +269,13 @@ class GigBargainBandRefuseForm(forms.ModelForm):
 
     reason = forms.CharField(required=True,
                              widget=forms.Textarea)
+
+
+class VenueReasonForm(forms.ModelForm):
+    class Meta:
+        model = GigBargain
+        fields = ('venue_reason',)
+
+    venue_reason = forms.CharField(required=True,
+                                   widget=forms.Textarea)
+

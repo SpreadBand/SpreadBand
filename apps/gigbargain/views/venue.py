@@ -16,7 +16,7 @@ from apps.venue.models import Venue
 
 import gigbargain.signals as signals
 from ..forms import GigBargainNewFromVenueForm, GigBargainBandForm, BaseGigBargainBandFormSet, GigBargainForVenueForm
-from ..forms import GigBargainBandInviteForm
+from ..forms import GigBargainBandInviteForm, VenueReasonForm
 from ..models import GigBargain
 
 @login_required
@@ -141,9 +141,23 @@ def gigbargain_venue_decline(request, gigbargain_uuid):
         # XXX Maybe we should be more explicit
         return HttpResponseForbidden()
 
-    gigbargain.decline()
 
-    return redirect(gigbargain)
+    reason_form = VenueReasonForm(request.POST or None)
+
+    if request.method == 'POST' and reason_form.is_valid(): 
+        gigbargain.venue_reason = reason_form.cleaned_data['venue_reason']
+        gigbargain.decline()
+
+        return redirect(gigbargain)
+    else:
+        extra_context = {'gigbargain': gigbargain,
+                         'reason_form': reason_form}
+
+        return render_to_response(template_name='gigbargain/gigbargain_venue_decline.html',
+                                  context_instance=RequestContext(request,
+                                                                  extra_context)
+                                  )
+
 
 
 @login_required
@@ -265,6 +279,7 @@ def gigbargain_venue_common_edit(request, gigbargain_uuid):
                               )
 
 
+
 @login_required
 def gigbargain_venue_renegociate(request, gigbargain_uuid):
     """
@@ -279,12 +294,26 @@ def gigbargain_venue_renegociate(request, gigbargain_uuid):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
-    for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
-        gigbargainband.cancel_approval()
+    reason_form = VenueReasonForm(request.POST or None)
 
-    gigbargain.bands_dont_agree_anymore()
+    if request.method == 'POST' and reason_form.is_valid():
+        for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
+            gigbargainband.cancel_approval()
 
-    return redirect(gigbargain)
+        # Save the reason and reset band states
+        gigbargain.venue_reason = reason_form.cleaned_data['venue_reason']
+        gigbargain.bands_dont_agree_anymore()
+
+        return redirect(gigbargain)
+    else:
+        extra_context = {'gigbargain': gigbargain,
+                         'reason_form': reason_form}
+
+        return render_to_response(template_name='gigbargain/gigbargain_venue_renegociate.html',
+                                  context_instance=RequestContext(request,
+                                                                  extra_context)
+                                  )
+                                  
 
 @login_required
 def gigbargain_venue_invite_band(request, gigbargain_uuid):
