@@ -342,7 +342,7 @@ $(document).ready(function() {
 {% block content %}
 
 <div class="grid_11 alpha omega">
-  <h2 style="margin-bottom: 0px">Gig Bargain / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR</h2>
+  <h2 style="margin-bottom: 0px">Gig Bargain / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR {% if gigbargain.title %} /{{ gigbargain.title }}{% endif %} </h2>
   <div class="grid_11 alpha omega" style="font-size: 0.9em; font-style: italic;">
     with
     {% for band in gigbargain.bands.all %}
@@ -491,8 +491,14 @@ The bands are negociating.<br>
       <span style="font-size: small">0</span>
       {% if is_venue_managed %}
       {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
-      <a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}" class="minibutton btn-download"><span><span class="icon"></span>Edit</span></a>  
+      <a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.pk %}" class="minibutton btn-download"><span><span class="icon"></span>Venue: Edit</span></a>  
       {% endif %}
+      {% endif %}
+
+      {% if gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}      
+      {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
+      <a href="{% url gigbargain:gigbargain-band-common-edit gigbargain.pk gigbargainband.band.slug %}" class="minibutton btn-download"><span><span class="icon"></span>{{ gigbargainband.band.name }}: Edit</span></a>        
+      {% endfor %}
       {% endif %}
     </div>
 

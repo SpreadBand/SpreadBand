@@ -381,7 +381,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     For a Band, edit the common conditions of the bargain.
     If changed, it reset all other bargainers' state.
     """
-    band = get_object_or_404(Band, band_slug)
+    band = get_object_or_404(Band, slug=band_slug)
 
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
@@ -407,9 +407,10 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
             # Cancel the agreement if the gig bargain was approved by every band
             gigbargain.bands_dont_agree_anymore()
 
+            messages.success(request, 'You have successfully edited the general parts')
+            messages.warning(request, 'Remember, you need to lock your part again')
 
-            gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
-            return redirect('gigbargain:gigbargain-band-part-edit', gigbargain.pk, band_slug)
+            return redirect('gigbargain:gigbargain-detail', gigbargain.pk)
 
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_form': gigbargain_form}        
