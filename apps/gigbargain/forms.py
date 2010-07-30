@@ -262,3 +262,10 @@ class BaseGigBargainBandFormSet(formsets.BaseFormSet):
 
     # band = AutoCompleteSelectField('band', required=True)
     
+class GigBargainBandRefuseForm(forms.ModelForm):
+    class Meta:
+        model = GigBargainBand
+        fields = ('reason',)
+
+    reason = forms.CharField(required=True,
+                             widget=forms.Textarea)

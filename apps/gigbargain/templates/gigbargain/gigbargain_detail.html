@@ -228,11 +228,59 @@ display:block;
 {% block javascript %}
 {{ block.super }}
 
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.bt.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.tipsy.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
   $('a.button-tip').tipsy({gravity: $.fn.tipsy.autoNS});
+
+  $('.comment-tip').bt(
+  {
+    fill: '#F4F4F4',
+    cornerRadius: 10,
+    strokeWidth: 0,
+  centerPointX: 0.7,
+  spikeLength: 10,
+  spikeGirth: 20,
+    shadow: true,
+    shadowOffsetX: 3,
+    shadowOffsetY: 3,
+    shadowBlur: 8,
+    shadowColor: 'rgba(0,0,0,.9)',
+    shadowOverlap: false,
+    noShadowOpts: {strokeStyle: '#999', strokeWidth: 2},
+    positions: 'top',
+  });
+
+//  $('#venue-reason-tip').tipsy({gravity: 'e'}).tipsy("show");
+
+{% if gigbargain.venue_reason %}
+  $('#venue-reason-content').hide();
+  $('#venue-picture').bt({
+  trigger: 'none',
+  contentSelector: "$('#venue-reason-content')",
+  positions: ['left', 'top'],
+  fill: '#F4F4F4',
+  strokeStyle: '#666666', 
+  width: 100,
+  overlap: 10,
+  centerPointY: 0,
+  clickAnywhereToClose: false,
+  cornerRadius: 10, 
+  cssStyles: {
+    fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', 
+    fontSize: '12px',
+    padding: '10px 14px'
+  },
+  shadow: true,
+  shadowColor: 'rgba(0,0,0,.5)',
+  shadowBlur: 8,
+  shadowOffsetX: 4,
+  shadowOffsetY: 4
+}).btOn();
+{% endif %}
+
   });
 </script>
 
@@ -383,7 +431,7 @@ The bands are negociating.<br>
 
     {% if gigbargain.state == 'need_venue_confirm' %}
     <a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.pk %}" class="button-tip minibutton btn-download" title="Go on with the bands that have accepted"><span><span class="icon"></span>Go on</span></a>    
-    <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.pk %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Refuse</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.pk %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Cancel</span></a>    
     {% endif %}
 
 
@@ -402,7 +450,7 @@ The bands are negociating.<br>
 
     {% if band.state == 'waiting' %}
     <a href="{% url gigbargain:gigbargain-band-enter gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to bargain with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Enter negociations</span></a>
-    <a href="{% url gigbargain:gigbargain-band-refuse gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Refuse proposition</span></a>
+    <a href="{% url gigbargain:gigbargain-band-refuse gigbargain.pk band.band.slug %}" class="button-tip minibutton btn-download" title="Refuse to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Refuse proposition</span></a>
     {% endif %}
 
     {% if gigbargain.state == 'band_nego' or gigbagain.state == 'band_ok' or gigbargain.state == 'draft' or gigbargain.state == 'draft_ok' %}
@@ -446,7 +494,10 @@ The bands are negociating.<br>
 
     {% with gigbargain.venue as venue %}
     <div class="vcard">
-      <img width='60px' height='60px' style="float:left; margin-right:4px" src="{{ MEDIA_URL }}/images/tmp_venue.jpg" alt="picture of {{ venue.name }}" class="photo"/>
+      <img id="venue-picture" width='60px' height='60px' style="float:left; margin-right:4px" src="{{ MEDIA_URL }}/images/tmp_venue.jpg" alt="picture of {{ venue.name }}" class="photo"/>
+      {% if gigbargain.venue_reason %}
+      <div id="venue-reason-content">{{ gigbargain.venue_reason }}</div>
+      {% endif %}
       <a class="url uid" href="{{ venue.get_absolute_url }}">
 	<div class="org fn">
 	  <span class="organization-name">{{ venue|capfirst }}</span>
@@ -584,10 +635,10 @@ The bands are negociating.<br>
     {% endif %}
     {% endfor %}
 
-    <div class="grid_10 alpha omega" style="font-size: 0.8em; text-align: right">
+    <div class="grid_10 alpha omega" style="font-size: 0.8em;">
       No more concurring :
       {% for gigbargainband in gigbargain.gigbargainband_set.not_concurring %}
-      <a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>
+      <span class="comment-tip" title="<b>Reason</b>: {{ gigbargainband.reason }}"><a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a><span>
       {% endfor %}
     </div>
 

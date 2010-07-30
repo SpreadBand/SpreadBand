@@ -17,8 +17,8 @@ from apps.band.models import Band
 from apps.venue.models import Venue
 
 from ..models import GigBargain, GigBargainBand
-from ..forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, GigBargainBandForm, BaseGigBargainBandFormSet, GigBargainMyBandForm
-from ..forms import GigBargainNewFullForm, GigBargainMyBandFullForm, GigBargainBandInviteForm, GigBargainForBandForm
+from ..forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, GigBargainMyBandForm
+from ..forms import GigBargainNewFullForm, GigBargainMyBandFullForm, GigBargainBandInviteForm, GigBargainForBandForm, GigBargainBandRefuseForm
 
 @login_required
 def gigbargain_new_from_band(request, band_slug):
@@ -165,34 +165,51 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
+    # Build the form
+    refuse_form = GigBargainBandRefuseForm(request.POST or None)
+
+    if request.method == 'POST' and refuse_form.is_valid():
+        # If we were waiting, switch to "refused" and save
+        if gigbargain_band.state == 'waiting':
+            # Save the reason and refuse
+            gigbargain_band.reason = refuse_form.cleaned_data['reason']
+            gigbargain_band.refuse()
+
+            messages.success(request, _("You (%s) have refused to bargain with %s") % (band.name,
+                                                                                       gigbargain.venue.name)
+                             )
+
+            if gigbargain.state == 'new':
+                # If no more bands are waiting, trigger bargain state update
+                if all([gigbargain_band.state != 'waiting' for gigbargain_band in gigbargain.gigbargainband_set.all()]):
+                    gigbargain.need_venue_confirmation()
+
+            elif gigbargain.state == 'draft':
+                # Check if now, there are only bands with their parts
+                # validated, because if so, validate the whole bargain
+                gigbargainbands = gigbargain.gigbargainband_set.all()
+                for state in 'waiting', 'accepted', 'negociating', 'exited', 'kicked', 'refused':
+                    gigbargainbands = gigbargainbands.exclude(state=state)
+
+                if len(gigbargainbands) and all([gigbargain_band.state == 'part_validated' for gigbargain_band in gigbargainbands]):
+                    gigbargain.bands_have_approved_draft()
+
+        elif gigbargain_band.state == 'refused':
+            messages.warning(request, _("You (%s) have already refused this bargain") % (band.name))
+
+        return redirect(gigbargain)
+
+    else:
+        extra_context = {'gigbargain': gigbargain,
+                         'band': band,
+                         'refuse_form': refuse_form}
+
+        return render_to_response(template_name='gigbargain/gigbargain_band_refuse.html',
+                                  context_instance=RequestContext(request,
+                                                                  extra_context)
+                                  )
     
-    # If we were waiting, switch to "refused" and save
-    if gigbargain_band.state == 'waiting':
-        gigbargain_band.refuse()
 
-        messages.success(request, _("You (%s) have refused to bargain with %s") % (band.name,
-                                                                                   gigbargain.venue.name)
-                         )
-
-        if gigbargain.state == 'new':
-            # If no more bands are waiting, trigger bargain state update
-            if all([gigbargain_band.state != 'waiting' for gigbargain_band in gigbargain.gigbargainband_set.all()]):
-                gigbargain.need_venue_confirmation()
-
-        elif gigbargain.state == 'draft':
-            # Check if now, there are only bands with their parts
-            # validated, because if so, validate the whole bargain
-            gigbargainbands = gigbargain.gigbargainband_set.all()
-            for state in 'waiting', 'accepted', 'negociating', 'exited', 'kicked', 'refused':
-                gigbargainbands = gigbargainbands.exclude(state=state)
-
-            if len(gigbargainbands) and all([gigbargain_band.state == 'part_validated' for gigbargain_band in gigbargainbands]):
-                gigbargain.bands_have_approved_draft()
-
-    elif gigbargain_band.state == 'refused':
-        messages.warning(request, _("You (%s) have already refused this bargain") % (band.name))
-    
-    return redirect(gigbargain)
 
 
 @login_required

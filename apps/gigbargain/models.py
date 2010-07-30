@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Sum
 from django.db.models import DateField, TimeField, CharField, PositiveSmallIntegerField
-from django.db.models import ManyToManyField, ForeignKey, OneToOneField, DateTimeField
+from django.db.models import ManyToManyField, ForeignKey, OneToOneField, DateTimeField, TextField
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import UUIDField
@@ -178,7 +178,7 @@ class GigBargain(models.Model):
     bands = ManyToManyField(Band, through='GigBargainBand', related_name='gigbargains')
 
     venue = ForeignKey(Venue, related_name='gigbargains')
-    # venue_state = OneToOneField(GigBargainVenueState, related_name='gigbargain')
+    venue_reason = TextField(blank=True, null=True)
 
     ACCESS_CHOICES = [
         ('FREE', 'Free Access'),
@@ -300,6 +300,8 @@ class GigBargainBand(models.Model):
     bargain = ForeignKey(GigBargain)
 
     joined_on = DateTimeField(auto_now_add=True)
+
+    reason = TextField(blank=True, null=True)
 
     starts_at = TimeField(blank=True, null=True)
     set_duration = TimedeltaField(blank=True, null=True)
