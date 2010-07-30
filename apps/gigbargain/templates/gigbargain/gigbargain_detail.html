@@ -221,6 +221,7 @@ display:block;
 </style>
 
 <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/tipsy.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/fancybox/jquery.fancybox-1.3.1.css" /> 
 
 {{ block.super }}
 {% endblock %}
@@ -230,6 +231,8 @@ display:block;
 
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.bt.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.tipsy.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.fancybox-1.3.1.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -277,7 +280,10 @@ display:block;
   shadowColor: 'rgba(0,0,0,.5)',
   shadowBlur: 8,
   shadowOffsetX: 4,
-  shadowOffsetY: 4
+  shadowOffsetY: 4,
+  textzIndex:       1000,                  // z-index for the text
+  boxzIndex:        999,                  // z-index for the "talk" box (should always be less than textzIndex)
+  wrapperzIndex:    998,
 }).btOn();
 {% endif %}
 
@@ -302,6 +308,15 @@ $(document).ready(function() {
                         jQuery(this).removeClass('mousedown');
                 },
 	});
+
+ $("a.fancybox").fancybox({
+        'width': 1024,
+        'height': '85%',
+        autoScale: false,
+        autoDimensions: false,
+         type: 'ajax',
+  });
+
 });
 
 </script>
@@ -617,7 +632,7 @@ The bands are negociating.<br>
 	    </div>
 	  </a>
 	  {% if band.band.presskit %}
-	  (<a href="{{ band.band.presskit.get_absolute_url }}">PressKit</a>)
+	  (<a class="fancybox" href="{{ band.band.presskit.get_absolute_url }}">PressKit</a>)
 	  {% endif %}
 	  
 	  <div class="adr">
