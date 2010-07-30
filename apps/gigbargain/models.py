@@ -14,12 +14,12 @@ from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^django_fsm\.db\.fields\.fsmfield\.FSMField"])
 # add_introspection_rules([], ["^durationfield\.db\.models\.fields\.duration\.TimeDeField"])
 
-from agenda.models import Event
 from django_fsm.db.fields import FSMField, transition
 import notification.models as notification
 
 from band.models import Band
 from venue.models import Venue
+from event.models import Gig
 
 from .signals import gigbargain_concluded, gigbargain_new_from_venue
 
@@ -197,8 +197,12 @@ class GigBargain(models.Model):
     remuneration = CharField(max_length=4, choices=REMUNERATION_CHOICES, 
                              null=True, blank=True,
                              help_text=_("How earned money will be dispatched "))
-                             
 
+    gig = OneToOneField(Gig, null=True, 
+                        related_name='gigbargain', 
+                        editable=False, 
+                        help_text=_("The produced gig"))
+                             
     def save(self, *args, **kwargs):
         # Auto create VenueState when creating this model
         # if not self.pk:
@@ -374,6 +378,10 @@ def gigbargain_concluded_callback(sender, **kwargs):
 
     # Also add this gig to the venue calendar            
     gig.venue.calendar.events.add(gig)
+    
+    # Attach the gig to the bargain
+    gigbargain.gig = gig
+    gigbargain.save()
 
 
 # FIXME: This is suboptimal

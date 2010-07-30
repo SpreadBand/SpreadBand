@@ -342,7 +342,7 @@ $(document).ready(function() {
 {% block content %}
 
 <div class="grid_11 alpha omega">
-  <h2 style="margin-bottom: 0px">Gig Bargain / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR {% if gigbargain.title %} /{{ gigbargain.title }}{% endif %} </h2>
+  <h2 style="margin-bottom: 0px">Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR</h2>
   <div class="grid_11 alpha omega" style="font-size: 0.9em; font-style: italic;">
     with
     {% for band in gigbargain.bands.all %}
@@ -351,6 +351,11 @@ $(document).ready(function() {
   </div>
   <div class="grid_11 alpha">
     {{ gigbargain.state }}
+    {% if gigbargain.state == 'concluded' %}
+    <p>
+    This bargain is concluded. You can see <a href="{{ gigbargain.gig.get_absolute_url }}">the produced gig here</a>.
+    </p>
+    {% endif %}
   <div class="grid_11 alpha omega">
 
 <!--
