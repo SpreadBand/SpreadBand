@@ -6,6 +6,36 @@
 
 [ <a href="{% url event:band-calendar-ics band.slug %}">Download as ics</a> ]
 
+[ <a href="{% url event:gig-new band.slug %}">New gig</a> ]
+
+<div class="clear">
+</div>
+
+<div class="grid_9 alpha">
+<h5>Timeline</h5>
+
 {% include 'event/abstract_timeline.html' %}
+</div>
+
+<div class="grid_5 omega">
+
+  <div class="grid_5 alpha omega" style="margin-bottom: 20px">
+    <h5>Search</h5>
+
+    When : ...<br>
+    Where : ...<br>
+    
+  </div>
+
+  <div class="grid_5 alpha omega">
+    <h5>Calendar</h5>
+    
+    {{ monthly_calendar.toHTML|safe }}
+  </div>
+
+</div>
+
+
+
 
 {% endblock %}
