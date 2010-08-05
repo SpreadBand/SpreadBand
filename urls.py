@@ -15,7 +15,6 @@ urlpatterns = patterns('',
 
     # auth + profile
     (r'^user/', include('socialregistration.urls')),
-    (r'^user/reg/classical/', include('registration.backends.default.urls')),
     (r'^user/', include('account.urls', namespace='account')),
 
     # comments

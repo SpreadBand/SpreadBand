@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Signup</h1>
+
+<form method='POST'>
+
+{{ form.non_field_errors }}
+
+
+<h2>Your Band</h2>
+
+<p>
+  {{ form.band_name.errors }}
+  <label for="id_band_name">Name:</label>
+  {{ form.band_name }}
+</p>
+
+<p>
+  {{ form.band_slug.errors }}
+  <label for="id_band_slug">Your address: http://spreadband.com/</label>
+  {{ form.band_slug }}
+</p>
+
+<p>
+  {{ form.band_tags.errors }}
+  <label for="id_band_tags">Music style tags:</label>
+  {{ form.band_tags }}
+</p>
+
+<h2>You</h2>
+
+
+<p>
+  {{ form.username.errors }}
+  <label for="id_username">Username:</label>
+  {{ form.username }}
+</p>
+
+<p>
+  {{ form.username.email }}
+  <label for="id_email">Email:</label>
+  {{ form.email }}
+</p>
+
+
+<p>
+  {{ form.password1.errors }}
+  <label for="id_password1">Password:</label>
+  {{ form.password1 }}
+</p>
+
+<p>
+  {{ form.password2.errors }}
+  <label for="id_password2">Password (again):</label>
+  {{ form.password2 }}
+</p>
+
+<h2>You and your band</h2>
+
+<p>
+  {{ form.user_band_roles.errors }}
+  <label for="id_user_band_roles">{{ form.user_band_roles.label }}</label>
+  {{ form.user_band_roles }}
+</p>
+
+
+<p>
+  <textarea rows=5 cols=50 readonly="readonly">TOS blabablabalbalbalbl</textarea><br>
+  {{ form.tos.errors }}
+  <label for="id_tos">{{ form.tos.label }}</label>
+  {{ form.tos }}
+</p>
+
+<br>
+<input type="submit">
+
+</form>
+
+{% endblock %}

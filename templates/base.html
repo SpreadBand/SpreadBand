@@ -94,7 +94,7 @@
 		</ul>  
 	      {% else %}
 	      <p>
-		<a href="{% url auth_login %}?next={{ request.get_full_path }}">Login</a> or <a href="{% url registration_register %}">Signup</a>
+		<a href="{% url account:auth_login %}?next={{ request.get_full_path }}">Login</a> or <a href="{% url account:registration_register %}">Signup</a>
 	      </p>
 	    </div>
 	    {% endif %}
