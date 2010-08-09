@@ -2,11 +2,12 @@ from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+
+from band.models import Band
 
 from .models import Venue
-from .forms import VenueForm, VenueUpdateForm
-
+from .forms import VenueForm, VenueUpdateForm, VenuePictureForm
 
 @login_required
 def new(request):
@@ -21,9 +22,19 @@ def new(request):
 
 def detail(request, venue_slug):
     """
-    Show details about a venue
+    Show public page of a Venue
     """
     venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Five latest gigs
+    latest_bands = Band.objects.filter(id__in=venue.gigs.past_events()[:5]).distinct()
+
+    past_events = venue.gigs.past_events()[:1]
+    future_events = venue.gigs.future_events()[0:5]
+
+    extra_context = {'latest_bands': latest_bands,
+                     'past_events': past_events,
+                     'future_events': future_events}
 
     # Get the bargains we're involved into
     return object_detail(request,
@@ -31,6 +42,7 @@ def detail(request, venue_slug):
                          slug=venue_slug,
                          template_name='venue/venue_detail.html',
                          template_object_name='venue',
+                         extra_context=extra_context,
                          )
                           
 def list(request):
@@ -59,3 +71,23 @@ def edit(request, venue_slug):
                          )
 
 
+#--- PICTURES
+def picture_new(request, venue_slug):
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    if request.method == 'POST':
+        picture_form = VenuePictureForm(request.POST, request.FILES)
+
+        if picture_form.is_valid():
+            picture = picture_form.save(commit=False)
+            picture.venue = venue
+
+            picture.save()
+
+            return redirect(venue)
+
+    return create_object(request,
+                         form_class=VenuePictureForm,
+                         template_name='venue/picture_new.html',
+                         extra_context={'venue': venue}
+                         )

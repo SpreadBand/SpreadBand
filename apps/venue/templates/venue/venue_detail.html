@@ -1,31 +1,191 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% load elsewhere_tags %}
+{% load oembed_tags %}
+{% load reviews_tags %}
 
-<h1>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></h1>
+{% block css %}
+{{ block.super }}
 
-( <a href="{% url venue:edit venue.slug %}">edit</a> )
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/galleryview/galleryview.css"/>
 
-Ambiance: {{ venue.ambiance }}
-<br>
-Description : {{ venue.description }}
-<br>
-
-<h4>Calendar</h4>
-
-<a href="{% url event:venue-calendar venue.slug %}">View calendar</a>
-
-{% load agenda %}
-
-<h4>Gig Bargains</h4>
-<p>
-  <ul>
-    {% for gigbargain in venue.gigbargains.all %}
-    <li>
-      <a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-<a href="{% url gigbargain:gigbargain-new-from-venue  %}?venue={{venue.slug}}">Start a new bargain</a>
+<style type="text/css">
+  .greybox {
+  background-color: #eee;
+  padding: 10px; 
+  margin-bottom: 20px;
+  }
+</style>
 
 {% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.timers-1.2.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.galleryview-2.1.1.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+ $('#gallery').galleryView({
+    panel_width: 320,
+    panel_height: 300,
+    gallery_width: 300,
+    gallery_height: 300,
+    frame_height: 50,
+    frame_width: 90,
+    nav_theme: '../../../css/jquery/galleryview/themes/dark',
+    transition_interval: 10000,
+    pause_on_hover: true,
+    paused: true,
+    filmstrip_position: 'bottom',
+    overlay_position: 'bottom'});
+
+});
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="grid_3 alpha">
+  <div class="grid_3 alpha omega">
+    <img src="{{ venue.avatar_url }}"/>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Place info</h4>
+    {{ venue.ambiance }}<br>
+    Capacity: {{ venue.capacity }}
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Members ({{ venue.venue_members.count }})</h4>
+    <ul>
+    {% for member in venue.venue_members.all %}
+    <li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>:
+      <ul>
+      {% for role in member.roles.all %}
+      <li>{{ role }}</li>
+      {% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Latest Bands</h4>
+    <ul>
+    {% for band in latest_bands %}
+    <li>
+      <a href="{{ band.get_absolute_url }}">{{ band.name }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Social Networks</h4>
+    <ul>
+    {% for socialnetwork in venue.socialnetworks.all %}
+    <li>
+      <img src="{{ socialnetwork.network.icon_url }}">
+      <a href="{{ socialnetwork.url }}" target="_blank">{{ socialnetwork.username|capfirst }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="grid_3 alpha omega">
+    <h4>Websites</h4>
+    <ul>
+    {% for website in venue.websites.all %}
+    <li>
+      <img src="{{ website.icon_url }}">
+      <a href="{{ website.url }}" target="_blank">{{ website.name|capfirst }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+
+</div>
+
+<div class="grid_11 omega">
+  <h2>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> (Lille, FR)</h2>
+
+  ( <a href="{% url venue:edit venue.slug %}">edit</a> )
+
+  <div class="grid_11 alpha omega">
+    <div class="ui-corner-all greybox">
+      <h4>Description</h4>
+      {{ venue.description|truncatewords:100 }}[<a href="#">Read more</a>]
+    </div>
+  </div>
+
+<!--  <div class="grid_4 omega">
+    <div class="ui-corner-all greybox">
+      <h4>Press highlights</h4>
+      ...TODO
+    </div>
+  </div>
+-->
+
+  <div class="grid_11 alpha omega">
+    <div class="ui-corner-all greybox">
+      <h4>Calendar</h4> (<a href="{% url event:venue-calendar venue.slug %}">view full calendar</a>)
+      <div class="grid_11 alpha omega">
+      {% include 'event/abstract_timeline.html' %}
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="grid_6 alpha">
+    <div class="ui-corner-all greybox">
+      <h4>Pictures</h4>
+      ( <a href="{% url venue:picture-new venue.slug %}">Upload new</a> )
+      <div id="gallery">
+	{% for picture in venue.pictures.all %}
+	<div class="panel"><img src="{{ picture.thumbnail_image.url }}" alt="image1" /></div>
+	{% endfor %}
+	
+	<div class="strip_wrapper">
+	  <ul class="filmstrip">
+	    {% for picture in venue.pictures.all %}
+	    <li><img src="{{ picture.original_image.url }}" alt="hoy joy" title="fuckin' title"/>
+	      <div class="panel-overlay">
+		<p>Some more information about this photo, perhaps with a <a href="http://some.web.site" target="_blank">link</a> to another page.</p>
+	      </div>
+</li>
+	    {% endfor %}
+	  </ul>
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid_5 omega">
+    <div class="ui-corner-all greybox" style="text-align: center">
+      <h4>Featured Video</h4>
+      {% oembed 320x240 %}
+      {{ venue.video }}
+      {% endoembed %}
+    </div>
+  </div>
+
+  <div class="grid_11 alpha omega">
+    <div class="ui-corner-all greybox">
+      <h4>Latest reviews ({% average_for_instance venue %})</h4>
+      {% reviews_for_instance venue %}
+    </div>
+  </div>
+
+
+</div>
+
+{% endblock %}
+

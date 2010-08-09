@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import Venue
+from .models import Venue, VenuePicture
 
-admin.site.register(Venue)
+admin.site.register((Venue, VenuePicture))

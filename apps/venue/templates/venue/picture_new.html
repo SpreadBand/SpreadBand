@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<h3>Upload a picture for {{ venue.name }}</h3>
+
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="{% trans "Upload" %}">
+</form>
+
+{% endblock %}

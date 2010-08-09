@@ -12,6 +12,10 @@ urlpatterns += patterns('',
     url(r'^list$', views.list, name='list'),
     url(r'^(?P<venue_slug>[-\w]+)$', views.detail, name='detail'),
     url(r'^(?P<venue_slug>[-\w]+)/edit$', views.edit, name='edit'),
+
+    # pictures
+    url(r'^(?P<venue_slug>[-\w]+)/pictures/new$', views.picture_new, name='picture-new'),
+
 )
 
 
