@@ -29,7 +29,7 @@ This band is owned.
 <p>
   <ul>
     {% for member in band.band_members.all %}
-    <li><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> 
+    <li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> 
       as {{ member.roles.all|join:', ' }}</li>
     {% endfor %}
 

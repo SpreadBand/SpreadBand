@@ -5,9 +5,21 @@
 
 <h1>Profile &raquo; {{ user }}</h1>
  
-<form method="POST" action="">
+<div class="grid_10 alpha">
+  <h5>Infos</h5>
+  <form method="POST" action="">
     {{ form.as_p }}
     <input type="submit" name="submit" value="Update" id="submit">
-</form>
+  </form>
+</div>
+<div class="grid_4 omega">
+  <h5>Avatar</h5>
+  {% if profile.avatar %}
+  <img src="{{ profile.avatar.avatar_image.url }}">
+  <a href="{% url account:avatar %}">Change</a>
+  {% else %}
+  No avatar is defined. <a href="{% url account:avatar %}">Set one</a>.
+  {% endif %}
+</div>
  
 {% endblock %}
