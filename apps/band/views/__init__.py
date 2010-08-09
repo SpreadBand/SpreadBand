@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 from ..models import Band
 from ..forms import BandCreateForm, BandUpdateForm, BandMemberRequestForm
+from ..forms import BandPictureForm
 
 @login_required
 def new_or_own(request, band_slug=None):
@@ -100,19 +101,25 @@ def detail(request, band_slug):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
+    past_events = band.gigs.past_events()[:1]
+    future_events = band.gigs.future_events()[0:5]
+
+    extra_context = {'past_events': past_events,
+                     'future_events': future_events}
+
+
     return object_detail(request,
                          queryset=Band.objects.all(),
                          slug=band_slug,
                          template_object_name='band',
                          template_name='bands/band_detail.html',
+                         extra_context=extra_context
                          )
 
 
     
 
 #--- PICTURES
-from ..forms import BandPictureForm
-
 def picture_new(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 

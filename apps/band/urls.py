@@ -24,12 +24,14 @@ urlpatterns += patterns('',
     url(r'^(?P<band_slug>[-\w]+)/events/new$', views.event_new, name='event-new'),
 
     # membership
-    url(r'^(?P<band_slug>[-\w]+)/members/request$', views.members.membership_request, name='membership-request'),
+    #  url(r'^(?P<band_slug>[-\w]+)/members/request$', views.members.membership_request, name='membership-request'),
     url(r'^(?P<band_slug>[-\w]+)/members/add$', views.members.membership_add, name='membership-add'),
     url(r'^(?P<band_slug>[-\w]+)/members/(?P<member_id>\d+)/remove$', views.members.membership_remove, name='membership-remove'),
     url(r'^(?P<band_slug>[-\w]+)/members/manage$', views.members.membership_manage, name='membership-manage'),
 
     (r'^web/', include('minisite.urls', namespace='minisite')),
+
+    url(r'^(?P<band_slug>[-\w]+)/dashboard$', views.detail, name='dashboard'),
 
     # Catch-all for the band name
     url(r'^(?P<band_slug>[-\w]+)/$', views.detail, name='detail'),

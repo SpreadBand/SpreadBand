@@ -4,74 +4,90 @@
 
 {% block band_content %}
 
-( <a href="{% url band:edit band.slug %}">edit</a> )
+<div class="alpha omega grid_14">
 
-{% if not band.owned %}
-<p>
-  <a href="{% url band:own band.slug%}">This is my band !</a>
-</p>
-{% else %}
-This band is owned.
-{% endif %}
+  <div class="alpha grid_10">
 
-<a href="{% url presskit:presskit-detail band.slug %}">Presskit</a>
-
-<p>{{ band.biography }}</p>
-
-<h5>Pictures</h5>
-{% for picture in band.pictures.all %}
-<a href="{{ picture.original_image.url }}"><img src="{{ picture.thumbnail_image.url }}"></a><img src="{{ picture.avatar_image.url }}">
-{% endfor %}
-<br>
-( <a href="{% url band:picture-new band.slug %}">Upload new</a> )
-
-<h5>Members</h5>
-<p>
-  <ul>
-    {% for member in band.band_members.all %}
-    <li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> 
-      as {{ member.roles.all|join:', ' }}</li>
-    {% endfor %}
-
-    <strike>( <a href="{% url band:membership-request band.slug %}">Join band</a> )<br></strike>
-    ( <a href="{% url band:membership-manage band.slug %}">Manage members</a> )<br>
-    ( <a href="{% url band:membership-add band.slug %}">Invite Member</a> )
-  </ul>
-</p>
+    <div class="grid_10 alpha omega">
+      ( <a href="{% url band:edit band.slug %}">edit</a> )
+      
+      {% if not band.owned %}
+      <p>
+	<a href="{% url band:own band.slug%}">This is my band !</a>
+      </p>
+      {% else %}
+      This band is owned.
+      {% endif %}
+    </div>
 
 
+    <div class="grid_10 alpha omega">
+      <div class="ui-corner-all greybox">
+	<h4>Gig Bargains</h4>
+	<h5>New</h5>
+	<ul>
+	  {% for gigbargain in band.gigbargains.new_gigbargains|slice:":2" %}
+	  <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a></li>
+	  {% endfor %}
+	</ul>
+	
+	<h5>In progress</h5>
+	<ul>
+	  {% for gigbargain in band.gigbargains.inprogress_gigbargains|slice:":2" %}
+	  <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a></li>
+	  {% endfor %}
+	</ul>
+	
+	<p>
+	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>New Gig bargain</span></a>
+	</p>
+      </div>
+    </div>
 
-<h4>Upcoming events</h4>
-<p>
-  ( <a href="{% url event:gig-new band.slug %}">Add a new gig</a> - <a href="{% url event:band-calendar band.slug %}">View calendar</a> )
-</p>
 
-<h4>Gig Bargains</h4>
+    <div class="grid_10 alpha omega">
+      <div class="ui-corner-all greybox">
+	<h4>Calendar</h4>
+	<a href="{% url event:band-calendar band.slug %}">View calendar</a>
 
-<p>
-  <a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}">Bargain dashboard</a>
-</p>
+	{% include 'event/abstract_timeline.html' %}
+	  <a href="{% url event:gig-new band.slug %}" class="minibutton" title="New Gig"><span><span class="icon"></span>Add gig</span></a><br>
+	<div class="clear"></div>
+      </div>
+    </div>
 
-<p>
-<a href="{% url gigbargain:gigbargain-new-from-band band.slug %}">Initiate a new gig bargain</a>
-</p>
-<p>
-  <ul>
-    {% for gigbargain in band.gigbargains.all %}
-    <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a></li>
-    {% endfor %}
-  </ul>
-</p>
+  </div>
 
-<h4>Released Albums</h4>
-<p>
-  <ul>
-    {% for album in band.albums.all %}
-    <li><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></li>
-    {% endfor %}
-  </ul>
-  ( <a href="{% url album:create band.slug %}">Add a new album</a> )
-</p>
+  <div class="grid_4 omega">
+    <div class="grid_4 alpha omega">
+      <h5>Upcoming events</h5>
+      <ul>
+	{% for event in future_events|slice:":2" %}
+	<li>
+	  <a href="{{ event.get_absolute_url }}">{{ event|capfirst }}</a>
+	</li>
+	{% endfor %}
+      </ul>
+    </div>
+
+    <div class="grid_4 alpha omega">
+      <h5>Members</h5>
+      <ul>
+	{% for member in band.band_members.all %}
+	<li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> 
+	  as {{ member.roles.all|join:', ' }}</li>
+	{% endfor %}
+	
+	  <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>Manage members</span></a>
+      </ul>
+    </div>
+
+    <div class="grid_4 alpha omega">
+      <h5>Publicité</h5>
+
+      <img src="{{ MEDIA_URL }}/images/GuitarXpertsSKY.gif">
+    </div>
+  </div>
 </div>
 
 {% endblock %}
