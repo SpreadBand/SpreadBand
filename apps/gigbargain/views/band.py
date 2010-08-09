@@ -18,7 +18,7 @@ from apps.venue.models import Venue
 
 from ..models import GigBargain, GigBargainBand
 from ..forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, GigBargainMyBandForm
-from ..forms import GigBargainNewFullForm, GigBargainMyBandFullForm, GigBargainBandInviteForm, GigBargainForBandForm, GigBargainBandRefuseForm
+from ..forms import GigBargainBandInviteForm, GigBargainForBandForm, GigBargainBandRefuseForm
 
 @login_required
 def gigbargain_new_from_band(request, band_slug):
@@ -43,29 +43,11 @@ def gigbargain_new_from_band(request, band_slug):
             gigbargain_myband.bargain = gigbargain
             gigbargain_myband.band = band
 
-            if 'create_draft' in request.POST:
-                gigbargain_myband.state = 'negociating'
-                gigbargain.become_draft()
-            else:
-                # Here, we have two cases :
-                #  - everything has been filled in by the band, we just need to ask the venue
-                #  - some informations are missing : enter a negociation phase
-                full = False
-                # Check if we have *all* informations
-                if GigBargainNewFullForm(request.POST).is_valid():
-                    if GigBargainMyBandFullForm(gigbargain, request.POST).is_valid():
-                        full = True
-
-                if full:
-                    gigbargain_myband.state = 'part_validated'
-                    # Propose this complete gigbargain to the venue
-                    gigbargain.propose_complete_bargain_to_venue()
-                else:
-                    gigbargain_myband.state = 'accepted'
-                    # Propose this incomplete gigbargain to the venue
-                    gigbargain.propose_incomplete_bargain_to_venue()
-
+            gigbargain_myband.state = 'negociating'
             gigbargain_myband.save()
+
+            # Make it a draft
+            gigbargain.become_draft()
 
             return redirect(gigbargain)
 
