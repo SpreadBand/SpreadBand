@@ -52,7 +52,7 @@ class Band(Actor):
 
     #-- Functions
     def avatar_url(self):
-        import settings
+        from django.conf import settings
         """
         Return the url of the avatar, or default to a 'no picture'
         picture
