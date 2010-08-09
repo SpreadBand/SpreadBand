@@ -28,6 +28,8 @@
 
 <h2>Notices</h2>
 
+<div class="greybox ui-corner-all">
+
 <table border=1>
   <tr>
     <th>When</th>
@@ -44,6 +46,8 @@
 {% endfor %}
 
 </table>
+
+</div>
 </div>
 
 <div class="grid_14 alpha omega">
@@ -118,12 +122,17 @@
 
   <div class="grid_3 alpha">  
     <h3>Calendar</h3>
-    {{ monthly_calendar.toHTML|safe }}
+    <div class="greybox ui-corner-all">
+      {{ monthly_calendar.toHTML|safe }}
+    </div>
+    
   </div>
   
   <div class="prefix_1 grid_4">
   
     <h3>Repartition</h3>
+
+    <div class="greybox ui-corner-all">
     
     <div id="monthly_repartition" style="width: 80%; height: 200px;"></div>
 
@@ -177,11 +186,14 @@ In progress = {{ monthly_stats.inprogress }}<br>
 Concluded = {{ monthly_stats.concluded }}
 
   </div>
+  </div>
 
   <div class="prefix_1 grid_5 omega">
 
     <h3>Connections</h3>
     
+    <div class="greybox ui-corner-all">
+
     <h4>Bands</h4>
     <ul>
       {% for band in monthly_connections.bands %}
@@ -189,12 +201,15 @@ Concluded = {{ monthly_stats.concluded }}
       {% endfor %}
     </ul>
     
+    </div>
   </div>
 
 </div>
 
 <div class="grid_14 alpha omega">
   <h2>Global stats</h2>
+
+    <div class="greybox ui-corner-all">
 
   <div id="yearly_stats" style="width: 90%; height: 300px;"></div>
 
@@ -252,6 +267,7 @@ Concluded = {{ monthly_stats.concluded }}
    barChart.loadJSON(json);  
 });
 </script>
+</div>
 </div>
 
 {% endblock %}
