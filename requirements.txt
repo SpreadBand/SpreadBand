@@ -29,7 +29,7 @@ docutils
 -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
 -e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
--e hg+http://bitbucket.org/schinckel/django-timedelta-field#egg=django-timedelta-field
+-e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
 -e git+http://github.com/jezdez/django-oembed.git@4adc0a1e8b1ad3934491d7732f71c729351c28fa#egg=django-oembed
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
 -e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation
