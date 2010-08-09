@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% load elsewhere_tags %}
+{% load oembed_tags %}
+{% load reviews_tags %}
 
 {% block css %}
 {{ block.super }}
@@ -177,7 +179,6 @@ $(document).ready(function() {
   <div class="grid_5 omega">
     <div class="ui-corner-all greybox" style="text-align: center">
       <h4>Videos</h4>
-      {% load oembed_tags %}
       {% oembed 320x240 %}
       {{ presskit.video }}
       {% endoembed %}
@@ -191,7 +192,6 @@ $(document).ready(function() {
     </div>
   </div>
 
-  {% load reviews_tags %}
   <div class="grid_5 omega">
     <div class="ui-corner-all greybox">
       <h4>Latest reviews ({% average_for_instance band %})</h4>
