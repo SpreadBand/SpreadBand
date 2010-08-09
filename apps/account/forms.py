@@ -1,9 +1,9 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .models import UserProfile
-
 from django.contrib.auth.models import User
+
+from .models import UserProfile, UserAvatar
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -15,10 +15,16 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email']
 
+
+class ProfileAvatarForm(forms.ModelForm):
+    class Meta:
+        model = UserAvatar
+        fields = ('original_image',)
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ['user']
+        fields = ('first_name', 'last_name', 'birthdate', 'email', 'country', 'timezone', 'town')
 
     email = forms.EmailField(label=_("Email address"),
                              help_text='')
