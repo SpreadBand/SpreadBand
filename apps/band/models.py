@@ -2,9 +2,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.db.models import CharField, ManyToManyField, DateField, TextField, ForeignKey, BooleanField
 from django.contrib.auth.models import User
+from django.contrib.contenttypes import generic
 
 from tagging.fields import TagField
 from imagekit.models import ImageModel
+from elsewhere.models import SocialNetworkProfile, WebsiteProfile
 
 from actors.models import Actor
 from minisite.models.minisite import Minisite
@@ -38,6 +40,15 @@ class Band(Actor):
     members = ManyToManyField(User, through='BandMember', related_name='bands')
 
     technical_sheet = TextField(blank=True, null=True)
+
+    socialnetworks = generic.GenericRelation(SocialNetworkProfile,
+                                             object_id_field="object_id",
+                                             content_type_field="content_type")
+
+
+    websites = generic.GenericRelation(WebsiteProfile,
+                                       object_id_field="object_id",
+                                       content_type_field="content_type")
 
     #-- Functions
     def avatar_url(self):
