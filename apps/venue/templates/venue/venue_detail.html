@@ -23,14 +23,9 @@ Description : {{ venue.description }}
     {% for gigbargain in venue.gigbargains.all %}
     <li>
       <a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a>
- 
-      [<a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.pk %}">Confirm bands</a>]
-      [<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.pk %}">Conclude</a>]
     </li>
     {% endfor %}
   </ul>
-<a href="{#% url gigbargain:bargain-new venue.slug %#}">Propose a gig to this venue !</a>
-
 <a href="{% url gigbargain:gigbargain-new-from-venue  %}?venue={{venue.slug}}">Start a new bargain</a>
 
 {% endblock %}
