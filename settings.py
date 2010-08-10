@@ -165,6 +165,7 @@ INSTALLED_APPS = (
     'oembed',
 
     # Internal
+    'world',
     'media',
     'backcap',
     'account',
