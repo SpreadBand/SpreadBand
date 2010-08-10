@@ -210,6 +210,16 @@ class GigBargain(models.Model):
 
         return models.Model.save(self, *args, **kwargs)
 
+
+    def name_or_default(self):
+        """
+        Return the title of the gig bargain or a generic one 
+        """
+        if self.name:
+            return self.name
+        else:
+            return "Gig Bagain at %s" % (self.venue.name)
+
     def __unicode__(self):
         text = u'Gig bargain at [%s] with [%s] on %s' % (self.venue,
                                                          [b.name for b in self.bands.all()],
