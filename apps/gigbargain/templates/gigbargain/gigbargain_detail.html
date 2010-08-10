@@ -975,8 +975,16 @@ var json = {
   </div>
 -->
   <div class="grid_3 alpha omega" style="margin-top: 80px">
-    <h3 style="font-size: medium">Latest changes</h3>
+    <h3 style="font-size: medium">Latest activity</h3>
 
+    {% load activity_tags %}
+    <ul>
+      {% for action in latest_activity %}
+      <li>{% display_action_short action %}</li>
+      {% endfor %}
+    </ul>
+
+    <h3 style="font-size: medium">Latest changes</h3>
     <ul>
       {% for old_version in old_versions %}
       {% with old_version.revision as revision %}

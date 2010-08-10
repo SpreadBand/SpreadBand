@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
+from actstream.models import Action
 from reversion.models import Version
 
 from utils.differs import DictDiffer
@@ -98,12 +99,15 @@ def gigbargain_detail(request, gigbargain_uuid):
                               'steps': [global_start+timedelta(minutes=30*i) for i in range(0, global_duration.seconds / 60 / 30)], # Every 30min
                               }
 
+    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id=gigbargain.id)[:10]
+
 
     extra_context = {'gigbargain': gigbargain,
                      'managed_bands': managed_bands,
                      'is_venue_managed': is_venue_managed,
                      'old_versions': old_versions,
                      'timeline': timeline,
+                     'latest_activity': latest_activity,
                      }
 
     return render_to_response(template_name='gigbargain/gigbargain_detail.html',

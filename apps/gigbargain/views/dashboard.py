@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
+from actstream.models import Action
 from notification.models import Notice
 
 from apps.band.models import Band
@@ -123,10 +124,13 @@ def gigbargain_band_dashboard(request, band_slug):
 
     for el in yearly_stats['concluded']:
         yearly_values[int(el['month'])]['concluded'] = el['gigbargain_count']
-    
+
+    # Get 10 latest actions
+    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:10]
 
     extra_context = {'band': band,
                      'notices_new': notices_new,
+                     'latest_activity': latest_activity,
                      'new_gigbargains': new_gigbargains,
                      'inprogress_gigbargains': inprogress_gigbargains,
                      'concluded_gigbargains': concluded_gigbargains,

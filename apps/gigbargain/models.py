@@ -221,9 +221,7 @@ class GigBargain(models.Model):
             return "Gig Bagain at %s" % (self.venue.name)
 
     def __unicode__(self):
-        text = u'Gig bargain at [%s] with [%s] on %s' % (self.venue,
-                                                         [b.name for b in self.bands.all()],
-                                                         self.date)
+        text = self.name_or_default()
         if self.state == 'concluded':
             text += ' (concluded)'
         else:

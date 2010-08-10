@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 
 # from durationfield.utils.timestring import from_timedelta
 import notification.models as notification
+from actstream.models import action
 
 from apps.band.models import Band
 from apps.venue.models import Venue
@@ -86,10 +87,6 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
 
         # Negociations haven't already started
         if gigbargain.state == 'new':
-            messages.success(request, _("You (%s) are now bargaining with %s") % (band.name,
-                                                                                  gigbargain.venue.name)
-                             )
-
             # If everybody has accepted, bands can start negociating
             if all([gigbargain_band.state == 'accepted' for gigbargain_band in gigbargain.gigbargainband_set.all()]):
                 for gigbargain_band in gigbargain.gigbargainband_set.all():
@@ -107,11 +104,18 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
         elif gigbargain.state in ('draft', 'band_nego'):
             gigbargain_band.start_negociating()
 
-            messages.success(request, _("You have joined the bargain"))
             # Since we're joining, invalidate all parts of other bands
             for gigbargainband in gigbargain.gigbargainband_set.all():
                 if gigbargainband.state == 'part_validated':
                     gigbargainband.cancel_approval()
+
+        # Send the action
+        action.send(gigbargain_band, verb='entered', target=gigbargain, public=False)
+
+        messages.success(request, _("You (%s) are now bargaining with %s") % (band.name,
+                                                                              gigbargain.venue.name)
+                         )
+
 
 
     # If not, warn we have already entered the bargain
@@ -156,6 +160,8 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
             # Save the reason and refuse
             gigbargain_band.reason = refuse_form.cleaned_data['reason']
             gigbargain_band.refuse()
+
+            action.send(gigbargain_band, verb='refused', target=gigbargain, public=False)
 
             messages.success(request, _("You (%s) have refused to bargain with %s") % (band.name,
                                                                                        gigbargain.venue.name)
@@ -250,10 +256,10 @@ def gigbargain_band_part_unlock(request, band_slug, gigbargain_uuid):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
-    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+    gigbargain_band = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
-    if gigbargain.state not in ('band_nego') \
-            or gigbargainband.state != 'part_validated':
+    if gigbargain.state not in ('band_nego', 'draft') \
+            or gigbargain_band.state != 'part_validated':
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
@@ -262,7 +268,9 @@ def gigbargain_band_part_unlock(request, band_slug, gigbargain_uuid):
     #    gigbargain.bands_dont_agree_anymore()
 
     # Cancel approval for this band
-    gigbargainband.cancel_approval()
+    gigbargain_band.cancel_approval()
+
+    action.send(gigbargain_band, verb='part_unlocked', target=gigbargain, public=False)
 
     messages.success(request, _("You have unlocked your part"))
 
@@ -280,33 +288,35 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
         return HttpResponseForbidden()
 
     gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
-    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+    gigbargain_band = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
     if gigbargain.state not in ('draft', 'band_nego') \
-            or gigbargainband.state not in ('negociating', 'part_validated'):
+            or gigbargain_band.state not in ('negociating', 'part_validated'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
     # See if it can be approved with these information or if we need more
     # Redirect to form edit if can't be approved in state
-    data = model_to_dict(gigbargainband)
+    data = model_to_dict(gigbargain_band)
     # XXX FIXME
     # data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
     gigbargainband_form = GigBargainBandPartEditForm(data,
-                                                     instance=gigbargainband)
+                                                     instance=gigbargain_band)
     if not gigbargainband_form.is_valid():
         return redirect('gigbargain:gigbargain-band-part-edit', 
                         gigbargain_uuid=gigbargain.uuid, 
-                        band_slug=gigbargainband.band.slug)
+                        band_slug=gigbargain_band.band.slug)
 
-    gigbargainband.approve_part()
+    action.send(gigbargain_band, verb='part_locked', target=gigbargain, public=False)
+
+    gigbargain_band.approve_part()
     messages.success(request, _("You have locked your part"))
 
     # If all bands have accepted their parts, then either :
     #  - set as band_ok if we were in band_nego
     #  - set as draft_ok if we were in draft
     if len(GigBargainBand.objects.filter(bargain=gigbargain, 
-                                         state='negociating').exclude(id=gigbargainband.id)) == 0:
+                                         state='negociating').exclude(id=gigbargain_band.id)) == 0:
         if gigbargain.state == 'band_nego':
             gigbargain.bands_have_approved_parts()
         elif gigbargain.state == 'draft':
@@ -416,6 +426,8 @@ def gigbargain_band_submit_draft_to_venue(request, gigbargain_uuid):
 
     gigbargain.propose_complete_bargain_to_venue()
 
+    action.send(request.user, verb='submitted_to_venue', target=gigbargain, public=False)
+
     messages.success(request, _("The bargain was submitted to %s") % gigbargain.venue.name)
 
     return redirect(gigbargain)
@@ -444,6 +456,8 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
             # If there were bands that had validated their part, invalidate them
             for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
                 gigbargainband.cancel_approval()
+
+            action.send(gigbargainband, verb='was_invited', target=gigbargain, public=False)
 
             messages.success(request, _("%s was successfully invited") % gigbargainband.band.name)
 

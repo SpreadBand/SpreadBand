@@ -26,6 +26,31 @@
 
 <div class="grid_14 alpha omega">
 
+<h2>Activity</h2>
+
+<div class="greybox ui-corner-all">
+
+<table border=1>
+  <tr>
+    <th>When</th>
+    <th>What</th>
+  </tr>
+
+{% for activity in latest_activity %}
+  <tr>
+    <td>{{ activity.timestamp|timesince }} ago</td>
+    <td>{{ activity.actor }} {{ activity.verb }} {{ activity.target.name_or_default }}</td>
+  </tr>
+{% endfor %}
+
+</table>
+
+</div>
+</div>
+
+
+<div class="grid_14 alpha omega">
+
 <h2>Notices</h2>
 
 <div class="greybox ui-corner-all">
