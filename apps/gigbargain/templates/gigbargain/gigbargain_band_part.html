@@ -7,7 +7,7 @@
 <a href="{{ gigbargain.venue.get_absolute_url }}">{{ gigbargain.venue.name }}</a> sent you the terms for <a href="{{ gigbargain.get_absolute_url }}">the gig bargain of {{ gigbargain.date }}</a>.
 
 <p>
-Click here to <a href="{% url gigbargain:gigbargain-band-common-edit gigbargain.pk gigbargainband.band.slug %}">alter general conditions</a> (access type, remunation kind, ...).
+Click here to <a href="{% url gigbargain:gigbargain-band-common-edit gigbargain.uuid gigbargainband.band.slug %}">alter general conditions</a> (access type, remunation kind, ...).
 </p>
 
 <p>
@@ -31,8 +31,8 @@ You start at : {{ gigbargainband.starts_at }}
 {% endif %}
 
 <p>
-If you're ok with the information, then <a href="{% url gigbargain:gigbargain-band-part-approve gigbargain.pk gigbargainband.band.slug %}">validate it</a> 
-or <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.pk gigbargainband.band.slug %}">edit it</a> if not.
+If you're ok with the information, then <a href="{% url gigbargain:gigbargain-band-part-approve gigbargain.uuid gigbargainband.band.slug %}">validate it</a> 
+or <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid gigbargainband.band.slug %}">edit it</a> if not.
 </p>
 
 {% endblock %}

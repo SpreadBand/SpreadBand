@@ -21,7 +21,7 @@ def gigbargain_detail(request, gigbargain_uuid):
     """
     Get details about a Gig Bargain
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     # Get bands we're allowed to manage
     managed_bands = []
@@ -117,7 +117,7 @@ def comments_section_display(request, gigbargain_uuid, section):
     Display comments for a given gig bargain section
     """
     # XXX: Should limit sections
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
     comment_thread, created = GigBargainCommentThread.objects.get_or_create(gigbargain=gigbargain,
                                                                             section=section)
 

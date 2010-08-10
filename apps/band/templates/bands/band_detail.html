@@ -19,7 +19,19 @@
       This band is owned.
       {% endif %}
     </div>
-
+    
+    {% if today_events %}
+    <div class="grid_10 alpha omega">
+      <div class="ui-corner-all greybox" style="background-color: #ffcccc">
+	TODAY : 
+	<ul>
+	  {% for event in today_events %}
+	  <li><a href="{{ event.get_absolute_url }}">{{ event.title|capfirst }}</a> ({{ event.start_time }}-{{ event.end_time }}) at <a href="{{ event.venue.get_absolute_url }}">{{ event.venue.name|capfirst }}</a></li>
+	  {% endfor %}
+	</ul>
+      </div>
+    </div>
+    {% endif %}
 
     <div class="grid_10 alpha omega">
       <div class="ui-corner-all greybox">
@@ -27,14 +39,14 @@
 	<h5>New</h5>
 	<ul>
 	  {% for gigbargain in band.gigbargains.new_gigbargains|slice:":2" %}
-	  <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a></li>
+	  <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain }}</a></li>
 	  {% endfor %}
 	</ul>
 	
 	<h5>In progress</h5>
 	<ul>
 	  {% for gigbargain in band.gigbargains.inprogress_gigbargains|slice:":2" %}
-	  <li><a href="{% url gigbargain:gigbargain-detail gigbargain.pk %}">{{ gigbargain }}</a></li>
+	  <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain }}</a></li>
 	  {% endfor %}
 	</ul>
 	

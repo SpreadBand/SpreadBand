@@ -1,3 +1,4 @@
+from datetime import date
 
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
@@ -104,9 +105,11 @@ def detail(request, band_slug):
     past_events = band.gigs.past_events()[:1]
     future_events = band.gigs.future_events()[0:5]
 
-    extra_context = {'past_events': past_events,
-                     'future_events': future_events}
+    today_events = band.gigs.future_events().filter(event_date=date.today())
 
+    extra_context = {'past_events': past_events,
+                     'future_events': future_events,
+                     'today_events': today_events}
 
     return object_detail(request,
                          queryset=Band.objects.all(),

@@ -113,7 +113,7 @@ def gigbargain_venue_confirm_bands(request, gigbargain_uuid):
     This case is triggered only when /some/ of the bands have accepted
     to bargain, not all.
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -132,7 +132,7 @@ def gigbargain_venue_decline(request, gigbargain_uuid):
     """
     Decline a bargain
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -165,7 +165,7 @@ def gigbargain_venue_conclude(request, gigbargain_uuid):
     """
     Once all bands have agreed, conclude the bargain
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -184,7 +184,7 @@ def gigbargain_venue_cancel(request, gigbargain_uuid):
     """
     Cancel a bargain, even if bands are ok
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -204,7 +204,7 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
     When a gigbargain is proposed by bands to a venue, a venue can
     choose to enter the negociations.
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -242,7 +242,7 @@ def gigbargain_venue_common_edit(request, gigbargain_uuid):
     For a Venue, edit the common conditions of the bargain.
     If changed, it reset all bands' state.
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -285,7 +285,7 @@ def gigbargain_venue_renegociate(request, gigbargain_uuid):
     """
     When a bargain has been approved, restart negociations if something is incorrect
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()
@@ -320,7 +320,7 @@ def gigbargain_venue_invite_band(request, gigbargain_uuid):
     """
     When a Venue invites another Band to join a bargain
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if not request.user.has_perm('venue.can_manage', gigbargain.venue):
         return HttpResponseForbidden()

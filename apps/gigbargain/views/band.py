@@ -70,10 +70,10 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     gigbargain_band = get_object_or_404(GigBargainBand, 
-                                        bargain__pk=gigbargain_uuid,
+                                        bargain__uuid=gigbargain_uuid,
                                         band__slug=band_slug)
     
     if gigbargain.state not in ('new', 'draft', 'band_nego'):
@@ -138,9 +138,9 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
     gigbargain_band = get_object_or_404(GigBargainBand, 
-                                        bargain__pk=gigbargain_uuid,
+                                        bargain__uuid=gigbargain_uuid,
                                         band__slug=band_slug)
 
     if gigbargain.state not in ('new', 'draft', 'band_nego'):
@@ -213,7 +213,7 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
     if gigbargain.state not in ('draft', 'draft_ok', 'band_nego', 'band_ok', 'concluded') \
@@ -249,7 +249,7 @@ def gigbargain_band_part_unlock(request, band_slug, gigbargain_uuid):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
     if gigbargain.state not in ('band_nego') \
@@ -279,7 +279,7 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
     if gigbargain.state not in ('draft', 'band_nego') \
@@ -296,7 +296,7 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
                                                      instance=gigbargainband)
     if not gigbargainband_form.is_valid():
         return redirect('gigbargain:gigbargain-band-part-edit', 
-                        gigbargain_uuid=gigbargain.pk, 
+                        gigbargain_uuid=gigbargain.uuid, 
                         band_slug=gigbargainband.band.slug)
 
     gigbargainband.approve_part()
@@ -328,7 +328,7 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 
     if gigbargain.state not in ('draft', 'band_nego') \
@@ -368,7 +368,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if gigbargain.state not in ('band_nego', 'band_ok'):
         # XXX: Maybe it should more explicit
@@ -392,7 +392,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
             messages.success(request, 'You have successfully edited the general parts')
             messages.warning(request, 'Remember, you need to lock your part again')
 
-            return redirect('gigbargain:gigbargain-detail', gigbargain.pk)
+            return redirect('gigbargain:gigbargain-detail', gigbargain.uuid)
 
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_form': gigbargain_form}        
@@ -408,7 +408,7 @@ def gigbargain_band_submit_draft_to_venue(request, gigbargain_uuid):
     """
     Submits a draft to the targetted venue
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if gigbargain.state != 'draft_ok':
         # XXX: Maybe it should more explicit
@@ -426,7 +426,7 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
     """
     When a Band invites another Band to join a bargain
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if gigbargain.state not in ('draft'):
         # XXX: Maybe it should more explicit
@@ -463,7 +463,7 @@ def gigbargain_band_draft_renegociate(request, gigbargain_uuid):
     """
     When a draft has been approved, restart negociations if something is incorrect
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     if gigbargain.state not in ('draft_ok'):
         # XXX: Maybe it should more explicit
@@ -483,7 +483,7 @@ def gigbargain_band_kick(request, gigbargain_uuid, band_slug):
     """
     Kick the given band from the gig bargain
     """
-    gigbargain = get_object_or_404(GigBargain, pk=gigbargain_uuid)
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
     gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
 

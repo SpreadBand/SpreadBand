@@ -67,7 +67,7 @@ class GigBargain(models.Model):
         )
 
     # XXX: Pgsql seems to support native uuid field. This extension may not use that.
-    uuid = UUIDField(primary_key=True, db_index=True, auto=True)
+    uuid = UUIDField(unique=True, db_index=True, auto=True)
 
     #-- State management
     state = FSMField(default='new')
@@ -208,7 +208,7 @@ class GigBargain(models.Model):
         # if not self.pk:
         #    self.venue_state = GigBargainVenueState.objects.create()
 
-        models.Model.save(self, *args, **kwargs)
+        return models.Model.save(self, *args, **kwargs)
 
     def __unicode__(self):
         text = u'Gig bargain at [%s] with [%s] on %s' % (self.venue,
