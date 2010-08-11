@@ -26,6 +26,37 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.galleryview-2.1.1.js"></script>
 
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+
+      <script type="text/javascript">
+            var map;
+
+            function init(){
+                map = new OpenLayers.Map('map', {controls: []});
+	    map.addControl(new OpenLayers.Control.MouseToolbar());
+	    map.addControl(new OpenLayers.Control.PanZoomBar());
+
+                var layer = new OpenLayers.Layer.OSM()
+                map.addLayer(layer);
+
+	    var venue = new OpenLayers.LonLat({{ venue.place.geom.x|stringformat:"0.5f" }}, {{ venue.place.geom.y|stringformat:"0.5f" }}) // Center of the map
+            .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+	    new OpenLayers.Projection("EPSG:900913"));
+
+	    var markers = new OpenLayers.Layer.Markers("Markers")
+	    map.addLayer(markers)
+	    markers.addMarker(new OpenLayers.Marker(venue));
+
+	    map.setCenter(venue,
+	    14 // Zoom level
+            );
+
+	    };
+
+	    $(document).ready(init);
+        </script>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
  $('#gallery').galleryView({
@@ -59,6 +90,7 @@ $(document).ready(function() {
     <h4>Place info</h4>
     {{ venue.ambiance }}<br>
     Capacity: {{ venue.capacity }}
+
   </div>
 
   <div class="grid_3 alpha omega">
@@ -179,11 +211,20 @@ $(document).ready(function() {
 
   <div class="grid_11 alpha omega">
     <div class="ui-corner-all greybox">
+      <h4>Location</h4>
+      Address : {{ venue.place.address }}
+      <br/>
+      
+      <div style="height: 400px; width: 100%" id="map" class="smallmap"></div>
+    </div>
+  </div>
+
+  <div class="grid_11 alpha omega">
+    <div class="ui-corner-all greybox">
       <h4>Latest reviews ({% average_for_instance venue %})</h4>
       {% reviews_for_instance venue %}
     </div>
   </div>
-
 
 </div>
 

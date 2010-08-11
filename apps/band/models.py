@@ -8,8 +8,10 @@ from tagging.fields import TagField
 from imagekit.models import ImageModel
 from elsewhere.models import SocialNetworkProfile, WebsiteProfile
 
+from django_countries import CountryField
 from actors.models import Actor
 from minisite.models.minisite import Minisite
+from world.models import Place
 
 
 class Band(Actor):
@@ -30,6 +32,13 @@ class Band(Actor):
                            null=True)
     
     genres = TagField('Genres')
+
+    city = CharField(max_length=100)
+    zipcode = CharField(max_length=50)
+    country = CountryField()
+    # pointer to geo informations
+    place = ForeignKey(Place, null=True, blank=True)
+
 
     biography = TextField(blank=True,
                           help_text=_('Band biography'))

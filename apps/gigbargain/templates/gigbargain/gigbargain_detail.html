@@ -389,7 +389,7 @@ $(document).ready(function() {
 {% block content %}
 
 <div class="grid_11 alpha omega">
-  <h2 style="margin-bottom: 0px">Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR</h2>
+  <h2 style="margin-bottom: 0px">Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, {{ gigbargain.venue.city }}, {{ gigbargain.venue.country }}</h2>
   <div class="grid_11 alpha omega" style="font-size: 0.9em; font-style: italic;">
     with
     {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
@@ -506,8 +506,8 @@ $(document).ready(function() {
       </a>
 
       <div class="adr">
-	<span class="locality">Lille</span>,
-	<span class="country-name">France</span>
+	<span class="locality">{{ venue.city }}</span>,
+	<span class="country-name">{{ venue.country.name }}</span>
       </div>
 
       <div class="tags">
@@ -605,8 +605,8 @@ $(document).ready(function() {
 	  {% endif %}
 	  
 	  <div class="adr">
-	    <span class="locality">Lille</span>,
-	    <span class="country-name">France</span>
+	    <span class="locality">{{ band.band.city }}</span>,
+	    <span class="country-name">{{ band.band.country.name }}</span>
 	  </div>
 	  
 	  <div class="tags">

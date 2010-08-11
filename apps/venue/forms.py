@@ -11,7 +11,7 @@ class VenueForm(forms.ModelForm):
 class VenueUpdateForm(forms.ModelForm):
     class Meta:
         model = Venue
-        fields = ('name', 'ambiance', 'capacity', 'description', 'video',)
+        fields = ('name', 'address', 'zipcode', 'city', 'country', 'ambiance', 'capacity', 'description', 'video')
 
 
 class VenuePictureForm(forms.ModelForm):

@@ -52,6 +52,11 @@ def new_or_own(request, band_slug=None):
                              template_name='bands/band_new.html',
                              )
 
+from django.conf import settings
+from django.contrib.gis.geos import Point
+from geopy import geocoders
+from world.models import Place
+
 @login_required
 def edit(request, band_slug):
     """
@@ -62,6 +67,36 @@ def edit(request, band_slug):
     # Check if we're allowed to edit this band
     if not request.user.has_perm('band.change_band', band):
         return HttpResponseForbidden('You are not allowed to edit this band')
+
+
+    if request.method == 'POST':
+        band_form = BandUpdateForm(request.POST, request.FILES,
+                                   instance=band)
+
+        if band_form.is_valid():
+            band = band_form.save(commit=False)
+            g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
+            geoplace, (lat, lng) = g.geocode('%s %s, %s' % (band.zipcode,
+                                                            band.city,
+                                                            band.country),
+                                             exactly_one=True,
+                                             )
+
+            # Edit
+            point = Point(lng, lat)
+            if band.place:
+                place = band.place
+                place.address = geoplace
+                place.geom = point
+                place.save()
+            else:
+                place = Place.objects.create(address=geoplace, geom=point)
+
+            band.place = place
+            band.save()
+
+            return redirect(band)
+
 
     return update_object(request,
                          form_class=BandUpdateForm,

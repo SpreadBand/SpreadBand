@@ -4,11 +4,13 @@ from django.db.models import CharField, SlugField, TextField, BooleanField, URLF
 from django.db.models import ForeignKey, PositiveSmallIntegerField
 from django.contrib.contenttypes import generic
 
+from django_countries import CountryField
 from imagekit.models import ImageModel
 from elsewhere.models import SocialNetworkProfile, WebsiteProfile
 from tagging.fields import TagField
 
 from actors.models import Actor
+from world.models import Place
 
 class Venue(Actor):
     """
@@ -23,6 +25,15 @@ class Venue(Actor):
     slug = SlugField(max_length=100, unique=True)
 
     ambiance = TagField()
+
+    # address
+    address = TextField()
+    city = CharField(max_length=100)
+    zipcode = CharField(max_length=50)
+    country = CountryField()
+    # pointer to geo informations
+    place = ForeignKey(Place, null=True, blank=True)
+        
 
     description = TextField()
 

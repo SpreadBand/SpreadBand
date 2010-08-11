@@ -56,12 +56,46 @@ def list(request):
                        )
 
 
+from geopy import geocoders
+from django.conf import settings
+from django.contrib.gis.geos import Point
+from world.models import Place
+
 @login_required
 def edit(request, venue_slug):
     """
     Edit a venue
     """
     venue = get_object_or_404(Venue, slug=venue_slug)
+
+    if request.method == 'POST':
+        venue_form = VenueUpdateForm(request.POST, request.FILES,
+                                     instance=venue)
+
+        if venue_form.is_valid():
+            venue = venue_form.save(commit=False)
+            g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
+            geoplace, (lat, lng) = g.geocode('%s, %s, %s, %s' % (venue.address,
+                                                                 venue.zipcode,
+                                                                 venue.city,
+                                                                 venue.country),
+                                             exactly_one=True,
+                                             )
+
+            # Edit
+            point = Point(lng, lat)
+            if venue.place:
+                place = venue.place
+                place.address = geoplace
+                place.geom = point
+                place.save()
+            else:
+                place = Place.objects.create(address=geoplace, geom=point)
+
+            venue.place = place
+            venue.save()
+
+            return redirect(venue)
 
     return update_object(request,
                          form_class=VenueUpdateForm,

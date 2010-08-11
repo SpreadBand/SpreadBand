@@ -26,6 +26,36 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.galleryview-2.1.1.js"></script>
 
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+
+      <script type="text/javascript">
+            var map;
+
+            function init(){
+                map = new OpenLayers.Map('map', {controls: []});
+	    map.addControl(new OpenLayers.Control.MouseToolbar());
+
+                var layer = new OpenLayers.Layer.OSM()
+                map.addLayer(layer);
+
+	    var venue = new OpenLayers.LonLat({{ band.place.geom.x|stringformat:"0.5f" }}, {{ band.place.geom.y|stringformat:"0.5f" }}) // Center of the map
+            .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+	    new OpenLayers.Projection("EPSG:900913"));
+
+	    var markers = new OpenLayers.Layer.Markers("Markers")
+	    map.addLayer(markers)
+	    markers.addMarker(new OpenLayers.Marker(venue));
+
+	    map.setCenter(venue,
+	    4 // Zoom level
+            );
+
+	    };
+
+	    $(document).ready(init);
+        </script>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
  $('#gallery').galleryView({
@@ -125,14 +155,22 @@ $(document).ready(function() {
 </div>
 
 <div class="grid_11 omega">
-  <h2>PressKit &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> (Lille, FR)</h2>
+  <h2>PressKit &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city }}, {{ band.country }})</h2>
 
-  <div class="grid_11 alpha omega">
+  <div class="grid_7 alpha">
     <div class="ui-corner-all greybox">
       <h4>Biography</h4>
       {{ band.biography|truncatewords:100 }}[<a href="#">Read more</a>]
     </div>
   </div>
+
+  <div class="grid_4 omega">
+    <div class="ui-corner-all greybox">
+      <h4>Location</h4>
+      <div style="height: 200px; width: 100%" id="map" class="smallmap"></div>
+    </div>
+  </div>
+
 
 <!--  <div class="grid_4 omega">
     <div class="ui-corner-all greybox">
