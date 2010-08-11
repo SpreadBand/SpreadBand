@@ -377,11 +377,11 @@ def gigbargain_concluded_callback(sender, **kwargs):
     gig.save()
 
     # Add all participating bands to the gig event
-    for band in gigbargain.bands.all():
+    for band in gigbargain.bands.concurring():
         gig.bands.add(band)
 
     # Add this gig to the band calendars
-    for band in gigbargain.bands.all():
+    for band in gigbargain.bands.concurring():
         band.calendar.events.add(gig)
 
     # Also add this gig to the venue calendar            
@@ -398,7 +398,7 @@ def collect_band_members_from_gigbargain(aGigBargain):
     Collect users from bands to send notification to
     """
     users = set()
-    for band in aGigBargain.bands.all():
+    for band in aGigBargain.bands.concurring():
         for member in band.members.all():
             users.add(member.user)
 

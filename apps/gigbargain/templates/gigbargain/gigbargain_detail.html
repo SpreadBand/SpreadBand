@@ -392,8 +392,8 @@ $(document).ready(function() {
   <h2 style="margin-bottom: 0px">Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, Lille, FR</h2>
   <div class="grid_11 alpha omega" style="font-size: 0.9em; font-style: italic;">
     with
-    {% for band in gigbargain.bands.all %}
-    <a href="{{ band.get_absolute_url }}">{{ band.name }}</a>{% if not forloop.last %},{% else %}.{% endif %}
+    {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
+    <a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>{% if not forloop.last %},{% else %}.{% endif %}
     {% endfor %}
   </div>
   <div class="grid_11 alpha">
@@ -403,71 +403,8 @@ $(document).ready(function() {
     This bargain is concluded. You can see <a href="{{ gigbargain.gig.get_absolute_url }}">the produced gig here</a>.
     </p>
     {% endif %}
-  <div class="grid_11 alpha omega">
-
-<!--
-
-{% if gigbargain.state == 'draft' %}
-<p>
-<b>Bands, this is a draft. You should negociate all together until you agree, then you'll be able to submit it to the venue. You can still <a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}">invite other bands</a></b>.
-<p/>
-{% endif %}
-
-{% if gigbargain.state == 'draft_ok' %}
-<p>
-<b>Bands, this draft has been validated by all of you. If you are the bargain initiator, you may consider <a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.uuid %}">submitting this bargain to the venue ({{ gigbargain.venue.name }})</a> or <a href="{% url gigbargain:gigbargain-band-draft-renegociate gigbargain.uuid %}">restart the negociations</a> if something is incorrect.</b>
-<p/>
-{% endif %}
-
-
-{% if gigbargain.state == 'need_venue_confirm' %}
-<p>
-<b>Venue, you need to <a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.uuid %}">confirm</a> that you want to go on bargaining, even if all bands didn't accept to bargain. You can also <a href="{% url gigbargain:gigbargain-venue-invite-band gigbargain.uuid %}">invite another band</a> or <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.uuid %}">cancel this bargain</a> if it doesn't meet anymore your requirements.</b>
-</p>
-{% endif %}
-
-{% if gigbargain.state == 'band_nego' %}
-<p>
-The bands are negociating.<br>
-<b>Venue, you can <a href="{% url gigbargain:gigbargain-venue-invite-band gigbargain.uuid %}">invite another band</a> if you wish to</b>
-</p>
-{% endif %}
-
-{% if gigbargain.state == 'band_ok' %}
-<p>
-<b>Venue, you may either <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}">conclude</a> this bargain, ask one or more bands to change their terms (by letting a comment), <a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.uuid %}">restart the negociations</a> or <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}">decline it completely</a>.</b>
-<p/>
-{% endif %}
-
-{% if gigbargain.state == 'complete_proposed_to_venue' %}
-<p>
-  <b>Bands, this bargain has been submitted to {{ gigbargain.venue.name }}, you have to wait for them to reply.</b>
-  <br/>
-  <b>Venue, you may either <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}">accept and conclude</a> this bargain or <a href="{% url gigbargain:gigbargain-venue-enter gigbargain.uuid %}">negociate the terms</a> or <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}">completely decline</a> this proposal.</b>
-<p/>
-{% endif %}
-
-{% if gigbargain.state == 'incomplete_proposed_to_venue' %}
-<p>
-<b>Venue, you can either <a href="{% url gigbargain:gigbargain-venue-enter gigbargain.uuid %}">accept to enter the negociations</a> or <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}">refuse to bargain</a> with these bands.</b>
-<p/>
-{% endif %}
-
-{% if gigbargain.state == 'declined' %}
-<p>
-<b>This bargain was declined by the venue : it's dead, you VERY LOOSE.</b>
-</p>
-{% endif %}
-
-{% if gigbargain.state == 'canceled' %}
-<p>
-<b>This bargain was canceled by the organizer : it's dead, you LOOSE.</b>
-</p>
-{% endif %}
--->
-</div>
-
-  <div class="grid_11 alpha omega" style="text-align: right; margin-bottom: 10px; display: inline-block;">
+    
+    <div class="grid_11 alpha omega" style="text-align: right; margin-bottom: 10px; display: inline-block;">
     {% if is_venue_managed %}
 
     {% if gigbargain.state == 'band_ok' %}
@@ -848,7 +785,7 @@ Tips: {
 
 var json = {  
      'values': [  
-  {% for band in gigbargain.gigbargainband_set.all %}
+  {% for band in gigbargain.gigbargainband_set.concurring %}
      {  
        'label': '<a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a>',  
        {% if gigbargain.remuneration == 'PERC' %}
@@ -900,7 +837,7 @@ var json = {
   var json = {
     label: ['$'],
   values: [
-  {% for gigbargainband in gigbargain.gigbargainband_set.all %}
+  {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
   {
     label: '<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>',
     values: [{{ gigbargainband.defrayment }},],
@@ -953,7 +890,7 @@ var json = {
 
 <noscript>
   <ul>
-    {% for gigbargainband in gigbargain.gigbargainband_set.all %}
+    {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
     <li>{{ gigbargainband.band.name }} asks ${{ gigbargainband.defrayment }}</li>
     {% endfor %}
   </ul>

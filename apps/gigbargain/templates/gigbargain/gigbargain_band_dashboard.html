@@ -88,7 +88,7 @@
 	  <div style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
 	    <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
 	    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-	    with {{ gigbargain.bands.all|join:', ' }}.<br/>
+	    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
 	    State : {{ gigbargain.state }}
 	    </div>
 	  </div>
@@ -108,7 +108,7 @@
 	<div style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
 	  <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
 	    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-	    with {{ gigbargain.bands.all|join:', ' }}.<br/>
+	    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
 	    State : {{ gigbargain.state }}
 	  </div>
 	</div>
@@ -128,7 +128,7 @@
 	  <div style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
 	    <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
 	    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-	    with {{ gigbargain.bands.all|join:', ' }}.<br/>
+	    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
 	    State : {{ gigbargain.state }}
 	    </div>
 	  </div>
