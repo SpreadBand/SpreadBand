@@ -6,3 +6,18 @@ class City(models.Model):
     zip = models.CharField(max_length=5)
     geom = models.PointField()
     objects = models.GeoManager()
+
+
+class Place(models.Model):
+    """
+    A place in the world
+    """
+    objects = models.GeoManager()
+
+
+    address = models.TextField()
+    geom = models.PointField()
+
+    def __unicode__(self):
+        return self.address
+
