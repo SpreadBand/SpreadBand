@@ -17,6 +17,7 @@ vobject==0.8.1c
 python-dateutil==1.5
 django-countries==1.0.4
 docutils
+geopy
 
 -e git+http://github.com/django-extensions/django-extensions.git#egg=django-extensions
 -e git+http://github.com/ericflo/django-threadedcomments.git@ded46fc5bfd9a9d37a15351aeafec58df4ae9301#egg=django-threadedcomments
@@ -36,5 +37,6 @@ docutils
 -e hg+http://bitbucket.org/jespern/django-piston#egg=django-piston
 -e git+http://github.com/spookylukey/django-mailer.git@a2f67c411cfcc79a4caa80a56383b787bcfe3d74#egg=django-mailer
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
+-e git+http://github.com/toastdriven/django-haystack.git#egg=django-haystack
 
 

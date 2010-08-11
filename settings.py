@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
 
     # External
+    'haystack',
     'compressor',
     'debug_toolbar',
     'django_extensions',
@@ -253,4 +254,7 @@ ANONYMOUS_USER_ID = -1
 ### COMMENTS
 COMMENTS_APP = 'threadedcomments'
 PROFANITIES_LIST = ()
+
+### GOOGLE MAPS
+GOOGLE_MAPS_API_KEY = 'ABQIAAAA6h516tSP1Hvn-DSlCn0BohSzw_xTdwUeZJiiJ-EpCmf90rYO0xT--Tl2YeDvj8A_LzJZPUdaTSawsQ'
 
