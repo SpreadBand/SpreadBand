@@ -258,3 +258,11 @@ PROFANITIES_LIST = ()
 ### GOOGLE MAPS
 GOOGLE_MAPS_API_KEY = 'ABQIAAAA6h516tSP1Hvn-DSlCn0BohSzw_xTdwUeZJiiJ-EpCmf90rYO0xT--Tl2YeDvj8A_LzJZPUdaTSawsQ'
 
+### HAYSTACK
+HAYSTACK_SITECONF = 'spreadband.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+
+if DEBUG:
+    HAYSTACK_WHOOSH_PATH = 'spreadband_index'
+else:
+    raise "Not configured"

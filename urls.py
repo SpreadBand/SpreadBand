@@ -52,6 +52,9 @@ urlpatterns = patterns('',
     # Notifications
     (r'^notification/', include('notification.urls')),
 
+    # Search
+    (r'^search/', include('haystack.urls')),
+
     # REST API
     (r'^api/', include('api.urls')),
 
