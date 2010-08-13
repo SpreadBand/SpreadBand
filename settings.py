@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'django.contrib.syndication',
     'django.contrib.messages',
     'django.contrib.markup',
+    'django.contrib.sitemaps',
 
     # External
     'haystack',

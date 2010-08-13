@@ -9,6 +9,16 @@ import settings
 admin.autodiscover()
 authority.autodiscover()
 
+# Sitemaps
+import venue.sitemaps
+import band.sitemaps
+import event.sitemaps
+sitemaps = {}
+sitemaps.update(venue.sitemaps.sitemaps)
+sitemaps.update(band.sitemaps.sitemaps)
+sitemaps.update(event.sitemaps.sitemaps)
+
+# URLS
 urlpatterns = patterns('',
     # temporary index page
     url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}, name='home'),
@@ -58,8 +68,9 @@ urlpatterns = patterns('',
     # REST API
     (r'^api/', include('api.urls')),
 
-    # Robots.txt
-    (r'^robots.txt$', include('robots.urls')),
+    # Robots.txt and sitemap
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    (r'^robots\.txt$', include('robots.urls')),
 
     # Django admin
     (r'^admin/', include(admin.site.urls)),
