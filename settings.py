@@ -101,6 +101,8 @@ MIDDLEWARE_CLASSES = (
 
     'reversion.middleware.RevisionMiddleware',
 
+    # Facebook
+    'socialregistration.middleware.FacebookMiddleware',
 
     # Request (stats)
     'request.middleware.RequestMiddleware',
@@ -136,6 +138,7 @@ INSTALLED_APPS = (
 
     # External
     'haystack',
+    'dajaxice',
     'compressor',
     'debug_toolbar',
     'django_extensions',
@@ -164,6 +167,7 @@ INSTALLED_APPS = (
     'django_countries',
     'mailer',
     'oembed',
+    'robots',
 
     # Internal
     'world',
@@ -221,6 +225,7 @@ LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = (
     'utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
     'socialregistration.auth.OpenIDAuth',
+    'socialregistration.auth.FacebookAuth',
     'guardian.backends.ObjectPermissionBackend',
     )
 
@@ -266,3 +271,7 @@ if DEBUG:
     HAYSTACK_WHOOSH_PATH = 'spreadband_index'
 else:
     raise "Not configured"
+
+### FACEBOOK
+FACEBOOK_API_KEY='0445acaf091af7727ef610e64cb73baf'
+FACEBOOK_SECRET_KEY='52f03de8cc57d0435eb1fcf8ba54a24e'

@@ -21,12 +21,15 @@ geopy
 whoosh==0.3.18
 django-haystack
 
+
+-e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots
+-e git+http://github.com/facebook/python-sdk.git#egg=facebook-python-sdk
 -e git+http://github.com/django-extensions/django-extensions.git#egg=django-extensions
 -e git+http://github.com/ericflo/django-threadedcomments.git@ded46fc5bfd9a9d37a15351aeafec58df4ae9301#egg=django-threadedcomments
 -e hg+http://bitbucket.org/ubernostrum/django-registration#egg=django-registration
 -e git+http://github.com/mintchaos/django_compressor.git#egg=django-compressor
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
--e git+http://github.com/flashingpumpkin/django-socialregistration.git@v0.4-tag#egg=django-socialregistration
+-e git+http://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
 -e git+http://github.com/SpreadBand/django-agenda.git#egg=django-agenda
 -e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
 -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
@@ -39,6 +42,8 @@ django-haystack
 -e hg+http://bitbucket.org/jespern/django-piston#egg=django-piston
 -e git+http://github.com/spookylukey/django-mailer.git@a2f67c411cfcc79a4caa80a56383b787bcfe3d74#egg=django-mailer
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
-# -e git+http://github.com/toastdriven/django-haystack.git#egg=django-haystack
+-e git+http://github.com/jorgebastida/django-dajaxice.git#egg=django-dajaxice
+-e git+http://github.com/jorgebastida/django-dajax.git#egg=django-dajax
+
 
 

@@ -58,6 +58,9 @@ urlpatterns = patterns('',
     # REST API
     (r'^api/', include('api.urls')),
 
+    # Robots.txt
+    (r'^robots.txt$', include('robots.urls')),
+
     # Django admin
     (r'^admin/', include(admin.site.urls)),
 )
