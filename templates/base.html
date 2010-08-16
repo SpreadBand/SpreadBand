@@ -22,6 +22,84 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/jplayer/jplayer.blue.monday.css" />
 
+      <style type="text/css">
+   a.trigger{
+	position: absolute;
+	background:#88bbd4 url(images/plus.png) 6% 55% no-repeat;
+	text-decoration: none;
+	font-size: 16px;
+	letter-spacing:-1px;
+	font-family: verdana, helvetica, arial, sans-serif;
+	color:#fff;
+	padding:4px 12px 6px 24px;
+	font-weight: bold;
+	
+	z-index:2;
+}
+a.trigger.left {
+	left: 0;
+	border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+a.trigger.right {
+	right: 0;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+}
+a.trigger:hover {
+	background-color:#59B;
+}
+a.active.trigger {
+	background:#666 url(images/minus.png) 6% 55% no-repeat;
+}
+
+.panel {
+	color:#CCC;
+	position: absolute;
+	display: none;
+	background: #000000;
+	height: auto;
+	z-index:1;
+}
+.panel.left {
+	left: 0;
+	padding: 20px 30px 20px 100px;
+	border-top-right-radius: 15px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+.panel.right {
+	right: 0;
+	padding: 20px 100px 20px 30px;
+	border-bottom-left-radius: 15px;
+	border-top-left-radius: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-moz-border-radius-topleft: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-webkit-border-top-left-radius: 15px;
+}
+.panel p {
+	font-size:11px;
+}
+
+.highlighted {
+   background-color: #ffff66;
+   color: #000;
+}
+      </style>
+
+
     {% block css %}
     {% endblock %}
 
@@ -34,6 +112,26 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.jplayer.js"></script>
 
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.uni-form.js"></script>
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slidePanel.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+	
+	// custom settings
+	$('#feedback').slidePanel({
+		triggerName: '#feedback-trigger',
+		position: 'fixed',
+		triggerTopPos: '150px',
+		panelTopPos: '150px',
+		ajax: true,
+		ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
+	});
+	
+      });
+
+    </script>
+
 
     <script type="text/javascript">
       $(document).ready(function() {
@@ -99,6 +197,9 @@
 	      {% if user.is_authenticated %}
               <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ user.get_profile.avatar.small_avatar_image.url }}"> {# <a href="{% url social_logout %}"> #}
 		<a href="{% url social_logout %}">Logout</a>
+		
+		<br/>
+		Jump to band:
 		<ul>
 		  {% for membership in user.bands.all %}
 		  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
@@ -258,12 +359,22 @@
 	  </ul>
 	</div>
 	<div class="grid_3 suffix_1 omega">
-	  <ul>
-	    <li><a href="{% url backcap:feedback-new %}?referer={{ request.get_full_path }}">Leave feedback</a></li>
-	    <li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
-	  </ul>
 	</div>
      {% endif %}
     </div>
+
+    <a href="#" id="feedback-trigger" class="trigger right">Support</a>
+    <div id="feedback" class="panel right">
+      <p>Here is some static content for Panel 1.</p>
+      
+      <p>Ut purus metus, fermentum vitae pulvinar vel, elementum eget nulla. Pellentesque posuere, enim ut dapibus vestibulum, leo nunc porttitor neque, sed pulvinar orci sem eleifend sapien. Nullam at odio nibh, eu pharetra ipsum.</p>
+
+      <ul>
+	<li><a href="{% url backcap:feedback-new %}?referer={{ request.get_full_path }}">Leave feedback</a></li>
+	<li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
+      </ul>
+      
+    </div>
+
   </body>
 </html>

@@ -1,5 +1,9 @@
+{% extends "base.html" %}
+
 {% load comments %}
 {% load voting_tags %}
+
+{% block content %}
 
 <h3>Show feedback</h3>
 
@@ -47,3 +51,5 @@ after {{ score.num_votes }} vote{{ score.num_votes|pluralize }}
 <p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
 
 <a href="{% url backcap:feedback-list %}">See all feedbacks</a>
+
+{% endblock %}

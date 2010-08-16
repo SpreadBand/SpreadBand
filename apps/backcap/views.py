@@ -1,17 +1,25 @@
-from django.shortcuts import redirect, render_to_response, get_object_or_404
-from django.http import HttpResponseForbidden
-from django.views.generic.list_detail import object_list, object_detail
-from django.views.generic.create_update import update_object
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import HttpResponseForbidden
+from django.shortcuts import redirect, render_to_response, get_object_or_404
+from django.views.generic.create_update import update_object
+from django.views.generic.list_detail import object_list, object_detail
+from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_GET
+
+from haystack.query import SearchQuerySet
+from voting.views import vote_on_object
 
 from .models import Feedback
 from .forms import FeedbackNewForm, FeedbackEditForm
 
 @login_required
-def feedback_new(request, referer=None):
+def feedback_new(request, template_name='backcap/feedback_new.html'):
     """
     Create a new feedback
     """
+    referer = request.GET.get("referer", None)
+
     if request.method == 'POST':
         feedback_form = FeedbackNewForm(request.POST)
 
@@ -20,21 +28,15 @@ def feedback_new(request, referer=None):
             feedback.user = request.user
             feedback.save()
 
-            return redirect('backcap:feedback-thanks')
+            messages.success(request, _("Thanks for you feedback !"))
+
+            return redirect(feedback)
     else:
         feedback_form = FeedbackNewForm(initial={'referer': referer})
 
-    return render_to_response(template_name='backcap/feedback_new.html',
+    return render_to_response(template_name=template_name,
                               dictionary={'feedback_form': feedback_form},
                               )
-
-@login_required
-def feedback_thanks(request):
-    """
-    Called when a feedback has been successfully submitted
-    """
-    return render_to_response(template_name='backcap/feedback_thanks.html')
-
 
 # XXX: Security
 def feedback_update(request, feedback_id):
@@ -51,8 +53,15 @@ def feedback_list(request, page=1):
     """
     Display all the feedbacks
     """
+    queryset = Feedback.objects.exclude(status='C')
+
+    qtype = request.GET.get('qtype', None)
+    if qtype:
+        queryset = queryset.filter(kind=qtype)
+        
+
     return object_list(request,
-                       queryset=Feedback.objects.exclude(status='C'),
+                       queryset=queryset,
                        template_name='backcap/feedback_list.html',
                        template_object_name='feedback',
                        paginate_by=7,
@@ -82,9 +91,7 @@ def feedback_close(request, feedback_id):
     feedback.save()
 
     return redirect(feedback)
-        
 
-from voting.views import vote_on_object
 
 def feedback_vote(request, feedback_id, direction):
     return vote_on_object(request,
@@ -94,3 +101,22 @@ def feedback_vote(request, feedback_id, direction):
                           template_object_name='vote',
                           template_name='kb/link_confirm_vote.html',
                           allow_xmlhttprequest=True)
+
+
+def feedback_tab(request):
+    return feedback_new(request,
+                        template_name='backcap/feedback_tab.html')
+
+
+@require_GET
+def feedback_search(request, limit=10):
+    query = request.GET['q']
+
+    results = SearchQuerySet().models(Feedback).filter_or(content=query)
+    if limit:
+        results = results[:int(limit)]
+
+    return render_to_response(template_name='backcap/feedback_search.html',
+                              dictionary={'results': results,
+                                          'query': query},
+                              )

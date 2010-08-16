@@ -1,71 +1,98 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+{{ block.super }}
+
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/backcap.css" />
+
+{% endblock %}
+
 {% load voting_tags %}
+
+{% block content %}
 
 <h3>Feedbacks</h3>
 
-<a href="{% url backcap:feedback-new %}">New feedback</a>
 
-<h4>Opened issues</h4>
+<div class="alpha grid_11">
 
-{% votes_by_user request.user on feedback_list as vote_dict %}
-{% scores_for_objects feedback_list as score_dict %}
-
-<table>
-<col width="1"></col>
-<col></col>
-<thead>
-  <tr>
-    <th>Vote</th>
-    <th>Feedback</th>
-  </tr>
-</thead>
-<tbody>
-  {% for feedback in feedback_list %}<tr class="{% cycle odd,even %}">
-    <td class="vote">
-      {% dict_entry_for_item feedback from vote_dict as vote %}
-      {% dict_entry_for_item feedback from score_dict as score %}
-       <form class="feedbackvote" id="feedbackup{{ feedback.id }}" action="
-{% if vote and vote.is_upvote %}
-  {% url backcap:feedback-vote feedback.id 'clear' %}
-{% else %}
-  {% url backcap:feedback-vote feedback.id 'up' %}
-{% endif %}
-" method="POST">
-        <input type="submit" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}Clear{% else %}Up{% endif %}">
-      </form>
-
-      <form class="feedbackvote" id="feedbackdown{{ feedback.id }}" action="
-{% if vote and vote.is_downvote %}
-  {% url backcap:feedback-vote feedback.id 'clear' %}
-{% else %}
-  {% url backcap:feedback-vote feedback.id 'down' %}
-{% endif %}
-" method="POST">
-
-        <input type="submit" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}Clear{% else %}Down{% endif %}">
-      </form>
-      </td>
-    <td class="item">
-      <a href="{{ feedback.get_absolute_url }}">{{ feedback.title|escape }}</a></h2>
-      <p class="details">
-        <span class="score" id="feedbackscore{{ feedback.id }}"
-              title="after {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}">
-         {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
-        </span>
-        posted {{ feedback.created_on|timesince }} ago by
-        <span class="user"><a href="{{ feedback.user.get_absolute_url }}">{{ feedback.user.username|escape }}</a></span>
-        <span class="details"><a href="{{ feedback.get_absolute_url }}">details</a></span>
-      </p>
-    </td>
-  </tr>{% endfor %}
-</tbody>
-</table>
-
-{% if page_obj.has_previous %}
-<a href="{% url backcap:feedback-list page=page_obj.previous_page_number %}">previous</a>
-{% endif %}
+  <p>
+    This is all the feedbacks submitted by you, the users. Thanks for that.
+  </p>
+  
+  <p>
+    <a href="{% url backcap:feedback-new %}">New feedback</a>
+  </p>
 
 
-{% if page_obj.has_next %}
-<a href="{% url backcap:feedback-list page=page_obj.next_page_number %}">next</a>
-{% endif %}
+  {% votes_by_user request.user on feedback_list as vote_dict %}
+  {% scores_for_objects feedback_list as score_dict %}
+  
+  <ul id="feedback-list" class="alpha omega grid_11">
+    {% for feedback in feedback_list %}
+    <li class="alpha omega grid_11">
+      <div class="alpha grid_2">
+	{% dict_entry_for_item feedback from vote_dict as vote %}
+	{% dict_entry_for_item feedback from score_dict as score %}
+	<div class="feedback-votes ui-corner-all">
+	  <div class="score">{{ score.score|default:0 }}</div>
+	  <div class="vote-actions">
+	    
+	    <form class="feedbackvote" id="feedbackup{{ feedback.id }}" action="{% if vote and vote.is_upvote %}
+										{% url backcap:feedback-vote feedback.id 'clear' %}
+										{% else %}
+										{% url backcap:feedback-vote feedback.id 'up' %}
+										{% endif %}
+										" method="POST">
+	      <input type="submit" class="ui-corner-all vote_button" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}X{% else %}+{% endif %}"/>
+	    </form>
+	    
+	    <form class="feedbackvote" id="feedbackdown{{ feedback.id }}" action="{% if vote and vote.is_downvote %}
+										  {% url backcap:feedback-vote feedback.id 'clear' %}
+										  {% else %}
+										  {% url backcap:feedback-vote feedback.id 'down' %}
+										  {% endif %}
+										  " method="POST">
+	      
+	      <input type="submit" class="ui-corner-all vote_button" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}X{% else %}-{% endif %}"/>
+	    </form>
+	  </div>
+	</div>
+      </div>
+      <div class="feedback-info grid_9 omega">
+	<div>
+	  <span class="ui-corner-all type_{{ feedback.kind }}">{{ feedback.get_kind_display }}</span>
+	  <span class="title"><a href="{{ feedback.get_absolute_url }}">{{ feedback.title|capfirst }}</a></span>
+	</div>
+	<div class="feedback-desc">
+	  {{ feedback.text|truncatewords:20 }}
+	</div>
+	<div>
+	  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_absolute_url }}">{{ feedback.user.get_full_name|escape }}</a></span>
+	</div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  
+  {% if page_obj.has_previous %}
+  <a href="{% url backcap:feedback-list page=page_obj.previous_page_number %}">previous</a>
+  {% endif %}
+  
+  
+  {% if page_obj.has_next %}
+  <a href="{% url backcap:feedback-list page=page_obj.next_page_number %}">next</a>
+  {% endif %}
+</div>
+<div class="grid_2 prefix_1 omega">
+<h4>Display</h4>
 
+<ul id="feedback-filter">
+  <li class="ui-corner-all {% if not request.GET.qtype %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}">All</a></li>
+  <li class="ui-corner-all {% if request.GET.qtype == 'Q' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=Q">Questions</a></li>
+  <li class="ui-corner-all {% if request.GET.qtype == 'P' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=P">Problems</a></li>
+  <li class="ui-corner-all {% if request.GET.qtype == 'I' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=I">Ideas</a></li>
+</ul>
+</div>
+{% endblock %}
