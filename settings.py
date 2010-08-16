@@ -87,6 +87,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+    # I18N
+    'django.middleware.locale.LocaleMiddleware',
+
     'django.middleware.common.CommonMiddleware',
 
     # CSRF Attacks
@@ -169,6 +173,7 @@ INSTALLED_APPS = (
     'mailer',
     'oembed',
     'robots',
+    'faq',
 
     # Internal
     'world',

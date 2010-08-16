@@ -65,6 +65,9 @@ urlpatterns = patterns('',
     # Search
     (r'^search/', include('haystack.urls')),
 
+    # FAQ
+    (r'^faq/', include('faq.urls', namespace='faq')),
+
     # REST API
     (r'^api/', include('api.urls')),
 

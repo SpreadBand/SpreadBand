@@ -123,7 +123,7 @@ a.active.trigger {
 		triggerName: '#feedback-trigger',
 		position: 'fixed',
 		triggerTopPos: '150px',
-		panelTopPos: '150px',
+		panelTopPos: '0px',
 		ajax: true,
 		ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
 	});
@@ -191,6 +191,7 @@ a.active.trigger {
 	      </ul>
 	    </div>
 	    <a href="{% url haystack_search %}">Archercher</a>
+	    <a href="{% url faq:faq %}">FAQ</a>
 	  </div>
 	  <div class="grid_4 omega">
 	    <div id="user">

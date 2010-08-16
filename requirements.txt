@@ -21,6 +21,12 @@ geopy
 whoosh==0.3.18
 django-haystack
 
+# SpreadBand repositories
+-e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
+-e git+http://github.com/SpreadBand/django-agenda.git#egg=django-agenda
+-e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
+-e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
+-e git+http://github.com/SpreadBand/django-faq.git#egg=django-faq
 
 -e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots
 -e git+http://github.com/facebook/python-sdk.git#egg=facebook-python-sdk
@@ -30,20 +36,19 @@ django-haystack
 -e git+http://github.com/mintchaos/django_compressor.git#egg=django-compressor
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
 -e git+http://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
--e git+http://github.com/SpreadBand/django-agenda.git#egg=django-agenda
 -e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
--e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
--e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
 -e git+http://github.com/jezdez/django-oembed.git@4adc0a1e8b1ad3934491d7732f71c729351c28fa#egg=django-oembed
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
 -e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation
 -e hg+http://bitbucket.org/jespern/django-piston#egg=django-piston
 -e git+http://github.com/spookylukey/django-mailer.git@a2f67c411cfcc79a4caa80a56383b787bcfe3d74#egg=django-mailer
--e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
 -e git+http://github.com/jorgebastida/django-dajaxice.git#egg=django-dajaxice
 -e git+http://github.com/jorgebastida/django-dajax.git#egg=django-dajax
+
+
+
 
 
 
