@@ -28,6 +28,7 @@ django-haystack
 -e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/SpreadBand/django-faq.git#egg=django-faq
 
+-e svn+http://django-rosetta.googlecode.com/svn/trunk#egg=django-rosetta
 -e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots
 -e git+http://github.com/facebook/python-sdk.git#egg=facebook-python-sdk
 -e git+http://github.com/django-extensions/django-extensions.git#egg=django-extensions

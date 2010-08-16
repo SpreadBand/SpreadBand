@@ -193,6 +193,11 @@ INSTALLED_APPS = (
     'api',
 )
 
+if DEBUG:
+    INSTALLED_APPS += (
+            'rosetta',
+            )
+
 
 ###--- Application settings ---###
 

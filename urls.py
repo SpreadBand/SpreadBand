@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, url, include
 
 from django.contrib.gis import admin
 
@@ -79,8 +79,10 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 )
 
+
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+        url(r'^rosetta/', include('rosetta.urls')),
     )
 
