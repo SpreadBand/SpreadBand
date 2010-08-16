@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 class Feedback(models.Model):
+    class Meta:
+        ordering = ('modified_on', 'kind')
     KIND_CHOICES = (
         ('Q', 'Question'),
         ('P', 'Problem'),
@@ -12,7 +14,7 @@ class Feedback(models.Model):
         )
 
     STATUS_CHOICES = (
-        ('O', 'Opened'),
+        ('N', 'New'),
         ('A', 'Assigned'),
         ('W', 'Won\'t Fix'),
         ('R', 'Re-opened'),
@@ -33,7 +35,7 @@ class Feedback(models.Model):
     text = TextField(help_text=_("Description of the feedback"))
 
     # State
-    status = CharField(max_length=1, choices=STATUS_CHOICES, default='O')
+    status = CharField(max_length=1, choices=STATUS_CHOICES, default='N')
 
     def __unicode__(self):
         return '%s - %s' % (self.kind, self.title)
