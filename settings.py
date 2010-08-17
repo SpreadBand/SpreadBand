@@ -91,6 +91,10 @@ MIDDLEWARE_CLASSES = (
     # I18N
     'django.middleware.locale.LocaleMiddleware',
 
+    # Private beta
+    'privatebeta.middleware.PrivateBetaMiddleware',
+
+
     'django.middleware.common.CommonMiddleware',
 
     # CSRF Attacks
@@ -111,6 +115,9 @@ MIDDLEWARE_CLASSES = (
     # Request (stats)
     'request.middleware.RequestMiddleware',
     #'openid_consumer.middleware.OpenIDMiddleware',
+
+    # Flatpages
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 
     # 403
     'utils.middleware.403.Django403Middleware',
@@ -140,8 +147,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.markup',
     'django.contrib.sitemaps',
+    'django.contrib.flatpages',
 
     # External
+    'privatebeta',
     'haystack',
     'dajaxice',
     'compressor',
@@ -230,7 +239,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 ### LOGIN, AUTHENTICATION
 # General
-LOGIN_URL = '/user/reg/classical/login'
+LOGIN_URL = '/user/register/bandlogin'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
@@ -286,3 +295,6 @@ else:
 ### FACEBOOK
 FACEBOOK_API_KEY='0445acaf091af7727ef610e64cb73baf'
 FACEBOOK_SECRET_KEY='52f03de8cc57d0435eb1fcf8ba54a24e'
+
+# PRIVATE ALPHA/BETA
+PRIVATEBETA_REDIRECT_URL="/alpha"

@@ -27,6 +27,8 @@ django-haystack
 -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/SpreadBand/django-faq.git#egg=django-faq
+-e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
+-e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 
 -e svn+http://django-rosetta.googlecode.com/svn/trunk#egg=django-rosetta
 -e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots
@@ -39,7 +41,6 @@ django-haystack
 -e git+http://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
 -e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
--e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
 -e git+http://github.com/jezdez/django-oembed.git@4adc0a1e8b1ad3934491d7732f71c729351c28fa#egg=django-oembed
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
 -e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation

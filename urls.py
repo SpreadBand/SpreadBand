@@ -23,6 +23,9 @@ urlpatterns = patterns('',
     # temporary index page
     url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}, name='home'),
 
+    # Private beta
+    url(r'^alpha/', include('privatebeta.urls')),
+
     # auth + profile
     (r'^user/', include('socialregistration.urls')),
     (r'^user/', include('account.urls', namespace='account')),
