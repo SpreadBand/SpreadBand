@@ -1,5 +1,5 @@
 Django==1.2.1
-mutagen==1.19
+mutagen>=1.19
 # gdal==1.7.1
 south==0.7.1
 django-guardian==0.1.0
