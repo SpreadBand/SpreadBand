@@ -1,0 +1,65 @@
+{% load tagging_tags %}
+{% load i18n %}
+
+<div class="header grid_6 alpha omega">
+  <img src="{{ MEDIA_URL }}/icons/whenwhere.png" alt="When and Where"/>
+
+  <h2>{% trans "Where and When" %}</h2>
+
+  <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'whenwhere' %}">
+    <img src="{{ MEDIA_URL }}/icons/comments.png" alt="Comments for When where section"/>
+  </a>
+
+  {% if is_venue_managed %}
+    {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
+      <a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}" class="minibutton btn-download"><span><span class="icon"></span>Venue: Edit</span></a>  
+    {% endif %}
+  {% endif %}
+
+  {% if gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}      
+    {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
+      <a href="{% url gigbargain:gigbargain-band-common-edit gigbargain.uuid gigbargainband.band.slug %}" class="minibutton btn-download"><span><span class="icon"></span>{{ gigbargainband.band.name }}: Edit</span>
+      </a> 
+    {% endfor %}
+  {% endif %}
+
+</div>
+
+<div class="separator grid_6 alpha omega"></div>
+
+<div class="content grid_6 alpha omega">
+
+  {% with gigbargain.venue as venue %}
+
+    <!-- Venue vcard -->
+    <div class="vcard">
+      <img id="venue-picture" width='60px' height='60px' style="float:left; margin-right:4px" src="{{ MEDIA_URL }}/images/tmp_venue.jpg" alt="picture of {{ venue.name }}" class="photo"/>
+
+      {% if gigbargain.venue_reason %}
+	<div id="venue-reason-content">{{ gigbargain.venue_reason }}</div>
+      {% endif %}
+
+      <a class="url uid" href="{{ venue.get_absolute_url }}">
+	<div class="org fn">
+	  <span class="organization-name">{{ venue|capfirst }}</span>
+	</div>
+      </a>
+
+      <div class="adr">
+	<span class="locality">{{ venue.city }}</span>,
+	<span class="country-name">{{ venue.country.name }}</span>
+      </div>
+
+      <div class="tags">
+	{% tags_for_object venue as venue_tags %}
+	  {{ venue_tags|join:", " }}
+      </div>
+    </div>
+  {% endwith %}
+
+  When: {{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
+  Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }}
+  [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}">Venue, change that</a>]
+
+</div>
+

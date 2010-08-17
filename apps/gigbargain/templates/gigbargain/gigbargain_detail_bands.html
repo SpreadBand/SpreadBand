@@ -1,0 +1,62 @@
+{% load i18n %}
+{% load tagging_tags %}
+
+<div class="header grid_12 alpha omega">
+
+  <h2>{% trans "Bands" %} ({{ gigbargain.gigbargainband_set.concurring.count }})</h2>
+
+  <!-- Action buttons for bands -->
+  {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+    {% if managed_bands|length %}
+      <a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}" class="minibutton btn-fork"><span><span class="icon"></span>{% trans "Invite band" %}</span></a>
+    {% endif %}
+  {% endif %}
+
+  {% if is_venue_managed %}
+    {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' or gigbargain.state == 'new' %}
+      <a href="{% url gigbargain:gigbargain-venue-invite-band gigbargain.uuid %}" class="minibutton btn-fork"><span><span class="icon"></span>Venue: Invite band</span></a>
+    {% endif %}
+  {% endif %}
+
+</div>
+
+<div class="separator grid_12 alpha omega"></div>
+
+<div class="content grid_12 alpha omega">
+
+  {% for band in gigbargain.gigbargainband_set.concurring %}
+    <div class="grid_6 {% cycle 'alpha' 'omega' %}">
+
+    <!-- Band vcard -->
+    <div class="vcard">
+      <img src="{{ band.band.avatar_url }}" alt="Picture of {{ venue.name }}" class="photo"/>
+      <a class="url uid" href="{{ band.band.get_absolute_url }}">
+	<div class="org fn">
+	  <span class="organization-name">{{ band|capfirst }}</span>
+	</div>
+      </a>
+      {% if band.band.presskit %}
+	(<a href="{{ band.band.presskit.get_absolute_url }}">PressKit</a>)
+      {% endif %}
+      
+      <div class="adr">
+	<span class="locality">{{ band.band.city }}</span>,
+	<span class="country-name">{{ band.band.country.name }}</span>
+      </div>
+      
+      <div class="tags">
+	{% tags_for_object band.band as band_tags %}
+	  {{ band_tags|join:", " }}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+No more concurring :
+<ul>
+  {% for gigbargainband in gigbargain.gigbargainband_set.not_concurring %}
+    <li><span class="comment-tip" title="<b>Reason</b>: {{ gigbargainband.reason }}"><a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a><span></li>
+  {% endfor %}
+</ul>
+
+</div>

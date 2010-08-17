@@ -1,0 +1,59 @@
+{% load i18n %}
+
+{{ gigbargain.state }}
+{% if gigbargain.state == 'concluded' %}
+  This bargain is concluded. You can see <a href="{{ gigbargain.gig.get_absolute_url }}">the produced gig here</a>.
+{% endif %}
+
+<!-- Venue management -->
+{% if is_venue_managed %}
+
+  {% if gigbargain.state == 'band_ok' %}
+    <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Conclude</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart the negociations"><span><span class="icon"></span>Renegociate</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Decline</span></a>    
+  {% endif %}
+
+  {% if gigbargain.state == 'complete_proposed_to_venue' %}
+    <a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Accept</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-enter gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Enter the negociations"><span><span class="icon"></span>Negotiate</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Refuse</span></a>    
+  {% endif %}
+
+  {% if gigbargain.state == 'need_venue_confirm' %}
+    <a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Go on with the bands that have accepted"><span><span class="icon"></span>Begin negociations</span></a>    
+    <a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Abort</span></a>    
+  {% endif %}
+{% endif %}
+
+<!-- Band management -->
+
+{% if managed_bands|length %}
+  {% if gigbargain.state == 'draft_ok' %}
+    <a href="{% url gigbargain:gigbargain-band-draft-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart negociations"><span><span class="icon"></span>Renegociate</span></a>
+    <a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Send this proposal to the venue"><span><span class="icon"></span>Submit to {{ gigbargain.venue.name }}</span></a>
+  {% endif %}
+  
+{% endif %}
+
+
+{% for band in managed_bands %}
+
+  {% if band.state == 'waiting' %}
+    <a href="{% url gigbargain:gigbargain-band-enter gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to bargain with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Enter negociations</span></a>
+    <a href="{% url gigbargain:gigbargain-band-refuse gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Refuse to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Refuse proposition</span></a>
+  {% endif %}
+
+  {% if gigbargain.state == 'band_nego' or gigbagain.state == 'band_ok' or gigbargain.state == 'draft' or gigbargain.state == 'draft_ok' %}
+    {% if band.state == 'negociating' %}
+      <a href="{% url gigbargain:gigbargain-band-part-lock gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Lock the terms related to your band"><span><span class="icon"></span>{{ band.band.name }}: Lock your part</span></a>
+    {% else %}
+      {% if band.state == 'part_validated' %}
+	<a href="{% url gigbargain:gigbargain-band-part-unlock gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Unlock the terms related to your band"><span><span class="icon"></span>{{ band.band.name }}: Unlock your part</span></a>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+{% endfor %}
+
+<!-- <a href="{% url gigbargain:gigbargain-band-kick gigbargain.uuid 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>Kick</span></a> -->

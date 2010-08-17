@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<div class="header grid_6 alpha omega">
+
+  <h2>{% trans "Access" %}</h2>
+  <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'access' %}">Comments</a>
+
+    {% if is_venue_managed %}
+      {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
+	<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}" class="minibutton btn-download"><span><span class="icon"></span>Edit</span></a>  
+      {% endif %}
+    {% endif %}
+
+</div>
+
+<div class="separator grid_6 alpha omega"></div>
+
+<div class="content grid_6 alpha omega">
+
+  {# Display access type #}
+
+  {% if gigbargain.access %}
+    {% trans "Entrance:" %} {{ gigbargain.get_access_display }}<br/>
+  {% else %}
+    {% trans "Entrance is not set." %}
+  {% endif %}
+
+  {% if gigbargain.access == 'FEES' %}
+    {% trans "Fee amount:" %} {{ gigbargain.fee_amount }}
+  {% endif %}
+
+  {% if gigbargain.access == 'DRNK' %}
+    {% trans "Number of drinks:" %} {{ gigbargain.fee_amount }}
+  {% endif %}
+
+  {% if gigbargain.access == 'FREE' %}
+    {% trans "Free access means that people can attend the gigs without paying." %}
+  {% endif %}
+
+</div>

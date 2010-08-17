@@ -71,7 +71,6 @@ def gigbargain_detail(request, gigbargain_uuid):
         # Get info on all bands
         for gigbargainband in gigbargain.gigbargainband_set.all().order_by('starts_at'):
             if gigbargainband.starts_at and gigbargainband.set_duration:
-                print first_gig.band.name, global_start, datetime.combine(day, gigbargainband.starts_at)
                 timeline['bands'].append({'band': gigbargainband.band,
                                           'start': datetime.combine(day, gigbargainband.starts_at),
                                           'delta_start': datetime.combine(day, gigbargainband.starts_at) - global_start,

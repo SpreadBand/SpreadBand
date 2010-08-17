@@ -1,0 +1,74 @@
+{% load i18n %}
+
+{% block javascript %}
+
+{{ block.super }}
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var pieChart = new $jit.PieChart({  
+	//Where to inject the canvas. Any div container will do.  
+	injectInto:'remuneration-graph',  
+	//width and height for canvas.  
+        //Default's to the container offsetWidth and Height.  
+	offset: 15,
+        sliceOffset: 0,
+        labelOffset: 20,
+        type: 'stacked:gradient',
+        hoveredColor: '#9fd4ff',
+	Tips: {  
+	    enable: true,  
+	    onShow: function(tip, elem) {  
+		{% if gigbargain.remuneration == 'PERC' %}
+		tip.innerHTML = "<b>" + elem.label + "</b>: " + elem.value + "%";  
+		{% else %}
+		tip.innerHTML = "<b>" + elem.label + "</b>: $" + elem.value;  
+		{% endif %}
+	    }
+	},
+	Label: { type: 'HTML', color: '#000', size: 11 },
+
+
+    });  
+
+
+    var json = {  
+	'values': [  
+	    {% for band in gigbargain.gigbargainband_set.concurring %}
+	    {  
+		'label': '<a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a>',  
+		{% if gigbargain.remuneration == 'PERC' %}
+		'values': [ {{ band.percentage }} ],
+		{% else %}
+		'values': [ {{ band.amount }} ],
+		{% endif %}
+	    },
+	    {% endfor %}
+	]}
+
+    pieChart.loadJSON(json);
+
+});
+</script>
+{% endblock %}
+
+<h2>{% trans "Remuneration" %}</h2>
+
+<a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'remuneration' %}">Comments</a>
+
+{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+  {% for band in managed_bands %}
+    {% if band.state == 'negociating' %}
+      <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+    
+{% if not gigbargain.remuneration %}
+  Remuneration type is not set [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}">Venue, set it</a>].
+{% else %}
+  {% trans "Type of remuneration:" %} {{ gigbargain.get_remuneration_display }}
+{% endif %}
+    
+
+<div id="remuneration-graph" style="margin-left: 50px; width: 80%; height: 230px"></div>
