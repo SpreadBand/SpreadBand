@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block content %}
-<h3>Enter your email address and we'll send you an invite soon</h3>
+
+<h3>{% trans "Enter your email address and get an invitation for the alpha testing !" %}</h3>
 <form action="{% url privatebeta_invite %}" method="post">
 {{ form }}
-<input type="submit" value="Submit" />
+<input type="submit" value="{% trans 'Submit' %}" />
 </form>
+
 {% endblock %}

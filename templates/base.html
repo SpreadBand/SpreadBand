@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>SpreadBand</title>
+
     {% block extra_head %}
     {% endblock %}
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/960.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/text.css" />
-
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/smoothness/jquery-ui-1.8rc3.custom.css" /> 
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/openid/openid.css" />
@@ -22,87 +22,85 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/jplayer/jplayer.blue.monday.css" />
 
-      <style type="text/css">
-   a.trigger{
+    <style type="text/css">
+    a.trigger {
 	position: absolute;
-	background:#88bbd4 url(images/plus.png) 6% 55% no-repeat;
+        background:#88bbd4 url(images/plus.png) 6% 55% no-repeat;
 	text-decoration: none;
-	font-size: 16px;
-	letter-spacing:-1px;
-	font-family: verdana, helvetica, arial, sans-serif;
-	color:#fff;
-	padding:4px 12px 6px 24px;
-	font-weight: bold;
-	
-	z-index:2;
-}
-a.trigger.left {
-	left: 0;
-	border-top-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-bottomright: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-a.trigger.right {
-	right: 0;
-	border-bottom-left-radius: 5px;
-	border-top-left-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	-moz-border-radius-topleft: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-webkit-border-top-left-radius: 5px;
-}
-a.trigger:hover {
-	background-color:#59B;
-}
-a.active.trigger {
-	background:#666 url(images/minus.png) 6% 55% no-repeat;
-}
+ font-size: 16px;
+ letter-spacing:-1px;
+   font-family: verdana, helvetica, arial, sans-serif;
+   color:#fff;
+   padding:4px 12px 6px 24px;
+   font-weight: bold;
+   
+   z-index:2;
+   }
+   a.trigger.left {
+       left: 0;
+       border-top-right-radius: 5px;
+       -moz-border-radius-topright: 5px;
+       -webkit-border-top-right-radius: 5px;
+       -moz-border-radius-bottomright: 5px;
+       -webkit-border-bottom-right-radius: 5px;
+       border-bottom-right-radius: 5px;
+   }
+   a.trigger.right {
+       right: 0;
+       border-bottom-left-radius: 5px;
+       border-top-left-radius: 5px;
+       -moz-border-radius-bottomleft: 5px;
+       -moz-border-radius-topleft: 5px;
+       -webkit-border-bottom-left-radius: 5px;
+       -webkit-border-top-left-radius: 5px;
+   }
+   a.trigger:hover {
+       background-color:#59B;
+   }
+   a.active.trigger {
+       background:#666 url(images/minus.png) 6% 55% no-repeat;
+   }
 
-.panel {
-	color:#CCC;
-	position: absolute;
-	display: none;
-	background: #000000;
-	height: auto;
-	z-index:1;
-}
-.panel.left {
-	left: 0;
-	padding: 20px 30px 20px 100px;
-	border-top-right-radius: 15px;
-	-moz-border-radius-topright: 15px;
-	-webkit-border-top-right-radius: 15px;
-	-moz-border-radius-bottomright: 15px;
-	-webkit-border-bottom-right-radius: 15px;
-	border-bottom-right-radius: 15px;
-}
-.panel.right {
-	right: 0;
-	padding: 20px 100px 20px 30px;
-	border-bottom-left-radius: 15px;
-	border-top-left-radius: 15px;
-	-moz-border-radius-bottomleft: 15px;
-	-moz-border-radius-topleft: 15px;
-	-webkit-border-bottom-left-radius: 15px;
-	-webkit-border-top-left-radius: 15px;
-}
-.panel p {
-	font-size:11px;
-}
+   .panel {
+       color:#CCC;
+       position: absolute;
+       display: none;
+       background: #000000;
+       height: auto;
+       z-index:1;
+   }
+   .panel.left {
+       left: 0;
+       padding: 20px 30px 20px 100px;
+       border-top-right-radius: 15px;
+       -moz-border-radius-topright: 15px;
+       -webkit-border-top-right-radius: 15px;
+       -moz-border-radius-bottomright: 15px;
+       -webkit-border-bottom-right-radius: 15px;
+       border-bottom-right-radius: 15px;
+   }
+   .panel.right {
+       right: 0;
+       padding: 20px 100px 20px 30px;
+       border-bottom-left-radius: 15px;
+       border-top-left-radius: 15px;
+       -moz-border-radius-bottomleft: 15px;
+       -moz-border-radius-topleft: 15px;
+       -webkit-border-bottom-left-radius: 15px;
+       -webkit-border-top-left-radius: 15px;
+   }
+   .panel p {
+       font-size:11px;
+   }
 
-.highlighted {
-   background-color: #ffff66;
-   color: #000;
-}
-      </style>
-
-
+   .highlighted {
+       background-color: #ffff66;
+       color: #000;
+   }
+    </style>
+    
     {% block css %}
     {% endblock %}
-
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.jeditable.js"></script>
@@ -117,17 +115,17 @@ a.active.trigger {
 
     <script type="text/javascript">
       $(document).ready(function(){
-	
-	// custom settings
-	$('#feedback').slidePanel({
-		triggerName: '#feedback-trigger',
-		position: 'fixed',
-		triggerTopPos: '150px',
-		panelTopPos: '0px',
-		ajax: true,
-		ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
-	});
-	
+	  
+	  // custom settings
+	  $('#feedback').slidePanel({
+	      triggerName: '#feedback-trigger',
+	      position: 'fixed',
+	      triggerTopPos: '150px',
+	      panelTopPos: '0px',
+	      ajax: true,
+	      ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
+	  });
+	  
       });
 
     </script>
@@ -135,24 +133,24 @@ a.active.trigger {
 
     <script type="text/javascript">
       $(document).ready(function() {
-      	// Local copy of jQuery selectors, for performance.
-	var jpPlayTime = $("#jplayer_play_time");
-	var jpTotalTime = $("#jplayer_total_time");
+	  // Local copy of jQuery selectors, for performance.
+	  var jpPlayTime = $("#jplayer_play_time");
+	  var jpTotalTime = $("#jplayer_total_time");
 
-	$("#audio_player").jPlayer({
-      oggSupport: true,
-      nativesupport: true,
-      preload: 'auto',
-      swfPath: '{{ MEDIA_URL }}/flash/',
-	})
-	.jPlayer("onProgressChange", function(loadPercent, playedPercentRelative, playedPercentAbsolute, playedTime, totalTime) {
-		jpPlayTime.text($.jPlayer.convertTime(playedTime));
-		jpTotalTime.text($.jPlayer.convertTime(totalTime));
+	  $("#audio_player").jPlayer({
+	      oggSupport: true,
+	      nativesupport: true,
+	      preload: 'auto',
+	      swfPath: '{{ MEDIA_URL }}/flash/',
+	  })
+	      .jPlayer("onProgressChange", function(loadPercent, playedPercentRelative, playedPercentAbsolute, playedTime, totalTime) {
+		  jpPlayTime.text($.jPlayer.convertTime(playedTime));
+		  jpTotalTime.text($.jPlayer.convertTime(totalTime));
 
-	})
-	.jPlayer("onSoundComplete", function() {
-		this.element.jPlayer("play");
-	});
+	      })
+	      .jPlayer("onSoundComplete", function() {
+		  this.element.jPlayer("play");
+	      });
 
       });
     </script>
@@ -174,7 +172,7 @@ a.active.trigger {
   </head>
   <body>
     <div class="container_16">
-    {% if not request.is_ajax %}
+      {% if not request.is_ajax %}
       <div id="header" class="grid_16 alpha omega">
 	<div class="grid_5 alpha">
 	  <div id="logo">
@@ -187,25 +185,27 @@ a.active.trigger {
 	      <ul>
 		<li><a href="{% url band:list %}">Bands<br /><span>More gigs and fans</span></a></li>
 		<li><a href="{% url venue:list %}">Venues<br /><span>Lightning booking</span></a></li>
-		<!-- <li><a href="{% url account:dashboard %}">Fans<br /><span>Never miss a gig</span></a></li> -->
 	      </ul>
 	    </div>
+	    {% if user.is_authenticated %}
 	    <a href="{% url haystack_search %}">Archercher</a>
 	    <a href="{% url faq:faq %}">FAQ</a>
+	    {% endif %}
 	  </div>
 	  <div class="grid_4 omega">
 	    <div id="user">
 	      {% if user.is_authenticated %}
-              <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a><img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ user.get_profile.avatar.small_avatar_image.url }}"> {# <a href="{% url social_logout %}"> #}
-		<a href="{% url social_logout %}">Logout</a>
-		
-		<br/>
-		Jump to band:
-		<ul>
-		  {% for membership in user.bands.all %}
-		  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
-		  {% endfor %}
-		</ul>  
+              <a id="username" href="{% url account:edit user.username %}">{{ user.username|capfirst }}</a>
+	      <img title="{{ user.get_full_name }} / {{ user.username }}" alt="Avatar" src="{{ user.get_profile.avatar.small_avatar_image.url }}"/>
+	      <a href="{% url social_logout %}">Logout</a>
+	      
+	      <br/>
+	      Jump to band:
+	      <ul>
+		{% for membership in user.bands.all %}
+		<li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
+		{% endfor %}
+	      </ul>  
 	      {% else %}
 	      <p>
 		<a href="{% url account:auth_login %}?next={{ request.get_full_path }}">Login</a> or <a href="{% url account:registration_register %}">Signup</a>
@@ -213,169 +213,123 @@ a.active.trigger {
 	      {% endif %}
 	    </div>
 	  </div>
-	<div class="grid_16 alpha omega">
-	  <div id="audio_player"></div>
-	  <div id="trackname"></div>
-	  <div class="jp-playlist-player">
-			<div class="jp-interface">
-				<ul class="jp-controls">
-					<li><a href="#" id="jplayer_play" class="jp-play" tabindex="1">play</a></li>
-
-					<li><a href="#" id="jplayer_pause" class="jp-pause" tabindex="1">pause</a></li>
-					<li><a href="#" id="jplayer_stop" class="jp-stop" tabindex="1">stop</a></li>
-					<li><a href="#" id="jplayer_volume_min" class="jp-volume-min" tabindex="1">min volume</a></li>
-					<li><a href="#" id="jplayer_volume_max" class="jp-volume-max" tabindex="1">max volume</a></li>
-					<li><a href="#" id="jplayer_previous" class="jp-previous" tabindex="1">previous</a></li>
-					<li><a href="#" id="jplayer_next" class="jp-next" tabindex="1">next</a></li>
-
-				</ul>
-				<div class="jp-progress">
-					<div id="jplayer_load_bar" class="jp-load-bar">
-						<div id="jplayer_play_bar" class="jp-play-bar"></div>
-					</div>
-				</div>
-				<div id="jplayer_volume_bar" class="jp-volume-bar">
-					<div id="jplayer_volume_bar_value" class="jp-volume-bar-value"></div>
-				</div>
-
-				<div id="jplayer_play_time" class="jp-play-time"></div>
-				<div id="jplayer_total_time" class="jp-total-time"></div>
-			</div>
-			<div id="jplayer_playlist" class="jp-playlist">
-				<ul>
-					<!-- The function displayPlayList() uses this unordered list -->
-					<li></li>
-				</ul>
-			</div>
-
-		</div>
-	  </div>
-      </div>
-      {% endif %}
-      <div class="grid_16 alpha omega">
-	<div id="content">
-	  <div id="content-header" class="grid_16 alpha omega">
-	  </div>
 	  <div class="grid_16 alpha omega">
-	    <div id="content-data">
-	      {% if messages %}
-	      <div id="message-container" style="display:none">
-		<div id="withIcon">
-			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
-			<div style="float:left;margin:0 10px 0 0"><img src="#{icon}" alt="warning" /></div>
-			<p>#{text}</p>
-		</div>
-		
-
-		<div id="basic-template">
-		  <a class="ui-notify-cross ui-notify-close" href="#">x</a>
-		  <p>#{text}</p>
-		</div>
-
-		<script type="text/javascript">
-		  $(document).ready(function() { $('#message-container').notify(); } );
-		</script>
-
-		{% for message in messages %}
-		  <script type="text/javascript">
-		    $(document).ready(function() {
-		     $('#message-container').notify('create', 'withIcon',
-		        { text: '{{ message }}',
-		          icon: '{{ MEDIA_URL }}/images/face-monkey.png',
-		          }
-              	    );
-                   });
-		  </script>
+	    {% if user.is_authenticated %}
+	      <div id="audio_player"></div>
+	      <div id="trackname"></div>
+	      <div class="jp-playlist-player">
+		<div class="jp-interface">
+		  <ul class="jp-controls">
+		    <li><a href="#" id="jplayer_play" class="jp-play" tabindex="1">play</a></li>
+		    
+		    <li><a href="#" id="jplayer_pause" class="jp-pause" tabindex="1">pause</a></li>
+		    <li><a href="#" id="jplayer_stop" class="jp-stop" tabindex="1">stop</a></li>
+		    <li><a href="#" id="jplayer_volume_min" class="jp-volume-min" tabindex="1">min volume</a></li>
+		    <li><a href="#" id="jplayer_volume_max" class="jp-volume-max" tabindex="1">max volume</a></li>
+		    <li><a href="#" id="jplayer_previous" class="jp-previous" tabindex="1">previous</a></li>
+		    <li><a href="#" id="jplayer_next" class="jp-next" tabindex="1">next</a></li>
+		  </ul>
+		  <div class="jp-progress">
+		    <div id="jplayer_load_bar" class="jp-load-bar">
+		      <div id="jplayer_play_bar" class="jp-play-bar"></div>
+		    </div>
+		  </div>
+		  <div id="jplayer_volume_bar" class="jp-volume-bar">
+		    <div id="jplayer_volume_bar_value" class="jp-volume-bar-value"></div>
+		  </div>
 		  
-		  {% endfor %}
-	      </div>
+		  <div id="jplayer_play_time" class="jp-play-time"></div>
+		  <div id="jplayer_total_time" class="jp-total-time"></div>
+		</div>
+		<div id="jplayer_playlist" class="jp-playlist">
+		  <ul>
+		    <!-- The function displayPlayList() uses this unordered list -->
+		    <li></li>
+		  </ul>
+		</div>
+
 	      {% endif %}
-	      {% block content %}
-	      {% endblock %}
+
 	    </div>
 	  </div>
-	  <div id="content-tail" class="grid_16 alpha omega">
+	</div>
+	{% endif %}
+	<div class="grid_16 alpha omega">
+	  <div id="content">
+	    <div id="content-header" class="grid_16 alpha omega">
+	    </div>
+	    <div class="grid_16 alpha omega">
+	      <div id="content-data">
+		{% if messages %}
+		<div id="message-container" style="display:none">
+		  <div id="withIcon">
+		    <a class="ui-notify-close ui-notify-cross" href="#">x</a>
+		    <div style="float:left;margin:0 10px 0 0"><img src="#{icon}" alt="warning" /></div>
+		    <p>#{text}</p>
+		  </div>
+		  
 
-	    {% if user.is_authenticated %}
-	    <!--
-	      <script type="text/javascript">
-		//$(document).ready(function() { $("#openid_login").openid(); });
-	      </script>
+		  <div id="basic-template">
+		    <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+		    <p>#{text}</p>
+		  </div>
+
+		  <script type="text/javascript">
+		    $(document).ready(function() { $('#message-container').notify(); } );
+		  </script>
+
+		  {% for message in messages %}
+		  <script type="text/javascript">
+		    $(document).ready(function() {
+			$('#message-container').notify('create', 'withIcon',
+						       { text: '{{ message }}',
+							 icon: '{{ MEDIA_URL }}/images/face-monkey.png',
+						       }
+              					      );
+		    });
+		  </script>
+		  {% endfor %}
+
+		</div>
+		{% endif %}
+		{% block content %}
+		{% endblock %}
+	      </div>
+	    </div>
+	    <div id="content-tail" class="grid_16 alpha omega">
+	    </div>
+	  </div>
+	  
+	  {% if not request.is_ajax %}
+	  <div id="footer" class="grid_16 alpha omega">
+	    <div class="alpha prefix_10 grid_2">
+	      <ul>
+		<li><a href="/admin/">Admin</a></li>
+	      </ul>
+	    </div>
+	    <div class="grid_3 suffix_1 omega">
+	    </div>
+	  </div>
+
+	  {% if user.is_authenticated %}
+	    <a href="#" id="feedback-trigger" class="trigger right">Support</a>
+	    <div id="feedback" class="panel right">
+	      <p>Here is some static content for Panel 1.</p>
 	      
+	      <p>Ut purus metus, fermentum vitae pulvinar vel, elementum eget nulla. Pellentesque posuere, enim ut dapibus vestibulum, leo nunc porttitor neque, sed pulvinar orci sem eleifend sapien. Nullam at odio nibh, eu pharetra ipsum.</p>
 	      
-	      <form id="openid_login" class="openid" method="GET" action="{% url openid_redirect %}"> 
-		<div><ul class="providers"> 
-		    <li class="direct" title="Google"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/googleW.png" alt="icon" /><span>https://www.google.com/accounts/o8/id</span>
-		    </li> 
-		    <li class="direct" title="Yahoo"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/yahooW.png" alt="icon" /><span>http://yahoo.com/</span>
-		    </li> 
-		    <li class="username" title="MySpace screen name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/myspaceW.png" alt="icon" /><span>http://www.myspace.com/<strong>username</strong></span>
-		    </li> 
-		    <li class="username" title="AOL screen name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/aolW.png" alt="icon" /><span>http://openid.aol.com/<strong>username</strong></span></li> 
-		    <li class="username" title="MyOpenID user name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/myopenidW.png" alt="icon" /><span>http://<strong>username</strong>.myopenid.com/</span></li> 
-		    <li class="username" title="Flickr user name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/flickrW.png" alt="icon" /><span>http://flickr.com/<strong>username</strong>/</span></li> 
-		    <li class="openid" title="OpenID"><img src="{{ MEDIA_URL }}/css/jquery/openid/images/openidW.png" alt="icon" /> 
-		      <span><strong>http://{your-openid-url}</strong></span></li> 
-		    <li class="username" title="Technorati user name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/technorati.png" alt="icon" /><span>http://technorati.com/people/technorati/<strong>username</strong>/</span></li> 
-		    <li class="username" title="Wordpress blog name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/wordpress.png" alt="icon" /><span>http://<strong>username</strong>.wordpress.com</span></li> 
-		    <li class="username" title="Blogger blog name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/blogger.png" alt="icon" /><span>http://<strong>username</strong>.blogspot.com/</span></li> 
-		    <li class="username" title="LiveJournal blog name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/livejournal.png" alt="icon" /><span>http://<strong>username</strong>.livejournal.com</span></li> 
-		    <li class="username" title="ClaimID user name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/claimid.png" alt="icon" /><span>http://claimid.com/<strong>username</strong></span></li> 
-		    <li class="username" title="Vidoop user name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/vidoop.png" alt="icon" /><span>http://<strong>username</strong>.myvidoop.com/</span></li> 
-		    <li class="username" title="Verisign user name"> 
-		      <img src="{{ MEDIA_URL }}/css/jquery/openid/images/verisign.png" alt="icon" /><span>http://<strong>username</strong>.pip.verisignlabs.com/</span></li> 
-		</ul></div> 
-		<fieldset> 
-		  <label for="openid_username">Enter your <span>Provider user name</span></label> 
-		  <div><span></span><input type="text" name="openid_username" /><span></span> 
-		    <input type="submit" value="Login" /></div> 
-		</fieldset> 
-		<fieldset> 
-		  <label for="openid_identifier">Enter your <a class="openid_logo" href="http://openid.net">OpenID</a></label> 
-		  <div><input type="text" name="openid_provider" /> 
-		    <input type="submit" value="Login" /></div> 
-		</fieldset> 
-		
-	      </form>
-	      -->
-	      {% endif %}
+	      <ul>
+		<li><a href="{% url backcap:feedback-new %}?referer={{ request.get_full_path }}">Leave feedback</a></li>
+		<li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
+	      </ul>
+	      
+	    </div>
+	  {% endif %}
+
+	{% endif %}
+
+	</div>
       </div>
-     {% if not request.is_ajax %}
-      <div id="footer" class="grid_16 alpha omega">
-	<div class="alpha prefix_10 grid_2">
-	  <ul>
-	    <li><a href="/admin/">Admin</a></li>
-	  </ul>
-	</div>
-	<div class="grid_3 suffix_1 omega">
-	</div>
-     {% endif %}
     </div>
-
-    <a href="#" id="feedback-trigger" class="trigger right">Support</a>
-    <div id="feedback" class="panel right">
-      <p>Here is some static content for Panel 1.</p>
-      
-      <p>Ut purus metus, fermentum vitae pulvinar vel, elementum eget nulla. Pellentesque posuere, enim ut dapibus vestibulum, leo nunc porttitor neque, sed pulvinar orci sem eleifend sapien. Nullam at odio nibh, eu pharetra ipsum.</p>
-
-      <ul>
-	<li><a href="{% url backcap:feedback-new %}?referer={{ request.get_full_path }}">Leave feedback</a></li>
-	<li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
-      </ul>
-      
-    </div>
-
   </body>
 </html>

@@ -4,20 +4,20 @@
 {% load openid_tags %}
 
 {% block javascript %}
-    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.featureList-1.0.0.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-      $('#feature-tabs li a').featureList({
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.featureList-1.0.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#feature-tabs li a').featureList({
         output		: '#feature-output li',
 	start_item	: 1
-      });
-      });
-    </script>
+    });
+});
+</script>
 
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/featurelist/featurelist.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/featurelist/featurelist.css" />
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
   <ul id="feature-tabs">
     <li>
       <a href="javascript:;">
-	<img src="{{ MEDIA_URL }}/images/featurelist/band_icon.png" />
+	<img src="{{ MEDIA_URL }}/images/featurelist/band_icon.png" alt="bands"/>
 	<h3>Bands</h3>
 	
 	<span>More fans, more gigs</span>
@@ -36,7 +36,7 @@
     </li>
     <li>
       <a href="javascript:;">
-	<img src="{{ MEDIA_URL }}/images/featurelist/venue_icon.png" />
+	<img src="{{ MEDIA_URL }}/images/featurelist/venue_icon.png" alt="venues"/>
 	<h3>Venues</h3>
 	<span>Easy, lightning-fast booking</span>
 	
@@ -44,7 +44,7 @@
     </li>
     <li>
       <a href="javascript:;">
-	<img src="{{ MEDIA_URL }}/images/featurelist/fan_icon.png" />
+	<img src="{{ MEDIA_URL }}/images/featurelist/fan_icon.png" alt="fans"/>
 	<h3>Fans</h3>
 	<span>Never miss a gig, discover new bands</span>
       </a>
@@ -53,16 +53,16 @@
   </ul>
   <ul id="feature-output">
     <li>
-      <img src="{{ MEDIA_URL }}/images/featurelist/band.jpg" />
+      <img src="{{ MEDIA_URL }}/images/featurelist/band.jpg" alt="band illustration"/>
       <a href="{% url band:create %}">Register your band !</a>
     </li>
     <li>
       
-      <img src="{{ MEDIA_URL }}/images/featurelist/venue.jpg" />
+      <img src="{{ MEDIA_URL }}/images/featurelist/venue.jpg" alt="venue illustration" />
       <a href="{% url venue:create %}">Add your venue now !</a>
     </li>
     <li>
-      <img src="{{ MEDIA_URL }}/images/featurelist/fan.jpg" />
+      <img src="{{ MEDIA_URL }}/images/featurelist/fan.jpg" alt="fan illustration" />
       <a href="#">Register now !</a>
     </li>
   </ul>  
