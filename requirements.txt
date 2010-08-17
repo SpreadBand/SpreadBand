@@ -20,6 +20,9 @@ docutils
 geopy
 whoosh==0.3.18
 django-haystack
+pytz
+psycopg2
+PIL
 
 # SpreadBand repositories
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
