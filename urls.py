@@ -51,7 +51,7 @@ urlpatterns = patterns('',
     (r'^e/gigbargain/', include('gigbargain.urls', namespace='gigbargain')),
 
     # BigBrother
-    (r'^bb/', include('bigbrother.urls')),
+    # (r'^bb/', include('bigbrother.urls')),
 
     # Ajax select channels
     (r'^ajax_select/', include('ajax_select.urls')),
