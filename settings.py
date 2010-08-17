@@ -189,7 +189,7 @@ INSTALLED_APPS = (
     'media',
     'backcap',
     'account',
-    'minisite',
+    # 'minisite',
 #    'minisite-portlets', <-- bug avec pgsql..
     'actors',
     'event',
