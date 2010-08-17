@@ -153,7 +153,7 @@ INSTALLED_APPS = (
     'privatebeta',
     'haystack',
     'dajaxice',
-    'compressor',
+    'django_static',
     'debug_toolbar',
     'django_extensions',
     'south',
