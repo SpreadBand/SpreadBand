@@ -2,12 +2,9 @@ from django.conf.urls.defaults import patterns, url, include
 
 from django.contrib.gis import admin
 
-import authority
-
 import settings
 
 admin.autodiscover()
-authority.autodiscover()
 
 # Sitemaps
 import venue.sitemaps

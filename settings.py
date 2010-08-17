@@ -198,7 +198,7 @@ INSTALLED_APPS = (
     'venue',
     'album',
     'gigbargain',
-    'bigbrother',
+    # 'bigbrother',
     'api',
 )
 
