@@ -290,7 +290,7 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 if DEBUG:
     HAYSTACK_WHOOSH_PATH = 'spreadband_index'
 else:
-    raise "Not configured"
+    HAYSTACK_WHOOSH_PATH = 'spreadband_index'
 
 ### FACEBOOK
 FACEBOOK_API_KEY='0445acaf091af7727ef610e64cb73baf'
