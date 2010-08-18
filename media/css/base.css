@@ -1,18 +1,223 @@
-h1 {
-    font-size: 1.5em;
+body {
+	background: white url('/images/structure/background/fond_site.jpg') repeat-x center top;
+	color: #2a2a2a;
+	font: normal .80em/1.5em Helvetica, Arial, FreeSans, 'Trebuchet MS', Tahoma, verdana, sans-serif;
 }
 
-h2 {
-    font-size: 1.4em;
+/* ----------------------------------- Header */
+
+#header {
+	height:116px;
+	background:#2f2f2f url('/images/structure/background/header_bg.jpg') repeat-x top left;
+	width:100%;
 }
 
-h3 {
-    font-size: 1.3em;
+#header h1{
+	position:relative;
+	left:18px;
+	top:18px;
+}
+
+#header ul {
+	position:absolute;
+	top:24px;
+	right:50px;
+}
+
+#header ul li{
+	display:block;
+	float:left;
+	padding:0 0 0 24px;
+}
+
+#header ul li a{
+	color:#f9a02e;
+	text-transform:uppercase;
+	font-weight:bold;
+	font-size:1.1em;
+	display:block;
+	float:left;
+	height:15px;
+	line-height:13px;
+}
+
+#header ul li  span{
+	border-left:1px solid white;
+	color:white;
+	display:block;
+	float:left;
+	font-size:1.1em;
+	height:15px;
+	line-height:13px;
+	margin:0 0 0 6px;
+	padding:0 0 0 7px;
+}
+
+#header #player {
+	position:absolute;
+	right:60px;
+	top:52px;
+}
+
+/* ----------------------------------- Content */
+
+#content {
+	width:100%;
+	background:#f2f2f2 url('/images/structure/background/page_bg.jpg') no-repeat top center;
+}
+
+#content #main {
+	width:769px;
+	float:left;
+	margin:69px 0 50px 125px;
+	position:relative;
+}
+
+#content #main #baseline {
+	float:left;
+}
+
+#content #main form#authentification {
+	float:left;
+	margin:9px 0 0 52px;
+}
+
+#content #main #main-top {
+	float:left;
+	width:100%;
+}
+
+#content #main form#authentification a#lost-password {
+	background:url("/images/elements/ico_login.png") no-repeat scroll right center transparent;
+	color:#63605C;
+	font-size:0.85em;
+	line-height:15px;
+	padding:0 20px 0 0;
+	margin:0 10px 0 0;
+}
+
+#content #main form#authentification label{
+	display:none;
+}
+
+#content #main form#authentification #login, #content #main form#authentification #password {
+	width:86px;
+	border:1px solid #d87f0d;
+	height:18px;
+	padding:0 2px;
+	font-size:0.9em;
+}
+
+#content #main form#authentification #submit-login {
+	background:none repeat scroll 0 0 #D87F0D;
+	border:0 none;
+	color:white;
+	font-size:0.9em;
+	height:19px;
+	padding:0 0 2px;
+	width:30px;
+}
+
+#content #box {
+	background:#1b1b1b;
+	width:769px;
+	float:left;
+	padding:3px 0;
+	margin:2px 0 0 0;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+#content #box ul#tabs-box{
+	width:303px;
+	float:left;
+	margin:6px 0 0 0;
+	border-top:1px solid #232323;
+}
+
+#content #box ul#tabs-box li{
+	display:block;
+	height:74px;
+	width:303px;
+	background:url('/images/structure/background/box_tab_bg.jpg') repeat-x top left;
+	border-top:1px solid #2d2d2d;
+	border-bottom:1px solid #131313;
+	position:relative;
+}
+
+#content #box ul#tabs-box li#tab3{
+	background:url('/images/structure/background/box_tab2_bg.jpg') repeat-x top left;
+	border-bottom:0;
+}
+
+#content #box ul#tabs-box li a{
+	color:#f3f3f3;
+	position:relative;
+}
+
+#content #box ul#tabs-box li a span {
+	display:block;
+	padding:0 0 0 68px;
+	height:74px;
+}
+
+#content #box ul#tabs-box li a:hover, #content #box ul#tabs-box li.current a {
+	height:75px;
+	width:337px;
+	background:url('/images/structure/background/box_rollover_bg.png') no-repeat top left;
+	position:absolute;
+	left:0;
+	top:-1px;
+	text-decoration:none;
+	padding:1px 0 0 0;
+} 
+
+#content #box ul#tabs-box li#tab1 a span {
+	background:url('/images/elements/picto_question.png') no-repeat 14px 15px;
+}
+
+#content #box ul#tabs-box li#tab2 a span {
+	background:url('/images/elements/picto_mic.png') no-repeat 14px 15px;
+}
+
+#content #box ul#tabs-box li#tab3 a span {
+	background:url('/images/elements/picto_record.png') no-repeat 14px 15px;
+}
+
+#content #box ul#tabs-box li a span strong {
+	display:block;
+	font-size:1.25em;
+	line-height:1.5em;
+	padding:13px 0 0;
+	text-transform:uppercase;
+}
+
+#content #box ul#tabs-box li a span em{
+	font-style:normal;
+	font-size:0.9em;
+	line-height:2em;
+}
+
+#content #box .content-tabs {
+	width:463px;
+	float:left;
+}
+
+#content #main #subscribe {
+	bottom:-40px;
+	position:absolute;
+	right:-30px;
+}
+
+#footer p {
+    text-align: center;
 }
 
 /* Section boxes */
 .sectionbox  {
-    -moz-box-shadow: 1px 1px 7px #555; 
+    -moz-box-shadow: 1px 1px 7px #555;
     -moz-border-radius: 5px;
 
     margin-top: 7px;

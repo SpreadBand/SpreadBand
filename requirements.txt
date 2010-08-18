@@ -23,6 +23,7 @@ django-haystack
 pytz
 psycopg2
 PIL
+slimmer
 
 # SpreadBand repositories
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere

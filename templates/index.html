@@ -1,71 +1,188 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load openid_tags %}
+{% load django_static %}
 
 {% block javascript %}
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.featureList-1.0.0.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#feature-tabs li a').featureList({
-        output		: '#feature-output li',
-	start_item	: 1
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.featureList-1.0.0.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('#feature-tabs li a').featureList({
+            output		: '#feature-output li',
+	    start_item	: 1
+	});
     });
-});
-</script>
+  </script>
 
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/featurelist/featurelist.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/featurelist/featurelist.css" />
 {% endblock %}
 
 {% block content %}
 
-<h1>SpreadBand is a place for music addicts</h1>
 
-<div id="feature_list">
-  <ul id="feature-tabs">
-    <li>
-      <a href="javascript:;">
-	<img src="{{ MEDIA_URL }}/images/featurelist/band_icon.png" alt="bands"/>
-	<h3>Bands</h3>
+  <div class="grid_16">
+    <div id="main">
+      <div id="main-top">
+	<img src="{% staticfile '/images/structure/baseline.png' %}" alt="Spreadband is a place for music addicts" width="377" height="35" id="baseline" />
+	<form id="authentification" action="#" method="post">
+	  <a href="#" id="lost-password">Lost password ?</a>
+	  <label for="login">Login :</label>
+	  <input type="text" name="login" id="login" value="login" />
+	  <label for="password">Password :</label>
+	  <input type="password" name="password" id="password" value="password" />
+	  <input type="submit" id="submit-login" value="OK" />
+	</form>
+      </div>
+      <div id="box">
+	<ul id="tabs-box">
+	  <li id="tab1" class="current"><a href="#"><span><strong>Learn more</strong><em>Never miss a gig, discover new bands</em></a></span></li>
+	  <li id="tab2"><a href="#"><span><strong>Bands</strong><em>more fans, more gigs</em></a><span></li>
+	  <li id="tab3"><a href="#"><span><strong>Venues</strong><em>more fans, more gigs</em></a></span></li>
+	</ul>
+	<div id="content1" class="content-tabs">
+	  <img src="{% staticfile '/images/_TEMP/video.png' %}" alt="replace with the good video ;)" />
+	</div>
+	<!--<div id="content2" class="content-tabs">
+	    </div>
+	    <div id="content3" class="content-tabs">
+	    </div>-->
+      </div>
+      <div id="subscribe">
+	<a href="#"><img src="{% staticfile '/images/structure/subscribe.png' %}" alt="Join Us !" width="250" height="86" /></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="grid_16">
+    <div id="last-news" class="grid_4">
+      <h2>Last News</h2>
+      <ul>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>SpreadBand compte maintenant plus de 300 groupes !</p>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>Un mouton à 2 têtes et 31 pattes au canada !</p>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>Ma mère a fait des crêpes !</p>
+	</li>
+      </ul>
+    </div>
+    <div id="bloc-twitter" class="grid_4">
+      <h2><img src="{% staticfile '/images/structure/twitter.png' %}" alt="Twitter" width="119" height="32" /></h2>
+      <ul>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>Twitter c'est bon comme du bon pain</p>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>Quelle heure il est ? Il est Twitter !</p>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>Les carottes sont Twittes.</p>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <p>Twit again, gna gna gna gna gna</p>
+	</li>
+      </ul>
+    </div>
+    <div id="new-members" class="grid_4">
+      <h2>New members</h2>
+      <ul>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+	<li>
+	  <em>2010-08-03 <span>:</span></em>
+	  <strong>Lymbago, Lille</strong>
+	</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <h1>SpreadBand is a place for music addicts</h1>
+
+  <div id="feature_list">
+    <ul id="feature-tabs">
+      <li>
+	<a href="javascript:;">
+	  <img src="{{ MEDIA_URL }}/images/featurelist/band_icon.png" alt="bands"/>
+	  <h3>Bands</h3>
+	  
+	  <span>More fans, more gigs</span>
+	</a>
+      </li>
+      <li>
+	<a href="javascript:;">
+	  <img src="{{ MEDIA_URL }}/images/featurelist/venue_icon.png" alt="venues"/>
+	  <h3>Venues</h3>
+	  <span>Easy, lightning-fast booking</span>
+	  
+	</a>
+      </li>
+      <li>
+	<a href="javascript:;">
+	  <img src="{{ MEDIA_URL }}/images/featurelist/fan_icon.png" alt="fans"/>
+	  <h3>Fans</h3>
+	  <span>Never miss a gig, discover new bands</span>
+	</a>
 	
-	<span>More fans, more gigs</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:;">
-	<img src="{{ MEDIA_URL }}/images/featurelist/venue_icon.png" alt="venues"/>
-	<h3>Venues</h3>
-	<span>Easy, lightning-fast booking</span>
+      </li>
+    </ul>
+    <ul id="feature-output">
+      <li>
+	<img src="{{ MEDIA_URL }}/images/featurelist/band.jpg" alt="band illustration"/>
+	<a href="{% url band:create %}">Register your band !</a>
+      </li>
+      <li>
 	
-      </a>
-    </li>
-    <li>
-      <a href="javascript:;">
-	<img src="{{ MEDIA_URL }}/images/featurelist/fan_icon.png" alt="fans"/>
-	<h3>Fans</h3>
-	<span>Never miss a gig, discover new bands</span>
-      </a>
-      
-    </li>
-  </ul>
-  <ul id="feature-output">
-    <li>
-      <img src="{{ MEDIA_URL }}/images/featurelist/band.jpg" alt="band illustration"/>
-      <a href="{% url band:create %}">Register your band !</a>
-    </li>
-    <li>
-      
-      <img src="{{ MEDIA_URL }}/images/featurelist/venue.jpg" alt="venue illustration" />
-      <a href="{% url venue:create %}">Add your venue now !</a>
-    </li>
-    <li>
-      <img src="{{ MEDIA_URL }}/images/featurelist/fan.jpg" alt="fan illustration" />
-      <a href="#">Register now !</a>
-    </li>
-  </ul>  
-</div>
+	<img src="{{ MEDIA_URL }}/images/featurelist/venue.jpg" alt="venue illustration" />
+	<a href="{% url venue:create %}">Add your venue now !</a>
+      </li>
+      <li>
+	<img src="{{ MEDIA_URL }}/images/featurelist/fan.jpg" alt="fan illustration" />
+	<a href="#">Register now !</a>
+      </li>
+    </ul>  
+  </div>
 
 {% endblock %}

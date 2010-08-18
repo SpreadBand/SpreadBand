@@ -11,7 +11,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('glibersat', 'glibersat@sigill.org'),
+     ('glibersat', 'guillaume@spreadband.com'),
 )
 
 MANAGERS = ADMINS
@@ -91,10 +91,6 @@ MIDDLEWARE_CLASSES = (
     # I18N
     'django.middleware.locale.LocaleMiddleware',
 
-    # Private beta
-    'privatebeta.middleware.PrivateBetaMiddleware',
-
-
     'django.middleware.common.CommonMiddleware',
 
     # CSRF Attacks
@@ -121,6 +117,10 @@ MIDDLEWARE_CLASSES = (
 
     # 403
     'utils.middleware.403.Django403Middleware',
+
+    # Private beta
+    'privatebeta.middleware.PrivateBetaMiddleware',
+
 )
 
 ROOT_URLCONF = 'spreadband.urls'
@@ -298,3 +298,10 @@ FACEBOOK_SECRET_KEY='52f03de8cc57d0435eb1fcf8ba54a24e'
 
 # PRIVATE ALPHA/BETA
 PRIVATEBETA_REDIRECT_URL="/alpha"
+
+# STATIC FILES
+DJANGO_STATIC = True
+if DEBUG:
+    DJANGO_STATIC_MEDIA_URL = MEDIA_URL
+else:
+    DJANGO_STATIC_MEDIA_URL = "http://www.spreadband.com/"

@@ -4,10 +4,44 @@
 
 {% block content %}
 
-<h3>{% trans "Enter your email address and get an invitation for the alpha testing !" %}</h3>
-<form action="{% url privatebeta_invite %}" method="post">
-{{ form }}
-<input type="submit" value="{% trans 'Submit' %}" />
-</form>
+  <div class="grid_16">
 
+    <div id="main">
+      <h2>SpreadBand va bientôt décoller  !</h2>
+      
+      <p>
+	Spreadband entre en <strong>phase alpha</strong> ;
+	c'est-à-dire qu'il va être possible de commencer à tester le
+	concept afin de le rendre opérationnel pour tous.
+      </p>
+      
+      <p>
+	Si vous ne savez pas ce qu'est SpreadBand, vous pouvez consulter
+	<a href="http://blog.spreadband.com">notre blog</a>.
+      </p>
+      
+      <p>
+	Donnez nous votre adresse e-mail si vous souhaitez <strong>être tenu au
+	courant de l'évolution du lancement</strong> et/ou si vous souhaitez
+	<strong>participer à la phase de test alpha</strong>.
+      </p>
+      
+      <form style="margin-top: 30px" action="{% url privatebeta_invite %}" method="post" class="niceform">
+	<fieldset>
+	  <dl>
+	    <dt>{{ form.email.label_tag }} :</dt>
+	    <dd>
+	      <input type="text" name="email" id="email" size="32" maxlength="128" />
+	    </dd>
+	    <dd>
+	      <input type="submit" value="{% trans 'Go &rarr;' %}" />
+	    </dd>
+	  </dl>
+	  
+	</fieldset>
+      </form>
+    </div>
+  </div>
+  
+      
 {% endblock %}
