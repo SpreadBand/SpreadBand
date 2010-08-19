@@ -1,0 +1,19 @@
+#discover {
+    text-align: center;
+    padding-left: 150px;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+}
+
+#discover img {
+    margin-bottom: 15px;
+}
+
+#discover div {
+    font-weight: bold;
+    font-variant: small-caps;
+    font-size: 1.5em;
+}
+

@@ -1,18 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 {% load django_static %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ request.LANGUAGE_CODE }}" lang="{{ request.LANGUAGE_CODE }}" dir="ltr">
   
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 
-		<title>SpreadBand - Home</title>
+		<title>SpreadBand | {% block title %}Home{% endblock %}</title>
 
 		<meta http-equiv="Content-Script-Type" content="text/javascript" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta http-equiv="Content-language" content="{{ request.LANGUAGE_CODE }}" />
 
-		<!-- FIXME ! -->
 		<meta name="keywords" content="band, gig, groupe, musique, music, musicien, indépendant, bar, concert, booking, show, tourneur, equitable" />
 		<meta name="description" content="Plate-forme web d'outils et de services pour les musiciens indépendants" />
 		<meta name="Robots" content="All, index, follow, archive" />
@@ -29,8 +29,10 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" />
 		{% endslimall %}
 
+		{% staticall %}
 		{% block css %}
 	        {% endblock %}
+		{% endstaticall %}
 
 		<link rel="shortcut icon" type="image/x-icon" href="{% staticfile '/favicon.ico' %}" />
 		<link rel="icon" type="image/png" href="{% staticfile '/favicon.png' %}" />
@@ -41,8 +43,8 @@
 		<link rel="help" title="Aide" href="#" />
 		<link rel="glossary" title="Plan du site" href="#" />
 
-		<!--[if !IE]>Media rss of the current section<![endif]-->
-		<link rel="alternate" title="titre de la section" href="#" type="application/rss+xml" />
+		{# <!--[if !IE]>Media rss of the current section<![endif]--> #}
+		{# <link rel="alternate" title="titre de la section" href="#" type="application/rss+xml" /> #}
 
 		<!--[if !IE]>scripts library<![endif]-->
 		<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
@@ -253,10 +255,10 @@
     <div id="header">
       <div class="container_16">
 	<div class="grid_16">
-	  <h1><img src="{% staticfile '/images/structure/sb_header.png' %}" alt="SpreadBand" width="400" height="81" /></h1>
+	  <h1><a href="{% url home %}"><img src="{% staticfile '/images/structure/sb_header.png' %}" alt="SpreadBand" width="400" height="81" /></a></h1>
 	  <ul>
-	    <li><a href="#">+ Groupes</a><span>Plus de shows et de fans</span></li>
-	    <li><a href="#">+ Bars</a><span>Booking éclair</span></li>
+	    <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band" %}">+ Groupes</a><span>Plus de shows et de fans</span></li>
+	    <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue" %}">+ Bars</a><span>Booking éclair</span></li>
 	  </ul>
 	  {# <div id="player"><img src="{% staticfile '/images/_TEMP/player.png' %}" alt="replace with the good player ;)" /></div> #}
 	</div>
@@ -272,7 +274,7 @@
   
   <div id="footer">
     <div class="container_16">
-      <p><strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - Mentions légales - <a href="{% url account:auth_login %}">Login</a> - &copy; 2010</p>
+      <p><strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - <a href="http://blog.spreadband.com">Blog</a> - <a href="{% url account:auth_login %}">Login</a> - &copy; 2010</p>
     </div>
   </div>
   
@@ -290,6 +292,8 @@
       
     </div>
   {% endif %}
+
+</div>
   
 
 </body>

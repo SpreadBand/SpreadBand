@@ -1,45 +1,75 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
+{% load django_static %}
+
+{% block title %}
+Enregistrez vous pour l'alpha !
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/invite.css" media="screen, projection" />
+{% endblock %}
 
 {% block content %}
 
   <div class="grid_16">
 
-    <div id="main">
-      <h2>SpreadBand va bientôt décoller  !</h2>
-      
+    <div id="text">
+      <h1>SpreadBand va bientôt décoller  !</h1>
+
       <p>
-	Spreadband entre en <strong>phase alpha</strong> ;
-	c'est-à-dire qu'il va être possible de commencer à tester le
-	concept afin de le rendre opérationnel pour tous.
+	SpreadBand est une <strong>plate-forme web d'outils et de services</strong> pour <strong>les musiciens indépendants</strong>.
+      </p>
+
+      <div id="discover">
+	<a href="{% url django.contrib.flatpages.views.flatpage 'features/band' %}">
+	  <div id="discover-band" class="grid_5 alpha">
+	    <img src="{% staticfile "/images/invite/band.jpg" %}" alt="band"/><br/>
+	    Groupes, Artistes solos
+	  </div>
+	</a>
+	
+	<a href="{% url django.contrib.flatpages.views.flatpage 'features/venue' %}">	
+	  <div id="discover-venue" class="grid_5 omega">
+	    <img src="{% staticfile "/images/invite/venue.jpg" %}" alt="band"/><br/>
+	    Bars, Cafés-Concerts
+	  </div>
+	</a>
+
+	<div class="clear"></div>
+      </div>
+
+
+      <h3>Testez SpreadBand</h3>
+      <p>
+	D'ici <strong>quelques jours</strong>, SpreadBand entre en <strong>phase
+	alpha</strong> ; c'est-à-dire qu'il va être possible de tester
+	le concept en avant-première. Le test s'étendra sur <strong>une dizaine de jours</strong>.
+	<br/>
+	A l'issue de ce test, <strong>SpreadBand sera ouvert à tous</strong>, en <em>bêta</em>,
+	pour une période de test et d'amélioration à grande échelle.
+      </p>
+
+      <p>
+	Si vous souhaitez <strong>être tenu au courant de l'évolution
+	du lancement</strong> et/ou <strong>participer à la phase de test</strong>, c'est par ici :
       </p>
       
-      <p>
-	Si vous ne savez pas ce qu'est SpreadBand, vous pouvez consulter
-	<a href="http://blog.spreadband.com">notre blog</a>.
-      </p>
-      
-      <p>
-	Donnez nous votre adresse e-mail si vous souhaitez <strong>être tenu au
-	courant de l'évolution du lancement</strong> et/ou si vous souhaitez
-	<strong>participer à la phase de test alpha</strong>.
-      </p>
-      
-      <form style="margin-top: 30px" action="{% url privatebeta_invite %}" method="post" class="niceform">
-	<fieldset>
-	  <dl>
-	    <dt>{{ form.email.label_tag }} :</dt>
-	    <dd>
-	      <input type="text" name="email" id="email" size="32" maxlength="128" />
-	    </dd>
-	    <dd>
-	      <input type="submit" value="{% trans 'Go &rarr;' %}" />
-	    </dd>
-	  </dl>
-	  
-	</fieldset>
-      </form>
+      <div class="prefix_2 grid_13">
+	<form action="{% url privatebeta_invite %}" method="post" class="niceform">
+	    <dl>
+	      <dt>{{ form.email.label_tag }} :</dt>
+	      <dd>
+		<input type="text" name="email" id="id_email" size="32" maxlength="128" />
+	      </dd>
+	      <dd>
+		<input type="submit" value="{% trans 'Go &rarr;' %}" />
+	      </dd>
+	    </dl>
+	</form>
+      </div>
     </div>
   </div>
   

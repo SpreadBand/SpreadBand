@@ -1,0 +1,41 @@
+#content #text {
+    width: 100%;
+    float: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    text-align: justify;
+
+    padding: 30px;
+    background-color: white;
+
+    border: 2px solid #555;
+    
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+
+    -moz-box-shadow: 1px 1px 7px #555;
+}
+
+#text h1 {
+    margin-bottom: 30px;
+}
+
+#text h2 {
+    margin-bottom: 20px;
+}
+
+#text h3 {
+    margin-bottom: 10px;
+}
+
+#text p {
+    margin-bottom: 15px;
+}
+
+#comments {
+    float: left;
+    margin-top: 50px;
+}

@@ -18,7 +18,7 @@ sitemaps.update(event.sitemaps.sitemaps)
 # URLS
 urlpatterns = patterns('',
     # temporary index page
-    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}, name='home'),
+    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}, name='home'),
 
     # Private beta
     url(r'^alpha/', include('privatebeta.urls')),
@@ -49,6 +49,9 @@ urlpatterns = patterns('',
 
     # bargain
     (r'^e/gigbargain/', include('gigbargain.urls', namespace='gigbargain')),
+
+    # static pages
+    ('^pages/', include('django.contrib.flatpages.urls')),
 
     # BigBrother
     # (r'^bb/', include('bigbrother.urls')),

@@ -293,11 +293,13 @@ else:
     HAYSTACK_WHOOSH_PATH = 'spreadband_index'
 
 ### FACEBOOK
-FACEBOOK_API_KEY='0445acaf091af7727ef610e64cb73baf'
-FACEBOOK_SECRET_KEY='52f03de8cc57d0435eb1fcf8ba54a24e'
+FACEBOOK_API_KEY = '0445acaf091af7727ef610e64cb73baf'
+FACEBOOK_SECRET_KEY = '52f03de8cc57d0435eb1fcf8ba54a24e'
 
 # PRIVATE ALPHA/BETA
-PRIVATEBETA_REDIRECT_URL="/alpha"
+PRIVATEBETA_REDIRECT_URL = "/alpha"
+PRIVATEBETA_ALWAYS_ALLOW_VIEWS = ("django.contrib.flatpages.views.flatpage",
+                                  "django.contrib.comments.views.comments.post_comment")
 
 # STATIC FILES
 DJANGO_STATIC = True
@@ -305,3 +307,4 @@ if DEBUG:
     DJANGO_STATIC_MEDIA_URL = MEDIA_URL
 else:
     DJANGO_STATIC_MEDIA_URL = "http://www.spreadband.com/"
+    DJANGO_STATIC_SAVE_PREFIX = "/tmp/sb-media-cache"

@@ -1,0 +1,71 @@
+
+.intro {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.feature {
+    margin: 10px;
+
+    position: relative;
+    width: 100%;
+
+    float: left;
+
+}
+
+.feature .title {
+
+    vertical-align: middle;
+    float: left;
+
+    border-radius: 100px 100px;
+    -webkit-border-radius: 100px 100px;
+    -moz-border-radius: 100px 100px;
+    -o-border-radius: 100px 100px;
+
+    -moz-box-shadow: 1px 1px 7px #555;
+
+    text-align: left;
+    width: 30%;
+
+    padding: 15px;
+
+    padding-left: 30px;
+    padding-right: 30px;
+
+    background-color: #1b1b1b;
+    color: #fff;
+
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.feature .title img {
+    padding-left: 20px;
+    padding-right: 10px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.feature .description {
+    float: left;
+
+    vertical-align: middle;
+
+    text-align: justify;
+
+    padding-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 7px;
+
+    width: 55%;
+
+    font-size: 1.2em;
+}
+
+.feature .clear {
+    position: relative;
+    width: 100%;
+    clear: both;
+}
