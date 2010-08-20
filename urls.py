@@ -1,20 +1,22 @@
 from django.conf.urls.defaults import patterns, url, include
 
 from django.contrib.gis import admin
+from django.contrib.sitemaps import FlatPageSitemap
 
 import settings
 
 admin.autodiscover()
 
 # Sitemaps
-import venue.sitemaps
-import band.sitemaps
-import event.sitemaps
-sitemaps = {}
-sitemaps.update(venue.sitemaps.sitemaps)
-sitemaps.update(band.sitemaps.sitemaps)
-sitemaps.update(event.sitemaps.sitemaps)
+# import venue.sitemaps
+# import band.sitemaps
+# import event.sitemaps
+# sitemaps = {}
+# sitemaps.update(venue.sitemaps.sitemaps)
+# sitemaps.update(band.sitemaps.sitemaps)
+# sitemaps.update(event.sitemaps.sitemaps)
 
+sitemaps = {'flatpages': FlatPageSitemap}
 
 # For server errors
 handler500 = 'django.views.defaults.server_error'
