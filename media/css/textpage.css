@@ -35,6 +35,23 @@
     margin-bottom: 15px;
 }
 
+/* Lists */
+#text ul {
+    list-style-type: disc;
+}
+
+#text ul li {
+    margin-left: 30px;
+}
+
+#text ol {
+    list-style-type: lower-roman
+}
+
+#text ol li {
+    margin-left: 30px;
+}
+
 #comments {
     float: left;
     margin-top: 50px;
