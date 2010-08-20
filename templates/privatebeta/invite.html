@@ -59,10 +59,11 @@ Enregistrez vous pour l'alpha !
       
       <div class="prefix_2 grid_13">
 	<form action="{% url privatebeta_invite %}" method="post" class="niceform">
+	  <font color="red">{{ form.email.errors }}</font>
 	    <dl>
 	      <dt>{{ form.email.label_tag }} :</dt>
 	      <dd>
-		<input type="text" name="email" id="id_email" size="32" maxlength="128" />
+		{{ form.email }}
 	      </dd>
 	      <dd>
 		<input type="submit" value="{% trans 'Go &rarr;' %}" />
