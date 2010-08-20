@@ -18,6 +18,7 @@ sitemaps.update(event.sitemaps.sitemaps)
 
 # For server errors
 handler500 = 'django.views.defaults.server_error'
+handler404 = 'django.views.defaults.page_not_found'
 
 # URLS
 urlpatterns = patterns('',
