@@ -15,6 +15,10 @@ sitemaps.update(venue.sitemaps.sitemaps)
 sitemaps.update(band.sitemaps.sitemaps)
 sitemaps.update(event.sitemaps.sitemaps)
 
+
+# For server errors
+handler500 = 'django.views.defaults.server_error'
+
 # URLS
 urlpatterns = patterns('',
     # temporary index page

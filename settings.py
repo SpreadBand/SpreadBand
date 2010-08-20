@@ -303,8 +303,10 @@ PRIVATEBETA_ALWAYS_ALLOW_VIEWS = ("django.contrib.flatpages.views.flatpage",
 
 # STATIC FILES
 DJANGO_STATIC = True
+DJANGO_STATIC_MEDIA_URL = MEDIA_URL
+#if not DEBUG:
+# DJANGO_STATIC_SAVE_PREFIX = "/tmp/sb-media-cache"
+
+# ROSETTA
 if DEBUG:
-    DJANGO_STATIC_MEDIA_URL = MEDIA_URL
-else:
-    DJANGO_STATIC_MEDIA_URL = "http://www.spreadband.com/"
-    DJANGO_STATIC_SAVE_PREFIX = "/tmp/sb-media-cache"
+    ROSETTA_WSGI_AUTO_RELOAD = True
