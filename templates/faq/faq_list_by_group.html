@@ -1,0 +1,80 @@
+{% extends "faq/base.html" %}
+
+{% load i18n %}
+{% load markup %}
+
+{% block title %}{% trans "FAQ" %}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+
+  <style type="text/css">
+    ol#answers .answer {
+	margin-bottom: 30px;
+    }
+
+    ol#answers h3 {
+	display: inline-block;
+    }
+
+    .back2toc {
+	padding-top: 10px;
+    }
+  </style>
+
+{% endblock %}
+
+{% block faq_content %}
+  <h1>FAQs</h1>
+
+  <p>{% blocktrans with updated_on|date:"M d, Y" as updated_on %}Last updated on: {{ updated_on }}{% endblocktrans %}</p>
+
+  <h2 id="questions">{% trans "Questions" %}</h2>
+    {% for question in object_list %}
+
+      {% ifchanged question.topic %}
+	{% if not forloop.first %}
+	  </ol>
+	{% endif %}
+	<h3 id="questions-{{ question.topic.slug }}">{{ question.topic|capfirst }}</h3>
+
+	<ol>
+      {% endifchanged %}
+
+      {% if question.is_header %}
+	<h3>{{ question.text|capfirst }}</h3>
+      {% else %}
+	<li><a href="#{{ question.slug }}" title="{{ question.text }}">{{ question.text }}</a></li>
+      {% endif %}
+
+    {% endfor %}
+  </ol>
+  
+  <hr/>
+
+  <h2>{% trans "Answers" %}</h2>
+  <ol id="answers">
+    {% for question in object_list %}
+      {% ifchanged question.topic %}
+	<h3>{{ question.topic|capfirst }}</h3>
+	<span><a href="#questions">&uarr;</a></span>
+      {% endifchanged %}
+
+      {% if question.is_active %}
+	<li>
+	  <a id="{{ question.slug }}">
+	    <h4><a href="{{ question.get_absolute_url }}">{{ question.text|capfirst }}</a></h4>
+	  </a>
+	  <div class="answer">
+	    {{ question.answer|capfirst|restructuredtext }}
+
+	    <div class="back2toc">
+	      <a href="#questions-{{ question.topic.slug }}">Retour &uarr;</a>
+	    </div>
+	  </div>
+	</li>
+      {% endif %}
+
+    {% endfor %}
+  </ol>
+{% endblock %}

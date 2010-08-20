@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
+
+  <style type="text/css">
+    h3 {
+	margin-top: 20px;
+    }
+
+    hr {
+	margin-top: 20px;
+         margin-bottom: 30px;
+     }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="grid_16">
+  <div id="text">
+
+    {% block faq_content %}
+    {% endblock %}
+
+  </div>
+</div>
+
+
+{% endblock %}
