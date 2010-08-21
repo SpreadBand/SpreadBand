@@ -299,7 +299,8 @@ FACEBOOK_SECRET_KEY = '52f03de8cc57d0435eb1fcf8ba54a24e'
 # PRIVATE ALPHA/BETA
 PRIVATEBETA_REDIRECT_URL = "/alpha"
 PRIVATEBETA_ALWAYS_ALLOW_VIEWS = ("django.contrib.flatpages.views.flatpage",
-                                  "django.contrib.sitemaps.views.sitemap")
+                                  "django.contrib.sitemaps.views.sitemap",
+                                  "robots.views.rules_list",)
 
 # STATIC FILES
 DJANGO_STATIC = True
