@@ -1,21 +1,29 @@
-{% extends "base.html" %}
+{% extends "textpage.html" %}
 
 {% load humanize i18n %}
 {% load timezone_filters %}
 
-{% block extra_head %}
+{% block head %}
   <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
 {% endblock %}
 
-{% block content %}
+{% block text %}
 
-<h1>Welcome, 
-{% if user.firstname %}
-  {{ user.firstname }}
-{% else %}
-  {{ user.username }}
-{% endif %}
-</h2>
+<div class="grid_2">
+  <img src="{{ user.get_profile.avatar.avatar_image.url }}"/>
+</div>
+<div class="grid_5">
+
+  <h1>Welcome, 
+  {% if user.firstname %}
+    {{ user.firstname }}
+  {% else %}
+    {{ user.username }}
+  {% endif %}
+  </h1>
+</div>
+
+<div class="clear"></div>
 
 ( <a href="{% url account:edit user %}">Edit your information</a> )
 
@@ -29,7 +37,7 @@
 
 <h3>Your notifications</h3>
 
-( <a href="{% url notification_notice_settings %}">Settings</a> )
+( <a href="{% url notification_notices %}">Settings</a> )
 
 <a href="{% url notification_mark_all_seen %}">{% trans "Mark all unseen notices seen" %}</a>
         

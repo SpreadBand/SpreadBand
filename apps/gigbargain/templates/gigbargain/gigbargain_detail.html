@@ -5,12 +5,14 @@
 {% load threadedcomments_tags %}
 {% load activity_tags %}
 
+{% block head %}
+  <link rel="profile" href="http://microformats.org/profile/hcalendar" />
+  <link rel="profile" href="http://microformats.org/profile/hcard" />
+{% endblock %}
+
 {% block css %}
 
-    <link rel="profile" href="http://microformats.org/profile/hcalendar" />
-    <link rel="profile" href="http://microformats.org/profile/hcard" />
-
-    <style type="text/css">
+<style type="text/css">
 
 	
 /* button basics */
@@ -220,8 +222,8 @@ display:block;
 
 </style>
 
-<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/tipsy.css" /> 
-<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/fancybox/jquery.fancybox-1.3.1.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/tipsy.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/fancybox/jquery.fancybox-1.3.1.css" /> 
 
 {{ block.super }}
 {% endblock %}
@@ -229,10 +231,10 @@ display:block;
 {% block javascript %}
 {{ block.super }}
 
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.bt.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.tipsy.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.fancybox-1.3.1.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.bt.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.fancybox-1.3.1.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -388,13 +390,11 @@ $(document).ready(function() {
 
 {% block content %}
   
-<div class="grid_16 alpha omega">
-
   <!-- Header -->
   <div class="grid_16 alpha omega">
 
     <!-- Title -->
-    <div class="grid_8 suffix_8 alpha omega">
+    <div class="grid_10 suffix_5 alpha omega">
       <h1>Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, {{ gigbargain.venue.city }}, {{ gigbargain.venue.country }}</h1>
       with
       {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
@@ -414,56 +414,56 @@ $(document).ready(function() {
     </div>
 
     <!-- State -->
-    <div class="grid_8 omega">
+    <div class="grid_7 omega">
       {% include "gigbargain/gigbargain_detail_state.html" %}
     </div>
 
   </div> <!-- end of header -->
 
   <!-- Informations + Sidebar -->
-  <div class="grid_16 alpha omega">
+  <div class="grid_15 alpha omega">
 
     <!-- Main informations -->
     <div class="grid_12 alpha">
 
       <!-- Where and when -->
       <div class="grid_6 alpha">
-	<div class="sectionbox clearfix">
+	<div class="sectionbox bright clearfix">
 	  {% include "gigbargain/gigbargain_detail_wherewhen.html" %}
 	</div>
       </div>
 
       <!-- Access -->
       <div class="grid_6 omega">
-	<div class="sectionbox clearfix">
+	<div class="sectionbox bright clearfix">
 	  {% include "gigbargain/gigbargain_detail_access.html" %}
 	</div>
       </div>
 
       <!-- Bands -->
       <div class="grid_12 alpha omega">
-	<div class="sectionbox clearfix">
+	<div class="sectionbox bright clearfix">
 	  {% include "gigbargain/gigbargain_detail_bands.html" %}
 	</div>
       </div>
 
       <!-- Timeline -->
       <div class="grid_12 alpha omega">
-	<div class="sectionbox">
+	<div class="sectionbox bright">
 	  {% include "gigbargain/gigbargain_detail_timeline.html" %}
 	</div>
       </div>
 
       <!-- Remuneration -->
       <div class="grid_6 alpha">
-	<div class="sectionbox">
+	<div class="sectionbox bright">
 	  {% include "gigbargain/gigbargain_detail_remuneration.html" %}
 	</div>
       </div>
 
       <!-- Defrayments -->
       <div class="grid_6 omega">
-	<div class="sectionbox">
+	<div class="sectionbox bright">
 	  {% include "gigbargain/gigbargain_detail_defrayments.html" %}
 	</div>
       </div>
@@ -471,10 +471,10 @@ $(document).ready(function() {
     </div>
 
     <!-- Sidebar -->
-    <div class="grid_4 omega">
+    <div class="grid_3 omega">
 
       <!-- Latest activity -->
-      <div class="grid_4 alpha omega">
+      <div class="grid_3 alpha omega">
 	  <h3>Latest activity</h3>
 
 	  <ul>
@@ -495,7 +495,7 @@ $(document).ready(function() {
 
 
 	<!-- Latest comments -->
-	<div class="grid_4 alpha omega">
+	<div class="grid_3 alpha omega">
 	  {% get_comment_count for gigbargain as comment_count %}
 	    
 	    <h3>Latest comments ({{ comment_count }})</h3>
@@ -510,7 +510,5 @@ $(document).ready(function() {
     </div> <!-- end of sidebar -->
 
   </div>
-
-</div>
 
 {% endblock %}

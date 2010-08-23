@@ -1,61 +1,68 @@
 {% load i18n %}
 {% load timedelta %}
 
-<h2>{% trans "Timeline" %}</h2>
+<div class="header">
+    <h2>{% trans "Timeline" %}</h2>
 
-<a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'timeline' %}">Comments</a>
-  
-{% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
-  {% for band in managed_bands %}
-    {% if band.state == 'negociating' %}
-      <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
-    {% endif %}
-  {% endfor %}
-{% endif %}
-  
+    <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'timeline' %}">Comments</a>
+      
+      {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+	{% for band in managed_bands %}
+	  {% if band.state == 'negociating' %}
+	    <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+	  {% endif %}
+	{% endfor %}
+      {% endif %}
+      
+  </div>
 
-<!-- events -->
-<ul class="events">
-  {% for gig in timeline.bands %}
-    <li style="width: {% widthratio gig.duration.seconds timeline.global.duration.seconds 100 %}%; left: {% widthratio gig.delta_start.seconds timeline.global.duration.seconds 100 %}%;">
-      {{ gig.band.name }} - {{ gig.duration|timedelta }}
-    </li>
-  {% endfor %}
-</ul>
+  <div class="separator"></div>
 
-<!-- intervals -->
-<ul class="intervals">
-  {% for step in timeline.global.steps %}
-    <li style="border-{% cycle 'top' 'bottom' %}: 1px black solid; width: {% widthratio 1800 timeline.global.duration.seconds 100 %}%;">
-      {{ step|time:"H:i" }}
-    </li>
-  {% endfor %}
-</ul>
+  <div class="content">
 
-<div class="vcalendar">
-  <ul>
-    {% for gig in timeline.bands %}
-      <li>
-	<span class="vevent">
-	  <abbr class="dtstart" title="{{ gig.start|date:'c' }}">{{ gig.start }}</abbr> --
-	  <abbr class="dtend" title="{{ gig.end|date:'c' }}">{{ gig.end }}</abbr> :
-	  <span class="summary">{{ gig.band.name }} plays during</span>
-	  <abbr class="duration" title="{{ gig.duration|iso8601 }}">{{ gig.duration|timedelta }}</abbr>
-	</span>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
-  
-{% if not timeline.bands|length %}
-  No band have already set when they play.
-{% endif %}
+    <!-- events -->
+    <ul class="events">
+      {% for gig in timeline.bands %}
+	<li style="width: {% widthratio gig.duration.seconds timeline.global.duration.seconds 100 %}%; left: {% widthratio gig.delta_start.seconds timeline.global.duration.seconds 100 %}%;">
+	  {{ gig.band.name }} - {{ gig.duration|timedelta }}
+	</li>
+      {% endfor %}
+    </ul>
+
+    <!-- intervals -->
+    <ul class="intervals">
+      {% for step in timeline.global.steps %}
+	<li style="border-{% cycle 'top' 'bottom' %}: 1px black solid; width: {% widthratio 1800 timeline.global.duration.seconds 100 %}%;">
+	  {{ step|time:"H:i" }}
+	</li>
+      {% endfor %}
+    </ul>
+
+    <div class="vcalendar">
+      <ul>
+	{% for gig in timeline.bands %}
+	  <li>
+	    <span class="vevent">
+	      <abbr class="dtstart" title="{{ gig.start|date:'c' }}">{{ gig.start }}</abbr> --
+	      <abbr class="dtend" title="{{ gig.end|date:'c' }}">{{ gig.end }}</abbr> :
+	      <span class="summary">{{ gig.band.name }} plays during</span>
+	      <abbr class="duration" title="{{ gig.duration|iso8601 }}">{{ gig.duration|timedelta }}</abbr>
+	    </span>
+	  </li>
+	{% endfor %}
+      </ul>
+    </div>
     
-{% for gig in timeline.bands %}
-  {% if not forloop.first %}
-    {% if gig.time_before_previous.seconds < 600 %}
-      Warning : {{ gig.band.name }} has less than 10 minutes to setup its scene !
-    {% endif %} 
-  {% endif %}
-{% endfor %}
+    {% if not timeline.bands|length %}
+      No band have already set when they play.
+    {% endif %}
+    
+    {% for gig in timeline.bands %}
+      {% if not forloop.first %}
+	{% if gig.time_before_previous.seconds < 600 %}
+	  Warning : {{ gig.band.name }} has less than 10 minutes to setup its scene !
+	{% endif %} 
+      {% endif %}
+    {% endfor %}
 
+ </div>

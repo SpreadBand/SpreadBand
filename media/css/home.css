@@ -9,17 +9,18 @@
 	float:left;
 }
 
-#content #main form#authentification {
+#content #main form#authentication {
 	float:left;
 	margin:9px 0 0 52px;
 }
+
 
 #content #main #main-top {
 	float:left;
 	width:100%;
 }
 
-#content #main form#authentification a#lost-password {
+#content #main form#authentication a#lost-password {
 	background:url("../../images/elements/ico_login.png") no-repeat scroll right center transparent;
 	color:#63605C;
 	font-size:0.85em;
@@ -28,11 +29,18 @@
 	margin:0 10px 0 0;
 }
 
-#content #main form#authentification label{
+
+#content #main form#authentication p {
+    display:inline;
+}
+
+#content #main form#authentication p label {
 	display:none;
 }
 
-#content #main form#authentification #login, #content #main form#authentification #password {
+
+
+#content #main form#authentication #id_username, #content #main form#authentication #id_password {
 	width:86px;
 	border:1px solid #d87f0d;
 	height:18px;
@@ -40,7 +48,7 @@
 	font-size:0.9em;
 }
 
-#content #main form#authentification #submit-login {
+#content #main form#authentication #submit-login {
 	background:none repeat scroll 0 0 #D87F0D;
 	border:0 none;
 	color:white;

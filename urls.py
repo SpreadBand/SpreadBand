@@ -5,6 +5,7 @@ from django.contrib.gis import admin
 from django.contrib.sitemaps import FlatPageSitemap
 
 from .utils.sitemaps import DirectToTemplateSitemap
+from .utils.views import home_spreadband
 
 admin.autodiscover()
 
@@ -24,7 +25,8 @@ handler404 = 'django.views.defaults.page_not_found'
 # URLS
 urlpatterns = patterns('',
     # temporary index page
-    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}, name='home'),
+    #url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}, name='home'),
+    url(r'^$', home_spreadband, name='home'),
 
     # Private beta
     url(r'^alpha/', include('privatebeta.urls')),

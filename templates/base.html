@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="/css/reset_of_death.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="/css/960.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="/css/base.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
     {% endslimall %}
 
     {% slimall %}
@@ -177,28 +178,41 @@
     
     <div id="header">
       <div class="container_16">
-	<div class="grid_16">
+	<div class="grid_16 alpha omega">
 	  <h1><a href="{% url home %}"><img src="{% staticfile '/images/structure/sb_header.png' %}" alt="SpreadBand" width="400" height="81" /></a></h1>
-	  <ul>
-	    <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band" %}">+ Groupes</a><span>Plus de shows et de fans</span></li>
-	    <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue" %}">+ Bars</a><span>Booking éclair</span></li>
-	  </ul>
+	  {% if not user.is_authenticated %}
+	    <ul>
+	      <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band/" %}">+ Groupes</a><span>Plus de shows et de fans</span></li>
+	      <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue/" %}">+ Bars</a><span>Booking éclair</span></li>
+	    </ul>
+	  {% else %}
+	    <ul>
+	      <li><a href="{% url account:auth_logout %}">Logout</a></li>
+	    </ul>
+	  {% endif %}
+	    
 	  {# <div id="player"><img src="{% staticfile '/images/_TEMP/player.png' %}" alt="replace with the good player ;)" /></div> #}
 	</div>
       </div>
     </div>
-    
+
+    <!-- Content -->
     <div id="content" class="clearfix">
       <div class="container_16">
-	{% block content %}
-      {% endblock %}
+	<div class="grid_16 alpha omega">
+	  <div id="text-wrapper">
+	    <div id="text">
+	      {% block content %}
+	    {% endblock %}
+	    </div>
+	  </div>
       </div>
     </div>
     
     <div id="footer">
       <div class="container_16">
 
-	<div class="prefix_2 grid_4">
+	<div class="grid_4">
 	  <h5>Aide</h5>
 
 	  <ul>
@@ -209,14 +223,22 @@
 	</div>
 
 	<div class="grid_4">
-	  <h5>Autour de SpreadBand</h5>
+	  <h5>Découvrir SpreadBand</h5>
+	  <ul>
+	    <li><a href="{% url django.contrib.flatpages.views.flatpage '/pages/features/band/' %}">Groupes, Artistes solo</a></li>
+	    <li><a href="{% url django.contrib.flatpages.views.flatpage '/pages/features/venue/' %}">Bars, Lieux de concerts</a></li>
+	  </ul>
+	</div>
+
+	<div class="grid_4">
+	  <h5>Nébuleuse SpreadBand</h5>
 
 	  <ul>
 	    <li><a href="http://blog.spreadband.com">Blog</a></li>
 	  </ul>
 	</div>
 
-	<div class="grid_4 suffix_2">
+	<div class="grid_4">
 	  <h5>Admins</h5>
 	  <ul>
 	    <li><a href="{% url account:auth_login %}">Login</a></li>

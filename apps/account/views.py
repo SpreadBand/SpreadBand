@@ -57,7 +57,10 @@ def avatar_set(request):
 
 @login_required
 def detail(request, username):
-    return profile_detail(request, username)
+    if request.user.username == username:
+        return dashboard(request)
+    else:
+        return profile_detail(request, username)
 
 @login_required
 def dashboard(request):
