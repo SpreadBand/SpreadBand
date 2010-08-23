@@ -1,9 +1,10 @@
 from django.conf.urls.defaults import patterns, url, include
 
+from django.conf import settings
 from django.contrib.gis import admin
 from django.contrib.sitemaps import FlatPageSitemap
 
-import settings
+from .utils.sitemaps import DirectToTemplateSitemap
 
 admin.autodiscover()
 
@@ -15,8 +16,6 @@ admin.autodiscover()
 # sitemaps.update(venue.sitemaps.sitemaps)
 # sitemaps.update(band.sitemaps.sitemaps)
 # sitemaps.update(event.sitemaps.sitemaps)
-
-sitemaps = {'flatpages': FlatPageSitemap}
 
 # For server errors
 handler500 = 'django.views.defaults.server_error'
@@ -81,12 +80,19 @@ urlpatterns = patterns('',
     # REST API
     (r'^api/', include('api.urls')),
 
-    # Robots.txt and sitemap
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     (r'^robots\.txt$', include('robots.urls')),
 
     # Django admin
     (r'^admin/', include(admin.site.urls)),
+)
+
+# Sitemaps
+sitemaps = {'flatpages': FlatPageSitemap,
+            'pages': DirectToTemplateSitemap(urlpatterns)}
+
+urlpatterns += patterns('',
+    # Robots.txt and sitemap
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )
 
 
