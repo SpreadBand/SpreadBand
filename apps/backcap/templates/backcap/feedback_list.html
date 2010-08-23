@@ -1,18 +1,19 @@
-{% extends "base.html" %}
+{% extends "textpage.html" %}
+
+{% block title %}
+Centre d'aide
+{% endblock %}
 
 {% block css %}
-
 {{ block.super }}
-
-<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/backcap.css" />
-
+<link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
 {% endblock %}
 
 {% load voting_tags %}
 
-{% block content %}
+{% block text %}
 
-<h3>Feedbacks</h3>
+<h1>Feedbacks</h1>
 
 
 <div class="alpha grid_11">

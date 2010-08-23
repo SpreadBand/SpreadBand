@@ -1,4 +1,11 @@
 <script type="text/javascript">
+$(function() {
+    $("form").buttonset();
+});
+
+</script>
+
+<script type="text/javascript">
   function lookup(inputString) {
 		if(inputString.length == 0) {
 			$('#feedback-tab-suggestions-results').hide();

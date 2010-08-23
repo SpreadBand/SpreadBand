@@ -1,20 +1,18 @@
-{% extends "base.html" %}
+{% extends "textpage.html" %}
 
 {% load comments %}
 {% load voting_tags %}
 
 {% block css %}
-
 {{ block.super }}
 
-<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/backcap.css" />
-
+<link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
 {% endblock %}
 
 
-{% block content %}
+{% block text %}
 
-<h3><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h3>
+<h1><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h1>
 
 <div class="grid_14 alpha omega">
 

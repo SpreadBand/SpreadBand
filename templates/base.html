@@ -4,212 +4,133 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ request.LANGUAGE_CODE }}" lang="{{ request.LANGUAGE_CODE }}" dir="ltr">
   
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 
-		<title>SpreadBand | {% block title %}Home{% endblock %}</title>
+    <title>SpreadBand | {% block title %}Home{% endblock %}</title>
 
-		<meta http-equiv="Content-Script-Type" content="text/javascript" />
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<meta http-equiv="Content-language" content="{{ request.LANGUAGE_CODE }}" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-language" content="{{ request.LANGUAGE_CODE }}" />
 
-		<meta name="google-site-verification" content="fNFGyJ0AtZMI-dNQp8plDGsJAjjtQDRmBqoWad31vjc" />
+    <meta name="google-site-verification" content="fNFGyJ0AtZMI-dNQp8plDGsJAjjtQDRmBqoWad31vjc" />
 
-		<meta name="keywords" content="band, gig, groupe, musique, music, musicien, indépendant, bar, concert, booking, show, tourneur, equitable" />
-		<meta name="description" content="Plate-forme web d'outils et de services pour les musiciens indépendants" />
-		<meta name="Robots" content="All, index, follow, archive" />
+    <meta name="keywords" content="band, gig, groupe, musique, music, musicien, indépendant, bar, concert, booking, show, tourneur, equitable" />
+    <meta name="description" content="Plate-forme web d'outils et de services pour les musiciens indépendants" />
+    <meta name="Robots" content="All, index, follow, archive" />
 
-		<!--[if !IE]>CSS by media or page type<![endif]-->
-		{% slimall %}
-		<link rel="stylesheet" type="text/css" href="/css/reset_of_death.css" media="screen, projection" />
-		<link rel="stylesheet" type="text/css" href="/css/960.css" media="screen, projection" />
-		<link rel="stylesheet" type="text/css" href="/css/base.css" media="screen, projection" />
-		{% endslimall %}
+    {% block head %}
+    {% endblock %}
 
-		{% slimall %}
-		<link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" />
-		{% endslimall %}
+    <!--[if !IE]>CSS by media or page type<![endif]-->
+    {% slimall %}
+    <link rel="stylesheet" type="text/css" href="/css/reset_of_death.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="/css/960.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="/css/base.css" media="screen, projection" />
+    {% endslimall %}
 
-		{% staticall %}
-		{% block css %}
-	        {% endblock %}
-		{% endstaticall %}
+    {% slimall %}
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" />
+    {% endslimall %}
 
-		<link rel="shortcut icon" type="image/x-icon" href="{% staticfile '/images/favicon.ico' %}" />
-		<link rel="icon" type="image/png" href="{% staticfile '/images/favicon.png' %}" />
-		{# <link rel="apple-touch-icon" href="{% staticfile '/iphone_icon.png' %}" /> #}
+    {% staticall %}
+    {% block css %}
+  {% endblock %}
+  {% endstaticall %}
 
-		<!--[if !IE]>Digest links<![endif]-->
-		<link rel="index" title="Actualité" href="#" />
-		<link rel="help" title="Aide" href="#" />
-		<link rel="glossary" title="Plan du site" href="#" />
+  <link rel="shortcut icon" type="image/x-icon" href="{% staticfile '/images/favicon.ico' %}" />
+  <link rel="icon" type="image/png" href="{% staticfile '/images/favicon.png' %}" />
+  {# <link rel="apple-touch-icon" href="{% staticfile '/iphone_icon.png' %}" /> #}
 
-		{# <!--[if !IE]>Media rss of the current section<![endif]--> #}
-		{# <link rel="alternate" title="titre de la section" href="#" type="application/rss+xml" /> #}
+  <!--[if !IE]>Digest links<![endif]-->
+  <link rel="index" title="Actualité" href="#" />
+  <link rel="help" title="Aide" href="#" />
+  <link rel="glossary" title="Plan du site" href="#" />
 
-		<!--[if !IE]>scripts library<![endif]-->
-		<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
+  {# <!--[if !IE]>Media rss of the current section<![endif]--> #}
+  {# <link rel="alternate" title="titre de la section" href="#" type="application/rss+xml" /> #}
 
-		{% staticall %}
-		<script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
-		<script type="text/javascript" src="/js/jquery/jquery.jeditable.js"></script>
-		{% endstaticall %}
+  <!--[if !IE]>scripts library<![endif]-->
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
 
-		<script type="text/javascript" src="/js/jquery/jquery.notify.js"></script>
-		<script type="text/javascript" src="/js/jquery/jquery.jplayer.js"></script>
-		<script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
-		<script type="text/javascript" src="/js/jquery/jquery.slidePanel.js"></script>
-
-		<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.nicejforms2.js"></script>
-
-		<!--[if !IE]>scripts behaviours<![endif]-->
-		<script type="text/javascript">
-		  $().ready(function() {  
-		      $('.niceform').NiceJFormer({imagesPath: '/site_media/images/niceforms/'});  
-		  });  
-		</script>
+  {% staticall %}
+  <script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.jeditable.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.slidePanel.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.notify.js"></script>
+  {% endstaticall %}
 
 
+  <script type="text/javascript" src="/js/jquery/jquery.jplayer.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
 
-		<!--[if lte IE 6]>
-		<script type="text/javascript" src="{% slimfile '/javascript/supersleight.js' %}"></script>
-		<![endif]-->
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.nicejforms2.js"></script>
 
+  <!--[if !IE]>scripts behaviours<![endif]-->
+  <script type="text/javascript">
+    $(document).ready(function() {  
+	$('.niceform').NiceJFormer({imagesPath: '/site_media/images/niceforms/'});  
+    });  
+  </script>
 
+  <script type="text/javascript">
+    $(document).ready(function(){
+	// custom settings
+	$('#feedback').slidePanel({
+	    triggerName: '#feedback-trigger',
+	    position: 'fixed',
+	    triggerTopPos: '150px',
+	    panelTopPos: '0px',
+	    ajax: true,
+	    ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
+	});
+	
+    });
+  </script>
 
-  <style type="text/css">
-    a.trigger {
-	position: absolute;
- background:#88bbd4 url(images/plus.png) 6% 55% no-repeat;
-	text-decoration: none;
- font-size: 16px;
- letter-spacing:-1px;
- font-family: verdana, helvetica, arial, sans-serif;
- color:#fff;
- padding:4px 12px 6px 24px;
- font-weight: bold;
- 
- z-index:2;
- }
- a.trigger.left {
-     left: 0;
-     border-top-right-radius: 5px;
-     -moz-border-radius-topright: 5px;
-     -webkit-border-top-right-radius: 5px;
-     -moz-border-radius-bottomright: 5px;
-     -webkit-border-bottom-right-radius: 5px;
-     border-bottom-right-radius: 5px;
- }
- a.trigger.right {
-     right: 0;
-     border-bottom-left-radius: 5px;
-     border-top-left-radius: 5px;
-     -moz-border-radius-bottomleft: 5px;
-     -moz-border-radius-topleft: 5px;
-     -webkit-border-bottom-left-radius: 5px;
-     -webkit-border-top-left-radius: 5px;
- }
- a.trigger:hover {
-     background-color:#59B;
- }
- a.active.trigger {
-     background:#666 url(images/minus.png) 6% 55% no-repeat;
- }
-
- .panel {
-     color:#CCC;
-     position: absolute;
-     display: none;
-     background: #000000;
-     height: auto;
-     z-index:1;
- }
- .panel.left {
-     left: 0;
-     padding: 20px 30px 20px 100px;
-     border-top-right-radius: 15px;
-     -moz-border-radius-topright: 15px;
-     -webkit-border-top-right-radius: 15px;
-     -moz-border-radius-bottomright: 15px;
-     -webkit-border-bottom-right-radius: 15px;
-     border-bottom-right-radius: 15px;
- }
- .panel.right {
-     right: 0;
-     padding: 20px 100px 20px 30px;
-     border-bottom-left-radius: 15px;
-     border-top-left-radius: 15px;
-     -moz-border-radius-bottomleft: 15px;
-     -moz-border-radius-topleft: 15px;
-     -webkit-border-bottom-left-radius: 15px;
-     -webkit-border-top-left-radius: 15px;
- }
- .panel p {
-     font-size:11px;
- }
-
- .highlighted {
-     background-color: #ffff66;
-     color: #000;
- }
-  </style>
-  
-
-<!-- <script type="text/javascript"> -->
-<!-- $(document).ready(function(){ -->
-    
-<!--     // custom settings -->
-<!--     $('#feedback').slidePanel({ -->
-<!-- 	triggerName: '#feedback-trigger', -->
-<!-- 	position: 'fixed', -->
-<!-- 	triggerTopPos: '150px', -->
-<!-- 	panelTopPos: '0px', -->
-<!-- 	ajax: true, -->
-<!-- 	ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}' -->
-<!--     }); -->
-    
-<!-- }); -->
-
-<!-- </script> -->
+  <!--[if lte IE 6]>
+      <script type="text/javascript" src="{% slimfile '/js/supersleight.js' %}"></script>
+      <![endif]-->
 
 
-<!-- <script type="text/javascript"> -->
-<!-- $(document).ready(function() { -->
-<!--     // Local copy of jQuery selectors, for performance. -->
-<!--     var jpPlayTime = $("#jplayer_play_time"); -->
-<!--     var jpTotalTime = $("#jplayer_total_time"); -->
+  <!-- <script type="text/javascript"> -->
+    <!-- $(document).ready(function() { -->
+					<!--     // Local copy of jQuery selectors, for performance. -->
+					<!--     var jpPlayTime = $("#jplayer_play_time"); -->
+					<!--     var jpTotalTime = $("#jplayer_total_time"); -->
 
-<!--     $("#audio_player").jPlayer({ -->
-<!-- 	oggSupport: true, -->
-<!-- 	nativesupport: true, -->
-<!-- 	preload: 'auto', -->
-<!-- 	swfPath: '{{ MEDIA_URL }}/flash/', -->
-<!--     }) -->
-<!-- 	.jPlayer("onProgressChange", function(loadPercent, playedPercentRelative, playedPercentAbsolute, playedTime, totalTime) { -->
-<!-- 	    jpPlayTime.text($.jPlayer.convertTime(playedTime)); -->
-<!-- 	    jpTotalTime.text($.jPlayer.convertTime(totalTime)); -->
+					<!--     $("#audio_player").jPlayer({ -->
+									      <!-- 	oggSupport: true, -->
+									      <!-- 	nativesupport: true, -->
+									      <!-- 	preload: 'auto', -->
+									      <!-- 	swfPath: '{{ MEDIA_URL }}/flash/', -->
+									      <!--     }) -->
+					<!-- 	.jPlayer("onProgressChange", function(loadPercent, playedPercentRelative, playedPercentAbsolute, playedTime, totalTime) { -->
+																					  <!-- 	    jpPlayTime.text($.jPlayer.convertTime(playedTime)); -->
+																					  <!-- 	    jpTotalTime.text($.jPlayer.convertTime(totalTime)); -->
 
-<!-- 	}) -->
-<!-- 	.jPlayer("onSoundComplete", function() { -->
-<!-- 	    this.element.jPlayer("play"); -->
-<!-- 	}); -->
+																					  <!-- 	}) -->
+					<!-- 	.jPlayer("onSoundComplete", function() { -->
+											 <!-- 	    this.element.jPlayer("play"); -->
+											 <!-- 	}); -->
 
-<!-- }); -->
-<!-- </script> -->
+					<!-- }); -->
+  <!-- </script> -->
 
-<script type="text/javascript">
-//$(document).ready(function() {
-//    $('a').click(function() {
-//      $('#content').load(this.href + '#content');
-//      return false;
-//});
+  <script type="text/javascript">
+    //$(document).ready(function() {
+    //    $('a').click(function() {
+    //      $('#content').load(this.href + '#content');
+    //      return false;
+    //});
 
-//});
+    //});
 
-</script>
+  </script>
 
-{% block javascript %}
+  {% block javascript %}
 
 {% endblock %}
 </head>
@@ -271,32 +192,55 @@
       <div class="container_16">
 	{% block content %}
       {% endblock %}
+      </div>
     </div>
-  </div>
-  
-  <div id="footer">
-    <div class="container_16">
-      <p><strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - <a href="http://blog.spreadband.com">Blog</a> - <a href="{% url account:auth_login %}">Admin Login</a> - &copy; 2010</p>
-    </div>
-  </div>
-  
-  {% if user.is_authenticated %}
-    <a href="#" id="feedback-trigger" class="trigger right">Support</a>
-    <div id="feedback" class="panel right">
-      <p>Here is some static content for Panel 1.</p>
-      
-      <p>Ut purus metus, fermentum vitae pulvinar vel, elementum eget nulla. Pellentesque posuere, enim ut dapibus vestibulum, leo nunc porttitor neque, sed pulvinar orci sem eleifend sapien. Nullam at odio nibh, eu pharetra ipsum.</p>
-      
-      <ul>
-	<li><a href="{% url backcap:feedback-new %}?referer={{ request.get_full_path }}">Leave feedback</a></li>
-	<li><a href="{% url backcap:feedback-list %}">See feedback</a></li>
-      </ul>
-      
-    </div>
-  {% endif %}
+    
+    <div id="footer">
+      <div class="container_16">
 
-</div>
+	<div class="prefix_2 grid_4">
+	  <h5>Aide</h5>
+
+	  <ul>
+	    <li><a href="{% url faq:faq %}">FAQ</a></li>
+	    <li><a href="{% url backcap:feedback-list %}">Centre d'aide</a></li>
+	  </ul>
+
+	</div>
+
+	<div class="grid_4">
+	  <h5>Autour de SpreadBand</h5>
+
+	  <ul>
+	    <li><a href="http://blog.spreadband.com">Blog</a></li>
+	  </ul>
+	</div>
+
+	<div class="grid_4 suffix_2">
+	  <h5>Admins</h5>
+	  <ul>
+	    <li><a href="{% url account:auth_login %}">Login</a></li>
+	  </ul>
+	</div>
+	
+
+	<div class="clear"></div>
+
+	<div class="grid_16 legals">
+	  <strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - &copy; 2010
+	</div>
+
+      </div>
+    </div>
   
+    {% if user.is_authenticated %}
+      <div>
+	<a href="#" id="feedback-trigger" class="trigger right">Support</a>
+	<div id="feedback" class="panel right"></div>
+      </div>
+    {% endif %}
+
+  </div>
 
 </body>
 </html>

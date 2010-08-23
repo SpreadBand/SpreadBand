@@ -1,9 +1,17 @@
 div#feature_list {
-    margin-left: auto;
-    margin-right: auto;
-    width: 750px;
     height: 240px;
     position: relative;
+    float: left;
+
+    background:#1b1b1b;
+    padding:3px 0;
+
+    margin-bottom: 40px;
+
+    border-radius: 5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
 }
 
 div#feature_list h3 {
@@ -11,38 +19,39 @@ div#feature_list h3 {
     padding: 7px 0 0 0;
     font-size: 16px;
     text-transform: uppercase;
+
+    color:#f3f3f3;
 }
 
 
 div#feature_list ul {
     position: absolute;
-    top: 0;
-    list-style: none;	
-    padding: 0;
-    margin: 0;
 }
 
 ul#feature-tabs {
-    left: 0;
-    z-index: 2;
-    width: 320px;
+    width: 303px;
 }
 
 ul#feature-tabs li {
+    height: 74px;
+    width: 303px;
+
     font-size: 12px;
     font-family: Arial;
     margin-left: 0px;
+    border-top:1px solid #2d2d2d;
+    border-bottom:1px solid #131313;
+
 }
 
 ul#feature-tabs li img {
     padding: 5px;
     border: none;
     float: left;
-    margin: 10px 10px 0 0;
 }
 
 ul#feature-tabs li a {
-    color: #222;
+    color:#f3f3f3;
     text-decoration: none;	
     display: block;
     padding: 10px;
@@ -55,7 +64,7 @@ ul#feature-tabs li a:hover {
 }
 
 ul#feature-tabs li a.current {
-    background:  url('feature-tab-current.png');
+    background:url('../../images/featurelist/feature-tab-current.png');
     color: #FFF;
 }
 
@@ -63,6 +72,8 @@ ul#feature-tabs li a.current:hover {
     text-decoration: none;
     cursor: default;
 }
+
+/* -- output (right side) -- */
 
 ul#feature-output {
     right: 0;
@@ -85,7 +96,7 @@ ul#feature-output li a {
     padding: 8px 12px;
     text-decoration: none;
     font-size: 11px;
-    color: #FFF;
+    color:#f3f3f3;
     background: #000;
     -moz-border-radius: 5px;
 }
