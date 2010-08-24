@@ -113,10 +113,17 @@ a {
 }
 
 .sectionbox .header {
+    text-align: left;
     padding: 12px;
 }
 
+.sectionbox .header img {
+    vertical-align: middle;
+}
+
 .sectionbox .header h2 {
+    margin-left: 5px;
+    vertical-align: middle;
     display: inline;
 }
 

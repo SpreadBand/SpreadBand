@@ -175,7 +175,8 @@
   <!--[if IE 7]><div id="IE7"><![endif]-->
   <!--[if (IE) & (!IE 6) & (!IE 7)]><div id="IE"><![endif]-->
   <!--[if !IE]>--><div id="NOTIE"><!--<![endif]-->
-    
+
+{% if not request.is_ajax %}    
     <div id="header">
       <div class="container_16">
 	<div class="grid_16 alpha omega">
@@ -195,6 +196,7 @@
 	</div>
       </div>
     </div>
+{% endif %} {# Ajax request #}
 
     <!-- Content -->
     <div id="content" class="clearfix">
@@ -208,7 +210,8 @@
 	  </div>
       </div>
     </div>
-    
+
+{% if not request.is_ajax %}    
     <div id="footer">
       <div class="container_16">
 
@@ -263,6 +266,6 @@
     {% endif %}
 
   </div>
-
+{% endif %} {# ajax request #}
 </body>
 </html>

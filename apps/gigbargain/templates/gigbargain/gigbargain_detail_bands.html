@@ -1,7 +1,9 @@
 {% load i18n %}
 {% load tagging_tags %}
+{% load django_static %}
 
 <div class="header grid_12 alpha omega">
+  <img src="{% staticfile '/images/elements/picto_mic_small.png' %}" alt="bands"/>
 
   <h2>{% trans "Bands" %} ({{ gigbargain.gigbargainband_set.concurring.count }})</h2>
 
@@ -25,20 +27,16 @@
 <div class="content grid_12 alpha omega">
 
   {% for band in gigbargain.gigbargainband_set.concurring %}
-    <div class="grid_6 {% cycle 'alpha' 'omega' %}">
+    <div class="band grid_6 {% cycle 'alpha' 'omega' %}">
 
     <!-- Band vcard -->
-    <div class="vcard">
+    <div class="vcard {% if band.state == 'part_validated' %}ready{% else %}notready{% endif %}">
       <img src="{{ band.band.avatar_url }}" alt="Picture of {{ venue.name }}" class="photo"/>
-      <a class="url uid" href="{{ band.band.get_absolute_url }}">
+      <a class="url uid fancybox" href="{{ band.band.presskit.get_absolute_url }}">
 	<div class="org fn">
 	  <span class="organization-name">{{ band|capfirst }}</span>
 	</div>
       </a>
-      {% if band.band.presskit %}
-	(<a href="{{ band.band.presskit.get_absolute_url }}">PressKit</a>)
-      {% endif %}
-      
       <div class="adr">
 	<span class="locality">{{ band.band.city }}</span>,
 	<span class="country-name">{{ band.band.country.name }}</span>
@@ -52,11 +50,15 @@
   </div>
 {% endfor %}
 
-No more concurring :
-<ul>
-  {% for gigbargainband in gigbargain.gigbargainband_set.not_concurring %}
-    <li><span class="comment-tip" title="<b>Reason</b>: {{ gigbargainband.reason }}"><a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a><span></li>
-  {% endfor %}
-</ul>
+{% with gigbargain.gigbargainband_set.not_concurring as not_concurring %}
+  {% if not_concurring %}
+    No more concurring :
+    <ul>
+    {% for gigbargainband in not_concurring %}
+      <li><span class="comment-tip" title="<b>Reason</b>: {{ gigbargainband.reason }}"><a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a><span></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
 
 </div>

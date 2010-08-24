@@ -4,6 +4,7 @@
 {% load tagging_tags %}
 {% load threadedcomments_tags %}
 {% load activity_tags %}
+{% load django_static %}
 
 {% block head %}
   <link rel="profile" href="http://microformats.org/profile/hcalendar" />
@@ -159,24 +160,24 @@ float: left;
   list-style:none;
   float:left;
   background-color:#EBEBEB;
-  background-image: url({{ MEDIA_URL }}/images/stepmenu/navBtn.gif);
+  background-image: url({% staticfile '/images/stepmenu/navBtn.gif' %});
   background-repeat: no-repeat;
   background-position: right top;
 }
 
 #mainNav li.current{
 	background-color:#C36615;
-	background-image: url({{ MEDIA_URL }}/images/stepmenu/navCurrentBtn.gif);
+	background-image: url({% staticfile '/images/stepmenu/navCurrentBtn.gif' %});
 }
 
 #mainNav li.lastDone{
 	background-color:#7C8437;
-	background-image: url({{ MEDIA_URL }}/images/stepmenu/navLastDoneBtn.gif);
+	background-image: url({% staticfile '/images/stepmenu/navLastDoneBtn.gif' %});
 }
 
 #mainNav li.done{
 	background-color:#7C8437;
-	background-image: url({{ MEDIA_URL }}/images/stepmenu/navDoneBtn.gif);
+	background-image: url({% staticfile '/images/stepmenu/navDoneBtn.gif' %});
 }
 
 #mainNav li a, #mainNav li a:link, #mainNav li a:visited, #mainNav li a:hover, #mainNav li a:active {
@@ -224,6 +225,8 @@ display:block;
 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/tipsy.css" /> 
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/fancybox/jquery.fancybox-1.3.1.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="/css/gigbargain.css" /> 
+
 
 {{ block.super }}
 {% endblock %}
@@ -231,10 +234,13 @@ display:block;
 {% block javascript %}
 {{ block.super }}
 
+{% staticall %}
 <script type="text/javascript" src="/js/jquery/jquery.bt.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.fancybox-1.3.1.js"></script>
+{% endstaticall %}
+
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -343,13 +349,13 @@ $(document).ready(function() {
                 },
 	});
 
- $("a.fancybox").fancybox({
+    $("a.fancybox").fancybox({
         'width': 1024,
         'height': '85%',
         autoScale: false,
         autoDimensions: false,
-         type: 'ajax',
-  });
+        type: 'ajax',
+    });
 
 });
 
@@ -391,10 +397,10 @@ $(document).ready(function() {
 {% block content %}
   
   <!-- Header -->
-  <div class="grid_16 alpha omega">
+  <div id="gigbargain-header" class="grid_16 alpha omega">
 
     <!-- Title -->
-    <div class="grid_10 suffix_5 alpha omega">
+    <div id="gigbargain-title" class="grid_10 suffix_5 alpha omega">
       <h1>Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, {{ gigbargain.venue.city }}, {{ gigbargain.venue.country }}</h1>
       with
       {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
@@ -427,14 +433,14 @@ $(document).ready(function() {
     <div class="grid_12 alpha">
 
       <!-- Where and when -->
-      <div class="grid_6 alpha">
+      <div class="grid_7 alpha">
 	<div class="sectionbox bright clearfix">
 	  {% include "gigbargain/gigbargain_detail_wherewhen.html" %}
 	</div>
       </div>
 
       <!-- Access -->
-      <div class="grid_6 omega">
+      <div class="grid_5 omega">
 	<div class="sectionbox bright clearfix">
 	  {% include "gigbargain/gigbargain_detail_access.html" %}
 	</div>
@@ -442,7 +448,7 @@ $(document).ready(function() {
 
       <!-- Bands -->
       <div class="grid_12 alpha omega">
-	<div class="sectionbox bright clearfix">
+	<div id="bands" class="sectionbox bright clearfix">
 	  {% include "gigbargain/gigbargain_detail_bands.html" %}
 	</div>
       </div>
@@ -474,13 +480,37 @@ $(document).ready(function() {
     <div class="grid_3 omega">
 
       <!-- Latest activity -->
-      <div class="grid_3 alpha omega">
+      <div id="latest-activity" class="grid_3 alpha omega">
 	  <h3>Latest activity</h3>
 
 	  <ul>
+	    {% staticall %}
 	    {% for action in latest_activity %}
-	      <li>{% display_action_short action %}</li>
+	      {% if action.verb == "part_locked" %}
+		<li><img src="/images/gigbargain/padlock-locked_16.png" alt="Part locked"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> locked its part.
+	      {% else %}
+		{% if action.verb == "part_unlocked" %}
+		<li><img src="/images/gigbargain/padlock-unlocked_16.png" alt="Part unlocked"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> unlocked its part.
+	      {% else %}
+		{% if action.verb == "submitted_to_venue" %}
+		<li><img src="/images/gigbargain/submitted_16.png" alt="Submitted to venue"/><a href="{{ action.target.venue.get_absolute_url }}">{{ action.target.venue|capfirst }}</a> received this bargain</a>.
+		{% else %}
+		  {% if action.verb == "entered" %}
+		  <li><img src="/images/gigbargain/entered_16.png" alt="Entered"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> entered this bargain</a>.
+		  {% else %}
+		    {% if action.verb == "was_invited" %}
+		      <li><img src="/images/gigbargain/invited_16.png" alt="Was invited"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> was invited</a>.
+		  {% else %}
+		<li>{% display_action_short action %}
+		{% endif %}
+		{% endif %}
+		{% endif %}
+	      {% endif %}
+	    {% endif %}
+		<span class="date">{{ action.timestamp|timesince }} ago</span></li>
+
 	    {% endfor %}
+	    {% endstaticall %}
 	  </ul>
 
 	  <h3>Latest changes</h3>

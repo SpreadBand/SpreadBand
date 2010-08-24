@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load django_static %}
 
 {% block javascript %}
 
@@ -62,8 +63,16 @@ $(document).ready(function() {
 
 {% endblock %}
 
+<div class="header">
+  <img src="{% staticfile '/images/elements/picto_mic_small.png' %}" alt="Defrayments"/>
 
-<h2>{% trans "Defrayments" %}</h2>
+  <h2>{% trans "Defrayments" %}</h2>
+</div>
+
+<div class="separator">
+</div>
+
+<div class="content">
 
 <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'defrayments' %}">Comments</a>
 
@@ -85,3 +94,4 @@ $(document).ready(function() {
   </ul>
 </noscript>
     
+</div>

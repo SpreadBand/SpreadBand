@@ -1,0 +1,137 @@
+#text ul li {
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+#gigbargain-header {
+    margin-bottom: 20px;
+}
+
+/*-- general boxes --*/
+img.comments {
+    position: absolute;
+    right: 40px;
+    top: 15px;
+}
+
+/*-- title --*/
+#gigbargain-title {
+    margin-bottom: 10px;
+}
+
+#gigbargain-title h1 {
+    margin-bottom: 8px;
+}
+
+/*-- Status -- */
+#statusbox {
+    background-color: #1b1b1b;
+    width: 100%;
+    min-height: 100px;
+
+    -moz-box-shadow: 1px 1px 7px #555;
+    -moz-border-radius: 5px;
+
+    color: white;
+}
+
+#statusbox > div {
+    padding: 10px;
+}
+
+#statusbox .head {
+    vertical-align: top;
+    clear: both;
+}
+
+#statusbox .head img {
+    float: left;
+    margin-right: 7px;
+}
+
+#statusbox .title {
+    padding-top: 3px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#statusbox .text {
+
+}
+
+#statusbox .buttons {
+    text-align: right;
+}
+
+
+/*-- bands --*/
+.band {
+    height: 120px;
+}
+
+.band .vcard {
+    height: 108px;
+    width: 296px;
+    padding-left: 105px;
+    background-repeat: no-repeat;
+}
+
+.band .ready {
+    background-image:url("../../images/bargain/greenbox.png");
+}
+
+.band .notready {
+    background-image:url("../../images/bargain/orangebox.png");
+}
+
+
+.band .photo {
+    position: absolute;
+    left: 10px;
+    top: 13px;
+    border: 1px white solid;
+    width: 80px;
+    height: 80px;
+    background-image:url("../../images/band/no_picture.png");
+    background-repeat: no-repeat;
+}
+
+.band .organization-name {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+}
+
+.band .tags {
+    position: absolute;
+    font-style: italic;
+    top: 70px;
+}
+
+.band .adr {
+    font-size: 1.1em;
+    position: absolute;
+    top: 45px;
+}
+
+/*-- latest activity --*/
+
+#latest-activity li {
+    border-bottom: 1px solid #eee;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#latest-activity li img {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#latest-activity li .date {
+    font-size: 0.9em;
+    text-align: right;
+    display: block;
+    color: #ccc;
+}

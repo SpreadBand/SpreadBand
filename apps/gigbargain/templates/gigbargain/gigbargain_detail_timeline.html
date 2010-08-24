@@ -1,7 +1,10 @@
 {% load i18n %}
 {% load timedelta %}
+{% load django_static %}
 
 <div class="header">
+  <img src="{% staticfile '/images/elements/picto_mic_small.png' %}" alt="Timeline"/>
+
     <h2>{% trans "Timeline" %}</h2>
 
     <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'timeline' %}">Comments</a>
