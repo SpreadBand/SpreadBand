@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
+{% load django_static %}
+
 {% block css %}
 
-<style type="text/css">
-  .greybox {
+  <link rel="stylesheet" type="text/css" href="/css/band_dashboard.css" media="screen, projection" />
+
+
+  <style type="text/css">
+    .greybox {
   background-color: #eee;
   padding: 10px; 
   margin-bottom: 20px;
@@ -99,26 +104,41 @@
 {% block content %}
 
 
-<img src="{{ band.pictures.avatar.small_avatar_image.url }}" style="display: inline;">
-<h1 style="display: inline;">Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a></h1>
+<div class="grid_2 alpha">
+  <div id="band_avatar">
+    {% if not band.pictures.avatar %}
+      <a href="{% url band:picture-new band.slug %}"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="band avatar"/></a>
+    {% else %}
+      <img src="{{ band.pictures.avatar.avatar_image.url }}" alt="band avatar"/>
+    {% endif %}
+  </div>
+</div>
 
-<ul>
-  <li><a href="{% url band:dashboard band.slug %}">Dashboard</a></li>
-  <li><a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}">Gig Bargains</a></li>
-  <li><a href="{% url event:band-calendar band.slug %}">Calendar</a></li>
-  <li><a href="{% url presskit:presskit-detail band.slug %}">PressKit</a></li>
-</ul>
+<div class="grid_14 omega">
+  <div>
+    <h1>Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; {% block band_section %}Home{% endblock %}</h1>
+  </div>
+  <div class="clear"></div>
 
-Genres &raquo; {{ band.genres }}
+  <div>
+    <ul id="band_tabs">
+      {% url band:detail band.slug as home_url %}
+      {% url gigbargain:gigbargain-band-dashboard band.slug as gigbargain_url %}
+      {% url event:band-calendar band.slug as calendar_url %}
+      {% url presskit:presskit-detail band.slug as presskit_url %}
+      <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">Home</a></li>
+      <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">Gig Bargains</a></li>
+      <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">Calendar</a></li>
+      <li><a {% if request.path == presskit_url %}class="selected"{% endif %} href="{{ presskit_url }}">PressKit</a></li>
+    </ul>
+  </div>
+</div>
 
-{% if band.website %}
-( <a href="{% url band:minisite:detail band.website.id %}">Minisite</a> )
-{% else %}
-( this band has no minisite )
-{% endif %}
+<div class="clear"></div>
 
-{% block band_content %}
+<div id="band_text">
 
+  {% block band_content %}    
 {% endblock %}
 
 </div>

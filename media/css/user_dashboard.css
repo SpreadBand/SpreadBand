@@ -1,0 +1,24 @@
+#home #nav-home a,
+#about #nav-about a,
+#archive #nav-archive a,
+#lab #nav-lab a,
+#reviews #nav-reviews a,
+#contact #nav-contact a {
+    background:#e35a00;
+    color:#fff;
+    text-shadow:none;
+}
+
+#home #nav-home a:hover,
+#about #nav-about a:hover,
+#archive #nav-archive a:hover,
+#lab #nav-lab a:hover,
+#reviews #nav-reviews a:hover,
+#contact #nav-contact a:hover {
+    background:#e35a00;
+ }
+
+#nav a:active {
+    background:#e35a00;
+    color:#fff;
+}

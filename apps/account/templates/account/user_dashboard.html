@@ -1,16 +1,21 @@
-{% extends "textpage.html" %}
+{% extends "base.html" %}
 
 {% load humanize i18n %}
 {% load timezone_filters %}
+{% load django_static %}
 
 {% block head %}
   <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
 {% endblock %}
 
-{% block text %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
 
 <div class="grid_2">
-  <img src="{{ user.get_profile.avatar.avatar_image.url }}"/>
+  <img src="{{ user.get_profile.avatar.avatar_image.url }}" alt="Avatar"/>
 </div>
 <div class="grid_5">
 
@@ -28,6 +33,10 @@
 ( <a href="{% url account:edit user %}">Edit your information</a> )
 
 <h3>Your bands</h3>
+
+{% if not user.band_memberships.all %}
+  You are not part of a band, you should <a href="{% url band:create %}">create one</a>.
+{% endif %}
 
 <ul>
   {% for membership in user.band_memberships.all %}

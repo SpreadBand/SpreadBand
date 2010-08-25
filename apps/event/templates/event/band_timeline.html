@@ -1,8 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'bands/base.html' %}
 
-{% block content %}
+{% block title %}
+{{ band.name }} | Calendar
+{% endblock %}
 
-<h4>Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; Calendar</h4>
+{% block band_section %}
+Calendar
+{% endblock %}
+
+
+
+{% block band_content %}
 
 [ <a href="{% url event:band-calendar-ics band.slug %}">Download as ics</a> ]
 

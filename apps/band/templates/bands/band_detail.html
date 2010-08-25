@@ -2,11 +2,24 @@
 
 {% load i18n %}
 
+{% block title %}
+  {{ band.name }} - Dashboard
+{% endblock %}
+
 {% block band_content %}
 
 <div class="alpha omega grid_14">
 
   <div class="alpha grid_10">
+
+    Genres &raquo; {{ band.genres }}
+    
+    {% if band.website %}
+      ( <a href="{% url band:minisite:detail band.website.id %}">Minisite</a> )
+    {% else %}
+      ( this band has no minisite )
+    {% endif %}
+
 
     <div class="grid_10 alpha omega">
       ( <a href="{% url band:edit band.slug %}">edit</a> )
@@ -72,7 +85,7 @@
 
   <div class="grid_4 omega">
     <div class="grid_4 alpha omega">
-      <h5>Upcoming events</h5>
+      <h3>Upcoming events</h3>
       <ul>
 	{% for event in future_events|slice:":2" %}
 	<li>
@@ -83,19 +96,23 @@
     </div>
 
     <div class="grid_4 alpha omega">
-      <h5>Members</h5>
-      <ul>
+      <h3>Members</h3>
+
+      <ul class="bandmembers">
 	{% for member in band.band_members.all %}
-	<li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> 
-	  as {{ member.roles.all|join:', ' }}</li>
+	<li>
+	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}" alt="{{ member.user.username }} avatar"/>
+	  <a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
+	  <span class="bandmember_role">{{ member.roles.all|join:', ' }}</span>
+	</li>
 	{% endfor %}
-	
-	  <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>Manage members</span></a>
       </ul>
+
+      <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>Manage members</span></a>
     </div>
 
     <div class="grid_4 alpha omega">
-      <h5>Publicité</h5>
+      <h3>Publicité</h3>
 
       <img src="{{ MEDIA_URL }}/images/GuitarXpertsSKY.gif">
     </div>

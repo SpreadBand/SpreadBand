@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'bands/base.html' %}
 
 {% block css %}
 {{ block.super }}
@@ -18,11 +18,15 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jit.js"></script>
 {% endblock %}
 
-{% block content %}
+{% block title %}
+{{ band.name }} - Gigbargains
+{% endblock %}
 
-<div class="grid_14 alpha omega">
-<h1>Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; Gigbargains &raquo; Dashboard</h1>
-</div>
+{% block band_section %}
+Gigbargains
+{% endblock %}
+
+{% block band_content %}
 
 <div class="grid_14 alpha omega">
 

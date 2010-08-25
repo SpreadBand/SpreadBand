@@ -1,0 +1,68 @@
+#text ul li {
+    margin: 0px;
+}
+
+
+#band_avatar {
+    background-color: black;
+    height: 80px;
+    width: 80px;
+}
+
+
+/*-- navigation tabs --*/
+ul#band_tabs {
+    list-style: none;
+    border-bottom: 1px #999999 solid;
+    padding-bottom: 9px
+}
+
+ul#band_tabs li {
+    display: inline;
+    margin-right: 5px;
+}
+
+ul#band_tabs li a {
+    color:#999999;
+    text-decoration: none;
+    background: #f7f7f7;
+    border: 1px #CCCCCC solid;
+    padding: 10px 14px;
+}
+
+ul#band_tabs li a.selected {
+    color:#666666;
+    background:#FFFFFF;
+    border-left: 1px #999999 solid;
+    padding: 14px 14px 10px 14px;
+    border-bottom: 1px white solid;
+}
+
+ul#band_tabs li a:hover {
+    padding: 14px 14px 10px 14px;
+}
+
+/*-- band text --*/
+div#band_text {
+    margin-top: 10px;
+}
+
+/*-- band members --*/
+ul.bandmembers {
+    clear: both;
+}
+
+ul.bandmembers li {
+    list-style: none;
+}
+
+ul.bandmembers li img {
+    float: left;
+    margin-right: 5px;
+}
+
+ul.bandmembers li .bandmember_role {
+    text-align: right;
+    display: block;
+    color: #999;
+}

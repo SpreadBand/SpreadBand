@@ -14,7 +14,7 @@ a {
 
 #header {
 	height:116px;
-	background:#2f2f2f url('/images/structure/background/header_bg.jpg') repeat-x top left;
+	background:#2f2f2f url('../../images/structure/background/header_bg.jpg') repeat-x top left;
 	width:100%;
 }
 
@@ -69,7 +69,7 @@ a {
 
 #content {
 	width:100%;
-	background:#f2f2f2 url('/images/structure/background/page_bg.jpg') no-repeat top center;
+	background:#f2f2f2 url('../../images/structure/background/page_bg.jpg') no-repeat top center;
 }
 
 /* ----------------------------------- Footer */
