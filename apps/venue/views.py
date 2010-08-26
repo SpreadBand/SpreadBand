@@ -75,12 +75,16 @@ def edit(request, venue_slug):
         if venue_form.is_valid():
             venue = venue_form.save(commit=False)
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
-            geoplace, (lat, lng) = g.geocode('%s, %s, %s, %s' % (venue.address,
-                                                                 venue.zipcode,
-                                                                 venue.city,
-                                                                 venue.country),
-                                             exactly_one=True,
-                                             )
+            try:
+                geoplace, (lat, lng) = g.geocode('%s, %s, %s, %s' % (venue.address,
+                                                                     venue.zipcode,
+                                                                     venue.city,
+                                                                     venue.country),
+                                                 exactly_one=True,
+                                                 )
+            except geocoders.google.GQueryError, e:
+                geoplace = "(Unable to resolve address)"
+                (lat, lng) = (50.63, 3.06)
 
             # Edit
             point = Point(lng, lat)
