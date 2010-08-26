@@ -1,12 +1,22 @@
-{% extends "base.html" %}
+{% extends "venue/base.html" %}
 
-{% block content %}
+{% load uni_form_tags %}
 
-<form method="POST">
+{% block title %}
+{{ venue.name }} - Edit
+{% endblock %}
 
-{{ form.as_p }}
+{% block venue_section %}
+Edit
+{% endblock %}
 
-<input type="submit">
-</form>
+{% block venue_content %}
+
+<div class="grid_14">
+  <form method="POST" class="uniForm">
+    {{ form|as_uni_form }}
+    <input type="submit" value="Update" />
+  </form>
+</div>
 
 {% endblock %}

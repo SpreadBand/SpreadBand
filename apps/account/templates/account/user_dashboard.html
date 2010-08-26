@@ -30,12 +30,13 @@
 
 <div class="clear"></div>
 
-( <a href="{% url account:edit user %}">Edit your information</a> )
+<a href="{% url account:edit user %}" class="button-tip minibutton btn-download" title="Edit your informations"><span><span class="icon"></span>Edit your informations</span></a>
+
 
 <h3>Your bands</h3>
 
 {% if not user.band_memberships.all %}
-  You are not part of a band, you should <a href="{% url band:create %}">create one</a>.
+  You are not part of a band, you may <a href="{% url band:create %}">create one</a>.
 {% endif %}
 
 <ul>

@@ -73,8 +73,9 @@ def gigbargain_band_dashboard(request, band_slug):
     if request.GET.has_key('to'):
         date_to = datetime.strptime(request.GET['to'], '%Y-%m-%d')
 
-    # retrieve gigbargains    
-    new_gigbargains = band.gigbargains.new_gigbargains().filter(date__gte=date_from)
+    # retrieve gigbargains 
+    # new_gigbargains = band.gigbargains.new_gigbargains().filter(date__gte=date_from)
+    new_gigbargains = band.gigbargains.filter(date__gte=date_from).filter(gigbargainband__in=band.gigbargainbands.filter(state='waiting'))
     if date_to:
         new_gigbargains = new_gigbargains.filter(date__lte=date_to)
 

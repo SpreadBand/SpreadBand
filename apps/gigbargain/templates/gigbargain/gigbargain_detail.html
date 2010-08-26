@@ -239,7 +239,114 @@ display:block;
 <script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.fancybox-1.3.1.js"></script>
+<script type="text/javascript" src="/js/jit.js"></script>
 {% endstaticall %}
+
+
+<!-- defrayment graph -->
+<script type="text/javascript">
+var json = {
+    label: ['$'],
+    values: [
+	{% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
+	{
+	    label: '<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>',
+	    values: [{{ gigbargainband.defrayment }},],
+	},
+	{% endfor %}
+    ]
+};
+
+$(document).ready(function() {
+    var barChart = new $jit.BarChart({  
+	//id of the visualization container  
+	injectInto: 'defrayments-graph',  
+	//whether to add animations  
+	animate: true,  
+	//horizontal or vertical barcharts  
+	orientation: 'vertical',  
+	//bars separation  
+	barsOffset: 20,  
+	//visualization offset  
+	offset: 10,  
+	//labels offset position  
+	labelOffset: 5,  
+	//bars style  
+	type: 'stacked:gradient',
+	//whether to show the aggregation of the values  
+	showAggregates:true,  
+	//whether to show the labels for the bars  
+	showLabels:true,  
+	filterOnClick: true,  
+	restoreOnRightClick:true  ,
+	//labels style  
+	Label: {  
+	    type: 'HTML', //Native or HTML  
+	    size: 13,  
+	    family: 'Arial',
+	    color: 'black'  
+	},  
+	//add tooltips  
+	Tips: {  
+	    enable: true,  
+	    onShow: function(tip, elem) {  
+		tip.innerHTML = "<font color='white'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
+	    }  
+	}  
+    });  
+    //load JSON data.  
+    barChart.loadJSON(json);  
+});
+</script>
+
+
+<!-- remuneration graph -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+	var pieChart = new $jit.PieChart({  
+	    //Where to inject the canvas. Any div container will do.  
+	    injectInto:'remuneration-graph',  
+	    //width and height for canvas.  
+            //Default's to the container offsetWidth and Height.  
+	    offset: 15,
+            sliceOffset: 0,
+            labelOffset: 20,
+            type: 'stacked:gradient',
+            hoveredColor: '#9fd4ff',
+	    Tips: {  
+		enable: true,  
+		onShow: function(tip, elem) {  
+		    {% if gigbargain.remuneration == 'PERC' %}
+		    tip.innerHTML = "<b>" + elem.label + "</b>: " + elem.value + "%";  
+		    {% else %}
+		    tip.innerHTML = "<b>" + elem.label + "</b>: $" + elem.value;  
+		    {% endif %}
+		}
+	    },
+	    Label: { type: 'HTML', color: '#000', size: 11 },
+
+
+	});  
+
+
+	var json = {  
+	    'values': [  
+		{% for band in gigbargain.gigbargainband_set.concurring %}
+		{  
+		    'label': '<a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a>',  
+		    {% if gigbargain.remuneration == 'PERC' %}
+		    'values': [ {{ band.percentage }} ],
+		    {% else %}
+		    'values': [ {{ band.amount }} ],
+		    {% endif %}
+		},
+		{% endfor %}
+	    ]}
+
+	pieChart.loadJSON(json);
+
+    });
+  </script>
 
 
 <script type="text/javascript">
@@ -389,8 +496,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jit.js"></script>
-
 
 {% endblock %}
 
@@ -484,33 +589,9 @@ $(document).ready(function() {
 	  <h3>Latest activity</h3>
 
 	  <ul>
-	    {% staticall %}
 	    {% for action in latest_activity %}
-	      {% if action.verb == "part_locked" %}
-		<li><img src="/images/gigbargain/padlock-locked_16.png" alt="Part locked"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> locked its part.
-	      {% else %}
-		{% if action.verb == "part_unlocked" %}
-		<li><img src="/images/gigbargain/padlock-unlocked_16.png" alt="Part unlocked"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> unlocked its part.
-	      {% else %}
-		{% if action.verb == "submitted_to_venue" %}
-		<li><img src="/images/gigbargain/submitted_16.png" alt="Submitted to venue"/><a href="{{ action.target.venue.get_absolute_url }}">{{ action.target.venue|capfirst }}</a> received this bargain</a>.
-		{% else %}
-		  {% if action.verb == "entered" %}
-		  <li><img src="/images/gigbargain/entered_16.png" alt="Entered"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> entered this bargain</a>.
-		  {% else %}
-		    {% if action.verb == "was_invited" %}
-		      <li><img src="/images/gigbargain/invited_16.png" alt="Was invited"/><a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> was invited</a>.
-		  {% else %}
-		<li>{% display_action_short action %}
-		{% endif %}
-		{% endif %}
-		{% endif %}
-	      {% endif %}
-	    {% endif %}
-		<span class="date">{{ action.timestamp|timesince }} ago</span></li>
-
+	      <li>{% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
 	    {% endfor %}
-	    {% endstaticall %}
 	  </ul>
 
 	  <h3>Latest changes</h3>

@@ -28,18 +28,17 @@
     <link rel="stylesheet" type="text/css" href="/css/960.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="/css/base.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
-    {% endslimall %}
 
-    {% slimall %}
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/uni_form/uni-form.css" media="screen, projection" />
+    <link rel="stylesheet" href="/css/uni_form/default.uni-form.css" type="text/css" media="screen, projection" />
     {% endslimall %}
 
     {% staticall %}
-    {% block css %}
-  {% endblock %}
-  {% endstaticall %}
+    {% block css %}{% endblock %}
+    {% endstaticall %}
 
   <link rel="shortcut icon" type="image/x-icon" href="{% staticfile '/images/favicon.ico' %}" />
   <link rel="icon" type="image/png" href="{% staticfile '/images/favicon.png' %}" />
@@ -61,11 +60,10 @@
   <script type="text/javascript" src="/js/jquery/jquery.jeditable.js"></script>
   <script type="text/javascript" src="/js/jquery/jquery.slidePanel.js"></script>
   <script type="text/javascript" src="/js/jquery/jquery.notify.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.jplayer.js"></script>
   {% endstaticall %}
 
-
-  <script type="text/javascript" src="/js/jquery/jquery.jplayer.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
 
   <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.nicejforms2.js"></script>
 
@@ -76,9 +74,9 @@
     });  
   </script>
 
+  <!-- Support panel -->
   <script type="text/javascript">
     $(document).ready(function(){
-	// custom settings
 	$('#feedback').slidePanel({
 	    triggerName: '#feedback-trigger',
 	    position: 'fixed',
@@ -188,6 +186,7 @@
 	    </ul>
 	  {% else %}
 	    <ul>
+	      <li><a href="{% url account:dashboard %}">Dashboard</a></li>
 	      <li><a href="{% url account:auth_logout %}">Logout</a></li>
 	    </ul>
 	  {% endif %}

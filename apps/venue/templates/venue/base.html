@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load django_static %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/dashboard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/venue_dashboard.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
+
+  <div class="grid_2 alpha">
+    <div id="band_avatar">
+      {% if not venue.pictures.avatar %}
+	<a href="{% url venue:picture-new venue.slug %}"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="no venue avatar" title="Click here to upload an avatar"/></a>
+      {% else %}
+	<img src="{{ venue.pictures.avatar.avatar_image.url }}" alt="band avatar"/>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid_14 omega">
+    <div>
+      <h1><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> &raquo; {% block venue_section %}Home{% endblock %}</h1>
+  </div>
+  <div class="clear"></div>
+
+  <div>
+    <ul id="dashboard_nav_tabs">
+      {% url venue:detail venue.slug as home_url %}
+      {% url gigbargain:gigbargain-venue-dashboard venue.slug as gigbargain_url %}
+      {% url event:venue-calendar venue.slug as calendar_url %}
+      <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">Home</a></li>
+      <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">Gig Bargains</a></li>
+      <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">Calendar</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div id="venue_text">
+
+  {% block venue_content %}    
+{% endblock %}
+
+</div>
+
+{% endblock %}
+

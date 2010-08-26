@@ -308,7 +308,7 @@ class GigBargainBand(models.Model):
         pass
 
 
-    band = ForeignKey(Band)
+    band = ForeignKey(Band, related_name='gigbargainbands')
     bargain = ForeignKey(GigBargain)
 
     joined_on = DateTimeField(auto_now_add=True)

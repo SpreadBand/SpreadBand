@@ -1,0 +1,4 @@
+{% load django_static %}
+
+<img src="{% staticfile '/images/gigbargain/padlock-unlocked_16.png' %}" alt="Part unlocked"/ >
+<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> unlocked its part

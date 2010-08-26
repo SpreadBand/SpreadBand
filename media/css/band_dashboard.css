@@ -7,6 +7,13 @@
     background-color: black;
     height: 80px;
     width: 80px;
+    vertical-align: middle;
+}
+
+#band_avatar img {
+    border: 1px solid black;
+    height: 80px;
+    width: 80px;
 }
 
 
@@ -14,7 +21,8 @@
 ul#band_tabs {
     list-style: none;
     border-bottom: 1px #999999 solid;
-    padding-bottom: 9px
+    padding-bottom: 9px;
+    padding-left: 15px;
 }
 
 ul#band_tabs li {
@@ -47,22 +55,58 @@ div#band_text {
     margin-top: 10px;
 }
 
+/*-- upcoming events --*/
+#upcoming_events {
+    margin-bottom: 20px;
+}
+
+/*-- suggestions --*/
+#suggestions {
+    margin-bottom: 20px;
+}
+
 /*-- band members --*/
-ul.bandmembers {
+#bandmembers {
     clear: both;
+    margin-bottom: 20px;
 }
 
-ul.bandmembers li {
+#bandmembers h3 {
+    display: inline;
+}
+
+#bandmembers > a {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#bandmembers ul {
+    margin-top: 15px;
+}
+
+#bandmembers ul li {
     list-style: none;
+    background-color: #eee;
+    height: 50px;
+    padding-right: 3px;
 }
 
-ul.bandmembers li img {
+#bandmembers ul li img {
     float: left;
     margin-right: 5px;
+
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
-ul.bandmembers li .bandmember_role {
+#bandmembers ul li .bandmember_role {
+    font-size: 0.9em;
     text-align: right;
     display: block;
     color: #999;
+    margin-top: 5px;
+
+
 }

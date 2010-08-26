@@ -1,0 +1,32 @@
+/*-- navigation tabs --*/
+ul#dashboard_nav_tabs {
+    list-style: none;
+    border-bottom: 1px #999999 solid;
+    padding-bottom: 9px;
+}
+
+ul#dashboard_nav_tabs li {
+    display: inline;
+    margin-right: 5px;
+}
+
+ul#dashboard_nav_tabs li a {
+    color:#999999;
+    text-decoration: none;
+    background: #f7f7f7;
+    border: 1px #CCCCCC solid;
+    padding: 10px 14px;
+}
+
+ul#dashboard_nav_tabs li a.selected {
+    color:#666666;
+    background:#FFFFFF;
+    border-left: 1px #999999 solid;
+    padding: 14px 14px 10px 14px;
+    border-bottom: 1px white solid;
+}
+
+ul#dashboard_nav_tabs li a:hover {
+    padding: 14px 14px 10px 14px;
+}
+

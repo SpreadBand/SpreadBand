@@ -110,7 +110,7 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
                     gigbargainband.cancel_approval()
 
         # Send the action
-        action.send(gigbargain_band, verb='entered', target=gigbargain, public=False)
+        action.send(gigbargain_band, verb='gigbargain_entered', target=gigbargain, public=False)
 
         messages.success(request, _("You (%s) are now bargaining with %s") % (band.name,
                                                                               gigbargain.venue.name)

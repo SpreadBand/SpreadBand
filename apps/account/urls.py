@@ -9,7 +9,7 @@ urlpatterns = patterns('django.views.generic.simple',
 
 urlpatterns += patterns('',                       
     url(r'^(?P<username>[-\w]+)$', views.detail, name='detail'),
-    url(r'dashboard$', views.dashboard, name='dashboard'),
+    url(r'dashboard/$', views.dashboard, name='dashboard'),
     url(r'^(?P<username>[-\w]+)/edit$', views.edit, name='edit'),
     url(r'^profile/avatar$', views.avatar_set, name='avatar'),
     (r'^register/band', include('account.backends.userband.urls')),

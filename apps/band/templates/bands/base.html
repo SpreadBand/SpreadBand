@@ -107,7 +107,7 @@
 <div class="grid_2 alpha">
   <div id="band_avatar">
     {% if not band.pictures.avatar %}
-      <a href="{% url band:picture-new band.slug %}"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="band avatar"/></a>
+      <a href="{% url band:picture-new band.slug %}"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="no band avatar" title="Click here to upload an avatar"/></a>
     {% else %}
       <img src="{{ band.pictures.avatar.avatar_image.url }}" alt="band avatar"/>
     {% endif %}
@@ -116,7 +116,7 @@
 
 <div class="grid_14 omega">
   <div>
-    <h1>Band &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; {% block band_section %}Home{% endblock %}</h1>
+    <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; {% block band_section %}Home{% endblock %}</h1>
   </div>
   <div class="clear"></div>
 

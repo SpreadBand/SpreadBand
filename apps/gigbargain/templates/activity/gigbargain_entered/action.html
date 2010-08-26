@@ -1,0 +1,3 @@
+{% load django_static %}
+<img src="{% staticfile '/images/gigbargain/entered_16.png' %}" alt="Entered" />
+<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> entered this bargain

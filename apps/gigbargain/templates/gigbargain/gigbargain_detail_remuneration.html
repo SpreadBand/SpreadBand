@@ -1,58 +1,6 @@
 {% load i18n %}
 {% load django_static %}
 
-{% block javascript %}
-
-  {{ block.super }}
-
-  <script type="text/javascript">
-    $(document).ready(function() {
-	var pieChart = new $jit.PieChart({  
-	    //Where to inject the canvas. Any div container will do.  
-	    injectInto:'remuneration-graph',  
-	    //width and height for canvas.  
-            //Default's to the container offsetWidth and Height.  
-	    offset: 15,
-            sliceOffset: 0,
-            labelOffset: 20,
-            type: 'stacked:gradient',
-            hoveredColor: '#9fd4ff',
-	    Tips: {  
-		enable: true,  
-		onShow: function(tip, elem) {  
-		    {% if gigbargain.remuneration == 'PERC' %}
-		    tip.innerHTML = "<b>" + elem.label + "</b>: " + elem.value + "%";  
-		    {% else %}
-		    tip.innerHTML = "<b>" + elem.label + "</b>: $" + elem.value;  
-		    {% endif %}
-		}
-	    },
-	    Label: { type: 'HTML', color: '#000', size: 11 },
-
-
-	});  
-
-
-	var json = {  
-	    'values': [  
-		{% for band in gigbargain.gigbargainband_set.concurring %}
-		{  
-		    'label': '<a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a>',  
-		    {% if gigbargain.remuneration == 'PERC' %}
-		    'values': [ {{ band.percentage }} ],
-		    {% else %}
-		    'values': [ {{ band.amount }} ],
-		    {% endif %}
-		},
-		{% endfor %}
-	    ]}
-
-	pieChart.loadJSON(json);
-
-    });
-  </script>
-{% endblock %}
-
 <div class="header">
   <img src="{% staticfile '/images/elements/picto_mic_small.png' %}" alt="bands"/>
   <h2>{% trans "Remuneration" %}</h2>
@@ -82,6 +30,6 @@
     {% endif %}
     
 
-    <div id="remuneration-graph" style="margin-left: 50px; width: 80%; height: 230px"></div>
+    <div id="remuneration-graph" style="margin-left: 50px; width: 80%; height: 200px;"></div>
 
 </div>

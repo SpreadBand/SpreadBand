@@ -1,68 +1,6 @@
 {% load i18n %}
 {% load django_static %}
 
-{% block javascript %}
-
-{{ block.super }}
-
-<script type="text/javascript">
-var json = {
-    label: ['$'],
-    values: [
-	{% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
-	{
-	    label: '<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>',
-	    values: [{{ gigbargainband.defrayment }},],
-	},
-	{% endfor %}
-    ]
-};
-
-$(document).ready(function() {
-    var barChart = new $jit.BarChart({  
-	//id of the visualization container  
-	injectInto: 'defrayments-graph',  
-	//whether to add animations  
-	animate: true,  
-	//horizontal or vertical barcharts  
-	orientation: 'vertical',  
-	//bars separation  
-	barsOffset: 20,  
-	//visualization offset  
-	offset: 10,  
-	//labels offset position  
-	labelOffset: 5,  
-	//bars style  
-	type: 'stacked:gradient',
-	//whether to show the aggregation of the values  
-	showAggregates:true,  
-	//whether to show the labels for the bars  
-	showLabels:true,  
-	filterOnClick: true,  
-	restoreOnRightClick:true  ,
-	//labels style  
-	Label: {  
-	    type: 'HTML', //Native or HTML  
-	    size: 13,  
-	    family: 'Arial',
-	    color: 'black'  
-	},  
-	//add tooltips  
-	Tips: {  
-	    enable: true,  
-	    onShow: function(tip, elem) {  
-		tip.innerHTML = "<font color='white'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
-	    }  
-	}  
-    });  
-    //load JSON data.  
-    barChart.loadJSON(json);  
-});
-</script>
-
-
-{% endblock %}
-
 <div class="header">
   <img src="{% staticfile '/images/elements/picto_mic_small.png' %}" alt="Defrayments"/>
 
@@ -72,14 +10,14 @@ $(document).ready(function() {
     {% for band in managed_bands %}
       {% if band.state == 'negociating' %}
 	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+	    {% endif %}
+	  {% endfor %}
+	{% endif %}
 
 
-  <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'defrayments' %}">
-    <img class="comments" src="{% staticfile '/images/bargain/comments_off.png' %}" alt="Comments for defrayments section"/>
-  </a>
+	<a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'defrayments' %}">
+	  <img class="comments" src="{% staticfile '/images/bargain/comments_off.png' %}" alt="Comments for defrayments section" />
+	    </a>
 
 
 </div>

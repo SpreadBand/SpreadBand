@@ -24,3 +24,16 @@ class PressKit(models.Model):
                 )
 
     
+
+from django.db.models.signals import post_save
+from band.models import Band
+
+def create_presskit_for_band(sender, instance, created, **kwargs):
+    """
+    Called to ensure the presskit is created when a band is instanciated
+    """
+    if created:
+        presskit = PressKit(band=instance)
+        presskit.save()
+
+post_save.connect(create_presskit_for_band, sender=Band)

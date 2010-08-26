@@ -1,4 +1,4 @@
-{% extends "textpage.html" %}
+{% extends "base.html" %}
 
 {% load comments %}
 {% load voting_tags %}
@@ -10,7 +10,7 @@
 {% endblock %}
 
 
-{% block text %}
+{% block content %}
 
 <h1><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h1>
 

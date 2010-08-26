@@ -1,0 +1,4 @@
+{% load django_static %}
+
+<img src="{% staticfile '/images/gigbargain/submitted_16.png' %}" alt="Submitted to venue"/>
+Submitted to <a href="{{ action.target.get_absolute_url }}">{{ action.target.venue.name }}</a>

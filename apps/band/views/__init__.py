@@ -65,7 +65,7 @@ def edit(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
     # Check if we're allowed to edit this band
-    if not request.user.has_perm('band.change_band', band):
+    if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden('You are not allowed to edit this band')
 
 

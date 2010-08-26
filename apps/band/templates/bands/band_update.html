@@ -1,5 +1,14 @@
 {% extends "bands/base.html" %}
 {% load i18n %}
+{% load uni_form_tags %}
+
+{% block title %}
+Lymbago - Update
+{% endblock %}
+
+{% block band_section %}
+Update
+{% endblock %}
 
 {% block band_content %}
 
@@ -13,11 +22,11 @@
 
 {% endblock %}
 
-<h3>Update a band</h3>
-
-<form action="" method="POST">
-  {{ form.as_p }}
-  <input type="submit" value="{% trans "Submit" %}" />
-</form>
+<div class="grid_10">
+  <form action="" method="POST" class="uniForm">
+    {{ form|as_uni_form }}
+    <input type="submit" value="{% trans "Submit" %}" />
+  </form>
+</div>
 
 {% endblock %}
