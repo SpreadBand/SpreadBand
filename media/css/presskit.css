@@ -1,0 +1,172 @@
+#text ul li {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+/*-- style --*/
+#genres {
+    margin-bottom: 20px;
+}
+
+/*-- band members --*/
+#bandmembers {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+#bandmembers h3 {
+    display: inline;
+}
+
+#bandmembers > a {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#bandmembers ul {
+    margin-top: 15px;
+    border-top: 1px #ddd solid;    
+}
+
+#bandmembers ul li {
+    list-style: none;
+    height: 50px;
+    padding-right: 3px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ddd solid;
+}
+
+#bandmembers ul li img {
+    float: left;
+    margin-right: 5px;
+}
+
+#bandmembers ul li .bandmember_role {
+    font-size: 0.9em;
+    text-align: right;
+    display: block;
+    color: #999;
+    margin-top: 5px;
+}
+
+#bandmembers .minibutton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+
+/*-- latest gigs --*/
+#latest-gigs {
+    margin-bottom: 20px;
+}
+
+/*-- socialnets --*/
+#socialnets {
+    margin-bottom: 20px;
+}
+
+#socialnets ul {
+    list-style: none;
+    border-top: 1px #ddd solid;
+}
+
+#socialnets ul li {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-bottom: 1px #ddd solid;
+}
+
+#socialnets ul li img,a {
+    vertical-align: middle;
+}
+
+#socialnets ul li img {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#socialnets h4 {
+    display: inline;
+}
+
+#socialnets .minibutton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/*-- websites --*/
+#websites {
+    margin-bottom: 20px;
+}
+
+#websites h4 {
+    display: inline;
+}
+
+#websites .minibutton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+#websites ul {
+    border-top: 1px #ddd solid;
+}
+
+#websites ul li {
+    list-style: none;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ddd solid;
+}
+
+#websites ul li img,a {
+    vertical-align: middle;
+}
+
+#websites ul li img {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/*-- biography --*/
+#biography .minibutton {
+    margin-left: 5px;
+}
+
+/*-- location --*/
+#location .minibutton {
+    margin-left: 5px;
+}
+
+/*-- tracks --*/
+#tracks .minibutton {
+    margin-left: 5px;
+}
+
+/*-- pictures --*/
+#pictures .minibutton {
+    margin-left: 5px;
+}
+
+/*-- video --*/
+#video .minibutton {
+    margin-left: 5px;
+}
+
+/*-- techsheet --*/
+#techsheet .minibutton {
+    margin-left: 5px;
+}
+
+#techsheet ul li {
+    margin-left: 20px;
+}
+
+

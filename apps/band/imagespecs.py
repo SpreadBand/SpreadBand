@@ -30,5 +30,3 @@ class SmallAvatar(ImageSpec):
     pre_cache = False
     processors = [ResizeSmallAvatar]
 
-
-
