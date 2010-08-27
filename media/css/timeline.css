@@ -1,0 +1,45 @@
+/**
+ * CSS Timeline Styles
+ */
+
+ul.events {
+    list-style-type: none;
+    margin: 0;
+}
+
+ul.events li {
+    margin-left: 0px;
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 11px;
+    background: #eee;
+    border: 1px solid #ddd;
+    color: #707070;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 6px;
+    position: relative;
+    text-align: center;
+}
+
+ul.events li em {
+    color: #aaa;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+
+ul.intervals {
+    list-style-type: none;
+    padding: 0;
+    display: block;
+}
+
+/* The width depends on the number of intervals. For example 100 / 7 = 14.29% -- then subtract a little bit for room for the borders */
+ul.intervals li {
+    color: #999;
+    font-size: 1.2em;
+    float: left;
+    margin: 0;
+    text-align: center;
+}
+

@@ -6,152 +6,19 @@
 {% load activity_tags %}
 {% load django_static %}
 
+{% block title %}
+Gigbargain - {{ gigbargain.venue.name }} ({{ gigbargain.date }})
+{% endblock %}
+
 {% block head %}
   <link rel="profile" href="http://microformats.org/profile/hcalendar" />
   <link rel="profile" href="http://microformats.org/profile/hcard" />
 {% endblock %}
 
 {% block css %}
+{{ block.super }}
 
 <style type="text/css">
-
-	
-/* button basics */
-	a.minibutton {
-		display:inline-block;
-		height:23px;
-		padding:0 0 0 3px;
-		font-size:11px;
-		font-weight:bold;
-		color:#333;
-		text-shadow:1px 1px 0 #fff; 
-		background:url({{ MEDIA_URL }}/images/buttons/minibutton_matrix.png) 0 0 no-repeat;
-		white-space:nowrap;
-		border:none;
-		overflow:visible;
-		cursor:pointer;
-		text-decoration:none;
-	}
-	
-	a.minibutton>span {
-		display:block;
-		height:23px;
-		padding:0 10px 0 8px;
-		line-height:23px;
-		background:url({{ MEDIA_URL }}/images/buttons/minibutton_matrix.png) 100% 0 no-repeat;
-	}
-	
-	a.minibutton:hover, a.minibutton:focus {
-		color:#fff;
-		text-decoration:none;
-		text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-		background-position:0 -30px;
-	}
-	a.minibutton:hover>span, a.minibutton:focus>span {background-position:100% -30px;}
-	
-	a.minibutton.mousedown{background-position:0 -60px; }
-	a.minibutton.mousedown>span{background-position:100% -60px; }
-	
-	/* with icon */
-	a.btn-download .icon {
-		float:left;
-		margin-left:-4px;
-		width:18px;
-		height:22px;
-		background:url({{ MEDIA_URL }}/images/buttons/minibutton_icons.png) 0 0 no-repeat;
-	}
-	a.btn-download .icon {background-position:-40px 0;}
-	a.btn-download:hover .icon, a.btn-download:focus .icon {background-position:-40px -25px;}
-
-	/* with icon */
-	a.btn-fork .icon {
-		float:left;
-		margin-left:-4px;
-		width:18px;
-		height:22px;
-		background:url({{ MEDIA_URL }}/images/buttons/minibutton_icons.png) 0 0 no-repeat;
-	}
-	a.btn-fork .icon {background-position:-80px 0;}
-	a.btn-fork:hover .icon, a.btn-download:focus .icon {background-position:-80px -25px;}
-
-	/* with icon */
-	a.btn-kick .icon {
-		float:left;
-		margin-left:-4px;
-		width:18px;
-		height:22px;
-		background:url({{ MEDIA_URL }}/images/buttons/minibutton_icons.png) 0 0 no-repeat;
-	}
-	a.btn-kick .icon {background-position:-120px 0;}
-	a.btn-kick:hover .icon, a.btn-download:focus .icon {background-position:-120px -25px;}
-
-
-
-</style>
-
-
-<style type="text/css">
-/**
-         * CSS Timeline Styles
-         */
-
-         ul.events {
-             list-style-type: none;
-             margin: 0;
-         }
-
-         ul.events li {
-             margin-left: 0px;
-             -webkit-border-radius: 11px;
-             -moz-border-radius: 11px;
-             border-radius: 11px;
-             background: #eee;
-             border: 1px solid #ddd;
-             color: #707070;
-             font-size: 1.2em;
-             font-weight: bold;
-             margin-bottom: 6px;
-             position: relative;
-             text-align: center;
-         }
-
-         ul.events li em {
-             color: #aaa;
-             font-weight: normal;
-             font-size: 0.9em;
-         }
-
-         ul.intervals {
-             list-style-type: none;
-             padding: 0;
-             display: block;
-         }
-
-         /* The width depends on the number of intervals. For example 100 / 7 = 14.29% -- then subtract a little bit for room for the borders */
-         ul.intervals li {
-             color: #999;
-font-size: 1.2em;
-float: left;
-             margin: 0;
-             text-align: center;
-         }
-    </style>
-
-    <!--[if IE]>
-        <style type="text/css">
-            ul.intervals li {
-                width: 14.11%;
-            }
-        </style>
-    <![endif]-->
-
-
-<style type="text/css">
-  .bargainbox {
-  background-color: #eee;
-  padding: 10px; 
-  margin-bottom: 20px;
-  }
 
 #mainNav li{
   margin:0;
@@ -223,12 +90,13 @@ display:block;
 
 </style>
 
-<link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/tipsy.css" /> 
-<link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/fancybox/jquery.fancybox-1.3.1.css" /> 
-<link rel="stylesheet" type="text/css" media="screen" href="/css/gigbargain.css" /> 
+<link rel="stylesheet" type="text/css" href="/css/jquery/tipsy.css" media="screen, projection" /> 
+<link rel="stylesheet" type="text/css" href="/css/jquery/fancybox/jquery.fancybox-1.3.1.css" media="screen, projection" />
 
+<link rel="stylesheet" type="text/css" href="/css/gigbargain.css" media="screen, projection" />
+<link rel="stylesheet" type="text/css" href="/css/ghbuttons.css" media="screen, projection" />
+<link rel="stylesheet" type="text/css" href="/css/timeline.css" media="screen, projection" />
 
-{{ block.super }}
 {% endblock %}
 
 {% block javascript %}
@@ -516,11 +384,11 @@ $(document).ready(function() {
     <!-- Progress bar -->
     <div class="grid_8 alpha">
       <ul id="mainNav" class="fiveStep">
-	<li class="done"><a title="Yeah yeah, draft"><em>Draft</em></a></li>
-	<li class="lastDone"><a title=""><em>Draft ok</em></a></li>
-	<li class="current"><a title=""><em>Submitted</em></a></li>
-	<li><a title=""><em>Negociation</em></a></li>
-	<li class="mainNavNoBg"><a title=""><em>Finished</em></a></li>
+	<li class="{% if gigbargain_mstate == 0 %}current{% else %}{% if gigbargain_mstate > 0 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title="Yeah yeah, draft"><em>Draft</em></a></li>
+	<li class="{% if gigbargain_mstate == 1 %}current{% else %}{% if gigbargain_mstate > 1 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Submitted</em></a></li>
+	<li class="{% if gigbargain_mstate == 2 %}current{% else %}{% if gigbargain_mstate > 2 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Negociation</em></a></li>
+	<li class="{% if gigbargain_mstate == 3 %}current{% else %}{% if gigbargain_mstate > 3 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Finished</em></a></li>
+
       </ul>
     </div>
 

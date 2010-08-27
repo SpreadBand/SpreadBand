@@ -101,7 +101,18 @@ def gigbargain_detail(request, gigbargain_uuid):
     latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id=gigbargain.id)[:10]
 
 
+    # Progress bar indicator for gigbargain macro state
+    if gigbargain.macro_state == 'draft':
+        gigbargain_mstate = 0
+    elif gigbargain.macro_state == 'submitted':
+        gigbargain_mstate = 1
+    elif gigbargain.macro_state == 'negociations':
+        gigbargain_mstate = 2
+    elif gigbargain.macro_state == 'finished':
+        gigbargain_mstate = 3
+
     extra_context = {'gigbargain': gigbargain,
+                     'gigbargain_mstate': gigbargain_mstate,
                      'managed_bands': managed_bands,
                      'is_venue_managed': is_venue_managed,
                      'old_versions': old_versions,

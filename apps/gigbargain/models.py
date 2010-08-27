@@ -66,6 +66,20 @@ class GigBargain(models.Model):
         ('canceled', 'Canceled by the initiator')
         )
 
+    @property
+    def macro_state(self):
+        if self.state in ('new', 'draft', 'draft_ok'):
+            return 'draft'
+
+        elif self.state in ('complete_proposed_to_venue', 'incomplete_proposed_to_venue', 'need_venue_confirm'):
+            return 'submitted'
+
+        elif self.state in ('band_nego', 'band_ok'):
+            return 'negociations'
+
+        else:
+            return 'finished'
+
     # XXX: Pgsql seems to support native uuid field. This extension may not use that.
     uuid = UUIDField(unique=True, db_index=True, auto=True)
 

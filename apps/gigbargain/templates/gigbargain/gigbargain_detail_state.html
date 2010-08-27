@@ -3,25 +3,64 @@
 
 
 <div id="statusbox">
-
   <div class="head">
-    <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="locked"/>
-    <div class="title">{% trans "Submitted" %}</div>
-    <div class="text">This bargain has been submitted to the venue. You now <strong>have to wait</strong> for the venue to answer your proposal.</div>
+    {% if gigbargain.state == 'draft' %}
+      <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft"/>
+      <div class="title">{% trans "Draft" %}</div>
+      <div class="text">This is a draft.</div>
+    {% else %}
+      {% if gigbargain.state == 'draft_ok' %}
+	<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft ok"/>
+	<div class="title">{% trans "Draft ready" %}</div>
+	<div class="text">This draft is <strong>ready to be submitted</strong>.</div>
+      {% else %}
+	{% if gigbargain.state == 'complete_proposed_to_venue' %}
+	  <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="complete proposed to venue"/>
+	  <div class="title">{% trans "Submitted to venue" %}</div>
+	  <div class="text">This bargain was submitted to <strong>{{ gigbargain.venue.name }}</strong>. You now have to wait for it to reply.</div>
+	{% else %}
+	  {% if gigbargain.state == 'need_venue_confirm' %}
+	    <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="need venue confirmation"/>
+	    <div class="title">{% trans "Submitted to venue" %}</div>
+	    <div class="text">This bargain was submitted to <strong>{{ gigbargain.venue.name }}</strong></div>
+	  {% else %}
+	    {% if gigbargain.state == 'band_nego' %}
+	      <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="band negociations"/>
+	      <div class="title">{% trans "Band negociations" %}</div>
+	      <div class="text">Bands now have to negociate their terms. You should <strong>edit your terms</strong> and <strong>lock your part</strong> once you're ready.</div>
+	    {% else %}
+	      {% if gigbargain.state == 'band_ok' %}
+		<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="band ok"/>
+		<div class="title">{% trans "Band negociations finished" %}</div>
+		<div class="text">Bands have finished negociating. You have to <strong>wait for the venue to reply</strong>.</div>
+	      {% else %}
+		{% if gigbargain.state == 'concluded' %}
+		  <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="concluded"/>
+		  <div class="title">{% trans "Submitted" %}</div>
+		  <div class="text">This bargain is concluded. You can see <a href="{{ gigbargain.gig.get_absolute_url }}">the produced gig here</a>.</div>
+		{% else %}
+		  {% if gigbargain.state == 'declined' %}
+		    <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="declined"/>
+		    <div class="title">{% trans "Refused" %}</div>
+		    <div class="text">This bargain was refused by the venue.</div>
+		  {% endif %}
+		{% endif %}
+	      {% endif %}
+	    {% endif %}
+	  {% endif %}
+	{% endif %}
+      {% endif %}
+    {% endif %}
   </div>
-
+  
   <div class="buttons">
 
-    {# gigbargain.state #}
-    {% if gigbargain.state == 'concluded' %}
-      This bargain is concluded. You can see <a href="{{ gigbargain.gig.get_absolute_url }}">the produced gig here</a>.
-    {% endif %}
 
     <!-- Venue management -->
     {% if is_venue_managed %}
 
       {% if gigbargain.state == 'band_ok' %}
-	<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Conclude</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Conclude</span></a>
 	<a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart the negociations"><span><span class="icon"></span>Renegociate</span></a>    
 	<a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Decline</span></a>    
       {% endif %}

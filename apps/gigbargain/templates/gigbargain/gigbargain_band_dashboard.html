@@ -32,6 +32,36 @@ Gigbargains
 
 <div class="grid_14 alpha omega">
 
+<h2>Alerts</h2>
+
+<div class="greybox ui-corner-all">
+
+<table border=1>
+  <tr>
+    <th>When</th>
+    <th>What</th>
+    <th>New</th>
+  </tr>
+
+{% for notice in notices_new %}
+  <tr>
+    <td>{{ notice.added }}</td>
+    <td>{{ notice.message }}</td>
+    <td>{{ notice.unseen|yesno }}</td>
+  </tr>
+{% endfor %}
+
+</table>
+
+</div>
+</div>
+
+
+
+<div class="grid_14 alpha omega">
+
+
+
 <h2>Latest activity</h2>
 
 <div class="greybox ui-corner-all">
@@ -61,31 +91,6 @@ Gigbargains
 </div>
 
 
-<div class="grid_14 alpha omega">
-
-<h2>Notices</h2>
-
-<div class="greybox ui-corner-all">
-
-<table border=1>
-  <tr>
-    <th>When</th>
-    <th>What</th>
-    <th>New</th>
-  </tr>
-
-{% for notice in notices_new %}
-  <tr>
-    <td>{{ notice.added }}</td>
-    <td>{{ notice.message }}</td>
-    <td>{{ notice.unseen|yesno }}</td>
-  </tr>
-{% endfor %}
-
-</table>
-
-</div>
-</div>
 
 <div class="grid_14 alpha omega">
 
