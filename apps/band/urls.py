@@ -3,6 +3,7 @@ from django.conf import settings
 
 import views
 import views.members
+import views.socialnets
 
 urlpatterns = patterns('django.views.generic.simple',
     (r'^$', 'redirect_to', {'url': 'list'}),
@@ -29,7 +30,11 @@ urlpatterns += patterns('',
     url(r'^(?P<band_slug>[-\w]+)/members/(?P<member_id>\d+)/remove$', views.members.membership_remove, name='membership-remove'),
     url(r'^(?P<band_slug>[-\w]+)/members/manage$', views.members.membership_manage, name='membership-manage'),
 
-    (r'^web/', include('minisite.urls', namespace='minisite')),
+    # socialnets
+    url(r'^(?P<band_slug>[-\w]+)/socialnets/add$', views.socialnets.socialnet_add, name='socialnet-add'),
+    url(r'^(?P<band_slug>[-\w]+)/socialnets/edit$', views.socialnets.socialnet_edit, name='socialnet-edit'),
+
+    # (r'^web/', include('minisite.urls', namespace='minisite')),
 
     url(r'^(?P<band_slug>[-\w]+)/dashboard$', views.detail, name='dashboard'),
 

@@ -128,7 +128,7 @@ $(document).ready(function() {
   </div>
 
   <div class="grid_3 alpha omega">
-    <h4>Social Networks</h4>
+    <h4>Social Networks</h4><a href="{% url band:socialnet-edit band.slug %}">edit</a>
     <ul>
     {% for socialnetwork in band.socialnetworks.all %}
     <li>
