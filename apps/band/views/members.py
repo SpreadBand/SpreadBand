@@ -1,11 +1,17 @@
 """
 Membership management for a band
 """
-from django.views.generic.create_update import create_object
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
+from django.views.generic.create_update import delete_object, create_object
 from django.views.generic.list_detail import object_list
 
-from ..forms import BandMemberRequestForm
+from guardian.shortcuts import assign
+
+from ..forms import BandMemberRequestForm, BandMemberAddForm
 from ..models import Band, BandMember
 
 def membership_request(request, band_slug):
@@ -33,16 +39,16 @@ def membership_request(request, band_slug):
                          )
 
 
-from ..forms import BandMemberAddForm
-from django.contrib.auth.models import User
-
-from guardian.shortcuts import assign
-
+@login_required
 def membership_add(request, band_slug):
     """
     Add a member in the band
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to edit this band')
 
     if request.method == 'POST':
         addform = BandMemberAddForm(request.POST)
@@ -50,6 +56,7 @@ def membership_add(request, band_slug):
         if addform.is_valid():
             # Set band
             bandmember = addform.save(commit=False)
+            
             bandmember.band = band
 
             # Save to DB
@@ -67,11 +74,16 @@ def membership_add(request, band_slug):
                          extra_context={'band': band},
                          )
 
+@login_required
 def membership_manage(request, band_slug):
     """
     Manage members in the band
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to edit this band')
 
     return object_list(request,
                        queryset=BandMember.objects.filter(band__id=band.id),
@@ -81,14 +93,17 @@ def membership_manage(request, band_slug):
                        )
 
 
-from django.views.generic.create_update import delete_object
-
+@login_required
 def membership_remove(request, band_slug, member_id):
     """
     Remove a member from the band
     """
     band = get_object_or_404(Band, slug=band_slug)
     bandmember = get_object_or_404(BandMember, band=band.id, user=member_id)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to edit this band')
 
     return delete_object(request,
                          model=BandMember,
