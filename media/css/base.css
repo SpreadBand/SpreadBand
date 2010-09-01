@@ -72,6 +72,33 @@ a {
 	background:#f2f2f2 url('/images/structure/background/page_bg.jpg') no-repeat top center;
 }
 
+#content #text-wrapper {
+    float: left;
+    margin-bottom: 30px;
+
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    margin-left: 22px;
+    margin-right: 22px;
+
+
+    text-align: justify;
+
+    background-color: white;
+   
+    border: 2px solid #555;
+    border-top: 0px;
+    
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-bottom-left-radius:5px;
+    -o-border-radius:5px;
+
+    -moz-box-shadow: 1px 1px 7px #555;
+}
+
 /* ----------------------------------- Footer */
 
 #footer {

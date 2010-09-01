@@ -15,14 +15,6 @@
     <div class="grid_10 alpha omega">
       <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-download" title="Edit"><span><span class="icon"></span>Edit</span></a>
 
-      {% if not band.owned %}
-      <p>
-	<a href="{% url band:own band.slug%}">This is my band !</a>
-      </p>
-      {% else %}
-      This band is owned.
-      {% endif %}
-
     </div>
     
     {% if today_events %}
@@ -50,14 +42,14 @@
 	  <h3>New</h3>
 	  <ul>
 	    {% for gigbargain in band.gigbargains.new_gigbargains|slice:":2" %}
-	      <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain }}</a></li>
+	      <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})</a></li>
 	    {% endfor %}
 	  </ul>
 	  
 	  <h3>In progress</h3>
 	  <ul>
 	    {% for gigbargain in band.gigbargains.inprogress_gigbargains|slice:":2" %}
-	      <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain }}</a></li>
+	      <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})</a></li>
 	    {% endfor %}
 	  </ul>
 	  
@@ -122,7 +114,7 @@
 	<li>
 	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}" alt="{{ member.user.username }} avatar"/>
 	  <a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
-	  <span class="bandmember_role">{{ member.roles.all|join:', ' }}</span>
+	  <span class="bandmember_role" title="{{ member.roles.all|join:', ' }}">{{ member.roles.all|join:', '|truncatewords:3 }}</span>
 	</li>
 	{% endfor %}
       </ul>
