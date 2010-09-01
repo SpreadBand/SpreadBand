@@ -1,61 +1,31 @@
 from datetime import date
 
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.gis.geos import Point
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect, render_to_response
+from django.template import RequestContext
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 
-from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.template import RequestContext
+from geopy import geocoders
 
-from django.http import HttpResponseForbidden
-
-from django.contrib.auth.decorators import login_required
+from world.models import Place
 
 from ..models import Band
-from ..forms import BandCreateForm, BandUpdateForm, BandMemberRequestForm
+from ..forms import BandCreateForm, BandUpdateForm
 from ..forms import BandPictureForm
 
 @login_required
-def new_or_own(request, band_slug=None):
+def new(request):
     """
-    register a new band or own an existing one
+    register a new band
     """
-    # We are owning an existing band
-    if band_slug:
-        band = get_object_or_404(Band, slug=band_slug)
-        if band.owned:
-            return render_to_response(request,
-                                      template_name='band/band_already_owned.html'
-                                      )
-        else:
-            if request.method == 'POST':
-                bandform = BandCreateForm(request.POST, instance=band)
-                if bandform.is_valid():
-                    band = bandform.save(commit=False)
-                    # mark the band as owned
-                    band.owned = True
-                    band.save()
-
-                    return redirect(band)
-            else:
-                bandform = BandCreateForm(instance=band)
-
-            return render_to_response(template_name='bands/band_new.html',
-                                      dictionary={'band': band,
-                                                  'form': bandform},
-                                      context_instance=RequestContext(request),
-                                      )
-
-    # We are creating a new one
-    else:
-        return create_object(request,
-                             form_class=BandCreateForm,
-                             template_name='bands/band_new.html',
-                             )
-
-from django.conf import settings
-from django.contrib.gis.geos import Point
-from geopy import geocoders
-from world.models import Place
+    return create_object(request,
+                         form_class=BandCreateForm,
+                         template_name='bands/band_new.html',
+                         )
 
 @login_required
 def edit(request, band_slug):
