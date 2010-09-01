@@ -11,7 +11,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('glibersat', 'guillaume@spreadband.com'),
+     ('Guillame Libersat', 'guillaume@spreadband.com'),
 )
 
 MANAGERS = ADMINS
@@ -230,9 +230,17 @@ DEBUG_TOOLBAR_CONFIG = {
 
 
 ### Mailer
+SERVER_EMAIL = 'noreply@spreadband.com'
 # Write emails to console if in development mode
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# else, use SMTP
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = 25
+    EMAIL_SUBJECT_PREFIX = '[SpreadBand] '
+
 
 ### Registration
 ACCOUNT_ACTIVATION_DAYS = 7
