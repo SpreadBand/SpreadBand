@@ -86,19 +86,27 @@ $(document).ready(function() {
 
 {% block content %}
 
-<div class="grid_3 alpha">
+<div id="presskit-sidebar" class="grid_3 alpha">
   <div id="bandavatar" class="grid_3 alpha omega">
     <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="172px" alt="band avatar" />
   </div>
 
   <div id="genres" class="grid_3 alpha omega">
     {% if band.genres %}
-      {{ band.genres }}
+      <strong>Genres</strong>: {{ band.genres }}
     {% else %}
       No genre.
     {% endif %}
   </div>
 
+  <div id="influences" class="grid_3 alpha omega">
+    {% if band.influences %}
+      <strong>Influences</strong>: {{ band.influences }}.
+    {% else %}
+      No influences.
+    {% endif %}
+  </div>
+  
   <!-- Band members -->
   <div id="bandmembers" class="grid_3 alpha omega">
     <h3>Members ({{ band.band_members.count }})</h3>
@@ -106,8 +114,9 @@ $(document).ready(function() {
 
     <ul>
       {% for member in band.band_members.all %}
-	<li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
-	<span class="bandmember_role">{{ member.roles.all|join:", " }}</span>
+	<li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
+	<span class="bandmember_whois">{{ member.user.get_profile.genre }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
+	<span class="bandmember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
       </li>
     {% endfor %}
     </ul>
@@ -161,9 +170,23 @@ $(document).ready(function() {
 
   </div>
 
+  <!-- stats -->
+  <div id="stats" class="grid_3 alpha omega">
+    <h3>A few stats</h3>
+    <ul>
+      {% if band.founded_on %}
+	<li>Active since {{ band.founded_on|date:"M Y" }}</li>
+      {% endif %}
+      <li>Already played X gigs</li>
+      <li>Played with Y other bands</li>
+      <li>Played at Z venues</li>
+    </ul>
+  </div>
+
+
 </div>
 
-<div class="grid_11 omega">
+<div id="presskit-main" class="grid_12 omega">
   <h1>PressKit &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city }}, {{ band.country }})</h1>
 
   <div class="grid_7 alpha">
@@ -183,7 +206,7 @@ $(document).ready(function() {
     </div>
   </div>
 
-  <div class="grid_4 omega">
+  <div class="grid_5 omega">
     <div id="location" class="sectionbox">
       <div class="header">
 	<h2>Location</h2>
@@ -196,7 +219,7 @@ $(document).ready(function() {
     </div>
   </div>
 
-  <div class="grid_11 alpha omega">
+  <div class="grid_12 alpha omega">
     <div id="tracks" class="sectionbox">
       <div class="header">
 	<h2>Featured Tracks</h2>
@@ -246,7 +269,7 @@ $(document).ready(function() {
     </div>
   </div>
 
-  <div class="grid_5 omega">
+  <div class="grid_6 omega">
     <div id="video" class="sectionbox">
       <div class="header">
 	<h2>Video</h2>
@@ -265,6 +288,8 @@ $(document).ready(function() {
     </div>
   </div>
 
+  <div class="clear"></div>
+
   <div class="grid_6 alpha">
     <div id="techsheet" class="sectionbox">
       <div class="header">
@@ -282,7 +307,7 @@ $(document).ready(function() {
     </div>
   </div>
 
-  <div class="grid_5 omega">
+  <div class="grid_6 omega">
     <div id="reviews" class="sectionbox">
       <div class="header">
 	<h2>Latest reviews</h2>

@@ -33,6 +33,10 @@ class Band(Actor):
     
     genres = TagField('Genres')
 
+    influences = CharField(max_length=200, 
+                           blank=True,
+                           null=True)
+
     city = CharField(max_length=100)
     zipcode = CharField(max_length=50)
     country = CountryField()

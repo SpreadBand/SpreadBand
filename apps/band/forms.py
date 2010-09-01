@@ -10,7 +10,7 @@ class BandCreateForm(forms.ModelForm):
 class BandUpdateForm(forms.ModelForm):
     class Meta:
         model = Band
-        fields = ('name', 'founded_on', 'zipcode', 'city', 'country', 'genres', 'biography', 'technical_sheet',)
+        fields = ('name', 'founded_on', 'zipcode', 'city', 'country', 'genres', 'influences', 'biography', 'technical_sheet',)
 
 class BandMemberRequestForm(forms.ModelForm):
     class Meta:
