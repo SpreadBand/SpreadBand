@@ -8,7 +8,6 @@
     margin: 10px;
 
     position: relative;
-    width: 100%;
 
     float: left;
 
@@ -27,7 +26,7 @@
     -moz-box-shadow: 1px 1px 7px #555;
 
     text-align: left;
-    width: 30%;
+    width: 35%;
 
     padding: 15px;
 

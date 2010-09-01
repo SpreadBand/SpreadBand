@@ -1,8 +1,10 @@
 #content #text-wrapper {
-    width: 100%;
-
     float: left;
     margin-bottom: 30px;
+
+
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     text-align: justify;
 
@@ -20,8 +22,9 @@
 }
 
 #text {
-    padding: 30px;
-    width: 100%;
+    padding-bottom: 30px;
+    margin-right: 50px;
+    margin-left: 25px;
 }
 
 #text h1 {
@@ -34,7 +37,14 @@
 
 #text h3 {
     margin-bottom: 10px;
+    display: block;
 }
+
+#text h4 {
+    margin-bottom: 10px;
+    display: block;
+}
+
 
 #text p {
     margin-bottom: 15px;

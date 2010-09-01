@@ -200,14 +200,14 @@
     <div id="content" class="clearfix">
       <div class="container_16">
 	<div class="grid_16 alpha omega">
-	  <div id="text-wrapper">
-	    <div id="text">
-	      {% block content %}
+	  <div id="text-wrapper" class="grid_16 alpha omega">
+	    {% block content %}
 	    {% endblock %}
-	    </div>
 	  </div>
       </div>
     </div>
+
+    <div class="clear"></div>
 
 {% if not request.is_ajax %}    
     <div id="footer">
@@ -236,6 +236,9 @@
 
 	  <ul>
 	    <li><a href="http://blog.spreadband.com">Blog</a></li>
+	    <li><a href="http://facebook.com/spreadband">Facebook</a></li>
+	    <li><a href="http://twitter.com/spreadband">Twitter</a></li>
+	    <li><a href="http://identi.ca/spreadband">Identi.ca</a></li>
 	  </ul>
 	</div>
 

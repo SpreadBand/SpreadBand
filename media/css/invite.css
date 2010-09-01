@@ -1,7 +1,10 @@
+#text-invite {
+    float: left;
+}
+
 #discover {
     text-align: center;
     padding-left: 150px;
-    width: 100%;
     margin-top: 50px;
     margin-bottom: 50px;
 
@@ -17,3 +20,12 @@
     font-size: 1.5em;
 }
 
+#discover-band span {
+    display:block;
+    font-size: 0.5em;
+}
+
+#discover-venue span {
+    display:block;
+    font-size: 0.5em;
+}
