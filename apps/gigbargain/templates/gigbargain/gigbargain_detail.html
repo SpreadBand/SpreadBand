@@ -370,10 +370,10 @@ $(document).ready(function() {
 {% block content %}
   
   <!-- Header -->
-  <div id="gigbargain-header" class="grid_16 alpha omega">
+  <div id="gigbargain-header" class="grid_15 alpha omega">
 
     <!-- Title -->
-    <div id="gigbargain-title" class="grid_16 alpha omega">
+    <div id="gigbargain-title" class="grid_15 alpha omega">
       <h1>Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, {{ gigbargain.venue.city }}, {{ gigbargain.venue.country }}</h1>
       with
       {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
