@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.db.models import ForeignKey, CharField, DateField, OneToOneField
 from django.db.models.signals import post_save
@@ -13,13 +15,30 @@ class UserProfile(models.Model):
     """
     A profile for a user
     """
+    genre_choices = (('M', 'Male'),
+                     ('F', 'Female'))
+
     user = ForeignKey(User, unique=True)
     birthdate = DateField(null=True, blank=True)
+
+    genre = CharField(max_length=1, blank=True,
+                      choices=genre_choices)
 
     country = CountryField()
     timezone = TimeZoneField()
 
     town = CharField(max_length=50, blank=True)
+
+    @property
+    def age(self):
+        """
+        Calculate the age of a user
+        """
+        if self.birthdate:
+            d = datetime.date.today()
+            return (d.year - self.birthdate.year) - int((d.month, d.day) < (self.birthdate.month, self.birthdate.day))
+        else:
+            return None
 
     @models.permalink
     def get_absolute_url(self):
