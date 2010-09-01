@@ -3,10 +3,10 @@
 
 {% block band_content %}
 
-<h4>Members in {{ band.name }}</h4>
+<h2>Members in {{ band.name }}</h2>
 <ul>
   {% for bandmember in bandmember_list %}
-  <li>{{ bandmember.user.username }} - 
+  <li><a href="{{ bandmember.user.get_profile.get_absolute_url }}">{{ bandmember.user.get_full_name|default:bandmember.user.username }}</a> - 
     {{ bandmember.roles.all|join:", " }}
     [<a href="{% url band:membership-remove band.slug bandmember.user.id %}">X</a>]
   </li>
