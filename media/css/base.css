@@ -166,3 +166,7 @@ a {
 .sectionbox .content {
     padding: 12px;
 }
+
+.sectionbox .fullcontent {
+    padding: 0px;
+}

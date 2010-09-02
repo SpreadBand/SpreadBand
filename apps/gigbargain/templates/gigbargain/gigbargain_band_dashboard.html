@@ -1,315 +1,362 @@
 {% extends 'bands/base.html' %}
 
 {% load activity_tags %}
+{% load django_static %}
 
 {% block css %}
-{{ block.super }}
-
-<style type="text/css">
-  .greybox {
-  background-color: #eee;
-  padding: 10px; 
-  margin-bottom: 20px;
-  }
-</style>
-
-
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="/css/gigbargain.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.treeview.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jit.js"></script>
+  <script type="text/javascript" src="{% staticfile '/js/jit.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.treeview.js' %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	// first example
+	$("#dash-connections #conlist").treeview({
+	    collapsed: false,
+	});
+    });
+  </script>
 {% endblock %}
 
 {% block title %}
-{{ band.name }} - Gigbargains
+  {{ band.name }} - Gigbargains
 {% endblock %}
 
 {% block band_section %}
-Gigbargains
+  Gigbargains
 {% endblock %}
 
 {% block band_content %}
 
-<div class="grid_14 alpha omega">
 
-<h2>Alerts</h2>
+  <div class="grid_12 alpha">
 
-<div class="greybox ui-corner-all">
+    <!-- Bargains -->
+    <div id="dash-gigbargains" class="grid_12 alpha omega">
+      <div class="sectionbox bright">
+	<div class="header">
+	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
+	  <h2>Bargains</h2>
 
-<table border=1>
-  <tr>
-    <th>When</th>
-    <th>What</th>
-    <th>New</th>
-  </tr>
+	  <span>New: {{ new_gigbargains|length }}</span>|
+	  <span>In progress: {{ inprogress_gigbargains|length }}</span>|
+	  <span>Concluded: {{ concluded_gigbargains|length }}</span>|
+	  <span>Aborted: X</span>
+	</div>
+	<div class="separator"></div>
 
-{% for notice in notices_new %}
-  <tr>
-    <td>{{ notice.added }}</td>
-    <td>{{ notice.message }}</td>
-    <td>{{ notice.unseen|yesno }}</td>
-  </tr>
-{% endfor %}
-
-</table>
-
-</div>
-</div>
-
-
-
-<div class="grid_14 alpha omega">
-
-
-
-<h2>Latest activity</h2>
-
-<div class="greybox ui-corner-all">
-
-<table border=1>
-  <tr>
-    <th>When</th>
-    <th>Where</th>
-    <th>What</th>
-  </tr>
-
-{% for activity in latest_activity %}
-  <tr>
-    <td>{{ activity.timestamp|timesince }} ago</td>
-    {% if activity.target.name %}
-      <td>{{ activity.target.name }} ({{ activity.target.date }})</td>
-    {% else %}
-      <td>{{ activity.target.venue.name }} ({{ activity.target.date }})</td>
-    {% endif %}
-    <td>{% display_action_short activity %}. [<a href="{% url gigbargain:gigbargain-detail activity.target.uuid %}">See</a>]</td>
-  </tr>
-{% endfor %}
-
-</table>
-
-</div>
-</div>
-
-
-
-<div class="grid_14 alpha omega">
-
-  <h2>Bargains</h2>
-  
-  <div class="grid_4 alpha">
-    <h3>New</h3>
-    <div class="greybox ui-corner-all">
-      <ul style="list-style-type: none;">
-	{% for gigbargain in new_gigbargains %}
-	<li style="margin-left: 0px;">
-	  <div style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
-	    <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
-	    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-	    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
-	    State : {{ gigbargain.state }}
-	    </div>
+	<div class="fullcontent">
+      
+	  <div id="dash-gb-new" class="grid_4 alpha omega">
+	    <h3>New</h3>
+	    <ul>
+	      {% for gigbargain in new_gigbargains %}
+		<li>
+		  <div>
+		    <div>
+		      <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
+		      with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
+		      State : {{ gigbargain.state }}
+		    </div>
+		  </div>
+		</li>
+	      {% endfor %}
+	    </ul>
 	  </div>
-	</li>
-      {% endfor %}
-      </ul>
+	  
+	  
+	  <div id="dash-gb-progress" class="grid_4 alpha omega">   
+	    <h3>In progress</h3>
+	    
+	    <ul>
+	      {% for gigbargain in inprogress_gigbargains %}
+		<li>
+		  <div>
+		    <div>
+		      <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
+		      with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
+		      State : {{ gigbargain.state }}
+		    </div>
+		  </div>
+		</li>
+	      {% endfor %}
+	    </ul>
+	</div>
+	  
+	<div id="dash-gb-concluded" class="grid_4 alpha omega">
+	    
+	  <h3>Concluded</h3>
+	  
+	  <ul>
+	    {% for gigbargain in concluded_gigbargains %}
+	      <li>
+		<div>
+		  <div>
+		    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
+		    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
+		    State : {{ gigbargain.state }}
+		  </div>
+		</div>
+	      </li>
+	    {% endfor %}
+	  </ul>
+	</div>
+	
+	<div class="clear"></div>
+	
+	</div>
+      </div>
     </div>
-  </div>
-  
-  <div class="prefix_1 grid_4">   
-    <h3>In progress</h3>
 
-    <div class="greybox ui-corner-all">
-      <ul style="list-style-type: none;">
-	{% for gigbargain in inprogress_gigbargains %}
-	<li style="margin-left: 0px;">
-	<div style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
-	  <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
-	    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-	    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
-	    State : {{ gigbargain.state }}
+
+    <div class="grid_12 alpha omega">
+      <!-- Calendar -->
+      <div id="dash-calendar" class="grid_5 alpha">  
+	
+	<div class="sectionbox bright">
+	  <div class="header">
+	    <img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="calendar"/>
+	    <h2>Calendar</h2>
+	  </div>
+	  
+	  <div class="separator"></div>
+
+	  <div class="fullcontent">
+	    {{ monthly_calendar.toHTML|safe }}
+	  </div>
+	    
+	</div>
+      </div>
+	  
+      <!-- Repartition -->
+      <div id="dash-repartition" class="grid_3">
+	<div class="sectionbox bright">
+	  <div class="header">
+	    <img src="{% staticfile '/images/gigbargain/repartition_ico.png' %}" alt="repartition"/>
+	    <h2>Repartition</h2>
+	  </div>
+	  <div class="separator"></div>
+	  <div class="content">
+	    
+	    <div id="monthly_repartition" style="width: 80%; height: 200px;"></div>
+	    
+	    <script type="text/javascript">
+	      $(document).ready(function() {
+		  var pieChart = new $jit.PieChart({  
+		      //Where to inject the canvas. Any div container will do.  
+		      injectInto: 'monthly_repartition',  
+		      //width and height for canvas.  
+		      //Default's to the container offsetWidth and Height.  
+		      offset: 25,
+		      animate: false,  
+		      sliceOffset: 1,
+		      labelOffset: 15,
+		      type: 'stacked:gradient',
+		      hoveredColor: '#9fd4ff',
+		      Tips: {  
+			  enable: true,  
+			  onShow: function(tip, elem) {  
+			      tip.innerHTML = "<font color='black'><b>" + elem.label + "</b>: " + elem.value + "</font>";  
+			  }
+		      },
+		      Label: { type: 'HTML', color: '#000', size: 11 },
+
+		  });  
+
+
+		  var json = {  
+		      'values': [  
+			  {  
+			      label: 'New',  
+			      values: [{{ monthly_stats.new }}],
+			  },
+			  {  
+			      label: 'In progress',  
+			      values: [{{ monthly_stats.inprogress }}],
+			  },
+			  {  
+			      label: 'Concluded',  
+			      values: [{{ monthly_stats.concluded }}],
+			  },
+		      ]}
+
+		  pieChart.loadJSON(json);
+
+	      });
+	    </script>
+
+	    <div class="legend">
+	      Total = {{ monthly_stats.total }}<br>
+	      New = {{ monthly_stats.new }}<br>
+	      In progress = {{ monthly_stats.inprogress }}<br>
+	      Concluded = {{ monthly_stats.concluded }}
+	    </div>
+	    
 	  </div>
 	</div>
-	</li>
-      {% endfor %}
-      </ul>
-    </div>
-    </div>
+      </div>
 
-  <div class="prefix_1 grid_4 omega">
-    
-    <h3>Concluded</h3>
-    <div class="greybox ui-corner-all">
-      <ul style="list-style-type: none;">
-	{% for gigbargain in concluded_gigbargains %}
-	<li style="margin-left: 0px;">
-	  <div style="font-size: 0.9em; font-style: italic; background-color: #ffffb0">
-	    <div style="border: 1px #eee solid; padding: 10px; padding-top: 10px;">
-	    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-	    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
-	    State : {{ gigbargain.state }}
-	    </div>
+      <!-- Connections -->
+      <div id="dash-connections" class="grid_4 omega">
+	<div class="sectionbox bright">
+	  <div class="header">
+	    <img src="{% staticfile '/images/gigbargain/connection_ico.png' %}" alt="connections"/>
+	    <h2>Connections</h2>
 	  </div>
-	</li>
-	{% endfor %}
-      </ul>
+
+	  <div class="separator"></div>
+
+	  <div class="content">
+
+	    <ul id="conlist" class="treeview">
+	      <li><span><strong>Bands</strong> ({{ monthly_connections.bands|length }})</span>
+	      <ul>
+		{% for band in monthly_connections.bands %}
+		  <li><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> <img src="{{ band.country.flag }}" title="{{ band.country.name }}, {{ band.city }}" alt="{{ band.country }}"/></li>
+		{% empty %}
+		  <li>No connection</li>
+		{% endfor %}
+	      </ul>
+	      </li>
+
+	      <li><span><strong>Venues</strong> ({{ monthly_connections.venues|length }})</span>
+	      <ul>
+		{% for venue in monthly_connections.venues %}
+		  <li><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> <img src="{{ venue.country.flag }}" title="{{ venue.country.name }}, {{ venue.city }}" alt="{{ venue.country }}"/></li>
+		{% empty %}
+		  <li>No connection</li>
+		{% endfor %}
+	      </ul>
+	      </li>
+	    </ul>
+
+	  </div>
+	  
+	</div>
+      </div>
+
+    </div>
+
+    <div class="grid_12 alpha omega">
+      <div class="sectionbox bright">
+	<div class="header">
+	  <img src="{% staticfile '/images/gigbargain/statistics_ico.png' %}" alt="global stats"/>
+	  <h2>Global stats</h2>
+	</div>
+
+	<div class="separator"></div>
+
+	<div class="content">
+
+	  <div id="yearly_stats" style="width: 100%; height: 300px;"></div>
+
+	  <script type="text/javascript">
+	    var json = {
+		label: ['New', 'In progress', 'Concluded'],
+		values: [
+		    {% for month, data in yearly_values.items %}
+		    {
+			label: '{{ data.label|date:"M" }}',
+			values: [{{ data.new }}, {{ data.inprogress }}, {{ data.concluded }}]
+		    },
+		    {% endfor %}
+		]
+	    };
+
+	    $(document).ready(function() {
+		var barChart = new $jit.AreaChart({  
+		    //id of the visualization container  
+		    injectInto: 'yearly_stats',  
+		    //whether to add animations  
+		    animate: false,  
+		    showAggregates: true,
+		    //labels offset position  
+		    labelOffset: 10,  
+		    //area style  
+		    type: 'stacked:gradient',
+		    //whether to show the aggregation of the values  
+		    showAggregates:true,  
+		    //whether to show the labels for the bars  
+		    showLabels:true,  
+		    filterOnClick: true,  
+		    restoreOnRightClick:true  ,
+		    Margin: {  
+			top: 5,  
+			left: 5,  
+			right: 5,  
+			bottom: 5  
+		    }, 
+		    //labels style  
+		    Label: {  
+			type: 'HTML', //Native or HTML  
+			size: 13,  
+			family: 'Arial',
+			color: 'black'  
+		    },  
+		    //add tooltips  
+		    Tips: {  
+			enable: true,  
+			onShow: function(tip, elem) {  
+			    tip.innerHTML = "<font color='black'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
+			}  
+		    }  
+		});  
+		//load JSON data.  
+		barChart.loadJSON(json);  
+	    });
+	  </script>
+	</div>
+      </div>
     </div>
   </div>
 
-  <div class="clear"></div>
-</div>
+    <div class="grid_3 omega">
 
-<div class="grid_14 alpha omega">
+      <div id="latest-activity">
+	<h3>Latest activity</h3>
 
-  <h2>Monthly stats</h2>
+	  <ul>
+	    {% for action in latest_activity %}
+	      <li>
+	    {% if action.target.name %}
+	      <span class="title"><strong>{{ action.target.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+	    {% else %}
+	      <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+	    {% endif %}
+	    
+	      {% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
+	    {% endfor %}
+	  </ul>
 
-  <div class="grid_3 alpha">  
-    <h3>Calendar</h3>
-    <div class="greybox ui-corner-all">
-      {{ monthly_calendar.toHTML|safe }}
+	<h2>Alerts</h2>
+
+	<div>
+
+	  <table border=1>
+	    <tr>
+	      <th>When</th>
+	      <th>What</th>
+	      <th>New</th>
+	    </tr>
+
+	    {% for notice in notices_new %}
+	      <tr>
+		<td>{{ notice.added }}</td>
+		<td>{{ notice.message }}</td>
+		<td>{{ notice.unseen|yesno }}</td>
+	      </tr>
+	    {% endfor %}
+
+	  </table>
+
+	</div>
+      </div>
     </div>
-    
-  </div>
-  
-  <div class="prefix_1 grid_4">
-  
-    <h3>Repartition</h3>
-
-    <div class="greybox ui-corner-all">
-    
-    <div id="monthly_repartition" style="width: 80%; height: 200px;"></div>
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-   var pieChart = new $jit.PieChart({  
-        //Where to inject the canvas. Any div container will do.  
-        injectInto: 'monthly_repartition',  
-         //width and height for canvas.  
-         //Default's to the container offsetWidth and Height.  
-        offset: 25,
-        sliceOffset: 1,
-        labelOffset: 15,
-        type: 'stacked:gradient',
-        hoveredColor: '#9fd4ff',
-Tips: {  
-     enable: true,  
-     onShow: function(tip, elem) {  
-       tip.innerHTML = "<font color='black'><b>" + elem.label + "</b>: " + elem.value + "</font>";  
-     }
-   },
-   Label: { type: 'HTML', color: '#000', size: 11 },
-
-   });  
 
 
-var json = {  
-     'values': [  
-     {  
-       label: 'New',  
-       values: [{{ monthly_stats.new }}],
-     },
-     {  
-       label: 'In progress',  
-       values: [{{ monthly_stats.inprogress }}],
-     },
-     {  
-       label: 'Concluded',  
-       values: [{{ monthly_stats.concluded }}],
-     },
-]}
-
-  pieChart.loadJSON(json);
-
-});
-</script>
-
-Total = {{ monthly_stats.total }}<br>
-New = {{ monthly_stats.new }}<br>
-In progress = {{ monthly_stats.inprogress }}<br>
-Concluded = {{ monthly_stats.concluded }}
-
-  </div>
-  </div>
-
-  <div class="prefix_1 grid_5 omega">
-
-    <h3>Connections</h3>
-    
-    <div class="greybox ui-corner-all">
-
-    <h4>Bands</h4>
-    <ul>
-      {% for band in monthly_connections.bands %}
-      <li><a href="{{ band.get_absolute_url }}">{{ band }}</a></li>
-      {% endfor %}
-    </ul>
-    
-    </div>
-  </div>
-
-</div>
-
-<div class="grid_14 alpha omega">
-  <h2>Global stats</h2>
-
-    <div class="greybox ui-corner-all">
-
-  <div id="yearly_stats" style="width: 90%; height: 300px;"></div>
-
-<script type="text/javascript">
-  var json = {
-    label: ['New', 'In progress', 'Concluded'],
-  values: [
-  {% for month, data in yearly_values.items %}
-  {
-    label: '{{ data.label|date:"M" }}',
-    values: [{{ data.new }}, {{ data.inprogress }}, {{ data.concluded }}]
-  },
-  {% endfor %}
-  ]
-};
-
-  $(document).ready(function() {
-  var barChart = new $jit.BarChart({  
-     //id of the visualization container  
-    injectInto: 'yearly_stats',  
-     //whether to add animations  
-    animate: true,  
-     //horizontal or vertical barcharts  
-     orientation: 'vertical',  
-     //bars separation  
-     barsOffset: 20,  
-     //visualization offset  
-     offset: 10,  
-     //labels offset position  
-     labelOffset: 5,  
-     //bars style  
-     type: 'stacked:gradient',
-     //whether to show the aggregation of the values  
-     showAggregates:true,  
-     //whether to show the labels for the bars  
-     showLabels:true,  
-  filterOnClick: true,  
-  restoreOnRightClick:true  ,
-     //labels style  
-     Label: {  
-       type: 'HTML', //Native or HTML  
-       size: 13,  
-       family: 'Arial',
-       color: 'black'  
-     },  
-     //add tooltips  
-     Tips: {  
-       enable: true,  
-       onShow: function(tip, elem) {  
-         tip.innerHTML = "<font color='black'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
-       }  
-     }  
-   });  
-   //load JSON data.  
-   barChart.loadJSON(json);  
-});
-</script>
-</div>
-</div>
-
-{% endblock %}
+  {% endblock %}

@@ -14,6 +14,7 @@ from actstream.models import Action
 from notification.models import Notice
 
 from apps.band.models import Band
+from apps.venue.models import Venue
 
 from ..models import GigBargain
 
@@ -106,6 +107,7 @@ def gigbargain_band_dashboard(request, band_slug):
     # Monthly connections
     monthly_connections = {}
     monthly_connections['bands'] = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk=band).distinct()
+    monthly_connections['venues'] = Venue.objects.filter(gigbargains__in=month_gigbargains).distinct()
     
     # Yearly graph
     yearly_stats = {}

@@ -116,6 +116,10 @@ img.comments {
     top: 45px;
 }
 
+#defrayments h2 {
+    cursor: help;
+}
+
 /*-- latest activity --*/
 
 #latest-activity li {
@@ -134,4 +138,71 @@ img.comments {
     text-align: right;
     display: block;
     color: #ccc;
+}
+
+#latest-activity li .title {
+    display: block;
+    font-style: italic;
+    text-align: left;
+}
+
+
+/*-- DASHBOARD --*/
+
+/*-- gigbargains --*/
+#dash-gigbargains .header h2 {
+    margin-right: 10px;
+}
+
+#dash-gigbargains .header span {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+#dash-gigbargains .fullcontent h3 {
+    display: block;
+    background-color: #d9d9d9;
+    text-align: center;
+}
+
+#dash-gb-new {
+    background-color: #ededed;
+}
+
+#dash-gb-progress {
+    background-color: #fbdfbf;
+    border-right: 1px solid #c3c3c3;
+    border-left: 1px solid #c3c3c3;
+}
+
+#dash-gb-concluded {
+    background-color: #e5f2d0;
+}
+
+/*-- calendar --*/
+#dash-calendar table {
+    margin-bottom: 10px;
+}
+
+#dash-calendar table tr {
+    text-align: center;
+}
+
+#dash-calendar table td {
+    background-color: #e2e2e2;
+    border: 4px solid #f9f9f9;
+    -moz-border-radius: 5px;
+}
+
+#dash-calendar .noday {
+    background-color: #f9f9f9;
+}
+
+#dash-calendar tbody th.month {
+    background-color: #e2e2e2;
+    text-align: center;
+}
+
+/*-- repartition --*/
+#dash-repartition .legend {
+    background-color: #e9e9e9;
 }

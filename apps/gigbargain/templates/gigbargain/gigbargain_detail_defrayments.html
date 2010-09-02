@@ -4,7 +4,7 @@
 <div class="header">
   <img src="{% staticfile '/images/gigbargain/defrayment_ico.png' %}" alt="Defrayments"/>
 
-  <h2>{% trans "Defrayments" %}</h2>
+  <h2 title="A defrayment is when you get money for the petrol, food, etc.">{% trans "Defrayments" %}</h2>
 
   {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
     {% for band in managed_bands %}
