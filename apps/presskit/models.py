@@ -2,6 +2,7 @@ from django.db import models
 
 from django.db.models import ForeignKey, ManyToManyField, OneToOneField
 from django.db.models import URLField
+from django.db.models.signals import post_save
 
 from band.models import Band
 from media.models import Track
@@ -23,10 +24,6 @@ class PressKit(models.Model):
                 {'band_slug': self.band.slug}
                 )
 
-    
-
-from django.db.models.signals import post_save
-from band.models import Band
 
 def create_presskit_for_band(sender, instance, created, **kwargs):
     """

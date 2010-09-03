@@ -31,15 +31,17 @@
 
     <!-- Band vcard -->
     <div class="vcard {% if band.state == 'part_validated' %}ready{% else %}notready{% endif %}">
-      <img src="{{ band.band.avatar_url }}" alt="Picture of {{ venue.name }}" class="photo"/>
+      {% staticfile '/images/band/no_picture.png' as default_pic %}
+      <img src="{{ band.band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.band.name }}" class="photo"/>
       <a class="url uid fancybox" href="{{ band.band.presskit.get_absolute_url }}">
 	<div class="org fn">
 	  <span class="organization-name">{{ band|capfirst }}</span>
 	</div>
       </a>
       <div class="adr">
-	<span class="locality">{{ band.band.city }}</span>,
+	<span class="locality">{{ band.band.city }}</span>
 	<span class="country-name">{{ band.band.country.name }}</span>
+	<img src="{{ band.band.country.flag }}" title="{{ band.band.country.name }}" alt="{{ band.band.country }}"/>
       </div>
       
       <div class="tags">

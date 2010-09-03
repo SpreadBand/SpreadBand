@@ -385,9 +385,12 @@ $(document).ready(function() {
     <!-- Progress bar -->
     <div class="grid_8 alpha">
       <ul id="mainNav" class="fiveStep">
-	<li class="{% if gigbargain_mstate == 0 %}current{% else %}{% if gigbargain_mstate > 0 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title="Yeah yeah, draft"><em>Draft</em></a></li>
-	<li class="{% if gigbargain_mstate == 1 %}current{% else %}{% if gigbargain_mstate > 1 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Submitted</em></a></li>
-	<li class="{% if gigbargain_mstate == 2 %}current{% else %}{% if gigbargain_mstate > 2 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Negociation</em></a></li>
+	<li class="{% if gigbargain_mstate == 0 %}current{% else %}{% if gigbargain_mstate == 1 %}lastDone{% else %}{% if gigbargain_mstate > 0 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title="Yeah yeah, draft"><em>Draft</em></a></li>
+
+	<li class="{% if gigbargain_mstate == 1 %}current{% else %}{% if gigbargain_mstate == 2 %}lastDone{% else %}{% if gigbargain_mstate > 1 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title=""><em>Submitted</em></a></li>
+
+	<li class="{% if gigbargain_mstate == 2 %}current{% else %}{% if gigbargain_mstate == 3 %}lastDone{% else %}{% if gigbargain_mstate > 2 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title=""><em>Negociation</em></a></li>
+
 	<li class="{% if gigbargain_mstate == 3 %}current{% else %}{% if gigbargain_mstate > 3 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Finished</em></a></li>
 
       </ul>

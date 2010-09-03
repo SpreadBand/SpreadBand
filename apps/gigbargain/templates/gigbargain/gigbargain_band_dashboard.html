@@ -10,14 +10,49 @@
 {% endblock %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile '/js/jit.js' %}"></script>
+  <!--[if IE]><script language="javascript" type="text/javascript" src="/js/excanvas.js"></script><![endif]-->
+  <script type="text/javascript" src="{% staticfile '/js/jquery/flot/jquery.flot.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/jquery/flot/jquery.flot.pie.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/jquery/flot/jquery.flot.symbol.js' %}"></script>
   <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.treeview.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.bt.js' %}"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
-	// first example
+	// Tree of connections
 	$("#dash-connections #conlist").treeview({
 	    collapsed: false,
+	});
+
+	$('.cal-gb-info').hide();
+    
+	$('td.infotip').bt({
+	    contentSelector: '$(this).children("div").get(0)',
+	    trigger: 'click',
+	    closeWhenOthersOpen: true,
+	    fill: 'black',
+	    strokeStyle: '#666666', 
+	    spikeLength: 20,
+	    spikeGirth: 10,
+	    width: 150,
+	    overlap: 8,
+	    centerPointY: 1,
+	    cornerRadius: 0, 
+	    cssStyles: {
+		fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', 
+		fontSize: '12px',
+		padding: '10px 14px',
+		color: 'white'
+	    },
+	    shadow: true,
+	    shadowColor: 'rgba(0,0,0,.5)',
+	    shadowBlur: 8,
+	    shadowOffsetX: 4,
+	    shadowOffsetY: 4
+	});
+
+	$('a.comment-thread').click(function() {
+	    return false;
 	});
     });
   </script>
@@ -43,67 +78,84 @@
 	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
 	  <h2>Bargains</h2>
 
-	  <span>New: {{ new_gigbargains|length }}</span>|
-	  <span>In progress: {{ inprogress_gigbargains|length }}</span>|
-	  <span>Concluded: {{ concluded_gigbargains|length }}</span>|
-	  <span>Aborted: X</span>
+	  <span><strong>New</strong>: {{ new_gigbargains|length }}</span>|
+	  <span><strong>In progress</strong>: {{ inprogress_gigbargains|length }}</span>|
+	  <span><strong>Concluded</strong>: {{ concluded_gigbargains|length }}</span>|
+	  <span><strong>Aborted</strong>: X</span>.
+
+	  <span>Today: {% now "j F Y" %}</span>
 	</div>
 	<div class="separator"></div>
 
 	<div class="fullcontent">
       
-	  <div id="dash-gb-new" class="grid_4 alpha omega">
+	  <div id="dash-gb-new">
 	    <h3>New</h3>
-	    <ul>
+	    <ul class="gigbargain_list">
 	      {% for gigbargain in new_gigbargains %}
 		<li>
-		  <div>
+		  <a href="{{ gigbargain.get_absolute_url }}">
 		    <div>
-		      <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-		      with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
-		      State : {{ gigbargain.state }}
+		      <div class="venue_picture">
+			<img src="{% staticfile gigbargain.venue.pictures.avatar.avatar_image.url|default:'/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+		      </div>
+		      <div class="gigbargain_info">
+			<span class="venue-name">{{ gigbargain.venue.name|capfirst }}</span>
+			<span class="date">{{ gigbargain.date|date:"d M Y" }}</span>
+			<span class="bands">{{ gigbargain.gigbargainband_set.concurring|join:', ' }}.</span>
+		      </div>
 		    </div>
-		  </div>
+		  </a>
 		</li>
 	      {% endfor %}
 	    </ul>
 	  </div>
 	  
 	  
-	  <div id="dash-gb-progress" class="grid_4 alpha omega">   
+	  <div id="dash-gb-progress">   
 	    <h3>In progress</h3>
 	    
-	    <ul>
+	    <ul class="gigbargain_list">
 	      {% for gigbargain in inprogress_gigbargains %}
-		<li>
-		  <div>
+		<li title="in {{ gigbargain.date|timeuntil }}">
+		  <a href="{{ gigbargain.get_absolute_url }}">
 		    <div>
-		      <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-		      with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
-		      State : {{ gigbargain.state }}
+		      <div class="venue_picture">
+			<img src="{% staticfile gigbargain.venue.pictures.avatar.avatar_image.url|default:'/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+		      </div>
+		      <div class="gigbargain_info">
+			<span class="venue-name">{{ gigbargain.venue.name|capfirst }}</span>
+			<span class="date">{{ gigbargain.date|date:"d M Y" }}</span>
+			<span class="bands">{{ gigbargain.gigbargainband_set.concurring|join:', ' }}.</span>
+		      </div>
 		    </div>
-		  </div>
+		  </a>
 		</li>
 	      {% endfor %}
 	    </ul>
 	</div>
 	  
-	<div id="dash-gb-concluded" class="grid_4 alpha omega">
+	<div id="dash-gb-concluded">
 	    
 	  <h3>Concluded</h3>
 	  
-	  <ul>
-	    {% for gigbargain in concluded_gigbargains %}
-	      <li>
-		<div>
-		  <div>
-		    <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}</a>
-		    with {{ gigbargain.gigbargainband_set.concurring|join:', ' }}.<br/>
-		    State : {{ gigbargain.state }}
-		  </div>
-		</div>
-	      </li>
-	    {% endfor %}
+	  <ul class="gigbargain_list">
+	      {% for gigbargain in concluded_gigbargains %}
+		<li>
+		  <a href="{{ gigbargain.get_absolute_url }}">
+		    <div>
+		      <div class="venue_picture">
+			<img src="{% staticfile gigbargain.venue.pictures.avatar.avatar_image.url|default:'/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+		      </div>
+		      <div class="gigbargain_info">
+			<span class="venue-name">{{ gigbargain.venue.name|capfirst }}</span>
+			<span class="date">{{ gigbargain.date|date:"d M Y" }}</span>
+			<span class="bands">{{ gigbargain.gigbargainband_set.concurring|join:', ' }}.</span>
+		      </div>
+		    </div>
+		  </a>
+		</li>
+	      {% endfor %}
 	  </ul>
 	</div>
 	
@@ -115,6 +167,7 @@
 
 
     <div class="grid_12 alpha omega">
+
       <!-- Calendar -->
       <div id="dash-calendar" class="grid_5 alpha">  
 	
@@ -143,54 +196,59 @@
 	  <div class="separator"></div>
 	  <div class="content">
 	    
-	    <div id="monthly_repartition" style="width: 80%; height: 200px;"></div>
+	    <div id="monthly-repartition""></div>
 	    
 	    <script type="text/javascript">
 	      $(document).ready(function() {
-		  var pieChart = new $jit.PieChart({  
-		      //Where to inject the canvas. Any div container will do.  
-		      injectInto: 'monthly_repartition',  
-		      //width and height for canvas.  
-		      //Default's to the container offsetWidth and Height.  
-		      offset: 25,
-		      animate: false,  
-		      sliceOffset: 1,
-		      labelOffset: 15,
-		      type: 'stacked:gradient',
-		      hoveredColor: '#9fd4ff',
-		      Tips: {  
-			  enable: true,  
-			  onShow: function(tip, elem) {  
-			      tip.innerHTML = "<font color='black'><b>" + elem.label + "</b>: " + elem.value + "</font>";  
-			  }
-		      },
-		      Label: { type: 'HTML', color: '#000', size: 11 },
-
-		  });  
-
-
-		  var json = {  
-		      'values': [  
+		  var monthly_repartition = 
+		      [  
 			  {  
 			      label: 'New',  
-			      values: [{{ monthly_stats.new }}],
+			      color: "#968e8e",
+			      data: {{ monthly_stats.new }},
 			  },
 			  {  
 			      label: 'In progress',  
-			      values: [{{ monthly_stats.inprogress }}],
+			      color: "#faba3c",
+			      data: {{ monthly_stats.inprogress }},
 			  },
 			  {  
 			      label: 'Concluded',  
-			      values: [{{ monthly_stats.concluded }}],
+			      color: "#7ea73c",
+			      data: {{ monthly_stats.concluded }},
 			  },
-		      ]}
+		      ];
 
-		  pieChart.loadJSON(json);
 
+		  $.plot($("#monthly-repartition"),
+			 monthly_repartition,
+			 {
+			     series: {
+				 pie: { show: true, 
+					innerRadius: 0.3,
+					radius: 0.95,
+					stroke: { color: '#666' },
+					label: {
+					    show: true,
+					    radius: 2/3,
+					    formatter: function(label, series){
+						return '<div style="font-size:7pt;text-align:center;padding:2px;color:white;">' +Math.round(series.percent) + '%</div>';
+					    },
+					    threshold: 0.99,
+					    background: { color: '#000', opacity: 0.8 },
+					    highlight: { opacity: 0.5 }
+					}
+				      }
+			     },	
+			     legend: {
+				 container: $("#repartition-legend")
+			     }
+			 }
+			);
 	      });
 	    </script>
 
-	    <div class="legend">
+	    <div id="repartition-legend" class="legend">
 	      Total = {{ monthly_stats.total }}<br>
 	      New = {{ monthly_stats.new }}<br>
 	      In progress = {{ monthly_stats.inprogress }}<br>
@@ -253,7 +311,7 @@
 
 	<div class="content">
 
-	  <div id="yearly_stats" style="width: 100%; height: 300px;"></div>
+	  <div id="yearly-stats"></div>
 
 	  <script type="text/javascript">
 	    var json = {
@@ -268,46 +326,95 @@
 		]
 	    };
 
+	    var new_gigbargains = [{% for month, data in yearly_values.items %} [{{ data.ts }}*1000, {{ data.new }}], {% endfor %}];
+	    var inprogress_gigbargains = [{% for month, data in yearly_values.items %} [{{ data.ts }}*1000, {{ data.inprogress }}], {% endfor %}];
+	    var concluded_gigbargains = [{% for month, data in yearly_values.items %} [{{ data.ts }}*1000, {{ data.concluded }}], {% endfor %}];
+
 	    $(document).ready(function() {
-		var barChart = new $jit.AreaChart({  
-		    //id of the visualization container  
-		    injectInto: 'yearly_stats',  
-		    //whether to add animations  
-		    animate: false,  
-		    showAggregates: true,
-		    //labels offset position  
-		    labelOffset: 10,  
-		    //area style  
-		    type: 'stacked:gradient',
-		    //whether to show the aggregation of the values  
-		    showAggregates:true,  
-		    //whether to show the labels for the bars  
-		    showLabels:true,  
-		    filterOnClick: true,  
-		    restoreOnRightClick:true  ,
-		    Margin: {  
-			top: 5,  
-			left: 5,  
-			right: 5,  
-			bottom: 5  
-		    }, 
-		    //labels style  
-		    Label: {  
-			type: 'HTML', //Native or HTML  
-			size: 13,  
-			family: 'Arial',
-			color: 'black'  
-		    },  
-		    //add tooltips  
-		    Tips: {  
-			enable: true,  
-			onShow: function(tip, elem) {  
-			    tip.innerHTML = "<font color='black'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
-			}  
-		    }  
-		});  
-		//load JSON data.  
-		barChart.loadJSON(json);  
+		$.plot($("#yearly-stats"),
+		       [
+			   {
+			       label: "New", 
+			       color: "#968e8e",
+			       data: new_gigbargains, 
+			       points: { symbol: 'cross' }
+			   },
+			   { 
+			       label: "In progress", 
+			       color: "#faba3c",
+			       data: inprogress_gigbargains, 
+			       points: { symbol: 'cross' }
+			   },
+			   { 
+			       label: "Concluded", 
+			       color: "#7ea73c",
+			       data: concluded_gigbargains, 
+			       points: { symbol: 'cross' }
+			   }
+		       ],
+		       {
+			   series: {
+			       lines: { show: true },
+			       points: { show: true, radius: 5 }
+			   },
+
+			   xaxis: {
+			       mode: "time",
+			       ticks: 12,
+			       minTickSize: [1, "month"],
+			       min: {{ yearly_values.1.ts }} * 1000,
+			       max: {{ yearly_values.12.ts }} * 1000
+			   },
+
+			   yaxis: {
+			       min: 0,
+			       ticks: 1
+			   },
+
+			   grid: {
+			       hoverable: true 
+			   }
+
+		       }
+		      );
+
+		function showTooltip(x, y, contents) {
+		    $('<div id="tooltip">' + contents + '</div>').css( {
+			position: 'absolute',
+			display: 'none',
+			top: y + 10,
+			left: x + 5,
+			border: '1px solid #fdd',
+			padding: '2px',
+			'background-color': '#fee',
+			opacity: 0.80
+		    }).appendTo("body").fadeIn(200);
+		}
+
+		var previousPoint = null;
+		$("#yearly-stats").bind("plothover", function (event, pos, item) {
+		    $("#x").text(pos.x.toFixed(2));
+		    $("#y").text(pos.y.toFixed(2));
+
+		    if (item) {
+			if (previousPoint != item.datapoint) {
+			    previousPoint = item.datapoint;
+			    
+			    $("#tooltip").remove();
+			    var x = item.datapoint[0].toFixed(2),
+			    y = item.datapoint[1].toFixed(2);
+			    
+			    showTooltip(item.pageX, item.pageY,
+					(y/1) + " gig bargain" + (y > 1 ? "s" : ""));
+			}
+		    }
+		    else {
+			$("#tooltip").remove();
+			previousPoint = null;            
+		    }
+		});
+
+
 	    });
 	  </script>
 	</div>
@@ -333,28 +440,28 @@
 	    {% endfor %}
 	  </ul>
 
-	<h2>Alerts</h2>
+	<!-- <h2>Alerts</h2> -->
 
-	<div>
+	<!-- <div> -->
 
-	  <table border=1>
-	    <tr>
-	      <th>When</th>
-	      <th>What</th>
-	      <th>New</th>
-	    </tr>
+	<!--   <table border=1> -->
+	<!--     <tr> -->
+	<!--       <th>When</th> -->
+	<!--       <th>What</th> -->
+	<!--       <th>New</th> -->
+	<!--     </tr> -->
 
-	    {% for notice in notices_new %}
-	      <tr>
-		<td>{{ notice.added }}</td>
-		<td>{{ notice.message }}</td>
-		<td>{{ notice.unseen|yesno }}</td>
-	      </tr>
-	    {% endfor %}
+	<!--     {% for notice in notices_new %} -->
+	<!--       <tr> -->
+	<!-- 	<td>{{ notice.added }}</td> -->
+	<!-- 	<td>{{ notice.message }}</td> -->
+	<!-- 	<td>{{ notice.unseen|yesno }}</td> -->
+	<!--       </tr> -->
+	<!--     {% endfor %} -->
 
-	  </table>
+	<!--   </table> -->
 
-	</div>
+	<!-- </div> -->
       </div>
     </div>
 

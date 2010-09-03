@@ -34,7 +34,8 @@
 
     <!-- Venue vcard -->
     <div class="vcard">
-      <img id="venue-picture" width='60px' height='60px' style="float:left; margin-right:4px" src="{% staticfile '/images/tmp_venue.jpg' %}" alt="picture of {{ venue.name }}" class="photo"/>
+      {% staticfile '/images/venue/no_picture.png' as no_picture %}
+      <img id="venue-picture" width='80px' height='80px' src="{{ venue.pictures.avatar.avatar_image.url|default:no_picture }}" alt="picture of {{ venue.name }}" class="photo"/>
 
       {% if gigbargain.venue_reason %}
 	<div id="venue-reason-content">{{ gigbargain.venue_reason }}</div>

@@ -33,6 +33,8 @@ class GigBargainMonthlyHTMLCalendar(HTMLCalendar):
             self._gigbargains[gigbargain.date].append(gigbargain)
 
         self._when = when
+
+        self.today = date.today()
         
     def formatday(self, day, weekday):
         """
@@ -42,10 +44,28 @@ class GigBargainMonthlyHTMLCalendar(HTMLCalendar):
             return '<td class="noday">&nbsp;</td>' # day outside month
         else:
             the_day = date(self._when.year, self._when.month, day)
+            css_classes = []
+            css_classes.append(self.cssclasses[weekday])
+
+            # Past date ?
+            if the_day < self.today:
+                css_classes.append('past')
+            elif the_day == self.today:
+                css_classes.append('today')
+            
+            infotip = ""
+            # If there's a bargain
             if the_day in self._gigbargains:
-                return '<td class="%s"><font color="red">%d</font></td>' % (self.cssclasses[weekday], day)
-            else:
-                return '<td class="%s">%d</td>' % (self.cssclasses[weekday], day)
+                gigbargain = self._gigbargains[the_day][0]
+                css_classes.append('cal-bargain-day')
+                infotip = """<div class="cal-gb-info"><a href="%s">%s</a></div>""" % (gigbargain.get_absolute_url(),
+                                                                                      gigbargain.venue.name)
+                css_classes.append("infotip")
+
+            res = ""
+            for css_class in css_classes:
+                res += " " + css_class
+            return '<td class="%s">%d %s</td>' % (res, day, infotip)
 
     def toHTML(self):
         return self.formatmonth(self._when.year, self._when.month)
@@ -76,21 +96,21 @@ def gigbargain_band_dashboard(request, band_slug):
 
     # retrieve gigbargains 
     # new_gigbargains = band.gigbargains.new_gigbargains().filter(date__gte=date_from)
-    new_gigbargains = band.gigbargains.filter(date__gte=date_from).filter(gigbargainband__in=band.gigbargainbands.filter(state='waiting'))
+    new_gigbargains = band.gigbargains.filter(date__gte=date_from).filter(gigbargainband__in=band.gigbargainbands.filter(state='waiting')).order_by('date')
     if date_to:
         new_gigbargains = new_gigbargains.filter(date__lte=date_to)
 
-    inprogress_gigbargains = band.gigbargains.inprogress_gigbargains().filter(date__gte=date_from)
+    inprogress_gigbargains = band.gigbargains.inprogress_gigbargains().filter(date__gte=date_from).order_by('date')
     if date_to:
         inprogress_gigbargains = inprogress_gigbargains.filter(date__lte=date_to)
 
-    concluded_gigbargains = band.gigbargains.concluded_gigbargains().filter(date__gte=date_from)
+    concluded_gigbargains = band.gigbargains.concluded_gigbargains().filter(date__gte=date_from).order_by('date')
     if date_to:
         concluded_gigbargains = concluded_gigbargains.filter(date__lte=date_to)
 
     # Get all gigbargains of month
     when = date.today()
-    month_gigbargains = band.gigbargains.filter(date__year=when.year, date__month=when.month)
+    month_gigbargains = band.gigbargains.filter(date__year=when.year, date__month=when.month).order_by('date')
 
     # Monthly calendar
     calendar = GigBargainMonthlyHTMLCalendar(firstweekday=0,
@@ -116,8 +136,11 @@ def gigbargain_band_dashboard(request, band_slug):
     yearly_stats['concluded'] = band.gigbargains.concluded_gigbargains().extra(select={'month': "EXTRACT(month FROM date)"}).values('month').annotate(gigbargain_count=Count('pk'))
 
     yearly_values = {}
+    import time
     for i in range(1, 13):
-        yearly_values[i] = {'new': 0, 'inprogress': 0, 'concluded': 0, 'label': date(year=date.today().year, month=i, day=1)}
+        month = date(year=date.today().year, month=i, day=1)
+        ts = int(time.mktime(month.timetuple()))
+        yearly_values[i] = {'new': 0, 'inprogress': 0, 'concluded': 0, 'label': month, 'ts': ts}
 
     for el in yearly_stats['new']:
         yearly_values[int(el['month'])]['new'] = el['gigbargain_count']
