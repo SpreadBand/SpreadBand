@@ -1,6 +1,7 @@
 {% extends "bands/base.html" %}
 
 {% load i18n %}
+{% load django_static %}
 
 {% block title %}
   {{ band.name }} - Dashboard
@@ -8,31 +9,32 @@
 
 {% block band_content %}
 
-<div class="alpha omega grid_14">
+<div class="grid_15 alpha omega">
 
-  <div class="alpha grid_10">
+  <div class="grid_11 alpha">
 
-    <div class="grid_10 alpha omega">
+    <div class="grid_11 alpha omega">
       <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-download" title="Edit"><span><span class="icon"></span>Edit</span></a>
 
     </div>
     
     {% if today_events %}
-    <div class="grid_10 alpha omega">
-      <div class="ui-corner-all greybox" style="background-color: #ffcccc">
-	TODAY : 
+    <div class="grid_11 alpha omega">
+      <div id="today">
+	<h3>Today's</h3> 
 	<ul>
 	  {% for event in today_events %}
-	  <li><a href="{{ event.get_absolute_url }}">{{ event.title|capfirst }}</a> ({{ event.start_time }}-{{ event.end_time }}) at <a href="{{ event.venue.get_absolute_url }}">{{ event.venue.name|capfirst }}</a></li>
+	    <li>&rarr; <a href="{{ event.get_absolute_url }}">{{ event.title|capfirst }}</a> (<strong>{{ event.start_time }}</strong>-{{ event.end_time }}) at <a href="{{ event.venue.get_absolute_url }}">{{ event.venue.name|capfirst }}</a></li>
 	  {% endfor %}
 	</ul>
       </div>
     </div>
     {% endif %}
 
-    <div class="grid_10 alpha omega">
+    <div id="gigbargains" class="grid_11 alpha omega">
       <div class="sectionbox">
 	<div class="header">
+	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
 	  <h2>Gig Bargains</h2>
 	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>New Gig bargain</span></a>
 	</div>
@@ -58,10 +60,11 @@
     </div>
 
 
-    <div class="grid_10 alpha omega">
+    <div class="grid_11 alpha omega">
       <div class="sectionbox">
 
 	<div class="header">
+	  <img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="calendar"/>
 	  <h2>Calendar</h2>
 	  <a href="{% url event:gig-new band.slug %}" class="minibutton" title="New Gig"><span><span class="icon"></span>Add gig</span></a><br>
 	</div>
@@ -101,7 +104,7 @@
     </div>
 
     <div id="suggestions">
-      <h3>Suggestions</h3>
+      <h3>Suggestions (<acronym title="Work in progress, don't expect it to work :)">WIP</acronym>)</h3>
       You have to gig more before we can suggest you bands and venues.
     </div>
 
@@ -113,7 +116,7 @@
 	{% for member in band.band_members.all %}
 	<li>
 	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}" alt="{{ member.user.username }} avatar"/>
-	  <a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
+	  <a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
 	  <span class="bandmember_role" title="{{ member.roles.all|join:', ' }}">{{ member.roles.all|join:', '|truncatewords:3 }}</span>
 	</li>
 	{% endfor %}
