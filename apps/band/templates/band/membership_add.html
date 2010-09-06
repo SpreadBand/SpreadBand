@@ -1,14 +1,27 @@
 {% extends "bands/base.html" %}
 
+{% load uni_form_tags %}
+{% load i18n %}
+
+{% block title %}
+{{ band.name }} &raquo; Add member
+{% endblock %}
+
+{% block band_section %}
+  Add member
+{% endblock %}
 
 {% block band_content %}
 
-<h2>Add a member to {{ band.name }}</h2>
+<div class="grid_15 alpha omega">
+  <h3>Add a member to {{ band.name }}</h3>
+  
+  <form method='POST' action='{% url band:membership-add band.slug %}' class="uniForm">{% csrf_token %}
+  {{ form|as_uni_form }}
+  <input type='submit' value="{% trans "Add member" %}">
+  </form>
 
-<form method='POST' action='{% url band:membership-add band.slug %}'> {% csrf_token %}
-{{ form.as_p }}
-<input type='submit'>
-</form>
+</div>
 
 {% endblock %}
 
