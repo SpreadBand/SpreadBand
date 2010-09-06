@@ -89,16 +89,6 @@
 
 </style>
 
-
-{% block band_css %}
-{% endblock %}
-
-{% endblock %}
-
-{% block javascript %}
-{% block band_javascript %}
-{% endblock %}
-
 {% endblock %}
 
 {% block content %}
@@ -126,7 +116,7 @@
       {% url band:detail band.slug as home_url %}
       {% url gigbargain:gigbargain-band-dashboard band.slug as gigbargain_url %}
       {% url event:band-calendar band.slug as calendar_url %}
-      {% url presskit:presskit-detail band.slug as presskit_url %}
+      {% url presskit:mypresskit band.slug as presskit_url %}
       <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">Home</a></li>
       <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">Gig Bargains</a></li>
       <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">Calendar</a></li>
