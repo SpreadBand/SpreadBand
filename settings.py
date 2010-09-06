@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'oembed',
     'robots',
     'faq',
+    'django_wysiwyg',
 
     # Internal
     'world',
@@ -321,3 +322,6 @@ DJANGO_STATIC_MEDIA_URL = MEDIA_URL
 # ROSETTA
 if DEBUG:
     ROSETTA_WSGI_AUTO_RELOAD = True
+
+# WYSIWYG editors
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
