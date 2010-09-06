@@ -31,7 +31,7 @@
   
   /* Some generals and more resets */
   .uniForm fieldset{ border: none; margin: 0; padding: 0; }
-    .uniForm fieldset legend{ margin: 0; padding: 0; }
+    .uniForm fieldset legend{ margin: 0; margin-bottom: 10px; padding: 0; padding-top: 10px; font-size: 1.3em; }
     
     /* This are the main units that contain form elements */
     .uniForm .ctrlHolder,
@@ -54,7 +54,7 @@
 /* ------------------------------------------------------------------------------ */
 
       .uniForm label,
-      .uniForm .label{ display: block; float: none; margin: 0 0 .5em 0; padding: 0; line-height: 100%; width: auto; }
+      .uniForm .label{ display: block; float: none; margin: 0 0 .5em 0; padding: 0; padding-top: 5px; line-height: 100%; width: auto; }
       
       /* Float the input elements */
       .uniForm .textInput,

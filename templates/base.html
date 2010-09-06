@@ -30,10 +30,11 @@
     <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui/ui-darkness/jquery-ui-1.8.4.custom.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/uni_form/uni-form.css" media="screen, projection" />
-    <link rel="stylesheet" href="/css/uni_form/default.uni-form.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/uni_form/default.uni-form.css" />
     {% endslimall %}
 
     {% staticall %}
@@ -63,6 +64,11 @@
   <script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
   <script type="text/javascript" src="/js/jquery/jquery.jplayer.js"></script>
   {% endstaticall %}
+
+
+  <script type="text/javascript">
+    var CKEDITOR_BASEPATH = '{{ MEDIA_URL }}/js/ckeditor/';
+  </script>
 
 
   <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.nicejforms2.js"></script>
