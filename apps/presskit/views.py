@@ -3,7 +3,7 @@ from django.template import RequestContext
 
 from .models import PressKit
 
-def presskit_detail(request, band_slug):
+def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.html'):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
 
     # Five latest gigs
@@ -13,7 +13,13 @@ def presskit_detail(request, band_slug):
                      'presskit': presskit,
                      'latest_gigs': latest_gigs}
 
-    return render_to_response(template_name='presskit/presskit_detail.html',
+    return render_to_response(template_name=template_name,
                               context_instance=RequestContext(request,
                                                               extra_context),
                               )
+
+def mypresskit(request, band_slug):
+    return presskit_detail(request,
+                           band_slug,
+                           'presskit/mypresskit.html')
+    

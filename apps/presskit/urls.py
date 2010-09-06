@@ -5,6 +5,7 @@ import views
 
 urlpatterns = patterns('',
     url(r'^(?P<band_slug>[-\w]+)/presskit$', views.presskit_detail, name='presskit-detail'),
+    url(r'^(?P<band_slug>[-\w]+)/mypresskit$', views.mypresskit, name='mypresskit'),
 )
 
 
