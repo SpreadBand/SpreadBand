@@ -1,6 +1,9 @@
 {% extends "bands/base.html" %}
 {% load i18n %}
 {% load uni_form_tags %}
+{% load wysiwyg %}
+{% load django_static %}
+
 
 {% block title %}
 Lymbago - Update
@@ -10,22 +13,45 @@ Lymbago - Update
 Update
 {% endblock %}
 
-{% block band_content %}
+{% block css %}
 
-{% block band_javascript %}
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slugify.js"></script>
+{{ block.super }}
+
+<link rel="stylesheet" type="text/css" src="{% staticfile '/css/ckeditor/sample.css' %}" />
+
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+
+
+<script type="text/javascript" src="{% staticfile '/js/ckeditor/ckeditor.js' %}"></script>
+<script type="text/javascript" src="{% staticfile '/js/ckeditor/config.js' %}"></script>
+<script type="text/javascript" src="{% staticfile '/js/ckeditor/adapters/jquery.js' %}"></script>
+
+<script type="text/javascript" src="{% staticfile '/js/jquery/jquery.slugify.js' %}"></script>
+
+
 <script type="text/javascript">
   $(document).ready(function() {
     $("#id_name").slugify("#id_slug");
+
+      $('#id_biography').ckeditor();
+      $('#id_technical_sheet').ckeditor();
   });
 </script>
 
+
+
 {% endblock %}
+
+
+{% block band_content %}
 
 <div class="grid_10">
   <form action="" method="POST" class="uniForm">
     {{ form|as_uni_form }}
-    <input type="submit" value="{% trans "Submit" %}" />
+    <input type="submit" value="{% trans "Update" %}" />
   </form>
 </div>
 
