@@ -1,19 +1,41 @@
 {% extends "base.html" %}
 
+{% load django_static %}
+{% load uni_form_tags %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('#id_date').datepicker({dateFormat: 'yy-mm-dd'});
+    });
+  </script>
+
+{% endblock %}
+
 {% block content %}
 
-<h2>Initiate a new gig bargain</h2>
+<div id="text">
 
+<h1>Initiate a new gig bargain</h1>
 
-<form method='POST' action='{{ request.path }}'>
+<form method='POST' action='{{ request.path }}' class="uniForm">
+  <fieldset>
+    <legend>Where and when</legend>
 
-<h3>Where and when</h3>
-{{ gigbargain_form.as_p }}
+    {{ gigbargain_form|as_uni_form }}
 
-<h3>My band : {{ band.name }}</h3>
-{{ gigbargain_myband_form.as_p }}
+  </fieldset>
 
-<input type="submit" name="create_draft" value="Create a draft">
-</form>
+  <fieldset>
+    <legend>My band : {{ band.name }}</legend>
+
+    {{ gigbargain_myband_form|as_uni_form }}
+
+  </fieldset>
+  
+    <input type="submit" name="create_draft" value="Create a draft">
+  </form>
+
+</div>
 
 {% endblock %}
