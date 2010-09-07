@@ -161,6 +161,12 @@ img.comments {
 
 /*-- DASHBOARD --*/
 
+/*-- actions --*/
+#dash-actions {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 /*-- gigbargains --*/
 #dash-gigbargains .header h2 {
     margin-right: 10px;

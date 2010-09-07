@@ -71,6 +71,10 @@
 
   <div class="grid_12 alpha">
 
+    <div id="dash-actions" class="grid_12 alpha omega">
+      <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>New Gig bargain</span></a>
+    </div>
+
     <!-- Bargains -->
     <div id="dash-gigbargains" class="grid_12 alpha omega">
       <div class="sectionbox bright">
@@ -84,6 +88,7 @@
 	  <span><strong>Aborted</strong>: X</span>.
 
 	  <span>Today: {% now "j F Y" %}</span>
+
 	</div>
 	<div class="separator"></div>
 
@@ -97,7 +102,11 @@
 		  <a href="{{ gigbargain.get_absolute_url }}">
 		    <div>
 		      <div class="venue_picture">
-			<img src="{% staticfile gigbargain.venue.pictures.avatar.avatar_image.url|default:'/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+			{% if gigbargain.venue.pictures.avatar.avatar_image.url %}
+			  <img src="{{ gigbargain.venue.pictures.avatar.avatar_image.url }}" alt="venue picture" width="70px" height="70px"/>
+			{% else %}
+			  <img src="{% staticfile '/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+			{% endif %}
 		      </div>
 		      <div class="gigbargain_info">
 			<span class="venue-name">{{ gigbargain.venue.name|capfirst }}</span>
@@ -121,7 +130,11 @@
 		  <a href="{{ gigbargain.get_absolute_url }}">
 		    <div>
 		      <div class="venue_picture">
-			<img src="{% staticfile gigbargain.venue.pictures.avatar.avatar_image.url|default:'/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+			{% if gigbargain.venue.pictures.avatar.avatar_image.url %}
+			  <img src="{{ gigbargain.venue.pictures.avatar.avatar_image.url }}" alt="venue picture" width="70px" height="70px"/>
+			{% else %}
+			  <img src="{% staticfile '/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+			{% endif %}
 		      </div>
 		      <div class="gigbargain_info">
 			<span class="venue-name">{{ gigbargain.venue.name|capfirst }}</span>
@@ -145,7 +158,11 @@
 		  <a href="{{ gigbargain.get_absolute_url }}">
 		    <div>
 		      <div class="venue_picture">
-			<img src="{% staticfile gigbargain.venue.pictures.avatar.avatar_image.url|default:'/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+			{% if gigbargain.venue.pictures.avatar.avatar_image.url %}
+			  <img src="{{ gigbargain.venue.pictures.avatar.avatar_image.url }}" alt="venue picture" width="70px" height="70px"/>
+			{% else %}
+			  <img src="{% staticfile '/images/venue/no_picture.png' %}" alt="venue picture" width="70px" height="70px"/>
+			{% endif %}
 		      </div>
 		      <div class="gigbargain_info">
 			<span class="venue-name">{{ gigbargain.venue.name|capfirst }}</span>

@@ -12,14 +12,15 @@
 
 {% block content %}
 
-<h1><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h1>
+<div id="text">
+  <h1><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h1>
 
-<div class="grid_14 alpha omega">
+  <div class="grid_14 alpha omega">
 
-  <div class="feedback-entry alpha omega grid_14">
-    <div class="alpha grid_2">
-      {% score_for_object feedback as score %}
-
+    <div class="feedback-entry alpha omega grid_14">
+      <div class="alpha grid_2">
+	{% score_for_object feedback as score %}
+	
       <div class="feedback-votes ui-corner-all">
 	<div class="score">{{ score.score|default:0 }}</div>
 	<div class="numvotes">({{ score.num_votes }} vote{{ score.num_votes|pluralize }})</div>
@@ -101,6 +102,8 @@
 <a href="{% url backcap:feedback-list %}">See all feedbacks</a>
 
 </div>
+</div>
+
 </div>
 
 {% endblock %}

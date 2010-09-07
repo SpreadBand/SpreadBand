@@ -13,6 +13,7 @@ Centre d'aide
 
 {% block content %}
 
+<div id="text">
 <h1>Feedbacks</h1>
 
 
@@ -96,5 +97,7 @@ Centre d'aide
   <li class="ui-corner-all {% if request.GET.qtype == 'P' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=P">Problems</a></li>
   <li class="ui-corner-all {% if request.GET.qtype == 'I' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=I">Ideas</a></li>
 </ul>
+</div>
+
 </div>
 {% endblock %}

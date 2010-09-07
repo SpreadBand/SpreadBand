@@ -7,7 +7,7 @@
     {% if gigbargain.state == 'draft' %}
       <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft"/>
       <div class="title">{% trans "Draft" %}</div>
-      <div class="text">This is a draft.</div>
+      <div class="text">This is a draft. You can now <strong>invite bands</strong>, <strong>fill in your details</strong> and then <strong>submit</strong> this bargain.</div>
     {% else %}
       {% if gigbargain.state == 'draft_ok' %}
 	<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft ok"/>

@@ -55,9 +55,27 @@ div#band_text {
     margin-top: 10px;
 }
 
+/*-- today events --*/
+#today {
+    padding: 10px;
+}
+
+#today ul {
+    list-style: none;
+}
+
+/*-- gig bargains --*/
+#gigbargains ul {
+    list-style: none;
+}
+
 /*-- upcoming events --*/
 #upcoming_events {
     margin-bottom: 20px;
+}
+
+#upcoming_events ul {
+    list-style: none;
 }
 
 /*-- suggestions --*/
@@ -83,22 +101,28 @@ div#band_text {
 
 #bandmembers ul {
     margin-top: 15px;
+    border-top: 1px #ddd solid;    
 }
 
 #bandmembers ul li {
     list-style: none;
-    background-color: #eee;
     height: 50px;
     padding-right: 3px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ddd solid;
+}
+
+#bandmembers ul li .minibutton {
+    position: absolute;
+    margin-top: 10px;
+    right: 0px;
 }
 
 #bandmembers ul li img {
     float: left;
     margin-right: 5px;
-
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
 }
 
 #bandmembers ul li .bandmember_role {
