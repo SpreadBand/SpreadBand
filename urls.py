@@ -84,6 +84,10 @@ urlpatterns = patterns('',
 
     (r'^robots\.txt$', include('robots.urls')),
 
+    # avatar
+    (r'^avatar/', include('avatar.urls')),
+    (r'^avatar_crop/', include('avatar_crop.urls')),
+
     # Django admin
     (r'^admin/', include(admin.site.urls)),
 )
