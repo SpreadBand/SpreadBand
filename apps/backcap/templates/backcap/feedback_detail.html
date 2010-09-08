@@ -4,106 +4,105 @@
 {% load voting_tags %}
 
 {% block css %}
-{{ block.super }}
-
-<link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
+  {{ block.super }}
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
 {% endblock %}
 
 
 {% block content %}
 
-<div id="text">
-  <h1><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h1>
+  <div id="text">
+    <h1><a href="{% url backcap:feedback-list %}">Feedbacks</a> &raquo; {{ feedback.title|capfirst }}</h1>
 
-  <div class="grid_14 alpha omega">
+    <div class="grid_14 alpha omega">
 
-    <div class="feedback-entry alpha omega grid_14">
-      <div class="alpha grid_2">
-	{% score_for_object feedback as score %}
-	
-      <div class="feedback-votes ui-corner-all">
-	<div class="score">{{ score.score|default:0 }}</div>
-	<div class="numvotes">({{ score.num_votes }} vote{{ score.num_votes|pluralize }})</div>
-	<div class="vote-actions">
-	  
-	  <form class="feedbackvote" id="feedbackup{{ feedback.id }}" action="{% if vote and vote.is_upvote %}
-									      {% url backcap:feedback-vote feedback.id 'clear' %}
-									      {% else %}
-									      {% url backcap:feedback-vote feedback.id 'up' %}
-									      {% endif %}
-									      " method="POST">
-	    <input type="submit" class="ui-corner-all vote_button" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}X{% else %}+{% endif %}"/>
-	  </form>
-	  
-	  <form class="feedbackvote" id="feedbackdown{{ feedback.id }}" action="{% if vote and vote.is_downvote %}
-										{% url backcap:feedback-vote feedback.id 'clear' %}
-										{% else %}
-										{% url backcap:feedback-vote feedback.id 'down' %}
-										{% endif %}
-										" method="POST">
+      <div class="feedback-entry alpha omega grid_14">
+	<div class="alpha grid_2">
+	  {% score_for_object feedback as score %}
 	    
-	    <input type="submit" class="ui-corner-all vote_button" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}X{% else %}-{% endif %}"/>
-	  </form>
+	    <div class="feedback-votes ui-corner-all">
+	      <div class="score">{{ score.score|default:0 }}</div>
+	      <div class="numvotes">({{ score.num_votes }} vote{{ score.num_votes|pluralize }})</div>
+	      <div class="vote-actions">
+		
+		<form class="feedbackvote" id="feedbackup{{ feedback.id }}" action="{% if vote and vote.is_upvote %}
+										    {% url backcap:feedback-vote feedback.id 'clear' %}
+										  {% else %}
+										    {% url backcap:feedback-vote feedback.id 'up' %}
+										  {% endif %}
+										  " method="POST">
+		  <input type="submit" class="ui-corner-all vote_button" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}X{% else %}+{% endif %}"/>
+		</form>
+		
+		<form class="feedbackvote" id="feedbackdown{{ feedback.id }}" action="{% if vote and vote.is_downvote %}
+										      {% url backcap:feedback-vote feedback.id 'clear' %}
+										    {% else %}
+										      {% url backcap:feedback-vote feedback.id 'down' %}
+										    {% endif %}
+										    " method="POST">
+		  
+		  <input type="submit" class="ui-corner-all vote_button" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}X{% else %}-{% endif %}"/>
+		</form>
+	      </div>
+	      <div class="feedback-info grid_9 omega">
+		<div>
+		  <span class="ui-corner-all type_{{ feedback.kind }}">{{ feedback.get_kind_display }}</span>
+		  <span class="title">{{ feedback.title|capfirst }}</span>
+		</div>
+		<div class="feedback-desc">
+		  {{ feedback.text|truncatewords:20 }}
+		</div>
+		<div>
+		  {{ feedback.get_status_display }} / 
+		  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_absolute_url }}">{{ feedback.user.get_full_name|escape }}</a></span>
+		</div>
+	      </div>
+	    </div>
 	</div>
-        <div class="feedback-info grid_9 omega">
-	  <div>
-	    <span class="ui-corner-all type_{{ feedback.kind }}">{{ feedback.get_kind_display }}</span>
-	    <span class="title">{{ feedback.title|capfirst }}</span>
-	  </div>
-	  <div class="feedback-desc">
-	    {{ feedback.text|truncatewords:20 }}
-	  </div>
-	  <div>
-	    {{ feedback.get_status_display }} / 
-	    <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_absolute_url }}">{{ feedback.user.get_full_name|escape }}</a></span>
-	  </div>
-	</div>
+	<div class="clear"></div>
       </div>
-    </div>
-    <div class="clear"></div>
-  </div>
 
-<div class="alpha omega grid_14">
+      <div class="alpha omega grid_14">
 
-<br>
-{{ vote }}
+	  {{ vote }}
 
-<hr/>
+	  <hr/>
 
-<p>description: {{ feedback.text }}</p>
+	  <p>description: {{ feedback.text }}</p>
 
-<hr/>
+	  <hr/>
 
-<h4>Comments</h4>
-<ul>
-  {% get_comment_list for feedback as feedback_comments %}
-  {% for comment in feedback_comments %}
-  <li>{{ comment.user.get_full_name }} said "{{ comment.comment }}"</li>
-  {% endfor %}
-</ul>
+	  <h4>Comments</h4>
+	  <ul>
+	    {% get_comment_list for feedback as feedback_comments %}
+	      {% for comment in feedback_comments %}
+		<li>{{ comment.user.get_full_name }} said "{{ comment.comment }}"</li>
+	      {% endfor %}
+	  </ul>
 
-<h5>Add a new comment</h5>
-{% get_comment_form for feedback as feedback_comment_form %}
-<form action="{% comment_form_target %}" method="post">
-  {{ feedback_comment_form.as_p }}
-  <input type="hidden" name="next" value="{% url backcap:feedback-detail feedback.id %}" >
-  <input type="submit" name="preview" class="submit-post" value="Preview">
-</form>
+	  <h5>Add a new comment</h5>
+	  {% get_comment_form for feedback as feedback_comment_form %}
+	    <form action="{% comment_form_target %}" method="post">
+	      {{ feedback_comment_form.as_p }}
+	      <input type="hidden" name="next" value="{% url backcap:feedback-detail feedback.id %}" >
+		<input type="submit" name="preview" class="submit-post" value="Preview">
+		</form>
 
 
-<hr/>
+		<hr/>
 
-<p>This issue is {{ feedback.get_status_display|lower }}. <a href="{% url backcap:feedback-close feedback.id %}">Close it</a></p>
+		<p>This issue is {{ feedback.get_status_display|lower }}. <a href="{% url backcap:feedback-close feedback.id %}">Close it</a></p>
 
-<p>Reported from: <a href="http://{{ request.get_host }}{{ feedback.referer }}">http://{{ request.get_host }}{{ feedback.referer }}</a></p>
+		<p>Reported from: <a href="http://{{ request.get_host }}{{ feedback.referer }}">http://{{ request.get_host }}{{ feedback.referer }}</a></p>
 
-<p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
+		<p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
 
-<a href="{% url backcap:feedback-list %}">See all feedbacks</a>
+		<a href="{% url backcap:feedback-list %}">See all feedbacks</a>
 
-</div>
-</div>
+	      </div>
+	    </div>
 
-</div>
+	  </div>
 
-{% endblock %}
+	{% endblock %}

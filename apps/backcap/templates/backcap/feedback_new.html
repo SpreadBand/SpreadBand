@@ -1,6 +1,8 @@
+{% load uni_form_tags %}
+
 <h3>Leave feedback</h3>
 
 <form method="POST" action="{% url backcap:feedback-tab %}">
-{{ feedback_form.as_p }}
+{{ feedback_form|as_uni_form }}
 <input type="submit" value="Send">
 </form>

@@ -1,13 +1,6 @@
 <script type="text/javascript">
-$(function() {
-    $("form").buttonset();
-});
-
-</script>
-
-<script type="text/javascript">
   function lookup(inputString) {
-		if(inputString.length == 0) {
+		if(inputString.length < 3) {
 			$('#feedback-tab-suggestions-results').hide();
 			$('#feedback-tab-no-suggestions-noresult').show();
 		} else {
