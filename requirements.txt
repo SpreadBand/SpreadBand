@@ -37,6 +37,8 @@ html5lib
 -e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 
 # Other repositories
+-e git+http://github.com/ericflo/django-avatar.git#egg=django-avatar
+-e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop
 -e git+http://github.com/pydanny/django-wysiwyg.git#egg=django-wysiwyg
 -e svn+http://django-rosetta.googlecode.com/svn/trunk#egg=django-rosetta
 -e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots

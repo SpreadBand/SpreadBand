@@ -184,6 +184,8 @@ INSTALLED_APPS = (
     'robots',
     'faq',
     'django_wysiwyg',
+    'avatar',
+    'avatar_crop',
 
     # Internal
     'world',
