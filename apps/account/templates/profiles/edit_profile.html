@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 
+{% load uni_form_tags %}
 
 {% block content %}
 
-<h1>Profile &raquo; {{ user }}</h1>
- 
-<div class="grid_10 alpha">
-  <h5>Infos</h5>
-  <form method="POST" action="">
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Update" id="submit">
-  </form>
-</div>
-<div class="grid_4 omega">
-  <h5>Avatar</h5>
-  {% if profile.avatar %}
-  <img src="{{ profile.avatar.avatar_image.url }}">
-  <a href="{% url account:avatar %}">Change</a>
-  {% else %}
-  No avatar is defined. <a href="{% url account:avatar %}">Set one</a>.
-  {% endif %}
-</div>
- 
+<div id="text">
+  <h1><a href="{{ user.get_profile.get_absolute_url }}">{{ user }}</a> &raquo; Edit your profile</h1>
+  
+  <div class="grid_7 alpha">
+    <h2>Infos</h2>
+    <form method="POST" action="" class="uniForm">
+      {{ form|as_uni_form }}
+      <input type="submit" name="submit" value="Update" id="submit">
+      </form>
+    </div>
+    <div class="grid_4 omega">
+      <h2>Avatar</h2>
+      {% if profile.avatar %}
+      <img src="{{ profile.avatar.avatar_image.url }}">
+      <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="Change your avatar"><span><span class="icon"></span>Change Your Avatar</span></a>
+	{% else %}
+	No avatar is defined. <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="Set Your Avatar"><span><span class="icon"></span>Set Your Avatar</span></a>
+	{% endif %}
+      </div>
+ </div>
+
 {% endblock %}

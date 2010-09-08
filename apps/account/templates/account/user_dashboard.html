@@ -3,6 +3,7 @@
 {% load humanize i18n %}
 {% load timezone_filters %}
 {% load django_static %}
+{% load activity_tags %}
 
 {% block head %}
   <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
@@ -12,73 +13,155 @@
   <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
 {% endblock %}
 
+{% block title %}
+{{ request.user.get_full_name }} profile
+{% endblock %}
+
 {% block content %}
 
-<div class="grid_2">
-  <img src="{{ user.get_profile.avatar.avatar_image.url }}" alt="Avatar"/>
-</div>
-<div class="grid_5">
+<div id="text">
 
-  <h1>Welcome, 
-  {% if user.firstname %}
-    {{ user.firstname }}
-  {% else %}
-    {{ user.username }}
-  {% endif %}
-  </h1>
-</div>
-
-<div class="clear"></div>
-
-<a href="{% url account:edit user %}" class="button-tip minibutton btn-download" title="Edit your informations"><span><span class="icon"></span>Edit your informations</span></a>
-
-
-<h3>Your bands</h3>
-
-{% if not user.band_memberships.all %}
-  You are not part of a band, you may <a href="{% url band:create %}">create one</a>.
-{% endif %}
-
-<ul>
-  {% for membership in user.band_memberships.all %}
-  <li><a href="{% url band:detail membership.band.slug %}">{{ membership.band.name }}</a></li>
-  {% endfor %}
-</ul>
-
-<h3>Your notifications</h3>
-
-( <a href="{% url notification_notices %}">Settings</a> )
-
-<a href="{% url notification_mark_all_seen %}">{% trans "Mark all unseen notices seen" %}</a>
-        
-{# TODO: get timezone support working with regroup #}
-{% regroup notices by added.date as notices_by_date %}
-
-{% for date in notices_by_date %}
-<h2 class="notice_date">{{ date.grouper|naturalday:_("MONTH_DAY_FORMAT")|capfirst }}</h2>
-
-{% if notices %}
-
-{% for notice in date.list %}
-
-{% if notice.is_unseen %}
-  <div class="unseen_notice">
-{% else %}
-  <div class="notice">
-{% endif %}
-
-     <span class="notice_type">[{% trans notice.notice_type.display %}]</span>
-     <span class="notice_message">{{ notice.message|safe }}</span>
-     <span class="notice_time">{{ notice.added|localtime:user.get_profile.timezone|time:"P" }}</span>
+  <div class="alpha grid_2">
+    <img src="{{ user.get_profile.avatar.avatar_image.url }}" alt="Avatar"/>
   </div>
-{% endfor %}
-  
-{% else %}
-  <p>{% trans "No notices." %}</p>
-{% endif %}
+  <div class="grid_13 omega">
+    
+    <div class="grid_8 alpha" id="greating">
+      <h1>Welcome, {{ user.first_name|default:user.username }}</h1>
+      <a href="{% url account:edit user %}" class="button-tip minibutton btn-edit" title="Edit your informations"><span><span class="icon"></span>Edit Your Profile</span></a>
+    </div>
 
-{% endfor %}
-  
+    <div class="clear"></div>
 
-  
+    <div id="user-infos" class="grid_8 alpha">
+      {% with user.get_profile as profile %}
+	<label for="name">Name</label><span id="name">{{ user.get_full_name|default:"John Doe" }}</span>
+	<label for="email">Email</label><span id="email"><a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
+	<label for="location">Location</label><span id="location">{{ profile.city|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} <img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/></span>
+	<label for="joined">Joined</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
+      {% endwith %}
+    </div>
+
+    <div class="grid_5 omega">
+      <div id="user-connections">
+	<h3>Connections this month ({{ user_connections|length }})</h3>
+	<ul>
+	  {% staticfile  "/images/account/no_avatar.png" as default_avatar %}
+	  {% for user in user_connections %}
+	    <li><a href="{{ user.get_profile.get_absolute_url }}"><img src="{{ user.get_profile.avatar.avatar_image.url|default:default_avatar }}" width="30px" height="30px" alt="{{ user.get_full_name|default:user.username }}" title="{{ user.get_full_name|default:user.username }}"/></a></li>
+	  {% endfor %}
+	</ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="alpha grid_5">
+
+    {% if user.band_memberships.all %}
+      <div id="your-bands" class="sectionbox">
+	<div class="header">
+	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
+	  <h2>Your Band{{user.band_memberships.all|pluralize }}</h2>
+	</div>
+
+	<div class="separator"></div>
+
+	<div class="content">
+	  <ul>
+	    {% for band in user.bands.all %}
+	      <li>
+		{% staticfile '/images/band/no_picture.png' as default_pic %}
+		<a href="{% url band:detail band.slug %}">
+		  <img id="photo" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
+		  <span class="band-name">{{ band.name|capfirst }}</span>
+		</a>
+		<span class="band-location">{{ band.city }} <img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/></span>
+		<span class="band-style">{{ band.genres }}</span>
+	      </li>
+	    {% endfor %}
+	  </ul>
+
+	  <div class="clear"></div>
+	</div>
+      </div>
+    {% endif %}
+
+    <div id="your-venues" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
+	<h2>Your Venues</h2>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="content">
+	<strong>WIP</strong>
+      </div>
+
+    </div>
+
+    <div id="register">
+      You <strong>play music</strong> or <strong>run a venue</strong> ? Register <a href="{% url band:create %}">your band</a> or <a href="{% url venue:create %}">your venue</a> now !
+    </div>
+    
+  </div>
+
+  <div class="grid_10 omega">
+    <div id="notifications">
+      <h3>Latest Notifications (<strong>WIP</strong>)</h3>
+      
+      ( <a href="{% url notification_notices %}">Settings</a> )
+    
+      <a href="{% url notification_mark_all_seen %}">{% trans "Mark all unseen notices seen" %}</a>
+      
+      {# TODO: get timezone support working with regroup #}
+      {% regroup notices by added.date as notices_by_date %}
+      
+      {% for date in notices_by_date %}
+	<h2 class="notice_date">{{ date.grouper|naturalday:_("MONTH_DAY_FORMAT")|capfirst }}</h2>
+	
+	{% if notices %}
+	  
+	  {% for notice in date.list %}
+	    
+	    {% if notice.is_unseen %}
+	      <div class="unseen_notice">
+	    {% else %}
+	      <div class="notice">
+	    {% endif %}
+	    
+	    <span class="notice_type">[{% trans notice.notice_type.display %}]</span>
+	    <span class="notice_message">{{ notice.message|safe }}</span>
+	    <span class="notice_time">{{ notice.added|localtime:user.get_profile.timezone|time:"P" }}</span>
+	      </div>
+	    {% endfor %}
+	    
+	  {% else %}
+	    <p>{% trans "No notices." %}</p>
+	  {% endif %}
+	{% endfor %}
+    </div>
+
+    <div id="activity" class="grid_10 alpha omega">
+      <h3>Latest Activity</h3>
+      
+      <ul>
+	{% for action in latest_activity %}
+	  <li class="{% cycle "even" "odd" %}">
+	    {% if action.target.name %}
+	      <span class="title"><strong>{{ action.target.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+	    {% else %}
+	      <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+	    {% endif %}
+	    
+	  {% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
