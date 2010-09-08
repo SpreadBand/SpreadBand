@@ -4,7 +4,7 @@ from django.conf import settings
 import views
 
 urlpatterns = patterns('django.views.generic.simple',
-    (r'^$', 'redirect_to', {'url': 'my/edit'}),
+    (r'^$', 'redirect_to', {'url': 'dashboard'}),
 )
 
 urlpatterns += patterns('',                       
@@ -13,6 +13,7 @@ urlpatterns += patterns('',
     url(r'^(?P<username>[-\w]+)/edit$', views.edit, name='edit'),
     url(r'^profile/avatar$', views.avatar_set, name='avatar'),
     (r'^register/band', include('account.backends.userband.urls')),
+
 )
 
 
