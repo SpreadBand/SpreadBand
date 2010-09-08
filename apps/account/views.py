@@ -1,14 +1,18 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
-from django.shortcuts import get_object_or_404, render_to_response, redirect
-
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template.context import RequestContext
 
 from notification.models import Notice
 
 from profiles.views import edit_profile, profile_detail
+
+from actstream.models import Action
+from band.models import Band
+from gigbargain.models import GigBargain
 
 from .models import UserAvatar
 
@@ -66,7 +70,19 @@ def detail(request, username):
 def dashboard(request):
     notices = Notice.objects.notices_for(request.user, on_site=True)
 
-    context = {'notices': notices}
+    # Get all connections with other users this month
+    today = date.today()
+    month_gigbargains = GigBargain.objects.filter(bands__in=request.user.bands.all, date__year=today.year, date__month=today.month).order_by('date')
+    band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=request.user.bands.all).distinct()
+    user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
+
+    # Latest activity in bargains
+    my_bands_gigbargains = GigBargain.objects.inprogress_gigbargains().filter(bands__in=request.user.bands.all)
+    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=my_bands_gigbargains)[:10]
+
+    context = {'notices': notices,
+               'user_connections': user_connections,
+               'latest_activity': latest_activity}
 
     return render_to_response(template_name='account/user_dashboard.html',
                               context_instance=RequestContext(request,
