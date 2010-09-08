@@ -23,6 +23,8 @@ class Band(Actor):
             ('can_manage', 'Can manage this band'),
         )
 
+        ordering = ('name',)
+
     name = CharField(max_length=200)
     
     slug = models.SlugField(max_length=40, unique=True)
