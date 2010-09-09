@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load uni_form_tags %}
+
 {% block css %}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/autocomplete/jquery.autocomplete.css" />
 {% endblock %}
@@ -10,10 +12,10 @@
 
 {% block content %}
 
-<h4>New gig</h4>
+<h1>New gig</h1>
 
-<form method='POST' action=''>{% csrf_token %}
-  {{ gigform.as_p }}
+<form method='POST' action='' class="uniForm">{% csrf_token %}
+  {{ gigform|as_uni_form }}
   <input type="submit">
 </form>
 {% endblock %}
