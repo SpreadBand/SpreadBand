@@ -1,7 +1,7 @@
 {% extends 'bands/base.html' %}
 
 {% block title %}
-  {{ band.slug }} - Social Networks
+  {{ band.slug }} &raquo; Social Networks
 {% endblock %}
 
 {% block band_content %}
@@ -9,11 +9,11 @@
   <h2>Social Networks</h2>
   {% if band.socialnetworks.all %}
     <ul>
-{% for profile in band.socialnetworks.all %}
-  <li>
+      {% for profile in band.socialnetworks.all %}
+	<li>
 	  <img src="{{ profile.network.icon_url }}" alt="{{ profile.network.name }}"/>
 	  <a href="{{ profile.url }}" rel="me">{{ profile.network.name }}</a>
-	    
+	  
 	  <form id="delete-network-{{ profile.network.id }}" method="post" action="">
 	    {% csrf_token %}
 	    <input type="hidden" name="delete_id" value="{{ profile.id }}" />
@@ -30,7 +30,7 @@
   <h3>Add a Social Network</h3>
   <form method="post" action="">
     {% csrf_token %}
-    {{ sn_form }}
+    {{ sn_form.as_p }}
     <input type="submit" name="sn-form" value="Add Social Network" class="button">
   </form>
 
