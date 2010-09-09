@@ -6,28 +6,82 @@
 {% block javascript %}
   <script type="text/javascript">
     $(document).ready(function() {
-	$('#id_date').datepicker({dateFormat: 'yy-mm-dd'});
+	$('#id_date').hide();
+	if ( $('#id_date').val() == "" ) {
+	    $('#id_date').val("today");
+	};
+	
+	$('#div_id_date').datepicker({minDate: 0, defaultDate: $('#id_date').val(), altField: '#id_date', dateFormat: 'yy-mm-dd'});
     });
   </script>
 
 {% endblock %}
 
+{% block css %}
+{{ block.super }}
+  <link rel="stylesheet" type="text/css" href="/css/gigbargain.css" media="screen, projection" />
+{% endblock %}
+
+{% block title %}
+  Book a venue
+{% endblock %}
+
 {% block content %}
 
 <div id="text">
+  
+  <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; Book a venue</h1>
 
-<h1>Initiate a new gig bargain</h1>
+  <div id="top-notice">
+    Booking a venue is done in <strong>three steps</strong>. <em>First</em>, <strong>create a draft</strong> using this page. Once the draft created, you'll be in the <em>second</em> step. You'll be able to <strong>invite new bands</strong> and <strong>tweak your draft</strong>. At this point, the venue is not aware of your proposal. That's why the <em>third</em> step will be to <strong>submit your draft</strong> to the venue to start negociating with it.
+  </div>
 
-<form method='POST' action='{{ request.path }}' class="uniForm">
-  <fieldset>
-    <legend>Where and when</legend>
+  <form method='POST' action='{{ request.path }}' class="uniForm">
+    <fieldset>
+      {% with gigbargain_form as form %}
+	<div id="new-when" class="grid_5 alpha">
+	  <img src="{% staticfile '/images/gigbargain/timeline_ico.png' %}" alt="when" />
+	  <h2>When</h2>
+	  <div id="div_id_date">
+	    {{ form.date.errors }}
+	    {{ form.date }}
+	  </div>
+	</div>
+	
+	<div id="new-where" class="grid_10 omega">
+	  <img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="where" />
+	  <h2>Where</h2>
+	  <div id="div_id_venue" class="ctrlHolder {% if form.venue.errors %}error{%endif%}">
+	    {{ form.venue.label_tag }} {{ form.venue }}
+	    <br/>
+	    {{ form.venue.errors }}
+	  </div>
 
-    {{ gigbargain_form|as_uni_form }}
+	  <div id="div_id_access" class="ctrlHolder {% if form.access.errors %}error{%endif%}">
+	    {{ form.access.label_tag }} {{ form.access }}
+	    <br/>
+	    {{ form.access.errors }}
+	  </div>
 
+	  <div id="div_id_remuneration" class="ctrlHolder {% if form.remuneration.errors %}error{%endif%}">
+	    {{ form.remuneration.label_tag }} {{ form.remuneration }}
+	    <br/>
+	    {{ form.remuneration.errors }}
+	  </div>
+
+	  <div id="div_id_fee_amount" class="ctrlHolder {% if form.fee_amount.errors %}error{%endif%}">
+	    {{ form.fee_amount.label_tag }} {{ form.fee_amount }}
+	    <br/>
+	    {{ form.fee_amount.errors }}
+	  </div>
+	</div>
+    {% endwith %}
+  
   </fieldset>
 
-  <fieldset>
-    <legend>My band : {{ band.name }}</legend>
+  <fieldset id="new-band">
+    <img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="my band" />
+    <h2>My band: {{ band.name }}</h2>
 
     {{ gigbargain_myband_form|as_uni_form }}
 
