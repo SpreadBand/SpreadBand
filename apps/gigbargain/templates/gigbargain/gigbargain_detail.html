@@ -94,7 +94,6 @@ display:block;
 <link rel="stylesheet" type="text/css" href="/css/jquery/fancybox/jquery.fancybox-1.3.1.css" media="screen, projection" />
 
 <link rel="stylesheet" type="text/css" href="/css/gigbargain.css" media="screen, projection" />
-<link rel="stylesheet" type="text/css" href="/css/ghbuttons.css" media="screen, projection" />
 <link rel="stylesheet" type="text/css" href="/css/timeline.css" media="screen, projection" />
 
 {% endblock %}
@@ -107,115 +106,9 @@ display:block;
 <script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/jquery/jquery.fancybox-1.3.1.js"></script>
-<script type="text/javascript" src="/js/jit.js"></script>
+<script type="text/javascript" src="/js/jquery/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="/js/jquery/flot/jquery.flot.pie.js"></script>
 {% endstaticall %}
-
-
-<!-- defrayment graph -->
-<script type="text/javascript">
-var json = {
-    label: ['$'],
-    values: [
-	{% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
-	{
-	    label: '<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>',
-	    values: [{{ gigbargainband.defrayment }},],
-	},
-	{% endfor %}
-    ]
-};
-
-$(document).ready(function() {
-    var barChart = new $jit.BarChart({  
-	//id of the visualization container  
-	injectInto: 'defrayments-graph',  
-	//whether to add animations  
-	animate: true,  
-	//horizontal or vertical barcharts  
-	orientation: 'vertical',  
-	//bars separation  
-	barsOffset: 20,  
-	//visualization offset  
-	offset: 10,  
-	//labels offset position  
-	labelOffset: 5,  
-	//bars style  
-	type: 'stacked:gradient',
-	//whether to show the aggregation of the values  
-	showAggregates:true,  
-	//whether to show the labels for the bars  
-	showLabels:true,  
-	filterOnClick: true,  
-	restoreOnRightClick:true  ,
-	//labels style  
-	Label: {  
-	    type: 'HTML', //Native or HTML  
-	    size: 13,  
-	    family: 'Arial',
-	    color: 'black'  
-	},  
-	//add tooltips  
-	Tips: {  
-	    enable: true,  
-	    onShow: function(tip, elem) {  
-		tip.innerHTML = "<font color='white'><b>" + elem.name + "</b>: " + elem.value + "</font>";  
-	    }  
-	}  
-    });  
-    //load JSON data.  
-    barChart.loadJSON(json);  
-});
-</script>
-
-
-<!-- remuneration graph -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-	var pieChart = new $jit.PieChart({  
-	    //Where to inject the canvas. Any div container will do.  
-	    injectInto:'remuneration-graph',  
-	    //width and height for canvas.  
-            //Default's to the container offsetWidth and Height.  
-	    offset: 15,
-            sliceOffset: 0,
-            labelOffset: 20,
-            type: 'stacked:gradient',
-            hoveredColor: '#9fd4ff',
-	    Tips: {  
-		enable: true,  
-		onShow: function(tip, elem) {  
-		    {% if gigbargain.remuneration == 'PERC' %}
-		    tip.innerHTML = "<b>" + elem.label + "</b>: " + elem.value + "%";  
-		    {% else %}
-		    tip.innerHTML = "<b>" + elem.label + "</b>: $" + elem.value;  
-		    {% endif %}
-		}
-	    },
-	    Label: { type: 'HTML', color: '#000', size: 11 },
-
-
-	});  
-
-
-	var json = {  
-	    'values': [  
-		{% for band in gigbargain.gigbargainband_set.concurring %}
-		{  
-		    'label': '<a href="{{ band.band.get_absolute_url }}">{{ band.band.name }}</a>',  
-		    {% if gigbargain.remuneration == 'PERC' %}
-		    'values': [ {{ band.percentage }} ],
-		    {% else %}
-		    'values': [ {{ band.amount }} ],
-		    {% endif %}
-		},
-		{% endfor %}
-	    ]}
-
-	pieChart.loadJSON(json);
-
-    });
-  </script>
-
 
 <script type="text/javascript">
   $(document).ready(function() {

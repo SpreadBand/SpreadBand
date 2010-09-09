@@ -1,6 +1,49 @@
 {% load i18n %}
 {% load django_static %}
 
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var remunerations = 
+	[  
+ 	    {% for band in gigbargain.gigbargainband_set.concurring %}
+	    {
+ 		label: '{{ band.band.name }}',
+		data: {{ band.amount }}
+	    }{% if not forloop.last %},{%endif%}
+	    {% endfor %}
+	];
+    
+    
+    $.plot($("#remuneration-graph"),
+	   remunerations,
+	   {
+	       series: {
+		   pie: { show: true, 
+			  innerRadius: 0.3,
+			  radius: 0.95,
+			  stroke: { color: '#666' },
+			  label: {
+			      show: true,
+			      radius: 2/3,
+			      formatter: function(label, series){
+				  return '<div style="font-size:7pt;text-align:center;padding:2px;color:white;">' + label + ": " + Math.round(series.percent) + '%</div>';
+			      },
+			      threshold: 0.99,
+			      background: { color: '#000', opacity: 0.8 },
+			      highlight: { opacity: 0.5 }
+			  }
+			}
+	       },	
+	       legend: {
+		   container: $("#remuneration-legend")
+	       }
+	   }
+	  );
+});
+</script>
+
+
 <div class="header">
   <img src="{% staticfile '/images/gigbargain/remuneration_ico.png' %}" alt="remuneration"/>
   <h2>{% trans "Remuneration" %}</h2>
@@ -30,6 +73,8 @@
     {% endif %}
     
 
-    <div id="remuneration-graph" style="margin-left: 50px; width: 80%; height: 200px;"></div>
+    <div id="remuneration-graph"></div>
+
+    <div id="remuneration-legend"></div>
 
 </div>
