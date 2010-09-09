@@ -329,9 +329,13 @@ class GigBargainBand(models.Model):
 
     reason = TextField(blank=True, null=True)
 
-    starts_at = TimeField(blank=True, null=True)
+    starts_at = TimeField(help_text=_("e.g. 20:30 or 10:15"),
+                          blank=True, null=True, 
+                          )
+
     set_duration = TimedeltaField(blank=True, null=True,
-                                  help_text='as a duration. e.g. "4 hours, 2 minutes"')
+                                  help_text=_("as a duration. e.g. '4 hours, 2 minutes'")
+                                  )
 
     eq_starts_at = TimeField(blank=True, null=True)
     
@@ -393,11 +397,11 @@ def gigbargain_concluded_callback(sender, **kwargs):
 
     # Add all participating bands to the gig event
     for band in gigbargain.gigbargainband_set.concurring():
-        gig.bands.add(band)
+        gig.bands.add(band.band)
 
     # Add this gig to the band calendars
     for band in gigbargain.gigbargainband_set.concurring():
-        band.calendar.events.add(gig)
+        band.band.calendar.events.add(gig)
 
     # Also add this gig to the venue calendar            
     gig.venue.calendar.events.add(gig)
