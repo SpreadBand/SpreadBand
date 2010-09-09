@@ -14,7 +14,7 @@
   <div class="grid_11 alpha">
 
     <div class="grid_11 alpha omega">
-      <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-download" title="Edit"><span><span class="icon"></span>Edit</span></a>
+      <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit the whole band</span></a>
 
     </div>
     
@@ -105,7 +105,10 @@
 
     <div id="suggestions">
       <h3>Suggestions (<acronym title="Work in progress, don't expect it to work :)">WIP</acronym>)</h3>
-      You have to gig more before we can suggest you bands and venues.
+      You have to gig more before we can suggest you :
+      <ul>
+	<li><strong>Bands</strong> that are like you, in your area or not, with whom you can plan gigs ;</li>
+	<li><strong>Venues</strong> that are used to receive bands like you, where you can play with a good public.</li>
     </div>
 
     <div id="bandmembers" class="grid_4 alpha omega">
@@ -113,9 +116,10 @@
       <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>Manage</span></a>
 
       <ul>
+	{% staticfile '/images/account/no_avatar.png' as default_avatar %}
 	{% for member in band.band_members.all %}
 	<li>
-	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}" alt="{{ member.user.username }} avatar"/>
+	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="50px" height="50px" alt="{{ member.user.username }} avatar"/>
 	  <a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
 	  <span class="bandmember_role" title="{{ member.roles.all|join:', ' }}">{{ member.roles.all|join:', '|truncatewords:3 }}</span>
 	</li>
