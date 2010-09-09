@@ -163,19 +163,33 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-	$('#gallery').galleryView({
-	    panel_width: 320,
-	    panel_height: 300,
-	    gallery_width: 300,
-	    gallery_height: 300,
-	    frame_height: 50,
-	    frame_width: 90,
-	    nav_theme: '../../../css/jquery/galleryview/themes/dark',
-	    transition_interval: 10000,
-	    pause_on_hover: true,
-	    paused: true,
-	    filmstrip_position: 'bottom',
-	    overlay_position: 'bottom'});
+	// run galleria and add some options
+	Galleria.loadTheme('{{ MEDIA_URL }}/css/galleria/themes/classic/galleria.classic.js');
+
+	$('#gallery').galleria({
+            image_crop: true, // crop all images to fit
+            thumb_crop: true, // crop all thumbnails to fit
+            transition: 'fade', // crossfade photos
+            transition_speed: 700, // slow down the crossfade
+	    autoplay: true,
+            data_config: function(img) {
+		// will extract and return image captions from the source:
+		return  {
+                    title: $(img).parent().next('strong').html(),
+                    description: $(img).parent().next('strong').next().html()
+		};
+            },
+            extend: function() {
+		this.bind(Galleria.IMAGE, function(e) {
+                    // bind a click event to the active image
+                    $(e.imageTarget).css('cursor','pointer').click(this.proxy(function() {
+			// open the image in a lightbox
+			this.openLightbox();
+                    }));
+		});
+            }
+	});
+
 
 	function changeTrack(e) {
 	    $("#trackname").text($(this).text());
@@ -234,22 +248,12 @@
       </div>
       <div class="separator"></div>
       <div class="content">
-	<div id="gallery">
+	<div id="gallery" style="height: 300px;">
 	  {% for picture in band.pictures.all %}
-	    <div class="panel"><img src="{{ picture.thumbnail_image.url }}" alt="image1" /></div>
+	    <a href="{{ picture.original_image.url }}">
+	      <img src="{{ picture.thumbnail_image.url }}" alt="image" />
+	    </a>
 	  {% endfor %}
-	  
-	  <div class="strip_wrapper">
-	    <ul class="filmstrip">
-	      {% for picture in band.pictures.all %}
-		<li><img src="{{ picture.original_image.url }}" alt="hoy joy" title="fuckin' title"/>
-		<div class="panel-overlay">
-		  <p>Some more information about this photo, perhaps with a <a href="http://some.web.site" target="_blank">link</a> to another page.</p>
-		</div>
-		</li>
-	      {% endfor %}
-	    </ul>
-	  </div>
 	</div>
       </div>
     </div>
