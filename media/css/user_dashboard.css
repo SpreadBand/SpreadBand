@@ -89,8 +89,14 @@
     margin-bottom: 10px;
 }
 
+#activity h3,img {
+    display: inline;
+    vertical-align: middle;
+}
+
 #activity ul {
     list-style: none;
+    margin-top: 5px;
 }
 
 #activity ul li {
