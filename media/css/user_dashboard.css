@@ -1,24 +1,107 @@
-#home #nav-home a,
-#about #nav-about a,
-#archive #nav-archive a,
-#lab #nav-lab a,
-#reviews #nav-reviews a,
-#contact #nav-contact a {
-    background:#e35a00;
-    color:#fff;
-    text-shadow:none;
+#greating {
+    padding-bottom: 10px;
+    text-align: right;
 }
 
-#home #nav-home a:hover,
-#about #nav-about a:hover,
-#archive #nav-archive a:hover,
-#lab #nav-lab a:hover,
-#reviews #nav-reviews a:hover,
-#contact #nav-contact a:hover {
-    background:#e35a00;
- }
+#greating h1 {
+    text-align: left;
+    margin-bottom: 10px;
+}
 
-#nav a:active {
-    background:#e35a00;
-    color:#fff;
+#user-infos {
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+#user-infos label {
+    float: left;
+    color: #666;
+}
+
+#user-infos span {
+    margin-left: 200px;
+    display: block;
+}
+
+#user-connections ul {
+    list-style: none;
+}
+
+#user-connections ul li {
+    padding: 2px;
+    margin-left: 0px;
+    display: inline;
+}
+
+#user-connections img {
+    border: 1px solid black;
+}
+
+
+/*-- your bands --*/
+#your-bands {
+    margin-bottom: 20px;
+}
+
+#your-bands ul {
+    list-style: none;
+}
+
+#your-bands ul li {
+    clear: both;
+    margin-left: 0px;
+}
+
+#your-bands ul li img.photo {
+    float: left;
+    margin-right: 10px;
+
+    margin-bottom: 10px;
+}
+
+#your-bands span {
+    display: block;
+}
+
+#your-bands span.band-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#your-bands span.band-style {
+    font-style: italic;
+}
+
+
+
+/*-- register box --*/
+#register {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f6f6f6;
+}
+
+/*-- notifications --*/
+#notifications {
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+#activity ul {
+    list-style: none;
+}
+
+#activity ul li {
+    margin-left: 0px;
+    width: 100%;
+}
+
+#activity ul li.even {
+    background-color: #f7f7f7;
+}
+
+#activity ul li .date {
+    color: #666;
 }

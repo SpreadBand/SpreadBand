@@ -120,9 +120,22 @@ img.comments {
     top: 45px;
 }
 
+/*-- remuneration --*/
+#remuneration-graph {
+    width: 100%;
+    height: 200px;
+}
+
+/*-- defrayments --*/
 #defrayments h2 {
     cursor: help;
 }
+
+#defrayments-graph {
+    width: 100%;
+    height: 200px;
+}
+
 
 /*-- latest activity --*/
 
@@ -144,6 +157,7 @@ img.comments {
     vertical-align: middle;
     margin-right: 3px;
 }
+
 
 #latest-activity li .date {
     font-size: 0.9em;
@@ -384,4 +398,65 @@ ul.gigbargain_list li div.gigbargain_info span.bands {
     vertical-align: middle;
 }
 
+/*== NEW GIGBARGAIN ==*/
 
+/*-- top notice --*/
+#top-notice {
+    border: 1px solid #eee;
+    background-color: #f7f7f7;
+    color: #666;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/*-- when --*/
+#new-when img, h2 {
+    display: inline;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#new-when > div {
+    margin-top: 10px;
+}
+
+/*-- where --*/
+#new-where img, h2 {
+    display: inline;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#new-where > div {
+    margin-top: 10px;
+}
+
+#new-where label {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/*-- band --*/
+#new-band {
+    margin-top: 15px;
+    padding-top: 10px;
+}
+
+#new-band img, h2 {
+    display: inline;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#new-band > div {
+    margin-top: 5px;
+}
+
+#new-band input {
+    margin-bottom: 10px;
+}
+
+#new-band label {
+    font-weight: bold;
+}

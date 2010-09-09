@@ -83,6 +83,14 @@ div#band_text {
     margin-bottom: 20px;
 }
 
+#suggestions ul {
+    margin-top: 5px;
+}
+
+#suggestions ul li {
+    margin-left: 18px;
+}
+
 /*-- band members --*/
 #bandmembers {
     clear: both;
