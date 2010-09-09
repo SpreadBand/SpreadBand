@@ -6,7 +6,11 @@
 
 <div id="presskit-sidebar" class="grid_3 alpha">
   <div id="bandavatar" class="grid_3 alpha omega">
-    <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="172px" alt="band avatar" />
+    {% if band.pictures.avatar %}
+      <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="172px" alt="band avatar" />
+    {% else %}
+      <img src="{% staticfile '/images/band/no_picture.png' %}" width="172px" alt="no band avatar" />
+    {% endif %}
   </div>
 
   <div id="genres" class="grid_3 alpha omega">
@@ -28,7 +32,7 @@
   <!-- Band members -->
   <div id="bandmembers" class="grid_3 alpha omega">
     <h3>Members ({{ band.band_members.count }})</h3>
-    <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+    <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="Edit"><span>Edit</span></a>
 
     <ul>
       {% for member in band.band_members.all %}
@@ -59,7 +63,7 @@
   <!-- Social networks -->
   <div id="socialnets" class="grid_3 alpha omega">
     <h3>Social Networks</h3>
-    <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+    <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span>Edit</span></a>
 
     <ul>
       {% for socialnetwork in band.socialnetworks.all %}
@@ -67,6 +71,8 @@
 	  <img src="{{ socialnetwork.network.icon_url }}" alt="{{ socialnetwork.network.name }}" />
 	  <a href="{{ socialnetwork.url }}" target="_blank" title="{{ socialnetwork.url }}">{{ socialnetwork.username|capfirst }}</a>
 	</li>
+      {% empty %}
+	<li>No social profile</li>
       {% endfor %}
     </ul>
 
@@ -75,7 +81,7 @@
   <!-- Websites -->
   <div id="websites" class="grid_3 alpha omega">
     <h3>Websites</h3>
-    <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+    <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span>Edit</span></a>
 
     <ul>
       {% for website in band.websites.all %}
@@ -83,6 +89,8 @@
 	  <img src="{{ website.icon_url }}" alt="Website" />
 	  <a href="{{ website.url }}" target="_blank" title="{{ website.url }}">{{ website.name|capfirst }}</a>
 	</li>
+      {% empty %}
+	<li>No website</li>
       {% endfor %}
     </ul>
 
@@ -105,14 +113,14 @@
 </div>
 
 <div id="presskit-main" class="grid_12 omega">
-  <h1>PressKit &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city }}, {{ band.country }})</h1>
+  <h1>PressKit &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city|default:"Somewhere" }}, {{ band.country|default:"Earth" }})</h1>
 
   <div class="grid_7 alpha">
     <div id="biography" class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="biography"/>
 	<h2>Biography</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -188,7 +196,7 @@
     <div id="location" class="sectionbox">
       <div class="header">
 	<h2>Location</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -201,7 +209,7 @@
     <div id="tracks" class="sectionbox">
       <div class="header">
 	<h2>Featured Tracks</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -222,7 +230,7 @@
     <div id="pictures" class="sectionbox">
       <div class="header">
 	<h2>Pictures</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -251,7 +259,7 @@
     <div id="video" class="sectionbox">
       <div class="header">
 	<h2>Video</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -272,7 +280,7 @@
     <div id="techsheet" class="sectionbox">
       <div class="header">
       <h2>Technical Sheet</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
