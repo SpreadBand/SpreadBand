@@ -27,7 +27,7 @@ class GigBargainForBandForm(forms.ModelForm):
     """
     class Meta:
         model = GigBargain
-        fields = ('access', 'fee_amount', 'remuneration')
+        fields = ('access', 'fee_amount')
 
     access = ChoiceField(choices=[['', "(Pick one)"]] + GigBargain.ACCESS_CHOICES,
                          required=True
@@ -115,11 +115,11 @@ class GigBargainNewFromBandForm(GigBargainNewForm):
         fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
 
     access = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.ACCESS_CHOICES,
-                         required=False
+                         required=False,
                          )
 
     remuneration = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.REMUNERATION_CHOICES,
-                               required=False
+                               required=False,
                                )
 
 
