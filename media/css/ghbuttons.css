@@ -7,7 +7,7 @@ a.minibutton {
     font-weight:bold;
     color:#333;
     text-shadow:1px 1px 0 #fff; 
-    background:url(../../images/buttons/minibutton_matrix.png) 0 0 no-repeat;
+    background:url(/images/buttons/minibutton_matrix.png) 0 0 no-repeat;
     white-space:nowrap;
     border:none;
     overflow:visible;
@@ -20,7 +20,7 @@ a.minibutton>span {
     height:23px;
     padding:0 10px 0 8px;
     line-height:23px;
-    background:url(../../images/buttons/minibutton_matrix.png) 100% 0 no-repeat;
+    background:url(/images/buttons/minibutton_matrix.png) 100% 0 no-repeat;
 }
 
 a.minibutton:hover, a.minibutton:focus {
@@ -48,7 +48,7 @@ a.btn-download .icon {
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(../../images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-download .icon {
@@ -59,22 +59,41 @@ a.btn-download:hover .icon, a.btn-download:focus .icon {
     background-position:-40px -25px;
 }
 
+
 /* with icon */
 a.btn-fork .icon {
     float:left;
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(../../images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-fork .icon {
     background-position:-80px 0;
 }
 
-a.btn-fork:hover .icon, a.btn-download:focus .icon {
+a.btn-fork:hover .icon, a.btn-fork:focus .icon {
     background-position:-80px -25px;
 }
+
+/* edit */
+a.btn-edit .icon {
+    float:left;
+    margin-left:-4px;
+    width:18px;
+    height:22px;
+    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+}
+
+a.btn-edit .icon {
+    background-position:-181px 0;
+}
+
+a.btn-edit:hover .icon, a.btn-edit:focus .icon {
+    background-position:-181px -25px;
+}
+
 
 /* with icon */
 a.btn-kick .icon {
@@ -82,7 +101,7 @@ a.btn-kick .icon {
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(../../images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-kick .icon {

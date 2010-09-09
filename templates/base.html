@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="/css/base.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
 
+    <link rel="stylesheet" type="text/css" href="/css/ghbuttons.css" media="screen, projection" />
+
     <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui/ui-darkness/jquery-ui-1.8.4.custom.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" media="screen, projection" />
@@ -191,7 +193,7 @@
 	    </ul>
 	  {% else %}
 	    <ul>
-	      <li><a href="{% url account:dashboard %}">Dashboard</a></li>
+	      <li><a href="{% url account:dashboard %}">{{ user.username|upper }}</a></li>
 	      <li><a href="{% url account:auth_logout %}">Logout</a></li>
 	    </ul>
 	  {% endif %}
