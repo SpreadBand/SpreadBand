@@ -112,16 +112,16 @@ def gigbargain_enter_for_band(request, band_slug, gigbargain_uuid):
         # Send the action
         action.send(gigbargain_band, verb='gigbargain_entered', target=gigbargain, public=False)
 
-        messages.success(request, _("You (%s) are now bargaining with %s") % (band.name,
-                                                                              gigbargain.venue.name)
+        messages.success(request, _("You (%(band_name)s) are now bargaining with %(venue_name)s") % {'band_name': band.name,
+                                                                                                     'venue_name': gigbargain.venue.name}
                          )
 
 
 
     # If not, warn we have already entered the bargain
     elif gigbargain_band.state in ('accepted', 'negociating', 'validated'):
-        messages.warning(request, _("You (%s) are already bargaining with %s") % (band.name,
-                                                                                  gigbargain.venue.name)
+        messages.warning(request, _("You (%(band_name)s) are already bargaining with %(venue_name)s") % {'band_name': band.name,
+                                                                                                         'venue_name': gigbargain.venue.name}
                          )
 
     # If we're no more in the bargain
@@ -163,8 +163,8 @@ def gigbargain_refuse_for_band(request, band_slug, gigbargain_uuid):
 
             action.send(gigbargain_band, verb='refused', target=gigbargain, public=False)
 
-            messages.success(request, _("You (%s) have refused to bargain with %s") % (band.name,
-                                                                                       gigbargain.venue.name)
+            messages.success(request, _("You (%(band_name)s) have refused to bargain with %(venue_name)s") % {'band_name': band.name,
+                                                                                                              'venue_name': gigbargain.venue.name}
                              )
 
             if gigbargain.state == 'new':

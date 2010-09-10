@@ -2,6 +2,7 @@
 
 {% load activity_tags %}
 {% load django_static %}
+{% load i18n %}
 
 {% block css %}
   {{ block.super }}
@@ -59,11 +60,11 @@
 {% endblock %}
 
 {% block title %}
-  {{ band.name }} - Gigbargains
+  {{ band.name }} - {% trans "Gigbargains" %}
 {% endblock %}
 
 {% block band_section %}
-  Gigbargains
+  {% trans "Gigbargains" %}
 {% endblock %}
 
 {% block band_content %}
@@ -72,7 +73,7 @@
   <div class="grid_12 alpha">
 
     <div id="dash-actions" class="grid_12 alpha omega">
-      <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>New Gig bargain</span></a>
+      <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>{% trans "New Gig bargain" %}</span></a>
     </div>
 
     <!-- Bargains -->
@@ -82,12 +83,12 @@
 	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
 	  <h2>Bargains</h2>
 
-	  <span><strong>New</strong>: {{ new_gigbargains|length }}</span>|
-	  <span><strong>In progress</strong>: {{ inprogress_gigbargains|length }}</span>|
-	  <span><strong>Concluded</strong>: {{ concluded_gigbargains|length }}</span>|
-	  <span><strong>Aborted</strong>: X</span>.
+	  <span><strong>{% trans "New" %}</strong>: {{ new_gigbargains|length }}</span>|
+	  <span><strong>{% trans "In progress" %}</strong>: {{ inprogress_gigbargains|length }}</span>|
+	  <span><strong>{% trans "Concluded" %}</strong>: {{ concluded_gigbargains|length }}</span>|
+	  <span><strong>{% trans "Aborted" %}</strong>: X</span>.
 
-	  <span>Today: {% now "j F Y" %}</span>
+	  <span>{% trans "Today:" %} {% now "j F Y" %}</span>
 
 	</div>
 	<div class="separator"></div>
@@ -95,7 +96,7 @@
 	<div class="fullcontent">
       
 	  <div id="dash-gb-new">
-	    <h3>New</h3>
+	    <h3>{% trans "New" %}</h3>
 	    <ul class="gigbargain_list">
 	      {% for gigbargain in new_gigbargains %}
 		<li>
@@ -122,7 +123,7 @@
 	  
 	  
 	  <div id="dash-gb-progress">   
-	    <h3>In progress</h3>
+	    <h3>{% trans "In progress" %}</h3>
 	    
 	    <ul class="gigbargain_list">
 	      {% for gigbargain in inprogress_gigbargains %}
@@ -146,12 +147,11 @@
 		</li>
 	      {% endfor %}
 	    </ul>
-	    <div class="clear"></div>
 	</div>
 	  
 	<div id="dash-gb-concluded">
 	    
-	  <h3>Concluded</h3>
+	  <h3>{% trans "Concluded" %}</h3>
 	  
 	  <ul class="gigbargain_list">
 	      {% for gigbargain in concluded_gigbargains %}
@@ -192,7 +192,7 @@
 	<div class="sectionbox bright">
 	  <div class="header">
 	    <img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="calendar"/>
-	    <h2>Calendar</h2>
+	    <h2>{% trans "Calendar" %}</h2>
 	  </div>
 	  
 	  <div class="separator"></div>
@@ -209,7 +209,7 @@
 	<div class="sectionbox bright">
 	  <div class="header">
 	    <img src="{% staticfile '/images/gigbargain/repartition_ico.png' %}" alt="repartition"/>
-	    <h2>Repartition</h2>
+	    <h2>{% trans "Repartition" %}</h2>
 	  </div>
 	  <div class="separator"></div>
 	  <div class="content">
@@ -267,10 +267,10 @@
 	    </script>
 
 	    <div id="repartition-legend" class="legend">
-	      Total = {{ monthly_stats.total }}<br>
-	      New = {{ monthly_stats.new }}<br>
-	      In progress = {{ monthly_stats.inprogress }}<br>
-	      Concluded = {{ monthly_stats.concluded }}
+	      {% blocktrans %}Total = {{ monthly_stats.total }}{% endblocktrans %}<br>
+	      {% blocktrans %}New = {{ monthly_stats.new }}{% endblocktrans %}<br>
+	      {% blocktrans %}In progress = {{ monthly_stats.inprogress }}{% endblocktrans %}<br>
+	      {% blocktrans %}Concluded = {{ monthly_stats.concluded }}{% endblocktrans %}
 	    </div>
 	    
 	  </div>
@@ -282,7 +282,7 @@
 	<div class="sectionbox bright">
 	  <div class="header">
 	    <img src="{% staticfile '/images/gigbargain/connection_ico.png' %}" alt="connections"/>
-	    <h2>Connections</h2>
+	    <h2>{% trans "Connections" %}</h2>
 	  </div>
 
 	  <div class="separator"></div>
@@ -290,22 +290,22 @@
 	  <div class="content">
 
 	    <ul id="conlist" class="treeview">
-	      <li><span><strong>Bands</strong> ({{ monthly_connections.bands|length }})</span>
+	      <li><span><strong>{% trans "Bands" %}</strong> ({{ monthly_connections.bands|length }})</span>
 	      <ul>
 		{% for band in monthly_connections.bands %}
 		  <li><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> <img src="{{ band.country.flag }}" title="{{ band.country.name }}, {{ band.city }}" alt="{{ band.country }}"/></li>
 		{% empty %}
-		  <li>No connection</li>
+		  <li>{% trans "No connection" %}</li>
 		{% endfor %}
 	      </ul>
 	      </li>
 
-	      <li><span><strong>Venues</strong> ({{ monthly_connections.venues|length }})</span>
+	      <li><span><strong>{% trans "Venues" %}</strong> ({{ monthly_connections.venues|length }})</span>
 	      <ul>
 		{% for venue in monthly_connections.venues %}
 		  <li><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> <img src="{{ venue.country.flag }}" title="{{ venue.country.name }}, {{ venue.city }}" alt="{{ venue.country }}"/></li>
 		{% empty %}
-		  <li>No connection</li>
+		  <li>{% trans "No connection" %}</li>
 		{% endfor %}
 	      </ul>
 	      </li>
@@ -322,7 +322,7 @@
       <div class="sectionbox bright">
 	<div class="header">
 	  <img src="{% staticfile '/images/gigbargain/statistics_ico.png' %}" alt="global stats"/>
-	  <h2>Global stats</h2>
+	  <h2>{% trans "Global stats" %}</h2>
 	</div>
 
 	<div class="separator"></div>
@@ -443,17 +443,17 @@
     <div class="grid_3 omega">
 
       <div id="latest-activity">
-	<h3>Latest activity</h3>
+	<h3>{% trans "Latest activity" %}</h3>
 
 	  <ul>
 	    {% for action in latest_activity %}
 	      <li>
-	    {% if action.target.name %}
-	      <span class="title"><strong>{{ action.target.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
-	    {% else %}
-	      <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
-	    {% endif %}
-	    
+		{% if action.target.name %}
+		  <span class="title"><strong>{{ action.target.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+		{% else %}
+		  <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+		{% endif %}
+		
 	      {% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
 	    {% endfor %}
 	  </ul>
