@@ -1,6 +1,7 @@
 from django import forms
+from django.utils.translation import ugettext as _
 
-from .models import Band, BandMember, BandPicture
+from .models import Band, BandMember, BandRole, BandPicture
 
 class BandCreateForm(forms.ModelForm):
     class Meta:
@@ -15,7 +16,15 @@ class BandUpdateForm(forms.ModelForm):
 class BandMemberRequestForm(forms.ModelForm):
     class Meta:
         model = BandMember
-        fields = ('role',)
+        fields = ('roles',)
+
+    def clean(self):
+        value = self.cleaned_data.get('roles')
+
+        if not value:
+            raise forms.ValidationError(_("You must at least have a role"))
+
+        return self.cleaned_data
 
 class BandPictureForm(forms.ModelForm):
     class Meta:

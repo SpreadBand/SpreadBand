@@ -14,19 +14,39 @@ from geopy import geocoders
 
 from world.models import Place
 
-from ..models import Band
+from ..models import Band, BandMember
 from ..forms import BandCreateForm, BandUpdateForm
-from ..forms import BandPictureForm
+from ..forms import BandPictureForm, BandMemberRequestForm
 
 @login_required
 def new(request):
     """
     register a new band
     """
-    return create_object(request,
-                         form_class=BandCreateForm,
-                         template_name='bands/band_new.html',
-                         )
+    create_form = BandCreateForm(request.POST or None)
+    member_form = BandMemberRequestForm(request.POST or None)
+
+    if request.method == 'POST':
+        if member_form.is_valid():
+            if create_form.is_valid():
+                # Create the band
+                band = create_form.save()
+                
+                # Add this user into the band
+                bandmember = BandMember(band=band,
+                                        user=request.user
+                                        )
+                bandmember.save()
+                bandmember.roles = member_form.cleaned_data.get('roles')
+                bandmember.save()
+                
+                return redirect(band)
+
+    return render_to_response(template_name='bands/band_new.html',
+                              dictionary={'form': create_form,
+                                          'member_form': member_form},
+                              context_instance=RequestContext(request)
+                              )
 
 @login_required
 def edit(request, band_slug):
@@ -133,6 +153,7 @@ def detail(request, band_slug):
 #--- PICTURES
 
 # XX: Security
+@login_required
 def picture_list(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
@@ -144,6 +165,7 @@ def picture_list(request, band_slug):
                        )
 
 # XX: Security
+@login_required
 def picture_new(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
