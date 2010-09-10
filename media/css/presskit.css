@@ -84,6 +84,7 @@
 /*-- latest gigs --*/
 #latest-gigs {
     margin-bottom: 20px;
+    text-align: left;
 }
 
 #latest-gigs ul {
@@ -196,6 +197,10 @@
 /*-- tracks --*/
 #tracks .minibutton {
     margin-left: 5px;
+}
+
+#tracks ul li {
+    margin-left: 20px;
 }
 
 /*-- pictures --*/
