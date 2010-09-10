@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 {% load django_static %}
+{% load dajaxice_templatetags %}
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ request.LANGUAGE_CODE }}" lang="{{ request.LANGUAGE_CODE }}" dir="ltr">
   
@@ -37,6 +38,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/uni_form/uni-form.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/uni_form/default.uni-form.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/boxy.css" />
     {% endslimall %}
 
     {% staticall %}
@@ -65,7 +67,15 @@
   <script type="text/javascript" src="/js/jquery/jquery.notify.js"></script>
   <script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
   <script type="text/javascript" src="/js/jquery/jquery.jplayer.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.boxy.js"></script>
+
+  <script type="text/javascript" src="/js/XMLHttpRequest.js"></script>
+  <script type="text/javascript" src="/js/jquery/jquery.ba-serializeobject.js"></script>
+  <script type="text/javascript" src="/js/dajax/jquery.dajax.core.js"></script>
   {% endstaticall %}
+
+  {# Dynamically generated, should be repalced ! #}
+  <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
 
 
   <script type="text/javascript">

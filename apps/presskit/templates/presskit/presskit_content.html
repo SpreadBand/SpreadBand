@@ -36,9 +36,10 @@
 
     <ul>
       {% for member in band.band_members.all %}
-	<li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
-	<span class="bandmember_whois">{{ member.user.get_profile.genre }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
-	<span class="bandmember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
+	<li>
+	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
+	  <span class="bandmember_whois">{{ member.user.get_profile.genre }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
+	  <span class="bandmember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
       </li>
     {% endfor %}
     </ul>
@@ -209,6 +210,7 @@
   <div class="grid_5 omega">
     <div id="location" class="sectionbox">
       <div class="header">
+	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
 	<h2>Location</h2>
 	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
@@ -222,6 +224,7 @@
   <div class="grid_12 alpha omega">
     <div id="tracks" class="sectionbox">
       <div class="header">
+	<img src="{% staticfile '/images/presskit/tracks_ico.png' %}" alt="tracks"/>
 	<h2>Featured Tracks</h2>
 	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
@@ -243,6 +246,7 @@
   <div class="grid_6 alpha">
     <div id="pictures" class="sectionbox">
       <div class="header">
+	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
 	<h2>Pictures</h2>
 	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
@@ -260,10 +264,17 @@
   </div>
 
   <div class="grid_6 omega">
+    <script type="text/javascript">
+      $(document).ready(function() {
+	  $('.modal-popup').boxy({draggable: false, modal: true});
+      });
+    </script>
+
     <div id="video" class="sectionbox">
       <div class="header">
+	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
 	<h2>Video</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url presskit:presskit-video band.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -283,7 +294,8 @@
   <div class="grid_6 alpha">
     <div id="techsheet" class="sectionbox">
       <div class="header">
-      <h2>Technical Sheet</h2>
+	<img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" alt="tech sheet"/>
+	<h2>Technical Sheet</h2>
 	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>

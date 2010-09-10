@@ -1,0 +1,22 @@
+{% load django_static %}
+
+<html>
+  <head>
+    {% staticall %}
+    <script type="text/javascript" src="/js/XMLHttpRequest.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.ba-serializeobject.js"></script>
+    <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
+    {% endstaticall %}
+
+    {# Dynamically generated, should be repalced ! #}
+    <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
+  </head>
+  
+  <body>
+  
+  {% block content %}
+  
+  {% endblock %}
+  
+  </body>
+</html>
