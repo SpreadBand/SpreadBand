@@ -75,7 +75,7 @@
 	      <li>
 		{% staticfile '/images/band/no_picture.png' as default_pic %}
 		<a href="{% url band:detail band.slug %}">
-		  <img id="photo" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
+		  <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
 		  <span class="band-name">{{ band.name|capfirst }}</span>
 		</a>
 		<span class="band-location">{{ band.city }} <img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/></span>
