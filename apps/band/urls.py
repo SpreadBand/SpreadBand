@@ -17,7 +17,9 @@ urlpatterns += patterns('',
     url(r'^(?P<band_slug>[-\w]+)/edit$', views.edit, name='edit'),
 
     # pictures
-    url(r'^(?P<band_slug>[-\w]+)/pictures/new$', views.picture_new, name='picture-new'),
+    url(r'^(?P<band_slug>[-\w]+)/pictures$', views.picture_list, name='band-pictures'),
+    url(r'^(?P<band_slug>[-\w]+)/pictures/new$', views.picture_new, name='band-picture-new'),
+    url(r'^(?P<band_slug>[-\w]+)/pictures/delete/(?P<picture_id>\d+)$', views.picture_delete, name='band-picture-delete'),
 
     # events
     url(r'^(?P<band_slug>[-\w]+)/events/$', views.event_detail, name='event-detail'),

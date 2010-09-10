@@ -2,6 +2,7 @@ from datetime import date
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.gis.geos import Point
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render_to_response
@@ -64,6 +65,8 @@ def edit(request, band_slug):
 
             band.place = place
             band.save()
+
+            messages.success(request, "%s was successfully updated" % band.name)
 
             return redirect(band)
 
@@ -128,6 +131,19 @@ def detail(request, band_slug):
     
 
 #--- PICTURES
+
+# XX: Security
+def picture_list(request, band_slug):
+    band = get_object_or_404(Band, slug=band_slug)
+
+    return object_list(request,
+                       queryset=band.pictures.all(),
+                       template_name='band/picture_list.html',
+                       template_object_name='picture',
+                       extra_context={'band': band},
+                       )
+
+# XX: Security
 def picture_new(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
@@ -140,10 +156,21 @@ def picture_new(request, band_slug):
 
             picture.save()
 
-            return redirect(band)
+            return redirect('band:band-pictures', band.slug)
 
     return create_object(request,
                          form_class=BandPictureForm,
                          template_name='bands/picture_new.html',
                          extra_context={'band': band}
                          )
+
+
+# XXX: Security
+@login_required
+def picture_delete(request, band_slug, picture_id):
+    band = get_object_or_404(Band, slug=band_slug)
+    picture = get_object_or_404(band.pictures, id=picture_id)
+
+    picture.delete()
+
+    return redirect('band:band-pictures', band.slug)
