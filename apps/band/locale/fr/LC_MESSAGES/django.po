@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-10 13:26+0200\n"
+"PO-Revision-Date: 2010-09-10 15:04\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+
+#: forms.py:44
+msgid "The user's nickname you have entered doesn't exist"
+msgstr ""
+
+#: models.py:32
+msgid "When the band was founded"
+msgstr ""
+
+#: models.py:50
+msgid "Band biography"
+msgstr ""
+
+#: models.py:159
+msgid "Whether the membership has been approved"
+msgstr ""
+
+#: templates/band/membership_add.html:21
+msgid "Add member"
+msgstr ""
+
+#: templates/bands/band_detail.html:92
+msgid "You don't have any upcoming event."
+msgstr "Vous n'avez pas encore de concerts prévus."
+
+#: templates/bands/band_detail.html:93
+msgid "Start booking a venue now !"
+msgstr "Commencez à booker dès maintenant !"
+
+#: templates/bands/band_list.html:14
+msgid "Add new"
+msgstr "Ajouter un nouveau"
+
+#: templates/bands/band_new.html:26 templates/bands/membership_request.html:11
+msgid "Submit"
+msgstr "Soumettre"
+
+#: templates/bands/band_update.html:54
+msgid "Update"
+msgstr "Mettre à jour"
+
+#: templates/bands/event_new.html:7
+msgid "Create or change event. All fields are required."
+msgstr ""
+
+#: templates/bands/event_new.html:12
+msgid "Save"
+msgstr ""
+
+#: templates/bands/event_new.html:13
+msgid "Cancel"
+msgstr ""
+
+#: templates/bands/picture_new.html:11
+msgid "Upload"
+msgstr ""
