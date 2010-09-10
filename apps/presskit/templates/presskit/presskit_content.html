@@ -34,11 +34,12 @@
     <h3>Members ({{ band.band_members.count }})</h3>
     <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="Edit"><span>Edit</span></a>
 
+    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
     <ul>
       {% for member in band.band_members.all %}
 	<li>
-	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
-	  <span class="bandmember_whois">{{ member.user.get_profile.genre }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
+	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="48px" height="48px"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
+	  <span class="bandmember_whois">{{ member.user.get_profile.genre|default:"?" }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
 	  <span class="bandmember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
       </li>
     {% endfor %}
@@ -52,7 +53,7 @@
       <ul>
 	{% for gig in latest_gigs %}
 	  <li>
-	    {{ gig.event_date }}: <a href="{{ gig.get_absolute_url }}">{{ gig.venue.name|capfirst }}</a>
+	    {{ gig.event_date|date:"d M Y" }}: <a href="{{ gig.get_absolute_url }}">{{ gig.venue.name|capfirst }}</a>
 	  </li>
 	{% endfor %}
       </ul>
@@ -121,7 +122,7 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="biography"/>
 	<h2>Biography</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -222,20 +223,55 @@
   </div>
 
   <div class="grid_12 alpha omega">
+
+    <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.jplayer.js' %}"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+	  function changeTrack(e) {
+	      $("#player-status").text("Playing " + $(this).text() + "...");
+	      $("#audio_player").jPlayer("setFile", $(this).attr("href")).jPlayer("play");
+	      $(this).blur();
+	      return false;
+	  }
+
+
+	  // Local copy of jQuery selectors, for performance.
+	  var jpPlayTime = $("#jplayer_play_time");
+	  var jpTotalTime = $("#jplayer_total_time");
+
+	  $("#audio_player").jPlayer({
+	      // oggSupport: true,
+	      nativesupport: true,
+	      preload: 'auto',
+	      swfPath: '{{ MEDIA_URL }}/flash/',
+	      customCssIds: true
+	  }).jPlayer("cssId", "stop", "player-stop");
+
+	  $(".track").click(changeTrack)
+      });
+    </script>
+
+
     <div id="tracks" class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/presskit/tracks_ico.png' %}" alt="tracks"/>
-	<h2>Featured Tracks</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<h2>Featured Tracks (WIP)</h2>
+	<a href="{% url presskit:presskit-tracks band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
+
+	<div id="audio_player"></div>
+
 	{% if presskit.tracks.count %}
 	  <ul>
 	    {% for track in presskit.tracks.all %}
-	      <li><a class="track" href="#" ogg="{{ track.file.url|urlencode }}">{{ track.title }}</a> {% if track.albumtrack %}(Album: <a href="{{ track.albumtrack.album.get_absolute_url }}">{{ track.albumtrack.album.name }}</a>){% endif %}</li>
+	      <li><a class="track" href="{{ track.file.url }}">{{ track.title }}</a> {% if track.albumtrack %}(Album: <a href="{{ track.albumtrack.album.get_absolute_url }}">{{ track.albumtrack.album.name }}</a>){% endif %}</li>
 	    {% endfor %}
 	  </ul>
+
+	  <span id="player-status">Not playing</span> - (<a id="player-stop" href="#">Stop</a>) <strong>(WIP)</strong>
 	{% else %}
 	    You have not uploaded any tracks yet. You should do so if you want the venues to book you !
 	{% endif %}
@@ -248,7 +284,7 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
 	<h2>Pictures</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:band-pictures band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -283,7 +319,7 @@
 	  {{ presskit.video }}
 	  {% endoembed %}
 	{% else %}
-	  No video has been uploaded.
+	  No video has been set.
 	{% endif %}
       </div>
     </div>
@@ -296,7 +332,7 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" alt="tech sheet"/>
 	<h2>Technical Sheet</h2>
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
+	<a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit</span></a>
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -313,7 +349,7 @@
     <div id="reviews" class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/presskit/reviews_ico.png' %}" alt="reviews"/>
-	<h2>Latest reviews</h2>
+	<h2>Latest reviews (WIP)</h2>
       </div>
       <div class="separator"></div>
       <div class="content">
