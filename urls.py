@@ -4,10 +4,13 @@ from django.conf import settings
 from django.contrib.gis import admin
 from django.contrib.sitemaps import FlatPageSitemap
 
+from dajaxice.core import dajaxice_autodiscover
+
 from .utils.sitemaps import DirectToTemplateSitemap
 from .utils.views import home_spreadband
 
 admin.autodiscover()
+dajaxice_autodiscover()
 
 # Sitemaps
 # import venue.sitemaps
@@ -47,7 +50,7 @@ urlpatterns = patterns('',
     # Bands
     (r'^b/', include('band.urls', namespace='band')),
     (r'^b/', include('album.urls', namespace='album')),
-    (r'^b/', include('presskit.urls', namespace='presskit')),
+    (r'^b/', include('presskit.urls', namespace='presskit', app_name='presskit')),
 
     # Venues
     (r'^v/', include('venue.urls', namespace='venue')),
@@ -87,6 +90,9 @@ urlpatterns = patterns('',
     # avatar
     (r'^avatar/', include('avatar.urls')),
     (r'^avatar_crop/', include('avatar_crop.urls')),
+
+    # Dajax(ice)
+    (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
 
     # Django admin
     (r'^admin/', include(admin.site.urls)),

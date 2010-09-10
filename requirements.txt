@@ -26,6 +26,7 @@ PIL
 slimmer
 markdown
 html5lib
+beautifulsoup
 
 # SpreadBand repositories
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere

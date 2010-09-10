@@ -72,7 +72,7 @@ SECRET_KEY = 'k93k=6s8%hc5xg5l4pt%+#!6^wp=+elxmq4c9xf7j&$#a42col'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.eggs.load_template_source',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'privatebeta',
     'haystack',
     'dajaxice',
+    'dajax',
     'django_static',
     'debug_toolbar',
     'django_extensions',
@@ -327,3 +328,9 @@ if DEBUG:
 
 # WYSIWYG editors
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+
+# DAJAX(ICE)
+DAJAXICE_MEDIA_PREFIX = "js/dajax"
+DAJAXICE_XMLHTTPREQUEST_JS_IMPORT = True
+DAJAXICE_JSON2_JS_IMPORT = True
+DAJAXICE_DEBUG = DEBUG
