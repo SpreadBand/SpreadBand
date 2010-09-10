@@ -1,0 +1,35 @@
+{% extends "ajax_page.html" %}
+
+{% block content %}
+
+  <script type="text/javascript">
+    function video_edit() {
+	data = $('#video-edit-form').serializeObject(true);
+	Dajaxice.presskit.video_edit('Dajax.process', {'form': data});
+
+	return false;
+    }
+
+    
+  </script>
+
+<div style="width: 400px;">
+
+  <h3>Video</h3>
+
+  <p>
+    Paste here any link that points to a video resource. For example:
+    <a href="http://www.youtube.com/watch?v=uBZbhrm05qI">http://www.youtube.com/watch?v=uBZbhrm05qI</a>
+    is a valid URL.
+  </p>
+
+  <form id="video-edit-form" method="POST" action="{% url presskit:presskit-video presskit.band.slug %}">
+    {{ form.as_p }}
+    <input type="submit" value="Update" onclick="return video_edit();"/>
+  </form>
+
+
+</div>
+
+{% endblock %}
+
