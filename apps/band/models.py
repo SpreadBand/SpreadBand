@@ -104,7 +104,11 @@ class BandPictureManager(models.Manager):
         """
         Return the avatar of the band
         """
-        return self.get(is_avatar=True)
+        avatar = self.filter(is_avatar=True)
+        if avatar:
+            return avatar[0]
+        else:
+            return None
 
 class BandPicture(ImageModel):
     """
@@ -115,9 +119,6 @@ class BandPicture(ImageModel):
     class IKOptions:
         image_field = 'original_image'
         spec_module = 'band.imagespecs'
-
-    class Meta:
-        unique_together = ('band', 'is_avatar')
 
     original_image = models.ImageField(upload_to=get_bandpicture_path)
     band = ForeignKey(Band, related_name='pictures')
