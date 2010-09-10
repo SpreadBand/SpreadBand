@@ -1,5 +1,7 @@
 {% extends "bands/base.html" %}
 
+{% load django_static %}
+
 {% block title %}
 {{ band.name }} &raquo; manage members
 {% endblock %}
@@ -16,9 +18,10 @@
   <a href="{% url band:membership-add band.slug %}" class="button-tip minibutton btn-download" title="Add member"><span><span class="icon"></span>Add member</span></a>
 
   <ul>
+    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
     {% for bandmember in bandmember_list %}
       <li style="height: 80px;">
-	  <img src="{{ bandmember.user.get_profile.avatar.small_avatar_image.url }}" alt="{{ bandmember.user.username }} avatar"/>
+	  <img src="{{ bandmember.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" height="48px" width="48px" alt="{{ bandmember.user.username }} avatar"/>
 	  <a href="{{ bandmember.user.get_profile.get_absolute_url }}">{{ bandmember.user.get_full_name|default:bandmember.user.username }}</a> ({{ bandmember.user.username }})
 	  <span class="bandmember_role" title="{{ member.roles.all|join:', ' }}">{{ bandmember.roles.all|join:', ' }}</span>  
 	  <a href="{% url band:membership-remove band.slug bandmember.user.id %}" class="button-tip minibutton btn-download" title="remove member"><span><span class="icon"></span>Remove</span></a>
