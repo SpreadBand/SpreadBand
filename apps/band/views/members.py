@@ -4,8 +4,10 @@ Membership management for a band
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
+from django.utils.translation import ugettext as _
 from django.views.generic.create_update import delete_object, create_object
 from django.views.generic.list_detail import object_list
 
@@ -48,7 +50,7 @@ def membership_add(request, band_slug):
 
     # Permissions
     if not request.user.has_perm('band.can_manage', band):
-        return HttpResponseForbidden('You are not allowed to edit this band')
+        return HttpResponseForbidden(_("You are not allowed to edit this band"))
 
     if request.method == 'POST':
         addform = BandMemberAddForm(request.POST)
@@ -103,7 +105,11 @@ def membership_remove(request, band_slug, member_id):
 
     # Permissions
     if not request.user.has_perm('band.can_manage', band):
-        return HttpResponseForbidden('You are not allowed to edit this band')
+        return HttpResponseForbidden(_("You are not allowed to edit this band"))
+
+    if len(band.members.all()) == 1:
+        messages.error(request, _("You can't let this band alone"))
+        return redirect('band:membership-manage', band.slug)
 
     return delete_object(request,
                          model=BandMember,

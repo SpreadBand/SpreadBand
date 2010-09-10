@@ -15,7 +15,7 @@
 <div class="grid_2 alpha">
   <div id="band_avatar">
     {% if not band.pictures.avatar %}
-      <a href="{% url band:picture-new band.slug %}?is_avatar=1"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="no band avatar" title="Click here to upload an avatar"/></a>
+      <a href="{% url band:band-picture-new band.slug %}?is_avatar=1"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="no band avatar" title="Click here to upload an avatar"/></a>
     {% else %}
       <img src="{{ band.pictures.avatar.avatar_image.url }}" alt="band avatar"/>
     {% endif %}
