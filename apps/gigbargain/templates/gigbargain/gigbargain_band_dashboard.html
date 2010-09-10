@@ -267,10 +267,10 @@
 	    </script>
 
 	    <div id="repartition-legend" class="legend">
-	      {% blocktrans %}Total = {{ monthly_stats.total }}{% endblocktrans %}<br>
-	      {% blocktrans %}New = {{ monthly_stats.new }}{% endblocktrans %}<br>
-	      {% blocktrans %}In progress = {{ monthly_stats.inprogress }}{% endblocktrans %}<br>
-	      {% blocktrans %}Concluded = {{ monthly_stats.concluded }}{% endblocktrans %}
+	      {% blocktrans with monthly_stats.total as count %}Total = {{ count }} {% endblocktrans %}<br>
+	      {% blocktrans with monthly_stats.new as count %}New = {{ count }} {% endblocktrans %}<br>
+	      {% blocktrans with monthly_stats.inprogress as count %}In progress = {{ count }} {% endblocktrans %}<br>
+	      {% blocktrans with monthly_stats.concluded as count %}Concluded = {{ count }} {% endblocktrans %}
 	    </div>
 	    
 	  </div>
@@ -455,6 +455,9 @@
 		{% endif %}
 		
 	      {% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
+
+	    {% empty %}
+	      <li>{% trans "No activity" %}</li>
 	    {% endfor %}
 	  </ul>
 

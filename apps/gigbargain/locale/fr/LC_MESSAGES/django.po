@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-10 16:08+0200\n"
+"POT-Creation-Date: 2010-09-10 16:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,22 +155,22 @@ msgstr ""
 
 #: templates/gigbargain/gigbargain_band_dashboard.html:270
 #, python-format
-msgid "Total = %(monthly_stats.total)s"
+msgid "Total = %(count)s "
 msgstr ""
 
 #: templates/gigbargain/gigbargain_band_dashboard.html:271
 #, python-format
-msgid "New = %(monthly_stats.new)s"
+msgid "New = %(count)s "
 msgstr ""
 
 #: templates/gigbargain/gigbargain_band_dashboard.html:272
 #, python-format
-msgid "In progress = %(monthly_stats.inprogress)s"
+msgid "In progress = %(count)s "
 msgstr ""
 
 #: templates/gigbargain/gigbargain_band_dashboard.html:273
 #, python-format
-msgid "Concluded = %(monthly_stats.concluded)s"
+msgid "Concluded = %(count)s "
 msgstr ""
 
 #: templates/gigbargain/gigbargain_band_dashboard.html:285
@@ -197,6 +197,10 @@ msgstr ""
 
 #: templates/gigbargain/gigbargain_band_dashboard.html:446
 msgid "Latest activity"
+msgstr ""
+
+#: templates/gigbargain/gigbargain_band_dashboard.html:460
+msgid "No activity"
 msgstr ""
 
 #: templates/gigbargain/gigbargain_detail_access.html:7
