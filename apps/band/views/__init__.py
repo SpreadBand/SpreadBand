@@ -12,6 +12,8 @@ from django.views.generic.list_detail import object_list, object_detail
 
 from geopy import geocoders
 
+from guardian.shortcuts import assign
+
 from world.models import Place
 
 from ..models import Band, BandMember
@@ -40,6 +42,9 @@ def new(request):
                 bandmember.roles = member_form.cleaned_data.get('roles')
                 bandmember.save()
                 
+                # Assign rights to the user
+                assign('band.can_manage', bandmember.user, band)
+               
                 return redirect(band)
 
     return render_to_response(template_name='bands/band_new.html',
@@ -126,6 +131,21 @@ def event_new(request, band_slug):
 
 def detail(request, band_slug):
     """
+    Redirect to the dashboard if manager of this band or send the
+    viewer to the presskit
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if request.user.has_perm('band.can_manage', band):
+        return redirect('band:dashboard', band.slug)
+    else:
+        return redirect('presskit:presskit-detail', band.slug)
+
+# XXX: Security
+@login_required
+def dashboard(request, band_slug):
+    """
     Show details about a band
     """
     band = get_object_or_404(Band, slug=band_slug)
@@ -135,9 +155,28 @@ def detail(request, band_slug):
 
     today_events = band.gigs.future_events().filter(event_date=date.today())
 
+    # make a calendar
+    from event.views.calendar import GigMonthlyHTMLCalendar
+    monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
+                                              aQueryset=band.gigs.all(),
+                                              when=date.today())
+
+    # gigbargains
+    gigbargain_invitations = band.gigbargains.invitationsFor(band)
+    gigbargain_drafts = band.gigbargains.draftsFor(band)
+
+    # Get 5 latest gigbargain activities
+    from actstream.models import Action
+    from gigbargain.models import GigBargain
+    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:3]
+
     extra_context = {'past_events': past_events,
                      'future_events': future_events,
-                     'today_events': today_events}
+                     'today_events': today_events,
+                     'monthly_calendar': monthly_calendar,
+                     'latest_activity': latest_activity,
+                     'gigbargain_invitations': gigbargain_invitations,
+                     'gigbargain_drafts': gigbargain_drafts}
 
     return object_detail(request,
                          queryset=Band.objects.all(),
