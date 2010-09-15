@@ -1,30 +1,41 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load reviews_tags %}
+{% load django_static %}
 
 {% block content %}
 
-<h4>Gig &raquo; {{ gig.title }}</h4>
+<div id="text">
+  <h1>{% trans "Gig" %} &raquo; {{ gig.title }}, {{ gig.venue.city }} (WIP)</h1>
 
-<br>
-Status : {{ gig.get_state_display }}
-<br>
+  <div class="sectionbox">
+    <div class="header">
+      <img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Where when"/>
+      <h2>{% trans "Where and When" %}</h2>
+    </div>
+    <div class="separator"></div>
+    <div class="content">
+      Date : {{ gig.event_date }}
+      Venue : <a href="{{ gig.venue.get_absolute_url }}">{{ gig.venue }}</a>
+    </div>
+  </div>
 
-Date : {{ gig.event_date }}
-<br>
-Venue : <a href="{{ gig.venue.get_absolute_url }}">{{ gig.venue }}</a>
-<br>
-Bands :
-<ul>
-  {% for band in gig.bands.all %}
-  <li><a href="{{ band.get_absolute_url }}">{{ band }}</a></li>
-  {% endfor %}
-</ul>
-
-{# {% reviews_for_instance gig %} #}
-
-<p>
-This gig has an average rating of {#% average_for_instance gig %#}
-</p>
+  <div class="sectionbox">
+    <div class="header">
+      <img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="Bands"/>
+      <h2>{% trans "Bands" %}</h2>
+    </div>
+    <div class="separator"></div>
+    <div class="content">
+      Bands :
+      <ul>
+	{% for band in gig.bands.all %}
+	  <li><a href="{{ band.get_absolute_url }}">{{ band }}</a></li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
