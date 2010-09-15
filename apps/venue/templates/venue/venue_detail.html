@@ -3,228 +3,298 @@
 {% load elsewhere_tags %}
 {% load oembed_tags %}
 {% load reviews_tags %}
+{% load django_static %}
+{% load i18n %}
+{% load band_tags %}
+{% load event_tags %}
 
 {% block css %}
-{{ block.super }}
-
-<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/galleryview/galleryview.css"/>
-
-<style type="text/css">
-  .greybox {
-  background-color: #eee;
-  padding: 10px; 
-  margin-bottom: 20px;
-  }
-</style>
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/venue_dashboard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/band_vcard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/gig_vevent.css" media="screen, projection" />
 
 {% endblock %}
 
 {% block javascript %}
-{{ block.super }}
+  {{ block.super }}
 
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.timers-1.2.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.galleryview-2.1.1.js"></script>
+  {% staticall %}
+  <script type="text/javascript" src="/js/galleria.js"></script>
+  {% endstaticall %}
 
-  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+  <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
 
-      <script type="text/javascript">
-            var map;
+  <script type="text/javascript">
+    var map;
+  
+    function init(){
+    map = new OpenLayers.Map('map', {controls: []});
+    map.addControl(new OpenLayers.Control.MouseToolbar());
+    map.addControl(new OpenLayers.Control.PanZoomBar());
+    
+    var layer = new OpenLayers.Layer.OSM()
+    map.addLayer(layer);
+    
+    var venue = new OpenLayers.LonLat({{ venue.place.geom.x|stringformat:"0.5f" }}, {{ venue.place.geom.y|stringformat:"0.5f" }}) // Center of the map
+    .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+    new OpenLayers.Projection("EPSG:900913"));
+    
+    var markers = new OpenLayers.Layer.Markers("Markers");
+    map.addLayer(markers);
+    markers.addMarker(new OpenLayers.Marker(venue));
+    
+    map.setCenter(venue,
+    14 // Zoom level
+    );
+    
 
-            function init(){
-                map = new OpenLayers.Map('map', {controls: []});
-	    map.addControl(new OpenLayers.Control.MouseToolbar());
-	    map.addControl(new OpenLayers.Control.PanZoomBar());
+    };
+  
+    $(document).ready(init);
+  </script>
 
-                var layer = new OpenLayers.Layer.OSM()
-                map.addLayer(layer);
+  <script type="text/javascript">
+    $(document).ready(function() {
+	// run galleria and add some options
+	Galleria.loadTheme('{{ MEDIA_URL }}/css/galleria/themes/classic/galleria.classic.js');
 
-	    var venue = new OpenLayers.LonLat({{ venue.place.geom.x|stringformat:"0.5f" }}, {{ venue.place.geom.y|stringformat:"0.5f" }}) // Center of the map
-            .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-	    new OpenLayers.Projection("EPSG:900913"));
+	$('#gallery').galleria({
+            image_crop: true, // crop all images to fit
+            thumb_crop: true, // crop all thumbnails to fit
+            transition: 'fade', // crossfade photos
+            transition_speed: 700, // slow down the crossfade
+	    autoplay: true,
+            data_config: function(img) {
+		// will extract and return image captions from the source:
+		return  {
+                    title: $(img).parent().next('strong').html(),
+                    description: $(img).parent().next('strong').next().html()
+		};
+            },
+            extend: function() {
+		this.bind(Galleria.IMAGE, function(e) {
+                    // bind a click event to the active image
+                    $(e.imageTarget).css('cursor','pointer').click(this.proxy(function() {
+			// open the image in a lightbox
+			this.openLightbox();
+                    }));
+		});
+            }
+	});
 
-	    var markers = new OpenLayers.Layer.Markers("Markers")
-	    map.addLayer(markers)
-	    markers.addMarker(new OpenLayers.Marker(venue));
 
-	    map.setCenter(venue,
-	    14 // Zoom level
-            );
+    });
+  </script>
 
-	    };
-
-	    $(document).ready(init);
-        </script>
-
-
-<script type="text/javascript">
-$(document).ready(function() {
- $('#gallery').galleryView({
-    panel_width: 320,
-    panel_height: 300,
-    gallery_width: 300,
-    gallery_height: 300,
-    frame_height: 50,
-    frame_width: 90,
-    nav_theme: '../../../css/jquery/galleryview/themes/dark',
-    transition_interval: 10000,
-    pause_on_hover: true,
-    paused: true,
-    filmstrip_position: 'bottom',
-    overlay_position: 'bottom'});
-
-});
-</script>
 
 {% endblock %}
 
 
 {% block content %}
 
-<div class="grid_3 alpha">
-  <div class="grid_3 alpha omega">
-    <img src="{{ venue.avatar_url }}"/>
+<div id="text">
+
+<div id="venue-sidebar" class="grid_3 alpha">
+  <div id="venueavatar" class="grid_3 alpha omega">
+    {% if venue.pictures.avatar %}
+      <img src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="172px" alt="venue avatar" />
+    {% else %}
+      <img src="{% staticfile '/images/venue/no_picture.png' %}" width="172px" alt="no venue avatar" />
+    {% endif %}
   </div>
 
-  <div class="grid_3 alpha omega">
-    <h4>Place info</h4>
-    {{ venue.ambiance }}<br>
-    Capacity: {{ venue.capacity }}
-
+  <div id="ambiance" class="grid_3 alpha omega">
+    {% if band.ambiance %}
+      {% trans "<strong>Ambiance</strong>:" %} {{ venue.ambiance }}
+    {% else %}
+      {% trans "No ambiance."%}
+    {% endif %}
   </div>
 
-  <div class="grid_3 alpha omega">
-    <h4>Members ({{ venue.venue_members.count }})</h4>
+  <div id="capacity" class="grid_3 alpha omega">
+    {% trans "<strong>Capacity</strong>:" %} {{ venue.capacity|default:"??" }}
+  </div>
+
+  <div id="website" class="grid_3 alpha omega">
+    {% trans "<strong>Website</strong>:" %} {{ venue.websites.all|first|default:"??" }}
+  </div>
+
+  <div id="socialnets" class="grid_3 alpha omega">
+    <h3>{% trans "Social Networks" %}</h3>
     <ul>
-    {% for member in venue.venue_members.all %}
-    <li><img src="{{ member.user.get_profile.avatar.small_avatar_image.url }}"><a href="{{ member.user.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>:
-      <ul>
-      {% for role in member.roles.all %}
-      <li>{{ role }}</li>
+      {% for socialnetwork in venue.socialnetworks.all %}
+	<li>
+	  <img src="{{ socialnetwork.network.icon_url }}" />
+	  <a href="{{ socialnetwork.url }}" target="_blank">{{ socialnetwork.username|capfirst }}</a>
+	</li>
       {% endfor %}
-      </ul>
-    </li>
+    </ul>
+  </div>
+
+  <!-- Venue members -->
+  <div id="venuemembers" class="grid_3 alpha omega">
+    <h3>{% trans "Members" %} ({{ venue.members.count }}) (WIP)</h3>
+    <a href="{% url band:membership-manage venue.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+
+    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
+    <ul>
+      {% for member in venue.members.all %}
+	<li>
+	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="48px" height="48px"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
+	  <span class="venuemember_whois">{{ member.user.get_profile.genre|default:"?" }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
+	  <span class="venuemember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
+      </li>
     {% endfor %}
     </ul>
   </div>
 
-  <div class="grid_3 alpha omega">
-    <h4>Latest Bands</h4>
+  <div id="latest-bands" class="grid_3 alpha omega">
+    <h3>{% trans "Latest Bands" %}</h3>
     <ul>
-    {% for band in latest_bands %}
-    <li>
-      <a href="{{ band.get_absolute_url }}">{{ band.name }}</a>
-    </li>
-    {% endfor %}
+      {% for band in latest_bands %}
+	<li>{% band_vcard band %}</li>
+      {% empty %}
+        {% trans "No bands have played there yet." %}
+      {% endfor %}
     </ul>
   </div>
 
-  <div class="grid_3 alpha omega">
-    <h4>Social Networks</h4>
-    <ul>
-    {% for socialnetwork in venue.socialnetworks.all %}
-    <li>
-      <img src="{{ socialnetwork.network.icon_url }}">
-      <a href="{{ socialnetwork.url }}" target="_blank">{{ socialnetwork.username|capfirst }}</a>
-    </li>
-    {% endfor %}
-    </ul>
-  </div>
 
-  <div class="grid_3 alpha omega">
-    <h4>Websites</h4>
-    <ul>
-    {% for website in venue.websites.all %}
-    <li>
-      <img src="{{ website.icon_url }}">
-      <a href="{{ website.url }}" target="_blank">{{ website.name|capfirst }}</a>
-    </li>
-    {% endfor %}
-    </ul>
-  </div>
 
 
 </div>
 
-<div class="grid_11 omega">
-  <h2>Venue &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> (Lille, FR)</h2>
+<div id="venue-main" class="grid_12 omega">
+  <h1>{% trans "Venue" %} &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name|capfirst }}</a> ({{ venue.city|default:"Somewhere" }}, {{ venue.country|default:"Earth" }})</h1>
 
-  ( <a href="{% url venue:edit venue.slug %}">edit</a> )
-
-  <div class="grid_11 alpha omega">
-    <div class="ui-corner-all greybox">
-      <h4>Description</h4>
-      {{ venue.description|truncatewords:100 }}[<a href="#">Read more</a>]
+  <div class="grid_12 alpha omega">
+    <div id="description" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="description"/>
+	<h2>{% trans "Description" %}</h2>
+	<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+      </div>
+      <div class="separator"></div>
+      <div class="content">
+	{% if venue.description %}
+	  {{ venue.description|capfirst|safe|truncatewords_html:100 }}[<a href="#">{% trans "Read more" %}</a>]
+	{% else %}
+	  {% trans "No description." %}
+	{% endif %}
+      </div>
     </div>
   </div>
 
-<!--  <div class="grid_4 omega">
-    <div class="ui-corner-all greybox">
-      <h4>Press highlights</h4>
-      ...TODO
-    </div>
-  </div>
--->
+  <!-- Calendar -->
+  <div id="venue-calendar" class="grid_12 alpha omega">
+    <div class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="calendar"/>
+	<h2>{% trans "Calendar" %} (WIP)</h2>
+      </div>
+	
+      <div class="separator"></div>
 
-  <div class="grid_11 alpha omega">
-    <div class="ui-corner-all greybox">
-      <h4>Calendar</h4> (<a href="{% url event:venue-calendar venue.slug %}">view full calendar</a>)
-      <div class="grid_11 alpha omega">
-      {% include 'event/abstract_timeline.html' %}
+      <div class="content">
+	<div id="calendar" class="grid_5 alpha">
+	  {{ monthly_calendar.toHTML|safe }}
+	</div>
+	<div class="grid_6 omega">
+	  <h3>{% trans "Upcoming events" %}</h3>
+	  <ul id="upcoming-events">
+	    {% for event in future_events %}
+	      <li class="{% cycle "odd" "even" %}">{% gig_vevent event %}</li>
+	    {% empty %}
+	      {% trans "No upcoming event." %}
+            {% endfor %}
+	  </ul>
+	</div>
+
+	<div class="grid_12 alpha omega">
+	  <div class="more">
+	    &rarr; <a href="{% url event:venue-calendar venue.slug %}">{% trans "See full calendar" %}</a>
+	  </div>
+	</div>
       </div>
       <div class="clear"></div>
     </div>
   </div>
 
-  <div class="grid_6 alpha">
-    <div class="ui-corner-all greybox">
-      <h4>Pictures</h4>
-      ( <a href="{% url venue:picture-new venue.slug %}">Upload new</a> )
-      <div id="gallery">
-	{% for picture in venue.pictures.all %}
-	<div class="panel"><img src="{{ picture.thumbnail_image.url }}" alt="image1" /></div>
-	{% endfor %}
-	
-	<div class="strip_wrapper">
-	  <ul class="filmstrip">
-	    {% for picture in venue.pictures.all %}
-	    <li><img src="{{ picture.original_image.url }}" alt="hoy joy" title="fuckin' title"/>
-	      <div class="panel-overlay">
-		<p>Some more information about this photo, perhaps with a <a href="http://some.web.site" target="_blank">link</a> to another page.</p>
-	      </div>
-</li>
-	    {% endfor %}
-	  </ul>
+  
+  <!-- Pictures -->
+  <div class="grid_7 alpha">
+    <div id="pictures" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
+	<h2>{% trans "Pictures" %}</h2>
+	<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+      </div>
+      <div class="separator"></div>
+      <div class="content">
+	<div id="gallery" style="height: 300px;">
+	  {% for picture in venue.pictures.all %}
+	    <a href="{{ picture.original_image.url }}">
+	      <img src="{{ picture.thumbnail_image.url }}" alt="image" />
+	    </a>
+	  {% endfor %}
 	</div>
       </div>
     </div>
   </div>
 
   <div class="grid_5 omega">
-    <div class="ui-corner-all greybox" style="text-align: center">
-      <h4>Featured Video</h4>
-      {% oembed 320x240 %}
-      {{ venue.video }}
-      {% endoembed %}
+    <div id="video" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
+	<h2>{% trans "Video" %}</h2>
+	<a href="{% url venue:edit venue.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+      </div>
+      <div class="separator"></div>
+      <div class="fullcontent">
+	{% if venue.video %}
+	  {% oembed 320x240 %}
+	  {{ venue.video }}
+	  {% endoembed %}
+	{% else %}
+	  {% trans "No video has been set." %}
+	{% endif %}
+      </div>
     </div>
   </div>
 
-  <div class="grid_11 alpha omega">
-    <div class="ui-corner-all greybox">
-      <h4>Location</h4>
-      Address : {{ venue.place.address }}
-      <br/>
-      
-      <div style="height: 400px; width: 100%" id="map" class="smallmap"></div>
+  <div class="grid_12 alpha omega">
+    <div id="location" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
+	<h2>{% trans "Location" %}</h2>
+	<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+      </div>
+      <div class="separator"></div>
+      <div class="content">
+	{% trans "Address:" %} {{ venue.place.address }}<br/>
+	<div style="height: 400px; width: 100%" id="map" class="smallmap"></div>
+      </div>
     </div>
   </div>
 
-  <div class="grid_11 alpha omega">
-    <div class="ui-corner-all greybox">
-      <h4>Latest reviews ({% average_for_instance venue %})</h4>
-      {% reviews_for_instance venue %}
+  <div class="grid_12 alpha omega">
+    <div id="location" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/presskit/reviews_ico.png' %}" alt="reviews"/>
+	<h2>{% trans "Latest reviews" %} ({% average_for_instance venue %}) (WIP)</h2>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="content">
+        {% reviews_for_instance venue %}
+      </div>
     </div>
   </div>
+
+</div>
 
 </div>
 

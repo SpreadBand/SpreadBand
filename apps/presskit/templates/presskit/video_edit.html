@@ -1,5 +1,7 @@
 {% extends "ajax_page.html" %}
 
+{% load i18n %}
+
 {% block content %}
 
   <script type="text/javascript">
@@ -15,17 +17,19 @@
 
 <div style="width: 400px;">
 
-  <h3>Video</h3>
+  <h3>{% trans "Video" %}</h3>
 
   <p>
+    {% blocktrans %}
     Paste here any link that points to a video resource. For example:
     <a href="http://www.youtube.com/watch?v=uBZbhrm05qI">http://www.youtube.com/watch?v=uBZbhrm05qI</a>
     is a valid URL.
+    {% endblocktrans %}
   </p>
 
   <form id="video-edit-form" method="POST" action="{% url presskit:presskit-video presskit.band.slug %}">
     {{ form.as_p }}
-    <input type="submit" value="Update" onclick="return video_edit();"/>
+    <input type="submit" value="{% trans "Update" %}" onclick="return video_edit();"/>
   </form>
 
 
