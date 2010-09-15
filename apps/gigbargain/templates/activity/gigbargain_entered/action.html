@@ -1,3 +1,4 @@
 {% load django_static %}
+{% load i18n %}
 <img src="{% staticfile '/images/gigbargain/entered_16.png' %}" alt="Entered" />
-<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> entered this bargain
+<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> {% trans "entered this bargain" %}

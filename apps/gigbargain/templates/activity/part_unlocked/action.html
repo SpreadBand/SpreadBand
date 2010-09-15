@@ -1,4 +1,5 @@
 {% load django_static %}
+{% load i18n %}
 
 <img src="{% staticfile '/images/gigbargain/padlock-unlocked_16.png' %}" alt="Part unlocked"/ >
-<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> unlocked its part
+<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> {% trans "unlocked its part" %}
