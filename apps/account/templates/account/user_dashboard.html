@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% load humanize i18n %}
+{% load humanize %}
+{% load i18n %}
 {% load timezone_filters %}
 {% load django_static %}
 {% load activity_tags %}
@@ -22,29 +23,30 @@
 <div id="text">
 
   <div class="alpha grid_2">
-    <img src="{{ user.get_profile.avatar.avatar_image.url }}" alt="Avatar"/>
+    {% staticfile "/images/account/no_avatar.png" as default_avatar %}
+    <img src="{{ user.get_profile.avatar.avatar_image.url|default:default_avatar }}" width="80px" height="80px" alt="Avatar"/>
   </div>
   <div class="grid_13 omega">
     
     <div class="grid_8 alpha" id="greating">
-      <h1>Welcome, {{ user.first_name|default:user.username }}</h1>
-      <a href="{% url account:edit user %}" class="button-tip minibutton btn-edit" title="Edit your informations"><span><span class="icon"></span>Edit Your Profile</span></a>
+      <h1>{% blocktrans with user.first_name|default:user.username as username %}Welcome, {{ username }}{% endblocktrans %}</h1>
+      <a href="{% url account:edit user %}" class="button-tip minibutton btn-edit" title="Edit your informations"><span><span class="icon"></span>{% trans "Edit Your Profile" %}</span></a>
     </div>
 
     <div class="clear"></div>
 
     <div id="user-infos" class="grid_8 alpha">
       {% with user.get_profile as profile %}
-	<label for="name">Name</label><span id="name">{{ user.get_full_name|default:"John Doe" }}</span>
-	<label for="email">Email</label><span id="email"><a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
-	<label for="location">Location</label><span id="location">{{ profile.city|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} <img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/></span>
-	<label for="joined">Joined</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
+	<label for="name">{% trans "Name" %}</label><span id="name">{{ user.get_full_name|default:"John Doe" }}</span>
+	<label for="email">{% trans "E-mail" %}</label><span id="email"><a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
+	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.city|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} <img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/></span>
+	<label for="joined">{% trans "Joined" %}</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
       {% endwith %}
     </div>
 
     <div class="grid_5 omega">
       <div id="user-connections">
-	<h3>Connections this month ({{ user_connections|length }})</h3>
+	<h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
 	<ul>
 	  {% staticfile  "/images/account/no_avatar.png" as default_avatar %}
 	  {% for user in user_connections %}
@@ -64,7 +66,7 @@
       <div id="your-bands" class="sectionbox">
 	<div class="header">
 	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
-	  <h2>Your Band{{user.band_memberships.all|pluralize }}</h2>
+	  <h2>{% trans "Your Bands" %}</h2>
 	</div>
 
 	<div class="separator"></div>
@@ -89,29 +91,34 @@
       </div>
     {% endif %}
 
-    <div id="your-venues" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
-	<h2>Your Venues</h2>
+    {% if request.user.venue_memberships.all %}
+      <div id="your-venues" class="sectionbox">
+	<div class="header">
+	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
+	  <h2>{% trans "Your Venues" %} (WIP)</h2>
+	</div>
+	
+	<div class="separator"></div>
+	
+	<div class="content">
+	  <strong>WIP</strong>
+	</div>
+	
       </div>
-
-      <div class="separator"></div>
-
-      <div class="content">
-	<strong>WIP</strong>
-      </div>
-
-    </div>
+    {% endif %}
 
     <div id="register">
-      You <strong>play music</strong> or <strong>run a venue</strong> ? Register <a href="{% url band:create %}">your band</a> or <a href="{% url venue:create %}">your venue</a> now !
+      {% blocktrans %}
+      You <strong>play music</strong> or <strong>run a venue</strong> ? 
+      {% endblocktrans %}
+      Register <a href="{% url band:create %}">your band</a> or <a href="{% url venue:create %}">your venue</a> now !
     </div>
     
   </div>
 
   <div class="grid_10 omega">
     <div id="notifications">
-      <h3>Latest Notifications (<strong>WIP</strong>)</h3>
+      <h3>{% trans "Latest Notifications" %} (<strong>WIP</strong>)</h3>
       
       ( <a href="{% url notification_notices %}">Settings</a> )
     
@@ -146,7 +153,7 @@
     </div>
 
     <div id="activity" class="grid_10 alpha omega">
-      <h3>Latest Activity</h3>
+      <h3>{% trans "Latest Activity" %}</h3>
       <a href="javascript: alert('WIP');"><img src="{% staticfile '/images/icons/feed.png' %}" alt="feed" width="16px"/></a>
       
       <ul>
@@ -158,7 +165,9 @@
 	      <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
 	    {% endif %}
 	    
-	  {% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
+	  {% display_action_short action %}. <span class="date">{% blocktrans with action.timestamp|timesince as when %}{{ when }} ago{% endblocktrans %}</span></li>
+	  {% empty %}
+	  <li>{% trans "No activity" %}</li>
 	{% endfor %}
       </ul>
     </div>
