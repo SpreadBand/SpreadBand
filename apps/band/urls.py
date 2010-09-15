@@ -37,7 +37,7 @@ urlpatterns += patterns('',
 
     # (r'^web/', include('minisite.urls', namespace='minisite')),
 
-    url(r'^(?P<band_slug>[-\w]+)/dashboard$', views.detail, name='dashboard'),
+    url(r'^(?P<band_slug>[-\w]+)/dashboard$', views.dashboard, name='dashboard'),
 
     # Catch-all for the band name
     url(r'^(?P<band_slug>[-\w]+)/$', views.detail, name='detail'),
