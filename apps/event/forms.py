@@ -15,7 +15,7 @@ class GigCreateForm(forms.ModelForm):
         model = Gig
         fields = ('venue', 'event_date', 'start_time', 'end_time', 'bands', 'title', 'description',)
     
-    bands = AutoCompleteSelectMultipleField('band', required=True)
-    venue = AutoCompleteSelectField('venue', required=True)
+    # bands = AutoCompleteSelectMultipleField('band', required=True)
+    # venue = AutoCompleteSelectField('venue', required=True)
 
     
