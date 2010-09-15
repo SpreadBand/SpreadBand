@@ -1,0 +1,25 @@
+{% load django_static %}
+{% load tagging_tags %}
+
+<!-- Band vcard -->
+<div class="vcard band-vcard">
+  {% staticfile '/images/band/no_picture.png' as default_pic %}
+  <img src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
+  <div>
+    <a class="url uid" href="{{ band.get_absolute_url }}">
+      <div class="org fn">
+	<span class="organization-name">{{ band|capfirst }}</span>
+      </div>
+    </a>
+    <div class="adr">
+      <span class="locality">{{ band.city }}</span>
+      <span class="country-name">{{ band.country.name }}</span>
+      <img src="{{ band.country.flag }}" title="{{ band.country.name }}" alt="{{ band.country }}"/>
+    </div>
+    
+    <div class="tags">
+      {% tags_for_object band as band_tags %}
+      {{ band_tags|join:", " }}
+    </div>
+  </div>
+</div>
