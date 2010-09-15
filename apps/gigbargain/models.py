@@ -27,16 +27,26 @@ class GigBargainManager(models.Manager):
     """
     Objects manager for GigBargain
     """
+
+    # XXX I think this is fucking slow
+    def invitationsFor(self, aBand):
+        return self.filter(gigbargainband__in=GigBargainBand.objects.filter(state='waiting', band=aBand))
+
+    def draftsFor(self, aBand):
+        return self.filter(state__in=('draft',
+                                      'draft_ok')
+                           ).exclude(gigbargainband__in=GigBargainBand.objects.filter(state='waiting', band=aBand))
+
     def new_gigbargains(self):
-        return self.filter(state__in=('new',
+        return self.filter(state__in=('draft',
+                                      'draft_ok',
+                                      'new',
                                       'need_venue_confirm'
                                       )
                            )
 
     def inprogress_gigbargains(self):
-        return self.filter(state__in=('draft',
-                                      'draft_ok',
-                                      'complete_proposed_to_venue',
+        return self.filter(state__in=('complete_proposed_to_venue',
                                       'incomplete_proposed_to_venue',
                                       'band_nego',
                                       'band_ok'
@@ -53,17 +63,17 @@ class GigBargain(models.Model):
     objects = GigBargainManager()
 
     STATE_CHOICES = (
-        ('new', 'New bargain'),
-        ('draft', 'A draft, not proposed to a venue'),
-        ('draft_ok', 'A draft, approved by bands'),
-        ('complete_proposed_to_venue', 'Complete draft bargain proposed to venue'),
-        ('incomplete_proposed_to_venue', 'Incomplete draft bargain proposed to venue'),
-        ('need_venue_confirm', 'Need venue confirmation'),
-        ('band_nego', 'Bands negociating'),
-        ('band_ok', 'Approved by bands'),
-        ('concluded', 'Concluded'),
-        ('declined', 'Declined'),
-        ('canceled', 'Canceled by the initiator')
+        ('new', _('New bargain')),
+        ('draft', _('A draft, not proposed to a venue')),
+        ('draft_ok', _('A draft, approved by bands')),
+        ('complete_proposed_to_venue', _('Complete draft bargain proposed to venue')),
+        ('incomplete_proposed_to_venue', _('Incomplete draft bargain proposed to venue')),
+        ('need_venue_confirm', _('Need venue confirmation')),
+        ('band_nego', _('Bands negociating')),
+        ('band_ok', _('Approved by bands')),
+        ('concluded', _('Concluded')),
+        ('declined', _('Declined')),
+        ('canceled', _('Canceled by the initiator'))
         )
 
     @property
@@ -180,35 +190,43 @@ class GigBargain(models.Model):
         pass
 
 
-    date = DateField()
-    opens_at = TimeField(null=True, blank=True)
-    closes_at = TimeField(null=True, blank=True)
+    date = DateField(verbose_name=_('Date'))
+    opens_at = TimeField(verbose_name=_('Opens at'),
+                         null=True, blank=True)
+    closes_at = TimeField(verbose_name=_('Closes at'),
+                          null=True, blank=True)
 
-    name = CharField(max_length=255,
+    name = CharField(verbose_name=_('Name'),
+                     max_length=255,
                      null=True, blank=True,
                      help_text=_('Name of the event'),
                      )
 
     bands = ManyToManyField(Band, through='GigBargainBand', related_name='gigbargains')
 
-    venue = ForeignKey(Venue, related_name='gigbargains')
+    venue = ForeignKey(Venue, 
+                       verbose_name=_('Venue'),
+                       related_name='gigbargains')
     venue_reason = TextField(blank=True, null=True)
 
     ACCESS_CHOICES = [
-        ('FREE', 'Free Access'),
-        ('FEES', 'Entrance Fee'),
-        ('DRNK', 'Drink'),
-        ('TICK', 'Ticket'),
+        ('FREE', _('Free Access')),
+        ('FEES', _('Entrance Fee')),
+        ('DRNK', _('Drink')),
+        ('TICK', _('Ticket')),
         ]
-    access = CharField(max_length=4, choices=ACCESS_CHOICES)
-    fee_amount = PositiveSmallIntegerField(null=True, blank=True)
+    access = CharField(verbose_name=_('Access type'),
+                       max_length=4, choices=ACCESS_CHOICES)
+    fee_amount = PositiveSmallIntegerField(verbose_name=_('Fee amount'),
+                                           null=True, blank=True)
 
     REMUNERATION_CHOICES = [
-        ('NONE', 'No remuneration'),
-        ('FIXE', 'Fixed Amount'),
-        ('PERC', 'Percentage'),
+        ('NONE', _('No remuneration')),
+        ('FIXE', _('Fixed Amount')),
+        ('PERC', _('Percentage')),
         ]
-    remuneration = CharField(max_length=4, choices=REMUNERATION_CHOICES, 
+    remuneration = CharField(verbose_name=_('Remuneration type'),
+                             max_length=4, choices=REMUNERATION_CHOICES, 
                              null=True, blank=True,
                              help_text=_("How earned money will be dispatched "))
 
@@ -322,26 +340,35 @@ class GigBargainBand(models.Model):
         pass
 
 
-    band = ForeignKey(Band, related_name='gigbargainbands')
+    band = ForeignKey(Band,
+                      verbose_name=_('Band'),
+                      related_name='gigbargainbands')
+
     bargain = ForeignKey(GigBargain)
 
     joined_on = DateTimeField(auto_now_add=True)
 
     reason = TextField(blank=True, null=True)
 
-    starts_at = TimeField(help_text=_("e.g. 20:30 or 10:15"),
+    starts_at = TimeField(verbose_name=_('Starts at'),
+                          help_text=_("e.g. 20:30 or 10:15"),
                           blank=True, null=True, 
                           )
 
-    set_duration = TimedeltaField(blank=True, null=True,
+    set_duration = TimedeltaField(verbose_name=_('Set duration'),
+                                  blank=True, null=True,
                                   help_text=_("as a duration. e.g. '4 hours, 2 minutes'")
                                   )
 
-    eq_starts_at = TimeField(blank=True, null=True)
+    eq_starts_at = TimeField(verbose_name=_('Equalisation starts at'),
+                             blank=True, null=True)
     
-    percentage = PositiveSmallIntegerField(blank=True, null=True, default=0)
-    amount = PositiveSmallIntegerField(blank=True, null=True, default=0)
-    defrayment = PositiveSmallIntegerField(blank=True, null=True, default=0)
+    percentage = PositiveSmallIntegerField(verbose_name=_('Percentage'),
+                                           blank=True, null=True, default=0)
+    amount = PositiveSmallIntegerField(verbose_name=_('Amount'),
+                                       blank=True, null=True, default=0)
+    defrayment = PositiveSmallIntegerField(verbose_name=_('Defrayment'),
+                                           blank=True, null=True, default=0)
 
     def clean(self):
         # Make sure percentages of all bands don't exceed 100
@@ -389,9 +416,9 @@ def gigbargain_concluded_callback(sender, **kwargs):
               event_date=gigbargain.date,
               start_time=gigbargain.opens_at,
               end_time=gigbargain.closes_at,
-              description='no description',
-              title="gig at %s" % gigbargain.venue.name,
-              slug="gig-at-%s" % gigbargain.venue.slug)
+              description=_('no description'),
+              title=_("gig at %s") % gigbargain.venue.name,
+              slug="gig-%s" % gigbargain.venue.slug)
 
     gig.save()
 
