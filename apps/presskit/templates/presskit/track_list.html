@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div id="text">
+  <h1><a href="{{ presskit.band.get_absolute_url }}">{{ presskit.band.name }}</a> &raquo; {% trans "PressKit" %} &raquo; {% trans "Featured tracks" %}</h1>
+
+
+  <ul>
+    {% for track in track_list %}
+      <li>{{ track }} ( <a href="{% url presskit:presskit-track-delete presskit.band.slug track.id %}">{% trans "delete" %}</a> )</li>
+    {% endfor %}
+  </ul>
+  
+  <p>
+    <a href="{% url presskit:presskit-track-add presskit.band.slug %}">{% trans "Add new track" %}</a>
+  </p>
+
+  <p>
+    Back to <a href="{% url presskit:mypresskit presskit.band.slug %}">your PressKit</a>
+  </p>
+  
+
+</div>
+
+{% endblock %}
