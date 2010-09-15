@@ -2,68 +2,128 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-10 13:27+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-11 21:48+0200\n"
+"PO-Revision-Date: 2010-09-14 00:26\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: forms.py:29
 msgid "Email address"
-msgstr ""
+msgstr "Adresse e-mail"
 
 #: forms.py:32
 msgid "First name"
-msgstr ""
+msgstr "Prénom"
 
 #: forms.py:36
 msgid "Last name"
-msgstr ""
+msgstr "Nom de famille"
 
-#: templates/account/user_dashboard.html:118
+#: templates/account/user_dashboard.html:32
+#, python-format
+msgid "Welcome, %(username)s"
+msgstr "Bienvenue, %(username)s "
+
+#: templates/account/user_dashboard.html:33
+msgid "Edit Your Profile"
+msgstr "Modifier votre profil"
+
+#: templates/account/user_dashboard.html:40
+msgid "Name"
+msgstr "Nom"
+
+#: templates/account/user_dashboard.html:41
+msgid "E-mail"
+msgstr "E-mail"
+
+#: templates/account/user_dashboard.html:42
+msgid "Location"
+msgstr "Localisation"
+
+#: templates/account/user_dashboard.html:43
+msgid "Joined"
+msgstr "Inscrit"
+
+#: templates/account/user_dashboard.html:49
+msgid "Connections since a month"
+msgstr "Connexions depuis un mois"
+
+#: templates/account/user_dashboard.html:69
+msgid "Your Bands"
+msgstr "Vos groupes"
+
+#: templates/account/user_dashboard.html:98
+msgid "Your Venues"
+msgstr "Vos lieux de concerts"
+
+#: templates/account/user_dashboard.html:111
+msgid ""
+"\n"
+"      You <strong>play music</strong> or <strong>run a venue</strong> ? \n"
+"      "
+msgstr ""
+"\n"
+"Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un lieu de concerts</strong> ?"
+
+#: templates/account/user_dashboard.html:121
+msgid "Latest Notifications"
+msgstr "Dernières notifications"
+
+#: templates/account/user_dashboard.html:125
+#, fuzzy
 msgid "Mark all unseen notices seen"
-msgstr ""
+msgstr "Marquer tous les avis invisibles vus"
 
-#: templates/account/user_dashboard.html:124
+#: templates/account/user_dashboard.html:131
+#, fuzzy
 msgid "MONTH_DAY_FORMAT"
-msgstr ""
+msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:143
+#: templates/account/user_dashboard.html:150
 msgid "No notices."
-msgstr ""
+msgstr "Aucune notifications"
+
+#: templates/account/user_dashboard.html:156
+msgid "Latest Activity"
+msgstr "Activité récente"
+
+#: templates/account/user_dashboard.html:168
+#, python-format
+msgid "%(when)s ago"
+msgstr " il y a %(when)s"
 
 #: templates/notification/notice_settings.html:10
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: templates/notification/notice_settings.html:14
 msgid "Primary email"
-msgstr ""
+msgstr "e-mail principale"
 
 #: templates/notification/notice_settings.html:19
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #: templates/notification/notice_settings.html:20
 #, python-format
-msgid ""
-"You do not have a verified email address to which notices can be sent. You "
-"can add one by going to <a href=\"%(email_url)s\">Account</a>."
-msgstr ""
+msgid "You do not have a verified email address to which notices can be sent. You can add one by going to <a href=\"%(email_url)s\">Account</a>."
+msgstr "Vous n'avez pas d'adresse e-mail valide sur laquelle les notifications peuvent être envoyées. Vous pouvez en ajouter une en allant à <a href=\"%(email_url)s\">compte</a> ."
 
 #: templates/notification/notice_settings.html:28
 msgid "Notification Type"
-msgstr ""
+msgstr "Type de notification"
 
 #: templates/notification/notice_settings.html:46
 msgid "Change"
-msgstr ""
+msgstr "Changement"
