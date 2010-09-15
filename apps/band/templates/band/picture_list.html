@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="text">
+  <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; Pictures (WIP)</h1>
+
+  <ul>
+    {% for picture in picture_list %}
+      <li><img src="{{ picture.thumbnail_image.url }}"/> {% if picture.is_avatar %}AVATAR{% endif %}- ( <a href="{% url band:band-picture-delete band.slug picture.id %}">delete</a> )</li>
+    {% endfor %}
+  </ul>
+  
+  <p>
+    <a href="{% url band:band-picture-new band.slug %}">Add a new picture </a>
+  </p>
+
+</div>
+
+{% endblock %}
