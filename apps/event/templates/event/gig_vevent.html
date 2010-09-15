@@ -1,0 +1,18 @@
+<div class="vevent gig-vevent">
+  <a class="url" href="{{ gig.get_absolute_url }}">
+    <span class="desc">
+      <abbr class="dtstart">
+	<span title="{{ gig.event.date }}">
+	  <span class="month">{{ gig.event_date|date:'M'|upper }}</span>
+	  <span class="day">{{ gig.event_date|date:'d' }}</span>
+	</span>
+      </abbr> 
+    </span>
+    <span class="summary">{{ gig.bands.all|join:", " }}</span>
+  </a>
+ <span class="location adr">
+   {{ gig.venue.name }}
+   <span class="locality">{{ gig.venue.city }}</span>
+   <span class="country-name">{{ gig.venue.country.name }}</span>
+ </span>
+</div>
