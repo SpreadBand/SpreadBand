@@ -18,7 +18,7 @@ class Venue(Actor):
     """
     class Meta:
         permissions = (
-            ('can_manage', 'Can manage this venue'),
+            ('can_manage', _('Can manage this venue')),
         )
 
     name = CharField(max_length=200)
@@ -111,7 +111,7 @@ class VenuePicture(ImageModel):
     is_avatar = BooleanField(default=False)
 
     def __unicode__(self):
-        return "Picture for venue %s" % self.venue.name
+        return _("Picture for venue %s") % self.venue.name
 
 
 

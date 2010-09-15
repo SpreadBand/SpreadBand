@@ -32,9 +32,17 @@ def detail(request, venue_slug):
     past_events = venue.gigs.past_events()[:1]
     future_events = venue.gigs.future_events()[0:5]
 
+    # make a calendar
+    from datetime import date
+    from event.views.calendar import GigMonthlyHTMLCalendar
+    monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
+                                              aQueryset=venue.gigs.all(),
+                                              when=date.today())
+
     extra_context = {'latest_bands': latest_bands,
                      'past_events': past_events,
-                     'future_events': future_events}
+                     'future_events': future_events,
+                     'monthly_calendar': monthly_calendar}
 
     # Get the bargains we're involved into
     return object_detail(request,
