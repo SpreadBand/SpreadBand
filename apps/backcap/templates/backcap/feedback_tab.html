@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <script type="text/javascript">
   function lookup(inputString) {
 		if(inputString.length < 3) {
@@ -27,15 +29,15 @@ $(document).ready(function() {
     {% include 'backcap/feedback_new.html' %}
   </div>
   <div id="feedback-tab-suggestions" class="omega grid_4">
-    <h4>Suggestions</h4>
+    <h4>{% trans "Suggestions" %}</h4>
     <div id="feedback-tab-suggestions-noresult">
-      Start typing a title
+      {% trans "Start typing a title" %}
     </div>
     <div id="feedback-tab-suggestions-results">
     </div>
   </div>
   <div class="clear"></div>
   <div class="grid_10 alpha omega">
-    <a href="{% url backcap:feedback-list %}">View all feedbacks</a>
+    <a href="{% url backcap:feedback-list %}">{% trans "See all feedbacks" %}</a>
   </div>
 </div>

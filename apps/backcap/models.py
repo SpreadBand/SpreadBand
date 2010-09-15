@@ -8,17 +8,17 @@ class Feedback(models.Model):
     class Meta:
         ordering = ('modified_on', 'kind')
     KIND_CHOICES = (
-        ('Q', 'Question'),
-        ('P', 'Problem'),
-        ('I', 'Idea'),
+        ('Q', _('Question')),
+        ('P', _('Problem')),
+        ('I', _('Idea')),
         )
 
     STATUS_CHOICES = (
-        ('N', 'New'),
-        ('A', 'Assigned'),
-        ('W', 'Won\'t Fix'),
-        ('R', 'Re-opened'),
-        ('C', 'Closed'),
+        ('N', _('New')),
+        ('A', _('Assigned')),
+        ('W', _('Won\'t Fix')),
+        ('R', _('Re-opened')),
+        ('C', _('Closed')),
         )
 
     # Timestamps
@@ -30,9 +30,12 @@ class Feedback(models.Model):
     referer = TextField()
 
     # Contents
-    kind = CharField(max_length=1, choices=KIND_CHOICES)
-    title = CharField(max_length=255)
-    text = TextField(help_text=_("Description of the feedback"))
+    kind = CharField(verbose_name=_('Kind'),
+                     max_length=1, choices=KIND_CHOICES)
+    title = CharField(verbose_name=_('Title'),
+                      max_length=255)
+    text = TextField(verbose_name=_('Text'),
+                     help_text=_("Description of the feedback"))
 
     # State
     status = CharField(max_length=1, choices=STATUS_CHOICES, default='N')

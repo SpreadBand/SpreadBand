@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+{% load voting_tags %}
+
 {% block title %}
-Centre d'aide
+  {% trans "Help Center" %}
 {% endblock %}
 
 {% block css %}
-{{ block.super }}
-<link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
 {% endblock %}
 
-{% load voting_tags %}
 
 {% block content %}
 
 <div id="text">
-<h1>Feedbacks</h1>
+  <h1>{% trans "Feedbacks" %}</h1>
 
 
-<div class="alpha grid_11">
+  <div class="alpha grid_11">
 
   <p>
-    This is all the feedbacks submitted by you, the users. Thanks for that.
+    {% trans "This is all the feedbacks submitted by you, the users. Thanks for that." %}
   </p>
   
   <p>
-    <a href="{% url backcap:feedback-new %}">New feedback</a>
+    <a href="{% url backcap:feedback-new %}">{% trans "New feedback" %}</a>
   </p>
 
 
@@ -89,13 +91,13 @@ Centre d'aide
   {% endif %}
 </div>
 <div class="grid_2 prefix_1 omega">
-<h4>Display</h4>
+<h4>{% trans "Display" %}</h4>
 
 <ul id="feedback-filter">
-  <li class="ui-corner-all {% if not request.GET.qtype %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}">All</a></li>
-  <li class="ui-corner-all {% if request.GET.qtype == 'Q' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=Q">Questions</a></li>
-  <li class="ui-corner-all {% if request.GET.qtype == 'P' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=P">Problems</a></li>
-  <li class="ui-corner-all {% if request.GET.qtype == 'I' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=I">Ideas</a></li>
+  <li class="ui-corner-all {% if not request.GET.qtype %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}">{% trans "All" %}</a></li>
+  <li class="ui-corner-all {% if request.GET.qtype == 'Q' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=Q">{% trans "Questions" %}</a></li>
+  <li class="ui-corner-all {% if request.GET.qtype == 'P' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=P">{% trans "Problems" %}</a></li>
+  <li class="ui-corner-all {% if request.GET.qtype == 'I' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?qtype=I">{% trans "Ideas" %}</a></li>
 </ul>
 </div>
 
