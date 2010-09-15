@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load django_static %}
+{% load i18n %}
 
 {% block css %}
 
@@ -15,7 +16,7 @@
 <div class="grid_2 alpha">
   <div id="band_avatar">
     {% if not band.pictures.avatar %}
-      <a href="{% url band:band-picture-new band.slug %}?is_avatar=1"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="no band avatar" title="Click here to upload an avatar"/></a>
+      <a href="{% url band:band-picture-new band.slug %}?is_avatar=1"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="{% trans "no band avatar" %}" title="{% trans "Click here to upload an avatar" %}"/></a>
     {% else %}
       <img src="{{ band.pictures.avatar.avatar_image.url }}" alt="band avatar"/>
     {% endif %}
@@ -24,20 +25,20 @@
 
 <div class="grid_13 omega">
   <div>
-    <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; {% block band_section %}Home{% endblock %}</h1>
+    <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; {% block band_section %}{% trans "Home" %}{% endblock %}</h1>
   </div>
   <div class="clear"></div>
 
   <div>
     <ul id="band_tabs">
-      {% url band:detail band.slug as home_url %}
+      {% url band:dashboard band.slug as home_url %}
       {% url gigbargain:gigbargain-band-dashboard band.slug as gigbargain_url %}
       {% url event:band-calendar band.slug as calendar_url %}
       {% url presskit:mypresskit band.slug as presskit_url %}
-      <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">Home</a></li>
-      <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">Gig Bargains</a></li>
-      <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">Calendar</a></li>
-      <li><a {% if request.path == presskit_url %}class="selected"{% endif %} href="{{ presskit_url }}">PressKit</a></li>
+      <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">{% trans "Home" %}</a></li>
+      <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">{% trans "Gig Bargains" %}</a></li>
+      <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">{% trans "Calendar" %}</a></li>
+      <li><a {% if request.path == presskit_url %}class="selected"{% endif %} href="{{ presskit_url }}">{% trans "PressKit" %}</a></li>
     </ul>
   </div>
 </div>

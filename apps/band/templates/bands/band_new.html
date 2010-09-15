@@ -20,16 +20,16 @@
 
 <div id="text">
   <div class="alpha grid_16 omega">
-    <h1>Register your Band</h1>
+    <h1>{% trans "Register Your Band" %}</h1>
   </div>
   
   <div class="alpha grid_10">
-    <h2>Your Band</h2>
+    <h2>{% trans "Your Band" %}</h2>
     <form method="POST" class="uniForm">{% csrf_token %}
     {{ form|as_uni_form }}
 
 
-    <h2>You, in this band</h2>
+    <h2>{% trans "You, in this band" %}</h2>
     {{ member_form|as_uni_form }}
     
 

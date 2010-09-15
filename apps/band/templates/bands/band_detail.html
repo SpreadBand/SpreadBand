@@ -2,26 +2,47 @@
 
 {% load i18n %}
 {% load django_static %}
+{% load activity_tags %}
 
 {% block title %}
-  {{ band.name }} - Dashboard
+  {{ band.name }} - {% trans "Dashboard" %}
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
 {% endblock %}
 
 {% block band_content %}
 
 <div class="grid_15 alpha omega">
 
-  <div class="grid_11 alpha">
-
-    <div class="grid_11 alpha omega">
-      <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>Edit the whole band</span></a>
-
+  <div class="grid_3 alpha">
+    <div id="my-band" class="grid_3 alpha omega">
+      <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit Band Infos" %}</span></a>
     </div>
+
+    <div id="recent-visitors" class="grid_3 alpha omega">
+      <h3>{% trans "Recent visitors" %} (WIP)</h3>
+      <ul>
+	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile{% endblocktrans %}</li>
+      </ul>
+    </div>
+
+
+    <div class="grid_3 alpha omega">
+      <h3>{% trans "Advertising" %}</h3>
+
+      <img src="{{ MEDIA_URL }}/images/GuitarXpertsSKY.gif">
+    </div>
+  </div>
+
+  <div class="grid_8">
     
     {% if today_events %}
-    <div class="grid_11 alpha omega">
+    <div class="grid_8 alpha omega">
       <div id="today">
-	<h3>Today's</h3> 
+	<h3>{% trans "Today's" %}</h3> 
 	<ul>
 	  {% for event in today_events %}
 	    <li>&rarr; <a href="{{ event.get_absolute_url }}">{{ event.title|capfirst }}</a> (<strong>{{ event.start_time }}</strong>-{{ event.end_time }}) at <a href="{{ event.venue.get_absolute_url }}">{{ event.venue.name|capfirst }}</a></li>
@@ -31,52 +52,78 @@
     </div>
     {% endif %}
 
-    <div id="gigbargains" class="grid_11 alpha omega">
+    <div id="gigbargains" class="grid_8 alpha omega">
       <div class="sectionbox">
 	<div class="header">
 	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
-	  <h2>Gig Bargains</h2>
-	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>New Gig bargain</span></a>
+	  <h2>{% trans "Gig Bargains" %} (WIP)</h2>
+	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton" title="{% trans "Book A Venue" %}"><span><span class="icon"></span>{% trans "Book A Venue" %}</span></a>
 	</div>
 	<div class="separator"></div>
-	<div class="content">
+	<div class="content ">
 
-	  <h3>New</h3>
-	  <ul>
-	    {% for gigbargain in band.gigbargains.new_gigbargains|slice:":2" %}
-	      <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})</a></li>
-	    {% endfor %}
-	  </ul>
-	  
-	  <h3>In progress</h3>
-	  <ul>
-	    {% for gigbargain in band.gigbargains.inprogress_gigbargains|slice:":2" %}
-	      <li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})</a></li>
-	    {% endfor %}
-	  </ul>
-	  
+	  <div class="grid_8 alpha omega">
+	    <h3>{% trans "Invitations" %}</h3>
+	    <ul>
+	      {% for gigbargain in gigbargain_invitations %}
+		<li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} ({% blocktrans with gigbargain.date|timeuntil as time_until %}in {{ time_until }}{% endblocktrans %})</a></li>
+		{% empty %}
+		{% trans "You don't have any invitation." %}
+	      {% endfor %}
+	    </ul>
+
+	    <h3>{% trans "Drafts" %}</h3>
+	    <ul>
+	      {% for gigbargain in gigbargain_drafts %}
+		<li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} ({% blocktrans with gigbargain.date|timeuntil as time_until %}in {{ time_until }}{% endblocktrans %})</a></li>
+		{% empty %}
+		{% trans "You haven't started any draft." %}
+	      {% endfor %}
+	    </ul>
+	    
+	    <h3>{% trans "Being negociated" %}</h3>
+	    <ul>
+	      {% for gigbargain in band.gigbargains.inprogress_gigbargains|slice:":2" %}
+		<li><a href="{% url gigbargain:gigbargain-detail gigbargain.uuid %}">{{ gigbargain.venue.name|capfirst }}, {{ gigbargain.date }} ({% blocktrans with gigbargain.date|timeuntil as time_until %}in {{ time_until }}{% endblocktrans %})</a></li>
+		{% empty %}
+		{% trans "You don't have any gig bargain in progress." %}
+	      {% endfor %}
+	    </ul>
+	  </div>
+
+	  <div class="more">
+	    &rarr; <a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}">{% trans "Gig Bargains Dashboard" %}</a>
+	  </div>
+
+	  <div class="clear"></div>
+
 	</div>
       </div>
     </div>
 
 
-    <div class="grid_11 alpha omega">
+    <div id="agenda" class="grid_8 alpha omega">
       <div class="sectionbox">
 
 	<div class="header">
 	  <img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="calendar"/>
-	  <h2>Calendar</h2>
-	  <a href="{% url event:gig-new band.slug %}" class="minibutton" title="New Gig"><span><span class="icon"></span>Add gig</span></a><br>
+	  <h2>{% trans "Agenda" %} (WIP)</h2>
+	  <a href="{% url event:gig-new band.slug %}" class="minibutton" title="New Gig"><span><span class="icon"></span>{% trans "Add Gig" %}</span></a><br>
 	</div>
 
 	<div class="separator"></div>
 
 	<div class="content">
-	  {% include 'event/abstract_timeline.html' %}
+	  
+	  <div id="calendar">
+	    {{ monthly_calendar.toHTML|safe }}
+	  </div>
 
 	  <div class="clear"></div>
-
-	  &rarr; <a href="{% url event:band-calendar band.slug %}">View calendar</a>
+	  
+	  <div class="more">
+	    &rarr; <a href="{% url event:band-calendar band.slug %}">{% trans "Calendar" %}</a>
+	  </div>
 	</div>
 
       </div>
@@ -84,8 +131,16 @@
   </div>
 
   <div class="grid_4 omega">
+    <div class="grid_4 alpha omega">
+      <div id="band-tip">
+	<strong>{% trans "Tip of the day" %} (WIP)</strong><br/>
+	{% blocktrans %}Have you filled your PressKit ? This is the best way to get booked !{% endblocktrans %}
+      </div>
+    </div>
+
+
     <div id="upcoming_events" class="grid_4 alpha omega">
-      <h3>Upcoming events</h3>
+      <h3>{% trans "Upcoming events" %}</h3>
       {% with future_events|slice:":2" as upcoming_events %}
 
 	{% if not upcoming_events %}
@@ -104,16 +159,16 @@
     </div>
 
     <div id="suggestions">
-      <h3>Suggestions (<acronym title="Work in progress, don't expect it to work :)">WIP</acronym>)</h3>
-      You have to gig more before we can suggest you :
+      <h3>{% trans "Suggestions" %} (<acronym title="{% trans "Work in progress, don't expect it to work :)" %}">WIP</acronym>)</h3> 
+      {% blocktrans %}You have to gig more before we can suggest you :{% endblocktrans %}
       <ul>
-	<li><strong>Bands</strong> that are like you, in your area or not, with whom you can plan gigs ;</li>
-	<li><strong>Venues</strong> that are used to receive bands like you, where you can play with a good public.</li>
+	<li>{% trans "<strong>Bands</strong> that are like you, in your area or not, with whom you can plan gigs ;" %}</li>
+	<li>{% trans "<strong>Venues</strong> that are used to receive bands like you, where you can play with a good public." %}</li>
     </div>
 
     <div id="bandmembers" class="grid_4 alpha omega">
-      <h3>Members ({{ band.band_members.count }})</h3>
-      <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>Manage</span></a>
+      <h3>{% trans "Members" %} ({{ band.band_members.count }})</h3>
+      <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
 
       <ul>
 	{% staticfile '/images/account/no_avatar.png' as default_avatar %}
@@ -127,12 +182,6 @@
       </ul>
 
 
-    </div>
-
-    <div class="grid_4 alpha omega">
-      <h3>Publicité</h3>
-
-      <img src="{{ MEDIA_URL }}/images/GuitarXpertsSKY.gif">
     </div>
   </div>
 </div>
