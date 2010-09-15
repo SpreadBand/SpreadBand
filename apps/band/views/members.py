@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic.create_update import delete_object, create_object
 from django.views.generic.list_detail import object_list
 
-from guardian.shortcuts import assign
+from guardian.shortcuts import assign, remove_perm
 
 from ..forms import BandMemberRequestForm, BandMemberAddForm
 from ..models import Band, BandMember
@@ -66,7 +66,8 @@ def membership_add(request, band_slug):
             addform.save_m2m()
 
             # Assign rights to the user
-            assign('band.can_manage', request.user, band)
+            assign('band.can_manage', bandmember.user, band)
+            
 
             return redirect(bandmember)
 
@@ -111,6 +112,9 @@ def membership_remove(request, band_slug, member_id):
         messages.error(request, _("You can't let this band alone"))
         return redirect('band:membership-manage', band.slug)
 
+    # remove the permission
+    remove_perm('band.can_manage', bandmember.user, band)
+    
     return delete_object(request,
                          model=BandMember,
                          object_id=bandmember.id,
@@ -119,4 +123,5 @@ def membership_remove(request, band_slug, member_id):
                          post_delete_redirect=bandmember.get_absolute_url(),
                          extra_context={'band': band}
                          )
+
     
