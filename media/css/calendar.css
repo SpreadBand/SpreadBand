@@ -1,0 +1,68 @@
+/*-- calendar --*/
+#calendar table {
+    margin-bottom: 10px;
+    height: 250px;
+    width: 280px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+#calendar table tr {
+    text-align: center;
+}
+
+#calendar table th {
+    width: 25px;
+}
+
+
+#calendar table td {
+    vertical-align: middle;
+    background-color: #e2e2e2;
+    border: 4px solid #f9f9f9;
+    -moz-border-radius: 10px;
+}
+
+#calendar td div.info {
+    visibility: hidden;
+    position: absolute;
+    left: -10000px;
+}
+
+#calendar .noday {
+    background-color: transparent;
+}
+
+#calendar tbody th.month {
+    background-color: #e2e2e2;
+    color: #666;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#calendar td.cal-bargain-day {
+    background-color: #f2c876;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#calendar td.past {
+    color: #555;
+}
+
+#calendar td.today {
+    background-color: black;
+    color: white;
+}
+
+#calendar .fullcontent {
+    height: 255px;
+}
+
+#calendar ul li {
+    list-style: none;
+    padding-left: 0px;
+    margin-left: 0px;
+}

@@ -1,0 +1,144 @@
+#venue-main h1 {
+    margin-bottom: 10px;
+}
+
+#venue-sidebar h3 {
+    margin-bottom: 8px;
+}
+
+/*-- website --*/
+#website {
+    margin-bottom: 20px;
+}
+
+/*-- ambiance --*/
+#ambiance {
+    margin-bottom: 20px;
+}
+
+/*-- socialnets --*/
+#socialnets {
+    margin-bottom: 20px;
+}
+
+#socialnets ul {
+    list-style: none;
+    border-top: 1px #ddd solid;
+}
+
+#socialnets ul li {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-bottom: 1px #ddd solid;
+    margin-left: 0px;
+}
+
+#socialnets ul li img,a {
+    vertical-align: middle;
+}
+
+#socialnets ul li img {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#socialnets h4 {
+    display: inline;
+}
+
+#socialnets .minibutton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/*-- latest bands --*/
+#latest-bands ul li {
+    list-style: none;
+    margin-left: 0px;
+    margin-bottom: 2px;
+}
+
+/*-- video --*/
+#video .fullcontent {
+    padding-top: 5px;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+/*-- members --*/
+#venuemembers {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+#venuemembers h3 {
+    display: inline;
+}
+
+#venuemembers > a {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#venuemembers ul {
+    margin-top: 15px;
+    border-top: 1px #ddd solid;    
+}
+
+#venuemembers ul li {
+    list-style: none;
+    height: 50px;
+    padding-right: 3px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ddd solid;
+
+    line-height: 130%;
+    margin-left: 0px;
+}
+
+#venuemembers ul li img {
+    float: left;
+    margin-right: 5px;
+}
+
+#venuemembers ul li .venuemember_role {
+    font-size: 0.9em;
+    text-align: right;
+    display: block;
+    color: #999;
+}
+
+#venuemembers ul li .venuemember_whois {
+    font-size: 0.9em;
+    text-align: left;
+    display: block;
+    color: #666;
+}
+
+#venuemembers .minibutton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/*-- upcoming events --*/
+#upcoming-events {
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+#text #upcoming-events li {
+    list-style: none;
+    margin-left: 0px;
+}
+
+/*-- calendar --*/
+#upcoming-events li {
+    border-bottom: 1px solid #ddd;
+    clear: both;
+}
+

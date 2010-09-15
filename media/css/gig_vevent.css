@@ -1,0 +1,50 @@
+.gig-vevent .desc {
+    float: left;
+}
+
+.gig-vevent a {
+    color: black;
+}
+
+.gig-vevent .dtstart > span {
+    float: left;
+    display: block;
+    width: 30px;
+}
+
+.gig-vevent .dtstart .month {
+    float: left;
+    display: block;
+    background-color: #D51007;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 1.0em;
+    color: white;
+    width: 30px;
+    text-align: center;
+}
+
+.gig-vevent .dtstart .day {
+    float: left;
+    display: block;
+    width: 30px;
+    text-align: center;
+    font-size: 1.2em;
+    padding: 2px;
+    font-weight: bold;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.gig-vevent .summary {
+    font-weight: bold;
+    float: left;
+    display: block;
+}
+
+.gig-vevent .location {
+    visibility: hidden;
+    position: absolute;
+    left: -100000px;
+}
