@@ -15,6 +15,10 @@ a.minibutton {
     text-decoration:none;
 }
 
+a.disabled {
+    opacity: 0.5;
+}
+
 a.minibutton>span {
     display:block;
     height:23px;
