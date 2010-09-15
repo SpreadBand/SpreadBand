@@ -29,11 +29,13 @@ class GigBargainForBandForm(forms.ModelForm):
         model = GigBargain
         fields = ('access', 'fee_amount')
 
-    access = ChoiceField(choices=[['', "(Pick one)"]] + GigBargain.ACCESS_CHOICES,
+    access = ChoiceField(label=_('Access type'),
+                         choices=[['', "(Pick one)"]] + GigBargain.ACCESS_CHOICES,
                          required=True
                          )
 
-    remuneration = ChoiceField(choices=[['', "(Pick one)"]] + GigBargain.REMUNERATION_CHOICES,
+    remuneration = ChoiceField(label=_('Remuneration'),
+                               choices=[['', "(Pick one)"]] + GigBargain.REMUNERATION_CHOICES,
                                required=True
                                )
 
@@ -49,11 +51,13 @@ class GigBargainForVenueForm(forms.ModelForm):
     opens_at = forms.TimeField(required=True)
     closes_at = forms.TimeField(required=True)
 
-    access = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
+    access = ChoiceField(label=_('Access type'),
+                         choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
                          required=False
                          )
 
-    remuneration = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
+    remuneration = ChoiceField(label=_('Remuneration'),
+                               choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
                                required=False
                                )
 
@@ -96,11 +100,13 @@ class GigBargainNewFromVenueForm(GigBargainNewForm):
         model = GigBargain
         fields = ('date', 'opens_at', 'closes_at', 'venue', 'access', 'fee_amount', 'remuneration')
 
-    access = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
+    access = ChoiceField(label=_('Access type'),
+                         choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
                          required=False
                          )
 
-    remuneration = ChoiceField(choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
+    remuneration = ChoiceField(label=_('Remuneration'),
+                               choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
                                required=False
                                )
 
@@ -114,11 +120,13 @@ class GigBargainNewFromBandForm(GigBargainNewForm):
         model = GigBargain
         fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
 
-    access = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.ACCESS_CHOICES,
+    access = ChoiceField(label=_('Access type'),
+                         choices=[['', "(Let the venue choose)"]] + GigBargain.ACCESS_CHOICES,
                          required=False,
                          )
 
-    remuneration = ChoiceField(choices=[['', "(Let the venue choose)"]] + GigBargain.REMUNERATION_CHOICES,
+    remuneration = ChoiceField(label=_('Remuneration'),
+                               choices=[['', "(Let the venue choose)"]] + GigBargain.REMUNERATION_CHOICES,
                                required=False,
                                )
 
@@ -134,11 +142,13 @@ class GigBargainNewFullForm(forms.ModelForm):
         fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
 
     date = forms.DateField(required=True)
-    access = ChoiceField(choices=GigBargain.ACCESS_CHOICES,
+    access = ChoiceField(label=_('Access type'),
+                         choices=GigBargain.ACCESS_CHOICES,
                          required=True
                          )
 
-    remuneration = ChoiceField(choices=GigBargain.REMUNERATION_CHOICES,
+    remuneration = ChoiceField(label=_('Remuneration'),
+                               choices=GigBargain.REMUNERATION_CHOICES,
                                required=True
                                )
     
@@ -148,9 +158,12 @@ class GigBargainBandForm(forms.ModelForm):
         model = GigBargainBand
         fields = ('band', 'starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
-    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0)
-    starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
-    eq_starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
+    percentage = forms.IntegerField(label=_('Percentage'),
+                                    min_value=0, max_value=100, initial=0)
+    starts_at = forms.TimeField(label=_('Starts at'),
+                                input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
+    eq_starts_at = forms.TimeField(label=_('Equalisation starts at'),
+                                   input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
 
     def clean(self):
         # Make sure the equalization isn't after the beginning of the set
@@ -172,7 +185,8 @@ class GigBargainBandPartEditForm(GigBargainBandForm):
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
     starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=True)
-    set_duration = TimedeltaFormField(required=True)
+    set_duration = TimedeltaFormField(label=_('Set duration'),
+                                      required=True)
 
 
 class GigBargainMyBandForm(GigBargainBandForm):
@@ -180,8 +194,10 @@ class GigBargainMyBandForm(GigBargainBandForm):
         model = GigBargainBand
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
-    percentage = forms.IntegerField(min_value=0, max_value=100, initial=0, required=False)
-    set_duration = TimedeltaFormField(required=True)
+    percentage = forms.IntegerField(label=_('Percentage'),
+                                    min_value=0, max_value=100, initial=0, required=False)
+    set_duration = TimedeltaFormField(label=_('Set duration'),
+                                      required=True)
 
 class GigBargainMyBandFullForm(GigBargainMyBandForm):
     def __init__(self, aGigBargain, *args, **kwargs):
