@@ -30,10 +30,10 @@
     <div class="band grid_6 {% cycle 'alpha' 'omega' %}">
 
     <!-- Band vcard -->
-    <div class="vcard {% if band.state == 'part_validated' %}ready{% else %}notready{% endif %}">
+    <div class="vcard {% if band.state == 'part_validated' %}ready{% else %}{% if band.state == 'waiting' %}invited{% else %}notready{% endif %}{% endif %}">
       {% staticfile '/images/band/no_picture.png' as default_pic %}
       <img src="{{ band.band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.band.name }}" class="photo"/>
-      <a class="url uid fancybox" href="{{ band.band.presskit.get_absolute_url }}">
+      <a class="url uid fancybox" href="{{ band.band.presskit.get_absolute_url }}#">
 	<div class="org fn">
 	  <span class="organization-name">{{ band|capfirst }}</span>
 	</div>
@@ -52,15 +52,50 @@
   </div>
 {% endfor %}
 
-{% with gigbargain.gigbargainband_set.not_concurring as not_concurring %}
-  {% if not_concurring %}
-    No more concurring :
-    <ul>
-    {% for gigbargainband in not_concurring %}
-      <li><span class="comment-tip" title="<b>Reason</b>: {{ gigbargainband.reason }}"><a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a><span></li>
-    {% endfor %}
-  </ul>
-{% endif %}
-{% endwith %}
+<div class="clear"></div>
+
+<div class="grid_12 alpha omega">
+
+  {% with gigbargain.gigbargainband_set.not_concurring as not_concurring %}
+    {% if not_concurring %}
+      {% trans "No more concurring:" %}
+      <ul>
+	{% for gigbargainband in not_concurring %}
+	  <li><span class="comment-tip" title="<b>{% trans "Reason" %}</b>: {{ gigbargainband.reason }}"><a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a><span></li>
+	{% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</div>
+
+<div id="bands-legend" class="grid_12 alpha omega">
+  <table>
+    <tbody>
+      <tr>
+	<td class="legendColorBox">
+	  <div style="border: 1px solid rgb(204, 204, 204); padding: 1px;">
+	    <div style="width: 4px; height: 0pt; border: 5px solid grey; overflow: hidden;"></div>
+	  </div>
+	</td>
+	<td class="legendLabel">{% trans "Invited" %}</td>
+	<td class="legendColorBox">
+	  <div style="border: 1px solid rgb(204, 204, 204); padding: 1px;">
+	    <div style="width: 4px; height: 0pt; border: 5px solid orange; overflow: hidden;"></div>
+	  </div>
+	</td>
+	<td class="legendLabel">{% trans "Negociating" %}</td>
+	<td class="legendColorBox">
+	  <div style="border: 1px solid rgb(204, 204, 204); padding: 1px;">
+	    <div style="width: 4px; height: 0pt; border: 5px solid green; overflow: hidden;"></div>
+	  </div>
+	</td>
+	<td class="legendLabel">{% trans "Done negociating" %} </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="clear"></div>
 
 </div>

@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% load django_static %}
+{% load i18n %}
 {% load uni_form_tags %}
 
 {% block javascript %}
+  
+  <script type="text/javascript" src="{% staticfile '/js/jquery/label_over.js' %}"></script>
   <script type="text/javascript">
     $(document).ready(function() {
 	$('#id_date').hide();
@@ -12,6 +15,37 @@
 	};
 	
 	$('#div_id_date').datepicker({minDate: 0, defaultDate: $('#id_date').val(), altField: '#id_date', dateFormat: 'yy-mm-dd'});
+
+
+	/* Show/Hide things depending on access type */
+	$('#div_id_fee_amount').hide();
+	$('#id_access').change(function() {
+	    if ( $('#id_access').val() == 'FREE' || $('#id_access').val() == "" )
+		$('#div_id_fee_amount').hide();
+	    else
+		$('#div_id_fee_amount').show();
+	});
+
+	/* Show/hide things depending on remuneration */
+	$('#div_id_amount').hide();
+	$('#div_id_percentage').hide();
+
+	$('#id_remuneration').change(function() {
+	    var choice = $('#id_remuneration').val();
+	    if ( choice == 'PERC' ) {
+		$('#div_id_amount').hide();
+		$('#div_id_percentage').show();
+	    } else if ( choice == 'FIXE' ) {
+		$('#div_id_percentage').hide();
+		$('#div_id_amount').show();
+	    } else {
+		$('#div_id_amount').hide();
+		$('#div_id_percentage').hide();
+	    }
+	});
+
+	/* label overs */
+	$('#id_set_duration').labelOver('id_set_duration');
     });
   </script>
 
@@ -30,10 +64,12 @@
 
 <div id="text">
   
-  <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; Book a venue</h1>
+  <h1><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> &raquo; {% trans "Book a venue" %}</h1>
 
   <div id="top-notice">
+    {% blocktrans %}
     Booking a venue is done in <strong>three steps</strong>. <em>First</em>, <strong>create a draft</strong> using this page. Once the draft created, you'll be in the <em>second</em> step. You'll be able to <strong>invite new bands</strong> and <strong>tweak your draft</strong>. At this point, the venue is not aware of your proposal. That's why the <em>third</em> step will be to <strong>submit your draft</strong> to the venue to start negociating with it.
+    {% endblocktrans %}
   </div>
 
   <form method='POST' action='{{ request.path }}' class="uniForm">
@@ -41,7 +77,7 @@
       {% with gigbargain_form as form %}
 	<div id="new-when" class="grid_5 alpha">
 	  <img src="{% staticfile '/images/gigbargain/timeline_ico.png' %}" alt="when" />
-	  <h2>When</h2>
+	  <h2>{% trans "When" %}</h2>
 	  <div id="div_id_date">
 	    {{ form.date.errors }}
 	    {{ form.date }}
@@ -50,7 +86,7 @@
 	
 	<div id="new-where" class="grid_10 omega">
 	  <img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="where" />
-	  <h2>Where</h2>
+	  <h2>{% trans "Where" %}</h2>
 	  <div id="div_id_venue" class="ctrlHolder {% if form.venue.errors %}error{%endif%}">
 	    {{ form.venue.label_tag }} {{ form.venue }}
 	    <br/>
@@ -63,17 +99,18 @@
 	    {{ form.access.errors }}
 	  </div>
 
+	  <div id="div_id_fee_amount" class="ctrlHolder {% if form.fee_amount.errors %}error{%endif%}">
+	    {{ form.fee_amount.label_tag }} {{ form.fee_amount }}
+	    <br/>
+	    {{ form.fee_amount.errors }}
+	  </div>
+
 	  <div id="div_id_remuneration" class="ctrlHolder {% if form.remuneration.errors %}error{%endif%}">
 	    {{ form.remuneration.label_tag }} {{ form.remuneration }}
 	    <br/>
 	    {{ form.remuneration.errors }}
 	  </div>
 
-	  <div id="div_id_fee_amount" class="ctrlHolder {% if form.fee_amount.errors %}error{%endif%}">
-	    {{ form.fee_amount.label_tag }} {{ form.fee_amount }}
-	    <br/>
-	    {{ form.fee_amount.errors }}
-	  </div>
 	</div>
     {% endwith %}
   
@@ -81,13 +118,13 @@
 
   <fieldset id="new-band">
     <img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="my band" />
-    <h2>My band: {{ band.name }}</h2>
+    <h2>{% trans "My band:" %} {{ band.name }}</h2>
 
     {{ gigbargain_myband_form|as_uni_form }}
 
   </fieldset>
   
-    <input type="submit" name="create_draft" value="Create a draft">
+    <input type="submit" name="create_draft" value="{% trans "Create a draft" %}">
   </form>
 
 </div>

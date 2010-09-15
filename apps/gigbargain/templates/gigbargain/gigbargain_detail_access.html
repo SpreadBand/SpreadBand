@@ -11,7 +11,7 @@
 
     {% if is_venue_managed %}
       {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
-	<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}" class="minibutton btn-download"><span><span class="icon"></span>Edit</span></a>  
+	<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}" class="minibutton btn-download"><span><span class="icon"></span>{% trans "Edit" %}</span></a>  
       {% endif %}
     {% endif %}
 
@@ -21,24 +21,26 @@
 
 <div class="content">
 
+  <p>{% blocktrans %}This section sets how people will be allowed to attend the gig.{% endblocktrans %}</p>
   {# Display access type #}
 
   {% if gigbargain.access %}
-    {% trans "Entrance:" %} {{ gigbargain.get_access_display }}<br/>
+    {% trans "Entrance:" %} <strong>{{ gigbargain.get_access_display }}</strong><br/>
   {% else %}
     {% trans "Entrance is not set." %}
   {% endif %}
 
   {% if gigbargain.access == 'FEES' %}
-    {% trans "Fee amount:" %} {{ gigbargain.fee_amount }}
+    {% trans "Fee amount:" %} {{ gigbargain.fee_amount }} {% trans "euros" %}
   {% endif %}
 
   {% if gigbargain.access == 'DRNK' %}
     {% trans "Number of drinks:" %} {{ gigbargain.fee_amount }}
+    <em>{% trans "This means that people will have to buy at least this number of drinks to attend the gigs." %}</em>
   {% endif %}
 
   {% if gigbargain.access == 'FREE' %}
-    {% trans "Free access means that people can attend the gigs without paying." %}
+    <em>{% trans "Free access means that people can attend the gigs without paying." %}</em>
   {% endif %}
 
 </div>

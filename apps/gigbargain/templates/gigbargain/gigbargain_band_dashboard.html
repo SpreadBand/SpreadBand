@@ -73,7 +73,7 @@
   <div class="grid_12 alpha">
 
     <div id="dash-actions" class="grid_12 alpha omega">
-      <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="New Gig Bargain"><span><span class="icon"></span>{% trans "New Gig bargain" %}</span></a>
+      <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}" class="button-tip minibutton btn-download" title="{% trans "Book A Venue" %}"><span><span class="icon"></span>{% trans "Book A Venue" %}</span></a>
     </div>
 
     <!-- Bargains -->
@@ -81,12 +81,12 @@
       <div class="sectionbox bright">
 	<div class="header">
 	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
-	  <h2>Bargains</h2>
+	  <h2>{% trans "Bargains" %}</h2>
 
 	  <span><strong>{% trans "New" %}</strong>: {{ new_gigbargains|length }}</span>|
 	  <span><strong>{% trans "In progress" %}</strong>: {{ inprogress_gigbargains|length }}</span>|
 	  <span><strong>{% trans "Concluded" %}</strong>: {{ concluded_gigbargains|length }}</span>|
-	  <span><strong>{% trans "Aborted" %}</strong>: X</span>.
+	  <span><strong>{% trans "Aborted" %}</strong>: WIP</span>.
 
 	  <span>{% trans "Today:" %} {% now "j F Y" %}</span>
 
@@ -460,29 +460,6 @@
 	      <li>{% trans "No activity" %}</li>
 	    {% endfor %}
 	  </ul>
-
-	<!-- <h2>Alerts</h2> -->
-
-	<!-- <div> -->
-
-	<!--   <table border=1> -->
-	<!--     <tr> -->
-	<!--       <th>When</th> -->
-	<!--       <th>What</th> -->
-	<!--       <th>New</th> -->
-	<!--     </tr> -->
-
-	<!--     {% for notice in notices_new %} -->
-	<!--       <tr> -->
-	<!-- 	<td>{{ notice.added }}</td> -->
-	<!-- 	<td>{{ notice.message }}</td> -->
-	<!-- 	<td>{{ notice.unseen|yesno }}</td> -->
-	<!--       </tr> -->
-	<!--     {% endfor %} -->
-
-	<!--   </table> -->
-
-	<!-- </div> -->
       </div>
     </div>
 

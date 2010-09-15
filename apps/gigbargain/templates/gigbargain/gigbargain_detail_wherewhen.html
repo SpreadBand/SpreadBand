@@ -32,8 +32,11 @@
 
   {% with gigbargain.venue as venue %}
 
+    <h3>{% trans "Where" %}</h3>
+
+    <div class="grid_7 alpha omega">
     <!-- Venue vcard -->
-    <div class="vcard">
+    <div id="venue" class="vcard {% if gigbargain.macro_state == 'draft' or gigbargain.macro_state == 'draft_ok' %}notwarned{%else%}ready{%endif%}">
       {% staticfile '/images/venue/no_picture.png' as no_picture %}
       <img id="venue-picture" width='80px' height='80px' src="{{ venue.pictures.avatar.avatar_image.url|default:no_picture }}" alt="picture of {{ venue.name }}" class="photo"/>
 
@@ -41,14 +44,14 @@
 	<div id="venue-reason-content">{{ gigbargain.venue_reason }}</div>
       {% endif %}
 
-      <a class="url uid" href="{{ venue.get_absolute_url }}">
+      <a class="url uid fancybox" href="{{ venue.get_absolute_url }}">
 	<div class="org fn">
 	  <span class="organization-name">{{ venue|capfirst }}</span>
 	</div>
       </a>
 
       <div class="adr">
-	<span class="locality">{{ venue.city }}</span>,
+	<span class="locality">{{ venue.city }}</span>
 	<span class="country-name">{{ venue.country.name }}</span>
       </div>
 
@@ -57,11 +60,16 @@
 	  {{ venue_tags|join:", " }}
       </div>
     </div>
+    </div>
   {% endwith %}
 
-  When: {{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }} (in {{ gigbargain.date|timeuntil }})<br/>
-  Opens: {{ gigbargain.opens_at }}, Closes: {{ gigbargain.closes_at }}
-  [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}">Venue, change that</a>]
+  <div class="clear"></div>
+
+  <h3>{% trans "When" %}</h3>
+  <strong>{{ gigbargain.date|date:'l'|capfirst }} {{ gigbargain.date }}</strong> 
+  {% blocktrans with gigbargain.date|timeuntil as time_left %}(in {{ time_left }}){% endblocktrans %}<br/>
+  <!-- {% trans "Opens at:" %} {{ gigbargain.opens_at|default:"??" }}, {% trans "Closes at:" %} {{ gigbargain.closes_at|default:"??" }} 
+  [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}">Venue, change that</a>] -->
 
 </div>
 

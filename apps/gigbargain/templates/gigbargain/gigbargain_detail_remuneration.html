@@ -9,7 +9,11 @@ $(document).ready(function() {
  	    {% for band in gigbargain.gigbargainband_set.concurring %}
 	    {
  		label: '{{ band.band.name }}',
+		{% if gigbargain.remuneration == 'PERC' %}
+		data: {{ band.percentage }}
+		{% else %}
 		data: {{ band.amount }}
+		{% endif %}
 	    }{% if not forloop.last %},{%endif%}
 	    {% endfor %}
 	];
@@ -21,7 +25,7 @@ $(document).ready(function() {
 	       series: {
 		   pie: { show: true, 
 			  innerRadius: 0.3,
-			  radius: 0.95,
+			  radius: 0.90,
 			  stroke: { color: '#666' },
 			  label: {
 			      show: true,
@@ -55,7 +59,9 @@ $(document).ready(function() {
   {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
     {% for band in managed_bands %}
       {% if band.state == 'negociating' %}
-	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-edit"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}:{% endif %}{% trans "Edit" %}</span></a>
+      {% else %}
+	<a href="javascript:;" class="minibutton btn-edit disabled button-tip" title="{% trans "You have to unlock your part to edit" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -67,14 +73,16 @@ $(document).ready(function() {
 
     
     {% if not gigbargain.remuneration %}
-      Remuneration type is not set [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}">Venue, set it</a>].
+      {% trans "Remuneration type is not set" %} [<a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}">Venue, set it</a>].
+    {% else %}{% if gigbargain.remuneration == 'NONE' %}
+    {% trans "You have chosen not to remunerate artists. You can change that here." %}
     {% else %}
       {% trans "Type of remuneration:" %} {{ gigbargain.get_remuneration_display }}
+
+      <div id="remuneration-graph"></div>
+      
+      <div id="remuneration-legend"></div>
+      {% endif %}
     {% endif %}
-    
-
-    <div id="remuneration-graph"></div>
-
-    <div id="remuneration-legend"></div>
 
 </div>

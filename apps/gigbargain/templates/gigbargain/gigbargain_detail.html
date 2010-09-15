@@ -5,6 +5,7 @@
 {% load threadedcomments_tags %}
 {% load activity_tags %}
 {% load django_static %}
+{% load i18n %}
 
 {% block title %}
 Gigbargain - {{ gigbargain.venue.name }} ({{ gigbargain.date }})
@@ -268,8 +269,8 @@ $(document).ready(function() {
 
     <!-- Title -->
     <div id="gigbargain-title" class="grid_15 alpha omega">
-      <h1>Gig Bargain {% if gigbargain.name %}({{ gigbargain.name }}){% endif %} / {{ gigbargain.date }} - {{ gigbargain.venue.name|capfirst }}, {{ gigbargain.venue.city }}, {{ gigbargain.venue.country }}</h1>
-      with
+      <h1>{{ gigbargain.date }} - <a href="{{ gigbargain.venue.get_absolute_url }}">{{ gigbargain.venue.name|capfirst }}</a> ({{ gigbargain.venue.city|default:"Somewhere" }}, {{ gigbargain.venue.country|default:"Earth" }})</h1>
+      {% trans "with" %}
       {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
 	<a href="{{ gigbargainband.band.get_absolute_url }}">{{ gigbargainband.band.name }}</a>{% if not forloop.last %},{% else %}.{% endif %}
       {% endfor %}
@@ -278,13 +279,13 @@ $(document).ready(function() {
     <!-- Progress bar -->
     <div class="grid_8 alpha">
       <ul id="mainNav" class="fiveStep">
-	<li class="{% if gigbargain_mstate == 0 %}current{% else %}{% if gigbargain_mstate == 1 %}lastDone{% else %}{% if gigbargain_mstate > 0 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title="Yeah yeah, draft"><em>Draft</em></a></li>
+	<li class="{% if gigbargain_mstate == 0 %}current{% else %}{% if gigbargain_mstate == 1 %}lastDone{% else %}{% if gigbargain_mstate > 0 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title="Yeah yeah, draft"><em>{% trans "Draft" %}</em></a></li>
 
-	<li class="{% if gigbargain_mstate == 1 %}current{% else %}{% if gigbargain_mstate == 2 %}lastDone{% else %}{% if gigbargain_mstate > 1 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title=""><em>Submitted</em></a></li>
+	<li class="{% if gigbargain_mstate == 1 %}current{% else %}{% if gigbargain_mstate == 2 %}lastDone{% else %}{% if gigbargain_mstate > 1 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title=""><em>{% trans "Submitted" %}</em></a></li>
 
-	<li class="{% if gigbargain_mstate == 2 %}current{% else %}{% if gigbargain_mstate == 3 %}lastDone{% else %}{% if gigbargain_mstate > 2 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title=""><em>Negociation</em></a></li>
+	<li class="{% if gigbargain_mstate == 2 %}current{% else %}{% if gigbargain_mstate == 3 %}lastDone{% else %}{% if gigbargain_mstate > 2 %}done{% else %}mainNavNoBg{% endif %}{% endif %}{% endif %}"><a title=""><em>{% trans "Negociation" %}</em></a></li>
 
-	<li class="{% if gigbargain_mstate == 3 %}current{% else %}{% if gigbargain_mstate > 3 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>Finished</em></a></li>
+	<li class="{% if gigbargain_mstate == 3 %}current{% else %}{% if gigbargain_mstate > 3 %}done{% else %}mainNavNoBg{% endif %}{% endif %}"><a title=""><em>{% trans "Finished" %}</em></a></li>
 
       </ul>
     </div>
@@ -351,40 +352,43 @@ $(document).ready(function() {
 
       <!-- Latest activity -->
       <div id="latest-activity" class="grid_3 alpha omega">
-	  <h3>Latest activity</h3>
+	  <h3>{% trans "Latest activity" %}</h3>
 
 	  <ul>
 	    {% for action in latest_activity %}
 	      <li>{% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
 	    {% endfor %}
 	  </ul>
+      </div>
 
-	  <h3>Latest changes</h3>
-	  <ul>
-	    {% for old_version in old_versions %}
-	      {% with old_version.revision as revision %}
-		<li>{{ revision.date_created }} - {{ revision.comment }}, by <a href="{{ revision.user.get_absolute_url }}">{{ revision.user }}</a></li>
-	      {% endwith %}
-	    {% endfor %}
-	  </ul>
-	</div>
+      <div id="latest-changes" class="grid_3 alpha omega">
+	<h3>{% trans "Latest changes" %} (WIP)</h3>
+	<ul>
+	  {% for old_version in old_versions %}
+	  {% with old_version.revision as revision %}
+	  <li>{{ revision.date_created }} - {{ revision.comment }}, by <a href="{{ revision.user.get_absolute_url }}">{{ revision.user }}</a></li>
+	  {% endwith %}
+	  {% endfor %}
+	</ul>
+      </div>
 
 
-	<!-- Latest comments -->
-	<div class="grid_3 alpha omega">
-	  {% get_comment_count for gigbargain as comment_count %}
-	    
-	    <h3>Latest comments ({{ comment_count }})</h3>
-	    {% get_comment_list for gigbargain as comments %}
-	      
-	      <ul>
-		{% for comment in comments|fill_tree|annotate_tree %}
-		  <li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name|default:comment.user.username }}</a> said : {{ comment.comment }}</li>
-		{% endfor %}
-	      </ul>
-	</div>
+      <!-- Latest comments -->
+      <div id="latest-comments" class="grid_3 alpha omega">
+	{% get_comment_count for gigbargain as comment_count %}
+	
+	<h3>{% trans "Latest comments" %} ({{ comment_count }})</h3>
+	{% get_comment_list for gigbargain as comments %}
+	
+	<ul>
+	  {% for comment in comments|fill_tree|annotate_tree %}
+	  <li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name|default:comment.user.username }}</a> said : {{ comment.comment }}</li>
+	  {% endfor %}
+	</ul>
+      </div>
+    </div>
     </div> <!-- end of sidebar -->
-
+    
   </div>
 </div>
 {% endblock %}

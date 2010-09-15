@@ -7,42 +7,54 @@
     {% if gigbargain.state == 'draft' %}
       <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft"/>
       <div class="title">{% trans "Draft" %}</div>
-      <div class="text">This is a draft. You can now <strong>invite bands</strong>, <strong>fill in your details</strong> and then <strong>submit</strong> this bargain.</div>
+      <div class="text">
+	{% blocktrans %}
+	  This is a draft. You can now <strong>invite bands</strong>, <strong>fill in your details</strong> and then <strong>submit</strong> this bargain.
+	{% endblocktrans %}
+      </div>
     {% else %}
       {% if gigbargain.state == 'draft_ok' %}
 	<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft ok"/>
 	<div class="title">{% trans "Draft ready" %}</div>
-	<div class="text">This draft is <strong>ready to be submitted</strong>.</div>
+	<div class="text">
+	  {% blocktrans %}
+	    This draft is <strong>ready to be submitted</strong>.
+	  {% endblocktrans %}
+	</div>
       {% else %}
 	{% if gigbargain.state == 'complete_proposed_to_venue' %}
 	  <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="complete proposed to venue"/>
 	  <div class="title">{% trans "Submitted to venue" %}</div>
-	  <div class="text">This bargain was submitted to <strong>{{ gigbargain.venue.name }}</strong>. You now have to wait for it to reply.</div>
+	  <div class="text">
+	    {% blocktrans with gigbargain.venue.name as venue_name %}
+	      This bargain was submitted to <strong>{{ venue_name }}</strong>. You now have to wait for it to reply.
+	    {% endblocktrans %}
+	  </div>
 	{% else %}
 	  {% if gigbargain.state == 'need_venue_confirm' %}
 	    <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="need venue confirmation"/>
 	    <div class="title">{% trans "Submitted to venue" %}</div>
-	    <div class="text">This bargain was submitted to <strong>{{ gigbargain.venue.name }}</strong></div>
+	    <div class="text">{% blocktrans with gigbargain.venue.name as venue_name %}This bargain was submitted to <strong>{{ venue_name }}</strong>{% endblocktrans %}</div>
 	  {% else %}
 	    {% if gigbargain.state == 'band_nego' %}
 	      <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="band negociations"/>
 	      <div class="title">{% trans "Band negociations" %}</div>
-	      <div class="text">Bands now have to negociate their terms. You should <strong>edit your terms</strong> and <strong>lock your part</strong> once you're ready.</div>
+	      <div class="text">{% trans "Bands now have to negociate their terms. You should <strong>edit your terms</strong> and <strong>lock your part</strong> once you're ready." %}</div>
 	    {% else %}
 	      {% if gigbargain.state == 'band_ok' %}
 		<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="band ok"/>
 		<div class="title">{% trans "Band negociations finished" %}</div>
-		<div class="text">Bands have finished negociating. You have to <strong>wait for the venue to reply</strong>.</div>
+		<div class="text">{% trans "Bands have finished negociating. You have to <strong>wait for the venue to reply</strong>." %}</div>
 	      {% else %}
 		{% if gigbargain.state == 'concluded' %}
 		  <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="concluded"/>
 		  <div class="title">{% trans "Submitted" %}</div>
-		  <div class="text">This bargain is concluded. You can see <a href="{{ gigbargain.gig.get_absolute_url }}">the produced gig here</a>.</div>
+		  <div class="text">{% blocktrans with gigbargain.gig.get_absolute_url as gigbargain_url %}This bargain is concluded. You can see <a href="{{ gigbargain_url }}">the produced gig here</a>.{% endblocktrans %}</div>
 		{% else %}
 		  {% if gigbargain.state == 'declined' %}
 		    <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="declined"/>
 		    <div class="title">{% trans "Refused" %}</div>
-		    <div class="text">This bargain was refused by the venue.</div>
+		    <div class="text">{% trans "This bargain was refused by the venue." %}</div>
 		  {% endif %}
 		{% endif %}
 	      {% endif %}
@@ -60,21 +72,21 @@
     {% if is_venue_managed %}
 
       {% if gigbargain.state == 'band_ok' %}
-	<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Conclude</span></a>
-	<a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart the negociations"><span><span class="icon"></span>Renegociate</span></a>    
-	<a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Decline</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>{% trans "Conclude" %}</span></a>
+	<a href="{% url gigbargain:gigbargain-venue-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart the negociations"><span><span class="icon"></span>{% trans "Renegociate" %}</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>{% trans "Decline" %}</span></a>    
       {% endif %}
 
       {% if gigbargain.state == 'complete_proposed_to_venue' %}
 
-	<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>Accept</span></a>    
-	<a href="{% url gigbargain:gigbargain-venue-enter gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Enter the negociations"><span><span class="icon"></span>Negotiate</span></a>    
-	<a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Refuse</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-conclude gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Accept the terms"><span><span class="icon"></span>{% trans "Accept" %}</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-enter gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Enter the negociations"><span><span class="icon"></span>{% trans "Negotiate" %}</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-decline gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>{% trans "Refuse" %}</span></a>    
       {% endif %}
 
       {% if gigbargain.state == 'need_venue_confirm' %}
-	<a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Go on with the bands that have accepted"><span><span class="icon"></span>Begin negociations</span></a>    
-	<a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>Abort</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-confirm-bands gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Go on with the bands that have accepted"><span><span class="icon"></span>{% trans "Begin negociations" %}</span></a>    
+	<a href="{% url gigbargain:gigbargain-venue-cancel gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Refuse and close this bargain"><span><span class="icon"></span>{% trans "Abort" %}</span></a>    
       {% endif %}
     {% endif %}
 
@@ -82,8 +94,8 @@
 
     {% if managed_bands|length %}
       {% if gigbargain.state == 'draft_ok' %}
-	<a href="{% url gigbargain:gigbargain-band-draft-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart negociations"><span><span class="icon"></span>Renegociate</span></a>
-	<a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Send this proposal to the venue"><span><span class="icon"></span>Submit to {{ gigbargain.venue.name }}</span></a>
+	<a href="{% url gigbargain:gigbargain-band-draft-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart negociations"><span><span class="icon"></span>{% trans "Renegociate" %}</span></a>
+	<a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Send this proposal to the venue"><span><span class="icon"></span>{% blocktrans with gigbargain.venue.name as venue_name %}Submit to {{ venue_name }}{% endblocktrans %}</span></a>
       {% endif %}
       
     {% endif %}
@@ -92,22 +104,22 @@
     {% for band in managed_bands %}
 
       {% if band.state == 'waiting' %}
-	<a href="{% url gigbargain:gigbargain-band-enter gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to bargain with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Enter negociations</span></a>
-	<a href="{% url gigbargain:gigbargain-band-refuse gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Refuse to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: Refuse proposition</span></a>
+	<a href="{% url gigbargain:gigbargain-band-enter gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Accept to bargain with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: {% trans "Enter negociations" %}</span></a>
+	<a href="{% url gigbargain:gigbargain-band-refuse gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Refuse to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: {% trans "Refuse proposition" %}</span></a>
       {% endif %}
 
       {% if gigbargain.state == 'band_nego' or gigbagain.state == 'band_ok' or gigbargain.state == 'draft' or gigbargain.state == 'draft_ok' %}
 	{% if band.state == 'negociating' %}
-	  <a href="{% url gigbargain:gigbargain-band-part-lock gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Lock the terms related to your band"><span><span class="icon"></span>{{ band.band.name }}: Lock your part</span></a>
+	  <a href="{% url gigbargain:gigbargain-band-part-lock gigbargain.uuid band.band.slug %}" class="minibutton btn-download"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}: {% endif %}{% trans "Lock your part" %}</span></a>
 	{% else %}
 	  {% if band.state == 'part_validated' %}
-	    <a href="{% url gigbargain:gigbargain-band-part-unlock gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Unlock the terms related to your band"><span><span class="icon"></span>{{ band.band.name }}: Unlock your part</span></a>
+	    <a href="{% url gigbargain:gigbargain-band-part-unlock gigbargain.uuid band.band.slug %}" class="minibutton btn-download"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}: {% endif %}{% trans "Unlock your part" %}</span></a>
 	  {% endif %}
 	{% endif %}
 	      {% endif %}
 
 	    {% endfor %}
 
-	    <!-- <a href="{% url gigbargain:gigbargain-band-kick gigbargain.uuid 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>Kick</span></a> -->
+	    <!-- <a href="{% url gigbargain:gigbargain-band-kick gigbargain.uuid 'lymbago' %}" class="minibutton btn-kick"><span><span class="icon"></span>{% trans "Kick" %}</span></a> -->
 	  </div>
 	</div>

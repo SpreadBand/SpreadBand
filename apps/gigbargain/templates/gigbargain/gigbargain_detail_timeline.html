@@ -15,7 +15,9 @@
       {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
 	{% for band in managed_bands %}
 	  {% if band.state == 'negociating' %}
-	    <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-fork"><span><span class="icon"></span>{{ band.band.name }}: Edit</span></a>
+	    <a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-edit"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}:{% endif %}{% trans "Edit" %}</span></a>
+	  {% else %}
+	    <a href="javascript:;" class="minibutton btn-edit disabled button-tip" title="{% trans "You have to unlock your part to edit" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
 	  {% endif %}
 	{% endfor %}
       {% endif %}
@@ -53,7 +55,7 @@
 	    <span class="vevent">
 	      <abbr class="dtstart" title="{{ gig.start|date:'c' }}">{{ gig.start }}</abbr> --
 	      <abbr class="dtend" title="{{ gig.end|date:'c' }}">{{ gig.end }}</abbr> :
-	      <span class="summary">{{ gig.band.name }} plays during</span>
+	      <span class="summary">{% blocktrans with gig.band.name as band_name %}{{ band_name }} plays during{% endblocktrans %}</span>
 	      <abbr class="duration" title="{{ gig.duration|iso8601 }}">{{ gig.duration|timedelta }}</abbr>
 	    </span>
 	  </li>
@@ -62,13 +64,13 @@
     </div>
     
     {% if not timeline.bands|length %}
-      No band have already set when they play. <strong>Click edit</strong> to set it for your band.
+      {% trans "No band have already set when they play. <strong>Click edit</strong> to set it for your band." %}
     {% endif %}
     
     {% for gig in timeline.bands %}
       {% if not forloop.first %}
 	{% if gig.time_before_previous.seconds < 600 %}
-	  Warning : {{ gig.band.name }} has less than 10 minutes to setup its scene !
+	  {% trans "Warning:" %} {{ gig.band.name }} has less than 10 minutes to setup its scene !
 	{% endif %} 
       {% endif %}
     {% endfor %}

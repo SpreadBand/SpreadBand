@@ -63,6 +63,64 @@ img.comments {
     text-align: right;
 }
 
+/*-- where/when --*/
+#venue {
+    height: 108px;
+    width: 296px;
+    padding-left: 105px;
+    background-repeat: no-repeat;
+
+    margin-bottom: 10px;
+}
+
+.ready {
+    background-image:url("../../images/bargain/greenbox.png");
+}
+
+.notready {
+    background-image:url("../../images/bargain/orangebox.png");
+}
+
+.notwarned {
+    background-image:url("../../images/bargain/greybox.png");
+}
+
+#venue .photo {
+    position: absolute;
+    left: 10px;
+    top: 13px;
+    border: 1px white solid;
+    width: 80px;
+    height: 80px;
+}
+
+#venue .country-name {
+    visibility: hidden;
+    position: absolute;
+    left: -100000px;
+}
+
+#venue .organization-name {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+}
+
+#venue .tags {
+    position: absolute;
+    font-style: italic;
+    top: 70px;
+}
+
+#venue .adr {
+    font-size: 1.1em;
+    position: absolute;
+    top: 45px;
+}
+
+
 
 /*-- bands --*/
 .band {
@@ -83,6 +141,11 @@ img.comments {
 .band .notready {
     background-image:url("../../images/bargain/orangebox.png");
 }
+
+.band .invited {
+    background-image:url("../../images/bargain/greybox.png");
+}
+
 
 
 .band .photo {
@@ -171,6 +234,26 @@ img.comments {
     font-style: italic;
     text-align: left;
 }
+
+/*-- latest changes --*/
+#latest-changes {
+    margin-top: 15px;
+}
+
+#latest-changes h3 {
+    font-variant: small-caps;
+}
+
+
+/*-- latest comments --*/
+#latest-comments {
+    margin-top: 15px;
+}
+
+#latest-comments h3 {
+    font-variant: small-caps;
+}
+
 
 
 /*-- DASHBOARD --*/
