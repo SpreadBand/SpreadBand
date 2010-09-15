@@ -2,37 +2,112 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-10 13:29+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-13 11:11+0200\n"
+"PO-Revision-Date: 2010-09-14 00:28\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: models.py:41
 msgid "Capacity of the room"
-msgstr ""
+msgstr "Jauge"
 
 #: templates/venue/picture_new.html:11
 msgid "Upload"
-msgstr ""
+msgstr "Télécharger"
+
+#: templates/venue/venue_detail.html:105
+msgid "<strong>Ambiance</strong>:"
+msgstr "<strong>Ambiance :</strong>"
+
+#: templates/venue/venue_detail.html:107
+msgid "No ambiance."
+msgstr "Pas d'ambiance particulière"
+
+#: templates/venue/venue_detail.html:112
+msgid "<strong>Capacity</strong>:"
+msgstr "<strong>Jauge :</strong>"
+
+#: templates/venue/venue_detail.html:117
+msgid "Members"
+msgstr "Membres"
+
+#: templates/venue/venue_detail.html:118 templates/venue/venue_detail.html:180
+#: templates/venue/venue_detail.html:221 templates/venue/venue_detail.html:241
+#: templates/venue/venue_detail.html:261
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/venue/venue_detail.html:133
+msgid "Social Networks"
+msgstr "Réseaux sociaux"
+
+#: templates/venue/venue_detail.html:145
+msgid "Websites"
+msgstr "Sites web"
+
+#: templates/venue/venue_detail.html:157
+msgid "Latest Bands"
+msgstr "Derniers groupes"
+
+#: templates/venue/venue_detail.html:173
+msgid "Venue"
+msgstr "Lieux de concerts"
+
+#: templates/venue/venue_detail.html:179
+msgid "Description"
+msgstr "Description"
+
+#: templates/venue/venue_detail.html:185
+msgid "Read more"
+msgstr "Lire la suite"
+
+#: templates/venue/venue_detail.html:187
+msgid "No description."
+msgstr "Pas de description."
+
+#: templates/venue/venue_detail.html:198
+msgid "Calendar"
+msgstr "Calendrier"
+
+#: templates/venue/venue_detail.html:220
+msgid "Pictures"
+msgstr "Photos"
+
+#: templates/venue/venue_detail.html:240
+msgid "Video"
+msgstr "Vidéo"
+
+#: templates/venue/venue_detail.html:250
+msgid "No video has been set."
+msgstr "Aucune vidéo n'a été ajoutée."
+
+#: templates/venue/venue_detail.html:260
+msgid "Location"
+msgstr "Localisation"
+
+#: templates/venue/venue_detail.html:275
+msgid "Latest reviews"
+msgstr "Dernières critiques"
 
 #: templates/venue/venue_list.html:7
 msgid "Venues"
-msgstr ""
+msgstr "Lieux de concerts"
 
 #: templates/venue/venue_list.html:14
 msgid "Add new"
-msgstr ""
+msgstr "Ajouter un nouveau"
 
 #: templates/venue/venue_new.html:23
 msgid "Submit"
-msgstr ""
+msgstr "Envoyer"

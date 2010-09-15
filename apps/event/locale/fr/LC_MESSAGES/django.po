@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-14 09:42+0200\n"
+"PO-Revision-Date: 2010-09-13 17:26\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+
+#: models.py:15
+msgid "Venue"
+msgstr "Lieu de concerts"
+
+#: models.py:19 templates/event/gig_detail.html:27
+msgid "Bands"
+msgstr "Groupes"
+
+#: templates/event/band_timeline.html:23
+msgid "Download As ICS"
+msgstr "Télécharger en ICS"
+
+#: templates/event/band_timeline.html:25
+msgid "Add Gig"
+msgstr "Ajouter un concert"
+
+#: templates/event/band_timeline.html:34
+msgid "Timeline"
+msgstr "Timeline"
+
+#: templates/event/band_timeline.html:52
+msgid "Filter"
+msgstr "Filtre"
+
+#: templates/event/band_timeline.html:68
+msgid "Calendar"
+msgstr "Agenda"
+
+#: templates/event/create_event.html:15 templates/event/create_event.html:21
+msgid "New Gig"
+msgstr "Nouveau concert"
+
+#: templates/event/gig_detail.html:10
+#, fuzzy
+msgid "Gig"
+msgstr "Ajouter un concert"
+
+#: templates/event/gig_detail.html:15
+msgid "Where and When"
+msgstr ""

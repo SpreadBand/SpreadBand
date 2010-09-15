@@ -2,25 +2,122 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-10 13:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-14 09:41+0200\n"
+"PO-Revision-Date: 2010-09-14 11:02\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
+#: models.py:11
+msgid "Question"
+msgstr "Question"
+
+#: models.py:12
+msgid "Problem"
+msgstr "Problème"
+
+#: models.py:13
+msgid "Idea"
+msgstr "Idée"
+
+#: models.py:17
+msgid "New"
+msgstr "Nouveau"
+
+#: models.py:18
+msgid "Assigned"
+msgstr "Attribué"
+
+#: models.py:19
+msgid "Won't Fix"
+msgstr "Ne fixera pas"
+
+#: models.py:20
+msgid "Re-opened"
+msgstr "Ré-ouvert"
+
+#: models.py:21
+msgid "Closed"
+msgstr "Fermé"
+
+#: models.py:33
+msgid "Kind"
+msgstr "Genre"
+
 #: models.py:35
+msgid "Title"
+msgstr "Titre"
+
+#: models.py:37
+msgid "Text"
+msgstr "Texte"
+
+#: models.py:38
 msgid "Description of the feedback"
-msgstr ""
+msgstr "Description du commentaire"
 
 #: views.py:31
 msgid "Thanks for you feedback !"
-msgstr ""
+msgstr "Merci pour votre commentaire !"
+
+#: templates/backcap/feedback_list.html:7
+msgid "Help Center"
+msgstr "Centre d'aide"
+
+#: templates/backcap/feedback_list.html:19
+msgid "Feedbacks"
+msgstr "Commentaires"
+
+#: templates/backcap/feedback_list.html:25
+msgid "This is all the feedbacks submitted by you, the users. Thanks for that."
+msgstr "Voici tous les commentaires des utilisateurs. Merci à tous !"
+
+#: templates/backcap/feedback_list.html:29
+msgid "New feedback"
+msgstr "Nouveau commentaire"
+
+#: templates/backcap/feedback_list.html:94
+msgid "Display"
+msgstr "Afficher"
+
+#: templates/backcap/feedback_list.html:97
+msgid "All"
+msgstr "Tous"
+
+#: templates/backcap/feedback_list.html:98
+msgid "Questions"
+msgstr "Questions"
+
+#: templates/backcap/feedback_list.html:99
+msgid "Problems"
+msgstr "Problèmes"
+
+#: templates/backcap/feedback_list.html:100
+msgid "Ideas"
+msgstr "Idées"
+
+#: templates/backcap/feedback_new.html:4
+msgid "Leave feedback"
+msgstr "Laisser un commentaire"
+
+#: templates/backcap/feedback_tab.html:32
+msgid "Suggestions"
+msgstr "Suggestions"
+
+#: templates/backcap/feedback_tab.html:34
+msgid "Start typing a title"
+msgstr "Commencez à saisir un titre"
+
+#: templates/backcap/feedback_tab.html:41
+msgid "See all feedbacks"
+msgstr "Voir tous les commentaires"

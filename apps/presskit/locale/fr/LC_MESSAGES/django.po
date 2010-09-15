@@ -1,0 +1,208 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-11 21:48+0200\n"
+"PO-Revision-Date: 2010-09-13 16:42\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+
+#: templates/presskit/mypresskit.html:24
+msgid "Presskit"
+msgstr "PressKit"
+
+#: templates/presskit/mypresskit.html:31
+msgid ""
+"\n"
+"      This is a <strong>preview</strong> of how venues and bands will see your band. Make sure to <strong>edit all parts</strong> !\n"
+"      "
+msgstr ""
+"\n"
+"Ceci est un <strong>aperçu</strong> de ce que les lieux de concerts et les autres groupes verrons de votre groupe. Assurez-vous <strong> d'avoir rempli toutes les zones !</strong>"
+
+#: templates/presskit/presskit_content.html:19
+msgid "<strong>Genres</strong>:"
+msgstr "<strong>Genres</strong> :"
+
+#: templates/presskit/presskit_content.html:21
+msgid "No genre."
+msgstr "Aucun genre."
+
+#: templates/presskit/presskit_content.html:27
+msgid "<strong>Influences</strong>:"
+msgstr "<strong>Influences</strong> :"
+
+#: templates/presskit/presskit_content.html:29
+msgid "No influences."
+msgstr "Aucune influence."
+
+#: templates/presskit/presskit_content.html:35
+msgid "Members"
+msgstr "Membres"
+
+#: templates/presskit/presskit_content.html:36
+#: templates/presskit/presskit_content.html:69
+#: templates/presskit/presskit_content.html:87
+#: templates/presskit/presskit_content.html:126
+#: templates/presskit/presskit_content.html:217
+#: templates/presskit/presskit_content.html:261
+#: templates/presskit/presskit_content.html:288
+#: templates/presskit/presskit_content.html:314
+#: templates/presskit/presskit_content.html:336
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/presskit/presskit_content.html:52
+msgid "Latest Gigs"
+msgstr "Derniers concerts"
+
+#: templates/presskit/presskit_content.html:62
+msgid "This band has no recent gigs."
+msgstr "Ce groupe n'a aucun concert récent."
+
+#: templates/presskit/presskit_content.html:68
+msgid "Social Networks"
+msgstr "Réseaux sociaux"
+
+#: templates/presskit/presskit_content.html:78
+msgid "No social profile"
+msgstr "Aucun profil dans les réseaux sociaux"
+
+#: templates/presskit/presskit_content.html:86
+msgid "Websites"
+msgstr "Sites web"
+
+#: templates/presskit/presskit_content.html:96
+msgid "No website"
+msgstr "Aucun site web"
+
+#: templates/presskit/presskit_content.html:104
+msgid "A few stats"
+msgstr "Quelques statistiques"
+
+#: templates/presskit/presskit_content.html:104
+msgid "Work-in-progress, don't expect it to work :)"
+msgstr "En travaux, n'espérez pas le faire fonctionner:)"
+
+#: templates/presskit/presskit_content.html:107
+#, python-format
+msgid " Active since %(date)s"
+msgstr "Actif depuis %(date)s "
+
+#: templates/presskit/presskit_content.html:109
+msgid "Already played X gigs"
+msgstr "Déjà joué X concerts"
+
+#: templates/presskit/presskit_content.html:110
+msgid "Played with Y other bands"
+msgstr "A joué avec Y autres groupes"
+
+#: templates/presskit/presskit_content.html:111
+msgid "Played at Z venues"
+msgstr "A joué dans Z lieux de concerts"
+
+#: templates/presskit/presskit_content.html:119
+#: templates/presskit/track_add.html:8 templates/presskit/track_list.html:8
+msgid "PressKit"
+msgstr "PressKit"
+
+#: templates/presskit/presskit_content.html:125
+msgid "Biography"
+msgstr "Biographie"
+
+#: templates/presskit/presskit_content.html:131
+msgid "Read more"
+msgstr "Lire la suite"
+
+#: templates/presskit/presskit_content.html:133
+msgid "No biography."
+msgstr "Aucune biographie."
+
+#: templates/presskit/presskit_content.html:216
+msgid "Location"
+msgstr "Localisation"
+
+#: templates/presskit/presskit_content.html:260
+msgid "Featured Tracks"
+msgstr "Morceaux en écoutes"
+
+#: templates/presskit/presskit_content.html:277
+msgid "You have not uploaded any tracks yet. You should do so if you want the venues to book you !"
+msgstr "Vous n'avez pas encore téléchargé de morceaux. Vous devriez le faire pour que les lieux de concerts vous programme !"
+
+#: templates/presskit/presskit_content.html:287
+msgid "Pictures"
+msgstr "Photos"
+
+#: templates/presskit/presskit_content.html:313
+#: templates/presskit/video_edit.html:20
+msgid "Video"
+msgstr "Vidéos"
+
+#: templates/presskit/presskit_content.html:323
+msgid "No video has been set."
+msgstr "Aucune vidéo n'a été ajoutée."
+
+#: templates/presskit/presskit_content.html:335
+msgid "Technical Sheet"
+msgstr "Fiche technique"
+
+#: templates/presskit/presskit_content.html:343
+msgid "No technical sheet."
+msgstr "Pas de fiche technique."
+
+#: templates/presskit/presskit_content.html:353
+msgid "Latest reviews"
+msgstr "Derniers avis"
+
+#: templates/presskit/track_add.html:8
+msgid "Add track"
+msgstr "Ajouter une piste"
+
+#: templates/presskit/track_add.html:11
+msgid "Sorry, only <strong>MP3</strong> format is supported right now. <strong>Ogg</strong> is coming soon !"
+msgstr "Désolé, seulement le format <strong>MP3</strong> est supporté pour le moment. <strong>Ogg</strong> arrive bientôt!"
+
+#: templates/presskit/track_list.html:8
+msgid "Featured tracks"
+msgstr "Morceaux en écoute"
+
+#: templates/presskit/track_list.html:13
+msgid "delete"
+msgstr "effacer"
+
+#: templates/presskit/track_list.html:18
+msgid "Add new track"
+msgstr "Ajouter une nouvelle piste"
+
+#: templates/presskit/video_edit.html:23
+msgid ""
+"\n"
+"    Paste here any link that points to a video resource. For example:\n"
+"    <a href=\"http://www.youtube.com/watch?v=uBZbhrm05qI\">http://www.youtube.com/watch?v=uBZbhrm05qI</a>\n"
+"    is a valid URL.\n"
+"    "
+msgstr ""
+"\n"
+"Coller un lien ici qui mène à une ressource vidéo. Par exemple: <a href=\"http://www.youtube.com/watch?v=uBZbhrm05qI\">http://www.youtube.com/watch?v=uBZbhrm05qI</a> est une URL valide."
+
+#: templates/presskit/video_edit.html:32
+msgid "Update"
+msgstr "Mettre à jour"
+
+#~ msgid "Genres"
+#~ msgstr "Genres"
+
+#~ msgid "Influences"
+#~ msgstr "Influences"

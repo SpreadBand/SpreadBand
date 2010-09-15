@@ -2,84 +2,81 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-01 13:24+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-09-11 16:11\n"
+"Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
 
 #: settings.py:35
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: settings.py:36
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: external/registration/registration/registration/forms.py:38
 msgid "username"
-msgstr ""
+msgstr "nom d'utilisateur"
 
 #: external/registration/registration/registration/forms.py:41
 msgid "email address"
-msgstr ""
+msgstr "adresse e-mail"
 
 #: external/registration/registration/registration/forms.py:43
 msgid "password"
-msgstr ""
+msgstr "mot de passe"
 
 #: external/registration/registration/registration/forms.py:45
 msgid "password (again)"
-msgstr ""
+msgstr "mot de passe (à nouveau)"
 
 #: external/registration/registration/registration/forms.py:57
 msgid "This username is already taken. Please choose another."
-msgstr ""
+msgstr "Ce nom d'utilisateur est déjà pris. Choisissez-en un autre s'il vous plaît."
 
 #: external/registration/registration/registration/forms.py:69
 msgid "You must type the same password each time"
-msgstr ""
+msgstr "Vous devez taper le même mot de passe à chaque fois"
 
 #: external/registration/registration/registration/forms.py:98
 msgid "I have read and agree to the Terms of Service"
-msgstr ""
+msgstr "J'ai lu et j'accepte les Conditions d'utilisation"
 
 #: external/registration/registration/registration/forms.py:107
 msgid "You must agree to the terms to register"
-msgstr ""
+msgstr "Vous devez accepter les conditions d'enregistrement"
 
 #: external/registration/registration/registration/forms.py:123
-msgid ""
-"This email address is already in use. Please supply a different email "
-"address."
-msgstr ""
+msgid "This email address is already in use. Please supply a different email address."
+msgstr "Cette adresse email est déjà utilisée. Merci de fournir une adresse email différente. "
 
 #: external/registration/registration/registration/forms.py:149
-msgid ""
-"Registration using free email addresses is prohibited. Please supply a "
-"different email address."
-msgstr ""
+msgid "Registration using free email addresses is prohibited. Please supply a different email address."
+msgstr "Les inscriptions faites avec des adresses email poubelles sont interdites. Merci de nous donner une adresse email différente."
 
 #: external/registration/registration/registration/models.py:190
 msgid "user"
-msgstr ""
+msgstr "utilisateur"
 
 #: external/registration/registration/registration/models.py:191
 msgid "activation key"
-msgstr ""
+msgstr "clé d'activation"
 
 #: external/registration/registration/registration/models.py:196
 msgid "registration profile"
-msgstr ""
+msgstr "profil d'enregistrement"
 
 #: external/registration/registration/registration/models.py:197
 msgid "registration profiles"
-msgstr ""
+msgstr "profils d'enregistrement"
