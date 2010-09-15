@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load uni_form_tags %}
+{% load i18n %}
 
 {% block css %}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/jquery/autocomplete/jquery.autocomplete.css" />
@@ -10,12 +11,20 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.autocomplete.js"></script>
 {% endblock %}
 
+{% block title %}
+{{ band.name }} &raquo; {% trans "New Gig" %}
+{% endblock %}
+
 {% block content %}
 
-<h1>New gig</h1>
-
-<form method='POST' action='' class="uniForm">{% csrf_token %}
+<div id="text">
+  <h1>{% trans "New Gig" %}</h1>
+  
+  <form method='POST' action='' class="uniForm">{% csrf_token %}
   {{ gigform|as_uni_form }}
   <input type="submit">
-</form>
+  </form>
+
+</div>
+
 {% endblock %}
