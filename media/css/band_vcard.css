@@ -1,0 +1,44 @@
+.band-vcard {
+    height: 72px;
+    width: 160px;
+    background-repeat: no-repeat;
+    background-image:url("../../images/band/vcard_background.png");
+}
+
+.band-vcard > div {
+    text-align: left;
+    padding-top: 9px;
+}
+
+.band-vcard .photo {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 1px white solid;
+    width: 60px;
+    height: 60px;
+}
+
+.band-vcard .country-name {
+    visibility: hidden;
+    position: absolute;
+    left: -100000px;
+}
+
+.band-vcard .organization-name {
+    color: white;
+    font-size: 1.0em;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+.band-vcard .tags {
+    font-style: italic;
+    padding-left: 3px;
+    font-size: 0.9em;
+}
+
+.band-vcard .adr {
+    font-size: 0.9em;
+    padding-left: 3px;
+}
