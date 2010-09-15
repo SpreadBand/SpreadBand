@@ -1,3 +1,5 @@
+from datetime import date
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 
@@ -10,6 +12,7 @@ from venue.models import Venue
 from ..models import Gig
 from ..forms import GigCreateForm
 
+@login_required
 def gig_detail(request, year, month, day, slug):
     """
     Get details about a gig
@@ -22,6 +25,8 @@ def gig_detail(request, year, month, day, slug):
                                                  template_object_name='gig', 
                                                  )
 
+# XXX Security
+@login_required
 def gig_create(request, band_slug):
     """
     Create an event of type gig and links it to any involved actor
@@ -53,8 +58,8 @@ def gig_create(request, band_slug):
                               context_instance=RequestContext(request)
                               )
 
-from datetime import date
-
+# XXX Security
+@login_required
 def gig_cancel(request, year, month, day, slug):
     gig_date = date(int(year), int(month), int(day))
     gig = get_object_or_404(Gig, event_date=gig_date, slug=slug)
@@ -66,6 +71,8 @@ def gig_cancel(request, year, month, day, slug):
 
     return redirect(gig)
 
+# XXX Security
+@login_required
 def gig_uncancel(request, year, month, day, slug):
     gig_date = date(int(year), int(month), int(day))
     gig = get_object_or_404(Gig, event_date=gig_date, slug=slug)
@@ -128,6 +135,7 @@ class GigMonthlyHTMLCalendar(pythoncal.HTMLCalendar):
         return self.formatmonth(self._when.year, self._when.month)
 
 
+@login_required
 def band_calendar_detail(request, band_slug):
     """
     Show a calendar for a Band
@@ -151,6 +159,7 @@ def band_calendar_detail(request, band_slug):
                                    'monthly_calendar': monthly_calendar},
                     )
 
+@login_required
 def band_calendar_ics(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
@@ -163,6 +172,7 @@ def band_calendar_ics(request, band_slug):
                      start_time_field='start_time',
                      end_time_field='end_time')
 
+@login_required
 def venue_calendar_ics(request, venue_slug):
     venue = get_object_or_404(Venue, slug=venue_slug)
 
@@ -176,6 +186,7 @@ def venue_calendar_ics(request, venue_slug):
                      end_time_field='end_time')
 
 
+@login_required
 def venue_calendar_detail(request, venue_slug):
     """
     Show a calendar for a Venue
