@@ -1,6 +1,7 @@
 {% extends 'bands/base.html' %}
 
 {% load django_static  %}
+{% load i18n %}
 
 {% block css %}
   {{ block.super }}
@@ -20,14 +21,16 @@
 {% endblock %}
 
 {% block title %}
-  {{ band.name }} &raquo; Presskit
+  {{ band.name }} &raquo; {% trans "Presskit" %}
 {% endblock %}
 
 {% block band_content %}
 
   <div class="grid_15 alpha omega">
     <div id="top-notice">
+      {% blocktrans %}
       This is a <strong>preview</strong> of how venues and bands will see your band. Make sure to <strong>edit all parts</strong> !
+      {% endblocktrans %}
     </div>
   </div>
 
