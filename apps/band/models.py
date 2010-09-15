@@ -20,33 +20,42 @@ class Band(Actor):
     """
     class Meta:
         permissions = (
-            ('can_manage', 'Can manage this band'),
+            ('manage', _('Can manage this band')),
         )
 
         ordering = ('name',)
 
-    name = CharField(max_length=200)
+    name = CharField(verbose_name=_('Name'),
+                     max_length=200)
     
-    slug = models.SlugField(max_length=40, unique=True)
+    slug = models.SlugField(verbose_name=_('Slug'),
+                            max_length=40, unique=True)
 
-    founded_on = DateField(help_text=_('When the band was founded'),
+    founded_on = DateField(verbose_name=_('Founded on'),
+                           help_text=_('When the band was founded'),
                            blank=True,
                            null=True)
     
-    genres = TagField('Genres')
+    genres = TagField(verbose_name=_('Genres'))
 
-    influences = CharField(max_length=200, 
+    influences = CharField(verbose_name=_('Influences'),
+                           max_length=200, 
                            blank=True,
                            null=True)
 
-    city = CharField(max_length=100)
-    zipcode = CharField(max_length=50)
-    country = CountryField()
+    city = CharField(verbose_name=_('City'),
+                     max_length=100)
+
+    zipcode = CharField(verbose_name=_('Zipcode'),
+                        max_length=50)
+
+    country = CountryField(verbose_name=_('Country'))
     # pointer to geo informations
     place = ForeignKey(Place, null=True, blank=True)
 
 
-    biography = TextField(blank=True,
+    biography = TextField(verbose_name=_('Biography'),
+                          blank=True,
                           help_text=_('Band biography'))
 
 
@@ -54,7 +63,8 @@ class Band(Actor):
 
     members = ManyToManyField(User, through='BandMember', related_name='bands')
 
-    technical_sheet = TextField(blank=True, null=True)
+    technical_sheet = TextField(verbose_name=_('Technical Sheet'),
+                                blank=True, null=True)
 
     socialnetworks = generic.GenericRelation(SocialNetworkProfile,
                                              object_id_field="object_id",
@@ -152,9 +162,15 @@ class BandMember(models.Model):
     class Meta:
         unique_together = ('user', 'band')
 
-    user = ForeignKey(User, related_name='band_memberships')
+    user = ForeignKey(User, 
+                      verbose_name=_('user'),
+                      related_name='band_memberships')
+
     band = ForeignKey(Band, related_name='band_members')
-    roles = ManyToManyField(BandRole, related_name='roles')
+
+    roles = ManyToManyField(BandRole, 
+                            verbose_name=_('Roles'),
+                            related_name='roles')
 
     approved = BooleanField(default=False,
                             help_text=_('Whether the membership has been approved'))

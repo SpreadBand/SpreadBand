@@ -11,8 +11,13 @@ class Gig(Event):
     """
     A gig related to a Venue and one or more Bands
     """
-    venue = ForeignKey(Venue, related_name='gigs')
-    bands = ManyToManyField(Band, related_name='gigs')
+    venue = ForeignKey(Venue, 
+                       verbose_name=_('Venue'),
+                       related_name='gigs')
+
+    bands = ManyToManyField(Band, 
+                            verbose_name=_('Bands'),
+                            related_name='gigs')
 
     @models.permalink                                               
     def get_absolute_url(self):
