@@ -1,5 +1,13 @@
 {% extends 'bands/base.html' %}
 
+{% load i18n %}
+{% load django_static %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
+{% endblock %}
+
 {% block title %}
 {{ band.name }} | Calendar
 {% endblock %}
@@ -12,36 +20,62 @@ Calendar
 
 {% block band_content %}
 
-[ <a href="{% url event:band-calendar-ics band.slug %}">Download as ics</a> ]
+  <a href="{% url event:band-calendar-ics band.slug %}" class="minibutton btn-download" title="Download as ICS"><span><span class="icon"></span>{% trans "Download As ICS" %}</span></a>
 
-[ <a href="{% url event:gig-new band.slug %}">New gig</a> ]
+  <a href="{% url event:gig-new band.slug %}" class="minibutton" title="Download as ICS"><span><span class="icon"></span>{% trans "Add Gig" %}</span></a>
 
-<div class="clear">
-</div>
+  <div class="clear"></div>
 
-<div class="grid_9 alpha">
-<h5>Timeline</h5>
+  <div class="grid_9 alpha">
 
-{% include 'event/abstract_timeline.html' %}
-</div>
+    <div class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/gigbargain/timeline_ico.png' %}" alt="Timeline"/>
+	<h2>{% trans "Timeline" %} (WIP)</h2>
+      </div>
 
-<div class="grid_5 omega">
+      <div class="separator"></div>
 
-  <div class="grid_5 alpha omega" style="margin-bottom: 20px">
-    <h5>Search</h5>
-
-    When : ...<br>
-    Where : ...<br>
-    
+      <div class="content">
+	{% include 'event/abstract_timeline.html' %}
+	<div class="clear"></div>
+      </div>
+    </div>
   </div>
-
-  <div class="grid_5 alpha omega">
-    <h5>Calendar</h5>
     
-    {{ monthly_calendar.toHTML|safe }}
-  </div>
+  <div class="grid_5 omega">
 
-</div>
+    <div id="filter" class="grid_5 alpha omega">
+      <div class="sectionbox">
+	<div class="header">
+	 <img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Filter"/>
+	  <h2>{% trans "Filter" %} (WIP)</h2>
+	</div>
+	
+	<div class="separator"></div>
+
+	<div class="content">
+	  When : <strong>WIP</strong><br/>
+	  Where : <strong>WIP</strong><br/>
+	</div>
+      </div>
+   </div>
+      
+   <div id="calendar" class="grid_5 alpha omega">
+     <div class="sectionbox">
+       <div class="header">
+	 <img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="Calendar"/>	    
+	 <h2>{% trans "Calendar" %} (WIP)</h2>
+       </div>
+       <div class="separator"></div>
+       
+       <div class="fullcontent">
+	 {{ monthly_calendar.toHTML|safe }}
+       </div>
+     </div>
+   </div>
+   
+  </div>
 
 
 
