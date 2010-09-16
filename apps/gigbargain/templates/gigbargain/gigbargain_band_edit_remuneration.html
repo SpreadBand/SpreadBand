@@ -1,0 +1,29 @@
+{% extends 'ajax_page.html' %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block js %}
+  <script type="text/javascript">
+    function remuneration_edit() {
+	data = $('#remuneration-form').serializeObject(true);
+	Dajaxice.gigbargain.remuneration_edit('Dajax.process', {'gigbargainband_id': {{ gigbargainband.id }},
+								'form': data}
+					     );
+
+	return false;
+    }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+
+  <h3>{% blocktrans with gigbargainband.band.name as band_name %}Edit {{ band_name }} remuneration{% endblocktrans %}</h3>
+  
+  <form id="remuneration-form" method='POST' class='uniForm' action="{% url gigbargain:gigbargain-band-edit-remuneration gigbargain.uuid gigbargainband.band.slug %}">
+    {{ gigbargainband_form|as_uni_form }}
+    <input type="submit" value="{% trans "Update" %}" onclick="return remuneration_edit();"/>
+  </form>
+
+{% endblock %}
