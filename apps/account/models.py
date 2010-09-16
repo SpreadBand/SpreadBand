@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.db.models import ForeignKey, CharField, DateField, OneToOneField
 from django.db.models.signals import post_save
+from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
 
@@ -15,19 +16,22 @@ class UserProfile(models.Model):
     """
     A profile for a user
     """
-    genre_choices = (('M', 'Male'),
-                     ('F', 'Female'))
+    genre_choices = (('M', _('Male')),
+                     ('F', _('Female')))
 
     user = ForeignKey(User, unique=True)
-    birthdate = DateField(null=True, blank=True)
+    birthdate = DateField(verbose_name=_('Birthdate'),
+                          null=True, blank=True)
 
-    genre = CharField(max_length=1, blank=True,
+    genre = CharField(verbose_name=_('Genre'),
+                      max_length=1, blank=True,
                       choices=genre_choices)
 
-    country = CountryField()
-    timezone = TimeZoneField()
+    country = CountryField(verbose_name=_('Country'))
+    timezone = TimeZoneField(verbose_name=_('Timezone'))
 
-    town = CharField(max_length=50, blank=True)
+    town = CharField(verbose_name=_('Town'),
+                     max_length=50, blank=True)
 
     @property
     def age(self):
