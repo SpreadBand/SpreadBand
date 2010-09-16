@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-14 09:41+0200\n"
-"PO-Revision-Date: 2010-09-14 11:02\n"
+"POT-Creation-Date: 2010-09-16 19:51+0200\n"
+"PO-Revision-Date: 2010-09-16 10:29\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,11 +64,41 @@ msgstr "Texte"
 
 #: models.py:38
 msgid "Description of the feedback"
-msgstr "Description du commentaire"
+msgstr "Description du feedback"
 
 #: views.py:31
 msgid "Thanks for you feedback !"
-msgstr "Merci pour votre commentaire !"
+msgstr "Merci pour votre feedback !"
+
+#: templates/backcap/feedback_detail.html:73
+#, fuzzy
+msgid "Description:"
+msgstr "Question"
+
+#: templates/backcap/feedback_detail.html:77
+msgid "Comments"
+msgstr ""
+
+#: templates/backcap/feedback_detail.html:85
+msgid "Post a new comment"
+msgstr ""
+
+#: templates/backcap/feedback_detail.html:94
+msgid "Post"
+msgstr ""
+
+#: templates/backcap/feedback_detail.html:101
+msgid "This issue is"
+msgstr ""
+
+#: templates/backcap/feedback_detail.html:103
+msgid "Reported from:"
+msgstr ""
+
+#: templates/backcap/feedback_detail.html:109
+#: templates/backcap/feedback_tab.html:41
+msgid "See all feedbacks"
+msgstr "Voir tous les feedbacks"
 
 #: templates/backcap/feedback_list.html:7
 msgid "Help Center"
@@ -80,11 +110,11 @@ msgstr "Commentaires"
 
 #: templates/backcap/feedback_list.html:25
 msgid "This is all the feedbacks submitted by you, the users. Thanks for that."
-msgstr "Voici tous les commentaires des utilisateurs. Merci à tous !"
+msgstr "Voici tous les feedbacks des utilisateurs. Merci à tous !"
 
 #: templates/backcap/feedback_list.html:29
 msgid "New feedback"
-msgstr "Nouveau commentaire"
+msgstr "Nouveau feedback"
 
 #: templates/backcap/feedback_list.html:94
 msgid "Display"
@@ -108,7 +138,7 @@ msgstr "Idées"
 
 #: templates/backcap/feedback_new.html:4
 msgid "Leave feedback"
-msgstr "Laisser un commentaire"
+msgstr "Laisser un feedback"
 
 #: templates/backcap/feedback_tab.html:32
 msgid "Suggestions"
@@ -117,7 +147,3 @@ msgstr "Suggestions"
 #: templates/backcap/feedback_tab.html:34
 msgid "Start typing a title"
 msgstr "Commencez à saisir un titre"
-
-#: templates/backcap/feedback_tab.html:41
-msgid "See all feedbacks"
-msgstr "Voir tous les commentaires"

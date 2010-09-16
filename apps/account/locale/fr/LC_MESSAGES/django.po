@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 21:48+0200\n"
-"PO-Revision-Date: 2010-09-14 00:26\n"
+"POT-Creation-Date: 2010-09-16 10:39+0200\n"
+"PO-Revision-Date: 2010-09-16 11:26\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,34 @@ msgstr "Prénom"
 #: forms.py:36
 msgid "Last name"
 msgstr "Nom de famille"
+
+#: models.py:19
+msgid "Male"
+msgstr "Homme"
+
+#: models.py:20
+msgid "Female"
+msgstr "Femme"
+
+#: models.py:23
+msgid "Birthdate"
+msgstr "Date de naissance"
+
+#: models.py:26
+msgid "Genre"
+msgstr "Genre"
+
+#: models.py:30
+msgid "Country"
+msgstr "Pays"
+
+#: models.py:31
+msgid "Timezone"
+msgstr "Fuseau horaire"
+
+#: models.py:33
+msgid "Town"
+msgstr "Ville"
 
 #: templates/account/user_dashboard.html:32
 #, python-format
@@ -81,12 +109,10 @@ msgid "Latest Notifications"
 msgstr "Dernières notifications"
 
 #: templates/account/user_dashboard.html:125
-#, fuzzy
 msgid "Mark all unseen notices seen"
-msgstr "Marquer tous les avis invisibles vus"
+msgstr "Marquer toutes les alertes comme vues"
 
 #: templates/account/user_dashboard.html:131
-#, fuzzy
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
@@ -102,6 +128,10 @@ msgstr "Activité récente"
 #, python-format
 msgid "%(when)s ago"
 msgstr " il y a %(when)s"
+
+#: templates/account/user_dashboard.html:170
+msgid "No activity"
+msgstr "Pas d'activité"
 
 #: templates/notification/notice_settings.html:10
 msgid "Settings"
@@ -127,3 +157,35 @@ msgstr "Type de notification"
 #: templates/notification/notice_settings.html:46
 msgid "Change"
 msgstr "Changement"
+
+#: templates/profiles/edit_profile.html:9
+msgid "Edit your profile"
+msgstr "Modifier votre profil"
+
+#: templates/profiles/edit_profile.html:12
+msgid "Infos"
+msgstr "Infos"
+
+#: templates/profiles/edit_profile.html:15
+msgid "Update"
+msgstr "Mise à jour"
+
+#: templates/profiles/edit_profile.html:19
+msgid "Avatar"
+msgstr "Avatar"
+
+#: templates/profiles/edit_profile.html:22
+msgid "Change your avatar"
+msgstr "Changer votre avatar"
+
+#: templates/profiles/edit_profile.html:22
+msgid "Change Your Avatar"
+msgstr "Changer votre avatar"
+
+#: templates/profiles/edit_profile.html:24
+msgid "No avatar is defined."
+msgstr "Aucun avatar n'est défini."
+
+#: templates/profiles/edit_profile.html:24
+msgid "Set Your Avatar"
+msgstr "Définir son avatar"

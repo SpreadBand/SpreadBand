@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-13 11:11+0200\n"
-"PO-Revision-Date: 2010-09-14 00:28\n"
+"PO-Revision-Date: 2010-09-16 11:07\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: models.py:41
 msgid "Capacity of the room"
-msgstr "Jauge"
+msgstr "Capacité"
 
 #: templates/venue/picture_new.html:11
 msgid "Upload"
@@ -36,7 +36,7 @@ msgstr "Pas d'ambiance particulière"
 
 #: templates/venue/venue_detail.html:112
 msgid "<strong>Capacity</strong>:"
-msgstr "<strong>Jauge :</strong>"
+msgstr "<strong>Capacité :</strong>"
 
 #: templates/venue/venue_detail.html:117
 msgid "Members"

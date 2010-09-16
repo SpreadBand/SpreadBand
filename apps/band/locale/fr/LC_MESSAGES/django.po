@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-14 17:56+0200\n"
-"PO-Revision-Date: 2010-09-15 01:16\n"
+"PO-Revision-Date: 2010-09-16 19:38\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -124,7 +124,7 @@ msgstr "Tableau de bord"
 
 #: templates/bands/band_detail.html:22
 msgid "Edit Band Infos"
-msgstr "Modifier les informations du groupe"
+msgstr "Modifier les informations"
 
 #: templates/bands/band_detail.html:26
 msgid "Recent visitors"
@@ -144,11 +144,11 @@ msgstr "Aujourd'hui"
 
 #: templates/bands/band_detail.html:59 templates/bands/base.html:39
 msgid "Gig Bargains"
-msgstr "Négociation de concerts"
+msgstr "Négoces en cours"
 
 #: templates/bands/band_detail.html:60
 msgid "Book A Venue"
-msgstr "Booker un lieu de concerts"
+msgstr "Booker une date"
 
 #: templates/bands/band_detail.html:66
 msgid "Invitations"
