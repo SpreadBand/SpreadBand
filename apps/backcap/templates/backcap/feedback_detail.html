@@ -2,6 +2,7 @@
 
 {% load comments %}
 {% load voting_tags %}
+{% load i18n %}
 
 {% block css %}
   {{ block.super }}
@@ -69,11 +70,11 @@
 
 	  <hr/>
 
-	  <p>description: {{ feedback.text }}</p>
+	  <p>{% trans "Description:" %} {{ feedback.text }}</p>
 
 	  <hr/>
 
-	  <h4>Comments</h4>
+	  <h4>{% trans "Comments" %}</h4>
 	  <ul>
 	    {% get_comment_list for feedback as feedback_comments %}
 	      {% for comment in feedback_comments %}
@@ -81,24 +82,31 @@
 	      {% endfor %}
 	  </ul>
 
-	  <h5>Add a new comment</h5>
-	  {% get_comment_form for feedback as feedback_comment_form %}
+	  <h5>{% trans "Post a new comment" %}</h5>
+	  {% get_comment_form for feedback as comment_form %}
 	    <form action="{% comment_form_target %}" method="post">
-	      {{ feedback_comment_form.as_p }}
-	      <input type="hidden" name="next" value="{% url backcap:feedback-detail feedback.id %}" >
-		<input type="submit" name="preview" class="submit-post" value="Preview">
-		</form>
+	      {{ comment_form.content_type }}
+	      {{ comment_form.timestamp }}
+	      {{ comment_form.object_pk }}
+	      {{ comment_form.security_hash }}
+	      {{ comment_form.comment }}
+  
+	      <input type="submit" value="{% trans "Post" %}"/>  
+	      <input type="hidden" name="next" value="{% url backcap:feedback-detail feedback.id %}" />
+	    </form>
 
 
 		<hr/>
 
-		<p>This issue is {{ feedback.get_status_display|lower }}. <a href="{% url backcap:feedback-close feedback.id %}">Close it</a></p>
+		<p>{% trans "This issue is" %} {{ feedback.get_status_display|lower }}. <a href="{% url backcap:feedback-close feedback.id %}">Close it</a></p>
 
-		<p>Reported from: <a href="http://{{ request.get_host }}{{ feedback.referer }}">http://{{ request.get_host }}{{ feedback.referer }}</a></p>
+		<p>{% trans "Reported from:" %} <a href="http://{{ request.get_host }}{{ feedback.referer }}">http://{{ request.get_host }}{{ feedback.referer }}</a></p>
 
-		<p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
+		{% if user.is_superuser %}
+		  <p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
+		{% endif %}
 
-		<a href="{% url backcap:feedback-list %}">See all feedbacks</a>
+		<a href="{% url backcap:feedback-list %}">{% trans "See all feedbacks" %}</a>
 
 	      </div>
 	    </div>

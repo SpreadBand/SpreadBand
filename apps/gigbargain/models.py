@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import Sum
 from django.db.models import DateField, TimeField, CharField, PositiveSmallIntegerField
 from django.db.models import ManyToManyField, ForeignKey, OneToOneField, DateTimeField, TextField
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from django_extensions.db.fields import UUIDField
 from timedelta.fields import TimedeltaField
@@ -225,10 +225,10 @@ class GigBargain(models.Model):
         ('FIXE', _('Fixed Amount')),
         ('PERC', _('Percentage')),
         ]
-    remuneration = CharField(verbose_name=_('Remuneration type'),
+    remuneration = CharField(verbose_name=_('artist remuneration type'),
                              max_length=4, choices=REMUNERATION_CHOICES, 
                              null=True, blank=True,
-                             help_text=_("How earned money will be dispatched "))
+                             help_text=_("How earned money will be dispatched to artists"))
 
     gig = OneToOneField(Gig, null=True, 
                         related_name='gigbargain', 

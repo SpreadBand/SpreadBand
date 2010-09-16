@@ -30,14 +30,9 @@ class GigBargainForBandForm(forms.ModelForm):
         fields = ('access', 'fee_amount')
 
     access = ChoiceField(label=_('Access type'),
-                         choices=[['', "(Pick one)"]] + GigBargain.ACCESS_CHOICES,
+                         choices=[['', _("(Pick one)")]] + GigBargain.ACCESS_CHOICES,
                          required=True
                          )
-
-    remuneration = ChoiceField(label=_('Remuneration'),
-                               choices=[['', "(Pick one)"]] + GigBargain.REMUNERATION_CHOICES,
-                               required=True
-                               )
 
 
 class GigBargainForVenueForm(forms.ModelForm):
@@ -52,12 +47,12 @@ class GigBargainForVenueForm(forms.ModelForm):
     closes_at = forms.TimeField(required=True)
 
     access = ChoiceField(label=_('Access type'),
-                         choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
+                         choices=[['', _("(Let the bands choose)")]] + GigBargain.ACCESS_CHOICES,
                          required=False
                          )
 
     remuneration = ChoiceField(label=_('Remuneration'),
-                               choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
+                               choices=[['', _("(Let the bands choose)")]] + GigBargain.REMUNERATION_CHOICES,
                                required=False
                                )
 
@@ -101,12 +96,12 @@ class GigBargainNewFromVenueForm(GigBargainNewForm):
         fields = ('date', 'opens_at', 'closes_at', 'venue', 'access', 'fee_amount', 'remuneration')
 
     access = ChoiceField(label=_('Access type'),
-                         choices=[['', "(Let the bands choose)"]] + GigBargain.ACCESS_CHOICES,
+                         choices=[['', _("(Let the bands choose)")]] + GigBargain.ACCESS_CHOICES,
                          required=False
                          )
 
     remuneration = ChoiceField(label=_('Remuneration'),
-                               choices=[['', "(Let the bands choose)"]] + GigBargain.REMUNERATION_CHOICES,
+                               choices=[['', _("(Let the bands choose)")]] + GigBargain.REMUNERATION_CHOICES,
                                required=False
                                )
 
@@ -121,12 +116,12 @@ class GigBargainNewFromBandForm(GigBargainNewForm):
         fields = ('date', 'venue', 'access', 'fee_amount', 'remuneration')
 
     access = ChoiceField(label=_('Access type'),
-                         choices=[['', "(Let the venue choose)"]] + GigBargain.ACCESS_CHOICES,
+                         choices=[['', _("(Let the venue choose)")]] + GigBargain.ACCESS_CHOICES,
                          required=False,
                          )
 
     remuneration = ChoiceField(label=_('Remuneration'),
-                               choices=[['', "(Let the venue choose)"]] + GigBargain.REMUNERATION_CHOICES,
+                               choices=[['', _("(Let the venue choose)")]] + GigBargain.REMUNERATION_CHOICES,
                                required=False,
                                )
 
@@ -232,15 +227,13 @@ class GigBargainBandInviteForm(GigBargainBandForm):
         gigbargainband = None
         # Look up the band we want to add
         try:
-            res = self._gigbargain.gigbargainband_set.filter(band=cleaned_data['band'])
-            if res:
-                gigbargainband = res[0]
+            res = self._gigbargain.gigbargainband_set.get(band=cleaned_data.get('band'))
         except GigBargainBand.DoesNotExist:
             pass
 
         if gigbargainband:
             if gigbargainband.state == 'kicked':
-                raise forms.ValidationError(_("You can't invite this band, it's been kicked"))
+                raise forms.ValidationError(_("You can't invite this band, it has been kicked"))
             else:
                 raise forms.ValidationError(_("This band is already in this bargain"))
 
@@ -295,3 +288,24 @@ class VenueReasonForm(forms.ModelForm):
     venue_reason = forms.CharField(required=True,
                                    widget=forms.Textarea)
 
+
+#-- Ajax forms
+class GigBargainBandTimelineForm(forms.ModelForm):
+    class Meta:
+        model = GigBargainBand
+        fields = ('starts_at', 'set_duration', 'eq_starts_at')
+
+class GigBargainBandRemunerationForm(forms.ModelForm):
+    class Meta:
+        model = GigBargainBand
+        fields = ('percentage', 'amount')
+
+class GigBargainBandDefraymentForm(forms.ModelForm):
+    class Meta:
+        model = GigBargainBand
+        fields = ('defrayment',)
+
+#-- comments
+from threadedcomments.forms import ThreadedCommentForm
+class SectionComment(ThreadedCommentForm):
+    comment = forms.CharField(max_length=300)

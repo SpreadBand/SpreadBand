@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import ForeignKey, CharField, TextField, DateTimeField
 from django.db.models import PositiveIntegerField, BooleanField, IntegerField
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 class Feedback(models.Model):
     class Meta:
