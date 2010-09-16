@@ -1,20 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'ajax_page.html' %}
+
+{% load uni_form_tags %}
+{% load i18n %}
 
 {% block content %}
-<h2>Edit common part of bargain</h2>
+
+  <script type="text/javascript">
+    function access_edit() {
+	data = $('#access-form').serializeObject(true);
+	Dajaxice.gigbargain.access_edit('Dajax.process', {'gigbargain_id': {{ gigbargain.id }},
+							  'form': data}
+				       );
+
+	return false;
+    }
+  </script>
+
+
+<h3>{% trans "Edit common part" %}</h3>
 
 <p>
-<font color="red">WARNING</font> : After altering these terms, all
-bands will have to approve the bargain again.
+{% trans "WARNING:" %}
+{% trans "After altering these terms, every band will have to re-lock their parts." %}
 </p>
 
-<p>
-<b>Bargain</b> : <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain }}</a>
-</p>
-
-<form method='POST' action='{{ request.url }}'>
-{{ gigbargain_form.as_p }}
-<input type='submit'>
+<form id='access-form' method='POST' class='uniForm' action='{% url gigbargain:gigbargain-band-common-edit gigbargain.uuid band.slug %}'>
+  {{ gigbargain_form|as_uni_form }}
+  <input type="submit" value="{% trans "Update" %}" onclick="return access_edit();"/>
 </form>
 
 {% endblock %}

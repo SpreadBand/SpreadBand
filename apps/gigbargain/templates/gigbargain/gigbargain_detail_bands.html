@@ -2,6 +2,13 @@
 {% load tagging_tags %}
 {% load django_static %}
 
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.modal-popup').boxy({draggable: false, modal: true});
+});
+</script>
+
+
 <div class="header grid_12 alpha omega">
   <img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="bands"/>
 
@@ -10,7 +17,11 @@
   <!-- Action buttons for bands -->
   {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
     {% if managed_bands|length %}
-      <a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}" class="minibutton btn-fork"><span><span class="icon"></span>{% trans "Invite band" %}</span></a>
+      {% if managed_bands.0.state == 'negociating' %}
+	<a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}" class="modal-popup minibutton btn-fork" title="{% trans "Invite a Band" %}"><span><span class="icon"></span>{% trans "Invite A Band" %}</span></a>
+      {% else %}
+	<a href="javascript:;" class="minibutton btn-fork disabled button-tip" title="{% trans "You have to unlock your part to invite a band" %}"><span><span class="icon"></span>{% trans "Invite A Band" %}</span></a>
+      {% endif %}
     {% endif %}
   {% endif %}
 

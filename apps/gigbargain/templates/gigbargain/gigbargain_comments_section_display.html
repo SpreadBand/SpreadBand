@@ -1,17 +1,50 @@
 {% load threadedcomments_tags %}
+{% load i18n %}
 
 {% get_comment_list for comment_thread as comments %}
 
-<h3>Comments about gig bargain, section {{ comment_thread.section }}</h3>
+<h3>{% blocktrans with comment_thread.section as section %}Comments about {{ section }}{% endblocktrans %}</h3>
 
 <ul>
 {% for comment in comments|fill_tree|annotate_tree %}
 
-<li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name }}</a> said : {{ comment.comment }}</li>
+<li><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.get_full_name }}</a> {% trans "said:" %} {{ comment.comment }}</li>
 
 {% empty %}
-There is no comment yet.
+{% trans "There is no comment yet." %}
 {% endfor %}
 </ul>
 
-{% render_comment_form for comment_thread %}
+{% get_comment_form for comment_thread as comment_form %}
+
+{% load comments %}
+
+<script type="text/javascript" charset="utf-8">
+function post_comment() {
+    $.ajax({
+        type: "POST",
+        data: $('#comment_form').serialize(),
+        url: "{% comment_form_target %}",
+        cache: false,
+        dataType: "html",
+        success: function(html, textStatus) {
+	    $('.bt-wrapper').hide();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#comment_form').replaceWith('{% trans "Your comment was unable to be posted at this time.  We apologise for the inconvenience." %}');
+        }
+    });
+
+    return false;
+}
+</script>
+
+<form id="comment_form" method='POST' action='{% comment_form_target %}'>
+  {{ comment_form.content_type }}
+  {{ comment_form.timestamp }}
+  {{ comment_form.object_pk }}
+  {{ comment_form.security_hash }}
+  {{ comment_form.comment }}
+  
+  <input type="submit" value="{% trans "Post" %}" onclick="return post_comment();"/>
+</form>

@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load django_static %}
+{% load comments %}
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -21,7 +22,7 @@ $(document).ready(function() {
 	       series: {
 		   pie: { show: true, 
 			  innerRadius: 0.3,
-			  radius: 0.95,
+			  radius: 0.90,
 			  stroke: { color: '#666' },
 			  label: {
 			      show: true,
@@ -52,7 +53,7 @@ $(document).ready(function() {
   {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
     {% for band in managed_bands %}
       {% if band.state == 'negociating' %}
-	<a href="{% url gigbargain:gigbargain-band-part-edit gigbargain.uuid band.band.slug %}" class="minibutton btn-edit"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}:{% endif %}{% trans "Edit" %}</span></a>
+	<a href="{% url gigbargain:gigbargain-band-edit-defrayment gigbargain.uuid band.band.slug %}" class="modal-popup minibutton btn-edit" title="{% trans "Edit defrayment" %}"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}:{% endif %}{% trans "Edit" %}</span></a>
       {% else %}
 	<a href="javascript:;" class="minibutton btn-edit disabled button-tip" title="{% trans "You have to unlock your part to edit" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
       {% endif %}
@@ -60,10 +61,16 @@ $(document).ready(function() {
   {% endif %}
 
 
-	<a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'defrayments' %}">
-	  <img class="comments" src="{% staticfile '/images/bargain/comments_off.png' %}" alt="Comments for defrayments section" />
-	    </a>
 
+  <a class="comment-thread" href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'defrayments' %}">
+    {% get_comment_count for comments.defrayments as comment_count %}
+      {% if comment_count %}
+	{% staticfile '/images/bargain/comments_on.png' as comments_img %}
+      {% else %}
+	{% staticfile '/images/bargain/comments_off.png' as comments_img %}
+      {% endif %}
+    <img class="comments" src="{{ comments_img }}" alt="Comments about defrayments"/>
+  </a>
 
 </div>
 
@@ -72,13 +79,13 @@ $(document).ready(function() {
 
 <div class="content">
 
-<div id="defrayments-graph"></div>
+<div width="200px" id="defrayments-graph"></div>
 <div id="defrayments-legend"></div>
 
 <noscript>
   <ul>
     {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
-    <li>{{ gigbargainband.band.name }} asks ${{ gigbargainband.defrayment }}</li>
+    <li>{{ gigbargainband.band.name }} {% trans "asks" %} ${{ gigbargainband.defrayment }}</li>
     {% endfor %}
   </ul>
 </noscript>

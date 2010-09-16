@@ -96,7 +96,8 @@ def gigbargain_band_dashboard(request, band_slug):
 
     # retrieve gigbargains 
     # new_gigbargains = band.gigbargains.new_gigbargains().filter(date__gte=date_from)
-    new_gigbargains = band.gigbargains.filter(date__gte=date_from).filter(gigbargainband__in=band.gigbargainbands.filter(state='waiting')).order_by('date')
+    #new_gigbargains = band.gigbargains.filter(date__gte=date_from).filter(gigbargainband__in=band.gigbargainbands.filter(state='waiting')).order_by('date')
+    new_gigbargains = band.gigbargains.draftsFor(band).filter(date__gte=date_from) | band.gigbargains.invitationsFor(band).filter(date__gte=date_from)
     if date_to:
         new_gigbargains = new_gigbargains.filter(date__lte=date_to)
 
@@ -152,7 +153,7 @@ def gigbargain_band_dashboard(request, band_slug):
         yearly_values[int(el['month'])]['concluded'] = el['gigbargain_count']
 
     # Get 10 latest actions
-    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:10]
+    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=inprogress_gigbargains|new_gigbargains)[:10]
 
     extra_context = {'band': band,
                      'notices_new': notices_new,

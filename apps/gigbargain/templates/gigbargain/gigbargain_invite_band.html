@@ -1,19 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'ajax_page.html' %}
+
+{% load i18n %}
+{% load uni_form_tags %}
 
 {% block content %}
 
-<div id="text">
-  <h2>Invite a band</h2>
+  <script type="text/javascript">
+    function band_invite() {
+	data = $('#band-invite-form').serializeObject(true);
+	Dajaxice.gigbargain.band_invite('Dajax.process', {'gigbargain_id': {{ gigbargain.id }},
+							  'form': data}
+				       );
+
+	return false;
+    }    
+  </script>
+<div style="width: 400px;">
+
+  <h3>{% trans "Invite a band" %}</h3>
   
-  <p>
-    <b>Gig Bargain</b> : <a href="{{ gigbargain.get_absolute_url }}">{{ gigbargain }}</a>
-  </p>
-  
-  <form method='POST' action='{{ request.url }}'>
-    {{ gigbargainband_form.as_p }}
+  <form id="band-invite-form" method='POST' class='uniForm' action='{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}'>
+    {{ gigbargainband_form|as_uni_form }}
     
-    <input type='submit' value='invite' />
+    <input type="submit" value="{% trans "Send an invitation" %}" onclick="return band_invite();"/>
   </form>
+
 </div>
 
 {% endblock %}

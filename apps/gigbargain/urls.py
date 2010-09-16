@@ -34,6 +34,9 @@ urlpatterns = patterns('',
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/lock$', views.band.gigbargain_band_part_lock, name='gigbargain-band-part-lock'),
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/unlock$', views.band.gigbargain_band_part_unlock, name='gigbargain-band-part-unlock'),
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit$', views.band.gigbargain_band_part_edit, name='gigbargain-band-part-edit'),
+    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit/timeline$', views.band.gigbargain_band_edit_timeline, name='gigbargain-band-edit-timeline'),
+    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit/remuneration$', views.band.gigbargain_band_edit_remuneration, name='gigbargain-band-edit-remuneration'),
+    url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)/edit/defrayment$', views.band.gigbargain_band_edit_defrayment, name='gigbargain-band-edit-defrayment'),
 
     url(r'^(?P<gigbargain_uuid>[\w\d-]+)/band/(?P<band_slug>[-\w]+)$', views.band.gigbargain_band_part_display, name='gigbargain-band-part-display'),
 

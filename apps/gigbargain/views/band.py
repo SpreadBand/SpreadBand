@@ -20,6 +20,7 @@ from apps.venue.models import Venue
 from ..models import GigBargain, GigBargainBand
 from ..forms import GigBargainBandPartEditForm, GigBargainNewFromBandForm, GigBargainMyBandForm
 from ..forms import GigBargainBandInviteForm, GigBargainForBandForm, GigBargainBandRefuseForm
+from ..forms import GigBargainBandTimelineForm, GigBargainBandRemunerationForm, GigBargainBandDefraymentForm
 
 @login_required
 def gigbargain_new_from_band(request, band_slug):
@@ -368,6 +369,124 @@ def gigbargain_band_part_edit(request, band_slug, gigbargain_uuid):
 
 
 @login_required
+def gigbargain_band_edit_timeline(request, band_slug, gigbargain_uuid):
+    """
+    During the band negociation phase, when a band edit its band part
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden()
+
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
+    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+
+    if gigbargain.state not in ('draft', 'band_nego') \
+            or  gigbargainband.state not in ('negociating'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargainband_form = GigBargainBandTimelineForm(request.POST or None, instance=gigbargainband)
+
+    if request.method == 'POST':
+        if gigbargainband_form.is_valid():
+            # Save
+            gigbargainband = gigbargainband_form.save()
+
+            messages.success(request, _("Changes saved"))
+
+            return redirect(gigbargain)
+
+    extra_context = {'gigbargain': gigbargain,
+                     'gigbargainband': gigbargainband,
+                     'gigbargainband_form': gigbargainband_form}
+
+    return render_to_response(template_name='gigbargain/gigbargain_band_edit_timeline.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )
+
+
+@login_required
+def gigbargain_band_edit_remuneration(request, band_slug, gigbargain_uuid):
+    """
+    During the band negociation phase, when a band edit its band part
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden()
+
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
+    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+
+    if gigbargain.state not in ('draft', 'band_nego') \
+            or  gigbargainband.state not in ('negociating'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargainband_form = GigBargainBandRemunerationForm(request.POST or None, instance=gigbargainband)
+
+    if request.method == 'POST':
+        if gigbargainband_form.is_valid():
+            # Save
+            gigbargainband = gigbargainband_form.save()
+
+            messages.success(request, _("Changes saved"))
+
+            return redirect(gigbargain)
+
+    extra_context = {'gigbargain': gigbargain,
+                     'gigbargainband': gigbargainband,
+                     'gigbargainband_form': gigbargainband_form}
+
+    return render_to_response(template_name='gigbargain/gigbargain_band_edit_remuneration.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )
+
+@login_required
+def gigbargain_band_edit_defrayment(request, band_slug, gigbargain_uuid):
+    """
+    During the band negociation phase, when a band edit its band part
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden()
+
+    gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
+    gigbargainband = get_object_or_404(GigBargainBand, bargain=gigbargain, band__slug=band_slug)
+
+    if gigbargain.state not in ('draft', 'band_nego') \
+            or  gigbargainband.state not in ('negociating'):
+        # XXX: Maybe it should more explicit
+        return HttpResponseForbidden()
+
+    gigbargainband_form = GigBargainBandDefraymentForm(request.POST or None, instance=gigbargainband)
+
+    if request.method == 'POST':
+        if gigbargainband_form.is_valid():
+            # Save
+            gigbargainband = gigbargainband_form.save()
+
+            messages.success(request, _("Changes saved"))
+
+            return redirect(gigbargain)
+
+    extra_context = {'gigbargain': gigbargain,
+                     'gigbargainband': gigbargainband,
+                     'gigbargainband_form': gigbargainband_form}
+
+    return render_to_response(template_name='gigbargain/gigbargain_band_edit_defrayment.html',
+                              context_instance=RequestContext(request,
+                                                              extra_context)
+                              )
+
+
+
+
+@login_required
 def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
     """
     For a Band, edit the common conditions of the bargain.
@@ -380,7 +499,7 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
 
     gigbargain = get_object_or_404(GigBargain, uuid=gigbargain_uuid)
 
-    if gigbargain.state not in ('band_nego', 'band_ok'):
+    if gigbargain.state not in ('draft', 'band_nego', 'band_ok'):
         # XXX: Maybe it should more explicit
         return HttpResponseForbidden()
 
@@ -391,21 +510,23 @@ def gigbargain_band_common_edit(request, gigbargain_uuid, band_slug):
         if gigbargain_form.is_valid():
             gigbargain = gigbargain_form.save()
 
-            # We have to invalide every part that have approbed
+            # We have to invalidate every part that have been approved
             for gigbargainband in gigbargain.gigbargainband_set.all():
                 if gigbargainband.state == 'part_validated':
                     gigbargainband.cancel_approval()
 
             # Cancel the agreement if the gig bargain was approved by every band
-            gigbargain.bands_dont_agree_anymore()
+            if gigbargain.state == 'band_ok':
+                gigbargain.bands_dont_agree_anymore()
 
-            messages.success(request, 'You have successfully edited the general parts')
-            messages.warning(request, 'Remember, you need to lock your part again')
+            messages.success(request, _("You have successfully edited the general parts"))
+            messages.warning(request, _("Remember, you need to lock your part again"))
 
             return redirect('gigbargain:gigbargain-detail', gigbargain.uuid)
 
     extra_context = {'gigbargain': gigbargain,
-                     'gigbargain_form': gigbargain_form}        
+                     'gigbargain_form': gigbargain_form,
+                     'band': band}
 
     return render_to_response(template_name='gigbargain/gigbargain_common_edit.html',
                               context_instance=RequestContext(request,

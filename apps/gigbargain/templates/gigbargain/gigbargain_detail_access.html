@@ -1,13 +1,30 @@
 {% load i18n %}
 {% load django_static %}
+{% load comments %}
 
 <div class="header">
   <img src="{% staticfile '/images/gigbargain/access_ico.png' %}" alt="Access"/>
 
   <h2>{% trans "Access" %}</h2>
-  <a href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'access' %}">
-      <img class="comments" src="{% staticfile '/images/bargain/comments_off.png' %}" alt="Comments for Access section"/>
+  <a class="comment-thread" href="{% url gigbargain:gigbargain-comments-section-display gigbargain.uuid 'access' %}">
+    {% get_comment_count for comments.access as comment_count %}
+      {% if comment_count %}
+	{% staticfile '/images/bargain/comments_on.png' as comments_img %}
+      {% else %}
+	{% staticfile '/images/bargain/comments_off.png' as comments_img %}
+      {% endif %}
+    <img class="comments" src="{{ comments_img }}" alt="Comments for access section"/>
   </a>
+
+  {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
+    {% for band in managed_bands %}
+      {% if band.state == 'negociating' %}
+	<a href="{% url gigbargain:gigbargain-band-common-edit gigbargain.uuid band.band.slug %}" class="modal-popup minibutton btn-edit" title="{% trans "Edit access" %}"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}:{% endif %}{% trans "Edit" %}</span></a>
+      {% else %}
+	<a href="javascript:;" class="minibutton btn-edit disabled button-tip" title="{% trans "You have to unlock your part to edit" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 
     {% if is_venue_managed %}
       {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
@@ -32,14 +49,18 @@
 
   {% if gigbargain.access == 'FEES' %}
     {% trans "Fee amount:" %} {{ gigbargain.fee_amount }} {% trans "euros" %}
+    <br/>
+    <em>{% trans "People will have to contribute to the cost of the gig by giving a small amount of money at the entrance." %}</em>
   {% endif %}
 
   {% if gigbargain.access == 'DRNK' %}
     {% trans "Number of drinks:" %} {{ gigbargain.fee_amount }}
+    <br/>
     <em>{% trans "This means that people will have to buy at least this number of drinks to attend the gigs." %}</em>
   {% endif %}
 
   {% if gigbargain.access == 'FREE' %}
+    <br/>
     <em>{% trans "Free access means that people can attend the gigs without paying." %}</em>
   {% endif %}
 

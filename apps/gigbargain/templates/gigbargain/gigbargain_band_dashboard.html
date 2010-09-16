@@ -221,17 +221,17 @@
 		  var monthly_repartition = 
 		      [  
 			  {  
-			      label: 'New',  
+			      label: '{% trans "New" %}',  
 			      color: "#968e8e",
 			      data: {{ monthly_stats.new }},
 			  },
 			  {  
-			      label: 'In progress',  
+			      label: '{% trans "In progress" %}',  
 			      color: "#faba3c",
 			      data: {{ monthly_stats.inprogress }},
 			  },
 			  {  
-			      label: 'Concluded',  
+			      label: '{% trans "Concluded" %}',  
 			      color: "#7ea73c",
 			      data: {{ monthly_stats.concluded }},
 			  },
@@ -333,7 +333,7 @@
 
 	  <script type="text/javascript">
 	    var json = {
-		label: ['New', 'In progress', 'Concluded'],
+		label: ['{% trans "New" %}', '{% trans "In progress" %}', '{% trans "Concluded" %}'],
 		values: [
 		    {% for month, data in yearly_values.items %}
 		    {
@@ -352,19 +352,19 @@
 		$.plot($("#yearly-stats"),
 		       [
 			   {
-			       label: "New", 
+			       label: "{% trans "New" %}", 
 			       color: "#968e8e",
 			       data: new_gigbargains, 
 			       points: { symbol: 'cross' }
 			   },
 			   { 
-			       label: "In progress", 
+			       label: "{% trans "In progress" %}", 
 			       color: "#faba3c",
 			       data: inprogress_gigbargains, 
 			       points: { symbol: 'cross' }
 			   },
 			   { 
-			       label: "Concluded", 
+			       label: "{% trans "Concluded" %}", 
 			       color: "#7ea73c",
 			       data: concluded_gigbargains, 
 			       points: { symbol: 'cross' }

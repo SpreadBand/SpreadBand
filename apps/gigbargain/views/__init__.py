@@ -111,6 +111,14 @@ def gigbargain_detail(request, gigbargain_uuid):
     elif gigbargain.macro_state == 'finished':
         gigbargain_mstate = 3
 
+    # Get comment objects for every section
+    comments = dict()
+    for section in ("whenwhere", "access", "timeline", "remuneration", "defrayments"):
+        comment_thread, created = GigBargainCommentThread.objects.get_or_create(gigbargain=gigbargain,
+                                                                                section=section)
+        comments[section] = comment_thread
+
+
     extra_context = {'gigbargain': gigbargain,
                      'gigbargain_mstate': gigbargain_mstate,
                      'managed_bands': managed_bands,
@@ -118,6 +126,7 @@ def gigbargain_detail(request, gigbargain_uuid):
                      'old_versions': old_versions,
                      'timeline': timeline,
                      'latest_activity': latest_activity,
+                     'comments': comments,
                      }
 
     return render_to_response(template_name='gigbargain/gigbargain_detail.html',
@@ -125,6 +134,7 @@ def gigbargain_detail(request, gigbargain_uuid):
                                                               extra_context),
                               )
 
+from ..forms import SectionComment
 
 def comments_section_display(request, gigbargain_uuid, section):
     """
