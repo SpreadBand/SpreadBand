@@ -2,7 +2,6 @@ from dajax.core import Dajax
 from dajaxice.core import dajaxice_functions
 
 from .forms import PressKitVideoForm
-from .views import video_edit
 
 def video_edit(request, form):
     dajax = Dajax()
