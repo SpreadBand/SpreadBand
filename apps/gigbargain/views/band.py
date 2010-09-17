@@ -304,9 +304,9 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
     gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargain_band)
     if not gigbargainband_form.is_valid():
-        return redirect('gigbargain:gigbargain-band-part-edit', 
-                        gigbargain_uuid=gigbargain.uuid, 
-                        band_slug=gigbargain_band.band.slug)
+        messages.error(request, _("You can't lock your part since you haven't finished filling in your part of the bargain"))
+        print gigbargainband_form.errors
+        return redirect(gigbargain)
 
     action.send(gigbargain_band, verb='part_locked', target=gigbargain, public=False)
 
@@ -570,17 +570,17 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
 
     if request.method == 'POST':
         if gigbargainband_form.is_valid():
-            gigbargainband = gigbargainband_form.save(commit=False)
-            gigbargainband.bargain = gigbargain
-            gigbargainband.save()
+            gigbargain_band = gigbargainband_form.save(commit=False)
+            gigbargain_band.bargain = gigbargain
+            gigbargain_band.save()
 
             # If there were bands that had validated their part, invalidate them
             for gigbargainband in gigbargain.gigbargainband_set.filter(state='part_validated'):
                 gigbargainband.cancel_approval()
 
-            action.send(gigbargainband, verb='was_invited', target=gigbargain, public=False)
-
-            messages.success(request, _("%s was successfully invited") % gigbargainband.band.name)
+            action.send(gigbargain_band, verb='was_invited', target=gigbargain, public=False)
+            notification.send(gigbargain_band.band.members.all(), "gigbargain_invitation")
+            messages.success(request, _("%s was successfully invited") % gigbargain_band.band.name)
 
             return redirect(gigbargain)
 
