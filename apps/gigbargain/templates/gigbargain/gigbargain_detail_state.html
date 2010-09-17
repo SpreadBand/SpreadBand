@@ -5,7 +5,7 @@
 <div id="statusbox">
   <div class="head">
     {% if gigbargain.state == 'draft' %}
-      <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft"/>
+      <img src="{% staticfile '/images/gigbargain/draft.png' %}" alt="draft"/>
       <div class="title">{% trans "Draft" %}</div>
       <div class="text">
 	{% blocktrans %}
@@ -14,16 +14,16 @@
       </div>
     {% else %}
       {% if gigbargain.state == 'draft_ok' %}
-	<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="draft ok"/>
+	<img src="{% staticfile '/images/gigbargain/draft_locked.png' %}" alt="draft ok"/>
 	<div class="title">{% trans "Draft ready" %}</div>
 	<div class="text">
 	  {% blocktrans %}
-	    This draft is <strong>ready to be submitted</strong>.
+	    All bands have agreed. You are now ready to <strong>submit this draft to the venue</strong>. Although, if there's a problem, we can still restart the negociations.
 	  {% endblocktrans %}
 	</div>
       {% else %}
 	{% if gigbargain.state == 'complete_proposed_to_venue' %}
-	  <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="complete proposed to venue"/>
+	  <img src="{% staticfile '/images/gigbargain/draft_sent.png' %}" alt="complete proposed to venue"/>
 	  <div class="title">{% trans "Submitted to venue" %}</div>
 	  <div class="text">
 	    {% blocktrans with gigbargain.venue.name as venue_name %}
@@ -37,24 +37,24 @@
 	    <div class="text">{% blocktrans with gigbargain.venue.name as venue_name %}This bargain was submitted to <strong>{{ venue_name }}</strong>{% endblocktrans %}</div>
 	  {% else %}
 	    {% if gigbargain.state == 'band_nego' %}
-	      <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="band negociations"/>
+	      <img src="{% staticfile '/images/gigbargain/bargain_inprogress.png' %}" alt="band negociations"/>
 	      <div class="title">{% trans "Band negociations" %}</div>
 	      <div class="text">{% trans "Bands now have to negociate their terms. You should <strong>edit your terms</strong> and <strong>lock your part</strong> once you're ready." %}</div>
 	    {% else %}
 	      {% if gigbargain.state == 'band_ok' %}
-		<img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="band ok"/>
+		<img src="{% staticfile '/images/gigbargain/bargain_locked.png' %}" alt="band ok"/>
 		<div class="title">{% trans "Band negociations finished" %}</div>
-		<div class="text">{% trans "Bands have finished negociating. You have to <strong>wait for the venue to reply</strong>." %}</div>
+		<div class="text">{% trans "Bands have finished negociating. The venue has been notified. You now have to <strong>wait for it to reply</strong>." %}</div>
 	      {% else %}
 		{% if gigbargain.state == 'concluded' %}
-		  <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="concluded"/>
-		  <div class="title">{% trans "Submitted" %}</div>
+		  <img src="{% staticfile '/images/gigbargain/bargain_success.png' %}" alt="concluded"/>
+		  <div class="title">{% trans "Negociation successful" %}</div>
 		  <div class="text">{% blocktrans with gigbargain.gig.get_absolute_url as gigbargain_url %}This bargain is concluded. You can see <a href="{{ gigbargain_url }}">the produced gig here</a>.{% endblocktrans %}</div>
 		{% else %}
 		  {% if gigbargain.state == 'declined' %}
-		    <img src="{% staticfile '/images/gigbargain/padlock-locked.png' %}" alt="declined"/>
-		    <div class="title">{% trans "Refused" %}</div>
-		    <div class="text">{% trans "This bargain was refused by the venue." %}</div>
+		    <img src="{% staticfile '/images/gigbargain/bargain_failed.png' %}" alt="declined"/>
+		    <div class="title">{% trans "Negociation failed" %}</div>
+		    <div class="text">{% trans "This bargain was <strong>refused by the venue</strong>." %}</div>
 		  {% endif %}
 		{% endif %}
 	      {% endif %}
@@ -95,7 +95,7 @@
     {% if managed_bands|length %}
       {% if gigbargain.state == 'draft_ok' %}
 	<a href="{% url gigbargain:gigbargain-band-draft-renegociate gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Restart negociations"><span><span class="icon"></span>{% trans "Renegociate" %}</span></a>
-	<a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.uuid %}" class="button-tip minibutton btn-download" title="Send this proposal to the venue"><span><span class="icon"></span>{% blocktrans with gigbargain.venue.name as venue_name %}Submit to {{ venue_name }}{% endblocktrans %}</span></a>
+	<a href="{% url gigbargain:gigbargain-band-submit-to-venue gigbargain.uuid %}" class="button-tip minibutton btn-download" title="{% trans "Send this proposal to the venue" %}"><span><span class="icon"></span>{% blocktrans with gigbargain.venue.name as venue_name %}Submit to "{{ venue_name }}"{% endblocktrans %}</span></a>
       {% endif %}
       
     {% endif %}
@@ -108,7 +108,7 @@
 	<a href="{% url gigbargain:gigbargain-band-refuse gigbargain.uuid band.band.slug %}" class="button-tip minibutton btn-download" title="Refuse to negociate with {{ gigbargain.venue.name }}"><span><span class="icon"></span>{{ band.band.name }}: {% trans "Refuse proposition" %}</span></a>
       {% endif %}
 
-      {% if gigbargain.state == 'band_nego' or gigbagain.state == 'band_ok' or gigbargain.state == 'draft' or gigbargain.state == 'draft_ok' %}
+      {% if gigbargain.state == 'band_nego' or gigbagain.state == 'band_ok' or gigbargain.state == 'draft' %}
 	{% if band.state == 'negociating' %}
 	  <a href="{% url gigbargain:gigbargain-band-part-lock gigbargain.uuid band.band.slug %}" class="minibutton btn-download"><span><span class="icon"></span>{% if managed_bands|length > 1 %}{{ band.band.name }}: {% endif %}{% trans "Lock your part" %}</span></a>
 	{% else %}
