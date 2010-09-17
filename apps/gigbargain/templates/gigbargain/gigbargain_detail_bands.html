@@ -15,7 +15,7 @@ $(document).ready(function() {
   <h2>{% trans "Bands" %} ({{ gigbargain.gigbargainband_set.concurring.count }})</h2>
 
   <!-- Action buttons for bands -->
-  {% if gigbargain.state == 'draft' or gigbargain.state == 'band_nego' %}
+  {% if gigbargain.state == 'draft' %}
     {% if managed_bands|length %}
       {% if managed_bands.0.state == 'negociating' %}
 	<a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}" class="modal-popup minibutton btn-fork" title="{% trans "Invite a Band" %}"><span><span class="icon"></span>{% trans "Invite A Band" %}</span></a>
@@ -97,7 +97,7 @@ $(document).ready(function() {
 	<td class="legendLabel">{% trans "Negociating" %}</td>
 	<td class="legendColorBox">
 	  <div style="border: 1px solid rgb(204, 204, 204); padding: 1px;">
-	    <div style="width: 4px; height: 0pt; border: 5px solid green; overflow: hidden;"></div>
+	    <div style="width: 4px; height: 0pt; border: 5px solid #A7C677; overflow: hidden;"></div>
 	  </div>
 	</td>
 	<td class="legendLabel">{% trans "Done negociating" %} </td>

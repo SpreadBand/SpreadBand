@@ -12,9 +12,9 @@ $(document).ready(function() {
 	    {
  		label: '{{ band.band.name }}',
 		{% if gigbargain.remuneration == 'PERC' %}
-		data: {{ band.percentage }}
+		data: {{ band.percentage|default:"0" }}
 		{% else %}
-		data: {{ band.amount }}
+		data: {{ band.amount|default:"0" }}
 		{% endif %}
 	    }{% if not forloop.last %},{%endif%}
 	    {% endfor %}

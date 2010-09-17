@@ -10,7 +10,7 @@ $(document).ready(function() {
  	    {% for band in gigbargain.gigbargainband_set.concurring %}
 	    {
  		label: '{{ band.band.name }}',
-		data: {{ band.defrayment }}
+		data: {{ band.defrayment|default:"0" }}
 	    }{% if not forloop.last %},{%endif%}
 	    {% endfor %}
 	];

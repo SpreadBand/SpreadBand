@@ -15,20 +15,13 @@
       {% else %}
 	{% staticfile '/images/bargain/comments_off.png' as comments_img %}
       {% endif %}
-    <img class="comments" src="{{ comments_img }}" alt="Comments for When where section"/>
+    <img class="comments" src="{{ comments_img }}" alt="{% trans "Comments for When where section" %}"/>
   </a>
 
   {% if is_venue_managed %}
     {% if gigbargain.state == 'new' or gigbargain.state == 'need_venue_confirm' or gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}
       <a href="{% url gigbargain:gigbargain-venue-common-edit gigbargain.uuid %}" class="minibutton btn-download"><span><span class="icon"></span>Venue: Edit</span></a>  
     {% endif %}
-  {% endif %}
-
-  {% if gigbargain.state == 'band_nego' or gigbargain.state == 'band_ok' %}      
-    {% for gigbargainband in gigbargain.gigbargainband_set.concurring %}
-      <a href="{% url gigbargain:gigbargain-band-common-edit gigbargain.uuid gigbargainband.band.slug %}" class="minibutton btn-download"><span><span class="icon"></span>{{ gigbargainband.band.name }}: Edit</span>
-      </a> 
-    {% endfor %}
   {% endif %}
 
 </div>
