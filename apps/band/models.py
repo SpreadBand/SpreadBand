@@ -1,4 +1,6 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
+_ = lambda u: unicode(ugettext(u))
+
 from django.db import models
 from django.db.models import CharField, ManyToManyField, DateField, TextField, ForeignKey, BooleanField
 from django.contrib.auth.models import User
@@ -20,7 +22,7 @@ class Band(Actor):
     """
     class Meta:
         permissions = (
-            ('manage', _('Can manage this band')),
+            ('can_manage', _('Can manage this band')),
         )
 
         ordering = ('name',)

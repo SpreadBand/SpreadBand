@@ -3,7 +3,8 @@ from django.db import models
 from django.db.models import Sum
 from django.db.models import DateField, TimeField, CharField, PositiveSmallIntegerField
 from django.db.models import ManyToManyField, ForeignKey, OneToOneField, DateTimeField, TextField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
+_ = lambda u: unicode(ugettext(u))
 
 from django_extensions.db.fields import UUIDField
 from timedelta.fields import TimedeltaField

@@ -1,4 +1,6 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
+_ = lambda u: unicode(ugettext(u))
+
 from django.db import models
 from django.db.models import CharField, SlugField, TextField, BooleanField, URLField
 from django.db.models import ForeignKey, PositiveSmallIntegerField

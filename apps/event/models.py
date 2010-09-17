@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import ManyToManyField, ForeignKey
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext
+_ = lambda u: unicode(ugettext(u))
 
 from agenda.models import Event
 
