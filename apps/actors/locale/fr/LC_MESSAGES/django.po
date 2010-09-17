@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-10 13:27+0200\n"
-"PO-Revision-Date: 2010-09-13 16:16\n"
+"PO-Revision-Date: 2010-09-17 15:15\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,5 @@ msgid "The last time something happened"
 msgstr "La dernière fois que quelque chose s'est passé"
 
 #: models.py:27
-#, fuzzy
 msgid "Wether this actor is owned by at least one user"
 msgstr "Si cet acteur est détenu par au moins un utilisateur"

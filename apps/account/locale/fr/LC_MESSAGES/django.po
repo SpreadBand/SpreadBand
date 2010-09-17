@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-16 10:39+0200\n"
-"PO-Revision-Date: 2010-09-16 11:26\n"
+"PO-Revision-Date: 2010-09-17 16:12\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -118,7 +118,7 @@ msgstr "MONTH_DAY_FORMAT"
 
 #: templates/account/user_dashboard.html:150
 msgid "No notices."
-msgstr "Aucune notifications"
+msgstr "Aucune notification"
 
 #: templates/account/user_dashboard.html:156
 msgid "Latest Activity"
@@ -139,7 +139,7 @@ msgstr "Paramètres"
 
 #: templates/notification/notice_settings.html:14
 msgid "Primary email"
-msgstr "e-mail principale"
+msgstr "E-mail principal"
 
 #: templates/notification/notice_settings.html:19
 msgid "Note"

@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-16 19:51+0200\n"
-"PO-Revision-Date: 2010-09-16 10:29\n"
+"PO-Revision-Date: 2010-09-17 10:20\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,29 +71,28 @@ msgid "Thanks for you feedback !"
 msgstr "Merci pour votre feedback !"
 
 #: templates/backcap/feedback_detail.html:73
-#, fuzzy
 msgid "Description:"
-msgstr "Question"
+msgstr "Description :"
 
 #: templates/backcap/feedback_detail.html:77
 msgid "Comments"
-msgstr ""
+msgstr "Commentaires"
 
 #: templates/backcap/feedback_detail.html:85
 msgid "Post a new comment"
-msgstr ""
+msgstr "Poster un nouveau commentaire"
 
 #: templates/backcap/feedback_detail.html:94
 msgid "Post"
-msgstr ""
+msgstr "Poster"
 
 #: templates/backcap/feedback_detail.html:101
 msgid "This issue is"
-msgstr ""
+msgstr "Cette question est"
 
 #: templates/backcap/feedback_detail.html:103
 msgid "Reported from:"
-msgstr ""
+msgstr "Signalé par :"
 
 #: templates/backcap/feedback_detail.html:109
 #: templates/backcap/feedback_tab.html:41
@@ -106,7 +105,7 @@ msgstr "Centre d'aide"
 
 #: templates/backcap/feedback_list.html:19
 msgid "Feedbacks"
-msgstr "Commentaires"
+msgstr "Feedbacks"
 
 #: templates/backcap/feedback_list.html:25
 msgid "This is all the feedbacks submitted by you, the users. Thanks for that."

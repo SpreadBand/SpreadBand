@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-13 11:11+0200\n"
-"PO-Revision-Date: 2010-09-16 11:07\n"
+"PO-Revision-Date: 2010-09-17 16:10\n"
 "Last-Translator: Raoul Duke <raoul@duke.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,15 +28,15 @@ msgstr "Télécharger"
 
 #: templates/venue/venue_detail.html:105
 msgid "<strong>Ambiance</strong>:"
-msgstr "<strong>Ambiance :</strong>"
+msgstr "<strong>Ambiance</strong> :"
 
 #: templates/venue/venue_detail.html:107
 msgid "No ambiance."
-msgstr "Pas d'ambiance particulière"
+msgstr "Pas d'ambiance particulière."
 
 #: templates/venue/venue_detail.html:112
 msgid "<strong>Capacity</strong>:"
-msgstr "<strong>Capacité :</strong>"
+msgstr "<strong>Capacité</strong> :"
 
 #: templates/venue/venue_detail.html:117
 msgid "Members"
@@ -62,7 +62,7 @@ msgstr "Derniers groupes"
 
 #: templates/venue/venue_detail.html:173
 msgid "Venue"
-msgstr "Lieux de concerts"
+msgstr "Lieu de concerts"
 
 #: templates/venue/venue_detail.html:179
 msgid "Description"
