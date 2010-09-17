@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block content %}
+
+<h2>{{ gigbargain }}</h2>
+
+TODO: Ajouter des raisons prédéfinies.<br/>
+
+<b>{% trans "You are about to enter the negociations. Please tell why:" %}</b>
+
+<form class='uniForm' method='POST'>
+  {{ reason_form|as_uni_form }}
+  <input type="submit" value="{% trans "Negociate" %}">
+</form>
+
+<a href="{{ gigbargain.get_absolute_url }}">{% trans "Cancel" %}</a>
+
+{% endblock %}
