@@ -31,7 +31,7 @@ function post_comment() {
 	    $('.bt-wrapper').hide();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $('#comment_form').replaceWith('{% trans "Your comment was unable to be posted at this time.  We apologise for the inconvenience." %}');
+            $('#comment_form').replaceWith("{% trans "Your comment was unable to be posted at this time.  We apologise for the inconvenience." %}");
         }
     });
 
