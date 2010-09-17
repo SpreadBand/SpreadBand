@@ -10,6 +10,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_http_methods
 
 import notification.models as notification
+from actstream.models import action
 
 from apps.band.models import Band
 from apps.venue.models import Venue
@@ -213,28 +214,45 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
         # XXX Maybe we should be more explicit
         return HttpResponseForbidden()
     
-   
-    # XXX not sure we want to keep this
-    # if this is an incomplete bargain, just make the bands enter
-    # negociations
-    if gigbargain.state == 'incomplete_proposed_to_venue':
-        [gigbargainband.start_negociating()
-         for gigbargainband 
-         in gigbargain.gigbargainband_set.all()]
+    reason_form = VenueReasonForm(request.POST or None)
+
+    if request.method == 'POST' and reason_form.is_valid():
+        # XXX not sure we want to keep this
+        # if this is an incomplete bargain, just make the bands enter
+        # negociations
+        if gigbargain.state == 'incomplete_proposed_to_venue':
+            [gigbargainband.start_negociating()
+             for gigbargainband 
+             in gigbargain.gigbargainband_set.all()]
         
         
-    # else, if it is a complete bargain, we have to invalidate the
-    # bands approval
-    elif gigbargain.state == 'complete_proposed_to_venue':
-        [gigbargainband.cancel_approval()
-         for gigbargainband
-         in gigbargain.gigbargainband_set.filter(state='part_validated')]
+        # else, if it is a complete bargain, we have to invalidate the
+        # bands approval
+        elif gigbargain.state == 'complete_proposed_to_venue':
+            [gigbargainband.cancel_approval()
+             for gigbargainband
+             in gigbargain.gigbargainband_set.filter(state='part_validated')]
 
         
-    # Then, switch our gigbargain state by letting the venue enter
-    gigbargain.venue_enter_negociations()
+        # Then, switch our gigbargain state by letting the venue enter
+        gigbargain.venue_reason = reason_form.cleaned_data['venue_reason']
+        gigbargain.venue_enter_negociations()
 
-    return redirect(gigbargain)
+        # Send the action
+        action.send(gigbargain.venue, verb='venue_entered_negociations', target=gigbargain, public=False)
+
+        return redirect(gigbargain)
+
+    else:
+        extra_context = {'gigbargain': gigbargain,
+                         'reason_form': reason_form}
+
+        return render_to_response(template_name='gigbargain/gigbargain_venue_enter_negociations.html',
+                                  context_instance=RequestContext(request,
+                                                                  extra_context)
+                                  )
+
+
 
 @login_required
 def gigbargain_venue_common_edit(request, gigbargain_uuid):
@@ -303,6 +321,9 @@ def gigbargain_venue_renegociate(request, gigbargain_uuid):
         # Save the reason and reset band states
         gigbargain.venue_reason = reason_form.cleaned_data['venue_reason']
         gigbargain.bands_dont_agree_anymore()
+
+        # Send the action
+        action.send(gigbargain.venue, verb='venue_restarted_negociations', target=gigbargain, public=False)
 
         return redirect(gigbargain)
     else:
