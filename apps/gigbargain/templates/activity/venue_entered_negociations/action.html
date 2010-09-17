@@ -1,0 +1,5 @@
+{% load django_static %}
+{% load i18n %}
+
+<img src="{% staticfile '/images/gigbargain/submitted_16.png' %}" alt="venue entered the negociations"/>
+<a href="{{ action.target.get_absolute_url }}">{{ action.target.venue.name }}</a> {% trans "entered the negociations" %}
