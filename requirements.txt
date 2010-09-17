@@ -1,7 +1,7 @@
 Django==1.2.1
 mutagen>=1.19
 # gdal==1.7.1
-south==0.7.1
+south==0.7.2
 django-guardian==0.1.0
 django-tagging==0.3.1
 django-imagekit==0.3.3
@@ -31,13 +31,14 @@ beautifulsoup
 # SpreadBand repositories
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
 -e git+http://github.com/SpreadBand/django-agenda.git#egg=django-agenda
--e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
+# -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/SpreadBand/django-faq.git#egg=django-faq
 -e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
 -e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 
 # Other repositories
+-e git+http://github.com/jtauber/django-notification.git#egg=django-notification
 -e git+http://github.com/ericflo/django-avatar.git#egg=django-avatar
 -e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop
 -e git+http://github.com/pydanny/django-wysiwyg.git#egg=django-wysiwyg
@@ -45,18 +46,18 @@ beautifulsoup
 -e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots
 -e git+http://github.com/facebook/python-sdk.git#egg=facebook-python-sdk
 -e git+http://github.com/django-extensions/django-extensions.git#egg=django-extensions
--e git+http://github.com/ericflo/django-threadedcomments.git@ded46fc5bfd9a9d37a15351aeafec58df4ae9301#egg=django-threadedcomments
+-e git+http://github.com/ericflo/django-threadedcomments.git#egg=django-threadedcomments
 -e hg+http://bitbucket.org/ubernostrum/django-registration#egg=django-registration
 -e git+http://github.com/peterbe/django-static.git#egg=django-static
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
 -e git+http://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
--e git+http://github.com/justquick/django-activity-stream.git@bf57186e09605ece25d2#egg=django-activity-stream
+-e git+http://github.com/justquick/django-activity-stream.git#egg=django-activity-stream
 -e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
--e git+http://github.com/jezdez/django-oembed.git@4adc0a1e8b1ad3934491d7732f71c729351c28fa#egg=django-oembed
+-e git+http://github.com/jezdez/django-oembed.git#egg=django-oembed
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
 -e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation
 -e hg+http://bitbucket.org/jespern/django-piston#egg=django-piston
--e git+http://github.com/spookylukey/django-mailer.git@a2f67c411cfcc79a4caa80a56383b787bcfe3d74#egg=django-mailer
+-e git+http://github.com/spookylukey/django-mailer.git#egg=django-mailer
 -e git+http://github.com/jorgebastida/django-dajaxice.git#egg=django-dajaxice
 -e git+http://github.com/jorgebastida/django-dajax.git#egg=django-dajax
 
