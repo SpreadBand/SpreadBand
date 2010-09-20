@@ -235,6 +235,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 ### Mailer
 SERVER_EMAIL = 'noreply@spreadband.com'
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
 # Write emails to console if in development mode
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
