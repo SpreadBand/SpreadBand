@@ -68,7 +68,7 @@ class Venue(Actor):
 
 
     def __unicode__(self):
-        return self.name
+        return u"%s" % self.name
 
     @models.permalink
     def get_absolute_url(self):
@@ -110,7 +110,7 @@ class VenuePicture(ImageModel):
     is_avatar = BooleanField(default=False)
 
     def __unicode__(self):
-        return _("Picture for venue %s") % self.venue.name
+        return _(u"Picture for venue %s") % self.venue.name
 
 
 
