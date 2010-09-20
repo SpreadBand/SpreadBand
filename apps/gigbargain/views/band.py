@@ -326,6 +326,15 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
             if len(gigbargain.gigbargainband_set.filter(state='waiting')) == 0:
                 gigbargain.bands_have_approved_draft()
 
+            # Notify users a draft is ready
+            from ..models import collect_band_members_from_gigbargain
+            notification.send(collect_band_members_from_gigbargain(gigbargain),
+                              "gigbargain_draft_ready",
+                              {'band': gigbargain_band,
+                               'gigbargain': gigbargain
+                               }
+                              )
+
     return redirect(gigbargain)
 
 
@@ -579,7 +588,12 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
                 gigbargainband.cancel_approval()
 
             action.send(gigbargain_band, verb='was_invited', target=gigbargain, public=False)
-            notification.send(gigbargain_band.band.members.all(), "gigbargain_invitation")
+            notification.send(gigbargain_band.band.members.all(),
+                              "gigbargain_invitation",
+                              {'band': gigbargain_band,
+                               'gigbargain': gigbargain
+                               }
+                              )
             messages.success(request, _("%s was successfully invited") % gigbargain_band.band.name)
 
             return redirect(gigbargain)

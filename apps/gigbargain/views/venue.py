@@ -83,18 +83,6 @@ def gigbargain_new_from_venue(request):
                 signals.gigbargain_new_from_venue.send(sender=gigbargain.venue,
                                                        aGigBargain=gigbargain)
 
-                # Warn bands that they've got a new bargain proposal
-                # XXX: This is suboptimal I guess
-                # users = []
-                # for band in gigbargain.bands.all():
-                #     for member in band.members.all():
-                #         users.append(member.user)
-                
-                # notification.send(users,
-                #                   'gigbargain_proposal',
-                #                   {'gigbargain': gigbargain}
-                #                   )
-
                 return redirect(gigbargain)
 
     context = {'gigbargain_form': gigbargain_form,
@@ -149,6 +137,14 @@ def gigbargain_venue_decline(request, gigbargain_uuid):
         gigbargain.venue_reason = reason_form.cleaned_data['venue_reason']
         gigbargain.decline()
 
+        # Notify users the bargain failed
+        from ..models import collect_band_members_from_gigbargain
+        notification.send(collect_band_members_from_gigbargain(gigbargain),
+                          "gigbargain_failed",
+                          {'gigbargain': gigbargain}
+                      )
+
+
         return redirect(gigbargain)
     else:
         extra_context = {'gigbargain': gigbargain,
@@ -176,6 +172,13 @@ def gigbargain_venue_conclude(request, gigbargain_uuid):
         return HttpResponseForbidden()
 
     gigbargain.conclude()
+
+    # Notify users a bargain was accepted
+    from ..models import collect_band_members_from_gigbargain
+    notification.send(collect_band_members_from_gigbargain(gigbargain),
+                      "gigbargain_concluded",
+                      {'gigbargain': gigbargain}
+                      )
 
     return redirect(gigbargain)
 

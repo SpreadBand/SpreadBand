@@ -1,0 +1,10 @@
+{% load i18n %}{% blocktrans %}{{ recipient }},
+
+{{ message }}
+Musicalement,
+
+L'équipe SpreadBand
+---
+Pour contrôler la manière dont vous recevez les notifications,
+rendez-vous sur {{ notices_url }}
+{% endblocktrans %}

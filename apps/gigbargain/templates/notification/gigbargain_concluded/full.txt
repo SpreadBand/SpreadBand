@@ -1,0 +1,12 @@
+La négociation du concert à « {{ gigbargain.venue.name }} » le {{
+gigbargain.date|date:"d M Y" }} a réussi !
+
+Vous jouez donc à « {{ gigbargain.venue.name }} » le 
+{{ gigbargain.date|date:"d M Y" }} (dans {{ gigbargain.date|timeuntil }})
+
+Les groupes sont les suivants :
+{{ gigbargain.bands.all|join:", " }}
+
+Vous pouvez consulter le résultat de la négociation en
+cliquant sur ce lien : 
+http://{{ current_site}}{{ gigbargain.get_absolute_url }}
