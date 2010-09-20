@@ -590,7 +590,7 @@ def gigbargain_band_invite_band(request, gigbargain_uuid):
             action.send(gigbargain_band, verb='was_invited', target=gigbargain, public=False)
             notification.send(gigbargain_band.band.members.all(),
                               "gigbargain_invitation",
-                              {'band': gigbargain_band,
+                              {'band': gigbargain_band.band,
                                'gigbargain': gigbargain
                                }
                               )
