@@ -98,9 +98,6 @@ class VenuePicture(ImageModel):
         image_field = 'original_image'
         spec_module = 'venue.imagespecs'
 
-    class Meta:
-        unique_together = ('venue', 'is_avatar')
-
     original_image = models.ImageField(upload_to=get_venuepicture_path)
     venue = ForeignKey(Venue, related_name='pictures')
 
