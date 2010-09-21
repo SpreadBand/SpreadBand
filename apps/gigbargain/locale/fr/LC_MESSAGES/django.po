@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-17 14:54+0200\n"
-"PO-Revision-Date: 2010-09-17 19:53\n"
-"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
+"POT-Creation-Date: 2010-09-20 19:57+0200\n"
+"PO-Revision-Date: 2010-09-20 20:34\n"
+"Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: forms.py:32 forms.py:49 forms.py:98 forms.py:118 forms.py:140 models.py:218
+#: forms.py:32 forms.py:49 forms.py:98 forms.py:118 forms.py:140 models.py:219
 msgid "Access type"
 msgstr "Type d'accès"
 
@@ -43,15 +43,15 @@ msgstr "La date doit être du jour même ou postérieure"
 msgid "(Let the venue choose)"
 msgstr "(Laisser le lieu de concert  choisir)"
 
-#: forms.py:156 forms.py:193 models.py:226 models.py:366
+#: forms.py:156 forms.py:193 models.py:227 models.py:367
 msgid "Percentage"
 msgstr "Pourcentage"
 
-#: forms.py:159 models.py:353
+#: forms.py:159 models.py:354
 msgid "Starts at"
 msgstr "Démarre à"
 
-#: forms.py:161 models.py:363
+#: forms.py:161 models.py:364
 msgid "Equalisation starts at"
 msgstr "Les balances commencent à"
 
@@ -59,7 +59,7 @@ msgstr "Les balances commencent à"
 msgid "Equalizations must start before the gig itself"
 msgstr "Les balances commencent avant le concert"
 
-#: forms.py:184 forms.py:195 models.py:358
+#: forms.py:184 forms.py:195 models.py:359
 msgid "Set duration"
 msgstr "Durée du set"
 
@@ -88,82 +88,70 @@ msgid "Bands in a bargain must be distincts"
 msgstr "Les groupes en négociation doivent être différents"
 
 #: management.py:10
-msgid "New gig bargain proposal"
-msgstr "Nouvelle proposition de négociation de concert"
+msgid "Gig bargain invitation"
+msgstr "Proposition de concert"
 
 #: management.py:10
-msgid "you have received a proposal for a gig bargain"
-msgstr "vous avez reçu une proposition de négociation de concert"
+msgid "you have received an invitation to play"
+msgstr "vous avez reçu une invitation pour jouer"
 
 #: management.py:11
-msgid "New gig bargain"
-msgstr "Nouvelle négociation de concert"
+msgid "Gig bargain draft ready"
+msgstr "Brouillon de concert prêt"
 
 #: management.py:11
-msgid "you have received a gig bargain"
-msgstr "vous avez reçu une proposition de concert"
+msgid "A gig bargain draft is ready"
+msgstr "Un brouillon de concert est prêt"
 
 #: management.py:12
-msgid "Gig bargain approved"
-msgstr "Négociation de concert acceptée"
+msgid "Gig bargain failed"
+msgstr "Négociation de concert échouée"
 
-#: management.py:12 management.py:13
-msgid "A gig bargain was approved"
-msgstr "Une négociation de concert a été acceptée"
+#: management.py:12
+msgid "Negociations of a gig bargain failed"
+msgstr "Négociation échouée"
 
 #: management.py:13
-msgid "Gig bargain disapproved"
-msgstr "Négociation de concert rejetée"
-
-#: management.py:14
-msgid "Gig bargain amended"
-msgstr "Négociation de concert modifiée"
-
-#: management.py:14
-msgid "A gig bargain was amended"
-msgstr "Une négociation de concert a été modifiée"
-
-#: management.py:15
 msgid "Gig bargain concluded"
 msgstr "Négociation de concert conclue"
 
-#: management.py:15
+#: management.py:13
 msgid "A gig bargain was concluded"
-msgstr "Une négociation de concert a été conclue"
+msgstr "Une négociation a été conclue"
 
-#: models.py:66
+#: models.py:67
 msgid "New bargain"
 msgstr "Nouvelle négociation"
 
-#: models.py:67
+#: models.py:68
 msgid "A draft, not proposed to a venue"
 msgstr "Un brouillon, pas encore proposé à un lieu de concerts"
 
-#: models.py:68
+#: models.py:69
 msgid "A draft, approved by bands"
 msgstr "Un brouillon, approuvé par les groupes"
 
-#: models.py:69
+#: models.py:70
 msgid "Complete draft bargain proposed to venue"
 msgstr "Brouillon de négociation complet proposé au lieu de concerts"
 
-#: models.py:70
+#: models.py:71
 msgid "Incomplete draft bargain proposed to venue"
 msgstr "Un brouillon de négociation incomplet proposé au lieu de concert"
 
-#: models.py:71
+#: models.py:72
 msgid "Need venue confirmation"
 msgstr "Besoin de la confirmation du lieu de concert"
 
-#: models.py:72
+#: models.py:73
 msgid "Bands negociating"
 msgstr "Groupe en négociation"
 
-#: models.py:73
+#: models.py:74
 msgid "Approved by bands"
 msgstr "Approuvé par les groupes"
 
-#: models.py:74 templates/gigbargain/gigbargain_band_dashboard.html:88
+#: models.py:75 templates/gigbargain/gigbargain_band_dashboard.html:88
 #: templates/gigbargain/gigbargain_band_dashboard.html:154
 #: templates/gigbargain/gigbargain_band_dashboard.html:234
 #: templates/gigbargain/gigbargain_band_dashboard.html:336
@@ -171,103 +159,103 @@ msgstr "Approuvé par les groupes"
 msgid "Concluded"
 msgstr "Conclues"
 
-#: models.py:75
+#: models.py:76
 msgid "Declined"
 msgstr "Refusée"
 
-#: models.py:76
+#: models.py:77
 msgid "Canceled by the initiator"
 msgstr "Annulé par l'initiateur"
 
-#: models.py:193
+#: models.py:194
 msgid "Date"
 msgstr "Date"
 
-#: models.py:194
+#: models.py:195
 msgid "Opens at"
 msgstr "Démarre à :"
 
-#: models.py:196
+#: models.py:197
 msgid "Closes at"
 msgstr "Termine à :"
 
-#: models.py:199
+#: models.py:200
 msgid "Name"
 msgstr "Nom"
 
-#: models.py:202
+#: models.py:203
 msgid "Name of the event"
 msgstr "Nom de la soirée"
 
-#: models.py:208
+#: models.py:209
 msgid "Venue"
 msgstr "Lieu de concerts"
 
-#: models.py:213
+#: models.py:214
 msgid "Free Access"
 msgstr "Accès gratuit"
 
-#: models.py:214
+#: models.py:215
 msgid "Entrance Fee"
 msgstr "Participation aux frais (PAF)"
 
-#: models.py:215
+#: models.py:216
 msgid "Drink"
 msgstr "Boisson"
 
-#: models.py:216
+#: models.py:217
 msgid "Ticket"
 msgstr "Billet"
 
-#: models.py:220
+#: models.py:221
 msgid "Fee amount"
 msgstr "PAF"
 
-#: models.py:224
+#: models.py:225
 msgid "No remuneration"
 msgstr "Pas de rémunération"
 
-#: models.py:225
+#: models.py:226
 msgid "Fixed Amount"
 msgstr "Cachet"
 
-#: models.py:228
+#: models.py:229
 msgid "artist remuneration type"
 msgstr "Type de rémunération des artistes"
 
-#: models.py:231
+#: models.py:232
 msgid "How earned money will be dispatched to artists"
 msgstr "Comment l'argent va-t-il être réparti entre les artistes"
 
-#: models.py:236
+#: models.py:237
 msgid "The produced gig"
 msgstr "Le concert programmé"
 
-#: models.py:344
+#: models.py:345
 msgid "Band"
 msgstr "Groupe"
 
-#: models.py:354
+#: models.py:355
 msgid "e.g. 20:30 or 10:15"
 msgstr "par exemple, 20:30 ou 10:15"
 
-#: models.py:360
+#: models.py:361
 msgid "as a duration. e.g. '4 hours, 2 minutes'"
 msgstr "durée, exemple '4 heures, 2 minutes'"
 
-#: models.py:368
+#: models.py:369
 msgid "Amount"
 msgstr "Montant"
 
-#: models.py:370
+#: models.py:371
 msgid "Defrayment"
 msgstr "Défraiement"
 
-#: models.py:419
+#: models.py:420
 msgid "no description"
 msgstr "pas de description"
 
-#: models.py:420
+#: models.py:421
 #, python-format
 msgid "gig at %s"
 msgstr "concert à %s"
@@ -287,6 +275,14 @@ msgstr "a déverrouillé sa partie"
 #: templates/activity/submitted_to_venue/action.html:5
 msgid "Submitted to"
 msgstr "Envoyé à"
+
+#: templates/activity/venue_entered_negociations/action.html:5
+msgid "entered the negociations"
+msgstr "entré dans les négociations"
+
+#: templates/activity/venue_restarted_negociations/action.html:5
+msgid "Negociations restarted by"
+msgstr "Négociations relancées par"
 
 #: templates/activity/was_invited/action.html:5
 msgid "was invited"
@@ -453,7 +449,6 @@ msgid "Draft"
 msgstr "Brouillon"
 
 #: templates/gigbargain/gigbargain_detail.html:284
-#: templates/gigbargain/gigbargain_detail_state.html:51
 msgid "Submitted"
 msgstr "Envoyé"
 
@@ -659,14 +654,18 @@ msgstr "Négociations des groupes terminées"
 msgid "Bands have finished negociating. The venue has been notified. You now have to <strong>wait for it to reply</strong>."
 msgstr "Les groupes ont fini de négocier. Le lieu de concert a été prévenu. Vous devez maintenant <strong>attendre sa réponse</strong>."
 
+#: templates/gigbargain/gigbargain_detail_state.html:51
+msgid "Negociation successful"
+msgstr "Négociation réussie"
+
 #: templates/gigbargain/gigbargain_detail_state.html:52
 #, python-format
 msgid "This bargain is concluded. You can see <a href=\"%(gigbargain_url)s\">the produced gig here</a>."
 msgstr "Cette négociation est conclue. Vous pouvez voir <a href=\"%(gigbargain_url)s\">la synthèse ici</a> ."
 
 #: templates/gigbargain/gigbargain_detail_state.html:56
-msgid "Refused"
-msgstr "Refusée"
+msgid "Negociation failed"
+msgstr "Négociation échouée"
 
 #: templates/gigbargain/gigbargain_detail_state.html:57
 msgid "This bargain was <strong>refused by the venue</strong>."
@@ -761,26 +760,30 @@ msgstr "Avertissement :"
 msgid "Where and When"
 msgstr "Où et Quand"
 
-#: templates/gigbargain/gigbargain_detail_wherewhen.html:36
+#: templates/gigbargain/gigbargain_detail_wherewhen.html:18
+msgid "Comments for When where section"
+msgstr "Commentaires pour la partie Où/Quand"
+
+#: templates/gigbargain/gigbargain_detail_wherewhen.html:35
 #: templates/gigbargain/gigbargain_new_from_band.html:89
 msgid "Where"
 msgstr "Où"
 
-#: templates/gigbargain/gigbargain_detail_wherewhen.html:69
+#: templates/gigbargain/gigbargain_detail_wherewhen.html:68
 #: templates/gigbargain/gigbargain_new_from_band.html:80
 msgid "When"
 msgstr "Quand"
 
-#: templates/gigbargain/gigbargain_detail_wherewhen.html:71
+#: templates/gigbargain/gigbargain_detail_wherewhen.html:70
 #, python-format
 msgid "(in %(time_left)s)"
 msgstr "(in %(time_left)s )"
 
-#: templates/gigbargain/gigbargain_detail_wherewhen.html:72
+#: templates/gigbargain/gigbargain_detail_wherewhen.html:71
 msgid "Opens at:"
 msgstr "Ouvre à :"
 
-#: templates/gigbargain/gigbargain_detail_wherewhen.html:72
+#: templates/gigbargain/gigbargain_detail_wherewhen.html:71
 msgid "Closes at:"
 msgstr "Ferme à :"
 
@@ -818,9 +821,18 @@ msgid "You are about to decline a bargain. Please tell why:"
 msgstr "Vous êtes sur le point de refuser une négociation. Merci d'expliquer pourquoi :"
 
 #: templates/gigbargain/gigbargain_venue_decline.html:19
+#: templates/gigbargain/gigbargain_venue_enter_negociations.html:19
 #: templates/gigbargain/gigbargain_venue_renegociate.html:19
 msgid "Cancel"
 msgstr "Annuler"
+
+#: templates/gigbargain/gigbargain_venue_enter_negociations.html:12
+msgid "You are about to enter the negociations. Please tell why:"
+msgstr "Vous êtes sur le point d'entrer dans les négociations. Veuillez expliquer pourquoi vous acceptez :"
+
+#: templates/gigbargain/gigbargain_venue_enter_negociations.html:16
+msgid "Negociate"
+msgstr "Négocier"
 
 #: templates/gigbargain/gigbargain_venue_renegociate.html:12
 msgid "You are about to restart the negociations. Please tell why:"
@@ -862,27 +874,45 @@ msgstr "Vous ne pouvez pas verrouiller votre partie puisque vous n'avez pas fini
 msgid "You have locked your part"
 msgstr "Vous avez verrouillé votre partie"
 
-#: views/band.py:357 views/band.py:396 views/band.py:435 views/band.py:473
+#: views/band.py:366 views/band.py:405 views/band.py:444 views/band.py:482
 msgid "Changes saved"
 msgstr "Changements enregistrés"
 
-#: views/band.py:522
+#: views/band.py:531
 msgid "You have successfully edited the general parts"
 msgstr "Vous avez modifié la partie principale avec succès"
 
-#: views/band.py:523
+#: views/band.py:532
 msgid "Remember, you need to lock your part again"
 msgstr "Vous avez encore besoin de verrouiller votre partie"
 
-#: views/band.py:552
+#: views/band.py:561
 #, python-format
 msgid "The bargain was submitted to %s"
 msgstr "La négociation a été envoyée à \"%s\""
 
-#: views/band.py:583 views/venue.py:341
+#: views/band.py:597 views/venue.py:362
 #, python-format
 msgid "%s was successfully invited"
 msgstr "%s a bien été invité"
+
+#~ msgid "New gig bargain proposal"
+#~ msgstr "Nouvelle proposition de négociation de concert"
+
+#~ msgid "you have received a proposal for a gig bargain"
+#~ msgstr "vous avez reçu une proposition de négociation de concert"
+
+#~ msgid "New gig bargain"
+#~ msgstr "Nouvelle négociation de concert"
+
+#~ msgid "Gig bargain disapproved"
+#~ msgstr "Négociation de concert rejetée"
+
+#~ msgid "A gig bargain was amended"
+#~ msgstr "Une négociation de concert a été modifiée"
+
+#~ msgid "Refused"
+#~ msgstr "Refusée"
 
 #~ msgid ""
 #~ "\n"
