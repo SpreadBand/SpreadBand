@@ -445,9 +445,9 @@ def collect_band_members_from_gigbargain(aGigBargain):
     Collect users from bands to send notification to
     """
     users = set()
-    for band in aGigBargain.bands.concurring():
-        for member in band.members.all():
-            users.add(member.user)
+    for gigbargainband in aGigBargain.gigbargainband_set.concurring():
+        for member in gigbargainband.band.members.all():
+            users.add(member)
 
     return users
     

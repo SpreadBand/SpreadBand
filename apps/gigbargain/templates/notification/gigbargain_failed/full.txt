@@ -1,5 +1,5 @@
-La négociation du concert à « {{ gigbargain.venue.name }} » le {{
-gigbargain.date|date:"d M Y" }} a échoué.
+La négociation du concert à « {{ gigbargain.venue.name }} » le 
+{{ gigbargain.date|date:"d M Y" }} a échoué.
 
 Les groupes participants étaient les suivants :
 {{ gigbargain.bands.all|join:", " }}

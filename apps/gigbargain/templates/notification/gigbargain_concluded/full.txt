@@ -1,5 +1,5 @@
-La négociation du concert à « {{ gigbargain.venue.name }} » le {{
-gigbargain.date|date:"d M Y" }} a réussi !
+La négociation du concert à « {{ gigbargain.venue.name }} » le 
+{{ gigbargain.date|date:"d M Y" }} a réussi !
 
 Vous jouez donc à « {{ gigbargain.venue.name }} » le 
 {{ gigbargain.date|date:"d M Y" }} (dans {{ gigbargain.date|timeuntil }})

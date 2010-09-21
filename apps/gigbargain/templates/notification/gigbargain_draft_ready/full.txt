@@ -1,5 +1,5 @@
-Le brouillon de concert à « {{ gigbargain.venue.name }} » le {{
-gigbargain.date|date:"d M Y" }} avec
+Le brouillon de concert à « {{ gigbargain.venue.name }} » le 
+{{ gigbargain.date|date:"d M Y" }} avec
 {{ gigbargain.bands.all|join:","}} vient d'être terminé : tous les
 groupes sont d'accords sur les conditions.
 

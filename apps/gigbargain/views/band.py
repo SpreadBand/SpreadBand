@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.forms.models import inlineformset_factory
 from django.forms.formsets import formset_factory
@@ -559,6 +560,13 @@ def gigbargain_band_submit_draft_to_venue(request, gigbargain_uuid):
     action.send(request.user, verb='submitted_to_venue', target=gigbargain, public=False)
 
     messages.success(request, _("The bargain was submitted to %s") % gigbargain.venue.name)
+
+    # temporary fix to notify people
+    staff = User.objects.filter(is_staff=True)
+    notification.send(staff,
+                      "gigbargain_draft_submitted_to_venue",
+                      {'gigbargain': gigbargain}
+                      )
 
     return redirect(gigbargain)
 

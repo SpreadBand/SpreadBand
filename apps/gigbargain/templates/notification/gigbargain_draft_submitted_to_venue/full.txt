@@ -1,0 +1,8 @@
+Votre lieu de concert "{{ gigbargain.venue.name }}" vient de recevoir
+une proposition de concert pour le {{ gigbargain.date|date:"d M Y" }} (dans
+{{ gigbargain.date|timeuntil }}).
+
+Les groupes participants : {{ gigbargain.bands.all|join:", " }}
+
+Consultez la proposition en cliquant sur ce lien :
+http://{{ current_site}}{{ gigbargain.get_absolute_url }}
