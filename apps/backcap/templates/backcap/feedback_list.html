@@ -74,7 +74,7 @@
 	</div>
 	<div>
 	  {{ feedback.get_status_display }} / 
-	  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_profile.get_absolute_url }}">{{ feedback.user.get_full_name|escape }}</a></span>
+	  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_profile.get_absolute_url }}">{{ feedback.user.get_full_name|default:feedback.user.username }}</a></span>
 	</div>
       </div>
     </li>
