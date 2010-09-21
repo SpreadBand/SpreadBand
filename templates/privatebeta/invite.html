@@ -12,6 +12,23 @@ Enregistrez vous pour l'alpha !
   <link rel="stylesheet" type="text/css" href="/css/invite.css" media="screen, projection" />
 {% endblock %}
 
+{% block javascript %}
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+    
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://api.flattr.com/js/0.6/load.js?mode=auto&language=fr_FR';
+    
+    t.parentNode.insertBefore(s, t);
+})();
+/* ]]> */
+</script>
+
+{% endblock %}
+
 {% block content %}
 
   <div class="grid_16">
@@ -96,23 +113,12 @@ Enregistrez vous pour l'alpha !
       <div style="margin-top: 20px;">
       <div class="grid_5 suffix_2 alpha">
 	<h3>Soutenez-nous :-)</h3>
-
-	<script type="text/javascript">
-	  /* <![CDATA[ */
-	  (function() {
-              var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-              
-              s.type = 'text/javascript';
-              s.async = true;
-              s.src = 'http://api.flattr.com/js/0.5.0/load.js?mode=auto';
-              
-              t.parentNode.insertBefore(s, t);
-	  })();
-	  /* ]]> */
-	</script>
-
 	<div style="float: left; margin-right: 10px; ">
-	  <a class="FlattrButton" style="display:none;" href="http://www.spreadband.com"></a>
+	  <!--[if IE]>
+	  <a href="http://flattr.com/thing/64675/SpreadBand" target="_blank">
+	  <img src="http://api.flattr.com/button/button-static-50x60.png" alt="Flattr this" title="Flattr this" border="0" /></a>
+	  <![endif]-->
+	  <a class="FlattrButton" style="display:none;" href="http://www.spreadband.com" lang="fr_FR"></a>
 	</div>
 	Si vous souhaitez nous <strong>donner un coup de main pour le développement</strong> en nous <strong>payant une bière</strong>, cliquez sur le bouton :-)
 	

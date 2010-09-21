@@ -2,6 +2,10 @@
     float: left;
 }
 
+h1 {
+    font-size: 1.8em;
+}
+
 h3 {
   border-bottom: 1px solid #ddd;
 }
