@@ -16,19 +16,23 @@ Enregistrez vous pour l'alpha !
 
   <div class="grid_16">
     <div id="text">
-      <h1>SpreadBand va bientôt décoller  !</h1>
+      <h1>SpreadBand est entrée en alpha et se dirige droit vers la bêta !</h1>
 
+      
       <p>
-	SpreadBand est une <strong>plate-forme web équitable</strong> pour les <strong>musiciens indépendants</strong> et les <strong>lieux de concerts</strong>.
+	SpreadBand est une <strong>plate-forme équitable de booking</strong> pour les <strong>musiciens indépendants</strong> et les <strong>lieux de concerts</strong>.
       </p>
       <p>
 	Grâce à SpreadBand, <strong>diffusez votre groupe</strong>, <strong>organisez des concerts</strong> en quelques clics et <strong>créez votre propre réseau musical</strong>.
       </p>
 
-      <div id="discover">
+      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=tahoma&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+
+      <div>
+	<div id="discover" style="float: left;">
 	<a href="{% url django.contrib.flatpages.views.flatpage 'features/band' %}">
 	  <div id="discover-band" class="grid_5 alpha">
-	    <img src="{% staticfile "/images/invite/band.jpg" %}" alt="band"/><br/>
+	    <img src="{% staticfile "/images/invite/band.jpg" %}" alt="band" width="130px" /><br/>
 	    Groupes, Artistes solos, DJs
 	    <span>(cliquez pour en savoir plus)</span>
 	  </div>
@@ -36,29 +40,39 @@ Enregistrez vous pour l'alpha !
 	
 	<a href="{% url django.contrib.flatpages.views.flatpage 'features/venue' %}">	
 	  <div id="discover-venue" class="grid_5 omega">
-	    <img src="{% staticfile "/images/invite/venue.jpg" %}" alt="band"/><br/>
+	    <img src="{% staticfile "/images/invite/venue.jpg" %}" alt="band" width="130px"/><br/>
 	    Bars, Cafés-Concerts
 	    <span>(cliquez pour en savoir plus)</span>
 	  </div>
 	</a>
+	</div>
+
+
 
 	<div class="clear"></div>
       </div>
+      
+      <div id="progression" style="margin-top: 30px;">
+	<h3>La version alpha est lancée !</h3>
 
+	<div style="text-align: center; margin-bottom: 20px; margin-top: 30px;">
+	  <img src="{% staticfile "/images/dev-prog.png" %}" alt="Progression du développement"/>
+	</div>
+	
+	<p>
+	  En ce moment, nos <strong>vénérés testeurs essuient les plâtres de la version alpha</strong> rien que pour vous. Ainsi, nous vous offrirons une <strong>version bêta solide et performante</strong> dès que possible. Une fois la phase alpha terminée, vous pourrez commencer à <strong>booker</strong> sérieusement !
+	</p>
 
-      <h3>Testez SpreadBand</h3>
+	<div style="text-align: right;">
+	  <a href="{% url account:auth_login %}" class="modal-popup minibutton btn-edit" title="{% trans "Login alpha" %}"><span><span class="icon"></span>{% trans "Testeurs : Login alpha" %}</span></a>
+	</div>
+
+      </div>
+
+      <div>
+      <h3 style="margin-top: 30px;">Pré-inscrivez moi pour la bêta !</h3>
       <p>
-	D'ici <strong>quelques jours</strong>, SpreadBand entre en <strong>phase
-	alpha</strong> ; c'est-à-dire qu'il va être possible de tester
-	le concept en avant-première. Le test s'étendra sur <strong>une dizaine de jours</strong>.
-	<br/>
-	A l'issue de ce test, <strong>SpreadBand sera ouvert à tous</strong>, en <em>bêta</em>,
-	pour une période de test et d'amélioration à grande échelle.
-      </p>
-
-      <p>
-	Si vous souhaitez <strong>être tenu au courant de l'évolution
-	du lancement</strong> et/ou <strong>participer à la phase de test</strong>, c'est par ici :
+	Si vous souhaitez <strong>être prévenu lors de l'ouverture de la bêta</strong>, rejoignez-nous en entrant votre adresse e-mail ici (pas de spam, promis) :
       </p>
       
       <div class="prefix_2 grid_12 ">
@@ -75,21 +89,46 @@ Enregistrez vous pour l'alpha !
 	    </dl>
 	</form>
       </div>
+      <div class="clear"></div>
 
-      <h3>Tenez vous informé</h3>
-      <h4>Facebook</h4>
-      <p>
-	<a href="http://facebook.com/spreadband">Spreadband@FB</a>
-	<div class="prefix_2 grid_13 suffix_1 alpha omega">
-	  <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+      </div>
+
+      <div style="margin-top: 20px;">
+      <div class="grid_5 suffix_2 alpha">
+	<h3>Soutenez-nous :-)</h3>
+
+	<script type="text/javascript">
+	  /* <![CDATA[ */
+	  (function() {
+              var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+              
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = 'http://api.flattr.com/js/0.5.0/load.js?mode=auto';
+              
+              t.parentNode.insertBefore(s, t);
+	  })();
+	  /* ]]> */
+	</script>
+
+	<div style="float: left; margin-right: 10px; ">
+	  <a class="FlattrButton" style="display:none;" href="http://www.spreadband.com"></a>
 	</div>
+	Si vous souhaitez nous <strong>donner un coup de main pour le développement</strong> en nous <strong>payant une bière</strong>, cliquez sur le bouton :-)
+	
+      </div>
+
+      <div class="grid_8 omega">
+	<h3>Tenez vous informé</h3>
+
+      	<a href="http://facebook.com/spreadband">Facebook</a> | <a href="http://twitter.com/spreadband">Twitter</a> | <a href="http://identi.ca/spreadband">Identi.ca</a>
+
+	<p>
+	  <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+	</p>
       </p>
-
-      <h4>Twitter</h4>
-      <p><a href="http://twitter.com/spreadband">@spreadband</a></p>
-
-      <h4>Identi.ca</h4>
-      <p><a href="http://identi.ca/spreadband">@spreadband</a></p>
+    </div>
+  </div>
   </div>
 
 </div>

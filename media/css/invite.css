@@ -2,12 +2,14 @@
     float: left;
 }
 
-#discover {
-    text-align: center;
-    padding-left: 150px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+h3 {
+  border-bottom: 1px solid #ddd;
+}
 
+#discover {
+    text-align: left;
+    padding-left: 100px;
+    text-align: center;
 }
 
 #discover img {
@@ -17,7 +19,7 @@
 #discover div {
     font-weight: bold;
     font-variant: small-caps;
-    font-size: 1.5em;
+    font-size: 1.4em;
 }
 
 #discover-band span {
