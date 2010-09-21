@@ -61,7 +61,7 @@ class Band(Actor):
                           help_text=_('Band biography'))
 
 
-    website = ForeignKey(Minisite, blank=True, null=True)
+    # website = ForeignKey(Minisite, blank=True, null=True)
 
     members = ManyToManyField(User, through='BandMember', related_name='bands')
 
