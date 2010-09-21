@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render_to_response, get_object_or_404
@@ -8,6 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET
 
 from haystack.query import SearchQuerySet
+import notification.models as notification
 from voting.views import vote_on_object
 
 from .models import Feedback
@@ -29,6 +31,9 @@ def feedback_new(request, template_name='backcap/feedback_new.html'):
             feedback.save()
 
             messages.success(request, _("Thanks for you feedback !"))
+
+            staff = User.objects.filter(is_staff=True)
+            notification.send(staff, "feedback_new", {'feedback': feedback})
 
             return redirect(feedback)
     else:
