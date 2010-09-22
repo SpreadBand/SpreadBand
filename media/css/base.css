@@ -68,8 +68,12 @@ a {
 /* ----------------------------------- Content */
 
 #content {
-	width:100%;
-	background:#f2f2f2 url('/images/structure/background/page_bg.jpg') no-repeat top center;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
+    width:100%;
+    background:#f2f2f2 url('/images/structure/background/page_bg.jpg') no-repeat top center;
 }
 
 #content #text-wrapper {
@@ -101,11 +105,16 @@ a {
 
 /* ----------------------------------- Footer */
 
+.push {
+    height: 50px;
+}
+
 #footer {
     background-color: #333333;
     padding-top: 15px;
     border-top: 1px solid #eee;
     color: white;
+    height: 150px;
 }
 
 #footer h5 {
