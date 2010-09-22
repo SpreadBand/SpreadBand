@@ -44,6 +44,7 @@ def feedback_new(request, template_name='backcap/feedback_new.html'):
                               )
 
 # XXX: Security
+@login_required
 def feedback_update(request, feedback_id):
     """
     Edit a single feedback
@@ -85,6 +86,7 @@ def feedback_detail(request, feedback_id):
                          )
 
 # XXX Security
+@login_required
 def feedback_close(request, feedback_id):
     """
     Closes a feedback. This means it has been resolved.
@@ -97,7 +99,7 @@ def feedback_close(request, feedback_id):
 
     return redirect(feedback)
 
-
+@login_required
 def feedback_vote(request, feedback_id, direction):
     return vote_on_object(request,
                           model=Feedback,
@@ -107,6 +109,26 @@ def feedback_vote(request, feedback_id, direction):
                           template_name='kb/link_confirm_vote.html',
                           allow_xmlhttprequest=True)
 
+
+@login_required
+def feedback_ping_observers(request, feedback_id):
+    """
+    Ping users that are observing this feedback
+    """
+    if not request.user.is_superuser:
+        return HttpResponseForbidden()
+
+    feedback = get_object_or_404(Feedback, id=feedback_id)
+
+    notification.send([feedback.user],
+                      "feedback_updated",
+                      {'feedback': feedback},
+                      )
+
+    messages.success(request, _("The users have been successfully notified"))
+
+    return redirect(feedback)
+    
 
 def feedback_tab(request):
     return feedback_new(request,

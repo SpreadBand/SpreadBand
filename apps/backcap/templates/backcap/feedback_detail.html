@@ -56,7 +56,7 @@
 		</div>
 		<div>
 		  {{ feedback.get_status_display }} / 
-		  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_absolute_url }}">{{ feedback.user.get_full_name|escape }}</a></span>
+		  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_profile.get_absolute_url }}">{{ feedback.user.get_full_name|escape }}</a></span>
 		</div>
 	      </div>
 	    </div>
@@ -104,6 +104,7 @@
 
 		{% if user.is_superuser %}
 		  <p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
+		  <p><a href="{% url backcap:feedback-ping-observers feedback.id %}">Ping observers</a></p>
 		{% endif %}
 
 		<a href="{% url backcap:feedback-list %}">{% trans "See all feedbacks" %}</a>

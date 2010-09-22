@@ -26,6 +26,14 @@
   </p>
   
   <p>
+    {% trans "If you think one of these entries is important for you, then <strong>click on the '+' button</strong>. If you disagree or think this is not important at all, then <strong>click on '-'</strong>." %}
+  </p>
+
+  <p>
+    {% trans "The <strong>highest the score</strong> an issue will get, the <strong>earlier we'll work on</strong> it." %}
+  </p>
+  
+  <p>
     <a href="{% url backcap:feedback-new %}">{% trans "New feedback" %}</a>
   </p>
 
@@ -82,12 +90,12 @@
   </ul>
   
   {% if page_obj.has_previous %}
-  <a href="{% url backcap:feedback-list page=page_obj.previous_page_number %}">previous</a>
+  <a href="{% url backcap:feedback-list page=page_obj.previous_page_number %}">{% trans "previous" %}</a>
   {% endif %}
   
   
   {% if page_obj.has_next %}
-  <a href="{% url backcap:feedback-list page=page_obj.next_page_number %}">next</a>
+  <a href="{% url backcap:feedback-list page=page_obj.next_page_number %}">{% trans "next" %}</a>
   {% endif %}
 </div>
 <div class="grid_2 prefix_1 omega">

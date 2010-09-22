@@ -15,6 +15,7 @@ urlpatterns += patterns('',
     url(r'^(?P<feedback_id>\d+)/$', views.feedback_detail, name='feedback-detail'),
     url(r'^(?P<feedback_id>\d+)/update$', views.feedback_update, name='feedback-update'),
     url(r'^(?P<feedback_id>\d+)/close$', views.feedback_close, name='feedback-close'),
+    url(r'^(?P<feedback_id>\d+)/ping$', views.feedback_ping_observers, name='feedback-ping-observers'),
 
     url(r'^feedback-tab$', views.feedback_tab, name='feedback-tab'),
 
