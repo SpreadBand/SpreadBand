@@ -324,17 +324,17 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
         elif gigbargain.state == 'draft':
             # We have to check that no band is still being invited.
             # If this is it the case, we don't validate the bargain
-            if len(gigbargain.gigbargainband_set.filter(state='waiting')) == 0:
+            if len(gigbargain.gigbargainband_set.filter(state__in=('waiting', 'negociating'))) == 0:
                 gigbargain.bands_have_approved_draft()
 
-            # Notify users a draft is ready
-            from ..models import collect_band_members_from_gigbargain
-            notification.send(collect_band_members_from_gigbargain(gigbargain),
-                              "gigbargain_draft_ready",
-                              {'band': gigbargain_band,
-                               'gigbargain': gigbargain
-                               }
-                              )
+                # Notify users a draft is ready
+                from ..models import collect_band_members_from_gigbargain
+                notification.send(collect_band_members_from_gigbargain(gigbargain),
+                                  "gigbargain_draft_ready",
+                                  {'band': gigbargain_band,
+                                   'gigbargain': gigbargain
+                                   }
+                                  )
 
     return redirect(gigbargain)
 
