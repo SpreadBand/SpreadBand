@@ -102,23 +102,30 @@ a {
 /* ----------------------------------- Footer */
 
 #footer {
-    padding-top: 20px;
+    background-color: #333333;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    color: white;
 }
 
 #footer h5 {
-    border-bottom: 1px solid #ddd;
+    font-size: 1em;
     margin-bottom: 5px;
+    text-shadow:1px 1px 0 #666;
 }
 
 #footer p {
+    font-size: 0.8em;
     text-align: center;
 }
 
 #footer .legals {
+    padding-top: 10px;
     font-size: 0.8em;
-    text-align: center;
-    padding-top: 5px;
+    text-align: right;
 }
+
+
 
 .dark {
     background-color: #1b1b1b;
