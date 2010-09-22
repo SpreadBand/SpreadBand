@@ -77,7 +77,8 @@ def edit(request, band_slug):
                 geoplace, (lat, lng) = g.geocode('%s %s, %s' % (band.zipcode,
                                                                 band.city,
                                                                 band.country),
-                                                 )[0]
+                                                 exactly_one=True,
+                                                 )
             except ValueError, e:
                 geoplace = _("Unable to find address")
                 lat = lng = 0
