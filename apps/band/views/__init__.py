@@ -7,6 +7,7 @@ from django.contrib.gis.geos import Point
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
+from django.utils.translation import gettext as _
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 
@@ -72,11 +73,14 @@ def edit(request, band_slug):
         if band_form.is_valid():
             band = band_form.save(commit=False)
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
-            geoplace, (lat, lng) = g.geocode('%s %s, %s' % (band.zipcode,
-                                                            band.city,
-                                                            band.country),
-                                             exactly_one=True,
-                                             )
+            try:
+                geoplace, (lat, lng) = g.geocode('%s %s, %s' % (band.zipcode,
+                                                                band.city,
+                                                                band.country),
+                                                 )[0]
+            except ValueError, e:
+                geoplace = _("Unable to find address")
+                lat = lng = 0
 
             # Edit
             point = Point(lng, lat)
