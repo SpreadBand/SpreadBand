@@ -151,6 +151,9 @@ class BandRole(models.Model):
     """
     A typed role in a band. Eg: guitarist
     """
+    class Meta:
+        ordering = ('label',)
+
     label = CharField(max_length=30,
                       unique=True)
 
