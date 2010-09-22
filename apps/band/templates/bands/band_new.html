@@ -26,8 +26,18 @@
   <div class="alpha grid_10">
     <h2>{% trans "Your Band" %}</h2>
     <form method="POST" class="uniForm">{% csrf_token %}
-    {{ form|as_uni_form }}
 
+    <div id="div_id_name" class="ctrlHolder {% if form.name.errors %}error{% endif %}">
+      <strong>{{ form.name.label }} :</strong>
+      {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+    <div id="div_id_slug" class="ctrlHolder {% if form.slug.errors %}error{% endif %}">
+      Votre adresse sur spreadband : <strong>http://spreadband.com/b/</strong>{{ form.slug }}
+      {{ form.slug.errors }}
+    </div>
+
+    <br/>
 
     <h2>{% trans "You, in this band" %}</h2>
     {{ member_form|as_uni_form }}
