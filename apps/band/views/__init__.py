@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import date
 
 from django.conf import settings
@@ -73,15 +74,19 @@ def edit(request, band_slug):
         if band_form.is_valid():
             band = band_form.save(commit=False)
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
-            try:
-                geoplace, (lat, lng) = g.geocode('%s %s, %s' % (band.zipcode,
-                                                                band.city,
-                                                                band.country),
-                                                 exactly_one=True,
-                                                 )
-            except ValueError, e:
-                geoplace = _("Unable to find address")
-                lat = lng = 0
+
+            # Ugly hack to get a place from geocoders -_-
+            where = '%s %s, %s' % (band.zipcode,
+                                   band.city,
+                                   band.country.name)
+
+            geoplace = _("Unable to lookup address")
+            lat = lng = 0
+            for match in g.geocode(where.encode('utf-8'),
+                               exactly_one=False):
+                geoplace, (lat, lng) = match
+                # Get the first result
+                break
 
             # Edit
             point = Point(lng, lat)
