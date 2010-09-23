@@ -1,7 +1,9 @@
-from django import forms
-from django.utils.translation import ugettext_lazy as _
+import datetime
 
+from django import forms
 from django.contrib.auth.models import User
+from django.forms.extras.widgets import SelectDateWidget
+from django.utils.translation import ugettext_lazy as _
 
 from .models import UserProfile, UserAvatar
 
@@ -21,10 +23,15 @@ class ProfileAvatarForm(forms.ModelForm):
         model = UserAvatar
         fields = ('original_image',)
 
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('first_name', 'last_name', 'genre', 'birthdate', 'email', 'country', 'timezone', 'town')
+
+    birthdate = forms.DateField(label=_("Birthdate"),
+                                widget=SelectDateWidget(years=range(datetime.date.today().year-10, 1900, -1))
+                                )
 
     email = forms.EmailField(label=_("Email address"),
                              help_text='')
