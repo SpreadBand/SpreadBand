@@ -17,11 +17,13 @@ $(document).ready(function() {
   <!-- Action buttons for bands -->
   {% if gigbargain.state == 'draft' %}
     {% if managed_bands|length %}
-      {% if managed_bands.0.state == 'negociating' %}
-	<a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}" class="modal-popup minibutton btn-fork" title="{% trans "Invite a Band" %}"><span><span class="icon"></span>{% trans "Invite A Band" %}</span></a>
-      {% else %}
-	<a href="javascript:;" class="minibutton btn-fork disabled button-tip" title="{% trans "You have to unlock your part to invite a band" %}"><span><span class="icon"></span>{% trans "Invite A Band" %}</span></a>
-      {% endif %}
+      {% for gigbargainband in managed_bands %}
+	{% if gigbargainband.state == 'negociating' %}
+	  <a href="{% url gigbargain:gigbargain-band-invite-band gigbargain.uuid %}" class="modal-popup minibutton btn-fork" title="{% trans "Invite a Band" %}"><span><span class="icon"></span>{% if managed_bands|length %}{{ gigbargainband.band.name }}:{% endif %}{% trans "Invite A Band" %}</span></a>
+	{% else %}
+	  <a href="javascript:;" class="minibutton btn-fork disabled button-tip" title="{% trans "You have to unlock your part to invite a band" %}"><span><span class="icon"></span>{% if managed_bands|length %}{{ gigbargainband.band.name }}:{% endif %}{% trans "Invite A Band" %}</span></a>
+	{% endif %}
+      {% endfor %}
     {% endif %}
   {% endif %}
 
