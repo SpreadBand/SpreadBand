@@ -136,7 +136,9 @@
   <!-- Venue members -->
   <div id="venuemembers" class="grid_3 alpha omega">
     <h3>{% trans "Members" %} ({{ venue.members.count }}) (WIP)</h3>
-    <a href="{% url band:membership-manage venue.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    {% if is_managed %}
+      <a href="{% url band:membership-manage venue.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    {% endif %}
 
     {% staticfile '/images/account/no_avatar.png' as default_avatar %}
     <ul>
@@ -174,7 +176,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="description"/>
 	<h2>{% trans "Description" %}</h2>
-	<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% if is_managed %}
+	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -229,7 +233,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
 	<h2>{% trans "Pictures" %}</h2>
-	<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% if is_managed %}
+	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -249,7 +255,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
-	<a href="{% url venue:edit venue.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% if is_managed %}
+	  <a href="{% url venue:edit venue.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="fullcontent">
@@ -269,7 +277,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
 	<h2>{% trans "Location" %}</h2>
-	<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% if is_managed %}
+	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">

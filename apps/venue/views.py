@@ -39,10 +39,14 @@ def detail(request, venue_slug):
                                               aQueryset=venue.gigs.all(),
                                               when=date.today())
 
+    # Check if the venue is managed
+    is_managed = request.user.has_perm('venue.can_manage', venue)
+
     extra_context = {'latest_bands': latest_bands,
                      'past_events': past_events,
                      'future_events': future_events,
-                     'monthly_calendar': monthly_calendar}
+                     'monthly_calendar': monthly_calendar,
+                     'is_managed': is_managed}
 
     # Get the bargains we're involved into
     return object_detail(request,
