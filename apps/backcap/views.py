@@ -68,7 +68,7 @@ def feedback_list(request, qtype='all'):
                        queryset=queryset,
                        template_name='backcap/feedback_list.html',
                        template_object_name='feedback',
-                       paginate_by=2,
+                       paginate_by=15,
                        extra_context={'qtype': qtype},
                        )
 
