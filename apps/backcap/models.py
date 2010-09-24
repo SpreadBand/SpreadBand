@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 class Feedback(models.Model):
     class Meta:
         ordering = ('modified_on', 'kind')
+
     KIND_CHOICES = (
         ('Q', _('Question')),
         ('P', _('Problem')),

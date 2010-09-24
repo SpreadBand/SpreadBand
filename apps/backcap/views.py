@@ -55,23 +55,21 @@ def feedback_update(request, feedback_id):
                          template_name='backcap/feedback_update.html',
                          )
 
-def feedback_list(request, page=1):
+def feedback_list(request, qtype='all'):
     """
     Display all the feedbacks
     """
     queryset = Feedback.objects.exclude(status='C')
 
-    qtype = request.GET.get('qtype', None)
-    if qtype:
+    if qtype in Feedback.KIND_CHOICES:
         queryset = queryset.filter(kind=qtype)
-        
 
     return object_list(request,
                        queryset=queryset,
                        template_name='backcap/feedback_list.html',
                        template_object_name='feedback',
-                       paginate_by=7,
-                       page=page,
+                       paginate_by=2,
+                       extra_context={'qtype': qtype},
                        )
 
 def feedback_detail(request, feedback_id):
