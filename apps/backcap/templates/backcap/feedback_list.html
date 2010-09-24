@@ -108,7 +108,11 @@ $(document).ready(function() {
 	  {{ feedback.text|truncatewords:20 }}
 	</div>
 	<div>
-	  {{ feedback.get_status_display }} / 
+	  {% if feedback.status == 'A' %}
+	   {% trans "Assigned to" %} <a href="{{ feedback.assigned_to.get_profile.get_absolute_url }}">{{ feedback.assigned_to.first_name|default:feedback.assigned_to.username }}</a> /
+	  {% else %}
+	    {{ feedback.get_status_display }} / 
+	  {% endif %}
 	  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_profile.get_absolute_url }}">{{ feedback.user.get_full_name|default:feedback.user.username }}</a></span>
 	</div>
       </div>

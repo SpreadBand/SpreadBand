@@ -16,8 +16,12 @@ class Feedback(models.Model):
 
     STATUS_CHOICES = (
         ('N', _('New')),
-        ('A', _('Assigned')),
+        ('V', _('Valid')),
+        ('M', _('Need more information')),
         ('W', _('Won\'t Fix')),
+        ('I', _('Invalid')),
+        ('A', _('Assigned')),
+        ('D', _('Duplicate')),
         ('R', _('Re-opened')),
         ('C', _('Closed')),
         )
@@ -28,7 +32,9 @@ class Feedback(models.Model):
 
     # Who and what
     user = ForeignKey(User)
-    referer = TextField()
+    referer = TextField(verbose_name=_('Referer'),
+                        blank=True,
+                        null=True)
 
     # Contents
     kind = CharField(verbose_name=_('Kind'),
@@ -39,7 +45,22 @@ class Feedback(models.Model):
                      help_text=_("Description of the feedback"))
 
     # State
-    status = CharField(max_length=1, choices=STATUS_CHOICES, default='N')
+    status = CharField(verbose_name=_('Status'),
+                       max_length=1,
+                       choices=STATUS_CHOICES, default='N')
+         
+    assigned_to = ForeignKey(User,
+                             verbose_name=_('Assigned to'),
+                             limit_choices_to = {'is_staff': True},
+                             related_name='assigned_feedbacks',
+                             null=True,
+                             blank=True)
+
+    duplicate_of = ForeignKey('self',
+                              verbose_name=_('Duplicate of'),
+                              related_name='duplicates',
+                              null=True,
+                              blank=True)
 
     def __unicode__(self):
         return '%s - %s' % (self.kind, self.title)
