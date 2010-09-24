@@ -61,7 +61,7 @@ def feedback_list(request, qtype='all'):
     """
     queryset = Feedback.objects.exclude(status='C')
 
-    if qtype in Feedback.KIND_CHOICES:
+    if qtype in [choice[0] for choice in Feedback.KIND_CHOICES]:
         queryset = queryset.filter(kind=qtype)
 
     return object_list(request,
