@@ -98,16 +98,21 @@
 
 		<hr/>
 
-		<p>{% trans "This issue is" %} {{ feedback.get_status_display|lower }}. <a href="{% url backcap:feedback-close feedback.id %}">Close it</a></p>
+		<p>{% trans "This issue is" %} {{ feedback.get_status_display|lower }}.
+		<a href="{% url backcap:feedback-close feedback.id %}" class="minibutton btn-fork"><span><span class="icon"></span>{% trans "Close issue" %}</span></a>
 
 		<p>{% trans "Reported from:" %} <a href="http://{{ request.get_host }}{{ feedback.referer }}">http://{{ request.get_host }}{{ feedback.referer }}</a></p>
 
 		{% if user.is_superuser %}
-		  <p>Admin: <a href="{% url backcap:feedback-update feedback.id %}">edit</a></p>
-		  <p><a href="{% url backcap:feedback-ping-observers feedback.id %}">Ping observers</a></p>
+		  <p>
+		    <a href="{% url backcap:feedback-update feedback.id %}" class="minibutton btn-edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+		    <a href="{% url backcap:feedback-ping-observers feedback.id %}" class="minibutton btn-fork"><span><span class="icon"></span>{% trans "Ping observers" %}</span></a>
+		  </p>
 		{% endif %}
 
-		<a href="{% url backcap:feedback-list %}">{% trans "See all feedbacks" %}</a>
+		<p>
+		  <a href="{% url backcap:feedback-list %}">&larr; {% trans "See all feedbacks" %}</a>
+		</p>
 
 	      </div>
 	    </div>
