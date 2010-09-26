@@ -1,5 +1,8 @@
+from datetime import date
 from django import forms
 from django.utils.translation import ugettext as _
+
+from utils.forms.widgets import MonthYearWidget
 
 from .models import Band, BandMember, BandRole, BandPicture
 
@@ -12,6 +15,10 @@ class BandUpdateForm(forms.ModelForm):
     class Meta:
         model = Band
         fields = ('name', 'founded_on', 'zipcode', 'city', 'country', 'genres', 'influences', 'biography', 'technical_sheet',)
+
+    founded_on = forms.DateField(required=True,
+                                 widget=MonthYearWidget(years=xrange(date.today().year-50, date.today().year+1))
+                                 )
 
 class BandMemberRequestForm(forms.ModelForm):
     class Meta:
