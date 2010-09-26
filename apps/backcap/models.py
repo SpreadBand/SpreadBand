@@ -11,7 +11,7 @@ from .signals import feedback_updated
 
 class Feedback(models.Model):
     class Meta:
-        ordering = ('modified_on', 'kind')
+        ordering = ('-modified_on', 'kind')
 
     KIND_CHOICES = (
         ('Q', _('Question')),
