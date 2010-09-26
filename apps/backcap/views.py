@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import aggregates, Sum
+from django.db.models.sql import aggregates as sql_aggregates
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from django.views.generic.create_update import update_object
@@ -57,11 +59,20 @@ def feedback_update(request, feedback_id):
                          template_name='backcap/feedback_update.html',
                          )
 
+# hack to allow default value for Sum()
+class SumWithDefault(aggregates.Aggregate):
+    name = 'SumWithDefault'
+
+class SQLSumWithDefault(sql_aggregates.Sum):
+    sql_template = 'COALESCE(%(function)s(%(field)s), %(default)s)'
+
+setattr(sql_aggregates, 'SumWithDefault', SQLSumWithDefault)
+
 def feedback_list(request, qtype='all'):
     """
     Display all the feedbacks
     """
-    queryset = Feedback.objects.exclude(status='C')
+    queryset = Feedback.objects.exclude(status__in=('C', 'D', 'I')).annotate(score=SumWithDefault('votes__vote', default=0)).order_by('-score')
 
     if qtype in [choice[0] for choice in Feedback.KIND_CHOICES]:
         queryset = queryset.filter(kind=qtype)
