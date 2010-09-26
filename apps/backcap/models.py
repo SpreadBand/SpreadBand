@@ -81,7 +81,7 @@ import notification.models as notification
 
 @signals(feedback_updated)
 def on_feedback_updated(sender, *args, **kwargs):
-    notification.send_observation_notices_for(sender, 'feedback_updated')
+    notification.send_observation_notices_for(sender, 'feedback_updated', {'feedback': sender})
 
 @signals(comment_was_posted)
 def on_comment_posted(sender, comment, request, *args, **kwargs):
