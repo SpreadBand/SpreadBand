@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-24 19:04+0200\n"
-"PO-Revision-Date: 2010-09-24 19:07\n"
+"POT-Creation-Date: 2010-09-26 16:08+0200\n"
+"PO-Revision-Date: 2010-09-26 16:11\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,159 +27,158 @@ msgid "A new feedback was submitted"
 msgstr "Un nouveau feedback a été envoyé"
 
 #: management.py:11
-#, fuzzy
 msgid "Feedback updated"
-msgstr "Feedbacks"
+msgstr "Feedbacks mis à jour"
 
 #: management.py:11
-#, fuzzy
 msgid "A feedback was updated"
-msgstr "Un nouveau feedback a été envoyé"
+msgstr "Un feedback a été mis à jour"
 
-#: models.py:12
+#: models.py:14
 msgid "Question"
 msgstr "Question"
 
-#: models.py:13
+#: models.py:15
 msgid "Problem"
 msgstr "Problème"
 
-#: models.py:14
+#: models.py:16
 msgid "Idea"
 msgstr "Idée"
 
-#: models.py:18
+#: models.py:20
 msgid "New"
 msgstr "Nouveau"
 
-#: models.py:19
+#: models.py:21
 msgid "Valid"
 msgstr "Valide"
 
-#: models.py:20
+#: models.py:22
 msgid "Need more information"
 msgstr "Besoin de plus d'informations"
 
-#: models.py:21
+#: models.py:23
 msgid "Won't Fix"
 msgstr "Ne sera pas corrigé"
 
-#: models.py:22
+#: models.py:24
 msgid "Invalid"
 msgstr "Invalide"
 
-#: models.py:23
+#: models.py:25
 msgid "Assigned"
 msgstr "Attribué"
 
-#: models.py:24
+#: models.py:26
 msgid "Duplicate"
 msgstr "Doublon"
 
-#: models.py:25
+#: models.py:27
 msgid "Re-opened"
 msgstr "Ré-ouvert"
 
-#: models.py:26
+#: models.py:28
 msgid "Closed"
 msgstr "Fermé"
 
-#: models.py:35
+#: models.py:37
 msgid "Referer"
 msgstr "Référant"
 
-#: models.py:40
+#: models.py:42
 msgid "Kind"
 msgstr "Genre"
 
-#: models.py:42
+#: models.py:44
 msgid "Title"
 msgstr "Titre"
 
-#: models.py:44
+#: models.py:46
 msgid "Text"
 msgstr "Texte"
 
-#: models.py:45
+#: models.py:47
 msgid "Description of the feedback"
 msgstr "Description du feedback"
 
-#: models.py:48
+#: models.py:50
 msgid "Status"
 msgstr "État"
 
-#: models.py:53 templates/backcap/feedback_list.html:112
-#, fuzzy
+#: models.py:55 templates/backcap/feedback_list.html:112
 msgid "Assigned to"
-msgstr "Attribué"
+msgstr "Attribué à"
 
-#: models.py:60
+#: models.py:62
 msgid "Duplicate of"
 msgstr "Doublon de"
 
-#: views.py:33
+#: views.py:34
 msgid "Thanks for you feedback !"
 msgstr "Merci pour votre feedback !"
 
-#: views.py:126
+#: views.py:137
 msgid "The users have been successfully notified"
 msgstr "Les utilisateurs ont été notifiés"
 
-#: templates/backcap/feedback_detail.html:75
+#: templates/backcap/feedback_detail.html:23
+msgid "This issue is closed."
+msgstr "Ce feedback est fermé."
+
+#: templates/backcap/feedback_detail.html:78
 msgid "is working on this. Poke him if you think it's taking too long !"
 msgstr "travaille dessus. Relancez le si vous pensez que ça prend trop de temps !"
 
-#: templates/backcap/feedback_detail.html:83
-#, fuzzy
+#: templates/backcap/feedback_detail.html:86
 msgid "This issue is a duplicate of"
-msgstr "Cette question est"
+msgstr "Ce problème est un double de"
 
-#: templates/backcap/feedback_detail.html:84
+#: templates/backcap/feedback_detail.html:87
 msgid "Please don't comment on this issue anymore."
 msgstr "Merci de ne plus commenter ce feedback."
 
-#: templates/backcap/feedback_detail.html:90
+#: templates/backcap/feedback_detail.html:93
 msgid "Description:"
 msgstr "Description :"
 
-#: templates/backcap/feedback_detail.html:94
+#: templates/backcap/feedback_detail.html:97
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/backcap/feedback_detail.html:103
+#: templates/backcap/feedback_detail.html:106
 msgid "Post a new comment"
 msgstr "Poster un nouveau commentaire"
 
-#: templates/backcap/feedback_detail.html:112
+#: templates/backcap/feedback_detail.html:115
 msgid "Post"
 msgstr "Poster"
 
-#: templates/backcap/feedback_detail.html:116
-#, fuzzy
+#: templates/backcap/feedback_detail.html:119
 msgid "Comments closed."
-msgstr "Commentaires"
+msgstr "Commentaires fermés."
 
-#: templates/backcap/feedback_detail.html:121
+#: templates/backcap/feedback_detail.html:124
 msgid "This issue is"
 msgstr "Cette question est"
 
-#: templates/backcap/feedback_detail.html:122
+#: templates/backcap/feedback_detail.html:125
 msgid "Close issue"
 msgstr "Fermer le feedback"
 
-#: templates/backcap/feedback_detail.html:124
+#: templates/backcap/feedback_detail.html:127
 msgid "Reported from:"
-msgstr "Signalé par :"
+msgstr "Signalé depuis :"
 
-#: templates/backcap/feedback_detail.html:128
+#: templates/backcap/feedback_detail.html:131
 msgid "Edit"
 msgstr "Éditer"
 
-#: templates/backcap/feedback_detail.html:129
+#: templates/backcap/feedback_detail.html:132
 msgid "Ping observers"
 msgstr "Notifier les observateurs"
 
-#: templates/backcap/feedback_detail.html:134
+#: templates/backcap/feedback_detail.html:137
 #: templates/backcap/feedback_tab.html:41
 msgid "See all feedbacks"
 msgstr "Voir tous les feedbacks"

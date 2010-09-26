@@ -14,6 +14,7 @@ from voting.views import vote_on_object
 
 from .models import Feedback
 from .forms import FeedbackNewForm, FeedbackEditForm
+from .signals import feedback_updated as sig_feedback_updated
 
 @login_required
 def feedback_new(request, template_name='backcap/feedback_new.html'):
@@ -34,6 +35,7 @@ def feedback_new(request, template_name='backcap/feedback_new.html'):
 
             staff = User.objects.filter(is_staff=True)
             notification.send(staff, "feedback_new", {'feedback': feedback})
+            notification.observe(feedback, request.user, "feedback_updated", "feedback_updated")
 
             return redirect(feedback)
     else:
@@ -99,6 +101,15 @@ def feedback_close(request, feedback_id):
 
 @login_required
 def feedback_vote(request, feedback_id, direction):
+    feedback = get_object_or_404(Feedback, id=feedback_id)
+
+    # Auto (un)subscribe user if he/she's interested in this issue or not
+    is_observing = notification.is_observing(feedback, request.user, "feedback_updated")
+    if direction == 'up' and not is_observing:
+        notification.observe(feedback, request.user, "feedback_updated", "feedback_updated")
+    elif direction in ('down', 'clear') and is_observing:
+        notification.stop_observing(feedback, request.user, "feedback_updated")
+
     return vote_on_object(request,
                           model=Feedback,
                           direction=direction,

@@ -4,6 +4,8 @@ from django.db.models import PositiveIntegerField, BooleanField, IntegerField
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from .signals import feedback_updated
+
 class Feedback(models.Model):
     class Meta:
         ordering = ('modified_on', 'kind')
@@ -71,3 +73,18 @@ class Feedback(models.Model):
         return ('backcap:feedback-detail', (), {'feedback_id': self.id})
     
 
+## Signal routing
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.comments.signals import comment_was_posted
+from annoying.decorators import signals
+import notification.models as notification
+
+@signals(feedback_updated)
+def on_feedback_updated(sender, *args, **kwargs):
+    notification.send_observation_notices_for(sender, 'feedback_updated')
+
+@signals(comment_was_posted)
+def on_comment_posted(sender, comment, request, *args, **kwargs):
+    feedback_ctype = ContentType.objects.get_for_model(Feedback)
+    if comment.content_type == feedback_ctype:
+        feedback_updated.send(sender=comment.content_object)

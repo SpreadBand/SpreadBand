@@ -19,6 +19,9 @@
     <div class="grid_14 alpha omega">
 
       <div class="feedback-entry alpha omega grid_14">
+	{% if feedback.status == 'C' %}
+	  <strong>{% trans "This issue is closed." %}</strong>
+	{% endif %}
 	<div class="alpha grid_2">
 	  {% score_for_object feedback as score %}
 	    
