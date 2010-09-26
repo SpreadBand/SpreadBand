@@ -2,7 +2,10 @@ from django.db import models
 from django.db.models import ForeignKey, CharField, TextField, DateTimeField
 from django.db.models import PositiveIntegerField, BooleanField, IntegerField
 from django.contrib.auth.models import User
+from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
+
+from voting.models import Vote
 
 from .signals import feedback_updated
 
@@ -63,6 +66,11 @@ class Feedback(models.Model):
                               related_name='duplicates',
                               null=True,
                               blank=True)
+
+    votes = generic.GenericRelation(Vote,
+                                    object_id_field="object_id",
+                                    content_type_field="content_type")
+
 
     def __unicode__(self):
         return '%s - %s' % (self.kind, self.title)
