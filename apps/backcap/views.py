@@ -62,7 +62,15 @@ def feedback_list(request, qtype='all'):
     """
     Display all the feedbacks
     """
-    queryset = Feedback.objects.exclude(status__in=('C', 'D', 'I')).annotate(score=SumWithDefault('votes__vote', default=0)).order_by('-score', '-modified_on', 'kind')
+    queryset = Feedback.objects.exclude(status__in=('C', 'D', 'I')).annotate(score=SumWithDefault('votes__vote', default=0))
+
+    order = request.GET.get('order', 'score')
+    print order
+    if order == 'newest':
+        quersyet = queryset.order_by('-modified_on', 'kind', '-score')
+    else:
+        queryset = queryset.order_by('-score', '-modified_on', 'kind')
+
 
     if qtype in [choice[0] for choice in Feedback.KIND_CHOICES]:
         queryset = queryset.filter(kind=qtype)
@@ -72,7 +80,8 @@ def feedback_list(request, qtype='all'):
                        template_name='backcap/feedback_list.html',
                        template_object_name='feedback',
                        paginate_by=15,
-                       extra_context={'qtype': qtype},
+                       extra_context={'qtype': qtype,
+                                      'order': order},
                        )
 
 def feedback_detail(request, feedback_id):

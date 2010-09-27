@@ -131,12 +131,12 @@ $(document).ready(function() {
   </ul>
   
   {% if page_obj.has_previous %}
-  &laquo; <a href="{% url backcap:feedback-list qtype %}?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
+  &laquo; <a href="{% url backcap:feedback-list qtype %}?page={{ page_obj.previous_page_number }}&order={{ order }}">{% trans "previous" %}</a>
   {% endif %}
   
   {% for page_num in page_obj.paginator.page_range %}
   
-  <a href="{% url backcap:feedback-list qtype %}?page={{ page_num }}">
+  <a href="{% url backcap:feedback-list qtype %}?page={{ page_num }}&order={{ order }}">
   {% if page_num == page_obj.number %}<strong>{% endif %}
   {{ page_num }}
   {% if page_num == page_obj.number %}</strong>{% endif %}
@@ -147,18 +147,25 @@ $(document).ready(function() {
 
   
   {% if page_obj.has_next %}
-  <a href="{% url backcap:feedback-list qtype %}?page={{ page_obj.next_page_number }}">{% trans "next" %}</a> &raquo;
+  <a href="{% url backcap:feedback-list qtype %}?page={{ page_obj.next_page_number }}&order={{order}}">{% trans "next" %}</a> &raquo;
   {% endif %}
 </div>
 <div class="grid_2 prefix_1 omega">
 <h4>{% trans "Display" %}</h4>
 
 <ul id="feedback-filter">
-  <li class="ui-corner-all {% if not qtype %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}">{% trans "All" %}</a></li>
-  <li class="ui-corner-all {% if qtype == 'Q' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list 'Q' %}">{% trans "Questions" %}</a></li>
-  <li class="ui-corner-all {% if qtype == 'P' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list 'P' %}">{% trans "Problems" %}</a></li>
-  <li class="ui-corner-all {% if qtype == 'I' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list 'I' %}">{% trans "Ideas" %}</a></li>
+  <li class="ui-corner-all {% if not qtype or qtype == 'all' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list %}?order={{order}}">{% trans "All" %}</a></li>
+  <li class="ui-corner-all {% if qtype == 'Q' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list 'Q' %}?order={{order}}">{% trans "Questions" %}</a></li>
+  <li class="ui-corner-all {% if qtype == 'P' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list 'P' %}?order={{order}}">{% trans "Problems" %}</a></li>
+  <li class="ui-corner-all {% if qtype == 'I' %}filter-on{% endif %}"><a href="{% url backcap:feedback-list 'I' %}?order={{order}}">{% trans "Ideas" %}</a></li>
 </ul>
+
+<h4>{% trans "Order by" %}</h4>
+<ul id="feedback-order">
+  <li class="ui-corner-all {% if order == 'score' %}order-on{% endif %}"><a href="{% url backcap:feedback-list qtype %}?order=score">{% trans "Score" %}</a></li>
+  <li class="ui-corner-all {% if order == 'newest' %}order-on{% endif %}"><a href="{% url backcap:feedback-list qtype %}?order=newest">{% trans "Newest" %}</a></li>
+</ul>
+
 </div>
 
 </div>

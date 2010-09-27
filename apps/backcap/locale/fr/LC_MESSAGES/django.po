@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 11:23+0200\n"
-"PO-Revision-Date: 2010-09-27 11:24\n"
+"POT-Creation-Date: 2010-09-27 11:48+0200\n"
+"PO-Revision-Date: 2010-09-27 11:51\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -118,7 +118,7 @@ msgstr "Doublon de"
 msgid "Thanks for you feedback !"
 msgstr "Merci pour votre feedback !"
 
-#: views.py:138
+#: views.py:147
 msgid "The users have been successfully notified"
 msgstr "Les utilisateurs ont été notifiés"
 
@@ -243,6 +243,18 @@ msgstr "Problèmes"
 #: templates/backcap/feedback_list.html:160
 msgid "Ideas"
 msgstr "Idées"
+
+#: templates/backcap/feedback_list.html:163
+msgid "Order by"
+msgstr "Trier par"
+
+#: templates/backcap/feedback_list.html:165
+msgid "Score"
+msgstr "Score"
+
+#: templates/backcap/feedback_list.html:166
+msgid "Newest"
+msgstr "Plus récents"
 
 #: templates/backcap/feedback_new.html:4
 msgid "Leave feedback"

@@ -69,7 +69,8 @@
 }
 
 #feedback-filter {
-    list-style-type: none;
+    list-style: none;
+    margin-bottom: 20px;
 }
 
 #feedback-filter .filter-on
@@ -78,6 +79,7 @@
 }
 
 #feedback-filter li {
+    list-style: none;
     text-align: center;
     margin-bottom: 3px;
     background-color: #666;
@@ -85,6 +87,22 @@
     width: 100%;
     font-size: 1.1em;
 }
+
+#feedback-order li {
+    list-style: none;
+    text-align: center;
+    margin-bottom: 3px;
+    background-color: #666;
+    color: #eee;
+    width: 100%;
+    font-size: 1.1em;
+}
+
+#feedback-order .order-on
+{
+    background-color: #222;
+}
+
 
 #feedback-tab-suggestions
 {
