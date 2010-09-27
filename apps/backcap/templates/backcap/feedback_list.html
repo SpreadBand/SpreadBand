@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load voting_tags %}
+{% load django_static %}
 
 {% block title %}
   {% trans "Help Center" %}
@@ -9,10 +10,16 @@
 
 {% block css %}
   {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="/css/jquery/tipsy.css" media="screen, projection" /> 
   <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
 {% endblock %}
 
 {% block javascript %}
+
+{% staticall %}
+<script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
+{% endstaticall %}
+
 <script type="text/javascript">
 $(document).ready(function() {
     $(".feedbackvote :submit").click(function() {
@@ -33,6 +40,9 @@ $(document).ready(function() {
 
 	return false;
     });
+
+    /* Tips on voting buttons */
+    $('input.button-tip').tipsy({gravity: $.fn.tipsy.south});
 });
 
 </script>
@@ -84,7 +94,7 @@ $(document).ready(function() {
 										{% url backcap:feedback-vote feedback.id 'up' %}
 										{% endif %}
 										" method="POST">
-	      <input type="submit" class="ui-corner-all vote_button" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}X{% else %}+{% endif %}"/>
+	      <input type="submit" class="ui-corner-all vote_button button-tip" title="{% if vote and vote.is_upvote %}{% trans "Clear my vote" %}{% else %}{% trans "Vote for" %}{% endif %}" id="feedbackuparrow{{ feedback.id }}" value="{% if vote and vote.is_upvote %}X{% else %}+{% endif %}"/>
 	    </form>
 	    
 	    <form class="feedbackvote" id="feedbackdown{{ feedback.id }}" action="{% if vote and vote.is_downvote %}
@@ -94,7 +104,7 @@ $(document).ready(function() {
 										  {% endif %}
 										  " method="POST">
 	      
-	      <input type="submit" class="ui-corner-all vote_button" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}X{% else %}-{% endif %}"/>
+	      <input type="submit" class="ui-corner-all vote_button button-tip" title="{% if vote and vote.is_downvote %}{% trans "Clear my vote" %}{% else %}{% trans "Vote against" %}{% endif %}" id="feedbackdownarrow{{ feedback.id }}" value="{% if vote and vote.is_downvote %}X{% else %}-{% endif %}"/>
 	    </form>
 	  </div>
 	</div>

@@ -2,6 +2,7 @@
 
 {% load django_static %}
 {% load dajaxice_templatetags %}
+{% load i18n %}
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ request.LANGUAGE_CODE }}" lang="{{ request.LANGUAGE_CODE }}" dir="ltr">
   
@@ -181,7 +182,7 @@
 	  {% else %}
 	    <ul>
 	      <li><a href="{% url account:dashboard %}">{{ user.username|upper }}</a></li>
-	      <li><a href="{% url account:auth_logout %}">Logout</a></li>
+	      <li><a href="{% url account:auth_logout %}">{% trans "Logout" %}</a></li>
 	    </ul>
 	  {% endif %}
 	    

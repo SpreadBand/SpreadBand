@@ -18,6 +18,8 @@
 }
 
 .feedback-entry .score {
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-size: 3em;
     font-weight: bold;
 }

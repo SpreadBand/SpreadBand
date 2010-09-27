@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-26 16:08+0200\n"
-"PO-Revision-Date: 2010-09-26 16:11\n"
+"POT-Creation-Date: 2010-09-27 11:23+0200\n"
+"PO-Revision-Date: 2010-09-27 11:24\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: management.py:10 templates/backcap/feedback_list.html:64
+#: management.py:10 templates/backcap/feedback_list.html:74
 msgid "New feedback"
 msgstr "Nouveau feedback"
 
@@ -34,91 +34,91 @@ msgstr "Feedbacks mis à jour"
 msgid "A feedback was updated"
 msgstr "Un feedback a été mis à jour"
 
-#: models.py:14
+#: models.py:17
 msgid "Question"
 msgstr "Question"
 
-#: models.py:15
+#: models.py:18
 msgid "Problem"
 msgstr "Problème"
 
-#: models.py:16
+#: models.py:19
 msgid "Idea"
 msgstr "Idée"
 
-#: models.py:20
+#: models.py:23
 msgid "New"
 msgstr "Nouveau"
 
-#: models.py:21
+#: models.py:24
 msgid "Valid"
 msgstr "Valide"
 
-#: models.py:22
+#: models.py:25
 msgid "Need more information"
 msgstr "Besoin de plus d'informations"
 
-#: models.py:23
+#: models.py:26
 msgid "Won't Fix"
 msgstr "Ne sera pas corrigé"
 
-#: models.py:24
+#: models.py:27
 msgid "Invalid"
 msgstr "Invalide"
 
-#: models.py:25
+#: models.py:28
 msgid "Assigned"
 msgstr "Attribué"
 
-#: models.py:26
+#: models.py:29
 msgid "Duplicate"
 msgstr "Doublon"
 
-#: models.py:27
+#: models.py:30
 msgid "Re-opened"
 msgstr "Ré-ouvert"
 
-#: models.py:28
+#: models.py:31
 msgid "Closed"
 msgstr "Fermé"
 
-#: models.py:37
+#: models.py:40
 msgid "Referer"
 msgstr "Référant"
 
-#: models.py:42
+#: models.py:45
 msgid "Kind"
 msgstr "Genre"
 
-#: models.py:44
+#: models.py:47
 msgid "Title"
 msgstr "Titre"
 
-#: models.py:46
+#: models.py:49
 msgid "Text"
 msgstr "Texte"
 
-#: models.py:47
+#: models.py:50
 msgid "Description of the feedback"
 msgstr "Description du feedback"
 
-#: models.py:50
+#: models.py:53
 msgid "Status"
 msgstr "État"
 
-#: models.py:55 templates/backcap/feedback_list.html:112
+#: models.py:58 templates/backcap/feedback_list.html:122
 msgid "Assigned to"
 msgstr "Attribué à"
 
-#: models.py:62
+#: models.py:65
 msgid "Duplicate of"
 msgstr "Doublon de"
 
-#: views.py:34
+#: views.py:35
 msgid "Thanks for you feedback !"
 msgstr "Merci pour votre feedback !"
 
-#: views.py:137
+#: views.py:138
 msgid "The users have been successfully notified"
 msgstr "Les utilisateurs ont été notifiés"
 
@@ -183,51 +183,64 @@ msgstr "Notifier les observateurs"
 msgid "See all feedbacks"
 msgstr "Voir tous les feedbacks"
 
-#: templates/backcap/feedback_list.html:7
+#: templates/backcap/feedback_list.html:8
 msgid "Help Center"
 msgstr "Centre d'aide"
 
-#: templates/backcap/feedback_list.html:46
+#: templates/backcap/feedback_list.html:56
 msgid "Feedbacks"
 msgstr "Feedbacks"
 
-#: templates/backcap/feedback_list.html:52
+#: templates/backcap/feedback_list.html:62
 msgid "This is all the feedbacks submitted by you, the users. Thanks for that."
 msgstr "Voici tous les feedbacks des utilisateurs. Merci à tous !"
 
-#: templates/backcap/feedback_list.html:56
+#: templates/backcap/feedback_list.html:66
 msgid "If you think one of these entries is important for you, then <strong>click on the '+' button</strong>. If you disagree or think this is not important at all, then <strong>click on '-'</strong>."
 msgstr "Si vous pensez que l'une de ces entrées est importante pour vous, <strong> cliquez sur le bouton '+'</strong>. Si vous n'êtes pas d'accord et si vous pensez que ce n'est pas important du tout,  <strong>cliquez sur '-'</strong>."
 
-#: templates/backcap/feedback_list.html:60
+#: templates/backcap/feedback_list.html:70
 msgid "The <strong>highest the score</strong> an issue will get, the <strong>earlier we'll work on</strong> it."
 msgstr "<strong>Plus la note d'un feedback sera élevée</strong>, <strong>plus tôt</strong> nous travaillerons sur la résolution de celui-ci."
 
-#: templates/backcap/feedback_list.html:124
+#: templates/backcap/feedback_list.html:97
+#: templates/backcap/feedback_list.html:107
+msgid "Clear my vote"
+msgstr "Annuler mon vote"
+
+#: templates/backcap/feedback_list.html:97
+msgid "Vote for"
+msgstr "Voter pour"
+
+#: templates/backcap/feedback_list.html:107
+msgid "Vote against"
+msgstr "Voter contre"
+
+#: templates/backcap/feedback_list.html:134
 msgid "previous"
 msgstr "précédent"
 
-#: templates/backcap/feedback_list.html:140
+#: templates/backcap/feedback_list.html:150
 msgid "next"
 msgstr "suivant"
 
-#: templates/backcap/feedback_list.html:144
+#: templates/backcap/feedback_list.html:154
 msgid "Display"
 msgstr "Afficher"
 
-#: templates/backcap/feedback_list.html:147
+#: templates/backcap/feedback_list.html:157
 msgid "All"
 msgstr "Tous"
 
-#: templates/backcap/feedback_list.html:148
+#: templates/backcap/feedback_list.html:158
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/backcap/feedback_list.html:149
+#: templates/backcap/feedback_list.html:159
 msgid "Problems"
 msgstr "Problèmes"
 
-#: templates/backcap/feedback_list.html:150
+#: templates/backcap/feedback_list.html:160
 msgid "Ideas"
 msgstr "Idées"
 
