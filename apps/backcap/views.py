@@ -62,7 +62,7 @@ def feedback_list(request, qtype='all'):
     """
     Display all the feedbacks
     """
-    queryset = Feedback.objects.exclude(status__in=('C', 'D', 'I')).annotate(score=SumWithDefault('votes__vote', default=0)).order_by('-score')
+    queryset = Feedback.objects.exclude(status__in=('C', 'D', 'I')).annotate(score=SumWithDefault('votes__vote', default=0)).order_by('-score', '-modified_on', 'kind')
 
     if qtype in [choice[0] for choice in Feedback.KIND_CHOICES]:
         queryset = queryset.filter(kind=qtype)
