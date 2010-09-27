@@ -13,9 +13,16 @@
 	if ( $('#id_date').val() == "" ) {
 	    $('#id_date').val("today");
 	};
-	
+
+	/* Calendar */
 	$('#div_id_date').datepicker({minDate: 0, defaultDate: $('#id_date').val(), altField: '#id_date', dateFormat: 'yy-mm-dd'});
 
+
+	/* Input masks */
+	$.mask.definitions['X'] = '[0-9]?'
+	$('#id_starts_at').mask('9X:99', {placeholder: ' '});
+	$('#id_eq_starts_at').mask('9X:99', {placeholder: ' '});
+	$('#id_set_duration').mask('9X minutes', {placeholder: ' '});
 
 	/* Show/Hide things depending on access type */
 	$('#div_id_fee_amount').hide();

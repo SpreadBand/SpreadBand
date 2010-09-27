@@ -157,9 +157,9 @@ class GigBargainBandForm(forms.ModelForm):
                                     required=False,
                                     min_value=0, max_value=100, initial=0)
     starts_at = forms.TimeField(label=_('Starts at'),
-                                input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
+                                input_formats=('%H:%M:%S', '%H:%M', '%Hh%M', '%H'), required=False)
     eq_starts_at = forms.TimeField(label=_('Equalisation starts at'),
-                                   input_formats=('%H:%M:%S', '%H:%M', '%H'), required=False)
+                                   input_formats=('%H:%M:%S', '%H:%M', '%Hh%M', '%H'), required=False)
 
     def clean(self):
         # Make sure the equalization isn't after the beginning of the set
@@ -180,7 +180,7 @@ class GigBargainBandPartEditForm(GigBargainBandForm):
         model = GigBargainBand
         fields = ('starts_at', 'set_duration', 'eq_starts_at', 'percentage', 'amount', 'defrayment')
 
-    starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%H'), required=True)
+    starts_at = forms.TimeField(input_formats=('%H:%M:%S', '%H:%M', '%Hh%M',  '%H'), required=True)
     set_duration = TimedeltaFormField(label=_('Set duration'),
                                       required=True)
 
