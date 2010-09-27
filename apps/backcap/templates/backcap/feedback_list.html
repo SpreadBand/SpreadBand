@@ -123,7 +123,12 @@ $(document).ready(function() {
 	  {% else %}
 	    {{ feedback.get_status_display }} / 
 	  {% endif %}
-	  <span class="who">posted {{ feedback.created_on|timesince }} ago by <a href="{{ feedback.user.get_profile.get_absolute_url }}">{{ feedback.user.get_full_name|default:feedback.user.username }}</a></span>
+	  <span class="who">
+	  {% blocktrans with feedback.created_on|timesince as since %}
+	    Posted {{ since }} ago by
+	  {% endblocktrans %}
+	  <a href="{{ feedback.user.get_profile.get_absolute_url }}">{{ feedback.user.get_full_name|default:feedback.user.username }}</a>
+	  </span>
 	</div>
       </div>
     </li>
