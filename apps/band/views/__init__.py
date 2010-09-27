@@ -103,7 +103,7 @@ def edit(request, band_slug):
 
             messages.success(request, "%s was successfully updated" % band.name)
 
-            return redirect(band)
+            return redirect('presskit:mypresskit', band.slug)
 
 
     return update_object(request,
