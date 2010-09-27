@@ -20,7 +20,7 @@ class Feedback(models.Model):
         )
 
     STATUS_CHOICES = (
-        ('N', _('New')),
+        ('N', _('New (unreviewed)')),
         ('V', _('Valid')),
         ('M', _('Need more information')),
         ('W', _('Won\'t Fix')),

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 12:04+0200\n"
-"PO-Revision-Date: 2010-09-27 12:04\n"
+"POT-Creation-Date: 2010-09-27 12:14+0200\n"
+"PO-Revision-Date: 2010-09-27 12:14\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgid "Idea"
 msgstr "Idée"
 
 #: models.py:23
-msgid "New"
+msgid "New (unreviewed)"
 msgstr "Nouveau"
 
 #: models.py:24
@@ -287,3 +287,6 @@ msgstr "Suggestions"
 #: templates/backcap/feedback_tab.html:34
 msgid "Start typing a title"
 msgstr "Commencez à saisir un titre"
+
+#~ msgid "New"
+#~ msgstr "Nouveau"
