@@ -65,7 +65,6 @@ def feedback_list(request, qtype='all'):
     queryset = Feedback.objects.exclude(status__in=('C', 'D', 'I')).annotate(score=SumWithDefault('votes__vote', default=0))
 
     order = request.GET.get('order', 'score')
-    print order
     if order == 'newest':
         quersyet = queryset.order_by('-modified_on', 'kind', '-score')
     else:
