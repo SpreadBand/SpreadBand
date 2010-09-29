@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 11:23+0200\n"
-"PO-Revision-Date: 2010-09-27 12:05\n"
+"POT-Creation-Date: 2010-09-29 22:06+0200\n"
+"PO-Revision-Date: 2010-09-29 22:09\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,47 +43,47 @@ msgstr "La date doit être du jour même ou postérieure"
 msgid "(Let the venue choose)"
 msgstr "(Laisser le lieu de concert  choisir)"
 
-#: forms.py:156 forms.py:193 models.py:227 models.py:367
+#: forms.py:156 forms.py:195 models.py:227 models.py:367
 msgid "Percentage"
 msgstr "Pourcentage"
 
-#: forms.py:159 models.py:354
+#: forms.py:160 models.py:354
 msgid "Starts at"
 msgstr "Démarre à"
 
-#: forms.py:161 models.py:364
+#: forms.py:163 models.py:364
 msgid "Equalisation starts at"
 msgstr "Les balances commencent à"
 
-#: forms.py:170
+#: forms.py:172
 msgid "Equalizations must start before the gig itself"
 msgstr "Les balances commencent avant le concert"
 
-#: forms.py:184 forms.py:195 models.py:359
+#: forms.py:186 forms.py:197 models.py:359
 msgid "Set duration"
 msgstr "Durée du set"
 
-#: forms.py:211
+#: forms.py:213
 msgid "Percentage is missing"
 msgstr "Pourcentage manquant"
 
-#: forms.py:215
+#: forms.py:217
 msgid "Remuneration amount is missing"
 msgstr "Montant des cachets manquants"
 
-#: forms.py:237
+#: forms.py:239
 msgid "You can't invite this band, it has been kicked"
 msgstr "Vous ne pouvez pas inviter ce groupe, il a été éjecté"
 
-#: forms.py:239
+#: forms.py:241
 msgid "This band is already in this bargain"
 msgstr "Ce groupe est déjà entré dans la négociation"
 
-#: forms.py:255
+#: forms.py:257
 msgid "There must be at least one band"
 msgstr "Il doit y avoir au moins un groupe"
 
-#: forms.py:268
+#: forms.py:270
 msgid "Bands in a bargain must be distincts"
 msgstr "Les groupes en négociation doivent être différents"
 
@@ -126,6 +126,14 @@ msgstr "Envoyée au lieu de concerts"
 #: management.py:15
 msgid "A gig bargain draft was submitted to the venue"
 msgstr "La négociation a été envoyée à \"%s\""
+
+#: management.py:16
+msgid "Venue enters negociations"
+msgstr "Le lieu de concert entre en négociation"
+
+#: management.py:16
+msgid "The venue wants to negociate with you"
+msgstr ""
 
 #: models.py:67
 msgid "New bargain"
@@ -259,11 +267,11 @@ msgstr "Montant"
 msgid "Defrayment"
 msgstr "Défraiement"
 
-#: models.py:420
+#: models.py:421
 msgid "no description"
 msgstr "pas de description"
 
-#: models.py:421
+#: models.py:422
 #, python-format
 msgid "gig at %s"
 msgstr "concert à %s"
@@ -878,28 +886,28 @@ msgstr "Vous avez déverrouillé votre partie"
 msgid "You can't lock your part since you haven't finished filling in your part of the bargain"
 msgstr "Vous ne pouvez pas verrouiller votre partie puisque vous n'avez pas fini de la compléter"
 
-#: views/band.py:315
+#: views/band.py:314
 msgid "You have locked your part"
 msgstr "Vous avez verrouillé votre partie"
 
-#: views/band.py:367 views/band.py:406 views/band.py:445 views/band.py:483
+#: views/band.py:366 views/band.py:405 views/band.py:444 views/band.py:482
 msgid "Changes saved"
 msgstr "Changements enregistrés"
 
-#: views/band.py:532
+#: views/band.py:531
 msgid "You have successfully edited the general parts"
 msgstr "Vous avez modifié la partie principale avec succès"
 
-#: views/band.py:533
+#: views/band.py:532
 msgid "Remember, you need to lock your part again"
 msgstr "Vous avez encore besoin de verrouiller votre partie"
 
-#: views/band.py:562
+#: views/band.py:561
 #, python-format
 msgid "The bargain was submitted to %s"
 msgstr "La négociation a été envoyée à \"%s\""
 
-#: views/band.py:605 views/venue.py:365
+#: views/band.py:604 views/venue.py:373
 #, python-format
 msgid "%s was successfully invited"
 msgstr "%s a bien été invité"
