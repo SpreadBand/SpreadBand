@@ -388,8 +388,9 @@ class GigBargainBand(models.Model):
         return ('gigbargain:gigbargain-band-part-display', (self.bargain_id, self.band.slug))
 
 ## Reversion
-reversion.register(GigBargain, follow=['bargainbands', 'venue_state'])
-reversion.register(GigBargainBand)
+if not reversion.is_registered(GigBargain):
+    reversion.register(GigBargain, follow=['bargainbands', 'venue_state'])
+    reversion.register(GigBargainBand)
 
 class GigBargainCommentThread(models.Model):
     """
