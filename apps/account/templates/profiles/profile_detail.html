@@ -1,7 +1,89 @@
 {% extends "base.html" %}
 
+{% load django_static %}
+{% load i18n %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
+{% endblock %}
+
+{% block title %}
+{% trans "Profile of" %} {{ profile.user.get_full_name|default:profile.user.username }}
+{% endblock %}
+
+
 {% block content %}
 
-WIP: You can't see other's user profile yet.
+<div id="text">
+
+  <div class="alpha grid_2">
+    {% staticfile "/images/account/no_avatar.png" as default_avatar %}
+    <img src="{{ profile.avatar.avatar_image.url|default:default_avatar }}" width="80px" height="80px" alt="Avatar"/>
+  </div>
+  <div class="grid_13 omega">
+    
+    <div class="grid_8 alpha" id="greating">
+      <h1>{% blocktrans with profile.user.first_name|default:profile.user.username as username %}Profile of {{ username }}{% endblocktrans %}</h1>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="user-infos" class="grid_8 alpha">
+	<label for="name">{% trans "Name" %}</label><span id="name">{{ profile.user.get_full_name|default:"John Doe" }}</span>
+	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} {% if profile.country %}<img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/>{% endif %}</span>
+	<label for="joined">{% trans "Joined" %}</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
+    </div>
+
+    <div class="grid_5 omega">
+      <div id="user-connections">
+	<h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
+	<ul>
+	  {% staticfile  "/images/account/no_avatar.png" as default_avatar %}
+	  {% for user in user_connections %}
+	    <li><a href="{{ user.get_profile.get_absolute_url }}"><img src="{{ user.get_profile.avatar.avatar_image.url|default:default_avatar }}" width="30px" height="30px" alt="{{ user.get_full_name|default:user.username }}" title="{{ user.get_full_name|default:user.username }}"/></a></li>
+	  {% endfor %}
+	</ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="clear"></div>
+
+  <div class="alpha grid_5">
+
+    {% if user.band_memberships.all %}
+      <div id="your-bands" class="sectionbox">
+	<div class="header">
+	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
+	  <h2>{% trans "Bands" %}</h2>
+	</div>
+
+	<div class="separator"></div>
+
+	<div class="content">
+	  <ul>
+	    {% for band in profile.user.bands.all %}
+	      <li>
+		{% staticfile '/images/band/no_picture.png' as default_pic %}
+		<a href="{% url band:detail band.slug %}">
+		  <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
+		  <span class="band-name">{{ band.name|capfirst }}</span>
+		</a>
+		<span class="band-location">{{ band.city }} {% if band.country %}<img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/>{% endif %}</span>
+		<span class="band-style">{{ band.genres }}</span>
+	      </li>
+	    {% endfor %}
+	  </ul>
+
+	  <div class="clear"></div>
+	</div>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+
 
 {% endblock %}

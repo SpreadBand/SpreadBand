@@ -64,7 +64,14 @@ def detail(request, username):
     if request.user.username == username:
         return dashboard(request)
     else:
-        return profile_detail(request, username)
+        user = get_object_or_404(User, username=username)
+        today = date.today()
+        month_gigbargains = GigBargain.objects.filter(bands__in=user.bands.all, date__year=today.year, date__month=today.month).order_by('date')
+        band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=user.bands.all).distinct()
+        user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
+        return profile_detail(request, username,
+                              extra_context={'user_connections': user_connections}
+                              )
 
 @login_required
 def dashboard(request):
