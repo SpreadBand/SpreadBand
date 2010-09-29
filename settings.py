@@ -131,12 +131,10 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'spreadband.urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    'templates/',
-)
+if DEBUG:
+    TEMPLATE_DIRS = ('templates/',)
+else:
+    TEMPLATE_DIRS = ('/home/spreadband/virtualenvs/spreadband.com/spreadband/templates/',)
 
 INSTALLED_APPS = (
     'south',
@@ -314,7 +312,7 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 if DEBUG:
     HAYSTACK_WHOOSH_PATH = 'spreadband_index'
 else:
-    HAYSTACK_WHOOSH_PATH = 'spreadband_index'
+    HAYSTACK_WHOOSH_PATH = '/home/spreadband/virtualenvs/spreadband.com/spreadband/spreadband_index'
 
 ### FACEBOOK
 FACEBOOK_API_KEY = '0445acaf091af7727ef610e64cb73baf'
