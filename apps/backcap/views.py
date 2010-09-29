@@ -66,9 +66,9 @@ def feedback_list(request, qtype='all'):
 
     order = request.GET.get('order', 'score')
     if order == 'newest':
-        quersyet = queryset.order_by('-modified_on', 'kind', '-score')
+        quersyet = queryset.order_by('modified_on', 'kind', '-score')
     else:
-        queryset = queryset.order_by('-score', '-modified_on', 'kind')
+        queryset = queryset.order_by('-score', 'modified_on', 'kind')
 
 
     if qtype in [choice[0] for choice in Feedback.KIND_CHOICES]:
