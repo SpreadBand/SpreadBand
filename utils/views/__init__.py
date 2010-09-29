@@ -8,7 +8,7 @@ def home_spreadband(request):
     If not logged, show home page
     else, show user's page
     """
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('account:detail', args=[request.user.username]))
     else:
         auth_form = AuthenticationForm()
