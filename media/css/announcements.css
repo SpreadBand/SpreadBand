@@ -1,0 +1,26 @@
+#site_wide_announcements {
+    width: 400px;
+}
+
+#site_wide_announcements li {
+    margin-bottom: 10px;
+}
+
+#site_wide_announcements li .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#site_wide_announcements li .date {
+    color: #666;
+}
+
+#site_wide_announcements li .content {
+    border-top: 1px #ccc solid;
+    font-size: 1.1em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
+}
+
