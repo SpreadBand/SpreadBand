@@ -54,7 +54,7 @@ $(document).ready(function() {
       <div class="adr">
 	<span class="locality">{{ band.band.city }}</span>
 	<span class="country-name">{{ band.band.country.name }}</span>
-	<img src="{{ band.band.country.flag }}" title="{{ band.band.country.name }}" alt="{{ band.band.country }}"/>
+	{% if band.band.country %}<img src="{{ band.band.country.flag }}" title="{{ band.band.country.name }}" alt="{{ band.band.country }}"/>{% endif %}
       </div>
       
       <div class="tags">

@@ -39,7 +39,7 @@
       {% with user.get_profile as profile %}
 	<label for="name">{% trans "Name" %}</label><span id="name">{{ user.get_full_name|default:"John Doe" }}</span>
 	<label for="email">{% trans "E-mail" %}</label><span id="email"><a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
-	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} <img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/></span>
+	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} {% if profile.country %}<img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/>{% endif %}</span>
 	<label for="joined">{% trans "Joined" %}</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
       {% endwith %}
     </div>
@@ -80,7 +80,7 @@
 		  <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
 		  <span class="band-name">{{ band.name|capfirst }}</span>
 		</a>
-		<span class="band-location">{{ band.city }} <img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/></span>
+		<span class="band-location">{{ band.city }} {% if band.country %}<img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/>{% endif %}</span>
 		<span class="band-style">{{ band.genres }}</span>
 	      </li>
 	    {% endfor %}

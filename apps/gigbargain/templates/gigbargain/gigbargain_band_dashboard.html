@@ -293,7 +293,7 @@
 	      <li><span><strong>{% trans "Bands" %}</strong> ({{ monthly_connections.bands|length }})</span>
 	      <ul>
 		{% for band in monthly_connections.bands %}
-		  <li><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> <img src="{{ band.country.flag }}" title="{{ band.country.name }}, {{ band.city }}" alt="{{ band.country }}"/></li>
+		  <li><a href="{{ band.get_absolute_url }}">{{ band.name }}</a> {% if band.country %}<img src="{{ band.country.flag }}" title="{{ band.country.name }}, {{ band.city }}" alt="{{ band.country }}"/>{% endif %}</li>
 		{% empty %}
 		  <li>{% trans "No connection" %}</li>
 		{% endfor %}
@@ -303,7 +303,7 @@
 	      <li><span><strong>{% trans "Venues" %}</strong> ({{ monthly_connections.venues|length }})</span>
 	      <ul>
 		{% for venue in monthly_connections.venues %}
-		  <li><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> <img src="{{ venue.country.flag }}" title="{{ venue.country.name }}, {{ venue.city }}" alt="{{ venue.country }}"/></li>
+		  <li><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> {% if venue.country %}<img src="{{ venue.country.flag }}" title="{{ venue.country.name }}, {{ venue.city }}" alt="{{ venue.country }}"/> {% endif %}</li>
 		{% empty %}
 		  <li>{% trans "No connection" %}</li>
 		{% endfor %}
