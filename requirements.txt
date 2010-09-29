@@ -27,6 +27,8 @@ slimmer
 markdown
 html5lib
 beautifulsoup
+nose
+django-nose
 
 # SpreadBand repositories
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
@@ -34,10 +36,12 @@ beautifulsoup
 # -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/SpreadBand/django-faq.git#egg=django-faq
+-e git+http://github.com/SpreadBand/django-fsm.git#egg=django-fsm
 -e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
 -e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 
 # Other repositories
+-e git+http://github.com/brosner/django-announcements.git#egg=django-announcements
 -e git+http://github.com/jtauber/django-notification.git#egg=django-notification
 -e git+http://github.com/ericflo/django-avatar.git#egg=django-avatar
 -e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop
@@ -52,7 +56,6 @@ beautifulsoup
 -e git+http://github.com/pydanny/django-uni-form.git#egg=django-uni-form
 -e git+http://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
 -e git+http://github.com/justquick/django-activity-stream.git#egg=django-activity-stream
--e git+http://github.com/kmmbvnr/django-fsm.git#egg=django-fsm
 -e git+http://github.com/jezdez/django-oembed.git#egg=django-oembed
 -e git+http://github.com/danaspiegel/django-timezones.git#egg=django-timezones
 -e git+http://github.com/jtauber/django-email-confirmation.git#egg=django-email-confirmation
