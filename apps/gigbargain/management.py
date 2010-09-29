@@ -13,5 +13,6 @@ def create_notice_types(app, created_models, verbosity, **kwargs):
     notification.create_notice_type("gigbargain_concluded", _("Gig bargain concluded"), _("A gig bargain was concluded"))
 
     notification.create_notice_type("gigbargain_draft_submitted_to_venue", _("Draft submitted to venue"), _("A gig bargain draft was submitted to the venue"))
+    notification.create_notice_type("gigbargain_venue_enters_negociations", _("Venue enters negociations"), _("The venue wants to negociate with you"))
 
     

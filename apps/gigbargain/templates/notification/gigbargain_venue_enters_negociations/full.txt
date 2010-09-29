@@ -1,0 +1,14 @@
+Après réception de votre proposition pour le concert à 
+« {{ gigbargain.venue.name }} » le {{ gigbargain.date|date:"d M Y" }},
+ce lieu de concerts souhaite négocier pour la raison suivante :
+
+"{{ gigbargain.venue_reason }}"
+
+Merci de corriger votre proposition si vous le souhaiter et de
+vérouiller de nouveau votre partie.
+
+Pour rappel, les groupes participants sont les suivants :
+{{ gigbargain.bands.all|join:", " }}
+
+Vous pouvez consulter cette négociation en cliquant sur ce lien :
+http://{{ current_site}}{{ gigbargain.get_absolute_url }}

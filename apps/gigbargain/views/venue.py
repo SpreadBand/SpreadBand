@@ -244,6 +244,14 @@ def gigbargain_venue_enter_negociations(request, gigbargain_uuid):
         # Send the action
         action.send(gigbargain.venue, verb='venue_entered_negociations', target=gigbargain, public=False)
 
+        # Notify the bands the venue wants to negociate
+        from ..models import collect_band_members_from_gigbargain
+        notification.send(collect_band_members_from_gigbargain(gigbargain),
+                          "gigbargain_venue_enters_negociations",
+                          {'gigbargain': gigbargain},
+                          )
+
+
         return redirect(gigbargain)
 
     else:
