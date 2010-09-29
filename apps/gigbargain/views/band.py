@@ -232,7 +232,7 @@ def gigbargain_band_part_display(request, band_slug, gigbargain_uuid):
     # See if we have to ask for more informations
     data = model_to_dict(gigbargainband)
     # data['set_duration'] = from_timedelta(timedelta(microseconds=data['set_duration'])) # XXX Little hack to work around durationfield bug
-    print data['set_duration']
+
     gigbargainband_form = GigBargainBandPartEditForm(data,
                                                      instance=gigbargainband)
     gigbargainband_is_valid = gigbargainband_form.is_valid()
@@ -306,7 +306,6 @@ def gigbargain_band_part_lock(request, band_slug, gigbargain_uuid):
                                                      instance=gigbargain_band)
     if not gigbargainband_form.is_valid():
         messages.error(request, _("You can't lock your part since you haven't finished filling in your part of the bargain"))
-        print gigbargainband_form.errors
         return redirect(gigbargain)
 
     action.send(gigbargain_band, verb='part_locked', target=gigbargain, public=False)
