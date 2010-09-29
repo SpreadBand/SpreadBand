@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
 
     <link rel="stylesheet" type="text/css" href="/css/ghbuttons.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="/css/announcements.css" media="screen, projection" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui/ui-darkness/jquery-ui-1.8.4.custom.css" media="screen, projection" />
@@ -153,7 +154,7 @@
 	$(document).ready(function() {
 	    $('#message-container').notify('create', 'withIcon',
 					   { text: '{{ message }}',
-					     icon: '{{ MEDIA_URL }}/images/face-monkey.png',
+					     icon: '{{ MEDIA_URL }}/images/{{ message.tags|lower }}.png',
 					   }
               				  );
 	});
@@ -264,6 +265,29 @@
     {% endif %}
 
   </div>
+
+  {# Announcements #}
+    {% if site_wide_announcements %}
+      <div id="site_wide_announcements">
+	<ul>
+	  {% for announcement in site_wide_announcements %}
+            <li>
+	      <span class="title">{{ announcement.title }}</span>
+	      <span class="date">{{ announcement.creation_date }}</span>
+	      <span class="content">{{ announcement.content }}</span>
+	      <a class="announce-hide minibutton" href="{% url announcement_hide announcement.pk %}?next={{ request.path }}"><span>{% trans "Ok" %}</span></a>
+	    </li>
+          {% endfor %}
+	</ul>
+      </div>
+
+      <script type="text/javascript">
+	$(document).ready(function() {
+	    new Boxy($("#site_wide_announcements"), {title: 'Psst.. we have something to tell you', modal: true, closeable: false});
+	});
+      </script>
+    {% endif %}
+
 {% endif %} {# ajax request #}
 </body>
 </html>
