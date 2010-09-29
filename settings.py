@@ -1,13 +1,16 @@
-# import external.autodeps as deps
-import os.path
+# -*- coding: utf-8 -*-
 # Django settings for spreadband project.
 
+import os.path
+
+DEFAULT_CHARSET = 'utf-8'
 
 PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
 
+DEBUG = True
+
 INTERNAL_IPS = ('127.0.0.1',)
 
-DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -24,6 +27,8 @@ DATABASES = {
         'PASSWORD': '',
         },
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -83,6 +88,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.csrf',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
+    'announcements.context_processors.site_wide_announcements',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -133,6 +139,8 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'south',
+
     # Built-in
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -157,7 +165,7 @@ INSTALLED_APPS = (
     'django_static',
     'debug_toolbar',
     'django_extensions',
-    'south',
+    'django_nose',
     'registration',
     'profiles',
     'guardian',
@@ -187,6 +195,7 @@ INSTALLED_APPS = (
     'django_wysiwyg',
     'avatar',
     'avatar_crop',
+    'announcements',
 
     # Internal
     'world',

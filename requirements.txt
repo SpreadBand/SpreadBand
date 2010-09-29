@@ -41,7 +41,7 @@ django-nose
 -e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 
 # Other repositories
--e git+http://github.com/brosner/django-announcements.git#egg=django-announcements
+-e git+http://github.com/stephanpoetschner/django-announcements.git#egg=django-announcements
 -e git+http://github.com/jtauber/django-notification.git#egg=django-notification
 -e git+http://github.com/ericflo/django-avatar.git#egg=django-avatar
 -e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop

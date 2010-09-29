@@ -91,6 +91,9 @@ urlpatterns = patterns('',
     (r'^avatar/', include('avatar.urls')),
     (r'^avatar_crop/', include('avatar_crop.urls')),
 
+    # Announcements
+    url(r"^announcements/", include("announcements.urls")),
+
     # Dajax(ice)
     (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
 
