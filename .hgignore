@@ -6,6 +6,7 @@ syntax: glob
 *\#
 *.pyc
 *.db
+*,cover
 external/
 docs/_build
 proto/
