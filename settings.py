@@ -195,6 +195,7 @@ INSTALLED_APPS = (
     'avatar_crop',
     'announcements',
     'backcap',
+    'django_filters',
 
     # Internal
     'world',

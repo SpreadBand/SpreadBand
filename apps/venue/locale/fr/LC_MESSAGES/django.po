@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-13 11:11+0200\n"
-"PO-Revision-Date: 2010-09-17 16:10\n"
-"Last-Translator: Raoul Duke <raoul@duke.com>\n"
+"POT-Creation-Date: 2010-10-01 18:27+0200\n"
+"PO-Revision-Date: 2010-10-01 18:26\n"
+"Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,85 +18,177 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: models.py:41
+#: forms.py:27
+msgid "Country"
+msgstr ""
+
+#: forms.py:31
+msgid "City"
+msgstr ""
+
+#: forms.py:34
+#, fuzzy
+msgid "Distance"
+msgstr "Ambiance"
+
+#: models.py:24
+msgid "Can manage this venue"
+msgstr "Peut gérer ce lieu de concerts"
+
+#: models.py:44
 msgid "Capacity of the room"
-msgstr "Capacité"
+msgstr "Capacité de la salle"
+
+#: models.py:114
+#, python-format
+msgid "Picture for venue %s"
+msgstr "Image pour lieu de concerts %s"
+
+#: views.py:164
+msgid "Unable to lookup address"
+msgstr "Impossible de recherche l'adresse"
+
+#: views.py:190
+msgid "Unable to find this city. Check the country or be more specific."
+msgstr ""
+"Impossible de trouver cette ville. Vérifiez le pays ou soyez plus précis."
 
 #: templates/venue/picture_new.html:11
 msgid "Upload"
 msgstr "Télécharger"
 
-#: templates/venue/venue_detail.html:105
-msgid "<strong>Ambiance</strong>:"
-msgstr "<strong>Ambiance</strong> :"
+#: templates/venue/search.html:7 templates/venue/search.html.py:20
+msgid "Find a Venue"
+msgstr "Trouver un lieu de concerts"
 
-#: templates/venue/venue_detail.html:107
-msgid "No ambiance."
-msgstr "Pas d'ambiance particulière."
-
-#: templates/venue/venue_detail.html:112
-msgid "<strong>Capacity</strong>:"
-msgstr "<strong>Capacité</strong> :"
-
-#: templates/venue/venue_detail.html:117
-msgid "Members"
-msgstr "Membres"
-
-#: templates/venue/venue_detail.html:118 templates/venue/venue_detail.html:180
-#: templates/venue/venue_detail.html:221 templates/venue/venue_detail.html:241
-#: templates/venue/venue_detail.html:261
-msgid "Edit"
-msgstr "Modifier"
-
-#: templates/venue/venue_detail.html:133
-msgid "Social Networks"
-msgstr "Réseaux sociaux"
-
-#: templates/venue/venue_detail.html:145
-msgid "Websites"
-msgstr "Sites web"
-
-#: templates/venue/venue_detail.html:157
-msgid "Latest Bands"
-msgstr "Derniers groupes"
-
-#: templates/venue/venue_detail.html:173
-msgid "Venue"
-msgstr "Lieu de concerts"
-
-#: templates/venue/venue_detail.html:179
-msgid "Description"
-msgstr "Description"
-
-#: templates/venue/venue_detail.html:185
-msgid "Read more"
-msgstr "Lire la suite"
-
-#: templates/venue/venue_detail.html:187
-msgid "No description."
-msgstr "Pas de description."
-
-#: templates/venue/venue_detail.html:198
-msgid "Calendar"
-msgstr "Calendrier"
-
-#: templates/venue/venue_detail.html:220
-msgid "Pictures"
-msgstr "Photos"
-
-#: templates/venue/venue_detail.html:240
-msgid "Video"
-msgstr "Vidéo"
-
-#: templates/venue/venue_detail.html:250
-msgid "No video has been set."
-msgstr "Aucune vidéo n'a été ajoutée."
-
-#: templates/venue/venue_detail.html:260
+#: templates/venue/search.html:26 templates/venue/venue_detail.html:279
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/venue/venue_detail.html:275
+#: templates/venue/search.html:41
+msgid "Extends"
+msgstr "Elargir à "
+
+#: templates/venue/search.html:41
+msgid "kilometers around this city"
+msgstr "kilomètres autour de cette ville"
+
+#: templates/venue/search.html:49
+msgid "Ambiance"
+msgstr "Ambiance"
+
+#: templates/venue/search.html:52
+msgid "e.g. 'punk, rock'"
+msgstr "par exemple : 'punk, rock'"
+
+#: templates/venue/search.html:57
+msgid "Name"
+msgstr "Nom"
+
+#: templates/venue/search.html:67
+msgid "Search"
+msgstr "Rechercher"
+
+#: templates/venue/search.html:71
+msgid "Search results"
+msgstr "Résultats de la recherche"
+
+#: templates/venue/search.html:97
+msgid "Book This Venue"
+msgstr "Booker ce lieu de concerts"
+
+#: templates/venue/search.html:97
+#, python-format
+msgid "Book %(band_name)s there"
+msgstr "Booker %(band_name)s ici"
+
+#: templates/venue/venue_detail.html:110
+msgid "<strong>Ambiance</strong>:"
+msgstr "<strong>Ambiance</strong> :"
+
+#: templates/venue/venue_detail.html:112
+msgid "No ambiance."
+msgstr "Pas d'ambiance particulière."
+
+#: templates/venue/venue_detail.html:117
+msgid "<strong>Capacity</strong>:"
+msgstr "<strong>Capacité</strong> :"
+
+#: templates/venue/venue_detail.html:121
+msgid "<strong>Website</strong>:"
+msgstr "<strong>Site Web :</strong>"
+
+#: templates/venue/venue_detail.html:125
+msgid "Social Networks"
+msgstr "Réseaux sociaux"
+
+#: templates/venue/venue_detail.html:138
+msgid "Members"
+msgstr "Membres"
+
+#: templates/venue/venue_detail.html:140 templates/venue/venue_detail.html:180
+#: templates/venue/venue_detail.html:237 templates/venue/venue_detail.html:259
+#: templates/venue/venue_detail.html:281
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/venue/venue_detail.html:156
+msgid "Latest Bands"
+msgstr "Derniers groupes"
+
+#: templates/venue/venue_detail.html:161
+msgid "No bands have played there yet."
+msgstr "Aucun groupe n'a encore joué là."
+
+#: templates/venue/venue_detail.html:172
+msgid "Venue"
+msgstr "Lieu de concerts"
+
+#: templates/venue/venue_detail.html:178
+msgid "Description"
+msgstr "Description"
+
+#: templates/venue/venue_detail.html:186
+msgid "Read more"
+msgstr "Lire la suite"
+
+#: templates/venue/venue_detail.html:188
+msgid "No description."
+msgstr "Pas de description."
+
+#: templates/venue/venue_detail.html:199
+msgid "Calendar"
+msgstr "Calendrier"
+
+#: templates/venue/venue_detail.html:209
+msgid "Upcoming events"
+msgstr "Événements à venir"
+
+#: templates/venue/venue_detail.html:214
+msgid "No upcoming event."
+msgstr "Aucun événement à venir."
+
+#: templates/venue/venue_detail.html:221
+msgid "See full calendar"
+msgstr "Voir le calendrier complet"
+
+#: templates/venue/venue_detail.html:235
+msgid "Pictures"
+msgstr "Photos"
+
+#: templates/venue/venue_detail.html:257
+msgid "Video"
+msgstr "Vidéo"
+
+#: templates/venue/venue_detail.html:269
+msgid "No video has been set."
+msgstr "Aucune vidéo n'a été ajoutée."
+
+#: templates/venue/venue_detail.html:286
+msgid "Address:"
+msgstr "Adresse :"
+
+#: templates/venue/venue_detail.html:296
 msgid "Latest reviews"
 msgstr "Dernières critiques"
 
@@ -111,3 +203,6 @@ msgstr "Ajouter un nouveau"
 #: templates/venue/venue_new.html:23
 msgid "Submit"
 msgstr "Envoyer"
+
+#~ msgid "Websites"
+#~ msgstr "Sites web"

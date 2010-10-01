@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load django_static %}
+
+{% block title %}
+{% trans "Find a Venue" %}
+{% endblock %}
+
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/venue.css" media="screen, projection" />
+{% endblock %}
+
+
+{% block content %}
+
+  <div id="text">
+    
+    <h1>{% trans "Find a Venue" %}</h1>
+    <div id="search">
+      <form method="GET" class="uniForm" action="">
+	<div class="grid_6 alpha">
+
+	  <img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
+	  <h2>{% trans "Location" %}</h2>
+	  <div id="div_id_country" class="ctrlHolder {% if geosearch_form.country.errors %}error{%endif%}">
+	    {{ geosearch_form.country.label_tag }} {{ geosearch_form.country }}
+	    <br/>
+	    {{ geosearch_form.country.errors }}
+	  </div>
+
+	  <div id="div_id_city" class="ctrlHolder {% if geosearch_form.city.errors %}error{%endif%}">
+	    {{ geosearch_form.city.label_tag }} {{ geosearch_form.city }}
+	    <br/>
+	    {{ geosearch_form.city.errors }}
+	  </div>
+
+	  <div id="div_id_distance" class="ctrlHolder {% if geosearch_form.distance.errors %}error{%endif%}">
+	    <br/>
+	     {% trans "Extends" %} {{ geosearch_form.distance }} {% trans "kilometers around this city" %}
+	    <br/>
+	    {{ geosearch_form.distance.errors }}
+	  </div>
+
+
+	</div>
+	<div class="grid_7">
+	  <h2>{% trans "Ambiance" %}</h2>
+
+	  <div id="div_id_ambiance" class="ctrlHolder {% if venue_filter.form.ambiance.errors %}error{%endif%}">
+	     {{ venue_filter.form.ambiance }} {% trans "e.g. 'punk, rock'" %}
+	    <br/>
+	    {{ venue_filter.form.ambiance.errors }}
+	  </div>
+	  
+	  <h2>{% trans "Name" %}</h2>
+
+	  <div id="div_id_name" class="ctrlHolder {% if venue_filter.form.name.errors %}error{%endif%}">
+	      {{ venue_filter.form.name }}
+	    <br/>
+	    {{ venue_filter.form.name.errors }}
+	  </div>
+
+	</div>
+	<div class="clear"></div>
+	<input id="submit" type="submit" value="{% trans "Search" %}">
+      </form>
+    </div>
+
+    <h2>{% trans "Search results" %} ({{ venue_filter.queryset|length }})</h2>
+    <div id="search-results">
+
+      <ul>
+	{% staticfile '/images/venue/no_picture.png' as default_pic %}
+	{% for venue in venue_filter %}
+	  <li class="venue">
+	    <div class="{% cycle 'odd' 'even' %}">
+	      <div>
+		<img src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}"/>
+	      </div>
+	      <div class="info">
+		<a class="name" href="{{ venue.get_absolute_url }}">{{ venue }}</a>
+		<br/>
+		<div class="adr">
+		  <span class="locality">{{ venue.city }}</span>
+		  <span class="country-name">{{ venue.country.name }}</span>
+		  {% if venue.country %}<img src="{{ venue.country.flag }}" title="{{ venue.country.name }}" alt="{{ venue.country }}"/>{% endif %}
+		</div>
+		<br/>
+		<div class="tags">
+		  {{ venue.ambiance }}
+		</div>
+	      </div>
+	      <div class="book">
+		{% for band in request.user.bands.all %}
+		  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Book {{ band_name }} there{% endblocktrans %}</span></a>
+		{% endfor %}
+	      </div>
+	    </div>
+	  </li>
+	{% endfor %}
+      </ul>
+
+
+    </div>
+  </div>
+{% endblock %}

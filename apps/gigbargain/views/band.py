@@ -30,11 +30,16 @@ def gigbargain_new_from_band(request, band_slug):
     """
     band = get_object_or_404(Band, slug=band_slug)
 
+    # If we initialize a venue
+    if request.GET.get('venue'):
+        initial_venue = get_object_or_404(Venue, slug=request.GET.get('venue'))
+
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden()
 
     gigbargain_form = GigBargainNewFromBandForm(request.user,
-                                                request.POST or None)
+                                                request.POST or None,
+                                                initial={'venue': initial_venue.id})
     gigbargain_myband_form = GigBargainMyBandForm(request.POST or None)
 
     if request.method == 'POST':
