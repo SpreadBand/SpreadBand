@@ -1,0 +1,68 @@
+#search {
+    border: 1px solid #eee;
+    padding: 20px;
+    background-color: #f8f8f8;
+    margin-bottom: 20px;
+}
+
+#search img {
+    display: inline;
+    vertical-align: middle;
+}
+
+#search h2 {
+    display: inline-block;
+    clear: right;
+    vertical-align: middle;
+    padding-top: 10px;
+    margin-bottom: 8px;
+}
+
+#search #submit {
+    margin-top: 15px;
+}
+
+#search-results ul {
+    list-style: none;
+}
+
+#search-results ul li {
+    margin-left: 0px;
+    clear: both;
+}
+
+#search-results .venue div {
+    float: left;
+}
+
+#search-results .even {
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+#search-results .odd {
+    background-color: #f7f7f7;
+    width: 100%;
+}
+
+#search-results .venue .info {
+    margin-left: 10px;
+    width: 300px;
+}
+
+
+#search-results .venue .name {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+#search-results .venue .adr .country-name {
+    visibility: hidden;
+    position: absolute;
+    left: -10000px;
+}
+
+#search-results .venue .tags {
+    color: #666;
+}
