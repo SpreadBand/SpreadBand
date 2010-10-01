@@ -44,6 +44,16 @@ class ProfileEditForm(forms.ModelForm):
                                 max_length=30,
                                 required=False)
 
+    password1 = forms.CharField(label=_("Password"),
+                                max_length=30,
+                                required=False,
+                                widget=forms.PasswordInput())
+
+    password2 = forms.CharField(label=_("Confirm password"),
+                                max_length=30,
+                                required=False,
+                                widget=forms.PasswordInput())
+
     def __init__(self, *args, **kwargs):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
         try:
@@ -53,11 +63,30 @@ class ProfileEditForm(forms.ModelForm):
         except User.DoesNotExist:
             pass
      
+    def clean(self):
+        """
+        If the user wants to update its password, make sure both fields match
+        """
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1:
+            if password2:
+                if password1 != password2:
+                    raise forms.ValidationError(_("Passwords don't match"))
+            else:
+                raise forms.ValidationError(_("You have to confirm your password"))
+
+        return self.cleaned_data
+
     def save(self, *args, **kwargs):
         """
-        Update the primary email address on the related User object as well.
+        Update the primary email address and the password on the
+        related User object as well.
         """
         u = self.instance.user
+
+        if self.cleaned_data.get('password1'):
+            u.set_password(self.cleaned_data.get('password1'))
         u.email = self.cleaned_data['email']
         u.first_name = self.cleaned_data['first_name']
         u.last_name = self.cleaned_data['last_name']

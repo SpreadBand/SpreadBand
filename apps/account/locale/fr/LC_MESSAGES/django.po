@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-16 10:39+0200\n"
-"PO-Revision-Date: 2010-09-27 12:06\n"
+"POT-Creation-Date: 2010-10-01 09:48+0200\n"
+"PO-Revision-Date: 2010-10-01 09:49\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,43 +18,59 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: forms.py:29
-msgid "Email address"
-msgstr "Adresse e-mail"
-
-#: forms.py:32
-msgid "First name"
-msgstr "Prénom"
-
-#: forms.py:36
-msgid "Last name"
-msgstr "Nom de famille"
-
-#: models.py:19
-msgid "Male"
-msgstr "Homme"
-
-#: models.py:20
-msgid "Female"
-msgstr "Femme"
-
-#: models.py:23
+#: forms.py:32 models.py:24
 msgid "Birthdate"
 msgstr "Date de naissance"
 
-#: models.py:26
+#: forms.py:36
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+#: forms.py:39
+msgid "First name"
+msgstr "Prénom"
+
+#: forms.py:43
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: forms.py:47
+msgid "Password"
+msgstr "Mot de passe"
+
+#: forms.py:52
+msgid "Confirm password"
+msgstr "Confirmez le mot de passe"
+
+#: forms.py:75
+msgid "Passwords don't match"
+msgstr "Les mots de passe ne correspondent pas"
+
+#: forms.py:77
+msgid "You have to confirm your password"
+msgstr "Vous devez confirmer votre mot de passe"
+
+#: models.py:20
+msgid "Male"
+msgstr "Homme"
+
+#: models.py:21
+msgid "Female"
+msgstr "Femme"
+
+#: models.py:27
 msgid "Genre"
 msgstr "Sexe"
 
-#: models.py:30
+#: models.py:31
 msgid "Country"
 msgstr "Pays"
 
-#: models.py:31
+#: models.py:32
 msgid "Timezone"
 msgstr "Fuseau horaire"
 
-#: models.py:33
+#: models.py:34
 msgid "Town"
 msgstr "Ville"
 
@@ -68,6 +84,7 @@ msgid "Edit Your Profile"
 msgstr "Modifier votre profil"
 
 #: templates/account/user_dashboard.html:40
+#: templates/profiles/profile_detail.html:32
 msgid "Name"
 msgstr "Nom"
 
@@ -76,14 +93,17 @@ msgid "E-mail"
 msgstr "E-mail"
 
 #: templates/account/user_dashboard.html:42
+#: templates/profiles/profile_detail.html:33
 msgid "Location"
 msgstr "Localisation"
 
 #: templates/account/user_dashboard.html:43
+#: templates/profiles/profile_detail.html:34
 msgid "Joined"
 msgstr "Inscrit"
 
 #: templates/account/user_dashboard.html:49
+#: templates/profiles/profile_detail.html:39
 msgid "Connections since a month"
 msgstr "Connexions depuis un mois"
 
@@ -189,3 +209,17 @@ msgstr "Aucun avatar n'est défini."
 #: templates/profiles/edit_profile.html:24
 msgid "Set Your Avatar"
 msgstr "Définir son avatar"
+
+#: templates/profiles/profile_detail.html:11
+msgid "Profile of"
+msgstr ""
+
+#: templates/profiles/profile_detail.html:26
+#, fuzzy, python-format
+msgid "Profile of %(username)s"
+msgstr "Bienvenue, %(username)s "
+
+#: templates/profiles/profile_detail.html:60
+#, fuzzy
+msgid "Bands"
+msgstr "Vos groupes"
