@@ -31,6 +31,7 @@ nose
 django-nose
 
 # SpreadBand repositories
+-e git+http://github.com/SpreadBand/django-backcap.git#egg=django-backcap
 -e git+http://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
 -e git+http://github.com/SpreadBand/django-agenda.git#egg=django-agenda
 # -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification

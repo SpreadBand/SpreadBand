@@ -156,8 +156,10 @@ class GigBargainBandForm(forms.ModelForm):
     percentage = forms.IntegerField(label=_('Percentage'),
                                     required=False,
                                     min_value=0, max_value=100, initial=0)
+
     starts_at = forms.TimeField(label=_('Starts at'),
                                 input_formats=('%H:%M:%S', '%H:%M', '%Hh%M', '%H'), required=False)
+
     eq_starts_at = forms.TimeField(label=_('Equalisation starts at'),
                                    input_formats=('%H:%M:%S', '%H:%M', '%Hh%M', '%H'), required=False)
 

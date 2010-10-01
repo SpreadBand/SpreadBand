@@ -194,11 +194,11 @@ INSTALLED_APPS = (
     'avatar',
     'avatar_crop',
     'announcements',
+    'backcap',
 
     # Internal
     'world',
     'media',
-    'backcap',
     'account',
     # 'minisite',
 #    'minisite-portlets', <-- bug avec pgsql..
