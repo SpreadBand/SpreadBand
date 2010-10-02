@@ -5,7 +5,6 @@ from imagekit import processors
 class ResizeThumb(processors.Resize): 
     width = 200
     height = 100 
-    crop = True
 
 class ResizeAvatar(processors.Resize): 
     width = 80
