@@ -31,6 +31,7 @@ def gigbargain_new_from_band(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
     # If we initialize a venue
+    initial_venue = None
     if request.GET.get('venue'):
         initial_venue = get_object_or_404(Venue, slug=request.GET.get('venue'))
 
