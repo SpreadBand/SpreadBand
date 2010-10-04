@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 16:55+0200\n"
-"PO-Revision-Date: 2010-10-04 17:16\n"
+"POT-Creation-Date: 2010-10-04 17:52+0200\n"
+"PO-Revision-Date: 2010-10-04 17:52\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -167,11 +167,11 @@ msgstr "Groupe en négociation"
 msgid "Approved by bands"
 msgstr "Approuvé par les groupes"
 
-#: models.py:75 templates/gigbargain/gigbargain_band_dashboard.html:88
-#: templates/gigbargain/gigbargain_band_dashboard.html:154
-#: templates/gigbargain/gigbargain_band_dashboard.html:234
-#: templates/gigbargain/gigbargain_band_dashboard.html:336
-#: templates/gigbargain/gigbargain_band_dashboard.html:367
+#: models.py:75 templates/gigbargain/gigbargain_band_dashboard.html:89
+#: templates/gigbargain/gigbargain_band_dashboard.html:155
+#: templates/gigbargain/gigbargain_band_dashboard.html:235
+#: templates/gigbargain/gigbargain_band_dashboard.html:337
+#: templates/gigbargain/gigbargain_band_dashboard.html:368
 msgid "Concluded"
 msgstr "Conclues"
 
@@ -313,90 +313,99 @@ msgstr "Négociations de concerts"
 msgid "Book A Venue"
 msgstr "Booker un lieu de concerts"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:84
+#: templates/gigbargain/gigbargain_band_dashboard.html:77
+#, fuzzy
+msgid "Find Bands"
+msgstr "Groupes"
+
+#: templates/gigbargain/gigbargain_band_dashboard.html:77
+msgid "Find Bands To Play With"
+msgstr "Trouver Des Groupes Avec Qui Jouer"
+
+#: templates/gigbargain/gigbargain_band_dashboard.html:85
 msgid "Bargains"
 msgstr "Négociations"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:86
-#: templates/gigbargain/gigbargain_band_dashboard.html:99
-#: templates/gigbargain/gigbargain_band_dashboard.html:224
-#: templates/gigbargain/gigbargain_band_dashboard.html:336
-#: templates/gigbargain/gigbargain_band_dashboard.html:355
+#: templates/gigbargain/gigbargain_band_dashboard.html:87
+#: templates/gigbargain/gigbargain_band_dashboard.html:100
+#: templates/gigbargain/gigbargain_band_dashboard.html:225
+#: templates/gigbargain/gigbargain_band_dashboard.html:337
+#: templates/gigbargain/gigbargain_band_dashboard.html:356
 msgid "New"
 msgstr "Nouvelles"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:87
-#: templates/gigbargain/gigbargain_band_dashboard.html:126
-#: templates/gigbargain/gigbargain_band_dashboard.html:229
-#: templates/gigbargain/gigbargain_band_dashboard.html:336
-#: templates/gigbargain/gigbargain_band_dashboard.html:361
+#: templates/gigbargain/gigbargain_band_dashboard.html:88
+#: templates/gigbargain/gigbargain_band_dashboard.html:127
+#: templates/gigbargain/gigbargain_band_dashboard.html:230
+#: templates/gigbargain/gigbargain_band_dashboard.html:337
+#: templates/gigbargain/gigbargain_band_dashboard.html:362
 msgid "In progress"
 msgstr "En cours"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:89
+#: templates/gigbargain/gigbargain_band_dashboard.html:90
 msgid "Aborted"
 msgstr "Annulées"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:91
+#: templates/gigbargain/gigbargain_band_dashboard.html:92
 msgid "Today:"
 msgstr "Aujourd'hui :"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:195
+#: templates/gigbargain/gigbargain_band_dashboard.html:196
 msgid "Calendar"
 msgstr "Agenda"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:212
+#: templates/gigbargain/gigbargain_band_dashboard.html:213
 msgid "Repartition"
 msgstr "Répartition"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:270
+#: templates/gigbargain/gigbargain_band_dashboard.html:271
 #, python-format
 msgid "Total = %(count)s "
 msgstr "Totales = %(count)s "
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:271
+#: templates/gigbargain/gigbargain_band_dashboard.html:272
 #, python-format
 msgid "New = %(count)s "
 msgstr "Nouvelles = %(count)s "
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:272
+#: templates/gigbargain/gigbargain_band_dashboard.html:273
 #, python-format
 msgid "In progress = %(count)s "
 msgstr "En cours = %(count)s "
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:273
+#: templates/gigbargain/gigbargain_band_dashboard.html:274
 #, python-format
 msgid "Concluded = %(count)s "
 msgstr "Conclues = %(count)s "
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:285
+#: templates/gigbargain/gigbargain_band_dashboard.html:286
 msgid "Connections"
 msgstr "Connexions"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:293
+#: templates/gigbargain/gigbargain_band_dashboard.html:294
 #: templates/gigbargain/gigbargain_detail_bands.html:15
 msgid "Bands"
 msgstr "Groupes"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:298
-#: templates/gigbargain/gigbargain_band_dashboard.html:308
+#: templates/gigbargain/gigbargain_band_dashboard.html:299
+#: templates/gigbargain/gigbargain_band_dashboard.html:309
 msgid "No connection"
 msgstr "Aucune connexion"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:303
+#: templates/gigbargain/gigbargain_band_dashboard.html:304
 msgid "Venues"
 msgstr "Lieux de concerts"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:325
+#: templates/gigbargain/gigbargain_band_dashboard.html:326
 msgid "Global stats"
 msgstr "Statistiques globales"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:446
+#: templates/gigbargain/gigbargain_band_dashboard.html:447
 #: templates/gigbargain/gigbargain_detail.html:355
 msgid "Latest activity"
 msgstr "Activité récente"
 
-#: templates/gigbargain/gigbargain_band_dashboard.html:460
+#: templates/gigbargain/gigbargain_band_dashboard.html:461
 msgid "No activity"
 msgstr "Aucune activité"
 
@@ -408,7 +417,7 @@ msgstr " Modifier le défraiement de %(band_name)s "
 #: templates/gigbargain/gigbargain_band_edit_defrayment.html:23
 #: templates/gigbargain/gigbargain_band_edit_remuneration.html:26
 #: templates/gigbargain/gigbargain_band_edit_timeline.html:23
-#: templates/gigbargain/gigbargain_common_edit.html:29
+#: templates/gigbargain/gigbargain_common_edit.html:30
 msgid "Update"
 msgstr "Mettre à jour"
 
@@ -443,15 +452,15 @@ msgstr "Votre commentaire n'a pu être publié. Nous nous excusons pour la gêne
 msgid "Post"
 msgstr "Poster"
 
-#: templates/gigbargain/gigbargain_common_edit.html:20
+#: templates/gigbargain/gigbargain_common_edit.html:21
 msgid "Edit common part"
 msgstr "Modifier une partie commune"
 
-#: templates/gigbargain/gigbargain_common_edit.html:23
+#: templates/gigbargain/gigbargain_common_edit.html:24
 msgid "WARNING:"
 msgstr "AVERTISSEMENT :"
 
-#: templates/gigbargain/gigbargain_common_edit.html:24
+#: templates/gigbargain/gigbargain_common_edit.html:25
 msgid "After altering these terms, every band will have to re-lock their parts."
 msgstr "Après la modification de ces termes, chaque groupe devra verrouiller de nouveau sa partie."
 
