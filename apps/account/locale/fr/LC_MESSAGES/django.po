@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-01 09:48+0200\n"
-"PO-Revision-Date: 2010-10-01 09:49\n"
-"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
+"POT-Creation-Date: 2010-10-04 15:30+0200\n"
+"PO-Revision-Date: 2010-10-04 15:27\n"
+"Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,44 +122,63 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un lieu de concerts</strong> ?"
+"Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un lieu "
+"de concerts</strong> ?"
 
-#: templates/account/user_dashboard.html:121
+#: templates/account/user_dashboard.html:115
+#, python-format
+msgid ""
+"\n"
+"      Register <a href=\"%(band_create_url)s\">your band</a> now !\n"
+"      "
+msgstr ""
+"\n"
+"Enregistrez <a href=\"%(band_create_url)s\">votre groupe</a> dès maintenant !"
+
+#: templates/account/user_dashboard.html:124
 msgid "Latest Notifications"
 msgstr "Dernières notifications"
 
-#: templates/account/user_dashboard.html:125
+#: templates/account/user_dashboard.html:126
+msgid "Settings"
+msgstr "Paramètres"
+
+#: templates/account/user_dashboard.html:128
 msgid "Mark all unseen notices seen"
 msgstr "Marquer toutes les alertes comme vues"
 
-#: templates/account/user_dashboard.html:131
+#: templates/account/user_dashboard.html:134
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:150
+#: templates/account/user_dashboard.html:153
 msgid "No notices."
 msgstr "Aucune notification"
 
-#: templates/account/user_dashboard.html:156
+#: templates/account/user_dashboard.html:159
 msgid "Latest Activity"
 msgstr "Activité récente"
 
-#: templates/account/user_dashboard.html:168
+#: templates/account/user_dashboard.html:171
 #, python-format
 msgid "%(when)s ago"
 msgstr " il y a %(when)s"
 
-#: templates/account/user_dashboard.html:170
+#: templates/account/user_dashboard.html:173
 msgid "No activity"
 msgstr "Pas d'activité"
 
-#: templates/notification/notice_settings.html:10
-msgid "Settings"
-msgstr "Paramètres"
+#: templates/notification/notice_settings.html:9
+msgid "Configure your notification settings"
+msgstr "Configurer vos paramètres de notification "
 
-#: templates/notification/notice_settings.html:14
-msgid "Primary email"
-msgstr "E-mail principal"
+#: templates/notification/notice_settings.html:15
+msgid "Primary email:"
+msgstr "Adresse email principale :"
+
+#: templates/notification/notice_settings.html:15
+msgid "change"
+msgstr "changement"
 
 #: templates/notification/notice_settings.html:19
 msgid "Note"
@@ -167,16 +186,22 @@ msgstr "Note"
 
 #: templates/notification/notice_settings.html:20
 #, python-format
-msgid "You do not have a verified email address to which notices can be sent. You can add one by going to <a href=\"%(email_url)s\">Account</a>."
-msgstr "Vous n'avez pas d'adresse e-mail valide sur laquelle les notifications peuvent être envoyées. Vous pouvez en ajouter une en allant à <a href=\"%(email_url)s\">compte</a> ."
+msgid ""
+"You do not have a verified email address to which notices can be sent. You "
+"can add one by going to <a href=\"%(email_url)s\">Account</a>."
+msgstr ""
+"Vous n'avez pas d'adresse e-mail valide sur laquelle les notifications "
+"peuvent être envoyées. Vous pouvez en ajouter une en allant à <a href=\"%"
+"(email_url)s\">compte</a> ."
 
 #: templates/notification/notice_settings.html:28
 msgid "Notification Type"
 msgstr "Type de notification"
 
-#: templates/notification/notice_settings.html:46
-msgid "Change"
-msgstr "Changement"
+#: templates/notification/notice_settings.html:44
+#: templates/profiles/edit_profile.html:15
+msgid "Update"
+msgstr "Mise à jour"
 
 #: templates/profiles/edit_profile.html:9
 msgid "Edit your profile"
@@ -185,10 +210,6 @@ msgstr "Modifier votre profil"
 #: templates/profiles/edit_profile.html:12
 msgid "Infos"
 msgstr "Infos"
-
-#: templates/profiles/edit_profile.html:15
-msgid "Update"
-msgstr "Mise à jour"
 
 #: templates/profiles/edit_profile.html:19
 msgid "Avatar"
@@ -212,14 +233,13 @@ msgstr "Définir son avatar"
 
 #: templates/profiles/profile_detail.html:11
 msgid "Profile of"
-msgstr ""
+msgstr "Profil de"
 
 #: templates/profiles/profile_detail.html:26
-#, fuzzy, python-format
+#, python-format
 msgid "Profile of %(username)s"
-msgstr "Bienvenue, %(username)s "
+msgstr "Profil de %(username)s "
 
 #: templates/profiles/profile_detail.html:60
-#, fuzzy
 msgid "Bands"
-msgstr "Vos groupes"
+msgstr "Groupes"
