@@ -89,6 +89,15 @@
     margin-bottom: 10px;
 }
 
+#notifications span.notice_type {
+    font-weight: strong;
+}
+
+#notifications span.notice_time {
+    
+}
+
+
 #activity h3,img {
     display: inline;
     vertical-align: middle;

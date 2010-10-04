@@ -75,7 +75,7 @@ def detail(request, username):
 
 @login_required
 def dashboard(request):
-    notices = Notice.objects.notices_for(request.user, on_site=True)
+    notices = Notice.objects.notices_for(request.user, on_site=True)[:10]
 
     # Get all connections with other users this month
     today = date.today()

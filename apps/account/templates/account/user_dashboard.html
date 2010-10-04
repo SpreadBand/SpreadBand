@@ -131,7 +131,7 @@
       {% regroup notices by added.date as notices_by_date %}
       
       {% for date in notices_by_date %}
-	<h2 class="notice_date">{{ date.grouper|naturalday:_("MONTH_DAY_FORMAT")|capfirst }}</h2>
+	<h4 class="notice_date">{{ date.grouper|naturalday:_("MONTH_DAY_FORMAT")|capfirst }}</h4>
 	
 	{% if notices %}
 	  
@@ -143,9 +143,9 @@
 	      <div class="notice">
 	    {% endif %}
 	    
-	    <span class="notice_type">[{% trans notice.notice_type.display %}]</span>
+	    <span class="notice_type">{% trans notice.notice_type.display %}</span> /
 	    <span class="notice_message">{{ notice.message|safe }}</span>
-	    <span class="notice_time">{{ notice.added|localtime:user.get_profile.timezone|time:"P" }}</span>
+	    <span class="notice_time">{{ notice.added|localtime:user.get_profile.timezone|timesince }}</span>
 	      </div>
 	    {% endfor %}
 	    
@@ -163,9 +163,9 @@
 	{% for action in latest_activity %}
 	  <li class="{% cycle "even" "odd" %}">
 	    {% if action.target.name %}
-	      <span class="title"><strong>{{ action.target.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+	      <span class="title"><strong>{{ action.target.name|capfirst }}</strong> / {{ action.target.date|naturalday:_("MONTH_DAY_FORMAT") }}</span>
 	    {% else %}
-	      <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|date:'d M Y' }}</span>
+	      <span class="title"><strong>{{ action.target.venue.name|capfirst }}</strong> / {{ action.target.date|naturalday:_("MONTH_DAY_FORMAT") }}</span>
 	    {% endif %}
 	    
 	  {% display_action_short action %}. <span class="date">{% blocktrans with action.timestamp|timesince as when %}{{ when }} ago{% endblocktrans %}</span></li>
