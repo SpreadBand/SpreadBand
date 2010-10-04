@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-29 22:06+0200\n"
-"PO-Revision-Date: 2010-10-01 18:22\n"
+"PO-Revision-Date: 2010-10-04 15:59\n"
 "Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -278,7 +278,7 @@ msgstr "concert à %s"
 
 #: templates/activity/gigbargain_entered/action.html:4
 msgid "entered this bargain"
-msgstr "est entré dans cette négociation"
+msgstr "a rejoint cette négociation"
 
 #: templates/activity/part_locked/action.html:5
 msgid "locked its part"
@@ -294,7 +294,7 @@ msgstr "Envoyé à"
 
 #: templates/activity/venue_entered_negociations/action.html:5
 msgid "entered the negociations"
-msgstr "entré dans les négociations"
+msgstr "a rejoint les négociations"
 
 #: templates/activity/venue_restarted_negociations/action.html:5
 msgid "Negociations restarted by"
