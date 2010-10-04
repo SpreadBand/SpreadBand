@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-01 18:27+0200\n"
-"PO-Revision-Date: 2010-10-01 18:38\n"
+"PO-Revision-Date: 2010-10-03 20:33\n"
 "Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,16 +20,15 @@ msgstr ""
 
 #: forms.py:27
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #: forms.py:31
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 #: forms.py:34
-#, fuzzy
 msgid "Distance"
-msgstr "Ambiance"
+msgstr "Distance"
 
 #: models.py:24
 msgid "Can manage this venue"
