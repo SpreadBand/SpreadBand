@@ -1,4 +1,6 @@
-{% load i18n %}{% blocktrans %}{{ recipient }},
+{% load i18n %}
+{% url notification_notice_settings as notice_settings_url %}
+{% blocktrans with notice_settings_url as notice_settings_url %}{{ recipient }},
 
 {{ message }}
 Musicalement,
@@ -6,5 +8,5 @@ Musicalement,
 L'équipe SpreadBand
 ---
 Pour contrôler la manière dont vous recevez les notifications,
-rendez-vous sur {{ notices_url }}
+rendez-vous sur http://{{ current_site }}{{ notice_settings_url }}
 {% endblocktrans %}
