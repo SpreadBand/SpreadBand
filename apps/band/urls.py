@@ -13,6 +13,7 @@ urlpatterns += patterns('',
     url(r'^new$', views.new, name='create'),
 
     url(r'^list$', views.list, name='list'),
+    url(r'^search$', views.search, name='search'),
 
     url(r'^(?P<band_slug>[-\w]+)/edit$', views.edit, name='edit'),
 

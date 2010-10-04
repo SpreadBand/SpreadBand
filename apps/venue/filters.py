@@ -22,4 +22,5 @@ class VenueFilter(django_filters.FilterSet):
         model = Venue
         fields = ('name', 'ambiance')
 
+    name = django_filters.CharFilter(lookup_type='contains')
     ambiance = django_filters.CharFilter(action=filter_tags)

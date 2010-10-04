@@ -63,3 +63,18 @@ class BandMemberAddForm(forms.ModelForm):
     
 
 
+from django_countries import countries
+class BandGeoSearchForm(forms.Form):
+    country = forms.ChoiceField(label=_('Country'),
+                                choices=(('', '----'),) + countries.COUNTRIES,
+                                required=False)
+
+    city = forms.CharField(label=_('City'),
+                           required=False)
+
+    distance = forms.IntegerField(label=_('Distance'),
+                                  required=False,
+                                  min_value=1,
+                                  max_value=500,
+                                  widget=forms.TextInput(attrs={'size': '5'}))
+

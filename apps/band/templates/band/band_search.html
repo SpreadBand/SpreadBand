@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load django_static %}
+
+{% block title %}
+{% trans "Find Bands" %}
+{% endblock %}
+
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/band.css" media="screen, projection" />
+{% endblock %}
+
+
+{% block content %}
+
+  <div id="text">
+    
+    <h1>{% trans "Find Bands" %}</h1>
+    <div id="search">
+      <form method="GET" class="uniForm" action="">
+	<div class="grid_6 alpha">
+
+	  <img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
+	  <h2>{% trans "Location" %}</h2>
+	  <div id="div_id_country" class="ctrlHolder {% if geosearch_form.country.errors %}error{%endif%}">
+	    {{ geosearch_form.country.label_tag }} {{ geosearch_form.country }}
+	    <br/>
+	    {{ geosearch_form.country.errors }}
+	  </div>
+
+	  <div id="div_id_city" class="ctrlHolder {% if geosearch_form.city.errors %}error{%endif%}">
+	    {{ geosearch_form.city.label_tag }} {{ geosearch_form.city }}
+	    <br/>
+	    {{ geosearch_form.city.errors }}
+	  </div>
+
+	  <div id="div_id_distance" class="ctrlHolder {% if geosearch_form.distance.errors %}error{%endif%}">
+	    <br/>
+	     {% trans "Extends" %} {{ geosearch_form.distance }} {% trans "kilometers around this city" %}
+	    <br/>
+	    {{ geosearch_form.distance.errors }}
+	  </div>
+
+
+	</div>
+	<div class="grid_7">
+	  <h2>{% trans "Genres" %}</h2>
+
+	  <div id="div_id_genres" class="ctrlHolder {% if band_filter.form.genres.errors %}error{%endif%}">
+	     {{ band_filter.form.genres }} {% trans "e.g. 'punk, rock'" %}
+	    <br/>
+	    {{ band_filter.form.genres.errors }}
+	  </div>
+	  
+	  <h2>{% trans "Name" %}</h2>
+
+	  <div id="div_id_name" class="ctrlHolder {% if band_filter.form.name.errors %}error{%endif%}">
+	      {{ band_filter.form.name }}
+	    <br/>
+	    {{ band_filter.form.name.errors }}
+	  </div>
+
+	</div>
+	<div class="clear"></div>
+	<input id="submit" type="submit" value="{% trans "Search" %}">
+      </form>
+    </div>
+
+    <h2>{% trans "Search results" %} ({{ band_filter.queryset|length }})</h2>
+    <div id="search-results">
+
+      <ul>
+	{% staticfile '/images/band/no_picture.png' as default_pic %}
+	{% for band in band_filter %}
+	  <li class="band">
+	    <div class="{% cycle 'odd' 'even' %}">
+	      <div>
+		<img src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}"/>
+	      </div>
+	      <div class="info">
+		<a class="name" href="{{ band.get_absolute_url }}">{{ band }}</a>
+		<br/>
+		<div class="adr">
+		  <span class="locality">{{ band.city }}</span>
+		  <span class="country-name">{{ band.country.name }}</span>
+		  {% if band.country %}<img src="{{ band.country.flag }}" title="{{ band.country.name }}" alt="{{ band.country }}"/>{% endif %}
+		</div>
+		<br/>
+		<div class="tags">
+		  {{ band.ambiance }}
+		</div>
+	      </div>
+	    </div>
+	  </li>
+	{% endfor %}
+      </ul>
+
+
+    </div>
+  </div>
+{% endblock %}

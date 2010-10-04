@@ -245,3 +245,66 @@ def picture_delete(request, band_slug, picture_id):
     picture.delete()
 
     return redirect('band:band-pictures', band.slug)
+
+
+from ..filters import BandFilter
+
+from geopy import geocoders
+from django.utils.translation import gettext as _
+from django.contrib.gis.measure import D
+from django.core.paginator import Paginator
+
+from ..forms import BandGeoSearchForm
+
+from django_countries import countries
+
+def lookup_place(city, country):
+    g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
+
+    # Ugly hack to get a place from geocoders -_-
+    where = '%s, %s' % (city,
+                        country)
+
+    geoplace = _("Unable to lookup address")
+    lat = lng = 0
+    for match in g.geocode(where.encode('utf-8'),
+                           exactly_one=False):
+        geoplace, (lat, lng) = match
+        # Get the first result
+        break
+
+    return Point(lng, lat)
+
+
+@login_required
+def search(request):
+    band_filter = BandFilter(request.GET, queryset=Band.objects.all())
+    geosearch_form = BandGeoSearchForm(request.GET or {'country': request.user.get_profile().country,
+                                                       'city': request.user.get_profile().town})
+    
+    if geosearch_form.is_valid():
+        city = geosearch_form.cleaned_data.get('city')
+        country = geosearch_form.cleaned_data.get('country')
+        distance = geosearch_form.cleaned_data.get('distance')
+
+        # If we have a distance, do a geo lookup
+        if distance and city and country:
+            try:
+                point = lookup_place(city, countries.OFFICIAL_COUNTRIES[country])
+            except geocoders.google.GQueryError, e:
+                geosearch_form.errors['city'] = _('Unable to find this city. Check the country or be more specific.')
+            else:
+                places = Place.objects.filter(geom__distance_lte=(point, D(km=distance)))
+                band_filter.queryset = band_filter.queryset.filter(place__in=places.all())
+        # Otherwise, try to match by name
+        else:
+            if city:
+                band_filter.queryset = band_filter.queryset.filter(city__iexact=city)
+            if country:
+                band_filter.queryset = band_filter.queryset.filter(country__iexact=country)
+
+    return render_to_response(template_name='band/band_search.html',
+                              dictionary={'band_filter': band_filter,
+                                          'geosearch_form': geosearch_form},
+                              context_instance=RequestContext(request)
+                              )
