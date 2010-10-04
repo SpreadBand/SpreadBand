@@ -29,8 +29,17 @@
 	$('#id_access').change(function() {
 	    if ( $('#id_access').val() == 'FREE' || $('#id_access').val() == "" )
 		$('#div_id_fee_amount').hide();
-	    else
+	    else {
+		var label = $('#id_access').val();
+		if ( label == 'DRNK' )
+		    $("label[for='id_fee_amount']").html("{% trans "Number of Drinks" %}")
+		else if ( label == 'FEES' )
+		    $("label[for='id_fee_amount']").html("{% trans "Entrance fee" %}")
+		else if ( label == 'TICK' )
+		    $("label[for='id_fee_amount']").html("{% trans "Ticket price" %}")
+		
 		$('#div_id_fee_amount').show();
+	    }
 	});
 
 	/* Show/hide things depending on remuneration */
