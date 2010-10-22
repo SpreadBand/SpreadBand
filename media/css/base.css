@@ -33,6 +33,27 @@ a {
     float: right;
 }
 
+/* Features */
+#header #features {
+    padding-top: 40px;
+}
+#header #features li {
+    display: inline;
+    margin-right: 30px;
+}
+
+#header #features li a {
+    font-size: 1.1em;
+    padding-right: 6px;
+}
+
+#header #features li span {
+    padding-left: 6px;
+    border-left: 1px solid white;
+    color: white;
+}
+
+
 /* User Menu */
 #header #user-menu {
     float: right;

@@ -209,9 +209,9 @@
 	  </div>
 	  <div id="menus">
 	    {% if not user.is_authenticated %}
-	      <ul>
-		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band/" %}">+ Groupes</a><span>Plus de shows et de fans</span></li>
-		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue/" %}">+ Bars</a><span>Booking éclair</span></li>
+	      <ul id="features">
+		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band/" %}">+ Groupes, DJs</a><span>Plus de shows et de fans</span></li>
+		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue/" %}">+ Lieux de Concerts, Bars</a><span>Booking éclair</span></li>
 	      </ul>
 	    {% else %}
 	      <div id="user-menu">
