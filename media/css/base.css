@@ -13,56 +13,197 @@ a {
 /* ----------------------------------- Header */
 
 #header {
-	height:116px;
-	background:#2f2f2f url('/images/structure/background/header_bg.jpg') repeat-x top left;
+	height:89px;
+	background:#2f2f2f url('/images/structure/background/header_bg.png') repeat-x top left;
 	width:100%;
 }
 
 #header h1{
 	position:relative;
-	left:18px;
-	top:18px;
+	left: 0px;
+	top: 0px;
 }
 
-#header ul {
-	position:absolute;
-	top:24px;
-	right:50px;
+#header #logo {
+    width: 332px;
+    float: left;
 }
 
-#header ul li{
-	display:block;
-	float:left;
-	padding:0 0 0 24px;
+#header #menus {
+    float: right;
 }
 
-#header ul li a{
-	color:#f9a02e;
-	text-transform:uppercase;
-	font-weight:bold;
-	font-size:1.1em;
-	display:block;
-	float:left;
-	height:15px;
-	line-height:13px;
+/* User Menu */
+#header #user-menu {
+    float: right;
+    clear: both;
+    font-family: Arial;
 }
 
-#header ul li  span{
-	border-left:1px solid white;
-	color:white;
-	display:block;
-	float:left;
-	font-size:1.1em;
-	height:15px;
-	line-height:13px;
-	margin:0 0 0 6px;
-	padding:0 0 0 7px;
+#header #user-menu a {
+    color: #a1a39d;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
-#header #player {
-	position:absolute;
-	right:60px;
-	top:52px;
+#header #user-menu a:hover {
+    color: #d4d6ce;
+}
+
+#header #user-menu a.username {
+    color: #f57900;
+}
+
+#header #user-menu img {
+    float: left;
+}
+
+#header #user-menu ul {
+    padding-right: 4px;
+    padding-left: 4px;
+    font-size: 1em;
+    float: left;
+    background: #222 url('/images/structure/usermenu/background.png') repeat-x top left;
+    padding-top: 2px;
+    height: 26px;
+}
+
+#header #user-menu ul li {
+    display: inline;
+}
+
+#header #user-menu ul li img.avatar {
+    float: none;
+    display: inline;
+    vertical-align: middle;
+    margin-right: 2px;
+    margin-left: 2px;
+    border: 1px black solid;
+}
+
+#header #user-menu ul li.separator {
+    border-left:1px solid #040404;
+    border-right:1px solid #2F2F2F;
+    height: 26px;
+    vertical-align: middle;
+    
+    margin-left: 5px;
+    margin-right: 7px;
+}
+
+#header #user-menu ul li.logout {
+    margin-left: 60px;
+}
+
+/*-- Band and Venues menu --*/
+#menus #user-things {
+    margin-top: 34px;
+    padding-top: 1px;
+    height: 25px;
+    float: right;
+    clear: both;
+}
+
+#menus #user-things img {
+    vertical-align: middle;
+    float: none;
+    display: inline;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#menus #user-things img.avatar {
+    border: 1px solid black;
+}
+
+#menus #user-things ul.topnav {
+    height: 25px;
+}
+
+#menus #user-things ul.topnav li {
+    position: relative;
+    height: 24px;
+    min-width: 120px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 1px;
+    display: inline-block;
+}
+
+#menus #user-things ul.topnav li a {
+    height: 25px;
+    color: #EEEEEC;
+    font-size: 1.05em;
+    font-variant: small-caps;
+    vertical-align: middle;
+    text-decoration: none;
+    outline: 0;
+}
+
+#menus #user-things ul.topnav li:hover {
+    background-color: #232322;
+    cursor: pointer;
+}
+
+
+/* Drop down menu */
+#menus #user-things ul.topnav li ul.subnav {
+     position: absolute;
+     left: -2px; top: 26px;  
+     background: #333;  
+     margin: 0; padding: 0;
+     min-width: 116px;
+     width: 100%;
+     display: none;  
+     border-left: 2px solid #111;
+     border-right: 2px solid #111;
+     border-bottom: 2px solid #111;
+     z-index: 10;
+}
+
+#menus #user-things ul.topnav li ul.subnav li {
+    display: block;
+}
+
+#menus #user-things ul.topnav li ul.subnav li a {
+    color: #a1a39d;
+    text-decoration: none;
+    vertical-align: middle;
+    font-variant: normal;
+    display: block;
+}
+#menus #user-things ul.topnav li ul.subnav li a img {
+    vertical-align: middle;
+}
+
+#menus #user-things ul.topnav li ul.subnav li a:hover {
+    color: #d4d6ce;
+}
+
+#menus #user-things ul.topnav li ul.subnav hr {
+    color: #111;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+#menus #user-things ul.topnav li ul.subnav li.more {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: #BABABA;
+    font-size: 0.9em;
+    font-style: italic;
+    text-align: right;
+    margin-right: 5px;
+}
+
+#menus #user-things ul.topnav li ul.subnav li.more:hover {
+    background-color: transparent;
+}
+
+#menus .subhover {
+    background-color: #232322;    
 }
 
 /* ----------------------------------- Content */

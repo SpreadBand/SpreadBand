@@ -76,7 +76,7 @@
   <script type="text/javascript" src="/js/jquery/jquery.maskedinput-1.2.2.js"></script>
   {% endstaticall %}
 
-  {# Dynamically generated, should be repalced ! #}
+  {# Dynamically generated, should be replaced ! #}
   <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
 
 
@@ -105,7 +105,37 @@
 	    ajax: true,
 	    ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
 	});
-	
+
+
+	/* Drop down menus */
+	$("#user-things ul.topnav > li").click(function(e) {
+            var dropdown = $(this).find("ul.subnav");
+
+	    if ( $(dropdown).is(":hidden") ) {
+		/* Close all other dropdowns */
+		$(this).parent().find("ul.subnav").hide();
+		$(this).parent().parent().find("ul.topnav > li").removeClass("subhover");
+
+		$(dropdown).show();
+		$(this).addClass("subhover");
+		$(this).children("a:first").focus();
+
+		/* Trap clicks that are outside the menu */
+		$('body').one('click', function() {
+		    $(dropdown).hide();
+		    $(dropdown).parent().removeClass("subhover");
+		});
+
+
+	    } else {
+		$(dropdown).hide();
+		$(this).removeClass("subhover");
+	    }
+
+	    e.stopPropagation(); 
+
+	});
+
     });
   </script>
 
@@ -174,18 +204,56 @@
     <div id="header">
       <div class="container_16">
 	<div class="grid_16 alpha omega">
-	  <h1><a href="{% url home %}"><img src="{% staticfile '/images/structure/sb_header.png' %}" alt="SpreadBand" width="400" height="81" /></a></h1>
-	  {% if not user.is_authenticated %}
-	    <ul>
-	      <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band/" %}">+ Groupes</a><span>Plus de shows et de fans</span></li>
-	      <li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue/" %}">+ Bars</a><span>Booking éclair</span></li>
-	    </ul>
-	  {% else %}
-	    <ul>
-	      <li><a href="{% url account:dashboard %}">{{ user.username|upper }}</a></li>
-	      <li><a href="{% url account:auth_logout %}">{% trans "Logout" %}</a></li>
-	    </ul>
-	  {% endif %}
+	  <div id="logo">
+	    <h1><a href="{% url home %}"><img src="{% staticfile '/images/structure/sb_header.png' %}" alt="SpreadBand" width="332" height="89" /></a></h1>
+	  </div>
+	  <div id="menus">
+	    {% if not user.is_authenticated %}
+	      <ul>
+		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band/" %}">+ Groupes</a><span>Plus de shows et de fans</span></li>
+		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue/" %}">+ Bars</a><span>Booking éclair</span></li>
+	      </ul>
+	    {% else %}
+	      <div id="user-menu">
+		<img alt="" src="{% staticfile '/images/structure/usermenu/left.png' %}" width="6" height="28"/> 
+		<ul>
+		  {% staticfile '/images/account/no_avatar.png' as default_avatar %}
+		  <li>
+		    <img class="avatar" src="{{ user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" alt="Avatar" width="18" height="18"/> 
+		    <a class="username" href="{% url account:dashboard %}">{{ user.username }}</a>
+		  </li>
+		  <li class="separator"></li>
+		  <li><a href="{% url account:edit user %}">{% trans "Settings" %}</a></li>
+		  <li class="separator"></li>
+		  <li><a href="{% url backcap:feedback-list %}">{% trans "Help" %}</a></li>
+		  <li class="logout"><a href="{% url account:auth_logout %}">{% trans "Logout" %}</a></li>
+		</ul>
+		<img alt="" src="{% staticfile '/images/structure/usermenu/right.png' %}" width="6" height="28"/> 
+	      </div>
+
+	      <div id="user-things">
+		<ul class="topnav">
+		  {% staticfile '/images/band/no_picture.png' as default_avatar %}
+		  {% for band in user.bands.all %}
+		    <li>
+		      <img class="avatar" src="{{ band.pictures.avatar.small_avatar_image.url|default:default_avatar }}" width="20" height="20" alt="band avatar"/>
+		      <a href="#">{{ band.name|capfirst }}</a>
+			<img src="{% staticfile '/images/structure/more.png' %}" alt="more" width="11" height="7" />
+
+		      <ul class="subnav">
+			<li><a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}"><img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" width="16" height="16" alt="negociations" />{% trans "Negociations" %}</a></li>
+			<li><a href="{% url event:band-calendar band.slug %}"><img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" width="16" height="16" alt="agenda" />{% trans "Agenda" %}</a></li>
+
+			<li><a href="{% url presskit:mypresskit band.slug %}"><img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" width="16" height="16" alt="presskit" />{% trans "PressKit" %}</a></li>
+			<hr/>
+			<li class="more"><a href="{% url band:detail band.slug %}">{% trans "Go to dashboard" %} &rarr;</a></li>
+		      </ul>
+		    </li>
+		  {% endfor %}
+		</ul>
+	      </div>
+	    {% endif %}
+	  </div>
 	    
 	  {# <div id="player"><img src="{% staticfile '/images/_TEMP/player.png' %}" alt="replace with the good player ;)" /></div> #}
 	</div>
