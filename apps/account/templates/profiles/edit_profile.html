@@ -1,29 +1,35 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 
-{% load uni_form_tags %}
 {% load i18n %}
 
-{% block content %}
-
-<div id="text">
-  <h1><a href="{{ user.get_profile.get_absolute_url }}">{{ user }}</a> &raquo; {% trans "Edit your profile" %}</h1>
-  
-  <div class="grid_7 alpha">
-    <h2>{% trans "Infos" %}</h2>
-    <form method="POST" action="" class="uniForm">
-      {{ form|as_uni_form }}
-      <input type="submit" name="submit" value="{% trans "Update" %}" id="submit">
-      </form>
-    </div>
-    <div class="grid_4 omega">
-      <h2>{% trans "Avatar" %}</h2>
-      {% if profile.avatar %}
-      <img src="{{ profile.avatar.avatar_image.url }}">
-      <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="{% trans "Change your avatar" %}"><span><span class="icon"></span>{% trans "Change Your Avatar" %}</span></a>
+{% block account_content %}
+  <div id="forms" class="grid_8 alpha">
+    <form class="fuzzyform">
+      <label for="id_avatar">Avatar</label>
+      <div id="id_avatar">
+	{% if profile.avatar %}
+	  <img src="{{ profile.avatar.avatar_image.url }}" />
+	  <span>
+	  <a href="{% url account:avatar %}">{% trans "Change it" %}</a> or delete it.
 	{% else %}
-	{% trans "No avatar is defined."%} <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="Set Your Avatar"><span><span class="icon"></span>{% trans "Set Your Avatar" %}</span></a>
+	  {% trans "No avatar is defined."%} <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="Set Your Avatar"><span><span class="icon"></span>{% trans "Set Your Avatar" %}</span></a>
 	{% endif %}
+	</span>
       </div>
- </div>
+    </form>
+    
+    <form method="POST" action="" class="fuzzyform">
+      {{ form.as_p }}
+      <label for="id_submit"></label>
+      <input id="id_submit" type="submit" name="submit" value="{% trans "Update" %}" id="submit" />
+    </form>
+  </div>
 
+  <div id="sidebar" class="grid_4 prefix_1 omega">
+    <h2>{% trans "Your Profile" %}</h2>
+    {% blocktrans %}
+    Please describe yourself there. These information are important so that others can better know who you are.
+    {% endblocktrans %}
+  </div>
+  
 {% endblock %}

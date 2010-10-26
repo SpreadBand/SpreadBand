@@ -1,0 +1,118 @@
+#text ul#userprefs-categories {
+    background-color: #141414;
+
+    -o-border-radius:30px 30px 30px 30px;
+    -webkit-border-radius:30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    border-radius: 30px 30px 30px 30px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+#text ul#userprefs-categories li.category {
+    margin: 0px;
+    padding: 0px;
+
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    vertical-align: middle;
+
+    list-style-type: none;
+    display: inline-block;
+    font-size: 1.4em;
+}
+
+#text ul#userprefs-categories li.selected {
+    background-color: #444;
+    margin: 0px;
+
+    -o-border-radius:15px 15px 15px 15px;
+    -webkit-border-radius:15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#text ul#userprefs-categories li:hover {
+    background-color: #444;
+    color: #FF9127;
+
+    -o-border-radius:15px 15px 15px 15px;
+    -webkit-border-radius:15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#text ul#userprefs-categories li a {
+    vertical-align: middle;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #222;
+    color: #FF7C00;
+}
+
+
+/*-- header title --*/
+#userprefs-header {
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+#userprefs-header img {
+    display: inline;
+    vertical-align: middle;
+    margin-right: 5px;
+
+    border: 1px solid #dcdcdc;
+    padding: 1px;
+}
+
+#userprefs-header h1 {
+    display: inline;
+    vertical-align: middle;
+}
+
+
+/*-- Forms --*/
+#forms {
+    margin-top: 20px;
+    padding-left: 15px;
+}
+
+#id_avatar {
+    display: inline;
+}
+
+#id_avatar img {
+    border: 1px solid #dcdcdc;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+#id_avatar span, a {
+    vertical-align: top;
+}
+
+/*-- Sidebar --*/
+#sidebar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 1px solid #eee;
+    align: justify;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#sidebar h2 {
+    font-family: 'Helvetica Neue';
+    font-weight: 500;
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 10px;
+}

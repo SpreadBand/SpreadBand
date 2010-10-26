@@ -24,45 +24,17 @@ class ProfileAvatarForm(forms.ModelForm):
         fields = ('original_image',)
 
 
-class ProfileEditForm(forms.ModelForm):
+class AccountEditForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
-        fields = ('first_name', 'last_name', 'genre', 'birthdate', 'email', 'country', 'timezone', 'town')
+        model = User
+        fields = ['password1', 'password2']
 
-    birthdate = forms.DateField(label=_("Birthdate"),
-                                widget=SelectDateWidget(years=range(datetime.date.today().year-10, 1900, -1))
-                                )
-
-    email = forms.EmailField(label=_("Email address"),
-                             help_text='')
-
-    first_name = forms.CharField(label=_("First name"), 
-                                 max_length=30,
-                                 required=False)
-
-    last_name = forms.CharField(label=_("Last name"), 
-                                max_length=30,
-                                required=False)
-
-    password1 = forms.CharField(label=_("Password"),
-                                max_length=30,
-                                required=False,
+    password1 = forms.CharField(label=_("New password"),
                                 widget=forms.PasswordInput())
-
     password2 = forms.CharField(label=_("Confirm password"),
-                                max_length=30,
-                                required=False,
                                 widget=forms.PasswordInput())
+        
 
-    def __init__(self, *args, **kwargs):
-        super(ProfileEditForm, self).__init__(*args, **kwargs)
-        try:
-            self.fields['email'].initial = self.instance.user.email
-            self.fields['first_name'].initial = self.instance.user.first_name
-            self.fields['last_name'].initial = self.instance.user.last_name
-        except User.DoesNotExist:
-            pass
-     
     def clean(self):
         """
         If the user wants to update its password, make sure both fields match
@@ -78,6 +50,56 @@ class ProfileEditForm(forms.ModelForm):
 
         return self.cleaned_data
 
+    def save(self, *args, **kwargs):
+        """
+        Update the primary email address and the password on the
+        related User object as well.
+        """
+        u = self.instance
+
+        if self.cleaned_data.get('password1'):
+            u.set_password(self.cleaned_data.get('password1'))
+        u.save()
+        account = super(AccountEditForm, self).save(*args,**kwargs)
+        return account
+
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'genre', 'birthdate', 'email', 'country', 'timezone', 'town')
+
+    birthdate = forms.DateField(label=_("Birthdate"),
+                                widget=SelectDateWidget(years=range(datetime.date.today().year-10, 1900, -1))
+                                )
+
+    email = forms.EmailField(label=_("Email address"),
+                             help_text='')
+
+    genre = forms.ChoiceField(label=_("Genre"),
+                              choices=(('', '----'),) + UserProfile.genre_choices,
+                              widget=forms.Select(),
+                              required=True)
+
+    first_name = forms.CharField(label=_("First name"), 
+                                 max_length=30,
+                                 required=False)
+
+    last_name = forms.CharField(label=_("Last name"), 
+                                max_length=30,
+                                required=False)
+
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileEditForm, self).__init__(*args, **kwargs)
+        try:
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+        except User.DoesNotExist:
+            pass
+     
     def save(self, *args, **kwargs):
         """
         Update the primary email address and the password on the

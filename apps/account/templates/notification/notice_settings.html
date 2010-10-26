@@ -1,14 +1,10 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 
 {% load i18n %}
 
-{% block content %}
+{% block account_content %}
 
-<div id="text">
-
-  <h1><a href="{{user.get_profile.get_absolute_url }}">{{ user }}</a> &raquo; {% trans "Configure your notification settings" %}</h1>
-
-  <div class="notice_settings">
+  <div id="forms" class="grid_8 alpha notice_settings">
   
   {% if user.email %}
   <p>
@@ -21,7 +17,7 @@
   </p>
   {% endif %}
   
-  <form method="POST" action=""> {# doubt this easy to do in uni-form #}
+  <form method="POST" action="" class="fuzzyform">
     {% csrf_token %}
     <table class="notice_settings">
       <tr>
@@ -41,13 +37,20 @@
       </tr>
       {% endfor %}
       <tr>
+	<td></td>
         <td><input type="submit" value="{% trans "Update" %}" /></td>
       </tr>
     </table>
   </form>
 </div>
 
+<div id="sidebar" class="grid_4 prefix_1 omega">
+  <h2>{% trans "Notifications" %}</h2>
+  {% blocktrans %}
+  You can tune here how we send you your notifications. Be smart, remember that getting notifications make you sure you respond fast : other will be waiting shorter and you'll get better results.
+  {% endblocktrans %}
 </div>
+
 
 
 {% endblock %}

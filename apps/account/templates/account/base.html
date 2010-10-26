@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load uni_form_tags %}
+{% load i18n %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/userprefs.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+  <div id="userprefs-header">
+    <img src="{{ user.get_profile.avatar.avatar_image.url }}" width="36px" height="36px" />
+    <h1>{% blocktrans with user.username|capfirst as username %}{{ username }}'s settings{% endblocktrans %}</h1>
+  </div>
+
+
+  <div>
+    <ul id="userprefs-categories">
+      {% url account:edit user.username as profile_url %}
+      {% url account:password as password_url %}
+      {% url notification_notice_settings as notification_url %}
+
+      <li class="category {% if request.path == profile_url %}selected{% endif %}"><a href="{{ profile_url }}">{% trans "Profile" %}</a></li>
+      <li class="category {% if request.path == password_url %}selected{% endif %}"><a href="{{ password_url }}">{% trans "Password" %}</a></li>
+      <li class="category {% if request.path == notification_url %}selected{% endif %}"><a href="{{ notification_url }}">{% trans "Notifications" %}</a></li>
+    </ul>
+  </div>
+  {% block account_content %}
+  {% endblock %}
+
+ </div>
+
+{% endblock %}

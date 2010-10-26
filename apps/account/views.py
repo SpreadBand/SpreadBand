@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template.context import RequestContext
+from django.views.generic.create_update import update_object
 
 from notification.models import Notice
 
@@ -16,7 +17,7 @@ from gigbargain.models import GigBargain
 
 from .models import UserAvatar
 
-from .forms import UserProfileForm, UserForm
+from .forms import UserProfileForm, UserForm, AccountEditForm
 from .forms import ProfileEditForm, ProfileAvatarForm
 
 @login_required
@@ -24,6 +25,15 @@ def edit(request, username):
     return edit_profile(request,
                         form_class=ProfileEditForm,
                         success_url='#')
+
+@login_required
+def password(request):
+    return update_object(request,
+                         form_class=AccountEditForm,
+                         object_id=request.user.id,
+                         template_name='account/password.html',
+                         post_save_redirect="?",
+                         extra_context={'profile': request.user.get_profile()})
 
 @login_required
 def avatar_set(request):

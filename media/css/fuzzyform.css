@@ -1,0 +1,75 @@
+.fuzzyform label {
+    display: inline-block;
+    width: 170px;
+
+    font-family: 'Lucida Grande', sans-serif;
+    font-weight: 500;
+    color: #333;
+    vertical-align: top;
+}
+
+.fuzzyform input, select {
+    background-color: white;
+    border: 1px solid #dcdcdc;
+    padding: 3px;
+    color: #333;
+
+    -o-border-radius:3px 3px 3px 3px;
+    -webkit-border-radius:3px 3px 3px 3px;
+    -moz-border-radius:3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+}
+
+#text .fuzzyform ul {
+    list-style-type: none;
+}
+
+#text .fuzzyform ul li {
+    margin: 0px;
+    padding: 0px;
+}
+
+.fuzzyform input:focus {
+    color: #000;
+    border: 1px solid #222;
+
+    -moz-box-shadow: 1px 1px 8px #888; 
+    -webkit-box-shadow: 1px 1px 8px #888;  
+    box-shadow: 1px 1px 8px #888;  
+}
+
+.fuzzyform input[type=submit] {
+    border: none;
+    color: #FF8209;
+    font-size: 1em;
+    background-color: black;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #222;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+
+    -o-border-radius:15px 15px 15px 15px;
+    -webkit-border-radius:15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.fuzzyform input[type=submit]:hover {
+    background-color: #444;
+    -moz-box-shadow: 1px 1px 8px #888; 
+    -webkit-box-shadow: 1px 1px 8px #888;  
+    box-shadow: 1px 1px 8px #888;    
+}
+
+form .errorlist {
+    color: red;
+}
+
+.fuzzyform 
+
+#text form .errorlist li {
+    list-style: none;
+    margin: 0px;
+}
+
