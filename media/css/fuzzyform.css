@@ -29,7 +29,7 @@
     padding: 0px;
 }
 
-.fuzzyform input:focus {
+.fuzzyform input:focus,select:focus {
     color: #000;
     border: 1px solid #222;
 
