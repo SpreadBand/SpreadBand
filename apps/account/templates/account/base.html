@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
-{% load uni_form_tags %}
 {% load i18n %}
+{% load avatar_tags %}
 
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/css/userprefs.css" media="screen, projection" />
@@ -12,7 +12,7 @@
 
 <div id="text">
   <div id="userprefs-header">
-    <img src="{{ user.get_profile.avatar.avatar_image.url }}" width="36px" height="36px" />
+    {% avatar user 36 %}
     <h1>{% blocktrans with user.username|capfirst as username %}{{ username }}'s settings{% endblocktrans %}</h1>
   </div>
 

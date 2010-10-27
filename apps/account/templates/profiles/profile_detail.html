@@ -2,6 +2,7 @@
 
 {% load django_static %}
 {% load i18n %}
+{% load avatar_tags %}
 
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
@@ -17,8 +18,7 @@
 <div id="text">
 
   <div class="alpha grid_2">
-    {% staticfile "/images/account/no_avatar.png" as default_avatar %}
-    <img src="{{ profile.avatar.avatar_image.url|default:default_avatar }}" width="80px" height="80px" alt="Avatar"/>
+    {% avatar profile.user 80 %}
   </div>
   <div class="grid_13 omega">
     

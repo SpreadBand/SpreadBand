@@ -68,7 +68,7 @@
     vertical-align: middle;
     margin-right: 5px;
 
-    border: 1px solid #dcdcdc;
+    border: 1px solid #cccccc;
     padding: 1px;
 }
 
@@ -89,7 +89,7 @@
 }
 
 #id_avatar img {
-    border: 1px solid #dcdcdc;
+    border: 1px solid #cccccc;
     padding: 3px;
     margin-bottom: 5px;
 }
@@ -115,4 +115,48 @@
     font-size: 1.3em;
     color: #333;
     margin-bottom: 10px;
+}
+
+#sidebar h3 {
+    font-family: 'Helvetica';
+    font-weight: 500;
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/*-- change avatar page --*/
+div#avatar-choice {
+    list-style: none;
+    display: block;
+}
+
+div#avatar-choice > li > label {
+    display: none;
+}
+
+div#avatar-choice li ul li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    float: left;
+}
+
+div#avatar-choice li ul li img {
+    padding: 3px;
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+
+div#avatar-choice li ul li input[type=radio] {
+    display: none;
+}
+
+div#avatar-choice li ul li input[type=checkbox] {
+    /*display: none;*/
+}
+
+div#avatar-choice li ul li img.selected {
+    border: 2px solid #FC6818;
+    padding: 2px;
 }

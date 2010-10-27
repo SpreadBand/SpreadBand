@@ -5,6 +5,7 @@
 {% load timezone_filters %}
 {% load django_static %}
 {% load activity_tags %}
+{% load avatar_tags %}
 
 {% block head %}
   <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
@@ -23,8 +24,7 @@
 <div id="text">
 
   <div class="alpha grid_2">
-    {% staticfile "/images/account/no_avatar.png" as default_avatar %}
-    <img src="{{ user.get_profile.avatar.avatar_image.url|default:default_avatar }}" width="80px" height="80px" alt="Avatar"/>
+    {% avatar user 80 %}
   </div>
   <div class="grid_13 omega">
     

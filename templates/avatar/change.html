@@ -1,0 +1,66 @@
+{% extends "account/base.html" %}
+{% load i18n avatar_tags %}
+
+{% block javascript %}
+  {{ block.super }}
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$("#avatar-choice img").click(function() {
+	    $("#avatar-choice img").removeClass("selected");
+	    $(this).addClass("selected");
+	});
+
+	$("#avatar-choice input[type='radio']:checked").parents().children("img").addClass("selected");
+    });
+  </script>
+{% endblock %}
+
+{% block account_content %}
+
+  <div id="forms" class="grid_8 alpha">
+    <div class="grid_8 alpha omega">
+      {% if not avatars %}
+        <p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
+      {% else %}
+        <form method="POST" action="{% url avatar_change %}">
+	  <div id="avatar-choice" class="grid_8 alpha omega">
+	    {{ primary_avatar_form.as_ul }}
+	  </div>
+	  {% csrf_token %}
+	  <input type="submit" name="use" value="{% trans "Use this avatar" %}" />
+	  <input type="submit" name="crop" value="{% trans "Crop this avatar" %}" />
+	  <input type="submit" name="delete" value="{% trans "Delete this avatar" %}" />
+        </form>
+
+	<a href="{% url avatar_crop_default %}">{% trans "Crop" %}</a>
+      {% endif %}
+    </div>
+
+    <div class="grid_8 alpha omega">
+      <h3>{% trans "Upload a new avatar" %}</h3>
+      <form enctype="multipart/form-data" method="POST" action="{% url avatar_add %}">
+        {{ upload_avatar_form.as_p }}
+        {% csrf_token %}
+	<input type="submit" value="{% trans "Upload New Avatar" %}" />
+      </form>
+    </div>
+
+  </div>
+
+  <div id="sidebar" class="grid_4 prefix_1 omega">
+    <h2>{% trans "Your avatars" %}</h2>
+    <p>
+    {% blocktrans %}
+      Select the avatar you want to use. If you'd like to crop an avatar, select it, then hit "Crop". You can also add or delete avatars by clicking on the buttons below them.
+    {% endblocktrans %}
+    </p>
+
+    <h3>{% trans "Gravatar support" %}</h3>
+    <p>
+    {% blocktrans %}
+    If you don't have any avatar defined, we'll try to use the Gravatar (<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</strong>) service with your email address. <a href="http://gravatar.com">Learn more about Gravatar &raquo;</a>
+    {% endblocktrans %}
+    </p>
+  </div>
+{% endblock %}

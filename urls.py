@@ -37,6 +37,9 @@ urlpatterns = patterns('',
     # auth + profile
     (r'^user/', include('socialregistration.urls')),
     (r'^user/', include('account.urls', namespace='account')),
+    # avatar
+    (r'^user/profile/avatar/', include('avatar.urls')),
+    (r'^user/profile/avatar_crop/', include('avatar_crop.urls')),
 
     # comments
     (r'^comments/', include('django.contrib.comments.urls')),
@@ -86,10 +89,6 @@ urlpatterns = patterns('',
     (r'^api/', include('api.urls')),
 
     (r'^robots\.txt$', include('robots.urls')),
-
-    # avatar
-    (r'^avatar/', include('avatar.urls')),
-    (r'^avatar_crop/', include('avatar_crop.urls')),
 
     # Announcements
     url(r"^announcements/", include("announcements.urls")),

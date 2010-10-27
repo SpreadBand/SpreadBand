@@ -1,6 +1,11 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load avatar_tags %}
+
+{% block title %}
+{% trans "Profile settings" %}
+{% endblock %}
 
 {% block account_content %}
   <div id="forms" class="grid_8 alpha">
@@ -8,9 +13,9 @@
       <label for="id_avatar">Avatar</label>
       <div id="id_avatar">
 	{% if profile.avatar %}
-	  <img src="{{ profile.avatar.avatar_image.url }}" />
+	  {% avatar user 80 %}
 	  <span>
-	  <a href="{% url account:avatar %}">{% trans "Change it" %}</a> or delete it.
+	  <a href="{% url avatar_change %}">{% trans "Change it" %}</a> or <a href="{% url avatar_delete %}">delete it</a>.
 	{% else %}
 	  {% trans "No avatar is defined."%} <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="Set Your Avatar"><span><span class="icon"></span>{% trans "Set Your Avatar" %}</span></a>
 	{% endif %}
