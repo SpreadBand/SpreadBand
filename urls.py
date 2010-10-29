@@ -39,7 +39,6 @@ urlpatterns = patterns('',
     (r'^user/', include('account.urls', namespace='account')),
     # avatar
     (r'^user/profile/avatar/', include('avatar.urls')),
-    (r'^user/profile/avatar_crop/', include('avatar_crop.urls')),
 
     # comments
     (r'^comments/', include('django.contrib.comments.urls')),

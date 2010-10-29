@@ -160,3 +160,41 @@ div#avatar-choice li ul li img.selected {
     border: 2px solid #FC6818;
     padding: 2px;
 }
+
+div#upload-new {
+    margin-top: 20px;
+}
+
+div#avatars img {
+    width: 80px;
+    padding: 2px;
+    border: 1px solid #ddd;
+    float: left;
+    margin-right: 10px;
+}
+
+/*-- avatar crop --*/
+#crop_avatar {
+    margin-bottom: 10px;
+}
+
+.small-preview-window {
+    width: 36px;
+    padding: 2px;
+    border: 1px solid #ddd;
+}
+
+.big-preview-window {
+    width: 80px;
+    padding: 2px;
+    border: 1px solid #ddd;
+}
+
+#current-cropping {
+    margin-top: 20px;
+}
+
+#current-cropping img {
+    float: left;
+    margin-right: 5px;
+}

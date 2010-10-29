@@ -33,6 +33,7 @@
             <div id="avatar-choice">
                 {{ delete_avatar_form.as_ul }}
             </div>
+	    <input type="hidden" name="next" value="{% url avatar_change %}"/>
             <p>{% csrf_token %}<input type="submit" value="{% trans "Delete These" %}" /></p>
         </form>
     {% endif %}

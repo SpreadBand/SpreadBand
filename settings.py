@@ -192,7 +192,6 @@ INSTALLED_APPS = (
     'faq',
     'django_wysiwyg',
     'avatar',
-    'avatar_crop',
     'announcements',
     'backcap',
     'django_filters',
@@ -343,3 +342,11 @@ DAJAXICE_MEDIA_PREFIX = "js/dajax"
 DAJAXICE_XMLHTTPREQUEST_JS_IMPORT = True
 DAJAXICE_JSON2_JS_IMPORT = True
 DAJAXICE_DEBUG = DEBUG
+
+# DJANGO AVATAR
+AVATAR_DEFAULT_SIZE = 80
+AVATAR_CROP_VIEW_SIZE = 450
+AVATAR_MAX_AVATARS_PER_USER = 10
+AVATAR_HASH_FILENAMES = True
+AVATAR_HASH_USERDIRNAMES = True
+AVATAR_CACHE_TIMEOUT = 5

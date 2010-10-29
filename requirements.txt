@@ -38,15 +38,15 @@ django-nose
 -e git+http://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e git+http://github.com/SpreadBand/django-faq.git#egg=django-faq
 -e git+http://github.com/SpreadBand/django-fsm.git#egg=django-fsm
+-e git+http://github.com/SpreadBand/django-avatar.git#egg=django-avatar
 -e hg+http://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
--e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 
 # Other repositories
+-e git+http://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 -e git+http://github.com/alex/django-filter.git#egg=django-filter
 -e git+http://github.com/stephanpoetschner/django-announcements.git#egg=django-announcements
 -e git+http://github.com/jtauber/django-notification.git#egg=django-notification
--e git+http://github.com/ericflo/django-avatar.git#egg=django-avatar
--e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop
+#-e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop
 -e git+http://github.com/pydanny/django-wysiwyg.git#egg=django-wysiwyg
 -e svn+http://django-rosetta.googlecode.com/svn/trunk#egg=django-rosetta
 -e hg+http://bitbucket.org/jezdez/django-robots@0.8.0#egg=django-robots
