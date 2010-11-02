@@ -1,3 +1,4 @@
+{% load avatar_tags %}
 {% load django_static %}
 {% load elsewhere_tags %}
 {% load oembed_tags %}
@@ -39,7 +40,8 @@
     <ul>
       {% for member in band.band_members.all %}
 	<li>
-	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="48px" height="48px"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
+	  {% avatar member.user 48 %}
+	  <a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
 	  <span class="bandmember_whois">{{ member.user.get_profile.genre|default:"?" }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
 	  <span class="bandmember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
       </li>

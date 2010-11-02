@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load django_static %}
 {% load activity_tags %}
+{% load avatar_tags %}
 
 {% block title %}
   {{ band.name }} - {% trans "Dashboard" %}
@@ -171,10 +172,9 @@
       <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
 
       <ul>
-	{% staticfile '/images/account/no_avatar.png' as default_avatar %}
 	{% for member in band.band_members.all %}
 	<li>
-	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="50px" height="50px" alt="{{ member.user.username }} avatar"/>
+	  {% avatar member.user 48 %}
 	  <a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
 	  <span class="bandmember_role" title="{{ member.roles.all|join:', ' }}">{{ member.roles.all|join:', '|truncatewords:3 }}</span>
 	</li>
