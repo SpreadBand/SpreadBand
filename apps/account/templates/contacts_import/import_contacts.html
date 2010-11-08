@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load django_static %}
+{% load i18n %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/contacts.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+  
+  <h1>{% trans "Select your provider" %}</h1>
+
+  <div id="instructions">
+    {% blocktrans %}
+      Please select your email account from which you'd like to import your contacts.
+      We <strong>do not</strong> keep your password nor your contacts once the import step is finished.
+    {% endblocktrans %}
+  </div>
+
+  <ul id="provider-list">
+    <li>
+      <div>
+	<a href="{{ google_url }}">
+	  <img src="{% staticfile "/images/logos/gmail.jpg" %}" width="250px" height="118px" alt="Gmail"/>	
+	</a>
+      </div>
+    </li>
+  </ul>
+
+  &laquo;&nbsp;<a href="{{ user.get_profile.get_absolute_url }}">Cancel importation</a>
+
+</div>
+
+{% endblock %}

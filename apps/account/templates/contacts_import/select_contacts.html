@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load django_static %}
+{% load i18n %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/contacts.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/jquery.dataTables.css" media="screen, projection" />
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+    <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.dataTables.js" %}"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+	  $("table#contact-list").dataTable();
+      });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+
+  <h1>{% trans "Select your contacts" %}</h1>
+
+  <div id="instructions">
+    {% blocktrans %}
+    Please <strong>select your contacts</strong> you'd like to invite on SpreadBand. The message at the bottom of this page will be sent. You can, of course, change it if you want.
+    {% endblocktrans %}
+  </div>
+
+  <h3>{% trans "First, choose who you want to invite" %}</h3>
+
+  <form method="POST">
+    <table id="contact-list">
+      <thead>
+	<tr>
+	  <th>{% trans "Invite ?" %}</th>
+	  <th>{% trans "Name" %}</th>
+	  <th>{% trans "E-mail" %}</th>
+	</tr>
+      </thead>
+      <tbody>
+	{% for contact in contacts %}
+	  <tr class="contact">
+	    <td>
+	      <input type="checkbox" name="{{ contact.id }}" />
+	    </td>
+	    <td>
+	      {{ contact.name|default:"-" }}
+	    </td>
+	    <td>
+	      {{ contact.email }}
+	    </td>
+	  </tr>
+	  {% empty %}
+	  {% trans "You have no imported contacts" %}
+	{% endfor %}
+      </tbody>
+      <tfoot>
+	<tr>
+	  <th>{% trans "Invite ?" %}</th>
+	  <th>{% trans "Name" %}</th>
+	  <th>{% trans "E-mail" %}</th>
+	</tr>
+      </tfoot>
+    </table>
+
+  <h3>{% trans "Second, write a message to your friends" %}</h3>
+
+    <textarea>
+Hi,
+
+Join me on spreadband \o/ ! This is fucking cooooool.
+
+XXX,
+
+{{ user.first_name|default:user.username }}
+    </textarea>
+
+    <input type="submit" value="{% trans "Invite my friends !" %}"/>
+  </form>
+
+  &larr;&nbsp;<a href="{% url import_contacts %}">{% trans "Back to providers" %}</a>
+</div>
+
+{% endblock %}
