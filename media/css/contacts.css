@@ -1,0 +1,76 @@
+#instructions {
+    background-color: #ffffdd;
+    border: 1px solid #444;
+    padding: 10px;
+    
+    margin-bottom: 20px;
+}
+
+#text ul#provider-list {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+#text #provider-list li {
+    padding-left: 0px;
+    margin-left: 0px;
+    display: inline;
+}
+
+#text #provider-list li a img {
+    display: block;
+}
+
+#contact-list {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#contact-list thead, tfoot {
+    border: 1px solid #666;
+    background-color: #eee;
+}
+
+#contact-list td, th {
+    padding: 3px;
+}
+
+#contact-list th {
+    cursor: pointer;
+}
+
+#contact-list_filter {
+    font-weight: bold;
+}
+
+#contact-list_info {
+    font-style: italic;
+}
+
+#contact-list_wrapper {
+    border: 1px solid #f7f7f7;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    display: inline;
+    width: 70%;
+    height: 150px;
+    margin-right: 20px;
+    border: 1px dashed #ddd;
+    padding: 5px;
+    vertical-align: bottom;
+}
+
+textarea:focus {
+    background-color: #FFFEF5;
+}
+
+input[type="submit"] {
+    height: 100px;
+    width: 20%;
+    vertical-align: bottom;
+    font-size: 1.2em;
+}

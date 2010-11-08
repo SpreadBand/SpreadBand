@@ -195,6 +195,7 @@ INSTALLED_APPS = (
     'announcements',
     'backcap',
     'django_filters',
+    'contacts_import',
 
     # Internal
     'world',
@@ -349,3 +350,6 @@ AVATAR_CROP_VIEW_SIZE = 450
 AVATAR_MAX_AVATARS_PER_USER = 10
 AVATAR_HASH_FILENAMES = True
 AUTO_GENERATE_AVATAR_SIZES = (80, 48, 36, 30, 18)
+
+# CONTACTS IMPORT
+CONTACTS_IMPORT_CALLBACK = 'account.views.contacts'

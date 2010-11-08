@@ -106,3 +106,10 @@ def dashboard(request):
                                                               context)
                               )
 
+@login_required
+def contacts(request):
+    context = {}
+    return render_to_response(template_name='account/contacts.html',
+                              context_instance=RequestContext(request,
+                                                              context)
+                              )

@@ -134,8 +134,14 @@
   <div class="grid_4 omega">
     <div class="grid_4 alpha omega">
       <div id="band-tip">
-	<strong>{% trans "Tip of the day" %} (WIP)</strong><br/>
+	<strong>{% trans "Tip of the day" %} (WIP)</strong>
+	<p>
 	{% blocktrans %}Have you filled your PressKit ? This is the best way to get booked !{% endblocktrans %}
+	</p>
+	<p>
+	  {% url import_contacts as import_url %}
+	  {% blocktrans with import_url as url %}Extend your network, <a href="{{ url }}">invite your friends</a>.{% endblocktrans %}
+	</p>
       </div>
     </div>
 

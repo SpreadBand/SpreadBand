@@ -37,6 +37,9 @@ urlpatterns = patterns('',
     # auth + profile
     (r'^user/', include('socialregistration.urls')),
     (r'^user/', include('account.urls', namespace='account')),
+    # Contacts import
+    (r'^user/contacts/', include('contacts_import.urls')),
+
     # avatar
     (r'^user/profile/avatar/', include('avatar.urls')),
 
