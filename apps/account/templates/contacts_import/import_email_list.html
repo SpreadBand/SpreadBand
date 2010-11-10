@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load django_static %}
+{% load i18n %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/contacts.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/jquery.dataTables.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+
+  <h1>{% trans "Import email adresses" %}</h1>
+
+  <div id="instructions">
+    {% blocktrans %}
+    Please <strong>select your contacts</strong> you'd like to invite on SpreadBand. The message at the bottom of this page will be sent. You can, of course, change it if you want.
+    {% endblocktrans %}
+  </div>
+  
+  <form method="POST">
+    {{ email_form.emails }}
+    <input type="submit" value="Inviter"/>
+  </form>
+
+
+  &larr;&nbsp;<a href="{% url import_contacts %}">{% trans "Back to providers" %}</a>
+</div>
+
+{% endblock %}

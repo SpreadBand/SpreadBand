@@ -13,7 +13,6 @@ urlpatterns += patterns('',
     url(r'^(?P<username>[-\w]+)/edit$', views.edit, name='edit'),
     url(r'^profile/avatar$', views.avatar_set, name='avatar'),
     url(r'^profile/password$', views.password, name='password'),
-    url(r'^contacts/$', views.contacts, name='contacts'),
     (r'^register/band', include('account.backends.userband.urls')),
 )
 

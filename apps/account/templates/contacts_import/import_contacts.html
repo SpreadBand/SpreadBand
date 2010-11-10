@@ -12,26 +12,58 @@
 
 <div id="text">
   
-  <h1>{% trans "Select your provider" %}</h1>
+  <h1>{% trans "Import contacts" %}</h1>
 
   <div id="instructions">
-    {% blocktrans %}
-      Please select your email account from which you'd like to import your contacts.
-      We <strong>do not</strong> keep your password nor your contacts once the import step is finished.
-    {% endblocktrans %}
+    <p>
+      {% blocktrans %}
+	Please select your email provider from which you'd like to import your contacts.
+	We <strong>do not</strong> keep your password nor your contacts once the import step is finished.
+      {% endblocktrans %}
+    </p>
+    <p>
+      {% blocktrans %}
+	If you prefer to <strong>enter manually</strong> your friends email adresses, please do so in the form at the bottom of this page.
+      {% endblocktrans %}
+    </p>
   </div>
 
+  {% with user.imported_contacts as contacts %}
+    {% if contacts %}
+      <div id="contacts-already-imported">
+	<p>
+	  You already have imported <a href="{% url select_contacts %}">{{ contacts.all|length }} contact{{ contacts.all|pluralize }}</a>.
+	</p>
+      {% endif %}
+      </div>
+    {% endwith %}
+
+
+  <h3>Select your provider</h3>
   <ul id="provider-list">
     <li>
       <div>
 	<a href="{{ google_url }}">
-	  <img src="{% staticfile "/images/logos/gmail.jpg" %}" width="250px" height="118px" alt="Gmail"/>	
+	  <img src="{% staticfile "/images/logos/gmail.jpg" %}" width="250px" height="118px" alt="Gmail" title="{% trans "Click to import from GMail" %}"/>	
 	</a>
       </div>
     </li>
   </ul>
 
-  &laquo;&nbsp;<a href="{{ user.get_profile.get_absolute_url }}">Cancel importation</a>
+  <h3>Enter your friends email adresses</h3>
+
+  <p id="tip">
+    {% blocktrans %}Please split email adresses by a comma. For example: "user@somewhere.tld, robert@ac.de, john@doe.org". {% endblocktrans %}
+  </p>
+  <form id="email_adresses" method="POST" action="{% url import_email_list %}">
+    {{ email_list_form.emails }}
+
+    <input type="submit" value="{% trans "Import" %}"/>
+  </form>
+
+  <div id="goback">
+    &larr;&nbsp;<a href="{{ user.get_profile.get_absolute_url }}">Cancel importation</a>
+  </div>
 
 </div>
 
