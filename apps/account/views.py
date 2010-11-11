@@ -2,10 +2,12 @@ from datetime import date
 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.generic.create_update import update_object
+from django.utils.translation import ugettext as _
 
 from notification.models import Notice
 
@@ -16,7 +18,6 @@ from band.models import Band
 from gigbargain.models import GigBargain
 
 from .models import UserAvatar
-
 from .forms import UserProfileForm, UserForm, AccountEditForm
 from .forms import ProfileEditForm, ProfileAvatarForm
 
@@ -113,3 +114,17 @@ def contacts(request):
                               context_instance=RequestContext(request,
                                                               context)
                               )
+
+from django.core.urlresolvers import resolve
+
+@login_required
+def oauth_access_success(request, access, token):
+    if hasattr(request, "session"):
+        redirect_to = request.session["redirect_to"]
+
+    func, args, kwargs = resolve(redirect_to)
+    kwargs["access"] = access
+    kwargs["token"] = token
+
+    return func(request, *args, **kwargs)
+

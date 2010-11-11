@@ -138,6 +138,7 @@ else:
 
 INSTALLED_APPS = (
     'south',
+    'lettuce.django',
 
     # Built-in
     'django.contrib.auth',
@@ -156,6 +157,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
 
     # External
+    'oauth_access',
     'privatebeta',
     'haystack',
     'dajaxice',
@@ -303,8 +305,48 @@ ANONYMOUS_USER_ID = -1
 COMMENTS_APP = 'threadedcomments'
 PROFANITIES_LIST = ()
 
-### GOOGLE MAPS
+### API KEYS
+# GOOGLE MAPS
 GOOGLE_MAPS_API_KEY = 'ABQIAAAA6h516tSP1Hvn-DSlCn0BohSzw_xTdwUeZJiiJ-EpCmf90rYO0xT--Tl2YeDvj8A_LzJZPUdaTSawsQ'
+
+# TWITTER (SpreadBand app)
+TWITTER_CONSUMER_KEY = 'JyyMnvo7ziWIepALdanhMg'
+TWITTER_CONSUMER_SECRET_KEY = 'N7wx9w1UJUNM0h8vVH6wB2vUIAiFYnO2p0IdAYtK2HE'
+TWITTER_REQUEST_TOKEN_URL = 'https://twitter.com/oauth/request_token'
+TWITTER_ACCESS_TOKEN_URL = 'https://twitter.com/oauth/access_token'
+TWITTER_AUTHORIZATION_URL = 'https://twitter.com/oauth/authorize'
+
+# FACEBOOK
+FACEBOOK_API_KEY = '0445acaf091af7727ef610e64cb73baf'
+FACEBOOK_SECRET_KEY = '52f03de8cc57d0435eb1fcf8ba54a24e'
+
+# OAUTH
+OAUTH_ACCESS_SETTINGS = {
+    'twitter': {
+        'keys': {
+            'KEY': TWITTER_CONSUMER_KEY,
+            'SECRET': TWITTER_CONSUMER_SECRET_KEY,
+            },
+        'endpoints': {
+            'access_token': TWITTER_ACCESS_TOKEN_URL,
+            'request_token': TWITTER_REQUEST_TOKEN_URL,
+            'authorize': TWITTER_AUTHORIZATION_URL,
+            'callback': 'account.views.oauth_access_success',
+            }
+        },
+    'facebook': {
+        'keys': {
+            'KEY': FACEBOOK_API_KEY,
+            'SECRET': FACEBOOK_SECRET_KEY,
+            },
+        'endpoints': {
+            'provider_scope': ('publish_stream', 'create_event', 'offline_access'),
+            'access_token': 'https://graph.facebook.com/oauth/access_token',
+            'authorize': 'https://graph.facebook.com/oauth/authorize',
+            'callback': 'account.views.oauth_access_success',
+            }
+        }
+    }
 
 ### HAYSTACK
 HAYSTACK_SITECONF = 'spreadband.search_sites'
@@ -315,9 +357,6 @@ if DEBUG:
 else:
     HAYSTACK_WHOOSH_PATH = '/home/spreadband/virtualenvs/spreadband.com/spreadband/spreadband_index'
 
-### FACEBOOK
-FACEBOOK_API_KEY = '0445acaf091af7727ef610e64cb73baf'
-FACEBOOK_SECRET_KEY = '52f03de8cc57d0435eb1fcf8ba54a24e'
 
 # PRIVATE ALPHA/BETA
 PRIVATEBETA_REDIRECT_URL = "/alpha"

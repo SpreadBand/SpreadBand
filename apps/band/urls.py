@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, url
 from django.conf import settings
 
 import views
@@ -35,6 +35,7 @@ urlpatterns += patterns('',
     # socialnets
     url(r'^(?P<band_slug>[-\w]+)/socialnets/add$', views.socialnets.socialnet_add, name='socialnet-add'),
     url(r'^(?P<band_slug>[-\w]+)/socialnets/edit$', views.socialnets.socialnet_edit, name='socialnet-edit'),
+    url(r'^(?P<band_slug>[-\w]+)/socialnets/associate$', views.socialnets.socialnet_associate_callback, name='socialnet-associate'),
 
     # (r'^web/', include('minisite.urls', namespace='minisite')),
 

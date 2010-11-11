@@ -39,6 +39,8 @@ urlpatterns = patterns('',
     (r'^user/', include('account.urls', namespace='account')),
     # Contacts import
     (r'^user/contacts/', include('contacts_import.urls')),
+    # Oauth auth
+    (r'^user/oauth/', include('oauth_access.urls')),
 
     # avatar
     (r'^user/profile/avatar/', include('avatar.urls')),

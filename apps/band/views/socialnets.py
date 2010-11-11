@@ -1,11 +1,37 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponseServerError
-from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponseForbidden
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
+from django.views.decorators.http import require_POST
+from django.utils.translation import ugettext as _
 
 from elsewhere.forms import SocialNetworkForm, WebsiteForm
 
 from ..models import Band
+
+@login_required
+def socialnet_associate_callback(request, band_slug, access, token):
+    """
+    Callback that associates a band with a social network account
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
+
+    access.persist(band, token)
+
+    messages.success(request,
+                     _("%s was successfully associated with %s" % (band.name,
+                                                                   access.service)
+                       )
+                     )
+
+    return redirect(band)
+
+
 
 @login_required
 def socialnet_add(request, band_slug):
@@ -13,6 +39,8 @@ def socialnet_add(request, band_slug):
 
 @login_required
 def socialnet_edit(request, band_slug):
+    
+
     band = get_object_or_404(Band, slug=band_slug)
 
     if request.method == 'POST':

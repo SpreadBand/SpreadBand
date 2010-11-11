@@ -142,6 +142,10 @@
 	  {% url import_contacts as import_url %}
 	  {% blocktrans with import_url as url %}Extend your network, <a href="{{ url }}">invite your friends</a>.{% endblocktrans %}
 	</p>
+	<p>
+	  <a href="{% url oauth_access_login "twitter" %}?next={% url band:socialnet-associate band.slug %}">Associate your twitter account</a> to be able to post there.
+	  <a href="{% url oauth_access_login "facebook" %}?next={% url band:socialnet-associate band.slug %}">Associate your facebook account</a> to be able to post there.
+	</p>
       </div>
     </div>
 
