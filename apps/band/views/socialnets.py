@@ -21,11 +21,12 @@ def socialnet_associate_callback(request, band_slug, access, token):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden(_("You are not allowed to manage this band"))
 
+    # Save the association into database
     access.persist(band, token)
 
     messages.success(request,
-                     _("%s was successfully associated with %s" % (band.name,
-                                                                   access.service)
+                     _("%(band_name)s was successfully associated with %(service_name)s" % {"band_name": band.name,
+                                                                                            "service_name": access.service}
                        )
                      )
 
