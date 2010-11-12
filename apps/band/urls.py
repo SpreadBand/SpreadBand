@@ -36,6 +36,7 @@ urlpatterns += patterns('',
     url(r'^(?P<band_slug>[-\w]+)/socialnets/add$', views.socialnets.socialnet_add, name='socialnet-add'),
     url(r'^(?P<band_slug>[-\w]+)/socialnets/edit$', views.socialnets.socialnet_edit, name='socialnet-edit'),
     url(r'^(?P<band_slug>[-\w]+)/socialnets/associate$', views.socialnets.socialnet_associate_callback, name='socialnet-associate'),
+    url(r'^(?P<band_slug>[-\w]+)/socialnets/post_message/(?P<service>\w+)/$', views.socialnets.socialnet_post_message, name='socialnet-post-message'),
 
     # (r'^web/', include('minisite.urls', namespace='minisite')),
 

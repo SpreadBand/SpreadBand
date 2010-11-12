@@ -89,6 +89,9 @@ urlpatterns = patterns('',
     # FAQ
     (r'^faq/', include('faq.urls', namespace='faq')),
 
+    # Social bridge
+    (r'^socialbridge/', include('socialbridge.urls')),
+
     # REST API
     (r'^api/', include('api.urls')),
 

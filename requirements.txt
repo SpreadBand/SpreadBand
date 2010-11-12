@@ -30,6 +30,7 @@ beautifulsoup
 nose
 django-nose
 gdata
+tweepy
 
 # SpreadBand repositories
 -e git+https://github.com/SpreadBand/django-backcap.git#egg=django-backcap
@@ -44,6 +45,7 @@ gdata
 #-e git+https://github.com/SpreadBand/django-friends.git#egg=django-friends
 -e git+https://github.com/SpreadBand/django-contacts-import.git#egg=django-contacts-import
 -e git+https://github.com/SpreadBand/django-oauth-access.git#egg=django-oauth-access
+-e git+https://github.com/SpreadBand/django-socialbridge.git#egg=django-socialbridge
 
 # Other repositories
 -e git+https://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta

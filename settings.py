@@ -198,6 +198,7 @@ INSTALLED_APPS = (
     'backcap',
     'django_filters',
     'contacts_import',
+    'socialbridge',
 
     # Internal
     'world',

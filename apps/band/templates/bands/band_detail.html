@@ -146,6 +146,11 @@
 	  <a href="{% url oauth_access_login "twitter" %}?next={% url band:socialnet-associate band.slug %}">Associate your twitter account</a> to be able to post there.
 	  <a href="{% url oauth_access_login "facebook" %}?next={% url band:socialnet-associate band.slug %}">Associate your facebook account</a> to be able to post there.
 	</p>
+
+	<p>
+	  <a href="{% url band:socialnet-post-message band.slug "twitter" %}">Post a message on twitter</a>.
+	  <a href="{% url band:socialnet-post-message band.slug "facebook" %}">Post a message on facebook</a>.
+	</p>
       </div>
     </div>
 
