@@ -142,9 +142,25 @@
 	  {% url import_contacts as import_url %}
 	  {% blocktrans with import_url as url %}Extend your network, <a href="{{ url }}">invite your friends</a>.{% endblocktrans %}
 	</p>
+
+	<script type="text/javascript">
+	  $(document).ready(function(){
+	      $('.oauth_assoc').click(function(){
+		  $.oauthpopup({
+		      path: $(this).attr('href'),
+		      callback: function(){
+			  window.location.reload();
+		      }
+		  });
+		  return false;
+	      });
+	  });
+	</script>
+
+
 	<p>
-	  <a href="{% url oauth_access_login "twitter" %}?next={% url band:socialnet-associate band.slug %}">Associate your twitter account</a> to be able to post there.
-	  <a href="{% url oauth_access_login "facebook" %}?next={% url band:socialnet-associate band.slug %}">Associate your facebook account</a> to be able to post there.
+	  <a class="oauth_assoc" href="{% url oauth_access_login "twitter" %}?onsuccess={% url band:socialnet-associate band.slug %}">Associate your twitter account</a> to be able to post there.
+	  <a class="oauth_assoc" href="{% url oauth_access_login "facebook" %}?onsuccess={% url band:socialnet-associate band.slug %}">Associate your facebook account</a> to be able to post there.
 	</p>
 
 	<p>

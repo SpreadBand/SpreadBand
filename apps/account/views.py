@@ -119,12 +119,17 @@ from django.core.urlresolvers import resolve
 
 @login_required
 def oauth_access_success(request, access, token):
+    success_url = None
     if hasattr(request, "session"):
         redirect_to = request.session["redirect_to"]
+        success_url = request.session["oauth_success_url"]
 
-    func, args, kwargs = resolve(redirect_to)
-    kwargs["access"] = access
-    kwargs["token"] = token
-
-    return func(request, *args, **kwargs)
+    if success_url:
+        func, args, kwargs = resolve(success_url)
+        kwargs["access"] = access
+        kwargs["token"] = token
+        
+        return func(request, *args, **kwargs)
+    else:
+        return redirect(redirect_to)
 

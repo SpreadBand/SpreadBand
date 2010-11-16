@@ -30,7 +30,14 @@ def socialnet_associate_callback(request, band_slug, access, token):
                        )
                      )
 
-    return redirect(band)
+    if hasattr(request, "session"):
+        redirect_to = request.session.get('redirect_to', None)
+        if redirect_to:
+            return redirect(redirect_to)
+
+    return render_to_response(template_name="blank_auto_closing_page.html")
+
+    # return redirect(band)
 
 from socialbridge.views import post_message
 from socialbridge.forms import SocialMessageForm
@@ -46,26 +53,9 @@ def socialnet_post_message(request, band_slug, service):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden(_("You are not allowed to post a message for this band"))
 
-    message_form = SocialMessageForm(request.POST or None)
+    return post_message(request, band, service)
 
-    if request.method == 'POST':
-        if message_form.is_valid():
 
-            # Get and post message
-            message = message_form.cleaned_data.get('message')
-            post_message(request, service, band, message)
-
-            messages.success(request,
-                             _("Your message was successfully posted to %s" % service)
-                             )
-
-            return redirect(band)
-
-    context = {'message_form': message_form}
-
-    return render_to_response(template_name='band/socialnets_post_message.html',
-                              context_instance=RequestContext(request, context)
-                              )
 
 @login_required
 def socialnet_add(request, band_slug):
@@ -73,8 +63,6 @@ def socialnet_add(request, band_slug):
 
 @login_required
 def socialnet_edit(request, band_slug):
-    
-
     band = get_object_or_404(Band, slug=band_slug)
 
     if request.method == 'POST':
