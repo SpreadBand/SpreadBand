@@ -25,3 +25,16 @@
         }, 1000);
     };
 })(jQuery);
+
+$(document).ready(function(){
+    $('.oauth_assoc').click(function(){
+	$.oauthpopup({
+     path: $(this).attr('href'),
+     callback: function() {
+	 window.location.reload();
+     }
+ });
+ return false;
+});
+});
+

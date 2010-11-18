@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div id="text">
+  <h1>Post a message on {{ service|capfirst }}</h1>
+
+  {% if provider %}
+  <form method="POST" action="">
+    {{ message_form.as_p }}
+    <input type="submit" value="{% trans "Post" %}"/>
+  </form>
+  {% else %}
+  You have no association with a {{ service }} account. You have to <a class="oauth_assoc" href="{% url oauth_access_login service %}?onsuccess={% url band:socialnet-associate object.slug %}">do it</a> before posting a message
+  {% endif %}
+</div>
+
+
+{% endblock %}

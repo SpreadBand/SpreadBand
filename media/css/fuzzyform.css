@@ -8,7 +8,7 @@
     vertical-align: top;
 }
 
-.fuzzyform input, select {
+.fuzzyform input, select, textarea {
     background-color: white;
     border: 1px solid #cccccc;
     padding: 3px;
@@ -29,7 +29,7 @@
     padding: 0px;
 }
 
-.fuzzyform input:focus,select:focus {
+.fuzzyform input:focus,select:focus,textarea:focus {
     color: #000;
     border: 1px solid #222;
 
@@ -65,8 +65,6 @@
 form .errorlist {
     color: red;
 }
-
-.fuzzyform 
 
 #text form .errorlist li {
     list-style: none;

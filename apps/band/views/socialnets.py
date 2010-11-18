@@ -39,7 +39,7 @@ def socialnet_associate_callback(request, band_slug, access, token):
 
     # return redirect(band)
 
-from socialbridge.views import post_message
+from socialbridge.views import post_message, broadcast_message
 from socialbridge.forms import SocialMessageForm
 
 @login_required
@@ -55,6 +55,18 @@ def socialnet_post_message(request, band_slug, service):
 
     return post_message(request, band, service)
 
+@login_required
+def socialnet_broadcast_message(request, band_slug):
+    """
+    Post a message on a social network
+    """
+    band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden(_("You are not allowed to post a message for this band"))
+
+    return broadcast_message(request, band)
 
 
 @login_required

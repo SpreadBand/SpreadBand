@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load django_static %}
+
+{% block javascript %}
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.charCount.js" %}" ></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.blockUI.js" %}" ></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.ezmark.js" %}" ></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tipsy.js" %}" ></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$("#id_message").charCount({counterText: '{% trans "Characters left: " %}'});
+
+	$(".service-switch a").tipsy({gravity: 's'});
+	$(".service-assoc a").tipsy({gravity: 's'});
+
+	$(".service-assoc img").fadeTo('fast', 0.3);
+
+	/* Service switch hover */
+	$(".service-switch a").hover(function() {
+	    var radio = $(this).siblings(":input");
+	    
+	    if ( radio.attr("checked") == false )
+		$(this).find("img").stop().fadeTo('normal', 0.8);
+
+	}, function() {
+	    var radio = $(this).siblings(":input");
+
+	    if ( radio.attr("checked") == false )
+		$(this).find("img").stop().fadeTo('normal', 0.3);
+
+	});
+
+	/* Click on picture */
+	$(".service-switch a").click(function() {
+	    var radio = $(this).siblings(":input");
+
+	    radio.click();
+	    radio.change();
+
+	    return false;
+	});
+
+	/* Service Assoc Hover */
+	$(".service-assoc a").hover(function() {
+	    $(this).find("img").stop().fadeTo('normal', 1);
+	}, function() {
+	    $(this).find("img").stop().fadeTo('normal', 0.5);
+	});
+
+	$(".service-assoc a").click(function() {
+	    $.blockUI({
+		css: 
+		{ 
+		    border: 'none', 
+		    padding: '15px', 
+		    backgroundColor: '#000', 
+		    '-webkit-border-radius': '10px', 
+		    '-moz-border-radius': '10px', 
+		    opacity: .5, 
+		    color: '#fff' 
+		},
+		message: '<h1>Authenticating...</h1>'
+	    }); 
+	});
+
+	/* Radio button state change */
+	$(".service-switch input").change(function() {
+	    var service_name = $(this).siblings(".service-name").html();
+
+	    if ( $(this).attr("checked") ) {
+		$(this).siblings("a").find("img").stop().fadeTo('normal', 1);
+		$("#publishing-targets").append(" <span>" + service_name + "</span>");
+	    } else {
+		$(this).siblings("a").find("img").stop().fadeTo('normal', 0.3);
+
+		$("#publishing-targets span").remove(":contains('" + service_name + "')");
+	    }
+
+	    /* Check if there is at least one service selected */
+	    if ( $(this).parents().find("input:checked").length == 0 ) {
+		$('#id_message').stop().fadeTo('normal', 0.3);
+		$('#message').block({ 
+                    message: '<h3>Please select at least one service</h3>', 
+                    css: { border: '0px', width: '250px' },
+		});
+	    } else {
+		$('#message').unblock();
+		$('#id_message').stop().fadeTo('normal', 1.0);
+	    }
+	});
+
+	/* Publish by default on every networks */
+	function init() {
+	    var checked_services = $(".service-switch").find("input:checked");
+	    var unchecked_services = $(".service-switch").find("input:not(:checked)");
+
+	    unchecked_services.siblings("a").find("img").stop().fadeTo(0, 0.3);
+
+	    if ( checked_services.length == 0 ) {	    
+		$(".service-switch img").click();
+	    }
+
+	    checked_services.siblings("span.service-name").each(function() {
+		$("#publishing-targets").append(" <span>" + $(this).html() + "</span>");
+	    });
+	}
+
+	init();
+
+	    
+    });
+  </script>
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/socialbridge.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/jquery/ezmark.css" media="screen, projection" />
+<link rel="stylesheet" type="text/css" href="/css/jquery/tipsy.css" media="screen, projection" /> 
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+  <h1>{% trans "Broadcast a message" %}</h1>
+
+  <form method="POST" class="fuzzyform" action="">
+    <div id="where-to-post" class="alpha grid_4">
+      <h2>{% trans "1. Choose where to post" %}</h2>
+
+      <ul id="service-list">      
+      {% for service, service_field in message_form.services %}
+	{% if service in providers %}
+	  <li>
+	    <div class="service-switch">
+	      <a href="#" title="{% trans "Click to toggle publishing" %}">
+		<img src="{{ MEDIA_URL }}/images/icons/64x64/{{service}}.png" alt="{{ service }}" />
+	      </a>
+	      <span class="service-name">{{ service }}</span>
+	      {{ service_field }}
+	    </div>
+	  </li>
+	{% else %}
+	  <li>
+	    <div class="service-assoc">
+	      <a class="oauth_assoc" title="{% trans "Click to associate with this service" %}" href="{% url oauth_access_login service %}?onsuccess={% url band:socialnet-associate object.slug %}">
+		<img src="{{ MEDIA_URL }}/images/icons/64x64/{{service}}_off.png" alt="{{ service }}" />	      
+	      </a>
+	      <span class="service-name">{{ service }}</span>
+	      <span class="small-comment">(not associated)</span>
+	    </div>
+	  </li>
+	{% endif %}
+      {% endfor %}
+      </ul>
+
+      <div id="publishing-targets">
+	You are about to publish your message on :<br/>
+      </div>
+    </div>
+
+    <div id="arrow" class="grid_2">
+      <img src="{% staticfile "/images/icons/arrow-right-yellow.png" %}"/>
+    </div>
+
+    <div id="type-message" class="alpha grid_6">
+      <h2>{% trans "2. Type your message" %}</h2>
+      {% if providers %}
+	<div id="message">
+	  {{ message_form.message }}
+	  <input type="submit" value="{% trans "Post" %}"/>
+	</div>
+      {% else %}
+	You have no registered social network. Please <strong>associate with one by clicking on its icon</strong> before posting a message.
+      {% endif %}
+      <div class="alpha grid_6 omega clearfix">
+	{{ message_form.non_field_errors }}
+      </div>
+    </div> 
+
+</form>
+</div>
+
+
+{% endblock %}
