@@ -188,3 +188,40 @@ class BandMember(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('band:membership-manage', (self.band.slug,))
+
+
+#--- Signals ---#
+from annoying.decorators import signals
+from oauth_access.models import OAuthAssociation
+from elsewhere.models import SocialNetwork, SocialNetworkProfile
+from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
+
+@signals.post_save(sender=OAuthAssociation)
+def add_band_socialnetwork_on_auth_assoc(sender, instance, created, **kwargs):
+    if created:
+        band_ctype = ContentType.objects.get_for_model(Band)
+
+        # Check if we're saving a social net for a band
+        if instance.content_type == band_ctype:
+            band = instance.associated_object
+
+            # Lookup which social network we've subscribed to
+            try:
+                net = SocialNetwork.objects.get(name__iexact=instance.service)
+            except SocialNetwork.DoesNotExist:
+                # If we don't know it, don't create anything
+                return
+
+            # Check if we already have this network created
+            try:
+                SocialNetworkProfile.objects.get(content_type=band_ctype,
+                                                 object_id=band.id)
+            except SocialNetworkProfile.DoesNotExist:
+                # if not, create it
+                SocialNetworkProfile.objects.create(content_type=band_ctype,
+                                                    object_id=band.id,
+                                                    network=net,
+                                                    username=instance.identifier)
+
+
