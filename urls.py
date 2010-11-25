@@ -28,15 +28,15 @@ handler404 = 'django.views.defaults.page_not_found'
 # URLS
 urlpatterns = patterns('',
     # temporary index page
-    #url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}, name='home'),
     url(r'^$', home_spreadband, name='home'),
 
     # Private beta
-    url(r'^alpha/', include('privatebeta.urls')),
+    url(r'^beta/', include('privatebeta.urls')),
 
     # auth + profile
     (r'^user/', include('socialregistration.urls')),
     (r'^user/', include('account.urls', namespace='account')),
+
     # Contacts import
     (r'^user/contacts/', include('contacts_import.urls')),
     # Oauth auth
@@ -114,6 +114,11 @@ sitemaps = {'flatpages': FlatPageSitemap,
 urlpatterns += patterns('',
     # Robots.txt and sitemap
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+)
+
+# Redirections
+urlpatterns += patterns('django.views.generic.simple',
+    url(r'^alpha/$', 'redirect_to', {'url': '/beta/', 'permanent': True}),
 )
 
 

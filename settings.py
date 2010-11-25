@@ -360,7 +360,7 @@ else:
 
 
 # PRIVATE ALPHA/BETA
-PRIVATEBETA_REDIRECT_URL = "/alpha"
+PRIVATEBETA_REDIRECT_URL = "/beta"
 PRIVATEBETA_ALWAYS_ALLOW_VIEWS = ("django.contrib.flatpages.views.flatpage",
                                   "django.contrib.sitemaps.views.sitemap",
                                   "robots.views.rules_list",)
