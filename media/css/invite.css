@@ -1,15 +1,91 @@
+h3 {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.5em;
+    font-family: "Helvetica";
+    color: #333;
+    font-weight: 400;
+    padding-bottom: 5px;
+}
+
 #text-invite {
     float: left;
 }
 
-h1 {
-    font-size: 1.8em;
+/* Teaser */
+#teaser {
+    text-align: center;
 }
 
-h3 {
-  border-bottom: 1px solid #ddd;
+#teaser-text {
+    border-top: 1px solid #e7e7e7;
+    padding-top: 20px;
 }
 
+#teaser h1 {
+    font-size: 2.2em;
+    text-shadow: 1px 1px 1px #999; 
+}
+
+#teaser img {
+    border: 1px solid #e7e7e7;
+    border-bottom: none;
+    display: block;
+    margin: auto;
+}
+
+#invite {
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+#description {
+    margin-left: 40px;
+}
+
+#description div {
+    font-size: 0.9em;
+}
+
+.padleftright {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#invite-form span input {
+    padding-bottom: 2px;
+}
+
+#invite-form {
+    font-weight: 800;
+    margin-top: 30px;
+}
+
+#invite-form input, p, label {
+    display: inline;
+    vertical-align: middle;
+}
+
+#invite-form label {
+    text-align: right;
+}
+
+#invite-form input {
+    padding: 10px; 
+    font-size: 1.1em;
+    border: 1px solid black;
+    margin-right: 0px;
+    color: #ED511C;
+}
+
+#invite-form input[type=submit] {
+    background-color: #ED511C;
+    color: white;
+    text-shadow: 1px 1px 1px black; 
+}
+
+/* Discover */
 #discover {
     text-align: left;
     padding-left: 100px;
@@ -34,4 +110,9 @@ h3 {
 #discover-venue span {
     display:block;
     font-size: 0.5em;
+}
+
+#follow {
+    text-align: center;
+    font-size: 1.2em;
 }

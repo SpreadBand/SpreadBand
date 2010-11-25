@@ -31,11 +31,20 @@ Bookez votre groupe - version alpha
 
 {% block content %}
 
-  <div class="grid_16">
+  <div class="grid_16 alpha omega">
     <div id="text">
-      <h1>SpreadBand est entrée en alpha et se dirige droit vers la bêta !</h1>
 
-      
+      <div id="teaser">
+	<img src="" width="800px" height="250px"/>
+	<div id="teaser-text">
+	  <h1>Trouvez des bars, organisez des concerts, créez votre réseau.</h1>
+	</div>
+      </div>
+
+      <div class="clear"></div>
+
+
+      <!--
       <p>
 	SpreadBand est une <strong>plate-forme équitable de booking</strong> pour les <strong>musiciens indépendants</strong> et les <strong>lieux de concerts</strong>.
       </p>
@@ -43,8 +52,45 @@ Bookez votre groupe - version alpha
 	Grâce à SpreadBand, <strong>diffusez votre groupe</strong>, <strong>organisez des concerts</strong> en quelques clics et <strong>créez votre propre réseau musical</strong>.
       </p>
 
-      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=tahoma&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+      -->
 
+      <!--
+      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=tahoma&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+      -->
+
+      <div id="description">
+	<div class="grid_3">
+	  <h3>Lancez vous</h3>
+	  Composez votre <strong>kit de promo</strong> à l'aide de vos photos, musiques, biographie, fiche technique... Donnez aux bars-concerts l'<strong>envie de vous programmer</strong>.
+	</div>
+
+	<div class="grid_3 padleftright">
+	  <h3>Jouez partout</h3>
+	  <strong>Recherchez</strong> facilement des lieux de concerts, trouvez d'<strong>autres groupes avec qui jouer</strong> et organisez votre <strong>tournée</strong>. Grâce à SpreadBand, <strong>les frontières s'estompent</strong> !
+	</div>
+
+	<div class="grid_3 padleftright">
+	  <h3>Communiquez</h3>
+	  Entretenez le lien avec vos <strong>fans</strong>, étendez votre <strong>réseau</strong> et publiez vos dates de concerts conclues vers les <strong>réseaux sociaux</strong> en un clin d'œil.
+	</div>
+
+	<div class="grid_3">
+	  <h3>Donnez confiance</h3>
+	  Grâce à un système de <strong>confiance entre tiers</strong>, gagnez en sérieux afin de convaincre les structures de vous accueillir. Meilleur sera votre karma, plus grande sera l'envie de <strong>vous accueillir</strong> !
+	</div>
+      </div>
+
+      <div id="invite">
+	<div class="prefix_2 grid_12 ">
+	  <form id="invite-form" action="{% url privatebeta_invite %}" method="post">
+	    {{ form.as_p }}
+	    <input type="submit" value="{% trans 'Invitez moi pour le lancement !' %} &raquo;" />
+	  </form>
+	</div>
+	<div class="clear"></div>
+      </div>
+
+      <!--
       <div>
 	<div id="discover" style="float: left;">
 	<a href="{% url django.contrib.flatpages.views.flatpage 'features/band' %}">
@@ -68,73 +114,33 @@ Bookez votre groupe - version alpha
 
 	<div class="clear"></div>
       </div>
+      -->
       
-      <div id="progression" style="margin-top: 30px;">
-	<h3>La version alpha est lancée !</h3>
-
-	<div style="text-align: center; margin-bottom: 20px; margin-top: 30px;">
-	  <img src="{% staticfile "/images/dev-prog.png" %}" alt="Progression du développement"/>
-	</div>
-	
-	<p>
-	  En ce moment, nos <strong>vénérés testeurs essuient les plâtres de la version alpha</strong> rien que pour vous. Ainsi, nous vous offrirons une <strong>version bêta solide et performante</strong> dès que possible. Une fois la phase alpha terminée, vous pourrez commencer à <strong>booker</strong> sérieusement !
-	</p>
-
-	<div style="text-align: right;">
-	  <a href="{% url account:auth_login %}" class="modal-popup minibutton btn-edit" title="{% trans "Login alpha" %}"><span><span class="icon"></span>{% trans "Testeurs : Login alpha" %}</span></a>
-	</div>
-
-      </div>
-
       <div>
-      <h3 style="margin-top: 30px;">Pré-inscrivez moi pour la bêta !</h3>
-      <p>
-	Si vous souhaitez <strong>être prévenu lors de l'ouverture de la bêta</strong>, rejoignez-nous en entrant votre adresse e-mail ici (pas de spam, promis) :
-      </p>
-      
-      <div class="prefix_2 grid_12 ">
-	<form action="{% url privatebeta_invite %}" method="post" class="niceform">
-	  <font color="red">{{ form.email.errors }}</font>
-	    <dl>
-	      <dt>{{ form.email.label_tag }} :</dt>
-	      <dd>
-		{{ form.email }}
-	      </dd>
-	      <dd>
-		<input type="submit" value="{% trans 'Go &rarr;' %}" />
-	      </dd>
-	    </dl>
-	</form>
-      </div>
-      <div class="clear"></div>
-
-      </div>
-
-      <div style="margin-top: 20px;">
-      <div class="grid_5 suffix_2 alpha">
-	<h3>Soutenez-nous :-)</h3>
-	<div style="float: left; margin-right: 10px; ">
-	  <!--[if IE]>
-	  <a href="http://flattr.com/thing/64675/SpreadBand" target="_blank">
-	  <img src="http://api.flattr.com/button/button-static-50x60.png" alt="Flattr this" title="Flattr this" border="0" /></a>
-	  <![endif]-->
-	  <a class="FlattrButton" style="display:none;" href="http://www.spreadband.com" lang="fr_FR"></a>
+	<div class="grid_5 suffix_2 alpha">
+	  <div style="float: left; margin-right: 10px;">
+	    <!--[if IE]>
+	    <a href="http://flattr.com/thing/64675/SpreadBand" target="_blank">
+	    <img src="http://api.flattr.com/button/button-static-50x60.png" alt="Flattr this" title="Flattr this" border="0" /></a>
+	    <![endif]-->
+	    <a class="FlattrButton" style="display:none;" href="http://www.spreadband.com" lang="fr_FR"></a>
+	  </div>
+	  Si vous souhaitez nous <strong>donner un coup de main pour le développement</strong> en nous <strong>payant une bière</strong>, cliquez sur le bouton :-)
 	</div>
-	Si vous souhaitez nous <strong>donner un coup de main pour le développement</strong> en nous <strong>payant une bière</strong>, cliquez sur le bouton :-)
-	
-      </div>
 
       <div class="grid_8 omega">
-	<h3>Tenez vous informé</h3>
-
-      	<a href="http://facebook.com/spreadband">Facebook</a> | <a href="http://twitter.com/spreadband">Twitter</a> | <a href="http://identi.ca/spreadband">Identi.ca</a>
-
 	<p>
 	  <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 	</p>
-      </p>
-    </div>
-  </div>
+
+	      <div id="follow">
+	Restez en contact : <a href="http://blog.spreadband.com">Blog</a> | <a href="http://facebook.com/spreadband">Facebook</a> | <a href="http://twitter.com/spreadband">Twitter</a> | <a href="http://identi.ca/spreadband">Identi.ca</a>
+      </div>
+
+      </div>
+      </div>
+
+
   </div>
 
 </div>
