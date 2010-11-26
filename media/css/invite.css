@@ -41,7 +41,7 @@ h3 {
 }
 
 #description {
-    margin-left: 40px;
+    margin-left: 50px;
 }
 
 #description div {
@@ -83,6 +83,9 @@ h3 {
     background-color: #ED511C;
     color: white;
     text-shadow: 1px 1px 1px black; 
+    height: 40px;
+    top: 1px;
+    position: relative;
 }
 
 /* Discover */
