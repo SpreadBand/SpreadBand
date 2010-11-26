@@ -71,4 +71,4 @@ tweepy
 -e git+https://github.com/spookylukey/django-mailer.git#egg=django-mailer
 -e git+https://github.com/jorgebastida/django-dajaxice.git#egg=django-dajaxice
 -e git+https://github.com/jorgebastida/django-dajax.git#egg=django-dajax
-
+-e git+https://github.com/justquick/django-template-utils.git#egg=django-template-utils

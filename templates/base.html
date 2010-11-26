@@ -278,47 +278,74 @@
 {% if not request.is_ajax %}    
     <div id="footer">
       <div class="container_16">
+	<div id="whatis" class="grid_4 suffix_1">
+	  <h5>Qu'est ce que SpreadBand ?</h5>
 
-	<div class="grid_4">
+	  <p>
+	    SpreadBand est un outil permettant aux groupes indépendants de se mettre en relation avec des bars-concerts et de créer leur réseau musical.
+	  </p>
+	  
+	  <p>
+	    Dans une démarche équitable, l'équipe de SpreadBand fait au mieux pour mettre les musiciens au cœur des décisions et s'attache à proposer des offres commerciales qui correspondent aux moyens de ces petites structures.
+	  </p>
+	</div>
+
+
+	<div class="grid_3 suffix_1">
+	  <h5>Découvrez</h5>
+	    <ul>
+	      <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/band/' %}">Groupes, Artistes solo</a></li>
+	      <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/venue/' %}">Bars, Lieux de concerts</a></li>
+	    </ul>
+	  </p>
+
+
+	</div>
+
+	<div class="grid_5">
+	  <h5>Nébuleuse SpreadBand</h5>
+
+	  <ul id="elsewhere">
+	    <li><a href="http://facebook.com/spreadband"><img src="{% staticfile "images/icons/32x32/facebook.png" %}" width="32px" height="32px" alt="Facebook"/></a></li>
+	    <li><a href="http://twitter.com/spreadband"><img src="{% staticfile "images/icons/32x32/twitter.png" %}" width="32px" height="32px" alt="Twitter"/></a></li>
+	    <li><a href="http://identi.ca/spreadband"><img src="{% staticfile "images/icons/32x32/identica.png" %}" width="32px" height="32px" alt="Identi.ca"/></a></li>
+	    <li><a href="http://www.last.fm/group/SpreadBand"><img src="{% staticfile "images/icons/32x32/lastfm.png" %}" width="32px" height="32px" alt="Last.fm"/></a></li>
+	  </ul>
+
+	  
+	  <div id="blog">
+	    <h5>En direct du Blog</h5>
+	    {% load feeds %}
+	    {% load cache %}
+	    
+	    
+	    {% cache 30 blog_feed2 %}
+	    {% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_headlines.html %}
+	    {% endcache %}
+	    
+	  </div>
+
+	</div>
+
+	<div class="grid_2">
 	  <h5>Aide</h5>
 
 	  <ul>
 	    <li><a href="{% url faq:faq %}">FAQ</a></li>
 	    <li><a href="{% url backcap:feedback-list %}">Centre d'aide</a></li>
 	  </ul>
-
-	</div>
-
-	<div class="grid_4">
-	  <h5>Découvrir SpreadBand</h5>
-	  <ul>
-	    <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/band/' %}">Groupes, Artistes solo</a></li>
-	    <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/venue/' %}">Bars, Lieux de concerts</a></li>
-	  </ul>
-	</div>
-
-	<div class="grid_4">
-	  <h5>Nébuleuse SpreadBand</h5>
-
-	  <ul>
-	    <li><a href="http://blog.spreadband.com">Blog</a></li>
-	    <li><a href="http://facebook.com/spreadband">Facebook</a></li>
-	    <li><a href="http://twitter.com/spreadband">Twitter</a></li>
-	    <li><a href="http://identi.ca/spreadband">Identi.ca</a></li>
-	    <li><a href="http://www.last.fm/group/SpreadBand">Last.fm</a></li>
-	  </ul>
-	</div>
-
-	<div class="grid_4">
-	  <h5>Admins</h5>
-	  <ul>
-	    <li><a href="{% url account:auth_login %}">Login</a></li>
-	    <li><a href="/admin">Admin</a></li>
-	  </ul>
 	</div>
 
 	<div class="grid_16 legals">
 	  <strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - &copy; 2010
+	  
+	  &nbsp;|&nbsp;
+	  {% if not user.is_staff %}
+	  <a href="{% url account:auth_login %}">Login admin</a>
+	  {% else %}
+	  <a href="/admin">Administration</a>
+	  {% endif %}
+
 	</div>
 
 	<div class="clear"></div>

@@ -199,6 +199,7 @@ INSTALLED_APPS = (
     'django_filters',
     'contacts_import',
     'socialbridge',
+    'template_utils',
 
     # Internal
     'world',

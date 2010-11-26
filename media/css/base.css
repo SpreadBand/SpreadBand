@@ -272,27 +272,50 @@ a {
     padding-top: 15px;
     border-top: 1px solid #eee;
     color: white;
-    height: 150px;
+    height: auto;
 }
 
 #footer h5 {
     font-size: 1em;
     margin-bottom: 5px;
-    text-shadow:1px 1px 0 #666;
+    text-shadow:1px 1px 1px #333;
+}
+
+#footer #whatis p {
+    text-align: justify;
 }
 
 #footer p {
     font-size: 0.8em;
-    text-align: center;
+    text-align: left;
+    display: block;
+    margin-bottom: 6px;
 }
 
 #footer .legals {
+    margin-top: 10px;
     padding-top: 10px;
     font-size: 0.8em;
     text-align: right;
 }
 
+#footer #elsewhere {
+    margin-top: 10px;
+}
 
+#footer #elsewhere li {
+    display: inline;
+    margin-right: 4px;
+}
+
+#footer #blog {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+#footer #blog h5 {
+    font-size: 1.1em;
+}
 
 .dark {
     background-color: #1b1b1b;
