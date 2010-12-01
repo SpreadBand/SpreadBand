@@ -18,7 +18,7 @@ python-dateutil==1.5
 django-countries==1.0.4
 docutils
 geopy
-whoosh==0.3.18
+whoosh==1.1.1
 django-haystack
 pytz
 psycopg2
@@ -31,6 +31,9 @@ nose
 django-nose
 gdata
 tweepy
+lettuce
+werkzeug
+feedparser
 
 # SpreadBand repositories
 -e git+https://github.com/SpreadBand/django-backcap.git#egg=django-backcap
