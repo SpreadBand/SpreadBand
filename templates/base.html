@@ -319,7 +319,7 @@
 	    {% load cache %}
 	    
 	    
-	    {% cache 30 blog_feed2 %}
+	    {% cache 3600 blog_feed2 %}
 	    {% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_headlines.html %}
 	    {% endcache %}
 	    
