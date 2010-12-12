@@ -1,0 +1,93 @@
+
+form input {
+    float: right;
+}
+
+form input[type="text"], input[type="password"] {
+    width: 200px;
+}
+
+
+div#leftcol {
+    border-right: 1px solid #AAA;
+}
+
+div#rightcol {
+    margin-left: 40px;
+}
+
+div#rightcol h2 {
+    float: right;
+    clear: both;
+}
+
+div#rightcol h3, p#tour {
+    text-align: right;
+}
+
+div#rightcol p#tour {
+    font-size: 1.1em;
+}
+
+
+
+div#rightcol #registernow {
+    font-size: 1.3em;
+    margin-top: 10px;
+    line-height: 150%;
+}
+
+
+img#bandillu {
+    margin-top: 10px;
+}
+
+p#forgotpasswd {
+    float: right;
+    margin-top: 15px;
+    font-size: 0.8em;
+}
+
+div#attentionbox {
+    font-size: 0.9em;
+    background-color: #fdfdc7;
+    font-family: "Arial";
+    vertical-align: middle;
+    
+    margin-top: 30px;
+    margin-bottom: 15px;
+
+    padding-top: 5px;
+    padding-bottom: 15px;
+    padding-right: 8px;
+    padding-left: 8px;
+
+    -o-border-radius:14px 14px 14px 14px;
+    -webkit-border-radius:14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    border-radius: 14px 14px 14px 14px;
+
+}
+
+div#attentionbox img {
+    vertical-align: middle;
+    float: right;
+    margin-left: 40px;
+}
+
+span#attention {
+    color: #cc0000;
+    font-size: 1.8em;
+    padding-top: 17px;
+    padding-left: 8px;
+    float: left;
+}
+
+div#attentionbox > div {
+    clear: both;
+}
+
+div#attentiontext {
+    padding-right: 12px;
+    padding-left: 8px;
+}

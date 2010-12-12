@@ -1,14 +1,72 @@
 {% extends "base.html" %}
+
+{% load django_static %}
 {% load i18n %}
 
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/login.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
+{% endblock %}
+
 {% block content %}
-<form method="post" action=".">
-  {{ form.as_p }}
 
-  <input type="submit" value="{% trans 'Log in' %}" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
+<div id="text">
+  <div id="leftcol" class="grid_7 suffix_1">
 
-<p>{% trans "Forgot password" %}? <a href="{% url account:auth_password_reset %}">{% trans "Reset it" %}</a>!</p>
-<p>{% trans "Not member" %}? <a href="{% url account:registration_register %}">{% trans "Register" %}</a>!</p>
+    <div class="grid_7">
+      <h1>{% trans "Hi !" %}</h1>
+      
+      <form class="fuzzyform" method="post" action=".">
+	{{ form.as_p }}
+	<input type="hidden" name="next" value="{{ next }}" />
+	
+	<div class="grid_7 alpha omega">
+
+	  <div class="grid_4 alpha">
+	    <img id="bandillu" src="{% staticfile "images/structure/login/band.png" %}" width="236px" />
+	  </div>
+	  <div class="grid_3 omega">
+	    <input type="submit" value="{% trans 'Let me in !' %}" />
+	    <p id="forgotpasswd">{% trans "Have you" %} <a href="{% url account:auth_password_reset %}">{% trans "forgotten your password" %}</a> ?</p>
+	  </div>
+
+	</div>
+	
+      </form>
+      
+    </div>
+    
+    
+    <div class="grid_7">
+      <div id="attentionbox">
+	<div>
+	  <span id="attention">{% trans "Don't forget" %}</span>
+	  <img src="{% staticfile "images/structure/login/addressbar.png" %}"/>
+	</div>
+	<div id="attentiontext">
+	  {% trans "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien sur le site spreadband.com avant de vous identifier." %}
+	  <a href="#">Learn more</a>&nbsp;&raquo;
+	</div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div id="rightcol" class="grid_6">
+    <h2>{% trans "New here ?" %}</h2>
+
+    <img src="{% staticfile "images/structure/login/new.png" %}" width="300px" />
+    <p id="registernow"><a href="{% url account:registration_register %}">{% trans "Register now" %}</a> {% trans "on SpreadBand, it's free and takes less than a minute !" %}</p>
+
+    <h3>{% trans "What is SpreadBand ?" %}</h3>
+    <p>SpreadBand, c'est fucking awesome, mais ça, tu ne le sais pas encore !
+
+Alors, toi aussi, viens te faire plaisir, lache toi et devient une méga morue qui chante de la merde.
+    </p>
+
+    <p id="tour"><a href="">{% trans "Take a tour !" %}</a>&nbsp;&raquo;</p>
+
+  </div>
+</div>
 {% endblock %}
