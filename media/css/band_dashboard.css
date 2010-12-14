@@ -181,3 +181,18 @@ div#band_text {
 #agenda .more {
     text-align: right;
 }
+
+/*-- latest visitors --*/
+#recent-visitors ul {
+    list-style: none;
+}
+
+#recent-visitors ul li {
+    padding: 1px;
+    margin-left: 0px;
+    display: inline;
+}
+
+#recent-visitors img {
+    border: 1px solid black;
+}

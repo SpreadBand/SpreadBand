@@ -200,6 +200,7 @@ INSTALLED_APPS = (
     'contacts_import',
     'socialbridge',
     'template_utils',
+    'visitors',
 
     # Internal
     'world',

@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic.create_update import update_object
 
+from visitors.utils import record_visit
+
 from .models import PressKit
 from .forms import PressKitVideoForm
 
@@ -15,6 +17,14 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
     extra_context = {'band': presskit.band,
                      'presskit': presskit,
                      'latest_gigs': latest_gigs}
+
+    # If we are not in the band, record us as a visitor
+    if not request.user in presskit.band.members.all():
+        # Bands
+        for band in request.user.bands.all():
+            record_visit(band, presskit.band)
+
+        # TODO: Venues
 
     return render_to_response(template_name=template_name,
                               context_instance=RequestContext(request,

@@ -16,6 +16,8 @@ from geopy import geocoders
 
 from guardian.shortcuts import assign
 
+from visitors.utils import get_latest_visits_for
+
 from world.models import Place
 
 from ..models import Band, BandMember
@@ -180,13 +182,17 @@ def dashboard(request, band_slug):
     from gigbargain.models import GigBargain
     latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:3]
 
+    # Get 10 latest visits
+    latest_visits = get_latest_visits_for(band)
+
     extra_context = {'past_events': past_events,
                      'future_events': future_events,
                      'today_events': today_events,
                      'monthly_calendar': monthly_calendar,
                      'latest_activity': latest_activity,
                      'gigbargain_invitations': gigbargain_invitations,
-                     'gigbargain_drafts': gigbargain_drafts}
+                     'gigbargain_drafts': gigbargain_drafts,
+                     'latest_visits': latest_visits}
 
     return object_detail(request,
                          queryset=Band.objects.all(),

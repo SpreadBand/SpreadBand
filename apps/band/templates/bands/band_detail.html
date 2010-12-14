@@ -26,7 +26,11 @@
     <div id="recent-visitors" class="grid_3 alpha omega">
       <h3>{% trans "Recent visitors" %} (WIP)</h3>
       <ul>
-	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile{% endblocktrans %}</li>
+	{% for visit in latest_visits %}
+	    <li><a href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url }}" width="30px" height="30px" alt="{{ visit.visitor.name }}" title="{{ visit.visitor.name }}"/></a></li>
+	{% empty %}
+	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile.{% endblocktrans %}</li>
+	{% endfor %}
       </ul>
     </div>
 

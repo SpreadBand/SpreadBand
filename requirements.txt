@@ -49,6 +49,7 @@ feedparser
 -e git+https://github.com/SpreadBand/django-contacts-import.git#egg=django-contacts-import
 -e git+https://github.com/SpreadBand/django-oauth-access.git#egg=django-oauth-access
 -e git+https://github.com/SpreadBand/django-socialbridge.git#egg=django-socialbridge
+-e git+https://github.com/SpreadBand/django-visitors.git#egg=django-visitors
 
 # Other repositories
 -e git+https://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta

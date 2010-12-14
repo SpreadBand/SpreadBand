@@ -88,7 +88,7 @@ class Band(Actor):
             avatar = self.pictures.avatar()
             return avatar.avatar_image.url
         except:
-            return settings.MEDIA_URL + '/images/tmp_band.jpg'
+            return settings.MEDIA_URL + '/images/band/no_picture.png'
             
 
     def __unicode__(self):
