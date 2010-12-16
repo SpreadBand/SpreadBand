@@ -18,46 +18,54 @@ Merci de votre soutient !
 
       <h1>Merci, vous faites maintenant parti de la famille !</h1>
 
-      <p>Comptez sur nous pour garder le contact ! Vous <strong>recevrez un e-mail</strong> dès que la bêta sera lancée.</p>
+      <p class="para">Comptez sur nous pour garder le contact ! Vous <strong>recevrez un e-mail</strong> dès que la bêta sera lancée.</p>
 
-      <div style="margin-top: 20px;">
-      <div class="grid_5 suffix_2 alpha">
-	<h3>Gardez SpreadBand à flôt</h3>
+      <p class="para">Si vous avez 30 secondes, merci de nous aider à propager SpreadBand en <strong>cliquant sur les liens ci-dessous</strong>. Merci pour tout ! :-)</p>
 
-	<script type="text/javascript">
-	  /* <![CDATA[ */
-	  (function() {
-              var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-              
-              s.type = 'text/javascript';
-              s.async = true;
-              s.src = 'http://api.flattr.com/js/0.5.0/load.js?mode=auto';
-              
-              t.parentNode.insertBefore(s, t);
-	  })();
-	  /* ]]> */
-	</script>
+      <div id="sentmore">
+	<div class="grid_5 suffix_2 alpha">
+	  <h3 style="text-align: left;">Aidez nous à passer le message !</h3>
 
-	<div style="float: left; margin-right: 10px; ">
-	  <a class="FlattrButton" style="display:none;" href="http://www.spreadband.com"></a>
+	  <script type="text/javascript">
+	    function fbs_click($this) {
+		var u = "http://www.spreadband.com";
+		var t = "Musiciens indépendants : trouvez des bars, organisez des concerts et créez votre réseau grâce à SpreadBand !";
+		window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');
+		return false;
+	    }
+	  </script>
+
+	  <ul id="share">
+	    <li>
+	      <a rel="nofollow" href="#" title="SpreadBand" onclick="return fbs_click();" target="_blank">
+		<img src="{{ MEDIA_URL }}/images/icons/64x64/facebook.png" width="32px" height="32px" alt="Facebook" />
+		<span class="service-name">Partager sur Facebook</span>
+	      </a>
+	    </li>
+	    <li>
+	      <a rel="nofollow" href="http://twitter.com/home?status=Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de musique ! http://spreadband.com" title="SpreadBand" target="_blank">
+		<img src="{{ MEDIA_URL }}/images/icons/64x64/twitter.png" width="32px" height="32px" alt="Twitter" />
+		<span class="service-name">Partager sur Twitter</span>
+	      </a>
+	    </li>
+	  </ul>
+
 	</div>
-	Si vous souhaitez nous <strong>donner un coup de main pour le développement</strong> en nous <strong>payant une bière</strong>, cliquez sur le bouton, merci :-)
-	
-      </div>
 
       <div class="grid_8 omega">
-	<h3>Tenez vous informé</h3>
-
-      	<a href="http://facebook.com/spreadband">Facebook</a> | <a href="http://twitter.com/spreadband">Twitter</a> | <a href="http://identi.ca/spreadband">Identi.ca</a>
-
 	<p>
 	  <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fspreadband&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 	</p>
-      </p>
-    </div>
+
+	      <div id="follow">
+	Restez en contact : <a target="_new" href="http://blog.spreadband.com">Blog</a> | <a target="_new" href="http://facebook.com/spreadband">Facebook</a> | <a target="_new" href="http://twitter.com/spreadband">Twitter</a> | <a target="_new" href="http://identi.ca/spreadband">Identi.ca</a>
+      </div>
+
+      </div>
   </div>
   <div class="clear"></div>
 
+  <br/>
       &larr; <a href="{% url privatebeta_invite %}">Page d'accueil</a>
 
     </div>
