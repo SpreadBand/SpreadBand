@@ -1,117 +1,135 @@
+{% load django_static %}
+{% load i18n %}
 
 <script type="text/javascript">
- $(document).ready(function() {
- $(".faded").fadeTo(0, 0.5);
+$(document).ready(function() {
+    $(".faded").fadeTo(0, 0.7);
+
+    $('a.tip').tipsy({gravity: 'n'});
 });
 </script>
 
-<div class="faded grid_8 alpha omega" style="height: 27px; background: url('{{ MEDIA_URL }}/images/timeline/top.png') no-repeat; background-position: center center;">
-&nbsp;
-</div>
+<div class="timeline_top">
 
-<div class="faded grid_8 alpha omega" style="background: url('{{ MEDIA_URL }}/images/timeline/step.png') repeat-y; background-position: center center;">
-
-<ul style="list-style-type: none;">
-  {% for event in past_events reversed %}
-    <li style="margin-left: 0px;">
-      <div class="grid_3 alpha">
-	<br><br>
-	<b style="color: #999">{{ event.event_date|timesince }} ago</b>
-      </div>
-      <div class="grid_2" style="min-height: 100px; background: url('{{ MEDIA_URL }}/images/timeline/stop_bw.png') no-repeat; background-position: center center; text-align: center;">
-	<div class="grid_2 alpha omega" style="font-size: 1.1em; height: 30px; padding-top: 18px;">
-	{{ event.event_date|date:'F'|capfirst }}
-	</div>
-	<div class="grid_2 alpha omega" style="margin-top: -10px; font-size: 2.2em; font-weight: bold;">
-	{{ event.event_date.day }}
-	</div>
-	<div class="grid_2 alpha omega" style="margin-top: -10px; font-size: 0.8em; font-style: italic;">
-	  {{ event.event_date|date:'D'|capfirst }}
-	</div>
-      </div>
-      <div class="grid_3 omega">
-	<br>
-	<a href="{{ event.get_absolute_url }}"><h6 style="margin-bottom: 0px;">{{ event.title|capfirst }}</h6></a>
-	<a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue.name|capfirst }}</a>, Lille, FR<br>
-	<i style="font-size: 0.8em;">with {% for band in event.gig.bands.all %}
-	<a href="{{ band.get_absolute_url }}">{{ band }}</a>
-	{% if not forloop.last %}
-	and
-	{% endif %}
-	{% endfor %}
-	</i>
-      </div>
-      <div class="clear"></div>
-    </li>
-  {% endfor %}
-</ul>
-
-</div>
-
-<div class="grid_8 alpha omega" style="background: url('{{ MEDIA_URL }}/images/timeline/step.png') repeat-y; background-position: center center;">
-
-<div class="grid_8 alpha" style="min-height: 100px; text-align: center;">
-  <div class="grid_3 alpha" style="padding-top: 48px;"><div style="width: auto; border-top: 3px dashed #999;">&nbsp;</div></div>
-  <div class="grid_2">
-    <div class="grid_2 alpha omega" style="font-size: 2em; font-weight: bold; padding-top: 25px;">TODAY</div>
-    <div class="grid_2 alpha omega" style="font-size: 0.8em; font-weight: italic; margin-top: -5px">{% now "D d F Y" %}</div>
-  </div>
-  <div class="grid_3 omega" style="margin-top: 48px;"><div style="width: auto; border-top: 3px dashed #999;">&nbsp;</div></div>
-
-</div>
-<div class="clear"></div>
-
-<ul style="list-style-type: none;">
-  {% for event in future_events %}
-    <li style="margin-left: 0px;">
-      <div class="grid_3 alpha">
-	<br><br>
-	<b style="color: #555">in {{ event.event_date|timeuntil }}</b>
-      </div>
-      <div class="grid_2" style="min-height: 100px; background: url('{{ MEDIA_URL }}/images/timeline/stop.png') no-repeat; background-position: center center; text-align: center;">
-	<div class="grid_2 alpha omega" style="font-size: 1.1em; height: 30px; padding-top: 18px;">
-	{{ event.event_date|date:'F'|capfirst }}
-	</div>
-	<div class="grid_2 alpha omega" style="margin-top: -10px; font-size: 2.2em; font-weight: bold;">
-	{{ event.event_date.day }}
-	</div>
-	<div class="grid_2 alpha omega" style="margin-top: -10px; font-size: 0.8em; font-style: italic;">
-	  {{ event.event_date|date:'D'|capfirst }}
-	</div>
-      </div>
-      <div class="grid_3 omega">
-	{% if event.state == 'C' %}
-	<strike>
-	{% endif %}
-
-	<br>
-	<a href="{{ event.get_absolute_url }}"><h6 style="margin-bottom: 0px;">{{ event.title|capfirst }}</h6></a>
-	<a href="{{ event.gig.venue.get_absolute_url }}">{{ event.gig.venue.name|capfirst }}</a>, Lille, FR<br>
-	<i style="font-size: 0.8em;">with {% for band in event.gig.bands.all %}
-	<a href="{{ band.get_absolute_url }}">{{ band }}</a>
-	{% if not forloop.last %}
-	and
-	{% endif %}
-	{% endfor %}
-	</i>
-
-	{% if event.state == 'C' %}
-	</strike> (This gig was canceled)
-	{% endif %}
+  <!-- PAST -->
+  <ul class="timeline_list faded">
+    {% for event in past_events reversed %}
+    <li>
+      <div class="timeline_past">
 	
-	{% if event.state != 'C' %}
-	[ <a href="{% url event:gig-cancel event.event_date.year event.event_date.month event.event_date.day event.slug %}">Cancel</a> ]
-	{% else %}
-	[ <a href="{% url event:gig-uncancel event.event_date.year event.event_date.month event.event_date.day event.slug %}">Uncancel</a> ]
-	{% endif %}
+	<div class="timeline_time_past">{{ event.event_date|timesince }}</div>
+	
+	<div class="timeline_infos">
+	  
+	  <div class="timeline_date_past">
+	    <a href="{{ event.get_absolute_url }}">{{ event.event_date|date:'D'|capfirst }} {{ event.event_date.day }} {{ event.event_date|date:'F'|capfirst }} {{ event.event_date.year }}
+	    {% if event.start_time %}
+	      - {{ event.start_time }}
+	    {% endif %}
+	    </a>
+	  </div>
+
+	  {% with event.venue as venue %}
+	    <div class="timeline_localisation"><a href="{% url venue:detail venue.slug %}">{{ venue.name }}</a>, {{ venue.city }}{% if venue.country %}, <img src="{{ venue.country.flag }}" alt="{{ venue.country.name }}" title="{{ venue.country.name }}"/>{% endif %}</div>
+	  {% endwith %}
+
+	  <div class="timeline_bands">
+	    <ul>
+	      {% staticfile '/images/band/no_picture.png' as default_pic %}
+	      {% for band in event.bands.all %}
+		<li>
+		  <a class="tip" href="{% url band:detail band.slug %}" title="{{ band.name }}">
+		    <img src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" />
+		  </a>
+		</li>
+	      {% endfor %}
+	    </ul>				
+	  </div>
+	  
+	</div>
+	
       </div>
-      <div class="clear"></div>
+    </li>
+    {% empty %}
+    <li>
+      <div class="timeline_no_past">
+	  <div class="timeline_no_entry">{% trans "No past gig" %}</div>
+      </div>
     </li>
     {% endfor %}
-</ul>
+  </ul>
 
+  
 </div>
 
-<div class="grid_8 alpha omega" style="height: 53px; background: url('{{ MEDIA_URL }}/images/timeline/bottom.png') no-repeat; background-position: center center;">
-&nbsp;
+
+
+
+
+<div class="timeline">
+
+  
+  <!-- PRESENT -->	
+  
+
+  <div class="timeline_present">
+    
+    <div class="timeline_present_block">
+      <div class="timeline_present_today">{% trans "Today" %}</div>
+      <div class="timeline_present_date">{% now "D d F Y" %}</div>		
+    </div>
+    
+  </div>
+
+  
+  <!-- FUTURE -->
+  
+  <ul class="timeline_list">
+    {% for event in future_events %}
+    <li>
+      <div class="timeline_future">
+	
+	<div class="timeline_time">{{ event.event_date|timeuntil }}</div>
+	
+	<div class="timeline_infos">
+
+	  <div class="timeline_date">
+	    <a href="{{ event.get_absolute_url }}">{{ event.event_date|date:'D'|capfirst }} {{ event.event_date.day }} {{ event.event_date|date:'F'|capfirst }} {{ event.event_date.year }}
+	    {% if event.start_time %}
+	      - {{ event.start_time }}
+	    {% endif %}
+	    </a>
+	  </div>
+
+	  {% with event.venue as venue %}
+	    <div class="timeline_localisation"><a href="{% url venue:detail venue.slug %}">{{ venue.name }}</a>, {{ venue.city }}{% if venue.country %}, <img src="{{ venue.country.flag }}" alt="{{ venue.country.name }}" title="{{ venue.country.name }}"/>{% endif %}</div>
+	  {% endwith %}
+
+	  <div class="timeline_bands">					
+	    <ul>
+	      {% staticfile '/images/band/no_picture.png' as default_pic %}
+	      {% for band in event.bands.all %}
+		<li>
+		  <a class="tip" href="{% url band:detail band.slug %}" title="{{ band.name }}">
+		    <img src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" />
+		  </a>
+		</li>
+	      {% endfor %}
+	    </ul>				
+	  </div>
+	</div>
+      </div>
+    </li>
+    {% empty %}
+    <li>
+      <div class="timeline_no_past">
+	  <div class="timeline_no_entry">{% trans "No scheduled gig" %}</div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  
+  <div class="timeline_end"></div>
+  
 </div>
+

@@ -20,7 +20,7 @@ Calendar
 
 {% block band_content %}
 
-  <a href="{% url event:band-calendar-ics band.slug %}" class="minibutton btn-download" title="Download as ICS"><span><span class="icon"></span>{% trans "Download As ICS" %}</span></a>
+  <a href="{% url event:band-calendar-ics band.slug %}" class="minibutton btn-download" title="Export as ICS"><span><span class="icon"></span>{% trans "Export As ICS" %}</span></a>
 
   <a href="{% url event:gig-new band.slug %}" class="minibutton" title="Download as ICS"><span><span class="icon"></span>{% trans "Add Gig" %}</span></a>
 
@@ -31,7 +31,7 @@ Calendar
     <div class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/gigbargain/timeline_ico.png' %}" alt="Timeline"/>
-	<h2>{% trans "Timeline" %} (WIP)</h2>
+	<h2>{% trans "Timeline" %}</h2>
       </div>
 
       <div class="separator"></div>
@@ -45,6 +45,7 @@ Calendar
     
   <div class="grid_5 omega">
 
+    <!--
     <div id="filter" class="grid_5 alpha omega">
       <div class="sectionbox">
 	<div class="header">
@@ -60,6 +61,7 @@ Calendar
 	</div>
       </div>
    </div>
+   -->
       
    <div id="calendar" class="grid_5 alpha omega">
      <div class="sectionbox">
