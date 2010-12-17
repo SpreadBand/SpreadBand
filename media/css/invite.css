@@ -1,3 +1,7 @@
+#text p.para {
+    display: block;
+}
+
 h3 {
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -59,7 +63,7 @@ h3 {
 
 #invite-form {
     font-weight: 800;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 #invite-form input, p, label {
@@ -118,4 +122,27 @@ h3 {
 #follow {
     text-align: center;
     font-size: 1.2em;
+}
+
+#sentmore {
+    margin-top: 30px;
+}
+
+ul#share li {
+    list-style-type: none;
+    font-size: 1.3em;
+}
+ul#share li span {
+    vertical-align: middle;
+}
+
+ul#share li img {
+    vertical-align: middle;
+}
+
+#switch {
+    padding-top: 20px;
+    text-align: right;
+    padding-right: 60px;
+    font-variant: small-caps;
 }
