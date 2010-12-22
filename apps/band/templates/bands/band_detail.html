@@ -9,6 +9,15 @@
   {{ band.name }} - {% trans "Dashboard" %}
 {% endblock %}
 
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('a.tip').tipsy({gravity: 'n'});
+    });
+  </script>
+{% endblock %}
+
 {% block css %}
   {{ block.super }}
   <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
@@ -24,10 +33,10 @@
     </div>
 
     <div id="recent-visitors" class="grid_3 alpha omega">
-      <h3>{% trans "Recent visitors" %} (WIP)</h3>
+      <h3>{% trans "Recent visitors" %}</h3>
       <ul>
 	{% for visit in latest_visits %}
-	    <li><a href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url }}" width="30px" height="30px" alt="{{ visit.visitor.name }}" title="{{ visit.visitor.name }}"/></a></li>
+	    <li><a class="tip" title="{{ visit.visitor.name }}"" href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url }}" width="30px" height="30px" alt="{{ visit.visitor.name }}"/></a></li>
 	{% empty %}
 	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile.{% endblocktrans %}</li>
 	{% endfor %}
