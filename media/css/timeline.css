@@ -5,21 +5,34 @@
 ul.events {
     list-style-type: none;
     margin: 0;
+	background:url("../images/agenda/agenda-bg.jpg");
 }
 
 ul.events li {
-    margin-left: 0px;
-    -webkit-border-radius: 11px;
+
+	margin-left: 0px;
+   
+   /*-
+   webkit-border-radius: 11px;
     -moz-border-radius: 11px;
     border-radius: 11px;
-    background: #eee;
-    border: 1px solid #ddd;
-    color: #707070;
-    font-size: 1.2em;
+	*/
+	
+	box-shadow: 0 0 6px #979797;
+	-moz-box-shadow: 0 0 6px #979797;  
+	-webkit-box-shadow: 0 0 6px #979797; 
+	
+    color: white;
+    font-size: 11px;
     font-weight: bold;
+	line-height:35px;
     margin-bottom: 6px;
     position: relative;
     text-align: center;
+	
+	height:36px;
+	
+	background:url("../images/agenda/agenda-block.jpg") repeat-x;
 }
 
 ul.events li em {
@@ -34,12 +47,33 @@ ul.intervals {
     display: block;
 }
 
+#text ul li{
+
+	list-style-type:none;
+	margin-left:0px;
+
+}
+
 /* The width depends on the number of intervals. For example 100 / 7 = 14.29% -- then subtract a little bit for room for the borders */
 ul.intervals li {
-    color: #999;
-    font-size: 1.2em;
+
+    color: #999999;
     float: left;
     margin: 0;
-    text-align: center;
+	
+	border-top:1px solid #999999;
+	border-left:1px solid #999999;
+	text-indent:5px;
+	height:12px;
+	line-height:14px;
+	text-align:left;
+	font-size:11px;
+	
+}
+
+.vcalendar{
+
+	display:none;
+
 }
 

@@ -4,38 +4,305 @@
 {% load reviews_tags %}
 {% load django_static %}
 
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/gig.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="css/timeline.css"/>
+
+{% endblock %}
+
 {% block content %}
 
 <div id="text">
-  <h1>{% trans "Gig" %} &raquo; {{ gig.title }}, {{ gig.venue.city }} (WIP)</h1>
+	<div class="grid_15 alpha omega">
+		
+		
+		<div class="grid_3 alpha">
+			
+			<div class="gig_photo">
+				<img class="gig_photo_status" src="http://192.168.0.6:8000/site_media/images/gig/gig_status_next.png" />
+				<img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" width="100%" height="250px" />
+			</div>
+			
+		
 
-  <div class="sectionbox">
-    <div class="header">
-      <img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Where when"/>
-      <h2>{% trans "Where and When" %}</h2>
-    </div>
-    <div class="separator"></div>
-    <div class="content">
-      Date : {{ gig.event_date }}
-      Venue : <a href="{{ gig.venue.get_absolute_url }}">{{ gig.venue }}</a>
-    </div>
-  </div>
+			<div class="gig_infos">
+				<div class="gig_infos_style">Goth electric metal</div>
+				Ouverture : 18:00<br />
+				PAF : 5 euros
+			</div>
+			
+		
+			
+			<div class="gig_venue">
+				
+				<div class="header">
+				<!--<img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Venue"/> -->
+					<h2>{% trans "Venue" %}</h2>
+				</div>
+				
+				<div class="content">
+					<div class="gig_venue_title">La Chimere</div><div class="gig_venue_location">(Lille, FR)</div> 
+					<div class="gig_venue_style">Goth electric death metal</div>
 
-  <div class="sectionbox">
-    <div class="header">
-      <img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="Bands"/>
-      <h2>{% trans "Bands" %}</h2>
-    </div>
-    <div class="separator"></div>
-    <div class="content">
-      Bands :
-      <ul>
-	{% for band in gig.bands.all %}
-	  <li><a href="{{ band.get_absolute_url }}">{{ band }}</a></li>
-	{% endfor %}
-      </ul>
-    </div>
-  </div>
+					<div class="gig_venue_adress">17 Rue Guillaume Apollinaire<br />59000 Lille<br />France</div>
+
+					<div class="gig_venue_bold">Capacity : </div><div class="gig_venue_txt">100 places</div>
+					<div class="gig_venue_bold">Website : </div><div class="gig_venue_txt"><a href="#">www.lachimere.fr</a></div>
+				</div>			
+
+			</div>
+			
+			
+			
+			<div class="gig_bands">
+				<h2>{% trans "participating bands" %}</h2>
+				
+				<div class="gig_bands_band">
+					<img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" width="100%" height="50px" />
+				</div>
+				
+				<div class="gig_bands_band">
+					<img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" width="100%" height="50px" />
+				</div>
+				
+			</div>
+			
+			
+			<div class="gig_assoc">
+				<h2>{% trans "Associated gigs" %}</h2>				
+				
+				<div class="gig_assoc_gig">
+				
+					<div class="gig_assoc_gig_title"><a href="#">Metal Point Fest</a></div>
+					<div class="gig_assoc_gig_date">21 Juillet 2011</div>
+					<div class="gig_assoc_gig_infos">Suvilahden, Helsinki, Finlande</div>
+				
+				</div>
+				
+				<div class="gig_assoc_gig">
+				
+					<div class="gig_assoc_gig_title"><a href="#">Festival des annees 80</a></div>
+					<div class="gig_assoc_gig_date">32 Septembre 2024</div>
+					<div class="gig_assoc_gig_infos">Lille, France</div>
+				
+				</div>
+				
+			</div>
+
+
+		</div>
+
+
+		<div class="grid_12 alpha omega">
+
+			<div class="grid_12 omega">	
+				<h1>{% trans "Gig" %} &raquo; {{ gig.title }}, {{ gig.venue.city }} (WIP)</h1>
+			</div>
+			
+			<div class="grid_12 omega">	
+				<div class="bands">Avec <a href="#">Sepultura</a>, <a href="#">Gregoire</a> et <a href="#">Motorhead</a></div>
+			</div>
+			
+			 <div class="grid_9 alpha">
+				<div class="gig_descriptif">
+					SpreadBand est un outil permettant aux groupes independants de se mettre en relation avec des bars-concerts et de creer leur reseau musical.<br/>
+					Dans une demarche equitable, l'equipe de SpreadBand fait au mieux pour mettre les musiciens au coeur des decisions et s'attache a proposer des offres commerciales qui correspondent aux moyens de ces petites structures. 
+				</div>
+			 </div>
+			  
+			<div class="grid_3 omega">
+				<div class="sectionbox gig_sharing">
+					<div class="gig_sharing_title">Share on :</div>
+					
+					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/facebook.1290786422.png" /></a>
+					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/twitter.1290786422.png" /></a>
+					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/identica.1290786422.png" /></a>
+					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/lastfm.1290786422.png" /></a>
+				</div>
+			</div>
+			  
+			<div class="grid_12 alpha omega">	
+				<div class="sectionbox gig_timeline">
+					
+					<div class="header">
+						<img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Timeline"/>
+						<h2>{% trans "Timeline" %}</h2>
+						<div class="gig_timeline_infos">
+							<div class="gig_timeline_infos_set">
+								<div class="gig_timeline_start">start at </div><div class="gig_timeline_txt">21:00 -</div><div class="gig_timeline_end"> End at </div><div class="gig_timeline_txt">00:00</div>
+							</div>
+							<div class="gig_timeline_time">
+								<div class="gig_timeline_duration">Total duration : </div><div class="gig_timeline_txt">2 hours 40 minutes</div>
+							</div>
+						
+						</div>
+					</div>
+					
+					<div class="separator"></div>
+		
+					<div class="content">
+
+					
+					<!-- CONTENU TEST -->
+					
+					
+						<!-- events -->
+						<ul class="events">
+						  
+						<li style="width: 37%; left: 0%;">
+						  Herbalal - 50 minutes
+						</li>
+						  
+						<li style="width: 33%; left: 67%;">
+						  Castagnette - 45 minutes
+						</li>
+						  
+						</ul>
+
+						<!-- intervals -->
+						<ul class="intervals">
+						  
+						<li style="border-top: 1px black solid; width: 22%;">
+						  20:00
+						</li>
+						  
+						<li style="border-bottom: 1px black solid; width: 22%;">
+						  20:30
+						</li>
+						  
+						<li style="border-top: 1px black solid; width: 22%;">
+
+						  21:00
+						</li>
+						  
+						<li style="border-bottom: 1px black solid; width: 22%;">
+						  21:30
+						</li>
+						  
+						</ul>
+
+						<div class="clear"></div>
+
+						<div class="vcalendar">
+						  <ul>
+
+						
+						  <li>
+							<span class="vevent">
+							  <abbr class="dtstart" title="2010-09-24T20:00:00">24 septembre 2010 20:00:00</abbr> --
+							  <abbr class="dtend" title="2010-09-24T20:50:00">24 septembre 2010 20:50:00</abbr> :
+							  <span class="summary"> Herbalal joue pendant</span>
+							  <abbr class="duration" title="PT50M">50 minutes</abbr>
+
+							</span>
+						  </li>
+						
+						  <li>
+							<span class="vevent">
+							  <abbr class="dtstart" title="2010-09-24T21:30:00">24 septembre 2010 21:30:00</abbr> --
+							  <abbr class="dtend" title="2010-09-24T22:15:00">24 septembre 2010 22:15:00</abbr> :
+							  <span class="summary"> Castagnette joue pendant</span>
+
+							  <abbr class="duration" title="PT45M">45 minutes</abbr>
+							</span>
+						  </li>
+						
+						  </ul>
+						</div>
+
+    
+
+					<!-- FIN CONTENU TEST -->	
+					
+					</div>
+					
+				</div>
+			</div>
+			
+			 <div class="grid_5 alpha">
+				<div class="sectionbox gig_shoutbox">
+				
+					<div class="header">
+					<img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Comments"/>
+					<h2>{% trans "Comments" %}</h2>
+					</div>
+					
+					<div class="separator"></div>
+		
+					<div class="content">
+
+						<FORM METHOD="POST" ou "GET" ACTION="url" ENCTYPE="x-www-form-urlencoded">
+							<TEXTAREA rows="3" name="commentaires"></TEXTAREA>
+							<INPUT type="submit" value="send">
+						</FORM>
+						
+						
+						<div class="gig_shoutbox_comments">
+						
+								<div class="gig_shoutbox_comments_0">
+									<div class="gig_shoutbox_comments_img"><img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" /></div>
+									<div class="gig_shoutbox_comments_txt">
+									
+										<div class="gig_shoutbox_comments_name">Machin a dit : </div>
+										<div class="gig_shoutbox_comments_comm">plieee sergio bientot tu vas rentrer au livre de guiness avec le surnom : meilleur dragueur mdrrr</div>
+										<div class="gig_shoutbox_comments_time"> - Il y a 2 heures</div>
+									
+									</div>
+								</div>	
+								
+								
+								<div class="gig_shoutbox_comments_1">
+									<div class="gig_shoutbox_comments_img"><img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" /></div>
+									<div class="gig_shoutbox_comments_txt">
+									
+										<div class="gig_shoutbox_comments_name">Bidule a dit : </div>
+										<div class="gig_shoutbox_comments_comm">plieeee sergio bientot tu vas rentrer au livre de guiness avec le surnom : meilleur dragueur mdrrr</div>
+										<div class="gig_shoutbox_comments_time"> - Il y a 2 heures</div>
+									
+									</div>
+								</div>
+								
+								
+								<div class="gig_shoutbox_comments_0">
+									<div class="gig_shoutbox_comments_img"><img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" /></div>
+									<div class="gig_shoutbox_comments_txt">
+									
+										<div class="gig_shoutbox_comments_name">Truc a dit : </div>
+										<div class="gig_shoutbox_comments_comm">Sergio bientot tu vas rentrer</div>
+										<div class="gig_shoutbox_comments_time"> - Il y a 2 heures</div>
+									
+									</div>
+								</div>
+						</div>
+					
+				
+					</div>
+				</div>
+			 </div>
+			  
+			<div class="grid_7 omega">
+				<div class="sectionbox gig_location">
+				
+						<div class="header">
+							<img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Timeline"/>
+							<h2>{% trans "Location" %}</h2>
+						</div>
+						
+						<div class="separator"></div>
+			
+						<div class="content">
+							Adress : {{ gig.event_date }}
+							blablabla
+						</div>
+				
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 </div>
+
 
 {% endblock %}

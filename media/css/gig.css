@@ -1,0 +1,398 @@
+/*----------------COLONNE GAUCHE-----------------*/
+
+h1{
+
+	left:-10px;
+	position:relative;
+
+
+}
+
+
+.bands{
+
+	font-size:16px;
+	font-weight:bold;
+	position:relative;
+	float:left;
+	width:100%;
+	display:inline;
+	left:-10px;
+	top:-20px;
+
+}
+
+.gig_photo_status{
+
+	position:absolute;
+	right:0px;
+
+}
+
+.gig_infos{
+
+	background-color:#ebebeb;
+	font-weight:bold;
+	color:black;
+	font-size:13px;
+	padding:5px;
+	margin-top:10px;
+	margin-bottom:5px;
+
+}
+
+.gig_infos  .gig_infos_style{
+
+	color:#8d8d8d;
+	font-size:11px;
+	margin-bottom:10px;
+
+}
+
+
+/*-----Venue infos------*/
+
+
+.gig_venue{
+
+	margin-top:10px;
+	padding-bottom:10px;
+	margin-bottom:10px;
+	border-bottom: 1px solid #C7C7C7;
+	line-height:15px;
+	
+	color:#ababab;
+
+}
+
+.gig_venue .header{
+
+	border-bottom: 1px solid #C7C7C7;
+	height:30px;
+	line-height:25px;
+	margin-bottom:5px;
+	
+	color:black;
+
+}
+
+.gig_venue .content{
+
+	font-size:11px;
+
+}
+
+.gig_venue_title{
+
+	color:#F9A02E;
+	font-weight:bold;
+	float:left;
+	font-size:14px;
+	margin-right:5px;	
+
+}
+
+.gig_venue_location{
+
+	color:#F9A02E;
+
+}
+
+.gig_venue_style{
+
+	margin-bottom:15px;
+
+}
+
+.gig_venue_adress{
+
+	font-style:italic;
+	margin-bottom:15px;
+	position:relative;
+
+}
+
+.gig_venue_bold{
+
+	font-weight:bold;
+	float:left;
+	margin-right:5px;
+	position:relative;
+
+}
+
+.gig_venue_txt{
+
+	position:relative;
+
+}
+
+
+/*-----Participating bands------*/
+
+.gig_bands{
+
+	background-color:#eeeeee;
+	padding:5px;
+	margin-bottom:10px;
+
+}
+
+.gig_bands h2{
+
+	font-size:17px;
+	width:100%;
+	height:5px;
+	padding-bottom:0px;
+	margin-bottom:5px;
+
+}
+
+.gig_bands_band{
+
+	margin-bottom:5px;
+
+}
+
+
+
+/*-----Associated gigs------*/
+
+
+.gig_assoc{
+
+	font-size:11px;
+	text-align:left;
+	line-height:15px;
+	padding:5px;
+
+}
+
+.gig_assoc_gig{
+
+	margin-bottom:10px;
+	padding-bottom:10px;
+	border-bottom:1px solid #C7C7C7;
+	
+
+}
+
+
+.gig_assoc h2{
+
+	width:100%;
+	height:5px;
+	padding-bottom:0px;
+	margin-bottom:5px;
+
+}
+
+
+.gig_assoc_gig_title{
+
+	font-weight:bold;
+
+}
+
+.gig_assoc_gig_date{
+
+	color:grey;	
+
+}
+
+
+/*----------------COLONNE DROITE-----------------*/
+
+/*-----Descriptif + social networks------*/
+
+
+.gig_descriptif{
+
+	color:#767676;
+	font-size:11px;
+	margin-bottom:8px;
+	line-height:15px;
+
+}
+
+.gig_sharing{
+
+	background-color:white;
+	padding-left:10px;
+	padding-right:10px;
+
+}
+
+.gig_sharing_title{
+
+	background-color:white;
+	position:relative;
+	top:-10px;
+	width:90px;
+	text-align:center;
+	font-weight:bold;
+
+}
+
+.gig_sharing img{
+
+	margin-right:3px;
+	top:-3px;
+	position:relative;
+	
+}
+
+
+
+/*-----Timeline------*/
+
+
+.gig_timeline_infos{
+
+	width:200px;
+	position:relative;
+	float:right;
+	font-size:11px;
+	top:-6px;
+
+}
+
+.gig_timeline_infos_set, .gig_timeline_time{
+
+	width:100%;
+	position:relative;
+	display:inline;
+	text-align:right;
+
+}
+
+.gig_timeline_start, .gig_timeline_end, .gig_timeline_duration{
+
+	position:relative;
+	float:left;
+	margin-right:5px;
+	
+	font-weight:bold;
+
+}
+
+
+.gig_timeline_txt{
+
+	position:relative;
+	float:left;
+	margin-right:5px;
+
+}
+
+
+
+/*-----Shoutbox------*/
+
+.gig_shoutbox{
+
+
+
+}
+
+.gig_shoutbox textarea{
+
+	width:99%;
+
+}
+
+.gig_shoutbox input{
+
+	float:right;
+
+}
+
+.gig_shoutbox .gig_shoutbox_comments{
+
+	position:relative;
+	margin-top:25px;
+
+}
+
+.gig_shoutbox_comments{
+
+	padding-top:5px;
+	position:relative;
+	font-size:11px;
+	line-height:15px;
+
+}
+
+.gig_shoutbox_comments_0{
+
+	background-color:#ededed;
+	position:relative;
+
+}
+
+.gig_shoutbox_comments_0, .gig_shoutbox_comments_1{
+
+	padding:5px;
+
+}
+
+.gig_shoutbox_comments_img img{
+
+	width:20px;
+	height:20px;
+	border: 1px solid grey;
+	position:absolute;
+	left:10px;
+	top:5px;
+
+}
+
+.gig_shoutbox_comments_img{
+
+	width:20%;
+	position:relative;
+
+
+}
+
+.gig_shoutbox_comments_txt{
+
+	width:80%;
+	position:relative;
+	left:50px;
+	text-align:left;
+
+
+}
+
+
+.gig_shoutbox_comments_name{
+
+	font-weight:bold;
+	position:relative;
+	display:inline;
+	float:left;
+	margin-right:5px;
+
+
+}
+
+.gig_shoutbox_comments_comm{
+
+	position:relative;
+	display:inline;
+
+}
+
+
+.gig_shoutbox_comments_time{
+
+	color:#676767;
+	position:relative;
+	text-align:left;
+
+}
+
+
+
+
