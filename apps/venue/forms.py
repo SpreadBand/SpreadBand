@@ -37,3 +37,17 @@ class VenueGeoSearchForm(forms.Form):
                                   max_value=500,
                                   widget=forms.TextInput(attrs={'size': '5'}))
 
+
+    circle_x = forms.FloatField(label=_('X'),
+                                initial=0.0,
+                                required=False,
+                                widget=forms.HiddenInput()
+                                )
+    
+    circle_y = forms.FloatField(label=_('Y'),
+                                required=False,
+                                initial=0.0,
+                                widget=forms.HiddenInput()
+                                )
+                                  
+                           

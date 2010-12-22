@@ -174,9 +174,18 @@ def lookup_place(city, country):
 @login_required
 def search(request):
     venue_filter = VenueFilter(request.GET, queryset=Venue.objects.all())
-    geosearch_form = VenueGeoSearchForm(request.GET or {'country': request.user.get_profile().country,
-                                                        'city': request.user.get_profile().town})
+
+    # if we haven't specified anything, use the user place as a starting point
+    if not request.GET:
+        try:
+            user_place = lookup_place(request.user.get_profile().town, countries.OFFICIAL_COUNTRIES[request.user.get_profile().country])
+        except geocoders.google.GQueryError, e:
+            user_place = (0, 0)
+        
     
+    geosearch_form = VenueGeoSearchForm(request.GET or {'circle_x': user_place.x,
+                                                        'circle_y': user_place.y})
+
     if geosearch_form.is_valid():
         city = geosearch_form.cleaned_data.get('city')
         country = geosearch_form.cleaned_data.get('country')
@@ -198,8 +207,12 @@ def search(request):
             if country:
                 venue_filter.queryset = venue_filter.queryset.filter(country__iexact=country)
 
+    # Reconstruct the ambiance list since we use a multivariable trick
+    ambiance_tags = request.GET.getlist("ambiance") or []
+
     return render_to_response(template_name='venue/search.html',
                               dictionary={'venue_filter': venue_filter,
-                                          'geosearch_form': geosearch_form},
+                                          'geosearch_form': geosearch_form,
+                                          'ambiance_tags': ambiance_tags},
                               context_instance=RequestContext(request)
                               )

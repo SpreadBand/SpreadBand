@@ -66,3 +66,57 @@
 #search-results .venue .tags {
     color: #666;
 }
+
+#search ul {
+    background-color: white;
+    padding: 5px;
+}
+
+#search ul li {
+    text-align: left;
+    margin-left: 5px;
+}
+
+#search ul li.tagit-new {
+    font-size: 1.1em;
+}
+
+#search ul#tag_list li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#cantfind {
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+}
+
+#cantfind img {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#cantfind p {
+    padding-top: 25px;
+    font-size: 0.9em;
+    align: justify;
+}
+
+#cantfind textarea {
+    display: block;
+    width: 230px;
+    border: 1px solid #aaa;
+    padding: 2px;
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 0.9em;
+    font-variant: italics;
+    align: justify;
+}
+
+#cantfind input[type="submit"] {
+    border: 1px solid #aaa;
+    float: right;
+    background-color: #eee;
+}
