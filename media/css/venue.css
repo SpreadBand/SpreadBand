@@ -1,7 +1,4 @@
 #search {
-    border: 1px solid #eee;
-    padding: 20px;
-    background-color: #f8f8f8;
     margin-bottom: 20px;
 }
 
@@ -81,9 +78,26 @@
     font-size: 1.1em;
 }
 
+#search ul#tag_list {
+    width: 100%;
+}
+
 #search ul#tag_list li {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+#search p.help {
+    font-size: 0.9em;
+}
+
+#search #map {
+    border: 1px solid #666;
+}
+
+#search #ambiance {
+    border-left: 1px solid #eee;
+    padding-left: 20px;
 }
 
 #cantfind {

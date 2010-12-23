@@ -184,7 +184,8 @@ def search(request):
         
     
     geosearch_form = VenueGeoSearchForm(request.GET or {'circle_x': user_place.x,
-                                                        'circle_y': user_place.y})
+                                                        'circle_y': user_place.y,
+                                                        'distance': 3500})
 
     if geosearch_form.is_valid():
         city = geosearch_form.cleaned_data.get('city')
@@ -198,7 +199,7 @@ def search(request):
             except geocoders.google.GQueryError, e:
                 geosearch_form.errors['city'] = _('Unable to find this city. Check the country or be more specific.')
             else:
-                places = Place.objects.filter(geom__distance_lte=(point, D(km=distance)))
+                places = Place.objects.filter(geom__distance_lte=(point, D(m=distance)))
                 venue_filter.queryset = venue_filter.queryset.filter(place__in=places.all())
         # Otherwise, try to match by name
         else:

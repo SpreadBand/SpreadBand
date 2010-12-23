@@ -58,10 +58,9 @@
 	// Draw circle
 	var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer", {units: 'm'});
 
-	alert(polygonLayer.units);
 	map.addLayer(polygonLayer);
 
-	var radius = 1000;
+	var radius = $('#id_distance').val() / 0.666;
 	var circle = new OpenLayers.Geometry.Polygon.createRegularPolygon(new OpenLayers.Geometry.Point(myplace.lon, myplace.lat),
 									  radius,
 									  40, // Number of points for the polygon. > 20 approximates a circle
@@ -85,7 +84,7 @@
 
 	    // Update radius
 	    bounds = this.feature.geometry.getBounds();
-	    $('#id_distance').val(Math.round((bounds.getWidth() * 0.666) / 1000.0));
+	    $('#id_distance').val(Math.round(((bounds.getWidth()/2.0) * 0.666))); // FIXME: We use this obscure 0.666 coefficient. Need to know why !
 	};
 
 	var options = {
@@ -112,63 +111,72 @@
 
   <div id="text">
     <h1>{% trans "Find where to play" %}</h1>
-    <div id="search">
-      <form method="GET" action="">
-	<div class="grid_7 alpha">
 
-	  <img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
-	  <h2>{% trans "Location" %}</h2>
+    <div id="search" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>	
+	<h2>{% trans "Your search" %}</h2>
+      </div>
+      <div class="separator"></div>
 
-	  <div id="map" style="width:430px; height:400px;"></div>
+      <div class="content">
+	<form method="GET" action="">
+	  <div class="grid_7 alpha">
+	    
 
-	  {{ geosearch_form.circle_x }}
-	  {{ geosearch_form.circle_y }}
-
-	  <div id="div_id_distance" class="ctrlHolder {% if geosearch_form.distance.errors %}error{%endif%}">
-	    <br/>
-	     {% trans "Extends" %} {{ geosearch_form.distance }} {% trans "kilometers around this city" %}
-	    <br/>
-	    {{ geosearch_form.distance.errors }}
+	    <h3>{% trans "Location" %}</h3>
+	    <p class="help">
+	      {% blocktrans %}
+		The circle represents the area that is searched for venues. Click on it to edit, <strong>drag from the center to move it</strong> and <strong>click on the edge to resize it</strong>.
+	    {% endblocktrans %}
+	    </p>
+	    
+	    <div id="map" style="width:430px; height:400px;"></div>
+	    
+	    {{ geosearch_form.circle_x }}
+	    {{ geosearch_form.circle_y }}
+	    {{ geosearch_form.distance }}
+	    
 	  </div>
+	  <div id="ambiance" class="grid_7 omega">
+	    <h3>{% trans "Ambiance" %}</h3>
+	    
+	    <div id="div_id_ambiance" class="{% if venue_filter.form.ambiance.errors %}error{%endif%}">
+	      <p class="help">
+	      {% blocktrans %}
+		By default, all the venues will be selected. If you want to select only venues that have a given ambiance, select them by <strong>clicking on the terms in the cloud</strong> below:
+	      {% endblocktrans %}
+	      </p>
 
+	      <ul id="tag_list">
+		{% tags_for_model venue.Venue as venue_tags with counts %}
+		  
+		  {% for tag in venue_tags %}
+		    <li value="{{ tag.count }}"><a href="#">{{ tag }}</a></li>
+		  {% endfor %}
+	      </ul>
 
+	      <ul id="ambiance_tags">
+	      </ul>
+	      
+	      {{ venue_filter.form.ambiance.errors }}
+	    </div>
+	    
+	    <!--
+		<h2>{% trans "Name" %}</h2>
+		
+		<div id="div_id_name" class="{% if venue_filter.form.name.errors %}error{%endif%}">
+		{{ venue_filter.form.name }}
+		<br/>
+		{{ venue_filter.form.name.errors }}
+		</div>
+	    -->
+	    
+	  </div>
+	  <div class="clear"></div>
+	  <input id="submit" type="submit" value="{% trans "Search" %}">
+	  </form>
 	</div>
-	<div class="grid_7">
-	  <h2>{% trans "Ambiance" %}</h2>
-
-	  <div id="div_id_ambiance" class="{% if venue_filter.form.ambiance.errors %}error{%endif%}">
-	    {% blocktrans %}
-	      If you want to restrict your search to a particular venue ambiance, specify it in the field below or click on the tag cloud:
-	  {% endblocktrans %}
-
-	     <ul id="ambiance_tags">
-	     </ul>
-
-	     <ul id="tag_list">
-	       {% tags_for_model venue.Venue as venue_tags with counts %}
-		 
-	       {% for tag in venue_tags %}
-		 <li value="{{ tag.count }}"><a href="#">{{ tag }}</a></li>
-	       {% endfor %}
-	     </ul>
-	    <br/>
-	    {{ venue_filter.form.ambiance.errors }}
-	  </div>
-	  
-	  <!--
-	  <h2>{% trans "Name" %}</h2>
-
-	  <div id="div_id_name" class="ctrlHolder {% if venue_filter.form.name.errors %}error{%endif%}">
-	      {{ venue_filter.form.name }}
-	    <br/>
-	    {{ venue_filter.form.name.errors }}
-	  </div>
-	  -->
-
-	</div>
-	<div class="clear"></div>
-	<input id="submit" type="submit" value="{% trans "Search" %}">
-      </form>
     </div>
 
     <div id="search-results" class="grid_10 alpha">

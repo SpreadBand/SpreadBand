@@ -31,11 +31,13 @@ class VenueGeoSearchForm(forms.Form):
     city = forms.CharField(label=_('City'),
                            required=False)
 
-    distance = forms.IntegerField(label=_('Distance'),
-                                  required=False,
-                                  min_value=1,
-                                  max_value=500,
-                                  widget=forms.TextInput(attrs={'size': '5'}))
+    distance = forms.FloatField(label=_('Distance'),
+                                required=False,
+                                initial=5.0,
+                                min_value=1.0,
+                                max_value=50.0,
+                                widget=forms.HiddenInput()
+                                )
 
 
     circle_x = forms.FloatField(label=_('X'),
