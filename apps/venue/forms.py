@@ -35,7 +35,7 @@ class VenueGeoSearchForm(forms.Form):
                                 required=False,
                                 initial=5.0,
                                 min_value=1.0,
-                                max_value=50.0,
+                                max_value=10000.0,
                                 widget=forms.HiddenInput()
                                 )
 

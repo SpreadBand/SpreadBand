@@ -171,45 +171,63 @@ def lookup_place(city, country):
 
     return Point(lng, lat)
 
+def search_venue_atomic(data, center, distance, ambiance):
+    venue_filter = VenueFilter(data, queryset=Venue.objects.all())
+
+    # # If we have a distance, do a geo lookup
+    # if distance and city and country:
+    #     try:
+    #         point = lookup_place(city, countries.OFFICIAL_COUNTRIES[country])
+    #     except geocoders.google.GQueryError, e:
+    #         geosearch_form.errors['city'] = _('Unable to find this city. Check the country or be more specific.')
+    #     else:
+    #         places = Place.objects.filter(geom__distance_lte=(point, D(m=distance)))
+    #         venue_filter.queryset = venue_filter.queryset.filter(place__in=places.all())
+    # Otherwise, try to match by name
+    
+    places_in_range = Place.objects.filter(geom__distance_lte=(center, D(m=distance)))
+    venue_filter.queryset = venue_filter.queryset.filter(place__in=places_in_range.all())
+    # else:
+    # if city:
+    #     venue_filter.queryset = venue_filter.queryset.filter(city__iexact=city)
+    # if country:
+    #     venue_filter.queryset = venue_filter.queryset.filter(country__iexact=country)
+
+    return venue_filter
+
+
+
 @login_required
 def search(request):
-    venue_filter = VenueFilter(request.GET, queryset=Venue.objects.all())
+    # Reconstruct the ambiance list since we use a multivariable trick
+    ambiance_tags = request.GET.getlist("ambiance") or []
 
     # if we haven't specified anything, use the user place as a starting point
     if not request.GET:
+        center = Point(0, 0)
         try:
-            user_place = lookup_place(request.user.get_profile().town, countries.OFFICIAL_COUNTRIES[request.user.get_profile().country])
+            country = countries.OFFICIAL_COUNTRIES[request.user.get_profile().country or 'FR']
+            town = request.user.get_profile().town
+            if country and town:
+                center = lookup_place(town, country)
         except geocoders.google.GQueryError, e:
-            user_place = (0, 0)
+            pass
         
-    
-    geosearch_form = VenueGeoSearchForm(request.GET or {'circle_x': user_place.x,
-                                                        'circle_y': user_place.y,
+    geosearch_form = VenueGeoSearchForm(request.GET or {'circle_x': center.x,
+                                                        'circle_y': center.y,
                                                         'distance': 3500})
 
     if geosearch_form.is_valid():
         city = geosearch_form.cleaned_data.get('city')
         country = geosearch_form.cleaned_data.get('country')
         distance = geosearch_form.cleaned_data.get('distance')
+        circle_x = geosearch_form.cleaned_data.get('circle_x')
+        circle_y = geosearch_form.cleaned_data.get('circle_y')
 
-        # If we have a distance, do a geo lookup
-        if distance and city and country:
-            try:
-                point = lookup_place(city, countries.OFFICIAL_COUNTRIES[country])
-            except geocoders.google.GQueryError, e:
-                geosearch_form.errors['city'] = _('Unable to find this city. Check the country or be more specific.')
-            else:
-                places = Place.objects.filter(geom__distance_lte=(point, D(m=distance)))
-                venue_filter.queryset = venue_filter.queryset.filter(place__in=places.all())
-        # Otherwise, try to match by name
-        else:
-            if city:
-                venue_filter.queryset = venue_filter.queryset.filter(city__iexact=city)
-            if country:
-                venue_filter.queryset = venue_filter.queryset.filter(country__iexact=country)
-
-    # Reconstruct the ambiance list since we use a multivariable trick
-    ambiance_tags = request.GET.getlist("ambiance") or []
+        
+    # Run the filters
+    center_point = Point(circle_x, circle_y)
+    venue_filter = search_venue_atomic(request.GET, center_point, distance, ambiance_tags)
 
     return render_to_response(template_name='venue/search.html',
                               dictionary={'venue_filter': venue_filter,

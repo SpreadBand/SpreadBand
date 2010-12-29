@@ -17,6 +17,13 @@
 
 #search #submit {
     margin-top: 15px;
+    visibility: hidden;
+    position: absolute;
+    left: -10000px;
+}
+
+#search-results-wrapper {
+    min-height: 200px;
 }
 
 #search-results ul {

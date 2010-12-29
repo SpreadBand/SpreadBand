@@ -13,12 +13,22 @@
   <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
   <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tinysort.js" %}"></script>
   <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tagcloud.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.activity-indicator-1.0.0.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.blockUI.js" %}" ></script>
+
+
+  <script type="text/javascript" src="{% staticfile "/js/XMLHttpRequest.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.ba-serializeobject.js" %}"></script>
+  <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
+  
 
   <script type="text/javascript">
     $(document).ready(function() {
 	var tags = $("#ambiance_tags").tagit({
 	    itemName: 'ambiance',
-	    availableTags: ["c++", "java"]
+	    availableTags: ["c++", "java"],
+	    afterTagAdded: function(tag) { search_venues(); },
+	    afterTagRemoved: function(tag) { search_venues(); }
 	});
 
 	$("#tag_list").tagcloud({type:"sphere", sizemin:10, height: 200}).find("li").tsort();
@@ -37,11 +47,12 @@
   <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
   <script defer="defer" type="text/javascript">
     $(document).ready(function() {
-	map = new OpenLayers.Map('map', {units: 'm'});
+	map = new OpenLayers.Map('map', {units: 'm', controls: [], numZoomLevels: 5});
+
+	map.addControl(new OpenLayers.Control.MouseToolbar());
+	map.addControl(new OpenLayers.Control.PanZoomBar());
 	
 	// Map
-	//layer = new OpenLayers.Layer.MapServer("OpenLayers WMS",
-	//"http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
 	layer = new OpenLayers.Layer.OSM({units: 'm'});
 
 
@@ -49,14 +60,18 @@
 
 	// Center
 	var myplace = new OpenLayers.LonLat($("#id_circle_x").val(), $("#id_circle_y").val()) // Center of the map
-        .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-		   new OpenLayers.Projection("EPSG:900913"));
+            .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+		       new OpenLayers.Projection("EPSG:900913")
+		      );
 	
 
-	map.setCenter(myplace, 12);
 
 	// Draw circle
-	var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer", {units: 'm'});
+	layer_style = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default']);
+	layer_style.fillOpacity = 0.5;
+	layer_style.graphicOpacity = 1;
+
+	var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer", {units: 'm', style: layer_style});
 
 	map.addLayer(polygonLayer);
 
@@ -68,10 +83,8 @@
 
 	polygonLayer.addFeatures(new OpenLayers.Feature.Vector(circle));
 
-
-	//var drag_style = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default']);
-	var styleMap = new OpenLayers.StyleMap({pointRadius: 10,
-						graphicName: 'star'});
+	// Zoom to selection
+	map.zoomToExtent(circle.getBounds());
 
 	// Resize + Drag tool
 	onFeatureModification = function() {
@@ -85,18 +98,102 @@
 	    // Update radius
 	    bounds = this.feature.geometry.getBounds();
 	    $('#id_distance').val(Math.round(((bounds.getWidth()/2.0) * 0.666))); // FIXME: We use this obscure 0.666 coefficient. Need to know why !
+
+	    map.zoomToExtent(bounds);
+
+	    // Update search results
+	    search_venues();
 	};
+
 
 	var options = {
 	    mode: OpenLayers.Control.ModifyFeature.RESIZE | OpenLayers.Control.ModifyFeature.DRAG,
+	    clickout: false,
+	    toggle: false
 	};
+
 	
 	var dragresizer = new OpenLayers.Control.ModifyFeature(polygonLayer, options);
 	dragresizer.setFeatureState = onFeatureModification;
-	map.addControl(dragresizer);
-	dragresizer.activate();
 
-	
+	dragresizer.collectDragHandle = function() {
+	    style_img = OpenLayers.Util.extend({}, layer_style);
+	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/lastfm.png" %}';
+	    style_img.graphicWidth = 60;
+	    style_img.graphicHeight = 60;
+	    
+
+	    var geometry = this.feature.geometry;
+            var center = geometry.getBounds().getCenterLonLat();
+            var originGeometry = new OpenLayers.Geometry.Point(
+		center.lon, center.lat
+            );
+            var origin = new OpenLayers.Feature.Vector(originGeometry, null, style_img);
+            originGeometry.move = function(x, y) {
+		OpenLayers.Geometry.Point.prototype.move.call(this, x, y);
+		geometry.move(x, y);
+            };
+            origin._sketch = true;
+            this.dragHandle = origin;
+            this.layer.addFeatures([this.dragHandle], {silent: true});
+	}
+
+	dragresizer.collectRadiusHandle = function() {
+	    style_img = OpenLayers.Util.extend({}, layer_style);
+	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/facebook.png" %}';
+	    style_img.graphicWidth = 30;
+	    style_img.graphicHeight = 30;
+
+	    var geometry = this.feature.geometry;
+            var bounds = geometry.getBounds();
+            var center = bounds.getCenterLonLat();
+            var originGeometry = new OpenLayers.Geometry.Point(
+		center.lon, center.lat
+            );
+
+
+	    var radius = bounds.getWidth() / 2.0;
+	    var r_x = originGeometry.x + (radius * Math.cos(-45));
+	    var r_y = originGeometry.y + (radius * Math.sin(-45));
+
+            var radiusGeometry = new OpenLayers.Geometry.Point(
+		r_x, r_y
+            );
+	    
+            var radius = new OpenLayers.Feature.Vector(radiusGeometry, null, style_img);
+
+            var resize = (this.mode & OpenLayers.Control.ModifyFeature.RESIZE);
+
+            radiusGeometry.move = function(x, y) {
+		OpenLayers.Geometry.Point.prototype.move.call(this, x, y);
+		var dx1 = this.x - originGeometry.x;
+		var dy1 = this.y - originGeometry.y;
+		var dx0 = dx1 - x;
+		var dy0 = dy1 - y;
+
+                var scale, ratio;
+		
+		var l0 = Math.sqrt((dx0 * dx0) + (dy0 * dy0));
+		var l1 = Math.sqrt((dx1 * dx1) + (dy1 * dy1));
+
+		// FIXME: Hardcoded limit
+		if ( l1 > 10000 )
+		    l0 = l1 = 10000;
+		else if ( l1 < 1000 )
+		    l0 = l1 = 1000;
+
+		scale = l1 / l0;
+		    
+                geometry.resize(scale, originGeometry, ratio);
+            };
+            radius._sketch = true;
+            this.radiusHandle = radius;
+            this.layer.addFeatures([this.radiusHandle], {silent: true});
+	}
+
+	map.addControl(dragresizer);
+
+	dragresizer.activate();
     });
   </script>
 {% endblock %}
@@ -104,6 +201,14 @@
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/css/venue.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+
+  
+
+  <style type="text/css">
+  .olControlModifyFeature {
+      background-color: red;
+  }
+  </style>
 {% endblock %}
 
 
@@ -120,10 +225,9 @@
       <div class="separator"></div>
 
       <div class="content">
-	<form method="GET" action="">
+	<form id="search-form" method="GET" action="">
 	  <div class="grid_7 alpha">
 	    
-
 	    <h3>{% trans "Location" %}</h3>
 	    <p class="help">
 	      {% blocktrans %}
@@ -144,7 +248,7 @@
 	    <div id="div_id_ambiance" class="{% if venue_filter.form.ambiance.errors %}error{%endif%}">
 	      <p class="help">
 	      {% blocktrans %}
-		By default, all the venues will be selected. If you want to select only venues that have a given ambiance, select them by <strong>clicking on the terms in the cloud</strong> below:
+		By default, all the venues are selected. If you want to select only venues that have a given ambiance, select them by <strong>clicking on the terms in the cloud</strong> below:
 	      {% endblocktrans %}
 	      </p>
 
@@ -152,7 +256,7 @@
 		{% tags_for_model venue.Venue as venue_tags with counts %}
 		  
 		  {% for tag in venue_tags %}
-		    <li value="{{ tag.count }}"><a href="#">{{ tag }}</a></li>
+		    <li value="{{ tag.count }}"><a href="javascript:;">{{ tag }}</a></li>
 		  {% endfor %}
 	      </ul>
 
@@ -174,44 +278,45 @@
 	    
 	  </div>
 	  <div class="clear"></div>
-	  <input id="submit" type="submit" value="{% trans "Search" %}">
+
+	  <script type="text/javascript">
+	    function on_search_venues_completed(data) {
+		try{
+		    res = Dajax.process(data);
+                }
+                catch(exception){
+		    alert('Error');
+                }
+		
+		$('#search-results').fadeTo('fast', 1);
+		$('#search-results-wrapper').activity(false);
+		$('#search').unblock();
+
+		return res;
+
+	    }
+
+	    function search_venues() {
+		$('#search').block({message: 'Recherche en cours, patientez svp...'});
+		$('#search-results').fadeTo('fast', 0.3);
+		$('#search-results-wrapper').activity({width: 6, valign: 'center', padding: '20'});
+
+		search_form = $('#search-form').serializeObject(true);
+		Dajaxice.venue.search_venues(on_search_venues_completed, {'form_data': search_form});
+
+		return false;
+	    }
+
+	  </script>
+
+
+	  <input id="submit" type="submit" onclick="return search_venues()" value="{% trans "Search" %}">
 	  </form>
 	</div>
     </div>
 
-    <div id="search-results" class="grid_10 alpha">
-      <h2>{% trans "Search results" %} ({{ venue_filter.queryset|length }})</h2>
-
-      <ul>
-	{% staticfile '/images/venue/no_picture.png' as default_pic %}
-	{% for venue in venue_filter %}
-	  <li class="venue">
-	    <div class="{% cycle 'odd' 'even' %}">
-	      <div>
-		<img src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}"/>
-	      </div>
-	      <div class="info">
-		<a class="name" href="{{ venue.get_absolute_url }}">{{ venue }}</a>
-		<br/>
-		<div class="adr">
-		  <span class="locality">{{ venue.city }}</span>
-		  <span class="country-name">{{ venue.country.name }}</span>
-		  {% if venue.country %}<img src="{{ venue.country.flag }}" title="{{ venue.country.name }}" alt="{{ venue.country }}"/>{% endif %}
-		</div>
-		<br/>
-		<div class="tags">
-		  {{ venue.ambiance }}
-		</div>
-	      </div>
-	      <div class="book">
-		{% for band in request.user.bands.all %}
-		  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Book {{ band_name }} there{% endblocktrans %}</span></a>
-		{% endfor %}
-	      </div>
-	    </div>
-	  </li>
-	{% endfor %}
-      </ul>
+    <div id="search-results-wrapper" class="grid_10 alpha">
+      {% include "venue/search_results.html" %}
     </div>
 
     <div id="cantfind" class="grid_4 omega">

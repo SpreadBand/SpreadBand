@@ -8,8 +8,10 @@
 	     'availableTags'     : [],
 	     // callback: called when a tag is added
 	     'onTagAdded'        : null,
+	     'afterTagAdded'     : null,
 	     // callback: called when a tag is removed
 	     'onTagRemoved'      : null,
+	     'afterTagRemoved'     : null,
 	     'tagSource'         : function(search, show_choices) {
                  var filter = new RegExp(search.term, "i");
                  var choices = settings.availableTags.filter(function(element) {
@@ -163,6 +165,11 @@
 	     
 	     // insert tag
 	     tagInput.parent().before(tag);
+
+	     if (settings.afterTagAdded) {
+		 settings.afterTagAdded(tag);
+	     }
+
 	 }
 	 
 	 function remove_tag(tag) {
@@ -170,6 +177,11 @@
 		 settings.onTagRemoved(tag);
 	     }
 	     tag.remove();
+
+	     if (settings.afterTagRemoved) {
+		 settings.afterTagRemoved(tag);
+	     }
+
 	 }
 	 
 	 // maintaining chainability
