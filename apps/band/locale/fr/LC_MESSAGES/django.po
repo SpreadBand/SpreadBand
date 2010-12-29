@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-11 20:27+0100\n"
-"PO-Revision-Date: 2010-10-04 17:46\n"
-"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
+"PO-Revision-Date: 2010-12-29 14:16\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
@@ -245,7 +245,7 @@ msgstr ""
 #: templates/bands/band_detail.html:143
 #, python-format
 msgid "Extend your network, <a href=\"%(url)s\">invite your friends</a>."
-msgstr ""
+msgstr "Etendez votre réseau, <a href=\"%(url)s\"> invitez vos amis</a> ."
 
 #: templates/bands/band_detail.html:154
 msgid "Upcoming events"
@@ -372,14 +372,13 @@ msgid "You can't let this band alone"
 msgstr "Vous ne pouvez pas laisser ce groupe seul"
 
 #: views/socialnets.py:22
-#, fuzzy
 msgid "You are not allowed to manage this band"
-msgstr "Vous n'êtes pas autorisé à modifier ce groupe"
+msgstr "Vous n'êtes pas autorisé à gérer ce groupe"
 
 #: views/socialnets.py:28
 #, python-format
 msgid "%(band_name)s was successfully associated with %(service_name)s"
-msgstr ""
+msgstr " % (band_name)s a été associé à %(service_name)s avec succès"
 
 #~ msgid "New"
 #~ msgstr "Nouvelles"

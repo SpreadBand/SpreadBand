@@ -2,27 +2,26 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-11 20:26+0100\n"
-"PO-Revision-Date: 2010-10-04 15:27\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2010-12-29 14:08\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: forms.py:32
-#, fuzzy
 msgid "New password"
-msgstr "Mot de passe"
+msgstr "Nouveau mot de passe"
 
 #: forms.py:34
 msgid "Confirm password"
@@ -79,12 +78,11 @@ msgstr "Ville"
 #: templates/account/base.html:16
 #, python-format
 msgid "%(username)s's settings"
-msgstr ""
+msgstr "paramètres de %(username)s "
 
 #: templates/account/base.html:26
-#, fuzzy
 msgid "Profile"
-msgstr "Profil de"
+msgstr "Profil"
 
 #: templates/account/base.html:27 templates/account/password.html:6
 #: templates/account/password.html.py:19
@@ -93,9 +91,8 @@ msgstr "Mot de passe"
 
 #: templates/account/base.html:28
 #: templates/notification/notice_settings.html:52
-#, fuzzy
 msgid "Notifications"
-msgstr "Type de notification"
+msgstr "Notifications"
 
 #: templates/account/password.html:14
 #: templates/notification/notice_settings.html:45
@@ -110,6 +107,8 @@ msgid ""
 "special characters. It makes it stronger to attacks.\n"
 "    "
 msgstr ""
+"\n"
+"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot de passe avec des chiffres ou caractères spéciaux. Ca le rend plus fort contre les attaques."
 
 #: templates/account/user_dashboard.html:32
 #, python-format
@@ -213,7 +212,7 @@ msgstr "Pas d'activité"
 
 #: templates/contacts_import/import_contacts.html:15
 msgid "Import contacts"
-msgstr ""
+msgstr "Importer des contacts"
 
 #: templates/contacts_import/import_contacts.html:19
 msgid ""
@@ -224,6 +223,8 @@ msgid ""
 "import step is finished.\n"
 "      "
 msgstr ""
+"\n"
+"Veuillez choisir le fournisseur de messagerie à partir duquel vous souhaitez importer vos contacts. Nous <strong>ne conservons pas</strong> votre mot de passe ni vos contacts une fois l'étape d'importation terminée."
 
 #: templates/contacts_import/import_contacts.html:25
 msgid ""
@@ -232,25 +233,26 @@ msgid ""
 "adresses, please do so in the form at the bottom of this page.\n"
 "      "
 msgstr ""
+"\n"
+"Si vous préférez <strong>saisir manuellement</strong> les adresses email de vos amis, veuillez le faire dans le formulaire au bas de cette page."
 
 #: templates/contacts_import/import_contacts.html:47
 msgid "Click to import from GMail"
-msgstr ""
+msgstr "Cliquez pour importer via GMail"
 
 #: templates/contacts_import/import_contacts.html:56
 msgid ""
 "Please split email adresses by a comma. For example: \"user@somewhere.tld, "
 "robert@ac.de, john@doe.org\". "
-msgstr ""
+msgstr "Veillez à séparer les adresse mails par une virgule. Par exemple: \"user@somewhere.tld, robert@ac.de, john@doe.org\"."
 
 #: templates/contacts_import/import_contacts.html:61
 msgid "Import"
-msgstr ""
+msgstr "Importer"
 
 #: templates/contacts_import/import_email_list.html:16
-#, fuzzy
 msgid "Import email adresses"
-msgstr "Adresse e-mail"
+msgstr "Importer des adresses e-mail"
 
 #: templates/contacts_import/import_email_list.html:19
 #: templates/contacts_import/select_contacts.html:30
@@ -261,41 +263,42 @@ msgid ""
 "course, change it if you want.\n"
 "    "
 msgstr ""
+"\n"
+"Veuillez <strong>sélectionner les contacts</strong> que vous souhaitez inviter sur SpreadBand. Le message au bas de cette page sera envoyée. Vous pouvez, bien sûr, le changer si le souhaitez."
 
 #: templates/contacts_import/import_email_list.html:30
 #: templates/contacts_import/select_contacts.html:87
 msgid "Back to providers"
-msgstr ""
+msgstr "Retour aux fournisseurs"
 
 #: templates/contacts_import/select_contacts.html:27
 msgid "Select your contacts"
-msgstr ""
+msgstr "Sélectionnez vos contacts"
 
 #: templates/contacts_import/select_contacts.html:35
 msgid "First, choose who you want to invite"
-msgstr ""
+msgstr "Premièrement, choisissez qui vous souhaitez inviter"
 
 #: templates/contacts_import/select_contacts.html:41
 #: templates/contacts_import/select_contacts.html:65
 msgid "Invite ?"
-msgstr ""
+msgstr "Inviter ?"
 
 #: templates/contacts_import/select_contacts.html:60
 msgid "You have no imported contacts"
-msgstr ""
+msgstr "Vous n'avez aucun contact importé"
 
 #: templates/contacts_import/select_contacts.html:72
 msgid "Second, write a message to your friends"
-msgstr ""
+msgstr "Deuxièmement, écrire un message à vos amis"
 
 #: templates/contacts_import/select_contacts.html:84
 msgid "Invite my friends !"
-msgstr ""
+msgstr "Inviter mes amis !"
 
 #: templates/notification/notice_settings.html:6
-#, fuzzy
 msgid "Notification settings"
-msgstr "Type de notification"
+msgstr "Paramètres de notification"
 
 #: templates/notification/notice_settings.html:15
 msgid "Primary email:"
@@ -324,6 +327,7 @@ msgid "Notification Type"
 msgstr "Type de notification"
 
 #: templates/notification/notice_settings.html:53
+#, fuzzy
 msgid ""
 "\n"
 "  You can tune here how we send you your notifications. Be smart, remember "
@@ -333,14 +337,12 @@ msgid ""
 msgstr ""
 
 #: templates/profiles/edit_profile.html:7
-#, fuzzy
 msgid "Profile settings"
-msgstr "Profil de"
+msgstr "Paramètres du profil"
 
 #: templates/profiles/edit_profile.html:18
-#, fuzzy
 msgid "Change it"
-msgstr "changement"
+msgstr "Modifiez"
 
 #: templates/profiles/edit_profile.html:20
 msgid "No avatar is defined."
@@ -351,9 +353,8 @@ msgid "Set Your Avatar"
 msgstr "Définir son avatar"
 
 #: templates/profiles/edit_profile.html:34
-#, fuzzy
 msgid "Your Profile"
-msgstr "Modifier votre profil"
+msgstr "Votre profil"
 
 #: templates/profiles/edit_profile.html:35
 msgid ""
@@ -362,6 +363,8 @@ msgid ""
 "others can better know who you are.\n"
 "    "
 msgstr ""
+"\n"
+"Veuillez vous décrire ici. Ces informations sont importantes pour que les autres puissent mieux vous connaître."
 
 #: templates/profiles/profile_detail.html:12
 msgid "Profile of"
