@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load django_static %}
+
+{% block title %}
+{% trans "I can't find a Venue" %}
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/venue_cantfind.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+
+  <h1>{% trans "Send SuperLaurent" %}</h1>
+
+
+  <div id="instructions">
+    {% blocktrans %}
+      Vous n'avez pas <strong>réussi à trouver votre bar idéal</strong> ou vous connaissez <strong>un lieu non référencé</strong> ? Donnez du taff à <strong>SuperLaurent</strong>, il est là rien que pour vous !
+    {% endblocktrans %}
+  </div>
+
+  <div class="grid_15 alpha omega">
+
+  <div class="grid_11 alpha omega">
+
+    <div id="letter">
+      <div id="letter-header">
+	<div class="grid_6 alpha">
+	  <img src="{% staticfile "/images/venue/spreadstamp.png" %}" width="150px"/>
+	</div>
+	
+	<div id="to" class="grid_3 omega">
+	  <strong>SuperLaurent</strong><br/>
+	  SpreadBand HQ<br/>
+	  Lille, France
+	</div>
+      </div>
+
+      <div class="clear"></div>
+      
+      <div id="letter-body">
+	{{ text|linebreaks }}
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="send" class="grid_4 omega">
+    <img src="{% staticfile "/images/venue/sendtosl.png" %}" width="100%"/>
+    <p>Poster !</p>
+  </div>
+
+  </div>
+  
+
+
+</div>
+
+{% endblock %}

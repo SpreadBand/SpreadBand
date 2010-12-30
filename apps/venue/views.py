@@ -4,11 +4,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
+from django.template.loader import render_to_string
 
 from band.models import Band
 
 from .models import Venue
-from .forms import VenueForm, VenueUpdateForm, VenuePictureForm
+from .forms import VenueForm, VenueUpdateForm, VenuePictureForm, NewCantFindForm
 
 @login_required
 def new(request):
@@ -229,9 +230,62 @@ def search(request):
     center_point = Point(circle_x, circle_y)
     venue_filter = search_venue_atomic(request.GET, center_point, distance, ambiance_tags)
 
+    # Cant Find form
+    cantfind_form = NewCantFindForm()
+
     return render_to_response(template_name='venue/search.html',
                               dictionary={'venue_filter': venue_filter,
                                           'geosearch_form': geosearch_form,
-                                          'ambiance_tags': ambiance_tags},
+                                          'ambiance_tags': ambiance_tags,
+                                          'cantfind_form': cantfind_form},
+                              context_instance=RequestContext(request)
+                              )
+
+
+from .forms import NewCantFindForm
+
+import math
+
+from urllib2 import urlopen
+import simplejson
+
+GOOGLE_REVERSE_GEOCODE_URI = 'http://maps.google.com/maps/api/geocode/json?latlng=%(latitude)s,%(longitude)s&sensor=false&key=%(key)s'
+
+def reverse_geocode(latitude, longitude):
+    if not (-85 < latitude < 85) or not (-180 < longitude < 180):
+        return ""
+
+    url = GOOGLE_REVERSE_GEOCODE_URI % { 'key': settings.GOOGLE_MAPS_API_KEY, 'latitude': latitude, 'longitude': longitude }
+    print url
+    fp = urlopen(url)
+    data = simplejson.load(fp)
+    fp.close()
+
+    status = data['status']
+    if status != 'OK':
+        return None
+    else:
+        return data['results'][0]['formatted_address']
+
+def search_cantfind(request):   
+    newcantfind_form = NewCantFindForm(request.GET)
+    if newcantfind_form.is_valid():
+        x = newcantfind_form.cleaned_data['x']
+        y = newcantfind_form.cleaned_data['y']
+        distance = newcantfind_form.cleaned_data['distance']
+        ambiance = newcantfind_form.cleaned_data['ambiance']
+
+        address = reverse_geocode(y, x)
+
+        text = render_to_string(template_name='venue/search_cantfind_text.html',
+                                dictionary={'address': address,
+                                            'distance': round(distance / 1000.0, 1),
+                                            'ambiance': ambiance,
+                                            'user': request.user})
+    else:
+        text = _("Type your text here !")
+        
+    return render_to_response(template_name='venue/search_cantfind.html',
+                              dictionary={'text': text},
                               context_instance=RequestContext(request)
                               )

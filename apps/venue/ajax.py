@@ -14,8 +14,6 @@ from .views import search_venue_atomic
 def search_venues(request, form_data):
     dajax = Dajax()
 
-    print form_data
-
     geosearch_form = VenueGeoSearchForm(form_data)
 
     if geosearch_form.is_valid():
@@ -37,6 +35,13 @@ def search_venues(request, form_data):
                                   context_instance=RequestContext(request)
                                   )
         
+
+    # Add markers to put on map
+    venue_markers = []
+    for venue in venue_filter:
+        venue_markers.append({'lat': venue.place.geom.y, 'lon': venue.place.geom.x, 'text': "<a href='#%s'>%s</a>" % (venue.slug, venue.name)})
+    dajax.add_data(venue_markers, 'addMarkers')
+
     dajax.assign('#search-results-wrapper', 'innerHTML', render)
 
     return dajax.json()

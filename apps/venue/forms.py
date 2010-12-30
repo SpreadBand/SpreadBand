@@ -52,4 +52,17 @@ class VenueGeoSearchForm(forms.Form):
                                 widget=forms.HiddenInput()
                                 )
                                   
-                           
+               
+from tagging.forms import TagField
+            
+class NewCantFindForm(forms.Form):
+    distance = forms.FloatField(required=True,
+                                widget=forms.HiddenInput())
+    x = forms.FloatField(required=True,
+                         widget=forms.HiddenInput())
+    y = forms.FloatField(required=True,
+                         widget=forms.HiddenInput())
+
+    ambiance = TagField(required=True,
+                        widget=forms.HiddenInput())
+

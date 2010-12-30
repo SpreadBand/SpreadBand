@@ -46,17 +46,78 @@
 
   <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
   <script defer="defer" type="text/javascript">
+    function createMarker(ll, popupClass, popupContentHTML, closeBox, overflow) {
+        var feature = new OpenLayers.Feature(markers, ll); 
+        feature.closeBox = closeBox;
+        feature.popupClass = popupClass;
+        feature.data.popupContentHTML = popupContentHTML;
+        feature.data.overflow = (overflow) ? "auto" : "hidden";
+        
+        var marker = feature.createMarker();
+	
+        var markerClick = function (evt) {
+            if (this.popup == null) {
+                this.popup = this.createPopup(this.closeBox);
+                map.addPopup(this.popup);
+                this.popup.show();
+            } else {
+                this.popup.toggle();
+            }
+            currentPopup = this.popup;
+            OpenLayers.Event.stop(evt);
+        };
+        marker.events.register("mousedown", feature, markerClick);
+        
+	markers.addMarker(marker);
+    }
+
+    function addMarkers(data) {
+	if ( currentPopup ) {
+	    currentPopup.hide()
+	}
+
+	markers.clearMarkers();
+
+	AutoSizeFramedCloudMaxSize = OpenLayers.Class(OpenLayers.Popup.Anchored, {
+	    contentDisplayClass: 'venuemarker_popup',
+            'autoSize': true, 
+        });
+
+	// Add new ones
+	for (var i=0; i<data.length; i++) {
+	    var where = new OpenLayers.LonLat(data[i].lon, data[i].lat)
+		.transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+			   new OpenLayers.Projection("EPSG:900913")
+			  );
+
+
+
+            popupClass = AutoSizeFramedCloudMaxSize;
+            popupContentHTML = data[i].text; 
+            createMarker(where, popupClass, popupContentHTML, false, true);
+	};
+
+
+
+    }
+
+
     $(document).ready(function() {
+	currentPopup = null;
+
+	// Map
 	map = new OpenLayers.Map('map', {units: 'm', controls: [], numZoomLevels: 5});
 
-	map.addControl(new OpenLayers.Control.MouseToolbar());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
+	map.addControl(new OpenLayers.Control.Navigation());
 	
-	// Map
-	layer = new OpenLayers.Layer.OSM({units: 'm'});
+	// Layers
+	osmlayer = new OpenLayers.Layer.OSM({units: 'm'});
+	map.addLayer(osmlayer);
 
-
-	map.addLayer(layer);
+	markers = new OpenLayers.Layer.Markers("markers");
+        map.addLayer(markers);
+	markers.setZIndex(1000);
 
 	// Center
 	var myplace = new OpenLayers.LonLat($("#id_circle_x").val(), $("#id_circle_y").val()) // Center of the map
@@ -194,6 +255,10 @@
 	map.addControl(dragresizer);
 
 	dragresizer.activate();
+
+	// Reset system
+	search_venues();
+
     });
   </script>
 {% endblock %}
@@ -205,8 +270,15 @@
   
 
   <style type="text/css">
-  .olControlModifyFeature {
-      background-color: red;
+  .venuemarker_popup {
+      background-color: black;
+      padding: 5px;
+      color: #ED511C;
+      height: 10px;
+  }
+ 
+  .olPopup {
+      bottom: -20px;
   }
   </style>
 {% endblock %}
@@ -285,14 +357,12 @@
 		    res = Dajax.process(data);
                 }
                 catch(exception){
-		    alert('Error');
+		    alert('Error' + exception);
                 }
-		
+
 		$('#search-results').fadeTo('fast', 1);
 		$('#search-results-wrapper').activity(false);
 		$('#search').unblock();
-
-		return res;
 
 	    }
 
@@ -325,8 +395,24 @@
       <img src="/site_media/images/superman.gif" width="100px">
 	<p>Envoyez <strong>SuperLaurent</strong>, l'homme de la situation pour <strong>démarcher les bars qui ne sont pas encore sur SpreadBand</strong> !</p>
 
-	<textarea>Si vous voulez lui dire quelque chose, c'est ici :-)</textarea>
-	<input type="submit" value="Allez, dépêche toi !" />
+	<script type="text/javascript">
+	  function to_cantfind() {
+	      $("#cantfind input#id_distance").val($("#search-form input#id_distance").val());
+	      $("#cantfind input#id_x").val($("#search-form input#id_circle_x").val());
+	      $("#cantfind input#id_y").val($("#search-form input#id_circle_y").val());
+	      alert($("input[name='ambiance']").attr('value'));
+	      
+	      res = new Array();
+	      $("input[name='ambiance']").each(function(index, el) { res.push($(el).attr('value')); });
+	      $("#cantfind input#id_ambiance").val(res.join(', '));
+					      
+	  }
+	</script>
+
+	<form id="cantfind" method="GET" action="{% url venue:search-cantfind %}">
+	  {{ cantfind_form.as_p }}
+	  <input type="submit" value="C'est parti ! &raquo;" onclick="return to_cantfind(); return true"/>
+	</form>
     </div>
 
   </div>

@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load django_static %}
+
+<div id="search-results" class="grid_10 alpha">
+  <h2>{% trans "Search results" %} ({{ venue_filter.queryset|length }})</h2>
+  
+  <ul>
+    {% staticfile '/images/venue/no_picture.png' as default_pic %}
+    {% for venue in venue_filter %}
+    <li id="{{ venue.slug }}" class="venue">
+      <div class="{% cycle 'odd' 'even' %}">
+	<div>
+	  <img src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}"/>
+	</div>
+	<div class="info">
+	  <a class="name" href="{{ venue.get_absolute_url }}">{{ venue }}</a>
+	  <br/>
+	  <div class="adr">
+	    <span class="locality">{{ venue.city }}</span>
+	    <span class="country-name">{{ venue.country.name }}</span>
+	    {% if venue.country %}<img src="{{ venue.country.flag }}" title="{{ venue.country.name }}" alt="{{ venue.country }}"/>{% endif %}
+	  </div>
+	  <br/>
+	  <div class="tags">
+	    {{ venue.ambiance }}
+	  </div>
+	</div>
+	<div class="book">
+	  {% for band in request.user.bands.all %}
+	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Book {{ band_name }} there{% endblocktrans %}</span></a>
+	  {% endfor %}
+	</div>
+      </div>
+    </li>
+    {% empty %}
+    Aucun résultat. Essayer d'élargir la zone de recherche à l'aide du cercle ou ajoutez des tags d'ambiance.
+    {% endfor %}
+  </ul>
+</div>
