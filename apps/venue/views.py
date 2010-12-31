@@ -292,7 +292,7 @@ def search_cantfind(request):
                                                 'ambiance': ambiance,
                                                 'user': request.user})
             
-            send_mail("Une nouvelle mission pour SuperLaurent",
+            send_mail(_("Une nouvelle mission pour SuperLaurent"),
                       removetags(text, "input strong textarea label p"),
                       'noreply@spreadband.com',
                       [settings.VENUE_CANTFIND_EMAIL],
