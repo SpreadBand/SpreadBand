@@ -395,3 +395,6 @@ AUTO_GENERATE_AVATAR_SIZES = (80, 48, 36, 30, 18)
 
 # CONTACTS IMPORT
 CONTACTS_IMPORT_CALLBACK = 'account.views.contacts'
+
+# SUPERLAURENT's email
+VENUE_CANTFIND_EMAIL = 'laurent@spreadband.com'

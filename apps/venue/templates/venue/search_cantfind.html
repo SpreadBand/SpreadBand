@@ -26,40 +26,40 @@
 
   <div class="grid_15 alpha omega">
 
-  <div class="grid_11 alpha omega">
-
-    <div id="letter">
-      <div id="letter-header">
-	<div class="grid_6 alpha">
-	  <img src="{% staticfile "/images/venue/spreadstamp.png" %}" width="150px"/>
+    <form method="POST" action="">
+      <div class="grid_11 alpha omega">
+	
+	<div id="letter">
+	  <div id="letter-header">
+	    <div class="grid_6 alpha">
+	      <img src="{% staticfile "/images/venue/spreadstamp.png" %}" width="150px"/>
+	    </div>
+	    
+	    <div id="to" class="grid_3 omega">
+	      <strong>SuperLaurent</strong><br/>
+	      SpreadBand HQ<br/>
+	      Lille, France
+	    </div>
+	  </div>
+	  
+	  <div class="clear"></div>
+	  
+	  <div id="letter-body">
+	    {{ text|linebreaks }}
+	  </div>
+	  
 	</div>
 	
-	<div id="to" class="grid_3 omega">
-	  <strong>SuperLaurent</strong><br/>
-	  SpreadBand HQ<br/>
-	  Lille, France
-	</div>
       </div>
-
-      <div class="clear"></div>
       
-      <div id="letter-body">
-	{{ text|linebreaks }}
+      <div id="send" class="grid_4 omega">
+	<img src="{% staticfile "/images/venue/sendtosl.png" %}" width="100%"/>
+	<input type="submit" name="submit" />
       </div>
 
-    </div>
-
+    </form>
+      
   </div>
-
-  <div id="send" class="grid_4 omega">
-    <img src="{% staticfile "/images/venue/sendtosl.png" %}" width="100%"/>
-    <p>Poster !</p>
-  </div>
-
-  </div>
-  
-
-
 </div>
 
 {% endblock %}

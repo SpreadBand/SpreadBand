@@ -400,11 +400,15 @@
 	      $("#cantfind input#id_distance").val($("#search-form input#id_distance").val());
 	      $("#cantfind input#id_x").val($("#search-form input#id_circle_x").val());
 	      $("#cantfind input#id_y").val($("#search-form input#id_circle_y").val());
-	      alert($("input[name='ambiance']").attr('value'));
 	      
 	      res = new Array();
 	      $("input[name='ambiance']").each(function(index, el) { res.push($(el).attr('value')); });
-	      $("#cantfind input#id_ambiance").val(res.join(', '));
+	      if ( res.length == 1 ) {
+		  res.push("any");
+	      }
+
+	      $("#cantfind input#id_ambiance").val(res);
+
 					      
 	  }
 	</script>

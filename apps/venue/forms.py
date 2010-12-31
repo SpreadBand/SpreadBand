@@ -66,3 +66,6 @@ class NewCantFindForm(forms.Form):
     ambiance = TagField(required=True,
                         widget=forms.HiddenInput())
 
+class SendNewCantFindForm(NewCantFindForm):
+    message = forms.CharField(required=False,
+                              widget=forms.Textarea())

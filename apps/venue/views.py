@@ -2,9 +2,13 @@ from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
+
+from django.conf import settings
 
 from band.models import Band
 
@@ -242,12 +246,14 @@ def search(request):
                               )
 
 
-from .forms import NewCantFindForm
+from .forms import NewCantFindForm, SendNewCantFindForm
 
 import math
 
 from urllib2 import urlopen
 import simplejson
+from django.template.defaultfilters import removetags
+
 
 GOOGLE_REVERSE_GEOCODE_URI = 'http://maps.google.com/maps/api/geocode/json?latlng=%(latitude)s,%(longitude)s&sensor=false&key=%(key)s'
 
@@ -256,7 +262,6 @@ def reverse_geocode(latitude, longitude):
         return ""
 
     url = GOOGLE_REVERSE_GEOCODE_URI % { 'key': settings.GOOGLE_MAPS_API_KEY, 'latitude': latitude, 'longitude': longitude }
-    print url
     fp = urlopen(url)
     data = simplejson.load(fp)
     fp.close()
@@ -269,6 +274,36 @@ def reverse_geocode(latitude, longitude):
 
 def search_cantfind(request):   
     newcantfind_form = NewCantFindForm(request.GET)
+
+    sendnewcantfind_form = SendNewCantFindForm(request.POST or request.GET)
+    if sendnewcantfind_form.is_valid():
+        x = sendnewcantfind_form.cleaned_data['x']
+        y = sendnewcantfind_form.cleaned_data['y']
+        distance = sendnewcantfind_form.cleaned_data['distance']
+        ambiance = sendnewcantfind_form.cleaned_data['ambiance']
+
+        if request.POST.get('submit', None):
+            address = reverse_geocode(y, x)
+
+            text = render_to_string(template_name='venue/search_cantfind_text.html',
+                                    dictionary={'address': address,
+                                                'distance': round(distance / 1000.0, 1),
+                                                'sendnewcantfind_form': sendnewcantfind_form,
+                                                'ambiance': ambiance,
+                                                'user': request.user})
+            
+            send_mail("Une nouvelle mission pour SuperLaurent",
+                      removetags(text, "input strong textarea label p"),
+                      'noreply@spreadband.com',
+                      [settings.VENUE_CANTFIND_EMAIL],
+                      fail_silently=False)
+            
+            messages.success(request, _("A new mission was successfully sent to SuperLaurent !"))
+            
+            return redirect('venue:search')
+        
+
+
     if newcantfind_form.is_valid():
         x = newcantfind_form.cleaned_data['x']
         y = newcantfind_form.cleaned_data['y']
@@ -279,6 +314,7 @@ def search_cantfind(request):
 
         text = render_to_string(template_name='venue/search_cantfind_text.html',
                                 dictionary={'address': address,
+                                            'sendnewcantfind_form': sendnewcantfind_form,
                                             'distance': round(distance / 1000.0, 1),
                                             'ambiance': ambiance,
                                             'user': request.user})
@@ -286,6 +322,7 @@ def search_cantfind(request):
         text = _("Type your text here !")
         
     return render_to_response(template_name='venue/search_cantfind.html',
-                              dictionary={'text': text},
+                              dictionary={'text': text,
+                                          'sendnewcantfind_form': sendnewcantfind_form},
                               context_instance=RequestContext(request)
                               )
