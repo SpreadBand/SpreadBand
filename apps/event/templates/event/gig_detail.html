@@ -20,7 +20,7 @@
 		<div class="grid_3 alpha">
 			
 			<div class="gig_photo">
-				<img class="gig_photo_status" src="http://192.168.0.6:8000/site_media/images/gig/gig_status_next.png" />
+				<img class="gig_photo_status" src="{% staticfile '/images/gig/gig_status_next.png' %}" />
 				<img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e/?s=80" width="100%" height="250px" />
 			</div>
 			
@@ -37,15 +37,14 @@
 			<div class="gig_venue">
 				
 				<div class="header">
-				<!--<img src="{% staticfile '/images/gigbargain/whereandwhen_ico.png' %}" alt="Venue"/> -->
-					<h2>{% trans "Venue" %}</h2>
+				  <h2>{% trans "Venue" %}</h2>
 				</div>
 				
 				<div class="content">
-					<div class="gig_venue_title">La Chimere</div><div class="gig_venue_location">(Lille, FR)</div> 
+					<div class="gig_venue_title">{{ gig.venue.name }}</div><div class="gig_venue_location">(Lille, FR)</div> 
 					<div class="gig_venue_style">Goth electric death metal</div>
 
-					<div class="gig_venue_adress">17 Rue Guillaume Apollinaire<br />59000 Lille<br />France</div>
+					<div class="gig_venue_adress">{{ gig.venue.address }}<br />{{ gig.venue.city }}<br />France</div>
 
 					<div class="gig_venue_bold">Capacity : </div><div class="gig_venue_txt">100 places</div>
 					<div class="gig_venue_bold">Website : </div><div class="gig_venue_txt"><a href="#">www.lachimere.fr</a></div>
@@ -115,10 +114,10 @@
 				<div class="sectionbox gig_sharing">
 					<div class="gig_sharing_title">Share on :</div>
 					
-					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/facebook.1290786422.png" /></a>
-					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/twitter.1290786422.png" /></a>
-					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/identica.1290786422.png" /></a>
-					<a href="#"><img src="http://192.168.0.6:8000/site_media/images/icons/32x32/lastfm.1290786422.png" /></a>
+					<a href="#"><img src="{% staticfile '/images/icons/32x32/facebook.png' %}" /></a>
+					<a href="#"><img src="{% staticfile '/images/icons/32x32/twitter.png' %}" /></a>
+					<a href="#"><img src="{% staticfile '/images/icons/32x32/identica.png' %}" /></a>
+					<a href="#"><img src="{% staticfile '/images/icons/32x32/lastfm.png' %}" /></a>
 				</div>
 			</div>
 			  

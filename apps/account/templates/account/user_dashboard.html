@@ -47,7 +47,9 @@
 
   <div id="usercard" class="grid_8 omega">
     <div id="avatar">
-      {% avatar user 80 %}
+      <a href="{% url avatar_change %}">
+	{% avatar user 80 %}
+      </a>
     </div>
     <div id="user-infos">
       {% with user.get_profile as profile %}
@@ -109,7 +111,7 @@
 		    <span class="band-name">{{ band.name|capfirst }}</span>
 		  </a>
 		  <span class="band-location">{{ band.city }} {% if band.country %}<img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/>{% endif %}</span>
-		  <span class="band-style">{{ band.genres }}</span>
+		  <span class="band-style">{{ band.genres|truncatewords:3 }}</span>
 		</div>
 
 		<!-- Latest activity -->
