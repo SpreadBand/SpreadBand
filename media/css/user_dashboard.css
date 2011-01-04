@@ -17,11 +17,15 @@
     background-color: #fafafa;
 
     border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    
 
     padding-top: 10px;
     padding-bottom: 10px;
 
-    margin-bottom: 15px;
+    -moz-box-shadow: 0px 5px 10px #eee;
+
+//    margin-bottom: 15px;
 }
 
 #avatar {
@@ -78,6 +82,18 @@
     margin-left: 200px;
     display: block;
 }
+#user-connections .header {
+    margin-bottom: 5px;
+}
+
+#user-connections img {
+    vertical-align: middle;
+}
+
+#user-connections h3 {
+    display: inline;
+    vertical-align: middle;
+}
 
 #user-connections ul {
     list-style: none;
@@ -89,46 +105,139 @@
     display: inline;
 }
 
-#user-connections img {
+#user-connections img.link {
     border: 1px solid black;
 }
 
-
-/*-- your bands --*/
-#your-bands {
-    margin-bottom: 20px;
+#user-connections span {
+    position: absolute;
+    top: 40px;
+    padding: 20px;
+    color: #666;
+    text-align: center;
+    font-variant: italic;
 }
 
-#your-bands ul {
+#top-bar {
+    background-color: none;
+    border-top: 1px dashed #eee;
+    border-left: 1px dashed #eee;
+    height: 20px;
+}
+
+#right-sidebar-content {
+    border-left: 1px solid #eee;
+    padding: 8px;
+}
+
+/*-- band listing --*/
+#band-list {
+    margin-left: 10px;
+    width: 100%;
+}
+
+#band-side {
+    float: left;
+    padding-right: 10px;
+
+    text-align: center;
+}
+
+#band-side h2 {
+    margin-top: 5px;
+}
+
+ul#band-actions {
+    border-top: 1px dashed #eee;
+    padding-top: 10px;
+    width: 100%;
     list-style: none;
 }
 
-#your-bands ul li {
-    clear: both;
+ul#band-actions li {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+#band-side img {
+    margin-bottom: 5px;
+}
+
+#band-main {
+    border-left: 1px dashed #ddd;
+    padding-left: 10px;
+    float: left;
+    margin-bottom: 20px;
+    width: 525px;
+}
+
+#band-main ul {
+    list-style: none;
+}
+
+#band-main ul li {
     margin-left: 0px;
 }
 
-#your-bands ul li img.photo {
+#band-main ul#bands > li {
+    border-left: 5px solid #eee;
     float: left;
-    margin-right: 10px;
 
-    margin-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+    padding: 5px;
+    margin-bottom: 5px;
+    clear: both;
+    width: 100%;
 }
 
-#your-bands span {
-    display: block;
+#band-main ul#bands > li:first-child {
+    padding-top: 0px;
 }
 
-#your-bands span.band-name {
-    font-size: 1.2em;
-    font-weight: bold;
+#band-main ul#bands > li:last-child {
+    border-bottom: none;
 }
 
-#your-bands span.band-style {
-    font-style: italic;
+#band-main {
+
 }
 
+div.band-picture {
+    float: left;
+    background-color: #fafafa;
+    padding-top: 10px;
+    padding-bottom: 10px;
 
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.band-picture img {
+    border: 1px solid black;
+}
+
+.band-info {
+    background-color: #fafafa;
+//    border-right: 5px solid #eee;
+    padding: 5px;
+    padding-top: 10px;
+    float: left;
+    clear: right;
+}
+
+.band-name {
+    font-size: 1.4em;
+}
+
+.band-activity {
+    float: left;
+    min-width: 425px;
+
+    border-left: 1px solid #eee;
+    padding-left: 3px;
+    padding-top: 3px;
+}
 
 /*-- register box --*/
 #register {
@@ -152,25 +261,73 @@
 }
 
 
-#activity h3,img {
+.band-activity h3,img {
     display: inline;
     vertical-align: middle;
 }
 
-#activity ul {
+.band-activity ul {
     list-style: none;
-    margin-top: 5px;
 }
 
-#activity ul li {
+.band-activity ul li {
     margin-left: 0px;
     width: 100%;
 }
 
-#activity ul li.even {
+.band-activity ul li.even {
     background-color: #f7f7f7;
 }
 
-#activity ul li .date {
+.band-activity ul li .date {
     color: #666;
 }
+
+/*-- notices --*/
+#notifications {
+    font-size: 0.9em;
+    line-height: 1.2em;
+}
+
+#notifications img.icon {
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+
+#notifications h3 {
+    display: inline;
+    vertical-align: middle;
+}
+
+#notifications h4 {
+    padding-left: 10px;
+    margin-top: 4px;
+    margin-bottom: 0px;
+}
+
+#mark_as_seen {
+    font-size: 0.9em;
+    display: block;
+}
+
+.notice_since {
+    font-style: italic;
+    text-align: right;
+    color: #aaa;
+    margin-top: -3px;
+    margin-bottom: 3px;
+}
+
+.notice_date {
+    text-align: right;
+}
+
+.seen_notice {
+    color: #aaa;
+}
+
+.unseen_notice {
+    background-color: #ffffcc;
+    color: red;
+}
+
