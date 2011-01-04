@@ -3,13 +3,23 @@
 {% load django_static %}
 {% load i18n %}
 {% load avatar_tags %}
+{% load humanize %}
 
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
 {% endblock %}
 
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('a.tip').tipsy({gravity: 'n'});
+    });
+  </script>
+{% endblock %}
+
 {% block title %}
-{% trans "Profile of" %} {{ profile.user.get_full_name|default:profile.user.username }}
+{% trans "Public profile of" %} {{ profile.user.get_full_name|default:profile.user.username }}
 {% endblock %}
 
 
@@ -17,71 +27,102 @@
 
 <div id="text">
 
-  <div class="alpha grid_2">
-    {% avatar profile.user 80 %}
+  <div id="greating" class="alpha grid_7">
+      <h1>{% blocktrans with profile.user.get_full_name|default:profile.user.username as username %}Public profile of {{ username }}{% endblocktrans %}</h1> 
   </div>
-  <div class="grid_13 omega">
-    
-    <div class="grid_8 alpha" id="greating">
-      <h1>{% blocktrans with profile.user.first_name|default:profile.user.username as username %}Profile of {{ username }}{% endblocktrans %}</h1>
+
+  <div id="usercard" class="grid_8 omega">
+    <div id="avatar">
+      {% avatar profile.user 80 %}
     </div>
-
-    <div class="clear"></div>
-
-    <div id="user-infos" class="grid_8 alpha">
+    <div id="user-infos">
 	<label for="name">{% trans "Name" %}</label><span id="name">{{ profile.user.get_full_name|default:"John Doe" }}</span>
 	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} {% if profile.country %}<img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/>{% endif %}</span>
 	<label for="joined">{% trans "Joined" %}</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
+	<label for="last-login">{% trans "Last login" %}</label><span id="last-login">{{ user.last_login|naturalday }}</span>
     </div>
-
-    <div class="grid_5 omega">
-      <div id="user-connections">
-	<h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
-	<ul>
-	  {% for user in user_connections %}
-	    <li><a href="{{ user.get_profile.get_absolute_url }}"><img src="{% avatar_url user 30 %}" width="30px" height="30px" alt="{{ user.get_full_name|default:user.username }}" title="{{ user.get_full_name|default:user.username }}"/></a></li>
-	  {% endfor %}
-	</ul>
-      </div>
-    </div>
-
   </div>
 
+  <div id="top-bar" class="alpha grid_15 omega">
+    &nbsp;
+  </div>
 
-  <div class="clear"></div>
+  <div class="alpha grid_11">
 
-  <div class="alpha grid_5">
+    <div id="band-list">
+      <div id="band-side">
+	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	<h2>{% trans "Her/His Bands" %}</h2>
+      </div>
 
-    {% if user.band_memberships.all %}
-      <div id="your-bands" class="sectionbox">
-	<div class="header">
-	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
-	  <h2>{% trans "Bands" %}</h2>
-	</div>
-
-	<div class="separator"></div>
-
-	<div class="content">
-	  <ul>
+      <div id="band-main">
+        {% if profile.user.band_memberships.all %}
+	  <ul id="bands">
 	    {% for band in profile.user.bands.all %}
 	      <li>
-		{% staticfile '/images/band/no_picture.png' as default_pic %}
-		<a href="{% url band:detail band.slug %}">
-		  <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
-		  <span class="band-name">{{ band.name|capfirst }}</span>
-		</a>
-		<span class="band-location">{{ band.city }} {% if band.country %}<img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/>{% endif %}</span>
-		<span class="band-style">{{ band.genres }}</span>
+		<div class="band-picture">
+		  {% staticfile '/images/band/no_picture.png' as default_pic %}
+		  <a href="{% url band:detail band.slug %}">
+		    <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
+		  </a>
+		</div>
+		
+		<div class="band-info">
+		  <a href="{% url band:detail band.slug %}">
+		    <span class="band-name">{{ band.name|capfirst }}</span>
+		  </a>
+		  <span class="band-location">{{ band.city }} {% if band.country %}<img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/>{% endif %}</span>
+		  <span class="band-style">{{ band.genres|truncatewords:3 }}</span>
+		</div>
 	      </li>
 	    {% endfor %}
 	  </ul>
 
 	  <div class="clear"></div>
+	{% endif %}
+      </div>
+    </div>
+    
+
+    {% if request.user.venue_memberships.all %}
+      <div id="your-venues" class="sectionbox">
+	<div class="header">
+	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
+	  <h2>{% trans "Your Venues" %}</h2>
 	</div>
+	
+	<div class="separator"></div>
+	
+	<div class="content">
+	  <strong>WIP</strong>
+	</div>
+	
       </div>
     {% endif %}
   </div>
 
+
+  <div id="right-sidebar" class="grid_4 omega">
+    <div id="right-sidebar-content">
+
+      <div id="user-connections">
+	<div class="header">
+	  <img class="icon" src="{% staticfile "/images/account/connections_ico.png" %}" width="20px"/>	  
+	  <h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
+	</div>
+	{% if user_connections %}
+	<ul>
+	  {% for user in user_connections %}
+	    <li><a class="tip" title="{{ user.get_full_name|default:user.username }}" href="{{ user.get_profile.get_absolute_url }}"><img class="link" src="{% avatar_url user 30 %}" width="30px" height="30px" alt="{{ user.get_full_name|default:user.username }}"/></a></li>
+	  {% endfor %}
+	</ul>
+	{% else %}
+	  <img src="{% staticfile "/images/account/no_connection_yet.png" %}" alt="{% trans "No connections yet" %}"/>
+	  <span>{% trans "You'll find here connections with other musicians" %}<span>
+	{% endif %}
+      </div>
+    </div>      
+  </div>
 </div>
 
 
