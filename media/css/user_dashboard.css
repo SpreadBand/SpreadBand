@@ -97,6 +97,8 @@
 
 #user-connections ul {
     list-style: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 #user-connections ul li {
@@ -200,6 +202,11 @@ ul#band-actions li {
 
 #band-main {
 
+}
+
+.band-style {
+    color: #666;
+    font-style: italic;
 }
 
 div.band-picture {
