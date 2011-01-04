@@ -1,0 +1,152 @@
+/* Teaser */
+
+#teaser-header .text {
+    padding-left: 20px;
+    padding-top: 20px;
+    float: left;
+    margin-right: 210px;
+}
+
+.joinus {
+    padding-top: 32px;
+}
+
+.joinus a {
+    font-weight: 600;
+    font-size: 1.7em;
+
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    color: white;
+    border: 1px solid #e55c00;
+    background-color: #ff6600;
+
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+
+    background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.34, rgb(255,130,13)),
+    color-stop(0.74, rgb(230,102,16))
+    );
+    background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(255,130,13) 34%,
+    rgb(230,102,16) 74%
+    );
+
+    box-shadow:1px 1px 1px #333333;
+    -webkit-box-shadow:1px 1px 1px #333333;
+    -moz-box-shadow:1px 1px 1px #333333;
+
+}
+
+#teaser-header .text h1 {
+    font-size: 2.2em;
+    text-shadow: 1px 1px 1px #999; 
+    margin-bottom: 13px;
+}
+
+#teaser-header .text h2 {
+    font-family: 'lucida grande', tahoma, verdana;
+    font-weight: 400;
+    font-size: 16px;
+    color: #808080;
+}
+
+#teaser-header .video img {
+    border: 5px solid #e7e7e7;
+}
+
+div#video-wrapper {
+    float: left;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+.video {
+    float: left;
+}
+
+.upbot-video {
+    border-left: 1px dashed #e7e7e7;
+    border-right: 1px dashed #e7e7e7;
+    boder-bottom: 1px dashed #e7e7e7;
+    margin-left: 70px;
+    margin-right: 70px;
+    width: 808px;
+    clear: both;
+    height: 30px;
+}
+
+.pad-video {
+    float: left;
+    width: 70px;
+    height: 458px;
+    border-top: 1px dashed #e7e7e7;
+    border-bottom: 1px dashed #e7e7e7;
+}
+
+/* features */
+#features {
+    margin-top: 50px;
+    margin-left: 8px;
+}
+
+
+#features ul {
+    list-style: none;
+}
+
+#features ul li {
+    margin-left: 0px;
+}
+
+.feature {
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 50px;
+}
+
+.feature .text p {
+    font-size: 13px;
+    color: #333;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.feature .text h3 {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    margin-top: 10px;
+    padding-bottom: 5px;
+    text-align: left;
+    font-family: 'lucida grande', tahoma, verdana;
+    font-size: 1.45em;
+}
+
+
+.feature .picture img {
+    border: 1px solid #e8e8e8;
+    border-bottom: none;
+    
+}
+
+.screenshot {
+    display: block;
+}
+
+#bottom-teaser {
+    margin-left: 130px;
+    text-shadow: 1px 1px 1px #999; 
+    margin-right: 20px;
+    padding-left: 10px;
+    font-size: 1.8em;
+    float: left;
+}

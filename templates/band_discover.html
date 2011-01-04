@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% load django_static %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/discover.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/colorbox/colorbox.css" />
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.colorbox.js" %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('.screenshot').colorbox();
+    });
+  </script>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="text">
+
+  <div id="teaser-header">
+    <div class="text">
+      <h1>Spreadband pour les artistes</h1>
+      <h2>Trouvez des bars, Organisez des concerts, Créez votre réseau.</h2>
+    </div>
+
+    <div class="joinus">
+      <a href="">Rejoignez nous !</a>
+    </div>
+
+    <div id="video-wrapper">
+      <div class="upbot-video"></div>
+      <div class="pad-video"></div>
+      <div class="video">
+	<img src="{% staticfile '/images/discover/video.png' %}" width="800px" height="450px"/>
+      </div>
+      <div class="pad-video"></div>
+      <div class="upbot-video"></div>
+    </div>
+
+  </div>
+
+
+  <div id="features">
+
+    <ul>
+
+      <!-- Lancez vous -->
+      <li class="feature alpha grid_15 omega">
+	<div class="text alpha grid_8">
+	  <h3>Créez votre Presskit et lancez-vous</h3>
+	  
+	  <p>Composez votre kit de promotion à l'aide de vos photos, musiques, biographie, genres musicaux, fiche technique et influences. Présentez les membres de votre groupe et définissez votre style musical à l'aide de tags appropriés. Donnez ainsi l'envie aux bars-concerts de vous programmer.</p>
+	</div>
+	
+	<div class="picture grid_7 omega">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/presskit.jpg' %}" title="Le Presskit">
+	    <img src="{% staticfile '/images/discover/band/presskit_preview.jpg' %}" width="374px" height="231px"/>
+	  </a>
+	</div>
+      </li>
+
+      <!-- Jouez partout -->
+      <li class="feature alpha grid_15 omega">
+	<div class="picture grid_6 alpha">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/search.jpg' %}" title="La recherche intelligente">
+	    <img src="{% staticfile '/images/discover/band/search_preview.jpg' %}" width="350px" height="212px"/>
+	  </a>
+	</div>
+
+	<div class="text grid_9 omega">
+	  <h3>Jouez partout grâce à la recherche intelligente</h3>
+	  
+	  <p>Vous souhaitez sortir de votre zone géographique mais vous n'avez pas suffisamment de réseau, vous ne savez pas où aller et avec qui jouer. Recherchez facilement des lieux de concerts, trouvez des groupes avec qui jouer, contactez-les et organisez vos concerts grâce à notre outil de recherche intelligent et innovant.  Une localisation et quelques tags suffiront pour répondre à vos attentes les plus pertinentes et jouer hors de vos bases. Avec SpreadBand, les frontières s'estompent.</p>
+	</div>
+      </li>
+
+      <!-- Gérez vos dates -->
+      <li class="feature alpha grid_15 omega">
+	<div class="text alpha grid_8">
+	  <h3>Gérez vos dates</h3>
+	  
+	  <p>Consultez et organisez votre calendrier d'activité, diffusez vos dates de concerts sur votre compte et au sein de vos principaux réseau sociaux pour tenir informer vos fans et faire votre promotion.</p>
+	</div>
+	
+	<div class="picture grid_7 omega">
+	  <a class="screenshot" href="{% staticfile '/images/banniere_spreadearth.jpg' %}" title="Gérez vos dates">
+	    <img src="{% staticfile '/images/banniere_spreadearth.jpg' %}" width="100%" height="200px"/>
+	  </a>
+	</div>
+      </li>
+
+      <!-- Créez votre réseau -->
+      <li class="feature alpha grid_15 omega">
+	<div class="picture grid_7 alpha">
+	  <a class="screenshot" href="{% staticfile '/images/banniere_spreadearth.jpg' %}" title="Créez votre réseau">
+	    <img src="{% staticfile '/images/banniere_spreadearth.jpg' %}" width="100%" height="200px"/>
+	  </a>
+	</div>
+
+	<div class="text grid_8 omega">
+	  <h3>Créez votre réseau</h3>
+	  
+	  <p>Créez votre réseau, étendez-le et entretenez-le en gardant contact avec les groupes avec qui vous jouez et les bars dans lesquels vous passez.</p>
+	</div>
+      </li>
+
+
+    </ul>
+
+  </div>
+
+  <div>
+    <div id="bottom-teaser">
+      S'inscrire sur SpreadBand est gratuit et prend 1 minute...
+    </div>
+    <div class="joinus">
+      <a href="">Rejoignez nous !</a>
+    </div>
+  </div>
+
+
+
+</div>
+
+{% endblock %}
