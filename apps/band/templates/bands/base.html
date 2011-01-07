@@ -35,10 +35,12 @@
       {% url gigbargain:gigbargain-band-dashboard band.slug as gigbargain_url %}
       {% url event:band-calendar band.slug as calendar_url %}
       {% url presskit:mypresskit band.slug as presskit_url %}
+      {% url band:membership-manage band.slug as members_url %}
       <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">{% trans "Home" %}</a></li>
-      <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">{% trans "Gig Bargains" %}</a></li>
-      <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">{% trans "Calendar" %}</a></li>
+      {# <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">{% trans "Gig Bargains" %}</a></li> #}
+      {# <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">{% trans "Calendar" %}</a></li> #}
       <li><a {% if request.path == presskit_url %}class="selected"{% endif %} href="{{ presskit_url }}">{% trans "PressKit" %}</a></li>
+      <li><a {% if request.path == members_url %}class="selected"{% endif %} href="{{ members_url }}">{% trans "Members" %}</a></li>
     </ul>
   </div>
 </div>
