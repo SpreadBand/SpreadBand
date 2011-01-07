@@ -14,10 +14,13 @@ from django.views.generic.list_detail import object_list, object_detail
 
 from geopy import geocoders
 
+from actstream.models import Action
+from badges.models import Badge
 from guardian.shortcuts import assign
-
 from visitors.utils import get_latest_visits_for
 
+from event.views.calendar import GigMonthlyHTMLCalendar
+from gigbargain.models import GigBargain
 from world.models import Place
 
 from ..models import Band, BandMember
@@ -103,7 +106,7 @@ def edit(request, band_slug):
             band.place = place
             band.save()
 
-            messages.success(request, "%s was successfully updated" % band.name)
+            messages.success(request, _("%s was successfully updated") % band.name)
 
             return redirect('presskit:mypresskit', band.slug)
 
@@ -168,7 +171,6 @@ def dashboard(request, band_slug):
     today_events = band.gigs.future_events().filter(event_date=date.today())
 
     # make a calendar
-    from event.views.calendar import GigMonthlyHTMLCalendar
     monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
                                               aQueryset=band.gigs.all(),
                                               when=date.today())
@@ -178,12 +180,21 @@ def dashboard(request, band_slug):
     gigbargain_drafts = band.gigbargains.draftsFor(band)
 
     # Get 5 latest gigbargain activities
-    from actstream.models import Action
-    from gigbargain.models import GigBargain
     latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:3]
 
     # Get 10 latest visits
     latest_visits = get_latest_visits_for(band)
+
+    # Presskit completion
+    presskit_completion_badge = Badge.objects.get(id='presskitcompletion')
+
+    presskit_completion = dict()
+    presskit_completion['perc'] = int(presskit_completion_badge.meta_badge.get_progress_percentage(band))
+
+    condition_callbacks = [getattr(presskit_completion_badge.meta_badge, c) for c in dir(presskit_completion_badge.meta_badge) if c.startswith('check')]
+    for fn in condition_callbacks:
+        presskit_completion[fn.__name__] = fn(band)
+
 
     extra_context = {'past_events': past_events,
                      'future_events': future_events,
@@ -192,7 +203,8 @@ def dashboard(request, band_slug):
                      'latest_activity': latest_activity,
                      'gigbargain_invitations': gigbargain_invitations,
                      'gigbargain_drafts': gigbargain_drafts,
-                     'latest_visits': latest_visits}
+                     'latest_visits': latest_visits,
+                     'presskit_completion': presskit_completion}
 
     return object_detail(request,
                          queryset=Band.objects.all(),

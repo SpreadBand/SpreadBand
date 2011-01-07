@@ -25,8 +25,14 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
             record_visit(band, presskit.band)
 
         # TODO: Venues
+        #for venue in request.user.venues.all():
+        #    record_visit(venue, presskit.band)
+
+    # Check if we can edit this presskit
+    can_edit = request.user.has_perm('band.can_manage', presskit.band)
 
     return render_to_response(template_name=template_name,
+                              dictionary={'can_edit': can_edit},
                               context_instance=RequestContext(request,
                                                               extra_context),
                               )

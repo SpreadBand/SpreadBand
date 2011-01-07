@@ -201,6 +201,7 @@ INSTALLED_APPS = (
     'socialbridge',
     'template_utils',
     'visitors',
+    'badges',
 
     # Internal
     'world',
@@ -398,3 +399,8 @@ CONTACTS_IMPORT_CALLBACK = 'account.views.contacts'
 
 # SUPERLAURENT's email
 VENUE_CANTFIND_EMAIL = 'laurent@spreadband.com'
+
+# BADGES
+BADGE_LEVEL_CHOICES = (
+    ('P', "PressKit completed"),
+)

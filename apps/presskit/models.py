@@ -4,6 +4,8 @@ from django.db.models import ForeignKey, ManyToManyField, OneToOneField
 from django.db.models import URLField
 from django.db.models.signals import post_save
 
+from badges.models import Badge
+
 from band.models import Band
 from media.models import Track
 
@@ -34,3 +36,13 @@ def create_presskit_for_band(sender, instance, created, **kwargs):
         presskit.save()
 
 post_save.connect(create_presskit_for_band, sender=Band)
+
+def check_for_awards(sender, instance, created, **kwargs):
+    """
+    Check if we triggers an award such as presskit completion
+    """
+    if not created:
+        presskit_completion = Badge.objects.get(id='presskitcompletion')
+        presskit_completion.meta_badge.award_ceremony(instance.band)
+
+post_save.connect(check_for_awards, sender=PressKit)

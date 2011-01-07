@@ -1,3 +1,48 @@
+#ads a {
+    color: #3B5998;
+}
+
+#ads ul {
+    list-style-type: none
+}
+
+#ads ul li {
+    border-bottom: 1px dashed #eee;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#ads h3 {
+    font-size: 1.4em;
+    margin-bottom: 5px;
+}
+
+#ads h4 {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    text-align: left;
+}
+
+#ads .url {
+    color: #aaa;
+    display: block;
+}
+
+
+#ads .ads-content {
+    border-left: 5px solid #eee;
+    padding-left: 3px;
+    margin-left: 1px;
+}
+
+#ads {
+    text-align: left;
+    font-size: 10px;
+    font-family: Verdana, Arial, Helvetica;
+}
+
 #text ul li {
     margin: 0px;
 }
@@ -110,15 +155,6 @@ div#band_text {
     margin-left: 0px;
 }
 
-/*-- tips --*/
-#band-tip {
-    border: 1px solid #d7d7d7;
-    background-color: #ffffd9;
-    padding: 5px;
-
-    margin-bottom: 10px;
-}
-
 /*-- my band --*/
 #my-band {
     margin-top: 5px;
@@ -190,9 +226,235 @@ div#band_text {
 #recent-visitors ul li {
     padding: 1px;
     margin-left: 0px;
-    display: inline;
+    display: inline-block;
 }
 
 #recent-visitors img {
     border: 1px solid black;
+}
+
+/*-- presskit tracker --*/
+#presskit-tracker .fullcontent {
+    padding-top: 5px;
+}
+
+#tracker_filter {
+    padding-right: 5px;
+}
+
+#presskit-tracker table tr img {
+    border: 1px solid #666;
+    margin: 5px;
+    vertical-align: middle;
+}
+
+#presskit-tracker table tr td.venue div {
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+
+#presskit-tracker table.display tr.odd.accepted {
+    background-color: #ddffdd;
+}
+
+#presskit-tracker table.display tr.even.accepted {
+	background-color: #eeffee;
+}
+
+#presskit-tracker tr.odd.accepted td.sorting_1 {
+	background-color: #c4ffc4;
+}
+
+#presskit-tracker tr.odd.accepted td.sorting_2 {
+	background-color: #d1ffd1;
+}
+
+#presskit-tracker tr.odd.accepted td.sorting_3 {
+	background-color: #d1ffd1;
+}
+
+#presskit-tracker tr.even.accepted td.sorting_1 {
+	background-color: #d5ffd5;
+}
+
+#presskit-tracker tr.even.accepted td.sorting_2 {
+	background-color: #e2ffe2;
+}
+
+#presskit-tracker tr.even.accepted td.sorting_3 {
+	background-color: #e2ffe2;
+}
+
+/*-- pending --*/
+#presskit-tracker table.display tr.odd.pending {
+	background-color: #fafafa;
+}
+
+#presskit-tracker table.display tr.even.pending {
+	background-color: #eee;
+}
+
+#presskit-tracker tr.odd.pending td.sorting_1 {
+	background-color: #eee;
+}
+
+#presskit-tracker tr.odd.pending td.sorting_2 {
+	background-color: #eee;
+}
+
+#presskit-tracker tr.odd.pending td.sorting_3 {
+	background-color: #eee;
+}
+
+#presskit-tracker tr.even.pending td.sorting_1 {
+	background-color: #eee;
+}
+
+#presskit-tracker tr.even.pending td.sorting_2 {
+	background-color: #eee;
+}
+
+#presskit-tracker tr.even.pending td.sorting_3 {
+	background-color: #eee;
+}
+
+/*-- search --*/
+#search {
+    float: left;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#search .go {
+    margin-top: 10px;
+    float: right;
+    font-weight: 600;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin-bottom: 5px;
+}
+
+#search .search-content {
+    float: left;
+    clear: both;
+
+    padding-left: 3px;
+
+    font-size: 0.9em;
+    font-weight: 400;
+    color: #3333;
+    text-align: left;
+    font-famiy: "lucida grande", tahoma, verdana;
+    line-height: 15px;
+}
+
+#search .search-content img {
+    float: left;
+    padding-right: 5px;
+}
+
+#search .search-content {
+}
+
+#band-tip {
+    float: left;
+    border: 1px solid #b6becc;
+    background-color: #fcfeff;
+
+    padding: 10px;
+    padding-bottom: 20px;
+    width: 598px;
+
+    margin-bottom: 5px;
+
+}
+
+#band-tip h3 {
+    margin-bottom: 15px;
+    display: inline;
+    float: left;
+}
+
+#band-tip .tip-header span.close a {
+    float: right;
+    font-weight: 600;
+    color: #aaa;
+    padding-right: 5px;
+}
+
+#band-tip .tip-header span.close a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+#band-tip img {
+    float: left;
+    clear: left;
+    margin-left: 5px;
+}
+
+#band-tip .info {
+    float: left;
+    margin-left: 10px;
+}
+
+#band-tip .progress {
+    float: left;
+    width: 300px;
+}
+
+#band-tip .progress .bar {
+    height: 18px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #b6becc;
+}
+
+div.accomplished {
+    background-color: #849abf;
+    height: 100%;
+    vertical-align: middle;
+    font-weight: 600;
+    text-align: right;
+}
+
+div.accomplished span {
+    padding-right: 10px;
+    vertical-align: middle;
+    color: white;
+}
+
+#band-tip .text {
+    margin-top: 5px;
+    line-height: 15px;
+    font-size: 0.9em;
+}
+
+#band-tip ul {
+    padding-left: 30px;
+}
+
+#band-tip ul li {
+    margin-left: 0px;
+    padding-left: 18px;
+    list-style-type: none;
+    font-variant: small-caps;
+    vertical-align: middle;
+}
+
+#band-tip ul .done {
+    text-decoration: line-through;
+    background-image: url('../images/band/check.png');
+    background-repeat: no-repeat;
+}
+
+#band-tip ul .notdone {
+    background-image: url('../images/band/uncheck.png');
+    background-repeat: no-repeat;
+}
+
+#band-tip .steps {
+    float: left;
 }

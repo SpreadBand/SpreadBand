@@ -94,6 +94,9 @@ urlpatterns = patterns('',
     # Social bridge
     (r'^socialbridge/', include('socialbridge.urls')),
 
+    # Badges
+#    (r'^badges/', include('badges.url')),
+                      
     # REST API
     (r'^api/', include('api.urls')),
 
@@ -127,6 +130,9 @@ urlpatterns += patterns('django.views.generic.simple',
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+        (r'^styles$',             'django.views.generic.simple.direct_to_template', {'template': 'band_new_styles.html'}),
+        (r'^discover/band$',             'django.views.generic.simple.direct_to_template', {'template': 'band_discover.html'}),
+
         url(r'^rosetta/', include('rosetta.urls')),
     )
 

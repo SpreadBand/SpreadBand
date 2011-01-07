@@ -11,9 +11,16 @@
 
 {% block javascript %}
   {{ block.super }}
+
+  <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.dataTables.js' %}"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
 	$('a.tip').tipsy({gravity: 'n'});
+
+	$('#tracker').dataTable({"bPaginate": false,
+				 "bInfo": false});
+
     });
   </script>
 {% endblock %}
@@ -21,38 +28,16 @@
 {% block css %}
   {{ block.super }}
   <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/jquery.dataTables.css" media="screen, projection" />
 {% endblock %}
 
 {% block band_content %}
 
 <div class="grid_15 alpha omega">
 
-  <div class="grid_3 alpha">
-    <div id="my-band" class="grid_3 alpha omega">
-      <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit Band Infos" %}</span></a>
-    </div>
+  <div class="grid_10 alpha">
 
-    <div id="recent-visitors" class="grid_3 alpha omega">
-      <h3>{% trans "Recent visitors" %}</h3>
-      <ul>
-	{% for visit in latest_visits %}
-	    <li><a class="tip" title="{{ visit.visitor.name }}"" href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url }}" width="30px" height="30px" alt="{{ visit.visitor.name }}"/></a></li>
-	{% empty %}
-	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile.{% endblocktrans %}</li>
-	{% endfor %}
-      </ul>
-    </div>
-
-
-    <div class="grid_3 alpha omega">
-      <h3>{% trans "Advertising" %}</h3>
-
-      <img src="{{ MEDIA_URL }}/images/GuitarXpertsSKY.gif">
-    </div>
-  </div>
-
-  <div class="grid_8">
-    
+    <!--
     {% if today_events %}
     <div class="grid_8 alpha omega">
       <div id="today">
@@ -65,7 +50,135 @@
       </div>
     </div>
     {% endif %}
+    -->
+    <div>
+      <div id="band-tip" class="grid_10 alpha omega">
+	<div class="tip-header">
+	  <h3>{% trans "Hey, Remember to fill your PressKit !" %}</h3>
+	  <span class="close"><a href="#">X</a></span>
+	</div>
+	<img src="{% staticfile '/images/band/fill_presskit.png' %}" height="90px"/>	
+	
+	<div class="info">
+	  <div class="progress">
+	    <div class="bar">
+	      <div class="accomplished" style="width: {{ presskit_completion.perc  }}%;"><span>{{ presskit_completion.perc }}%</span></div>
+	    </div>
 
+	    <div class="text">
+	      <p>
+		{% url band:edit band.slug as edit_presskit_url %}
+		{% blocktrans with edit_presskit_url as edit_presskit_url %}By filling in your PressKit, you make sure the <strong>Venues will be more confident</strong>... so this is the best way <strong>to get booked</strong>&nbsp! <a href="{{ edit_presskit_url }}">Do it now</a> &raquo;{% endblocktrans %}
+	      </p>
+	      <p>
+		{% url import_contacts as import_url %}
+		<!-- {% blocktrans with import_url as url %}Extend your network, <a href="{{ url }}">invite your friends</a>.{% endblocktrans %}-->
+	      </p>
+	    </div>
+	  </div>
+
+	  <div class="steps">
+	    <ul>
+	      {% url band:edit band.slug as edit_presskit_url %}
+	      {% if presskit_completion.check_biography %}
+		<li class="done">Biography</li>
+	      {% else %}
+		<li class="notdone"><a href="{{ edit_presskit_url }}#id_biography">Biography</a></li>
+	      {% endif %}
+
+	      {% if presskit_completion.check_pictures %}
+		<li class="done">Photos</li>
+	      {% else %}
+		<li class="notdone"><a href="{% url band:band-pictures band.slug %}">Photos</a></li>
+	      {% endif %}
+		
+	      {% if presskit_completion.check_tracks %}
+		<li class="done">Tracks</li>
+	      {% else %}
+		<li class="notdone"><a href="{% url presskit:presskit-tracks band.slug %}">Tracks</a></li>
+	      {% endif %}
+
+	      {% if presskit_completion.check_socialnets %}
+		<li class="done">Social Networks</li>
+	      {% else %}
+		<li class="notdone"><a href="{% url band:socialnet-edit band.slug %}">Social Networks</a></li>
+	      {% endif %}
+
+	      {% if presskit_completion.check_techsheet %}
+		<li class="done">Technical Sheet</li>
+	      {% else %}
+		<li class="notdone"><a href="{{ edit_presskit_url }}#id_technical_sheet">Technical Sheet</a></li>		
+	      {% endif %}
+	    </ul>
+	  </div>
+
+	</div>
+
+
+
+	<!--
+	<p>
+	  <a class="oauth_assoc" href="{% url oauth_access_login "twitter" %}?onsuccess={% url band:socialnet-associate band.slug %}">Associate your twitter account</a> to be able to post there.
+	  <a class="oauth_assoc" href="{% url oauth_access_login "facebook" %}?onsuccess={% url band:socialnet-associate band.slug %}">Associate your facebook account</a> to be able to post there.
+	</p>
+	-->
+
+	<!-- <p>
+	  <a href="{% url band:socialnet-post-message band.slug "twitter" %}">Post a message on twitter</a>.
+	  <a href="{% url band:socialnet-post-message band.slug "facebook" %}">Post a message on facebook</a>.
+	</p>
+
+	<p>
+	  <a href="{% url band:socialnet-broadcast-message band.slug %}">Broadcast a message on your social networks</a>.
+	</p>
+	-->
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="presskit-tracker">
+      <div class="sectionbox">
+	<div class="header">
+	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
+	  <h2>{% trans "PressKit Tracker" %}</h2>
+	</div>
+	<div class="separator"></div>
+	<div class="fullcontent">
+
+	  <table cellpadding="0" cellspacing="0" border="0" class="display" id="tracker">
+	    <thead>
+	      <tr>
+		<th>{% trans "Status" %}</th>
+		<th>{% trans "Venue" %}</th>
+		<th>{% trans "Sent on" %}</th>
+		<th>{% trans "Action" %}</th>
+	      </tr>
+	    </thead>
+
+	    <tbody>
+	      <tr class="pending">
+		<td>Pending</td>
+		<td class="venue">
+		<div><img src="/site_media/cache/venue/10/pictures/nouvelle-fleche-d_or_thumbnail_image.jpg" width="40px"/>La chimère</div></td>
+		<td>3. Janv (2 days ago)</td>
+		<td>[<a href="#">Cancel</a>]</td>
+	      </tr>
+
+	      <tr class="accepted">
+		<td>Accepted</td>
+		<td class="venue"><div><img src="/site_media/cache/venue/18/pictures/2147733_thumbnail_image.png" width="40px"/>La Rumeur</div></td>
+		<td>1. Janv (5 days ago)</td>
+		<td>-</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  
+	</div>
+      </div>
+    </div>
+
+    <!--
     <div id="gigbargains" class="grid_8 alpha omega">
       <div class="sectionbox">
 	<div class="header">
@@ -114,8 +227,10 @@
 	</div>
       </div>
     </div>
+    -->
 
 
+    <!--
     <div id="agenda" class="grid_8 alpha omega">
       <div class="sectionbox">
 
@@ -139,43 +254,40 @@
 	    &rarr; <a href="{% url event:band-calendar band.slug %}">{% trans "Calendar" %}</a>
 	  </div>
 	</div>
-
       </div>
     </div>
+    -->
   </div>
 
-  <div class="grid_4 omega">
-    <div class="grid_4 alpha omega">
-      <div id="band-tip">
-	<strong>{% trans "Tip of the day" %} (WIP)</strong>
-	<p>
-	{% blocktrans %}Have you filled your PressKit ? This is the best way to get booked !{% endblocktrans %}
-	</p>
-	<p>
-	  {% url import_contacts as import_url %}
-	  {% blocktrans with import_url as url %}Extend your network, <a href="{{ url }}">invite your friends</a>.{% endblocktrans %}
-	</p>
+  <div class="grid_5 omega">
+    <!-- <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit Band Infos" %}</span></a> -->
 
-	<!--
-	<p>
-	  <a class="oauth_assoc" href="{% url oauth_access_login "twitter" %}?onsuccess={% url band:socialnet-associate band.slug %}">Associate your twitter account</a> to be able to post there.
-	  <a class="oauth_assoc" href="{% url oauth_access_login "facebook" %}?onsuccess={% url band:socialnet-associate band.slug %}">Associate your facebook account</a> to be able to post there.
-	</p>
-	-->
-
-	<!-- <p>
-	  <a href="{% url band:socialnet-post-message band.slug "twitter" %}">Post a message on twitter</a>.
-	  <a href="{% url band:socialnet-post-message band.slug "facebook" %}">Post a message on facebook</a>.
-	</p>
-	-->
-
-	<p>
-	  <a href="{% url band:socialnet-broadcast-message band.slug %}">Broadcast a message on your social networks</a>.
-	</p>
+    <div id="search">
+      <h3>{% trans "Search for Venues" %}</h3>
+      <div class="search-content">
+	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
+	Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et envoyez leur votre <strong>Presskit</strong> !
+	<span class="go">
+	  <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Venues" %}</span></a>
+	</span>
       </div>
     </div>
 
+    <div id="recent-visitors">
+      <h3>{% trans "Recent visitors" %}</h3>
+      <ul>
+	{% for visit in latest_visits %}
+	  <li>
+	    <a class="tip" title="{{ visit.visitor.name }}" href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url }}" width="30px" height="30px" alt="{{ visit.visitor.name }}"/></a>
+	  </li>
+	{% empty %}
+	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile.{% endblocktrans %}</li>
+	{% endfor %}
+      </ul>
+    </div>
 
+
+    <!--
     <div id="upcoming_events" class="grid_4 alpha omega">
       <h3>{% trans "Upcoming events" %}</h3>
       {% with future_events|slice:":2" as upcoming_events %}
@@ -194,7 +306,9 @@
 	{% endif %}
       {% endwith %}
     </div>
+    -->
 
+    <!--
     <div id="suggestions">
       <h3>{% trans "Suggestions" %} (<acronym title="{% trans "Work in progress, don't expect it to work :)" %}">WIP</acronym>)</h3> 
       {% blocktrans %}You have to gig more before we can suggest you :{% endblocktrans %}
@@ -202,8 +316,9 @@
 	<li>{% trans "<strong>Bands</strong> that are like you, in your area or not, with whom you can plan gigs ;" %}</li>
 	<li>{% trans "<strong>Venues</strong> that are used to receive bands like you, where you can play with a good public." %}</li>
     </div>
+    -->
 
-    <div id="bandmembers" class="grid_4 alpha omega">
+    <div id="bandmembers" class="grid_5 alpha omega">
       <h3>{% trans "Members" %} ({{ band.band_members.count }})</h3>
       <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
 
@@ -216,9 +331,30 @@
 	</li>
 	{% endfor %}
       </ul>
+    </div>
 
+    <div id="ads">
+      <h3>{% trans "Advertising" %}</h3>
+
+      <ul>
+	<li>
+	  <h4><a href="#">Vendeur de chiottes</a></h4>
+	  <div class="ads-content">
+	    <span class="url">www.supashitters.co.uk</span>
+	    Nos nouvelles chiottes, trop bien, sans odeurs et avec chasse d'eau dernier cri !
+	    Fuckin' awesome, n'hésitez plus.
+	  </div>
+	</li>
+	<li><h4><a href="#">Avaleur de sabres</a></h4>
+	<div class="ads-content">
+	  <span class="url">www.knifesuckers.org</span>
+	  Cette fois, avec les pieds ! Awesome, n'hésitez plus non plus.
+	</div>
+	</li>
+      </ul>
 
     </div>
+
   </div>
 </div>
 

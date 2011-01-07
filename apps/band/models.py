@@ -10,8 +10,9 @@ from tagging.fields import TagField
 from imagekit.models import ImageModel
 from elsewhere.models import SocialNetworkProfile, WebsiteProfile
 
-from django_countries import CountryField
 from actors.models import Actor
+from badges.models import BadgeToLaureate
+from django_countries import CountryField
 from minisite.models.minisite import Minisite
 from world.models import Place
 
@@ -76,6 +77,11 @@ class Band(Actor):
     websites = generic.GenericRelation(WebsiteProfile,
                                        object_id_field="object_id",
                                        content_type_field="content_type")
+
+    badges = generic.GenericRelation(BadgeToLaureate,
+                                     object_id_field='laureate_object_id',
+                                     content_type_field='laureate_content_type')
+
 
     #-- Functions
     def avatar_url(self):
@@ -225,3 +231,4 @@ def add_band_socialnetwork_on_auth_assoc(sender, instance, created, **kwargs):
                                                     username=instance.identifier)
 
 
+import meta_badges
