@@ -34,7 +34,9 @@
   <!-- Band members -->
   <div id="bandmembers" class="grid_3 alpha omega">
     <h3>{% trans "Members" %} ({{ band.band_members.count }})</h3>
+    {% if can_edit %}
     <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    {% endif %}
 
     {% staticfile '/images/account/no_avatar.png' as default_avatar %}
     <ul>
@@ -68,7 +70,9 @@
   <!-- Social networks -->
   <div id="socialnets" class="grid_3 alpha omega">
     <h3>{% trans "Social Networks" %}</h3>
+    {% if can_edit %}
     <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    {% endif %}
 
     <ul>
       {% for socialnetwork in band.socialnetworks.all %}
@@ -86,7 +90,9 @@
   <!-- Websites -->
   <div id="websites" class="grid_3 alpha omega">
     <h3>{% trans "Websites" %}</h3>
+    {% if can_edit %}
     <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    {% endif %}
 
     <ul>
       {% for website in band.websites.all %}
@@ -125,7 +131,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="biography"/>
 	<h2>{% trans "Biography" %}</h2>
+	{% if can_edit %}
 	<a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -216,7 +224,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
 	<h2>{% trans "Location" %}</h2>
+	{% if can_edit %}
 	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -260,7 +270,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/tracks_ico.png' %}" alt="tracks"/>
 	<h2>{% trans "Featured Tracks" %} (WIP)</h2>
+	{% if can_edit %}
 	<a href="{% url presskit:presskit-tracks band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -287,7 +299,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
 	<h2>{% trans "Pictures" %}</h2>
+	{% if can_edit %}
 	<a href="{% url band:band-pictures band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -313,7 +327,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
+	{% if can_edit %}
 	<a href="{% url presskit:presskit-video band.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
@@ -335,7 +351,9 @@
       <div class="header">
 	<img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" alt="tech sheet"/>
 	<h2>{% trans "Technical Sheet" %}</h2>
+	{% if can_edit %}
 	<a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
