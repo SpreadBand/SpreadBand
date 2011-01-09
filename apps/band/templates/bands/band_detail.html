@@ -1,6 +1,7 @@
 {% extends "bands/base.html" %}
 
 {% load i18n %}
+{% load badges_tags %}
 {% load django_static %}
 {% load activity_tags %}
 {% load avatar_tags %}
@@ -20,6 +21,34 @@
 
 	$('#tracker').dataTable({"bPaginate": false,
 				 "bInfo": false});
+
+	
+	function hide_presskit_completion(speed) {
+	    $('#band-tip').animate({height:'10px'}, speed);
+	    $('#band-tip span.close a').html('&darr;');
+	}
+
+	function show_presskit_completion(speed) {	 
+	    $('#band-tip').css('height', null);
+	    var new_height = $('#band-tip').css('height');
+	    $('#band-tip').css('height', '10px');
+	    $('#band-tip').animate({height: new_height}, speed);
+	    $('#band-tip span.close a').html('&uarr;');
+	}
+
+	$('#band-tip span.close a').click(function() {
+	    if ( $.cookie("hide-presskit-completion-tip") ) {
+		show_presskit_completion('slow');
+		$.cookie("hide-presskit-completion-tip", null);
+	    } else {
+		hide_presskit_completion('slow');
+		$.cookie("hide-presskit-completion-tip", true, { expires: 7 });
+	    }
+	});
+
+	if ( $.cookie("hide-presskit-completion-tip") ) {
+	    hide_presskit_completion(0);
+	}
 
     });
   </script>
@@ -51,11 +80,13 @@
     </div>
     {% endif %}
     -->
+
+   {% if not presskit_completion_badge|number_awarded:band %}
     <div>
       <div id="band-tip" class="grid_10 alpha omega">
 	<div class="tip-header">
 	  <h3>{% trans "Hey, Remember to fill your PressKit !" %}</h3>
-	  <span class="close"><a href="#">X</a></span>
+	  <span class="close"><a href="#">&uarr;</a></span>
 	</div>
 	<img src="{% staticfile '/images/band/fill_presskit.png' %}" height="90px"/>	
 	
@@ -111,10 +142,7 @@
 	      {% endif %}
 	    </ul>
 	  </div>
-
 	</div>
-
-
 
 	<!--
 	<p>
@@ -136,6 +164,8 @@
 
       <div class="clear"></div>
     </div>
+
+    {% endif %}
 
     <div id="presskit-tracker">
       <div class="sectionbox">

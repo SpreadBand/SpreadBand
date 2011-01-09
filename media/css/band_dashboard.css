@@ -369,6 +369,8 @@ div#band_text {
 
     margin-bottom: 5px;
 
+    overflow: hidden;
+
 }
 
 #band-tip h3 {
@@ -382,6 +384,7 @@ div#band_text {
     font-weight: 600;
     color: #aaa;
     padding-right: 5px;
+    text-decoration: none;
 }
 
 #band-tip .tip-header span.close a:hover {

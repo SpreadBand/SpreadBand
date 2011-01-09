@@ -204,7 +204,8 @@ def dashboard(request, band_slug):
                      'gigbargain_invitations': gigbargain_invitations,
                      'gigbargain_drafts': gigbargain_drafts,
                      'latest_visits': latest_visits,
-                     'presskit_completion': presskit_completion}
+                     'presskit_completion': presskit_completion,
+                     'presskit_completion_badge': presskit_completion_badge}
 
     return object_detail(request,
                          queryset=Band.objects.all(),
