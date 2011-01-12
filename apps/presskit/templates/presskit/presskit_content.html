@@ -5,6 +5,14 @@
 {% load markup %}
 {% load reviews_tags %}
 {% load i18n %}
+{% load badges_tags %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+	$('.tip').tipsy({gravity: 's'});
+    });
+</script>
+
 
 <div id="presskit-sidebar" class="grid_3 alpha">
   <div id="bandavatar" class="grid_3 alpha omega">
@@ -52,6 +60,7 @@
   </div>
 
   <!-- Latest gigs -->
+  <!--
   <div id="latest-gigs" class="grid_3 alpha omega">
     <h3>{% trans "Latest Gigs" %}</h3>
     {% if latest_gigs %}
@@ -66,6 +75,7 @@
       {% trans "This band has no recent gigs." %}
     {% endif %}
   </div>
+  -->
 
   <!-- Social networks -->
   <div id="socialnets" class="grid_3 alpha omega">
@@ -124,7 +134,13 @@
 </div>
 
 <div id="presskit-main" class="grid_12 omega">
-  <h1>{% trans "PressKit" %} &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city|default:"Somewhere" }}, {{ band.country|default:"Earth" }})</h1>
+  <div id="presskit-head">
+    <h1>{% trans "PressKit" %} &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city|default:"Somewhere" }}, {{ band.country|default:"Earth" }})</h1>
+
+    {% if presskit_completion_badge|number_awarded:band %}
+      <img class="badge tip" title="{% trans "This PressKit has been fully completed" %}" src="{% staticfile "/images/presskit/completion_badge.png" %}" width="40px" height="40px"/>
+    {% endif %}
+  </div>
 
   <div class="grid_7 alpha">
     <div id="biography" class="sectionbox">
@@ -366,6 +382,7 @@
     </div>
   </div>
 
+  <!--
   <div class="grid_6 omega">
     <div id="reviews" class="sectionbox">
       <div class="header">
@@ -379,5 +396,6 @@
       </div>
     </div>
   </div>
+  -->
 
 </div>

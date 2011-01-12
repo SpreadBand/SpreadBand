@@ -1,5 +1,5 @@
 from django import forms
-from .models import PressKit
+from .models import PressKit, PresskitViewRequest
 
 from media.models import Track
 
@@ -13,7 +13,11 @@ class PressKitTrackForm(forms.ModelForm):
         model = Track
         fields = ('title', 'file')
 
+class PresskitViewRequestForm(forms.ModelForm):
+    class Meta:
+        model = PresskitViewRequest
+        fields = ('message',)
 
-
-
+    message = forms.CharField(widget=forms.Textarea,
+                              required=False)
 

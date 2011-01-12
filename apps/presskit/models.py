@@ -1,5 +1,9 @@
 from django.db import models
 
+from django.utils.translation import ugettext
+_ = lambda u: unicode(ugettext(u))
+
+from django.contrib.auth.models import User
 from django.db.models import ForeignKey, ManyToManyField, OneToOneField
 from django.db.models import URLField
 from django.db.models.signals import post_save
@@ -7,6 +11,7 @@ from django.db.models.signals import post_save
 from badges.models import Badge
 
 from band.models import Band
+from venue.models import Venue
 from media.models import Track
 
 class PressKit(models.Model):
@@ -26,6 +31,33 @@ class PressKit(models.Model):
                 {'band_slug': self.band.slug}
                 )
 
+
+class PresskitViewRequest(models.Model):
+    state_choices = (('P', _("Pending")),
+                     ('S', _("Seen")),
+                     ('A', _("Accepted")),
+                     ('D', _("Declined")),
+                     ('C', _("Canceled"))
+                     )
+
+    sent_on = models.DateTimeField(auto_now_add=True)
+    modified_on = models.DateTimeField(auto_now=True,
+                                       auto_now_add=True)
+    sent_by = models.ForeignKey(User)
+
+    presskit = models.ForeignKey(PressKit)
+    venue = models.ForeignKey(Venue)
+
+    seen = models.BooleanField(default=False)
+
+    state = models.CharField(max_length=1,
+                             choices=state_choices,
+                             default='P')
+
+    def __unicode__(self):
+        return "Request of %s for %s (%s)" % (self.presskit.band.name,
+                                              self.venue.name,
+                                              self.get_state_display())
 
 def create_presskit_for_band(sender, instance, created, **kwargs):
     """
