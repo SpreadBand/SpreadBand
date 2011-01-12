@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load badges_tags %}
+{% load humanize %}
 {% load django_static %}
 {% load activity_tags %}
 {% load avatar_tags %}
@@ -14,13 +15,26 @@
   {{ block.super }}
 
   <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.dataTables.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.cookie.js' %}"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
 	$('a.tip').tipsy({gravity: 'n'});
 
+	$('#tracker tr').click(function(elem) {
+	    window.location.href = $(this).attr('href');
+	});
+
+	{% url venue:search as venue_search_url %}
 	$('#tracker').dataTable({"bPaginate": false,
-				 "bInfo": false});
+				 "bInfo": false,
+				 "aoColumns": [ null, null, null, null ],
+				 "oLanguage": {
+				     "sZeroRecords": "<strong>{% blocktrans with venue_search_url as venue_search_url %}You haven't sent any PressKit yet. Start <a href='{{ venue_search_url }}'>booking a venue now</a> !{% endblocktrans %}</strong>",
+				     "sSearch": "{% trans "Search:" %}"
+				 }
+
+				});
 
 	
 	function hide_presskit_completion(speed) {
@@ -85,7 +99,7 @@
     <div>
       <div id="band-tip" class="grid_10 alpha omega">
 	<div class="tip-header">
-	  <h3>{% trans "Hey, Remember to fill your PressKit !" %}</h3>
+	  <h3>{% trans "Hey, don't forget to complete your PressKit !" %}</h3>
 	  <span class="close"><a href="#">&uarr;</a></span>
 	</div>
 	<img src="{% staticfile '/images/band/fill_presskit.png' %}" height="90px"/>	
@@ -182,25 +196,25 @@
 		<th>{% trans "Status" %}</th>
 		<th>{% trans "Venue" %}</th>
 		<th>{% trans "Sent on" %}</th>
-		<th>{% trans "Action" %}</th>
+		<th>{% trans "Sent by" %}</th>
 	      </tr>
 	    </thead>
 
 	    <tbody>
-	      <tr class="pending">
-		<td>Pending</td>
-		<td class="venue">
-		<div><img src="/site_media/cache/venue/10/pictures/nouvelle-fleche-d_or_thumbnail_image.jpg" width="40px"/>La chimère</div></td>
-		<td>3. Janv (2 days ago)</td>
-		<td>[<a href="#">Cancel</a>]</td>
-	      </tr>
-
-	      <tr class="accepted">
-		<td>Accepted</td>
-		<td class="venue"><div><img src="/site_media/cache/venue/18/pictures/2147733_thumbnail_image.png" width="40px"/>La Rumeur</div></td>
-		<td>1. Janv (5 days ago)</td>
-		<td>-</td>
-	      </tr>
+	      {% staticfile '/images/venue/no_picture.png' as default_picture %}
+	      {% for presskit_view_request in sent_presskits %}
+		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{{ presskit_view_request.presskit.get_absolute_url }}">
+		  <td class="status">{{ presskit_view_request.get_state_display|capfirst }}</td>
+		  <td class="venue">
+		    <div><img src="{{ venue.avatar_url|default:default_picture }}" width="40px"/>{{ presskit_view_request.venue.name }}</div>
+		  </td>
+		  <td>
+		    {% blocktrans with presskit_view_request.sent_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}<br/>
+		    ({% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}updated {{ timestamp }} ago{% endblocktrans %})
+		  </td>
+		  <td>{{ presskit_view_request.sent_by.first_name|default:presskit_view_request.sent_by.username }}</td>
+		</tr>
+	      {% endfor %}
 	    </tbody>
 	  </table>
 	  
@@ -298,7 +312,7 @@
 	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
 	Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et envoyez leur votre <strong>Presskit</strong> !
 	<span class="go">
-	  <a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Venues" %}</span></a>
+	  <a href="{% url venue:search %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Venues" %}</span></a>
 	</span>
       </div>
     </div>

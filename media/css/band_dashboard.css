@@ -249,75 +249,100 @@ div#band_text {
 }
 
 #presskit-tracker table tr td.venue div {
-    font-weight: 600;
     vertical-align: middle;
 }
 
-
-#presskit-tracker table.display tr.odd.accepted {
-    background-color: #ddffdd;
+#presskit-tracker table tr td {
+    vertical-align: middle;
+    cursor:pointer;cursor:hand
 }
 
-#presskit-tracker table.display tr.even.accepted {
-	background-color: #eeffee;
+
+#presskit-tracker table.display tr td.status {
+    padding-left: 55px;
+    vertical-align: middle;
+    margin-right: 2px;
+    padding-right: 1px;
+    font-variant: small-caps;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
 }
 
-#presskit-tracker tr.odd.accepted td.sorting_1 {
-	background-color: #c4ffc4;
+#presskit-tracker table.display tr.state-s td.status {
+    background-image: url('../images/presskit/seen_ico.png');
 }
 
-#presskit-tracker tr.odd.accepted td.sorting_2 {
-	background-color: #d1ffd1;
+#presskit-tracker table.display tr.state-d td.status {
+    background-image: url('../images/presskit/refused_ico.png');
 }
 
-#presskit-tracker tr.odd.accepted td.sorting_3 {
-	background-color: #d1ffd1;
+#presskit-tracker table.display tr.state-a td.status {
+    background-image: url('../images/presskit/validated_ico.png');
 }
 
-#presskit-tracker tr.even.accepted td.sorting_1 {
-	background-color: #d5ffd5;
+#presskit-tracker table.display tr.state-c td.status {
+    background-image: url('../images/presskit/cancelled_ico.png');
 }
 
-#presskit-tracker tr.even.accepted td.sorting_2 {
-	background-color: #e2ffe2;
+#presskit-tracker table.display tr.state-p td.status {
+    background-image: url('../images/presskit/waiting_ico.png');
 }
 
-#presskit-tracker tr.even.accepted td.sorting_3 {
-	background-color: #e2ffe2;
+#presskit-tracker table.display tr.state-c td {
+    text-decoration: line-through;
 }
 
-/*-- pending --*/
-#presskit-tracker table.display tr.odd.pending {
+
+/*-- column background color --*/
+#presskit-tracker table.display tbody tr.even:hover, #presskit-tracker table.display tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+#presskit-tracker table.display tbody tr.odd:hover, #presskit-tracker table.display tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
+}
+
+
+#presskit-tracker table.display tbody tr td.sorting_1, td.sorting_2, td.sorting_3, td.sorting_4 {
+    background-color: none;
+}
+
+#presskit-tracker table.display tr.odd.state-p {
 	background-color: #fafafa;
 }
-
-#presskit-tracker table.display tr.even.pending {
+#presskit-tracker table.display tr.even.state-p {
 	background-color: #eee;
 }
 
-#presskit-tracker tr.odd.pending td.sorting_1 {
+#presskit-tracker table.display tr.odd.state-a {
+	background-color: #b8f291;
+}
+#presskit-tracker table.display tr.even.state-a {
+	background-color: #c2ff99;
+}
+
+#presskit-tracker table.display tr.odd.state-c {
+    background-color: #fafafa;
+}
+#presskit-tracker table.display tr.even.state-c {
 	background-color: #eee;
 }
 
-#presskit-tracker tr.odd.pending td.sorting_2 {
-	background-color: #eee;
+#presskit-tracker table.display tr.odd.state-d {
+	background-color: #ffcccc;
+}
+#presskit-tracker table.display tr.even.state-d {
+	background-color: #ffbfbf;
 }
 
-#presskit-tracker tr.odd.pending td.sorting_3 {
-	background-color: #eee;
+#presskit-tracker table.display tr.odd.state-s {
+	background-color: #e2e4ff;
+}
+#presskit-tracker table.display tr.even.state-s {
+	background-color: #d3d6ff;
 }
 
-#presskit-tracker tr.even.pending td.sorting_1 {
-	background-color: #eee;
-}
 
-#presskit-tracker tr.even.pending td.sorting_2 {
-	background-color: #eee;
-}
-
-#presskit-tracker tr.even.pending td.sorting_3 {
-	background-color: #eee;
-}
 
 /*-- search --*/
 #search {

@@ -27,6 +27,8 @@ from ..models import Band, BandMember
 from ..forms import BandCreateForm, BandUpdateForm
 from ..forms import BandPictureForm, BandMemberRequestForm
 
+from presskit.models import PresskitViewRequest
+
 @login_required
 def new(request):
     """
@@ -195,6 +197,8 @@ def dashboard(request, band_slug):
     for fn in condition_callbacks:
         presskit_completion[fn.__name__] = fn(band)
 
+    # Presskit tracker
+    sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit).order_by('modified_on', '-sent_on', 'state')
 
     extra_context = {'past_events': past_events,
                      'future_events': future_events,
@@ -205,7 +209,8 @@ def dashboard(request, band_slug):
                      'gigbargain_drafts': gigbargain_drafts,
                      'latest_visits': latest_visits,
                      'presskit_completion': presskit_completion,
-                     'presskit_completion_badge': presskit_completion_badge}
+                     'presskit_completion_badge': presskit_completion_badge,
+                     'sent_presskits': sent_presskits}
 
     return object_detail(request,
                          queryset=Band.objects.all(),
