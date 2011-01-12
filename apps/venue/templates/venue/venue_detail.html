@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/css/band_vcard.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/gig_vevent.css" media="screen, projection" />
-
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/colorbox/colorbox.css" />
 {% endblock %}
 
 {% block javascript %}
@@ -91,21 +91,31 @@
 
 {% endblock %}
 
+{% block title %}Venue - {{ venue.name }}
+{% endblock %}
 
 {% block content %}
 
 <div id="text">
 
+
+
+
+
 <div id="venue-sidebar" class="grid_3 alpha">
   <div id="venueavatar" class="grid_3 alpha omega">
     {% if venue.pictures.avatar %}
-      <img src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="172px" alt="venue avatar" />
+      <img src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="100%" alt="venue avatar" />
     {% else %}
-      <img src="{% staticfile '/images/venue/no_picture.png' %}" width="172px" alt="no venue avatar" />
+      <img src="{% staticfile '/images/venue/no_picture.png' %}" width="100%" alt="no venue avatar" />
     {% endif %}
   </div>
+  
+  
+  
+  <div class="encart">
 
-  <div id="ambiance" class="grid_3 alpha omega">
+  <div id="ambiance" class="">
     {% if venue.ambiance %}
       {% trans "<strong>Ambiance</strong>:" %} {{ venue.ambiance }}
     {% else %}
@@ -118,31 +128,51 @@
   </div>
 
   <div id="website" class="grid_3 alpha omega">
-    {% trans "<strong>Website</strong>:" %} {{ venue.websites.all|first|default:"??" }}
+    {{ venue.websites.all|first|default:"??" }}
+  </div>
+  
+  
   </div>
 
   <div id="socialnets" class="grid_3 alpha omega">
-    <h3>{% trans "Social Networks" %}</h3>
-    <ul>
+    
+	
+	<!--
+	<ul>
       {% for socialnetwork in venue.socialnetworks.all %}
-	<li>
-	  <img src="{{ socialnetwork.network.icon_url }}" />
-	  <a href="{{ socialnetwork.url }}" target="_blank">{{ socialnetwork.username|capfirst }}</a>
+	<li>	  
+	  <a href="{{ socialnetwork.url }}" target="_blank"><img src="{{ socialnetwork.network.icon_url }}" /></a>
 	</li>
       {% endfor %}
     </ul>
+	-->
+	
+	
+	<ul>	
+		<li>
+		
+		 <a href="#"><img src="/site_media//images/icons/32x32/facebook.1290786422.png" /></a>
+		 <a href="#"><img src="/site_media//images/icons/32x32/facebook.1290786422.png" /></a>
+		 <a href="#"><img src="/site_media//images/icons/32x32/facebook.1290786422.png" /></a>
+		 <a href="#"><img src="/site_media//images/icons/32x32/facebook.1290786422.png" /></a>
+		
+		</li>	
+	</ul>
+	
   </div>
 
   <!-- Venue members -->
   <div id="venuemembers" class="grid_3 alpha omega">
-    <h3>{% trans "Members" %} ({{ venue.members.count }}) (WIP)</h3>
+    <h3>{% trans "Staff" %} ({{ venue.members.count }})</h3>
     {% if is_managed %}
       <a href="{% url band:membership-manage venue.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
     {% endif %}
 
-    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
+    <!--
+	
+	{% staticfile '/images/account/no_avatar.png' as default_avatar %}
     <ul>
-      {% for member in venue.members.all %}
+    {% for member in venue.members.all %}
 	<li>
 	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="48px" height="48px"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
 	  <span class="venuemember_whois">{{ member.user.get_profile.genre|default:"?" }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
@@ -150,48 +180,115 @@
       </li>
     {% endfor %}
     </ul>
-  </div>
-
-  <div id="latest-bands" class="grid_3 alpha omega">
-    <h3>{% trans "Latest Bands" %}</h3>
+	
+	-->
+	
+	
     <ul>
-      {% for band in latest_bands %}
-	<li>{% band_vcard band %}</li>
-      {% empty %}
-        {% trans "No bands have played there yet." %}
-      {% endfor %}
-    </ul>
+	
+	<li>
+	  <img src="/site_media/avatars/glibersat/resized/48/d832506d9fbf20813cf94538966389a9.jpg" alt="glibersat" height="48" width="48">
+	  <a href="/user/glibersat">Guillaume Libersat</a>
+	  <span class="venuemember_role" title="Electric Guitar">Electric Guitar</span>
+
+	</li>
+	
+	<li>
+	  <img src="/site_media/avatars/vinz/resized/48/402f043be969852ff3c210a6361eb12c.jpg" alt="vinz" height="48" width="48">
+	  <a href="/user/vinz">vinz</a>
+	  <span class="venuemember_role" title="Violon">Violon</span>
+	</li>
+	
+      </ul>
+	
+	
   </div>
+  
+	<!--
+	
+	<div id="latest-bands" class="grid_3 alpha omega">
+		<h3>{% trans "Latest Bands" %}</h3>
+		<ul>
+		  {% for band in latest_bands %}
+			<li>{% band_vcard band %}</li>
+		  {% empty %}
+			{% trans "No bands have played there yet." %}
+		  {% endfor %}
+		</ul>
+	</div>
+  
+	-->
 
 
 
 
 </div>
 
+<script type="text/javascript" src="{% staticfile "/js/jquery/jquery.colorbox.js" %}"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.presskit-send').colorbox({href: function() { return $(this).attr('href'); },
+				  width: '700px',
+				  height: '300px',
+				  initialWidth: '700px',
+				  initialHeight: '300px',
+				  transition: 'elastic'
+				 });
+});
+</script>
+
 <div id="venue-main" class="grid_12 omega">
   <h1>{% trans "Venue" %} &raquo; <a href="{{ venue.get_absolute_url }}">{{ venue.name|capfirst }}</a> ({{ venue.city|default:"Somewhere" }}, {{ venue.country|default:"Earth" }})</h1>
 
-  <div class="grid_12 alpha omega">
-    <div id="description" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="description"/>
-	<h2>{% trans "Description" %}</h2>
-	{% if is_managed %}
-	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
-	{% endif %}
-      </div>
-      <div class="separator"></div>
+  <div class="grid_9 alpha">
+    <div id="description" class="">
+
       <div class="content">
 	{% if venue.description %}
 	  {{ venue.description|capfirst|safe|truncatewords_html:100 }}[<a href="#">{% trans "Read more" %}</a>]
 	{% else %}
 	  {% trans "No description." %}
 	{% endif %}
+	
+	{% if is_managed %}
+	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	{% endif %}
+	
       </div>
     </div>
   </div>
+  
+   <div class="grid_3 omega">
+		<div class="sectionbox presskit_sharing">
+		
+			<div class="venue_sharing_title">Send presskit of :</div>
+						
+			<ul>
+				
+
+				{% for band in user.bands.all %}
+					<a onclick="javascript: return false;" href="{% url presskit:presskit-send band.slug venue.slug %}" class="presskit-send" title="{% trans "Send My PressKit" %}">
+					<div>
+						<li>
+							<img width="25px" height="25px" src="http://bleak.local:8000/site_media/cache/bands/2/pictures/sb-teaser_small_avatar_image.jpg" />
+							<p>Nom du groupe</p>
+						</li>
+					</div>
+					</a>					
+				{% endfor %} 
+
+
+			</ul>
+			
+		</div>
+	</div>
+				
+				
 
   <!-- Calendar -->
+  <!--
+  {#
   <div id="venue-calendar" class="grid_12 alpha omega">
     <div class="sectionbox">
       <div class="header">
@@ -225,6 +322,8 @@
       <div class="clear"></div>
     </div>
   </div>
+  #}
+  -->
 
   
   <!-- Pictures -->
@@ -251,7 +350,9 @@
   </div>
 
   <div class="grid_5 omega">
-    <div id="video" class="sectionbox">
+
+	  
+	  <div id="video" class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
@@ -270,25 +371,30 @@
 	{% endif %}
       </div>
     </div>
-  </div>
+	
 
-  <div class="grid_12 alpha omega">
-    <div id="location" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
-	<h2>{% trans "Location" %}</h2>
-	{% if is_managed %}
-	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
-	{% endif %}
-      </div>
+	 </div>
+	
+	<div id="location" class="sectionbox grid_12 alpha omega">
+		<div class="header">
+			<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
+			<h2>{% trans "Location" %}</h2>
+			{% if is_managed %}
+			<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+			{% endif %}
+		</div>
       <div class="separator"></div>
       <div class="content">
-	{% trans "Address:" %} {{ venue.place.address }}<br/>
-	<div style="height: 400px; width: 100%" id="map" class="smallmap"></div>
+			{% trans "Address:" %} {{ venue.place.address }}<br/>
+			<div style="height: 400px; width: 100%" id="map" class="smallmap"></div>
       </div>
     </div>
-  </div>
+	
+	
+ 
 
+  
+   <!--  
   <div class="grid_12 alpha omega">
     <div id="location" class="sectionbox">
       <div class="header">
@@ -303,6 +409,9 @@
       </div>
     </div>
   </div>
+  
+  
+	-->
 
 </div>
 
