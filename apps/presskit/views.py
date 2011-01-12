@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic.create_update import update_object
 
+from badges.models import Badge
+
 from visitors.utils import record_visit
 
 from .models import PressKit
@@ -31,8 +33,12 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
     # Check if we can edit this presskit
     can_edit = request.user.has_perm('band.can_manage', presskit.band)
 
+    # Completion badge
+    presskit_completion_badge = Badge.objects.get(id='presskitcompletion')
+
     return render_to_response(template_name=template_name,
-                              dictionary={'can_edit': can_edit},
+                              dictionary={'can_edit': can_edit,
+                                          'presskit_completion_badge': presskit_completion_badge},
                               context_instance=RequestContext(request,
                                                               extra_context),
                               )
@@ -41,6 +47,45 @@ def mypresskit(request, band_slug):
     return presskit_detail(request,
                            band_slug,
                            'presskit/mypresskit.html')
+    
+
+
+from .models import PresskitViewRequest
+from .forms import PresskitViewRequestForm
+from django.utils.translation import ugettext as _
+from django.contrib import messages
+from venue.models import Venue
+
+## XXX: Security
+## XXX: Quota
+## XXX: Notifications
+@login_required
+def presskit_send(request, band_slug, venue_slug):
+    presskit = get_object_or_404(PressKit, band__slug=band_slug)
+    venue = get_object_or_404(Venue, slug=venue_slug)
+    band = presskit.band
+
+    presskit_view_request_form = PresskitViewRequestForm(request.POST or None)
+
+    if presskit_view_request_form.is_valid():
+        view_request = PresskitViewRequest(presskit=presskit,
+                                           venue=venue,
+                                           sent_by=request.user)
+        
+        view_request.save()
+
+        messages.success(request, _("%s presskit was sent to %s") % (band.name,
+                                                                     venue.name))
+
+        return redirect(venue)
+
+    return render_to_response(template_name='presskit/presskit_send.html',
+                              dictionary={'venue': venue,
+                                          'band': band,
+                                          'presskit_view_request_form': presskit_view_request_form},
+                              context_instance=RequestContext(request)
+                              )
+
     
 
 
@@ -86,7 +131,7 @@ def track_add(request, band_slug):
                          )
     
 
-# XXX Seucrity
+# XXX Security
 @login_required
 def track_list(request, band_slug):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
