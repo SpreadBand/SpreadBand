@@ -179,7 +179,7 @@
 
 	dragresizer.collectDragHandle = function() {
 	    style_img = OpenLayers.Util.extend({}, layer_style);
-	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/lastfm.png" %}';
+	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/cursor-move.png" %}';
 	    style_img.graphicWidth = 60;
 	    style_img.graphicHeight = 60;
 	    
@@ -201,9 +201,10 @@
 
 	dragresizer.collectRadiusHandle = function() {
 	    style_img = OpenLayers.Util.extend({}, layer_style);
-	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/facebook.png" %}';
+	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/cursor-size.png" %}';
 	    style_img.graphicWidth = 30;
 	    style_img.graphicHeight = 30;
+	    style_img.rotation = -30;
 
 	    var geometry = this.feature.geometry;
             var bounds = geometry.getBounds();
