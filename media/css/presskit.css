@@ -222,4 +222,15 @@
     margin-left: 20px;
 }
 
+#presskit-head {
+    margin-bottom: 5px;
+}
 
+#presskit-head h1 {
+    display: inline;
+    vertical-align: middle;
+}
+
+#presskit-head img {
+    vertical-align: middle;
+}
