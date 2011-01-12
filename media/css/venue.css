@@ -71,6 +71,12 @@
     color: #666;
 }
 
+#search-results .venue .img-wrapper {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+}
+
 #search ul {
     background-color: white;
     padding: 5px;
@@ -141,3 +147,4 @@
     float: right;
     background-color: #eee;
 }
+

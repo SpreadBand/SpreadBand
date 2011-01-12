@@ -9,7 +9,7 @@
     {% for venue in venue_filter %}
     <li id="{{ venue.slug }}" class="venue">
       <div class="{% cycle 'odd' 'even' %}">
-	<div>
+	<div class="img-wrapper">
 	  <img src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}"/>
 	</div>
 	<div class="info">
