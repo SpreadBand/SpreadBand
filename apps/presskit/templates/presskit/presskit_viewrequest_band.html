@@ -1,0 +1,118 @@
+{% extends "bands/base.html" %}
+
+{% load django_static %}
+{% load i18n %}
+{% load humanize %}
+
+{% block band_section %}
+PressKit View Request
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+
+  <link rel="stylesheet" type="text/css" href="/css/presskit_viewrequest.css" media="screen, projection" />
+{% endblock %}
+
+{% block band_content %}
+
+  <div class="grid_4 alpha">
+    <h3>{% trans "Request details" %}</h3>
+    
+    <div id="venue">
+      {% if venue.pictures.avatar %}
+	<img class="avatar" src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="80px" alt="venue avatar" />
+      {% else %}
+	<img class="avatar" src="{% staticfile '/images/venue/no_picture.png' %}" width="80px" alt="no venue avatar" />
+      {% endif %}
+      
+      <div class="infos">
+	<span class="name"><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></span>
+	<span class="addr">{{ venue.city }}, {% if venue.country %}<img src="{{ venue.country.flag }}" alt="{{ venue.country.name }}" title="{{ venue.country.name }}"/>{% endif %}</span>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
+    
+    <div id="state" class="infoline">
+      <div class="label">{% trans "State:" %}</div>
+      <div class="state state-{{ viewrequest.state|lower }}">{{ viewrequest.get_state_display }}</div>
+    </div>
+
+    <div class="infoline">
+      <div class="label">{% trans "Last update:" %}</div>
+      <div class="data">{{ viewrequest.modified_on|timesince }}</div>
+    </div>
+
+    <div class="infoline">
+      <div class="label">{% trans "Sent on:" %}</div>
+      <div class="data">{{ viewrequest.sent_on|naturalday|capfirst }}</div>
+    </div>
+
+    <div class="infoline">
+      <div class="label">{% trans "Sent by:" %}</div>
+      <div class="data"><a href="{{ viewrequest.sent_by.get_profile.get_absolute_url }}">{{ viewrequest.sent_by.first_name|default:viewrequest.sent_by.username }}</a></div>
+    </div>
+
+  </div>
+  
+  {% load comments %}
+  {% load threadedcomments_tags %}
+  <div class="grid_11 omega">
+    <div id="discuss-wrapper">    
+      <h3>{% blocktrans with venue.name as venue_name %}Discuss about this request with {{ venue_name }}{% endblocktrans %}</h3>
+      
+      {% get_comment_list for viewrequest as comment_list %}
+
+	<ul id="comments">
+	  {% for comment in comment_list %}
+	    <li>
+	      <div class="comment">
+		<a name="c{{ comment.id }}"></a>
+		{% if band.pictures.avatar %}
+		  <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="band avatar" />
+		{% else %}
+		  <img src="{% staticfile '/images/band/no_picture.png' %}" width="40px" alt="no band avatar" />
+		{% endif %}
+		<div class="text">
+		  <span class="who">{% blocktrans with comment.user.first_name|default:comment.user.username as comment_user and comment.user.get_profile.get_absolute_url as user_url and band.name as band_name %}<a href="{{ user_url }}"><cite>{{ comment_user }}</cite></a> of {{ band_name }} said:{% endblocktrans %}</span>
+		  <span class="when">{% blocktrans with comment.submit_date as submit_date and comment.submit_date|timesince as date_ago %}{{ submit_date }} ({{date_ago }} ago){% endblocktrans %}</span>
+		  <div class="message">
+		    <q>{{ comment.comment }}</q>
+		  </div>
+		</div>
+
+	      </div>
+	    </li>
+	  {% endfor %}
+	</ul>
+
+
+      {% get_comment_form for viewrequest as comment_form %}
+	<div id="comment-form-wrapper" class="alpha omega grid_10">
+	  <div id="comment-me">
+	    {% if band.pictures.avatar %}
+	      <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="band avatar" />
+	    {% else %}
+	      <img src="{% staticfile '/images/band/no_picture.png' %}" width="40px" alt="no band avatar" />
+	    {% endif %}
+	  </div>
+
+	  <span class="who">{% blocktrans with band.name as band_name %}{{ band_name }} says:{% endblocktrans %}
+	  <form id="comment-form" method="POST" action="{% comment_form_target %}">
+	    {{ comment_form.comment }}
+	    {{ comment_form.content_type }}
+	    {{ comment_form.object_pk }}
+	    {{ comment_form.timestamp }}
+	    {{ comment_form.security_hash }}
+	    {{ comment_form.parent }}
+	    <input type="hidden" name="next" value="{% url presskit:presskit-viewrequest-band band.slug viewrequest.id %}" />
+
+	    <input type="submit" value="{% trans "Send" %}"/>
+	  </form>
+	</div>
+    </div>
+  </div>
+
+{% endblock %}

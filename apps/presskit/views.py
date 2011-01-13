@@ -86,6 +86,20 @@ def presskit_send(request, band_slug, venue_slug):
                               context_instance=RequestContext(request)
                               )
 
+## XXX Security
+@login_required
+def presskit_viewrequest_band(request, band_slug, viewrequest_id):
+    viewrequest = get_object_or_404(PresskitViewRequest, presskit__band__slug=band_slug, pk=viewrequest_id)
+    
+    return render_to_response(template_name='presskit/presskit_viewrequest_band.html',
+                              dictionary={'venue': viewrequest.venue,
+                                          'band': viewrequest.presskit.band,
+                                          'presskit': viewrequest.presskit,
+                                          'viewrequest': viewrequest},
+                              context_instance=RequestContext(request)
+                              )
+    
+
     
 
 

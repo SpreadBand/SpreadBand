@@ -21,7 +21,7 @@
     $(document).ready(function() {
 	$('a.tip').tipsy({gravity: 'n'});
 
-	$('#tracker tr').click(function(elem) {
+	$('#tracker tbody tr').click(function(elem) {
 	    window.location.href = $(this).attr('href');
 	});
 
@@ -203,7 +203,7 @@
 	    <tbody>
 	      {% staticfile '/images/venue/no_picture.png' as default_picture %}
 	      {% for presskit_view_request in sent_presskits %}
-		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{{ presskit_view_request.presskit.get_absolute_url }}">
+		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{% url presskit:presskit-viewrequest-band band.slug presskit_view_request.pk %}">
 		  <td class="status">{{ presskit_view_request.get_state_display|capfirst }}</td>
 		  <td class="venue">
 		    <div><img src="{{ venue.avatar_url|default:default_picture }}" width="40px"/>{{ presskit_view_request.venue.name }}</div>

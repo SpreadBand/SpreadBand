@@ -190,7 +190,8 @@
 	    $('#message-container').notify('create', 'withIcon',
 					   { text: '{{ message }}',
 					     icon: '{{ MEDIA_URL }}/images/{{ message.tags|lower }}.png',
-					   }
+					   },
+					   { expires: 10000 }
               				  );
 	});
       </script>
@@ -245,9 +246,9 @@
 			<img src="{% staticfile '/images/structure/more.png' %}" alt="more" width="11" height="7" />
 
 		      <ul class="subnav">
-			<li><a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}"><img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" width="16" height="16" alt="negociations" />{% trans "Negociations" %}</a></li>
-			<li><a href="{% url event:band-calendar band.slug %}"><img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" width="16" height="16" alt="agenda" />{% trans "Agenda" %}</a></li>
-
+			{# <li><a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}"><img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" width="16" height="16" alt="negociations" />{% trans "Negociations" %}</a></li> #}
+			{# <li><a href="{% url event:band-calendar band.slug %}"><img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" width="16" height="16" alt="agenda" />{% trans "Agenda" %}</a></li> #}
+			<li><a href="{% url venue:search %}"><img src="{% staticfile '/images/presskit/location_ico.png' %}" width="16" height="16" alt="search venue" />{% trans "Search a Venue" %}</a></li>
 			<li><a href="{% url presskit:mypresskit band.slug %}"><img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" width="16" height="16" alt="presskit" />{% trans "PressKit" %}</a></li>
 			<hr/>
 			<li class="more"><a href="{% url band:detail band.slug %}">{% trans "Go to dashboard" %} &rarr;</a></li>
@@ -325,6 +326,7 @@
 	    {% cache 3600 blog_feed2 %}
 	    {% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_headlines.html %}
 	    {% endcache %}
+
 	    
 	  </div>
 

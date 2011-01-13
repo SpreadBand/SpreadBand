@@ -59,6 +59,7 @@ class PresskitViewRequest(models.Model):
                                               self.venue.name,
                                               self.get_state_display())
 
+
 def create_presskit_for_band(sender, instance, created, **kwargs):
     """
     Called to ensure the presskit is created when a band is instanciated
