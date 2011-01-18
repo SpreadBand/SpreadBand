@@ -128,9 +128,25 @@
 	      </li>
 	    {% endfor %}
 	  </ul>
-
-	  <div class="clear"></div>
+	  
+	{% else %}
+	  <div id="no-band">
+	    <p>
+	      {{ user.first_name|default:user.username|capfirst }} !
+	    </p>
+	    <p>
+	      You are <strong>not in a band yet</strong> :-(
+	    </p>
+	    <p>
+	      {% url band:create as band_create_url %}
+	      {% url band:search as band_search_url %}
+	      {% blocktrans with band_create_url as band_create_url and band_search_url as band_create_url %}
+	      You can <a href="{{ band_create_url }}">create one now</a> or <a href="{{ band_search_url }}">check if your band is already on SpreadBand</a> and ask your friends to add you to it.
+	      {% endblocktrans %}
+	    </p>
+	  </div>
 	{% endif %}
+	<div class="clear"></div>
       </div>
     </div>
     
@@ -202,17 +218,15 @@
 		<div class="seen_notice">
 	      {% endif %}
 	      
-	      <!--<span class="notice_type">{% trans notice.notice_type.display %}</span> / -->
-	      <span class="notice_message">{{ notice.message|safe }}</span>.
-		</div>
-	      {% endfor %}
-	      
-	    {% else %}
-	      <p>{% trans "No notices." %}</p>
-	    {% endif %}
-	  {% endfor %}
+	          <span class="notice_message">{{ notice.message|safe }}</span>.
 		</div>
 		
+	    {% endfor %}
+	  {% endif %}
+	</div>
+	{% empty %}
+	<p id="no-notices-yet">You have no notices yet.</p>
+      {% endfor %}
       </div>
     </div>
     

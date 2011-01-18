@@ -338,3 +338,18 @@ div.band-picture {
     color: red;
 }
 
+#no-band {
+    padding: 20px;
+    background-color: #fcfeff;
+    border: 1px solid #b6becc;
+
+    font-size: 1.1em;
+    font-family: 'Helvetica';
+}
+
+p#no-notices-yet {
+    padding-top: 5px;
+    font-size: 1.1em;
+    color: #aaa;
+    text-align: right;
+}
