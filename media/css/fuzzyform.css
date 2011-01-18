@@ -20,6 +20,11 @@
     border-radius: 3px 3px 3px 3px;
 }
 
+.fuzzyform p {
+    color: #999;
+    font-size: 0.8em;
+}
+
 #text .fuzzyform ul {
     list-style-type: none;
 }
