@@ -88,11 +88,14 @@ def membership_manage(request, band_slug):
     if not request.user.has_perm('band.can_manage', band):
         return HttpResponseForbidden('You are not allowed to edit this band')
 
+    memberadd_form = BandMemberAddForm()
+
     return object_list(request,
                        queryset=BandMember.objects.filter(band__id=band.id),
                        template_name='band/membership_manage.html',
                        template_object_name='bandmember',
-                       extra_context={'band': band}
+                       extra_context={'band': band,
+                                      'memberadd_form': memberadd_form}
                        )
 
 
