@@ -10,6 +10,7 @@ from visitors.utils import record_visit
 from .models import PressKit
 from .forms import PressKitVideoForm
 
+@login_required
 def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.html'):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
 
@@ -43,6 +44,7 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
                                                               extra_context),
                               )
 
+@login_required
 def mypresskit(request, band_slug):
     return presskit_detail(request,
                            band_slug,
