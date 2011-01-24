@@ -11,6 +11,7 @@
 {% block css %}
   {{ block.super }}
   <link rel="stylesheet" type="text/css" media="screen" href="/css/venue_dashboard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/venue.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/band_vcard.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/gig_vevent.css" media="screen, projection" />
@@ -86,7 +87,12 @@
 
 
     });
-  </script>
+
+    $(document).ready(function() {
+	$('a.tip').tipsy({gravity: 'e'});
+    });
+
+    </script>
 
 
 {% endblock %}
@@ -260,29 +266,26 @@ $(document).ready(function() {
   </div>
   
    <div class="grid_3 omega">
-		<div class="sectionbox presskit_sharing">
-		
-			<div class="venue_sharing_title">Send presskit of :</div>
-						
-			<ul>
-				
-
-				{% for band in user.bands.all %}
-					<a onclick="javascript: return false;" href="{% url presskit:presskit-send band.slug venue.slug %}" class="presskit-send" title="{% trans "Send My PressKit" %}">
-					<div>
-						<li>
-							<img width="25px" height="25px" src="http://bleak.local:8000/site_media/cache/bands/2/pictures/sb-teaser_small_avatar_image.jpg" />
-							<p>Nom du groupe</p>
-						</li>
-					</div>
-					</a>					
-				{% endfor %} 
-
-
-			</ul>
-			
-		</div>
-	</div>
+     <div class="sectionbox presskit_sharing">
+       
+       <div class="venue_sharing_title"><img src="{% staticfile "images/venue/send_presskit.png" %}" alt="Send presskit of" width="150px"/></div>
+       
+       <ul>
+	 {% staticfile '/images/band/no_picture.png' as default_picture %}
+	 {% for band in user.bands.all %}
+	   <a onclick="javascript: return false;" href="{% url presskit:presskit-send band.slug venue.slug %}" class="presskit-send tip" title="{% blocktrans with band.name as band_name %}Send {{ band_name }} PressKit{% endblocktrans %}">
+	     <div>
+	       <li>
+		 <img width="25px" height="25px" src="{{ band.pictures.avatar.small_avatar_image.url|default:default_picture }}" />
+		 <p>{{ band.name }}</p>
+	       </li>
+	     </div>
+	   </a>					
+	 {% endfor %} 
+       </ul>
+       
+     </div>
+   </div>
 				
 				
 
