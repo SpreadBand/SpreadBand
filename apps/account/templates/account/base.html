@@ -19,8 +19,8 @@
 
   <div>
     <ul id="userprefs-categories">
-      {% url account:edit user.username as profile_url %}
-      {% url account:password as password_url %}
+      {% url userena_profile_edit user.username as profile_url %}
+      {% url userena_password_change user.username as password_url %}
       {% url notification_notice_settings as notification_url %}
 
       <li class="category {% if request.path == profile_url %}selected{% endif %}"><a href="{{ profile_url }}">{% trans "Profile" %}</a></li>

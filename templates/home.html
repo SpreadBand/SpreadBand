@@ -4,7 +4,10 @@
 {% load django_static %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.featureList-1.0.0.js"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.featureList-1.0.0.js" %}"></script>
+  <script src="{% staticfile '/js/jquery/jquery.validationEngine-en.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
 	$('#feature-tabs li a').featureList({
@@ -14,11 +17,29 @@
     });
   </script>
 
+  <script type="text/javascript">
+    function signup_box() {
+	Boxy.load('{% url userena_signup %}', {filter: '#signform',
+					       modal: true,
+					       title: "{% trans "Join the community now, it's free !" %}",
+					       closeable: true,
+					       closeText: '[{% trans 'Close' %}]',
+					       afterShow: function() {
+						   $('form#signup').validationEngine({isOverflown: true,
+										      overfownDIV: ".inputContainer"});
+					       }
+					      }
+		 );
+	return false;
+    }
+</script>
 {% endblock %}
 
 {% block css %}
   <link rel="stylesheet" type="text/css" media="screen" href="/css/home.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/featurelist/featurelist.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/signup.css" />
+  <link rel="stylesheet" href="/css/jquery/validationEngine.jquery.css" type="text/css"/>
 {% endblock %}
 
 {% block content %}
@@ -28,8 +49,8 @@
     <div id="main">
       <div id="main-top">
 	<img src="{% staticfile '/images/structure/baseline.png' %}" alt="Spreadband is a place for music addicts" width="377" height="35" id="baseline" />
-	<form id="authentication" action="{% url account:auth_login %}" method="post">
-	  <a href="#" id="lost-password">Lost password ?</a>
+	<form id="authentication" action="{% url userena_signin %}" method="post">
+	  <a href="#" id="lost-password">{% trans "Lost password ?" %}</a>
 
 	  {{ auth_form.as_p }}
 	  <input type="submit" id="submit-login" value="OK" />
@@ -74,7 +95,7 @@
 	</ul>
 	
 	<div id="subscribe">
-	  <a href="{% url account:registration_register %}"><img src="{% staticfile '/images/structure/subscribe.png' %}" alt="Join Us !" width="250" height="86" /></a>
+	  <a onclick="return signup_box();" class="join-us" href="#"><img src="{% staticfile '/images/structure/subscribe.png' %}" alt="Join Us!" width="250" height="86" /></a>
 	</div>
       </div>
     </div>

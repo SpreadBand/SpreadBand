@@ -27,7 +27,7 @@
 	  </div>
 	  <div class="grid_3 omega">
 	    <input type="submit" value="{% trans 'Let me in !' %}" />
-	    <p id="forgotpasswd">{% trans "Have you" %} <a href="{% url account:auth_password_reset %}">{% trans "forgotten your password" %}</a> ?</p>
+	    <p id="forgotpasswd">{% trans "Have you" %} <a href="{% url userena_password_reset %}">{% trans "forgotten your password" %}</a> ?</p>
 	  </div>
 
 	</div>
@@ -57,7 +57,7 @@
     <h2>{% trans "New here ?" %}</h2>
 
     <img src="{% staticfile "images/structure/login/new.png" %}" width="300px" />
-    <p id="registernow"><a href="{% url account:registration_register %}">{% trans "Register now" %}</a> {% trans "on SpreadBand, it's free and takes less than a minute !" %}</p>
+    <p id="registernow"><a href="{% url userena_signup %}">{% trans "Signup now" %}</a> {% trans "for a SpreadBand account, it's free and takes less than a minute !" %}</p>
 
     <h3>{% trans "What is SpreadBand ?" %}</h3>
     <p>FIXME

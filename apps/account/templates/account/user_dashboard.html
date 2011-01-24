@@ -41,7 +41,7 @@
       <h1>{% blocktrans with user.first_name|default:user.username as username %}Hey, {{ username }}{% endblocktrans %}</h1>
     </div>
     <div id="user-settings" class="grid_3 omega">
-      <a href="{% url account:edit user %}" class="button-tip minibutton btn-edit" title="Edit your informations"><span><span class="icon"></span>{% trans "Edit Your Profile" %}</span></a>
+      <a href="{% url userena_profile_edit user %}" class="button-tip minibutton btn-edit" title="Edit your informations"><span><span class="icon"></span>{% trans "Edit Your Profile" %}</span></a>
     </div>
   </div>
 
@@ -222,11 +222,13 @@
 		</div>
 		
 	    {% endfor %}
+
 	  {% endif %}
+
+	  {% empty %}
+	  <p id="no-notices-yet">You have no notices yet.</p>
+	{% endfor %}
 	</div>
-	{% empty %}
-	<p id="no-notices-yet">You have no notices yet.</p>
-      {% endfor %}
       </div>
     </div>
     

@@ -36,8 +36,11 @@ urlpatterns = patterns('',
     url(r'^beta/sent/$', 'privatebeta.views.sent', name='privatebeta_sent'),
 
     # auth + profile
-    (r'^user/', include('socialregistration.urls')),
+    # (r'^user/', include('socialregistration.urls')),
+
     (r'^user/', include('account.urls', namespace='account')),
+    (r'^user/', include('userena.urls')),
+
 
     # Contacts import
     (r'^user/contacts/', include('contacts_import.urls')),
@@ -112,6 +115,27 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 )
 
+
+
+# Redirections
+urlpatterns += patterns('django.views.generic.simple',
+    url(r'^alpha/$', 'redirect_to', {'url': '/beta/', 'permanent': True}),
+)
+
+# Static pages
+urlpatterns += patterns('django.views.generic',
+        url(r'^discover/band$', 'simple.direct_to_template', {'template': 'band_discover.html'}, name='discover-band'),
+)
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+        (r'^styles$',             'django.views.generic.simple.direct_to_template', {'template': 'band_new_styles.html'}),
+
+        url(r'^rosetta/', include('rosetta.urls')),
+    )
+
+
 # Sitemaps
 sitemaps = {'flatpages': FlatPageSitemap,
             'pages': DirectToTemplateSitemap(urlpatterns)}
@@ -120,19 +144,3 @@ urlpatterns += patterns('',
     # Robots.txt and sitemap
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )
-
-# Redirections
-urlpatterns += patterns('django.views.generic.simple',
-    url(r'^alpha/$', 'redirect_to', {'url': '/beta/', 'permanent': True}),
-)
-
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-        (r'^styles$',             'django.views.generic.simple.direct_to_template', {'template': 'band_new_styles.html'}),
-        (r'^discover/band$',             'django.views.generic.simple.direct_to_template', {'template': 'band_discover.html'}),
-
-        url(r'^rosetta/', include('rosetta.urls')),
-    )
-

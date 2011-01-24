@@ -2,30 +2,52 @@ from datetime import date
 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import logout as auth_logout
 from django.contrib import messages
+from django.core.urlresolvers import resolve
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template.context import RequestContext
-from django.views.generic.create_update import update_object
 from django.utils.translation import ugettext as _
+from django.views.generic.create_update import update_object
 
 from notification.models import Notice
-
-from profiles.views import edit_profile, profile_detail
 
 from actstream.models import Action
 from band.models import Band
 from gigbargain.models import GigBargain
+from userena.views import signup as userena_signup
+from userena.views import password_change as userena_password_change
+from userena.views import profile_edit, profile_detail
+from userena.forms import SignupFormTos
 
 from .models import UserAvatar
 from .forms import UserProfileForm, UserForm, AccountEditForm
 from .forms import ProfileEditForm, ProfileAvatarForm
 
+#-- Userena wrapping
+def signup(request):
+    return userena_signup(request, signup_form=SignupFormTos,
+                          template_name='userena/signup_form.html')
+
+
 @login_required
-def edit(request, username):
-    return edit_profile(request,
-                        form_class=ProfileEditForm,
-                        success_url='#')
+def logout(request):
+    auth_logout(request)
+    messages.success(request,
+                     _("You have been signed off successfully, see you !"))
+
+    return redirect('home')
+
+
+@login_required
+def password_change_complete(request, username):
+    messages.success(request,
+                     _("Your password was successfully updated"))
+    return redirect("account:dashboard")
+
+
 
 @login_required
 def password(request):
@@ -35,6 +57,16 @@ def password(request):
                          template_name='account/password.html',
                          post_save_redirect="?",
                          extra_context={'profile': request.user.get_profile()})
+
+@login_required
+def edit(request, username):
+    return profile_edit(request,
+                        username=username,
+                        edit_profile_form=ProfileEditForm,
+                        template_name='userena/profile_form.html',
+                        success_url=None)
+
+#-- End of userena wrapping
 
 @login_required
 def avatar_set(request):
@@ -73,7 +105,7 @@ def avatar_set(request):
 @login_required
 def detail(request, username):
     if request.user.username == username:
-        return dashboard(request)
+        return redirect('account:dashboard')
     else:
         user = get_object_or_404(User, username=username)
         today = date.today()
@@ -81,6 +113,7 @@ def detail(request, username):
         band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=user.bands.all).distinct()
         user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
         return profile_detail(request, username,
+                              template_name='userena/profile_detail.html',
                               extra_context={'user_connections': user_connections}
                               )
 
@@ -115,7 +148,6 @@ def contacts(request):
                                                               context)
                               )
 
-from django.core.urlresolvers import resolve
 
 @login_required
 def oauth_access_success(request, access, token):

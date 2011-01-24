@@ -12,13 +12,9 @@
     <form class="fuzzyform">
       <label for="id_avatar">{% trans "Avatar" %}</label>
       <div id="id_avatar">
-	{% if profile.avatar %}
-	  {% avatar user 80 %}
-	  <span>
+	{% avatar user 80 %}
+	<span>
 	  <a href="{% url avatar_change %}">{% trans "Change it" %}</a> {% trans "or" %} <a href="{% url avatar_delete %}">{% trans "delete it" %}</a>.
-	{% else %}
-	  {% trans "No avatar is defined."%} <a href="{% url account:avatar %}" class="button-tip minibutton btn-edit" title="Set Your Avatar"><span><span class="icon"></span>{% trans "Set Your Avatar" %}</span></a>
-	{% endif %}
 	</span>
       </div>
     </form>

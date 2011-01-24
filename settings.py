@@ -109,10 +109,11 @@ MIDDLEWARE_CLASSES = (
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
+    # reversion
     'reversion.middleware.RevisionMiddleware',
 
     # Facebook
-    'socialregistration.middleware.FacebookMiddleware',
+    #'socialregistration.middleware.FacebookMiddleware',
 
     # Request (stats)
     'request.middleware.RequestMiddleware',
@@ -124,10 +125,14 @@ MIDDLEWARE_CLASSES = (
     # 403
     'utils.middleware.403.Django403Middleware',
 
-    # Private beta
-    'privatebeta.middleware.PrivateBetaMiddleware',
-
+    'userena.middleware.UserenaLocaleMiddleware',
 )
+
+if not DEBUG:
+    MIDDLEWARE_CLASSES += (
+        # Private beta
+        'privatebeta.middleware.PrivateBetaMiddleware',
+        )
 
 ROOT_URLCONF = 'spreadband.urls'
 
@@ -156,7 +161,24 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.flatpages',
 
+    # Internal
+    'world',
+    'media',
+    # 'minisite',
+#    'minisite-portlets', <-- bug avec pgsql..
+    'actors',
+    'event',
+    'band',
+    'presskit',
+    'venue',
+    'album',
+    'gigbargain',
+    # 'bigbrother',
+    'api',
+    'account',
+
     # External
+    'userena',
     'oauth_access',
     'privatebeta',
     'haystack',
@@ -202,22 +224,6 @@ INSTALLED_APPS = (
     'template_utils',
     'visitors',
     'badges',
-
-    # Internal
-    'world',
-    'media',
-    'account',
-    # 'minisite',
-#    'minisite-portlets', <-- bug avec pgsql..
-    'actors',
-    'event',
-    'band',
-    'presskit',
-    'venue',
-    'album',
-    'gigbargain',
-    # 'bigbrother',
-    'api',
 )
 
 if DEBUG:
@@ -265,16 +271,16 @@ else:
 ACCOUNT_ACTIVATION_DAYS = 7
 
 ### LOGIN, AUTHENTICATION
-# General
-LOGIN_URL = '/user/register/bandlogin'
-LOGIN_REDIRECT_URL = '/'
-
 AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
     'utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
-    'socialregistration.auth.OpenIDAuth',
-    'socialregistration.auth.FacebookAuth',
     'guardian.backends.ObjectPermissionBackend',
     )
+
+LOGIN_URL = '/user/signin/'
+
+### USERENA
+USERENA_SIGNIN_REDIRECT_URL = '/user/%(username)s'
 
 ### PROFILES
 AUTH_PROFILE_MODULE  = 'account.UserProfile'

@@ -8,19 +8,24 @@ _ = lambda u: unicode(ugettext(u))
 
 from django.contrib.auth.models import User
 
+import userena.models
+from userena.models import UserenaLanguageBaseProfile
+
 from imagekit.models import ImageModel
 
 from django_countries import CountryField
 from timezones.fields import TimeZoneField
 
-class UserProfile(models.Model):
+class UserProfile(UserenaLanguageBaseProfile):
     """
     A profile for a user
     """
+    class Meta:
+        permissions = userena.models.PROFILE_PERMISSIONS
+
     genre_choices = (('M', _('Male')),
                      ('F', _('Female')))
 
-    user = ForeignKey(User, unique=True)
     birthdate = DateField(verbose_name=_('Birthdate'),
                           null=True, blank=True)
 
@@ -41,7 +46,7 @@ class UserProfile(models.Model):
         """
         if self.birthdate:
             d = datetime.date.today()
-            return (d.year - self.birthdate.year) - int((d.month, d.day) < (self.birthdate.month, self.birthdate.day))
+            return (d.year - self.birthdate.year) - int((d.month, d.day) < (self.birthdate.month, self.birthdate.day)) 
         else:
             return None
 
@@ -82,4 +87,4 @@ def create_profile(sender, instance, created, **kwargs):
         profile = UserProfile(user=instance)
         profile.save()
 
-post_save.connect(create_profile, sender=User)
+#post_save.connect(create_profile, sender=User)

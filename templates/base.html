@@ -89,15 +89,7 @@
     var CKEDITOR_BASEPATH = '{{ MEDIA_URL }}/js/ckeditor/';
   </script>
 
-
-  <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.nicejforms2.js"></script>
-
   <!--[if !IE]>scripts behaviours<![endif]-->
-  <script type="text/javascript">
-    $(document).ready(function() {  
-	$('.niceform').NiceJFormer({imagesPath: '/site_media/images/niceforms/'});  
-    });  
-  </script>
 
   <!-- Support panel -->
   <script type="text/javascript">
@@ -147,17 +139,6 @@
   <!--[if lte IE 6]>
       <script type="text/javascript" src="{% slimfile '/js/supersleight.js' %}"></script>
       <![endif]-->
-
-
-
-  <script type="text/javascript">
-    //$(document).ready(function() {
-    //    $('a').click(function() {
-    //      $('#content').load(this.href + '#content');
-    //      return false;
-    //});
-
-    //});
 
   </script>
 
@@ -210,16 +191,22 @@
     <div id="header">
       <div class="container_16">
 	<div class="grid_16 alpha omega">
+
+	  <!-- logo -->
 	  <div id="logo">
 	    <h1><a href="{% url home %}"><img src="{% staticfile '/images/structure/sb_header.png' %}" alt="SpreadBand" width="332" height="89" /></a></h1>
 	  </div>
+
+	  <!-- right of the logo -->
 	  <div id="menus">
 	    {% if not user.is_authenticated %}
 	      <ul id="features">
-		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/band/" %}">+ Groupes, DJs</a><span>Plus de shows et de fans</span></li>
+		<li><a href="{% url discover-band %}">+ Groupes, DJs</a><span>Plus de shows et de fans</span></li>
 		<li><a href="{% url django.contrib.flatpages.views.flatpage url="features/venue/" %}">+ Lieux de Concerts, Bars</a><span>Booking éclair</span></li>
 	      </ul>
 	    {% else %}
+
+	      <!-- User menu -->
 	      <div id="user-menu">
 		<img alt="" src="{% staticfile '/images/structure/usermenu/left.png' %}" width="6" height="28"/> 
 		<ul>
@@ -228,10 +215,10 @@
 		    <a class="username" href="{% url account:dashboard %}">{{ user.username }}</a>
 		  </li>
 		  <li class="separator"></li>
-		  <li><a href="{% url account:edit user %}">{% trans "Settings" %}</a></li>
+		  <li><a href="{% url userena_profile_edit user %}">{% trans "Settings" %}</a></li>
 		  <li class="separator"></li>
 		  <li><a href="{% url backcap:feedback-list %}">{% trans "Help" %}</a></li>
-		  <li class="logout"><a href="{% url account:auth_logout %}">{% trans "Logout" %}</a></li>
+		  <li class="logout"><a href="{% url userena_signout %}">{% trans "Logout" %}</a></li>
 		</ul>
 		<img alt="" src="{% staticfile '/images/structure/usermenu/right.png' %}" width="6" height="28"/> 
 	      </div>
@@ -250,7 +237,7 @@
 			{# <li><a href="{% url event:band-calendar band.slug %}"><img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" width="16" height="16" alt="agenda" />{% trans "Agenda" %}</a></li> #}
 			<li><a href="{% url venue:search %}"><img src="{% staticfile '/images/presskit/location_ico.png' %}" width="16" height="16" alt="search venue" />{% trans "Search a Venue" %}</a></li>
 			<li><a href="{% url presskit:mypresskit band.slug %}"><img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" width="16" height="16" alt="presskit" />{% trans "PressKit" %}</a></li>
-			<hr/>
+			<li><hr/></li>
 			<li class="more"><a href="{% url band:detail band.slug %}">{% trans "Go to dashboard" %} &rarr;</a></li>
 		      </ul>
 		    </li>
@@ -259,11 +246,10 @@
 	      </div>
 	    {% endif %}
 	  </div>
-	    
-	  {# <div id="player"><img src="{% staticfile '/images/_TEMP/player.png' %}" alt="replace with the good player ;)" /></div> #}
 	</div>
       </div>
     </div>
+
 {% endif %} {# Ajax request #}
 
     <!-- Content -->
@@ -274,12 +260,13 @@
 	    {% block content %}
 	    {% endblock %}
 	  </div>
+	</div>
       </div>
     </div>
 
+{% if not request.is_ajax %}    
     <div class="clear push"></div>
 
-{% if not request.is_ajax %}    
     <div id="footer">
       <div class="container_16">
 	<div id="whatis" class="grid_4 suffix_1">
@@ -290,20 +277,17 @@
 	  </p>
 	  
 	  <p>
-	    Dans une démarche équitable, l'équipe de SpreadBand fait au mieux pour mettre les musiciens au cœur des décisions et s'attache à proposer des offres commerciales qui correspondent aux moyens de ces petites structures.
+	    Dans une démarche équitable, l'équipe de SpreadBand fait au mieux pour mettre les musiciens au cœur des décisions et s'attache à proposer un modèle économique qui correspond au mieux aux attentes de ceux-ci.
 	  </p>
 	</div>
 
 
 	<div class="grid_3 suffix_1">
 	  <h5>Découvrez</h5>
-	    <ul>
-	      <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/band/' %}">Groupes, Artistes solo</a></li>
-	      <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/venue/' %}">Bars, Lieux de concerts</a></li>
-	    </ul>
-	  </p>
-
-
+	  <ul>
+	    <li><a href="{% url discover-band %}">Groupes, Artistes solo</a></li>
+	    <li><a href="{% url django.contrib.flatpages.views.flatpage '/features/venue/' %}">Bars, Lieux de concerts</a></li>
+	  </ul>
 	</div>
 
 	<div class="grid_5">
@@ -326,8 +310,6 @@
 	    {% cache 3600 blog_feed2 %}
 	    {% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_headlines.html %}
 	    {% endcache %}
-
-	    
 	  </div>
 
 	</div>
@@ -346,7 +328,7 @@
 	  
 	  &nbsp;|&nbsp;
 	  {% if not user.is_staff %}
-	  <a href="{% url account:auth_login %}">Login admin</a>
+	  <a href="{% url userena_signin %}">Login admin</a>
 	  {% else %}
 	  <a href="/admin">Administration</a>
 	  {% endif %}
@@ -390,5 +372,6 @@
     {% endif %}
 
 {% endif %} {# ajax request #}
+
 </body>
 </html>
