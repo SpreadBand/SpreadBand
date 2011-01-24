@@ -1,7 +1,8 @@
 from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponseRedirect
+from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
-from django.contrib.auth.forms import AuthenticationForm
+from userena.forms import AuthenticationForm
 
 def home_spreadband(request):
     """
@@ -13,12 +14,13 @@ def home_spreadband(request):
         if request.user.bands.count() == 1:
             return redirect(request.user.bands.all()[0])
         else:
-            return HttpResponseRedirect(reverse('account:detail', args=[request.user.username]))
+            return HttpResponseRedirect(reverse('account:dashboard'))
     else:
         auth_form = AuthenticationForm()
 
         return render_to_response('home.html',
-                                  dictionary={'auth_form': auth_form}
+                                  dictionary={'auth_form': auth_form},
+                                  context_instance=RequestContext(request),
                                   )
                               
 
