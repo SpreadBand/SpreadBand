@@ -114,9 +114,9 @@ form#signup #tos label {
 }
 
 h1#thanks {
-    background-image: url('../images/signup/check.png');
+    background-image: url('../images/presskit/validated_ico.png');
     background-repeat: no-repeat;
-    padding-left: 38px;
-    padding-top: 5px;
+    padding-left: 43px;
+    padding-top: 8px;
     height: 30px;
 }
