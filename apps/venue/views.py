@@ -13,18 +13,52 @@ from django.conf import settings
 from band.models import Band
 
 from .models import Venue
-from .forms import VenueForm, VenueUpdateForm, VenuePictureForm, NewCantFindForm
+from .forms import VenueForm, VenueUpdateForm, VenuePictureForm, NewCantFindForm, VenueCreateForm, VenueMemberRequestForm
+
+@login_required
+def dashboard(request):
+    """
+    Dashboard for a venue
+    """
+    return render_to_response(template_name='venue/venue_new.html',
+                              dictionary={'form': create_form,
+                                          'member_form': member_form},
+                              context_instance=RequestContext(request)
+                              )
+    
 
 @login_required
 def new(request):
     """
     register a new venue
     """
-    return create_object(request,
-                         form_class=VenueForm,
-                         template_name='venue/venue_new.html',
-                         )
+    create_form = VenueCreateForm(request.POST or None)
+    member_form = VenueMemberRequestForm(request.POST or None)
 
+    if request.method == 'POST':
+        if member_form.is_valid():
+            if create_form.is_valid():
+                # Create the band
+                venue = create_form.save()
+                
+                # Add this user into the band
+                venuemember = VenueMember(venue=venue,
+                                          user=request.user
+                                          )
+                venuemember.save()
+                venuemember.roles = member_form.cleaned_data.get('roles')
+                venuemember.save()
+                
+                # Assign rights to the user
+                assign('venue.can_manage', venuemember.user, venue)
+               
+                return redirect(venue)
+
+    return render_to_response(template_name='venue/venue_new.html',
+                              dictionary={'form': create_form,
+                                          'member_form': member_form},
+                              context_instance=RequestContext(request)
+                              )
 
 def detail(request, venue_slug):
     """
@@ -326,3 +360,113 @@ def search_cantfind(request):
                                           'sendnewcantfind_form': sendnewcantfind_form},
                               context_instance=RequestContext(request)
                               )
+
+
+
+"""
+Membership management for a venue
+
+This code is fucking duplicated from the band management
+"""
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect
+from django.utils.translation import ugettext as _
+from django.views.generic.create_update import delete_object, create_object
+from django.views.generic.list_detail import object_list
+
+from guardian.shortcuts import assign, remove_perm
+
+from .forms import VenueMemberAddForm
+from .models import Venue, VenueMember
+
+@login_required
+def membership_add(request, venue_slug):
+    """
+    Add a member in the venue
+    """
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Permissions
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden(_("You are not allowed to edit this venue"))
+
+    if request.method == 'POST':
+        addform = VenueMemberAddForm(request.POST)
+
+        if addform.is_valid():
+            # Set venue
+            venuemember = addform.save(commit=False)
+            
+            venuemember.venue = venue
+
+            # Save to DB
+            venuemember.save()
+            addform.save_m2m()
+
+            # Assign rights to the user
+            assign('venue.can_manage', venuemember.user, venue)
+            
+
+            return redirect(venuemember)
+
+    return create_object(request,
+                         form_class=VenueMemberAddForm,
+                         template_name='venue/membership_add.html',
+                         extra_context={'venue': venue},
+                         )
+
+@login_required
+def membership_manage(request, venue_slug):
+    """
+    Manage members in the venue
+    """
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Permissions
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden('You are not allowed to edit this venue')
+
+    memberadd_form = VenueMemberAddForm()
+
+    return object_list(request,
+                       queryset=VenueMember.objects.filter(venue__id=venue.id),
+                       template_name='venue/membership_manage.html',
+                       template_object_name='venuemember',
+                       extra_context={'venue': venue,
+                                      'memberadd_form': memberadd_form}
+                       )
+
+
+@login_required
+def membership_remove(request, venue_slug, member_id):
+    """
+    Remove a member from the venue
+    """
+    venue = get_object_or_404(Venue, slug=venue_slug)
+    venuemember = get_object_or_404(VenueMember, venue=venue.id, user=member_id)
+
+    # Permissions
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden(_("You are not allowed to edit this venue"))
+
+    if len(venue.members.all()) == 1:
+        messages.error(request, _("You can't let this venue alone"))
+        return redirect('venue:membership-manage', venue.slug)
+
+    # remove the permission
+    remove_perm('venue.can_manage', venuemember.user, venue)
+    
+    return delete_object(request,
+                         model=VenueMember,
+                         object_id=venuemember.id,
+                         template_name='venue/venuemember_confirm_delete.html',
+                         template_object_name='venuemember',
+                         post_delete_redirect=venuemember.get_absolute_url(),
+                         extra_context={'venue': venue}
+                         )
+
+    

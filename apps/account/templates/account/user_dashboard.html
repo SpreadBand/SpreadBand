@@ -69,6 +69,8 @@
 
   <div class="alpha grid_11">
 
+    {% if user.venue_memberships.all|length == 0 or user.band_memberships.all|length > 0 %}
+
     <div id="band-list">
       <div id="band-side">
 	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands" width="90px" height="90px"/>
@@ -135,23 +137,94 @@
 	<div class="clear"></div>
       </div>
     </div>
-    
 
-    {% if request.user.venue_memberships.all %}
-      <div id="your-venues" class="sectionbox">
-	<div class="header">
-	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
-	  <h2>{% trans "Your Venues" %}</h2>
-	</div>
-	
-	<div class="separator"></div>
-	
-	<div class="content">
-	  <strong>WIP</strong>
-	</div>
-	
-      </div>
+    <div id="separator" class="clear"></div>
+
     {% endif %}
+
+    {% if user.band_memberships.all|length == 0 or user.venue_memberships.all|length > 0 %}
+    <div id="band-list">
+      <div id="band-side">
+	<img src="{% staticfile "/images/account/venues_ico.png" %}" alt="venues" width="90px" height="90px"/>
+	<h2>{% trans "My Venues" %}</h2>
+
+	<ul id="band-actions">
+	  <li><a href="{% url venue:create %}" class="button-tip minibutton btn-edit" title="{% trans "Create a new venue" %}"><span><span class="icon"></span>{% trans "Create a new venue" %}</span></a></li>
+	</ul>
+
+      </div>
+
+      <div id="band-main">
+        {% if user.venue_memberships.all %}
+	  <ul id="bands">
+	    {% for venue in user.venues.all %}
+	      <li>
+		<div class="band-picture">
+		  {% staticfile '/images/venue/no_picture.png' as default_pic %}
+		  <a href="{% url venue:detail venue.slug %}">
+		    <img id="photo" height="80px" width="80px" src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}" class="photo"/>
+		  </a>
+		</div>
+		
+		<div class="band-info">
+		  <a href="{% url venue:detail venue.slug %}">
+		    <span class="band-name">{{ venue.name|capfirst }}</span>
+		  </a>
+		  <span class="band-location">{{ venue.city }} {% if venue.country %}<img src="{{ venue.country.flag }}" alt="{{ venue.country.name }}" title="{{ venue.country.name }}"/>{% endif %}</span>
+		  <span class="band-style">{{ venue.ambiance|truncatewords:3 }}</span>
+		</div>
+
+		<!-- Latest activity -->
+		<div class="band-activity">
+		    <ul>
+		      {% for action in latest_activity %}
+			<li>{% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
+			{% empty %}
+			<li>{% trans "There is no activity yet for this venue !" %}</li>
+		      {% endfor %}
+		    </ul>
+		</div>
+
+	      </li>
+	    {% endfor %}
+	  </ul>
+	  
+	{% else %}
+	  <div id="no-band">
+	    <p>
+	      {{ user.first_name|default:user.username|capfirst }},
+	    </p>
+	    <p>
+	      You are <strong>not managing a venue</strong>.
+	    </p>
+	    <p>
+	      {% url venue:create as venue_create_url %}
+	      {% url venue:search as venue_search_url %}
+	      {% blocktrans with venue_create_url as venue_create_url and venue_search_url as venue_create_url %}
+	      You can <a href="{{ venue_create_url }}">create one now</a> or <a href="{{ venue_search_url }}">check if your venue is already on SpreadBand</a>.
+	      {% endblocktrans %}
+	    </p>
+	  </div>
+	{% endif %}
+	<div class="clear"></div>
+      </div>
+    </div>
+    <div class="clear"></div>    
+    {% endif %}
+
+    {% with user.band_memberships.all|length as band_count %}
+      {% with user.venue_memberships.all|length as venue_count %}
+	{% if venue_count and not band_count %}
+	  <div id="register-other-type">Also in a band ? <a href="{% url band:create %}">Register it now</a> !</div>
+	{% else %}
+	  {% if band_count and not venue_count %}
+	    <div id="register-other-type">Also running a venue ? <a href="{% url venue:create %}">Register it now</a> !</div>	    
+	  {% endif %}
+	{% endif %}
+    {% endwith %}
+    {% endwith %}
+
+
   </div>
 
 

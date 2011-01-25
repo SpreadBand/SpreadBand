@@ -3,8 +3,9 @@ _ = lambda u: unicode(ugettext(u))
 
 from django.db import models
 from django.db.models import CharField, SlugField, TextField, BooleanField, URLField
-from django.db.models import ForeignKey, PositiveSmallIntegerField
+from django.db.models import ForeignKey, PositiveSmallIntegerField, ManyToManyField
 from django.contrib.contenttypes import generic
+from django.contrib.auth.models import User
 
 from django_countries import CountryField
 from imagekit.models import ImageModel
@@ -41,6 +42,8 @@ class Venue(Actor):
 
     capacity = PositiveSmallIntegerField(default=0,
                                          help_text=_('Capacity of the room'))
+
+    members = ManyToManyField(User, through='VenueMember', related_name='venues')
 
     socialnetworks = generic.GenericRelation(SocialNetworkProfile,
                                              object_id_field="object_id",
@@ -111,6 +114,49 @@ class VenuePicture(ImageModel):
 
     def __unicode__(self):
         return _(u"Picture for venue %s") % self.venue.name
+
+
+class VenueRole(models.Model):
+    """
+    A typed role in a venue. Eg: boss
+    """
+    class Meta:
+        ordering = ('label',)
+
+    label = CharField(max_length=30,
+                      unique=True)
+
+    def __unicode__(self):
+        return self.label
+
+class VenueMember(models.Model):
+    """
+    A membership link between users and venues
+    """
+    class Meta:
+        unique_together = ('user', 'venue')
+
+    user = ForeignKey(User, 
+                      verbose_name=_('user'),
+                      related_name='venue_memberships')
+
+    venue = ForeignKey(Venue, related_name='venue_members')
+
+    roles = ManyToManyField(VenueRole, 
+                            verbose_name=_('Roles'),
+                            related_name='roles')
+
+    approved = BooleanField(default=False,
+                            help_text=_('Whether the membership has been approved'))
+
+    def __unicode__(self):
+        return u"%s of %s" % (self.user,
+                              unicode(self.venue))
+
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('venue:membership-manage', (self.venue.slug,))
 
 
 

@@ -1,32 +1,52 @@
 {% extends "base.html" %}
+
 {% load i18n %}
 {% load uni_form_tags %}
 
 {% block javascript %}
+{{ block.super }}
+
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slugify.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#id_name").slugify("#id_slug");
   });
 </script>
+
 {% endblock %}
+
 
 {% block content %}
 
-<div class="alpha grid_16 omega">
-   <h3>Create a new Venue</h3>
-</div>
+<div id="text">
+  <div class="alpha grid_16 omega">
+    <h1>{% trans "Register Your Venue" %}</h1>
+  </div>
+  
+  <div class="alpha grid_10">
+    <h2>{% trans "Your Venue" %}</h2>
+    <form method="POST" class="uniForm">{% csrf_token %}
 
-<div class="alpha grid_10">
-  <form action="new" method="POST" class="uniForm">{% csrf_token %}
-    {{ form|as_uni_form }}
+    <div id="div_id_name" class="ctrlHolder {% if form.name.errors %}error{% endif %}">
+      <strong>{{ form.name.label }} :</strong>
+      {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+    <div id="div_id_slug" class="ctrlHolder {% if form.slug.errors %}error{% endif %}">
+      Votre adresse sur spreadband : <strong>http://spreadband.com/v/</strong>{{ form.slug }}
+      {{ form.slug.errors }}
+    </div>
+
+    <br/>
+
+    <h2>{% trans "You, in this venue" %}</h2>
+    {{ member_form|as_uni_form }}
+    
+
     <input type="submit" value="{% trans "Submit" %}" />
-  </form>
-</div>
 
-<div class="grid_4 omega">
-  Lorem ipsum fuck dorbidien
+    </form>
+  </div>
 </div>
-
 
 {% endblock %}

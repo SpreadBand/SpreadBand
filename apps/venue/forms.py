@@ -1,13 +1,19 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext
 _ = lambda u: unicode(ugettext(u))
 
-from .models import Venue, VenuePicture
+from .models import Venue, VenuePicture, VenueMember
 
 class VenueForm(forms.ModelForm):
     class Meta:
         model = Venue
         fields = ('name', 'slug', 'ambiance', 'description')
+
+class VenueCreateForm(forms.ModelForm):
+    class Meta:
+        model = Venue
+        fields = ('name', 'slug')
 
 
 class VenueUpdateForm(forms.ModelForm):
@@ -69,3 +75,37 @@ class NewCantFindForm(forms.Form):
 class SendNewCantFindForm(NewCantFindForm):
     message = forms.CharField(required=False,
                               widget=forms.Textarea())
+
+
+
+#-- Membership management
+class VenueMemberAddForm(forms.ModelForm):
+    class Meta:
+        model = VenueMember
+        fields = ('user', 'roles')
+    
+    user = forms.CharField(max_length=50, 
+                           help_text='Enter the username of the person to add')
+
+    def clean_user(self):
+        value = self.cleaned_data['user']
+        try:
+            user = User.objects.get(username__iexact=value)
+        except User.DoesNotExist, e:
+            raise forms.ValidationError(_("The user's nickname you have entered doesn't exist"))
+
+        return user
+
+
+class VenueMemberRequestForm(forms.ModelForm):
+    class Meta:
+        model = VenueMember
+        fields = ('roles',)
+
+    def clean(self):
+        value = self.cleaned_data.get('roles')
+
+        if not value:
+            raise forms.ValidationError(_("You must at least have a role"))
+
+        return self.cleaned_data

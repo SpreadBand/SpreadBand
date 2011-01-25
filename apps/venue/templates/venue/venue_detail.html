@@ -171,42 +171,20 @@
   <div id="venuemembers" class="grid_3 alpha omega">
     <h3>{% trans "Staff" %} ({{ venue.members.count }})</h3>
     {% if is_managed %}
-      <a href="{% url band:membership-manage venue.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+      <a href="{% url venue:membership-manage venue.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
     {% endif %}
 
-    <!--
 	
-	{% staticfile '/images/account/no_avatar.png' as default_avatar %}
+    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
     <ul>
-    {% for member in venue.members.all %}
+    {% for member in venue.venue_members.all %}
 	<li>
-	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" width="48px" height="48px"><a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a>
-	  <span class="venuemember_whois">{{ member.user.get_profile.genre|default:"?" }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
+	  <img src="{{ member.user.get_profile.avatar.small_avatar_image.url|default:default_avatar }}" alt="{{member.user.username}}" width="48px" height="48px" />
+	  <a href="{% url userena_profile_detail member.user %}">{{ member.user.get_full_name|default:member.user.username }}</a>
 	  <span class="venuemember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
       </li>
     {% endfor %}
     </ul>
-	
-	-->
-	
-	
-    <ul>
-	
-	<li>
-	  <img src="/site_media/avatars/glibersat/resized/48/d832506d9fbf20813cf94538966389a9.jpg" alt="glibersat" height="48" width="48">
-	  <a href="/user/glibersat">Guillaume Libersat</a>
-	  <span class="venuemember_role" title="Electric Guitar">Electric Guitar</span>
-
-	</li>
-	
-	<li>
-	  <img src="/site_media/avatars/vinz/resized/48/402f043be969852ff3c210a6361eb12c.jpg" alt="vinz" height="48" width="48">
-	  <a href="/user/vinz">vinz</a>
-	  <span class="venuemember_role" title="Violon">Violon</span>
-	</li>
-	
-      </ul>
-	
 	
   </div>
   

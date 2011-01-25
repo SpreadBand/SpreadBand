@@ -353,3 +353,13 @@ p#no-notices-yet {
     color: #aaa;
     text-align: right;
 }
+
+#separator {
+    height: 20px;
+}
+
+#register-other-type {
+    margin-top: 15px;
+    font-size: 0.9em;
+    text-align: right;
+}
