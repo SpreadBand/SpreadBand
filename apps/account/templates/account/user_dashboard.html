@@ -32,9 +32,11 @@
 
 <div id="text">
 
-  <div id="yourbands">
-    &nbsp;
-  </div>
+  {% if user.bands.all|length > 0 %}
+    <div id="yourbands">
+      &nbsp;
+    </div>
+  {% endif %}
 
   <div id="greating" class="alpha grid_7">
     <div class="grid_4 alpha">
