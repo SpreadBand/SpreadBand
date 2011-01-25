@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load django_static %}
+
+{% block title %}
+  {% trans "Signup almost done!" %}
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/signup.css" media="screen, projection" />
+{% endblock %}
+
+{% block content %}
+
+<div id="text">
+  <h1 id="thanks">{% trans "Thank you, you're just one-click away!" %}</h1>
+  
+
+  <div class="grid_10 alpha">
+    <p>{% blocktrans with account.email as email %}You have been <strong>send an e-mail</strong> with an activation link to <strong>{{ email }}</strong>.{% endblocktrans %}</p>
+    <p>{% blocktrans %}Please <strong>click on the activation link in the e-mail</strong> to start using SpreadBand!{% endblocktrans %}</p>
+    <p>{% blocktrans %}You have <strong>{{ userena_activation_days }} days</strong> to complete the signup... so <cite>be quick or be dead</cite> :-){% endblocktrans %}</p>
+
+    <a href="{% url home %}">&larr; {% trans "Back home" %}</a>
+  </div>
+
+  <div class="grid_5 omega">
+    
+    <div id="tell-friends">
+      <p>
+	{% blocktrans %}While you're waiting for the e-mail... why not telling your friends about SpreadBand ?{% endblocktrans %}
+      </p>
+	
+	<script type="text/javascript">
+	  
+	  function fbs_click($this) {
+	      var u = "http://www.spreadband.com";
+	      var t = "{% trans "Musiciens indépendants : trouvez des bars, organisez des concerts et créez votre réseau grâce à SpreadBand !" %}";
+	      window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');
+	      return false;
+	  }
+	</script>
+	
+	<ul id="share">
+	  <li>
+	    
+	    <a rel="nofollow" href="#" title="SpreadBand" onclick="return fbs_click();" target="_blank">
+	      <img src="{% staticfile '/images/icons/64x64/facebook.png' %}" width="32px" height="32px" alt="Facebook" />
+	      <span class="service-name">{% trans "Share on Facebook" %}</span>
+	    </a>
+	  </li>
+	  <li>
+	    <a rel="nofollow" href="http://twitter.com/home?status={% trans "Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de musique ! http://spreadband.com" %}" title="SpreadBand" target="_blank">
+	      <img src="{% staticfile '/images/icons/64x64/twitter.png' %}" width="32px" height="32px" alt="Twitter" />
+	      
+	      <span class="service-name">{% trans "Share on Twitter" %}</span>
+	    </a>
+	  </li>
+	</ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

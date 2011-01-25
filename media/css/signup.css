@@ -91,3 +91,32 @@ form#signup #tos label {
     padding-left: 20px;
     min-height: 100px;
 }
+
+
+
+#share li {
+    list-style: none;
+}
+
+#share li img {
+    vertical-align: middle;
+}
+
+#share li span {
+    font-variant: small-caps;
+}
+
+#tell-friends {
+    color: #666;
+
+    padding-left: 10px;
+    border-left: 1px solid #eee;
+}
+
+h1#thanks {
+    background-image: url('../images/signup/check.png');
+    background-repeat: no-repeat;
+    padding-left: 38px;
+    padding-top: 5px;
+    height: 30px;
+}

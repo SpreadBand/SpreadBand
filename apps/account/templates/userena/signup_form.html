@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load django_static %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/signup.css" media="screen, projection" />
+  <link rel="stylesheet" href="/css/jquery/validationEngine.jquery.css" type="text/css"/>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% staticfile '/js/jquery/jquery.validationEngine-fr.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('form#signup').validationEngine();
+    });
+  </script>
+{% endblock %}
+
+{% block title %}
+  {% trans "Signup" %}
+{% endblock %}
+
+{% block content %}
+
+  <div id="text">
+
+    <div id="signform" class="grid_10 alpha">
+      <h2>Signup for a SpreadBand Account</h2>
+
+      <div class="alpha prefix_1 grid_9">
+	<form id="signup" method="POST" action="{% url userena_signup %}">
+	  {% csrf_token %}
+
+           
+	  <p>
+	    {{ form.username.errors }}
+	    <div class="valid-wrapper">
+	      {{ form.username.label_tag }}
+	      <input id="id_username" type="text" class="required validate[required,custom[onlyLetterNumber]]" name="username" maxlength="30" />
+	    </div>
+	  </p>
+           
+	  <p>
+	    {{ form.email.errors }}
+	    <div class="valid-wrapper">
+	      {{ form.email.label_tag }}
+	      <input name="email" class="validate[required,custom[email]]" value="{{ form.email.value }}" class="required" maxlength="75" type="text" id="id_email" />
+	    </div>
+	  </p>
+           
+	  <p>
+	    {{ form.password1.errors }}
+	    <div class="valid-wrapper">
+	      {{ form.password1.label_tag }}
+	      <input id="id_password1" type="password" class="required validate[required]" name="password1" />
+	    </div>
+	  </p>
+           
+	  <p>
+	    {{ form.password2.errors }}
+	    <div class="valid-wrapper">
+	      {{ form.password2.label_tag }}
+	      <input id="id_password2" type="password" class="required validate[required,equals[id_password1]]" name="password2" />
+	    </div>
+	  </p>
+	     
+	  <p class="checkbox" id="tos">
+	      <textarea readonly="true">{% include "cgu.txt" %}</textarea>
+	  </p>
+	  <p>
+	    <div class="valid-wrapper">
+	      {{ form.tos.errors }}
+	      
+	      <input id="id_tos" type="checkbox" class="required validate[required]" name="tos" />
+	      {{ form.tos.label }}
+	    </div>
+	  </p>
+	  
+	   <p>
+	     <label></label>
+	     <input class="button" type="submit" value="{% trans "Goooooo ! &raquo;" %}" />
+	   </p>
+	</form>
+      </div>
+    </div>
+
+    <div id="sidebar" class="grid_4 omega">
+      <h3>Your Band</h3>
+      You will able to register your band just after your have signed up.
+    </div>
+  </div>
+
+{% endblock %}

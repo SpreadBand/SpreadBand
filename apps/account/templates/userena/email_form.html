@@ -1,0 +1,17 @@
+{% extends 'account/base.html' %}
+{% load i18n %}
+
+{% block title %}
+  {% blocktrans with user.username as username %}Account &raquo; {{ username }}{% endblocktrans %}
+{% endblock %}
+
+{% block account_content %}
+
+  <h3>{% trans "Change email address" %}</h3>
+  
+  <form action="" class="fuzzyform" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans "Change email" %}" />
+  </form>
+{% endblock %}
