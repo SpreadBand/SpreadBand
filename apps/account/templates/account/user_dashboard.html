@@ -40,7 +40,7 @@
 
   <div id="greating" class="alpha grid_7">
     <div class="grid_4 alpha">
-      <h1>{% blocktrans with user.first_name|default:user.username as username %}Hey, {{ username }}{% endblocktrans %}</h1>
+      <h1>{% blocktrans with user.first_name|default:user.username as username %}Heya, {{ username }}{% endblocktrans %}</h1>
     </div>
     <div id="user-settings" class="grid_3 omega">
       <a href="{% url userena_profile_edit user %}" class="button-tip minibutton btn-edit" title="Edit your informations"><span><span class="icon"></span>{% trans "Edit Your Profile" %}</span></a>
@@ -118,7 +118,7 @@
 	{% else %}
 	  <div id="no-band">
 	    <p>
-	      {{ user.first_name|default:user.username|capfirst }} !
+	      {{ user.first_name|default:user.username|capfirst }},
 	    </p>
 	    <p>
 	      You are <strong>not in a band yet</strong> :-(

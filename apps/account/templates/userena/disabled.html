@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Unconfirmed account" %}{% endblock %}
+
+{% block content %}
+  <div id="text">
+    <h1>{% trans "Your account is not activated yet!" %}</h1>
+    
+    <p>{% blocktrans %}Have you confirmed your account by <strong>clicking on the activation link</strong> in the <strong>e-mail we sent you</strong>?{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}Don't forget to check your <strong>spam folder</strong> in case the email landed there.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}We hope you understand you need to confirm your account to prevent robots from signing up and bothering the SpreadBand community.{% endblocktrans %}</p>
+
+    <p>{% trans "Anyway, if you're lost, <strong>feel free to contact us</strong> to find out why." %}</p>
+
+      <a href="{% url home %}">&larr; {% trans "Back home" %}</a>
+  </div>
+{% endblock %} 
