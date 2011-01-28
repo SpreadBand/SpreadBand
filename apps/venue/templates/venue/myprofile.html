@@ -1,12 +1,7 @@
-{% extends "base.html" %}
+{% extends "venue/base.html" %}
 
-{% load elsewhere_tags %}
-{% load oembed_tags %}
-{% load reviews_tags %}
-{% load django_static %}
 {% load i18n %}
-{% load band_tags %}
-{% load event_tags %}
+{% load django_static %}
 
 {% block css %}
   {{ block.super }}
@@ -97,16 +92,23 @@
 
 {% endblock %}
 
-{% block title %}Venue - {{ venue.name }}
-{% endblock %}
 
-{% block content %}
+{% block venue_content %}
 
-<div id="text">
+  <div class="grid_15 alpha omega">
+    <div id="top-notice">
+      {% blocktrans %}
+      This is a <strong>preview</strong> of how bands and venues will see your venue. Make sure to <strong>edit all parts</strong> !
+      {% endblocktrans %}
+    </div>
+  </div>
+
+  <div class="clear">
+    <hr/>
+  </div>
+
 
   {% include "venue/profile.html" %}
 
-</div>
 
 {% endblock %}
-

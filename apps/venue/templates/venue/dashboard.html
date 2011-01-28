@@ -1,4 +1,4 @@
-{% extends "bands/base.html" %}
+{% extends "venue/base.html" %}
 
 {% load i18n %}
 {% load badges_tags %}
@@ -8,7 +8,7 @@
 {% load avatar_tags %}
 
 {% block title %}
-  {{ band.name }} - {% trans "Dashboard" %}
+  {{ venue.name }} - {% trans "Dashboard" %}
 {% endblock %}
 
 {% block javascript %}
@@ -30,7 +30,7 @@
 				 "bInfo": false,
 				 "aoColumns": [ null, null, null, null ],
 				 "oLanguage": {
-				     "sZeroRecords": "<strong>{% blocktrans with venue_search_url as venue_search_url %}You haven't sent any PressKit yet. Start <a href='{{ venue_search_url }}'>booking a venue now</a> !{% endblocktrans %}</strong>",
+				     "sZeroRecords": "<strong>{% blocktrans %}You haven't received any PressKit yet!{% endblocktrans %}</strong>",
 				     "sSearch": "{% trans "Search:" %}"
 				 }
 
@@ -38,19 +38,19 @@
 
 	
 	function hide_presskit_completion(speed) {
-	    $('#band-tip').animate({height:'10px'}, speed);
-	    $('#band-tip span.close a').html('&darr;');
+	    $('#venue-tip').animate({height:'10px'}, speed);
+	    $('#venue-tip span.close a').html('&darr;');
 	}
 
 	function show_presskit_completion(speed) {	 
-	    $('#band-tip').css('height', null);
-	    var new_height = $('#band-tip').css('height');
-	    $('#band-tip').css('height', '10px');
-	    $('#band-tip').animate({height: new_height}, speed);
-	    $('#band-tip span.close a').html('&uarr;');
+	    $('#venue-tip').css('height', null);
+	    var new_height = $('#venue-tip').css('height');
+	    $('#venue-tip').css('height', '10px');
+	    $('#venue-tip').animate({height: new_height}, speed);
+	    $('#venue-tip span.close a').html('&uarr;');
 	}
 
-	$('#band-tip span.close a').click(function() {
+	$('#venue-tip span.close a').click(function() {
 	    if ( $.cookie("hide-presskit-completion-tip") ) {
 		show_presskit_completion('slow');
 		$.cookie("hide-presskit-completion-tip", null);
@@ -74,20 +74,20 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/jquery.dataTables.css" media="screen, projection" />
 {% endblock %}
 
-{% block band_content %}
+{% block venue_content %}
 
 <div class="grid_15 alpha omega">
 
   <div class="grid_10 alpha">
 
-   {% if not presskit_completion_badge|number_awarded:band %}
+   {% if not presskit_completion_badge|number_awarded:venue %}
     <div>
-      <div id="band-tip" class="grid_10 alpha omega">
+      <div id="venue-tip" class="grid_10 alpha omega">
 	<div class="tip-header">
 	  <h3>{% trans "Hey, don't forget to complete your PressKit !" %}</h3>
 	  <span class="close"><a href="#">&uarr;</a></span>
 	</div>
-	<img src="{% staticfile '/images/band/fill_presskit.png' %}" height="90px"/>	
+	<img src="{% staticfile '/images/venue/fill_presskit.png' %}" height="90px"/>	
 	
 	<div class="info">
 	  <div class="progress">
@@ -97,7 +97,7 @@
 
 	    <div class="text">
 	      <p>
-		{% url band:edit band.slug as edit_presskit_url %}
+		{% url venue:edit venue.slug as edit_presskit_url %}
 		{% blocktrans with edit_presskit_url as edit_presskit_url %}By filling in your PressKit, you make sure the <strong>Venues will be more confident</strong>... so this is the best way <strong>to get booked</strong>&nbsp! <a href="{{ edit_presskit_url }}">Do it now</a> &raquo;{% endblocktrans %}
 	      </p>
 	      <p>
@@ -109,7 +109,7 @@
 
 	  <div class="steps">
 	    <ul>
-	      {% url band:edit band.slug as edit_presskit_url %}
+	      {% url venue:edit venue.slug as edit_presskit_url %}
 	      {% if presskit_completion.check_biography %}
 		<li class="done">Biography</li>
 	      {% else %}
@@ -119,19 +119,19 @@
 	      {% if presskit_completion.check_pictures %}
 		<li class="done">Photos</li>
 	      {% else %}
-		<li class="notdone"><a href="{% url band:band-pictures band.slug %}">Photos</a></li>
+		<li class="notdone"><a href="{% url venue:venue-pictures venue.slug %}">Photos</a></li>
 	      {% endif %}
 		
 	      {% if presskit_completion.check_tracks %}
 		<li class="done">Tracks</li>
 	      {% else %}
-		<li class="notdone"><a href="{% url presskit:presskit-tracks band.slug %}">Tracks</a></li>
+		<li class="notdone"><a href="{% url presskit:presskit-tracks venue.slug %}">Tracks</a></li>
 	      {% endif %}
 
 	      {% if presskit_completion.check_socialnets %}
 		<li class="done">Social Networks</li>
 	      {% else %}
-		<li class="notdone"><a href="{% url band:socialnet-edit band.slug %}">Social Networks</a></li>
+		<li class="notdone"><a href="{% url venue:socialnet-edit venue.slug %}">Social Networks</a></li>
 	      {% endif %}
 
 	      {% if presskit_completion.check_techsheet %}
@@ -163,19 +163,19 @@
 	    <thead>
 	      <tr>
 		<th>{% trans "Status" %}</th>
-		<th>{% trans "Venue" %}</th>
+		<th>{% trans "Band" %}</th>
 		<th>{% trans "Sent on" %}</th>
 		<th>{% trans "Sent by" %}</th>
 	      </tr>
 	    </thead>
 
 	    <tbody>
-	      {% staticfile '/images/venue/no_picture.png' as default_picture %}
-	      {% for presskit_view_request in sent_presskits %}
-		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{% url presskit:presskit-viewrequest-band band.slug presskit_view_request.pk %}">
+	      {% staticfile '/images/band/no_picture.png' as default_picture %}
+	      {% for presskit_view_request in received_presskits %}
+		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{% url venue:presskit-viewrequest-venue venue.slug presskit_view_request.pk %}">
 		  <td class="status">{{ presskit_view_request.get_state_display|capfirst }}</td>
 		  <td class="venue">
-		    <div><img src="{{ venue.avatar_url|default:default_picture }}" width="40px"/>{{ presskit_view_request.venue.name }}</div>
+		    <div><img src="{{ band.avatar_url|default:default_picture }}" width="40px"/>{{ presskit_view_request.presskit.band.name }}</div>
 		  </td>
 		  <td>
 		    {% blocktrans with presskit_view_request.sent_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}<br/>
@@ -190,18 +190,17 @@
 	</div>
       </div>
     </div>
-
   </div>
 
   <div class="grid_5 omega">
 
     <div id="search">
-      <h3>{% trans "Search for Venues" %}</h3>
+      <h3>{% trans "Search for Bands" %}</h3>
       <div class="search-content">
 	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
-	Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et envoyez leur votre <strong>Presskit</strong> !
+	Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez les</strong> à jouer chez vous !
 	<span class="go">
-	  <a href="{% url venue:search %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Venues" %}</span></a>
+	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Bands" %}</span></a>
 	</span>
       </div>
     </div>
@@ -209,10 +208,9 @@
     <div id="recent-visitors">
       <h3>{% trans "Recent visitors" %}</h3>
       <ul>
-	{% staticfile '/images/venue/no_picture.png' as default_picture %}
 	{% for visit in latest_visits %}
 	  <li>
-	    <a class="tip" title="{{ visit.visitor.name }}" href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url|default:default_picture }}" width="30px" height="30px" alt="{{ visit.visitor.name }}"/></a>
+	    <a class="tip" title="{{ visit.visitor.name }}" href="{% url presskit:presskit-detail visit.visitor.slug %}"><img src="{{ visit.visitor.avatar_url }}" width="30px" height="30px" alt="{{ visit.visitor.name }}"/></a>
 	  </li>
 	{% empty %}
 	<li>{% blocktrans %}You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have visited your profile.{% endblocktrans %}</li>
@@ -220,23 +218,22 @@
       </ul>
     </div>
 
-    <!-- band members -->
-    <div id="bandmembers" class="grid_5 alpha omega">
-      <h3>{% trans "Members" %} ({{ band.band_members.count }})</h3>
-      <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
+
+    <div id="venuemembers" class="grid_5 alpha omega">
+      <h3>{% trans "Members" %} ({{ venue.venue_members.count }})</h3>
+      <a href="{% url venue:membership-manage venue.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
 
       <ul>
-	{% for member in band.band_members.all %}
+	{% for member in venue.venue_members.all %}
 	<li>
 	  {% avatar member.user 48 %}
 	  <a href="{{ member.user.get_profile.get_absolute_url }}">{{ member.user.get_full_name|default:member.user.username }}</a> ({{ member.user.username }})
-	  <span class="bandmember_role" title="{{ member.roles.all|join:', ' }}">{{ member.roles.all|join:', '|truncatewords:3 }}</span>
+	  <span class="venuemember_role" title="{{ member.roles.all|join:', ' }}">{{ member.roles.all|join:', '|truncatewords:3 }}</span>
 	</li>
 	{% endfor %}
       </ul>
     </div>
 
-    <!-- ads -->
     <div id="ads">
       <h3>{% trans "Advertising" %}</h3>
 

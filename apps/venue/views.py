@@ -11,18 +11,43 @@ from django.template.loader import render_to_string
 from django.conf import settings
 
 from band.models import Band
+from presskit.models import PresskitViewRequest
 
 from .models import Venue
 from .forms import VenueForm, VenueUpdateForm, VenuePictureForm, NewCantFindForm, VenueCreateForm, VenueMemberRequestForm
 
+## XXX Security
 @login_required
-def dashboard(request):
+def presskit_viewrequest_venue(request, venue_slug, viewrequest_id):
+    viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
+    
+    return render_to_response(template_name='presskit/presskit_viewrequest_venue.html',
+                              dictionary={'venue': viewrequest.venue,
+                                          'band': viewrequest.presskit.band,
+                                          'presskit': viewrequest.presskit,
+                                          'viewrequest': viewrequest},
+                              context_instance=RequestContext(request)
+                              )
+
+
+
+@login_required
+def dashboard(request, venue_slug):
     """
     Dashboard for a venue
     """
-    return render_to_response(template_name='venue/venue_new.html',
-                              dictionary={'form': create_form,
-                                          'member_form': member_form},
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Presskit tracker
+    received_presskits = PresskitViewRequest.objects.filter(venue=venue).order_by('modified_on', '-sent_on', 'state')
+
+
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden('You are not allowed to manage this venue')
+
+    return render_to_response(template_name='venue/dashboard.html',
+                              dictionary={'venue': venue,
+                                          'received_presskits': received_presskits},
                               context_instance=RequestContext(request)
                               )
     
@@ -38,10 +63,10 @@ def new(request):
     if request.method == 'POST':
         if member_form.is_valid():
             if create_form.is_valid():
-                # Create the band
+                # Create the venue
                 venue = create_form.save()
                 
-                # Add this user into the band
+                # Add this user into the venue
                 venuemember = VenueMember(venue=venue,
                                           user=request.user
                                           )
@@ -62,10 +87,31 @@ def new(request):
 
 def detail(request, venue_slug):
     """
-    Show public page of a Venue
+    A view to route to the dashboard or the public depending on the
+    rights of the user
     """
     venue = get_object_or_404(Venue, slug=venue_slug)
 
+    # Check if the venue is managed
+    is_managed = request.user.has_perm('venue.can_manage', venue)
+
+    if is_managed:
+        return redirect('venue:dashboard', venue.slug)
+    else:
+        return redirect('venue:profile', venue.slug)
+
+def my_public_view(request, venue_slug):
+    """
+    Public profile when seen by the owner
+    """
+    return public_view(request, venue_slug, template_name='venue/myprofile.html')
+
+def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
+    """
+    Show public page of a Venue
+    """
+    venue = get_object_or_404(Venue, slug=venue_slug)
+    
     # Five latest gigs
     latest_bands = Band.objects.filter(id__in=venue.gigs.past_events()[:5]).distinct()
 
@@ -78,6 +124,7 @@ def detail(request, venue_slug):
     monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
                                               aQueryset=venue.gigs.all(),
                                               when=date.today())
+
 
     # Check if the venue is managed
     is_managed = request.user.has_perm('venue.can_manage', venue)
@@ -92,7 +139,7 @@ def detail(request, venue_slug):
     return object_detail(request,
                          queryset=Venue.objects.all(),
                          slug=venue_slug,
-                         template_name='venue/venue_detail.html',
+                         template_name=template_name,
                          template_object_name='venue',
                          extra_context=extra_context,
                          )

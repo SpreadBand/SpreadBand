@@ -9,10 +9,19 @@ def home_spreadband(request):
     If not logged, show home page
     else, show user's page
     """
-    if request.user.is_authenticated and not request.user.is_anonymous():
-        # If we only have one band, then go to this page, else send to dashboard
-        if request.user.bands.count() == 1:
-            return redirect(request.user.bands.all()[0])
+    user = request.user
+
+    if user.is_authenticated and not user.is_anonymous():
+        user_bands = user.bands.all()
+        user_venues = user.venues.all()
+
+        # If we only have ONE BAND and no venue
+        if user_bands.count() == 1 and user_venues.count() == 0:
+            return redirect(user_bands.all()[0])
+        # If we only have ONE VENUE and no band
+        elif user_venues.count() == 1 and user_bands.count() == 0:
+            return redirect(user_venues.all()[0])
+        # We manage multiple entities
         else:
             return HttpResponseRedirect(reverse('account:dashboard'))
     else:

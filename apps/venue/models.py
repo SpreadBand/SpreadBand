@@ -67,7 +67,7 @@ class Venue(Actor):
             avatar = self.pictures.avatar()
             return avatar.avatar_image.url
         except:
-            return settings.MEDIA_URL + '/images/tmp_venue.jpg'
+            return settings.MEDIA_URL + '/images/venue/no_picture.png'
 
 
     def __unicode__(self):

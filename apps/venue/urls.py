@@ -18,6 +18,11 @@ urlpatterns += patterns('',
 
     # dashboard
     url(r'^(?P<venue_slug>[-\w]+)/dashboard$', views.dashboard, name='dashboard'),
+    url(r'^(?P<venue_slug>[-\w]+)/myprofile$', views.my_public_view, name='myprofile'),
+    url(r'^(?P<venue_slug>[-\w]+)/profile$', views.public_view, name='profile'),
+
+    # Presskit tracker
+    url(r'^(?P<venue_slug>[-\w]+)/presskit/viewrequest/(?P<viewrequest_id>\d+)$', views.presskit_viewrequest_venue, name='presskit-viewrequest-venue'),
 
     # pictures
     url(r'^(?P<venue_slug>[-\w]+)/pictures/new$', views.picture_new, name='picture-new'),

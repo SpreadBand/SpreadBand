@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load django_static %}
 
 {% block css %}
@@ -9,41 +10,46 @@
 
 {% block content %}
 
+
+
+<div id="text">
+
   <div class="grid_2 alpha">
-    <div id="band_avatar">
+    <div id="venue_avatar">
       {% if not venue.pictures.avatar %}
-	<a href="{% url venue:picture-new venue.slug %}"><img src="{% staticfile '/images/band/no_picture.png' %}" alt="no venue avatar" title="Click here to upload an avatar"/></a>
+	<a href="{# url venue:venue-picture-new venue.slug #}?is_avatar=1"><img src="{% staticfile '/images/venue/no_picture.png' %}" alt="{% trans "no venue avatar" %}" title="{% trans "Click here to upload an avatar" %}"/></a>
       {% else %}
-	<img src="{{ venue.pictures.avatar.avatar_image.url }}" alt="band avatar"/>
+	<img src="{{ venue.pictures.avatar.avatar_image.url }}" alt="venue avatar"/>
       {% endif %}
     </div>
   </div>
-
-  <div class="grid_14 omega">
+  
+  <div class="grid_13 omega">
     <div>
-      <h1><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> &raquo; {% block venue_section %}Home{% endblock %}</h1>
+      <h1><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> &raquo; {% block venue_section %}{% trans "Home" %}{% endblock %}</h1>
+    </div>
+    <div class="clear"></div>
+    
+    <div>
+      <ul id="venue_tabs">
+	{% url venue:detail venue.slug as home_url %}
+	{% url venue:membership-manage venue.slug as membership_url %}
+	{% url venue:myprofile venue.slug as myprofile_url %}
+	<li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">{% trans "Home" %}</a></li>
+	<li><a {% if request.path == profile_url %}class="selected"{% endif %} href="{{ myprofile_url }}">{% trans "Profile" %}</a></li>
+	<li><a {% if request.path == membership_url %}class="selected"{% endif %} href="{{ membership_url }}">{% trans "Staff" %}</a></li>
+      </ul>
+    </div>
   </div>
+  
   <div class="clear"></div>
-
-  <div>
-    <ul id="dashboard_nav_tabs">
-      {% url venue:detail venue.slug as home_url %}
-      {% url gigbargain:gigbargain-venue-dashboard venue.slug as gigbargain_url %}
-      {% url event:venue-calendar venue.slug as calendar_url %}
-      <li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">Home</a></li>
-      <li><a {% if request.path == gigbargain_url %}class="selected"{% endif %} href="{{ gigbargain_url }}">Gig Bargains</a></li>
-      <li><a {% if request.path == calendar_url %}class="selected"{% endif %} href="{{ calendar_url }}">Calendar</a></li>
-    </ul>
+  
+  <div id="venue_text">
+    
+    {% block venue_content %}    
+  {% endblock %}
+  
   </div>
-</div>
-
-<div class="clear"></div>
-
-<div id="venue_text">
-
-  {% block venue_content %}    
-{% endblock %}
-
 </div>
 
 {% endblock %}

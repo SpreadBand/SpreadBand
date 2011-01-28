@@ -280,7 +280,7 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = '/user/signin/'
 
 ### USERENA
-USERENA_SIGNIN_REDIRECT_URL = '/user/%(username)s'
+USERENA_SIGNIN_REDIRECT_URL = '/'
 
 ### PROFILES
 AUTH_PROFILE_MODULE  = 'account.UserProfile'

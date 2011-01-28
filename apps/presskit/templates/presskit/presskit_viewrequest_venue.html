@@ -1,10 +1,10 @@
-{% extends "bands/base.html" %}
+{% extends "venue/base.html" %}
 
 {% load django_static %}
 {% load i18n %}
 {% load humanize %}
 
-{% block band_section %}
+{% block venue_section %}
   {% trans "PressKit View Request" %}
 {% endblock %}
 
@@ -14,21 +14,22 @@
   <link rel="stylesheet" type="text/css" href="/css/presskit_viewrequest.css" media="screen, projection" />
 {% endblock %}
 
-{% block band_content %}
+{% block venue_content %}
 
   <div class="grid_4 alpha">
     <h3>{% trans "Request details" %}</h3>
     
     <div id="venue">
-      {% if venue.pictures.avatar %}
-	<img class="avatar" src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="80px" alt="venue avatar" />
+      {% if band.pictures.avatar %}
+	<img class="avatar" src="{{ band.pictures.avatar.thumbnail_image.url }}" width="80px" height="80px" alt="band avatar" />
       {% else %}
-	<img class="avatar" src="{% staticfile '/images/venue/no_picture.png' %}" width="80px" alt="no venue avatar" />
+	<img class="avatar" src="{% staticfile '/images/band/no_picture.png' %}" width="80px" height="80px" alt="no band avatar" />
       {% endif %}
       
       <div class="infos">
-	<span class="name"><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></span>
-	<span class="addr">{{ venue.city }}, {% if venue.country %}<img src="{{ venue.country.flag }}" alt="{{ venue.country.name }}" title="{{ venue.country.name }}"/>{% endif %}</span>
+	<span class="name"><a href="{{ band.get_absolute_url }}">{{ band.name }}</a></span>
+	<span class="addr">{{ band.city }}, {% if band.country %}<img src="{{ band.country.flag }}" alt="{{ band.country.name }}" title="{{ band.country.name }}"/>{% endif %}</span>
+	<span class="style">{{ band.genres }}</span>
       </div>
     </div>
 
@@ -61,7 +62,7 @@
   {% load threadedcomments_tags %}
   <div class="grid_11 omega">
     <div id="discuss-wrapper">    
-      <h3>{% blocktrans with venue.name as venue_name %}Discuss about this request with {{ venue_name }}{% endblocktrans %}</h3>
+      <h3>{% blocktrans with band.name as band_name %}Discuss about this request with {{ band_name }}{% endblocktrans %}</h3>
       
       {% get_comment_list for viewrequest as comment_list %}
 
@@ -87,6 +88,7 @@
 		  {% endif %}
 		{% endif %}
 
+
 		<div class="text">
 		  <span class="who">{% blocktrans with comment.user.first_name|default:comment.user.username as comment_user and comment.user.get_profile.get_absolute_url as user_url and band.name as band_name %}<a href="{{ user_url }}"><cite>{{ comment_user }}</cite></a> of{% endblocktrans %}
 		  {% if band in comment.user.bands.all %}
@@ -101,6 +103,7 @@
 		    <q>{{ comment.comment|linebreaksbr }}</q>
 		  </div>
 		</div>
+
 	      </div>
 	    </li>
 	  {% endfor %}
@@ -110,14 +113,14 @@
       {% get_comment_form for viewrequest as comment_form %}
 	<div id="comment-form-wrapper" class="alpha omega grid_10">
 	  <div id="comment-me">
-	    {% if band.pictures.avatar %}
-	      <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="band avatar" />
+	    {% if venue.pictures.avatar %}
+	      <img src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="venue avatar" />
 	    {% else %}
-	      <img src="{% staticfile '/images/band/no_picture.png' %}" width="40px" alt="no band avatar" />
+	      <img src="{% staticfile '/images/venue/no_picture.png' %}" width="40px" alt="no venue avatar" />
 	    {% endif %}
 	  </div>
 
-	  <span class="who">{% blocktrans with band.name as band_name %}{{ band_name }} says:{% endblocktrans %}
+	  <span class="who">{% blocktrans with venue.name as venue_name %}{{ venue_name }} says:{% endblocktrans %}
 	  <form id="comment-form" method="POST" action="{% comment_form_target %}">
 	    {{ comment_form.comment }}
 	    {{ comment_form.content_type }}
@@ -125,7 +128,7 @@
 	    {{ comment_form.timestamp }}
 	    {{ comment_form.security_hash }}
 	    {{ comment_form.parent }}
-	    <input type="hidden" name="next" value="{% url presskit:presskit-viewrequest-band band.slug viewrequest.id %}" />
+	    <input type="hidden" name="next" value="{% url venue:presskit-viewrequest-venue venue.slug viewrequest.id %}" />
 
 	    <input type="submit" value="{% trans "Send" %}"/>
 	  </form>

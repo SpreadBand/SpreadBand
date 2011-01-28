@@ -1,0 +1,454 @@
+h1{
+
+	left:-10px;
+	position:relative;
+
+
+}
+
+
+#text ul li {
+	list-style-type:none;
+	margin-left:0;
+}
+
+
+/*------------------COLONNE GAUCHE------------------*/
+
+
+/*-----Band infos------*/
+
+
+.band_infos{
+
+	margin-top:10px;
+	padding-bottom:8px;
+	margin-bottom:10px;
+	border-bottom: 1px solid #C7C7C7;
+	line-height:15px;
+	
+	color:#ababab;
+
+}
+
+.band_infos .header{
+
+	border-bottom: 1px solid #C7C7C7;
+	height:30px;
+	line-height:25px;
+	margin-bottom:5px;
+	
+	color:black;
+
+}
+
+.band_infos .content{
+
+	font-size:11px;
+
+}
+
+.band_infos_title{
+
+	color:#F9A02E;
+	font-weight:bold;
+	float:left;
+	font-size:14px;
+	margin-right:5px;	
+
+}
+
+.band_infos_location{
+
+	color:#F9A02E;
+
+}
+
+.band_infos_url{
+
+	padding-top:10px;
+
+}
+
+.band_infos_adress{
+
+	font-style:italic;
+	margin-bottom:15px;
+	position:relative;
+
+}
+
+.band_infos_bold{
+
+	font-weight:bold;
+	float:left;
+	margin-right:5px;
+	position:relative;
+
+}
+
+.band_infos_txt{
+
+	position:relative;
+
+}
+
+
+/*-----Band Style------*/
+
+
+.band_style{
+
+	background-color:#ebebeb;
+	font-weight:bold;
+	color:black;
+	font-size:13px;
+	padding:5px;
+	
+	float:left;
+	position:relative;
+	
+	margin-bottom:5px;
+
+}
+
+.band_style_style{
+
+	font-weight:bold;
+
+}
+
+.band_style_cloud {
+
+	position:relative;
+	float:left;
+
+}
+
+
+.band_style_cloud ul{
+
+	float:left;
+	position:relative;
+	list-style-type:none;	
+
+}
+
+.band_style_cloud ul li{
+	
+	float:left;
+	margin-right:5px;
+	position:relative;
+	
+	list-style-type:none;
+	margin-left:0px;
+	
+	font-size:11px;
+
+}
+
+
+
+/*------------------COLONNE DROITE------------------*/
+
+
+
+.step_txt{
+
+	display:block;
+	/*float:left;*/
+	position:relative;	
+	width:100%;
+	left:10px;
+
+}
+
+
+/*-----Progress bar------*/
+
+
+.progress_bar{
+
+	display:block;
+	position:relative;
+	/*float:left;*/
+	height:30px;
+	top:-2px;
+	
+
+}
+
+
+.progress_bar li {
+	border-top:1px solid #999999;
+	color:#999999;
+	float:left;
+	height:12px;
+	margin:0;
+	text-align:center;
+	display:block;
+	line-height:20px;
+
+}
+
+.progress_bar img{
+
+	position:absolute;
+	top:-6px;
+	right:-5px;
+
+}
+
+.progress_bar li .progress_bar_title {
+
+	position:relative;
+	left:120px;
+	top:-30px;
+	font-weight:bold;
+	text-align:left;
+	width:50%;
+			
+}
+
+
+.progress_bar li .progress_bar_title_active {
+
+	color:black;
+	
+	position:relative;
+	left:120px;
+	top:-30px;
+	font-weight:bold;
+	text-align:left;
+	width:50%;
+			
+}
+
+.progress_bar li  img{
+	position:relative;
+	top:-12px;
+	left:-20px;
+	
+}
+
+
+/*-----Box influences / styles------*/
+
+
+.band_new_style_box{
+	
+	/*float:left;*/
+	position:relative;
+	width:100%;
+	height:300px;
+	background:url("../images/band/band_new_style_fond.jpg") no-repeat;
+
+}
+
+
+.header {
+
+	text-align:left;
+	margin-bottom:10px;
+	
+}
+
+.header img {
+
+	vertical-align:middle;
+
+}
+
+
+.header h2 {
+
+	display:inline;
+	margin-left:0px;
+	vertical-align:middle;
+	
+}
+
+
+.separator {
+
+	/*background-color:#C7C7C7;*/
+	background-color:black;
+	height:1px;
+	padding:0px;
+	margin-bottom:10px;
+	
+}
+
+
+.band_new_style_box .influences{
+
+	/*background-color:#e5e5e5;*/
+	width:330px;
+	position:relative;
+	float:left;
+	padding:15px;
+	
+}
+
+
+.band_new_style_box .influences .content .form_influences{
+
+	padding-left:50px;
+	
+}
+
+.band_new_style_box .influences .content .form_influences p{
+
+	position:relative;
+	left:5px;
+	margin:0px;
+	padding:0px;
+	height:10px;
+
+}
+
+
+.form_influences{
+
+	margin-bottom:10px;
+
+}
+
+
+.form_influences input[type=text]{
+
+	width:70%;
+	padding:6px;
+	font-weight:100;
+	font-size:18px;
+	/*background-color:#d6d6d6;*/
+	color:#d6d6d6;
+	border:1px solid black;
+	font-style:italic;
+
+}
+
+#add_influence{
+
+	background:url("../images/band/picto_add.png") no-repeat;
+	height:36px;
+	width:36px;
+	top:-2px;
+	position:relative;
+	border:0px;
+
+}
+
+
+.vignettes_influences a{
+
+	width:48px;
+	height:48px;
+	border:1px solid grey;
+	position:relative;
+	float:left;
+	margin-right:6px;
+	margin-bottom:6px;
+
+}
+
+
+.band_new_style_box .styles{
+
+	/*background-color:#e5e5e5;*/
+	width:320px;
+	position:relative;
+	float:right;
+	padding:15px;
+	padding-right:18px;
+
+}
+
+
+.band_style_mystyle{
+
+	background-color:#FFFFD9;
+	border:1px solid #D7D7D7;
+	margin-bottom:10px;
+	padding:5px;
+	
+	position:relative;
+	float:left;
+	
+	/*font-weight:bold;*/
+	text-align:left;
+	
+
+}
+
+.band_style_mystyle img{
+
+	position:relative;
+	float:left;
+	margin-right:5px;	
+	width:60px;
+
+}
+
+.styles .band_style_cloud ul li a{
+
+	color:grey;
+	font-weight:bold;
+
+}
+
+.styles .band_style_cloud ul li  .delete{
+
+	color:grey;
+	font-size:8px;
+	padding-right:1px;
+	padding-left:1px;
+	margin-left:3px;
+
+}
+
+
+.navigation #precedent{
+
+	position:relative;
+	float:left;
+	
+	-moz-border-radius:15px 15px 15px 15px;
+	padding:3px;
+	background-color:black;
+	border:medium none;
+	color:#FF8209;
+	font-size:1em;
+	padding-left:10px;
+	padding-right:10px;
+	text-decoration:none;
+	text-shadow:1px 1px 0 #222222;	
+
+}
+
+.navigation #suivant{
+
+	position:relative;
+	float:right;
+	
+	-moz-border-radius:15px 15px 15px 15px;
+	padding:3px;
+	background-color:black;
+	border:medium none;
+	color:#FF8209;
+	font-size:1em;
+	padding-left:10px;
+	padding-right:10px;
+	text-decoration:none;
+	text-shadow:1px 1px 0 #222222;
+	
+}
+
+.navigation #precedent:hover, .navigation #suivant:hover{
+
+	-moz-box-shadow:1px 1px 8px #888888;
+	background-color:#444444;
+
+}
+
+

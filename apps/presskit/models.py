@@ -79,3 +79,4 @@ def check_for_awards(sender, instance, created, **kwargs):
         presskit_completion.meta_badge.award_ceremony(instance.band)
 
 post_save.connect(check_for_awards, sender=PressKit)
+

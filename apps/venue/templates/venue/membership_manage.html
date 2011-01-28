@@ -1,0 +1,59 @@
+{% extends "venue/base.html" %}
+
+{% load django_static %}
+{% load i18n %}
+{% load avatar_tags %}
+
+{% block title %}
+  {{ band.name }} &raquo; {% trans "manage members" %}
+{% endblock %}
+
+{% block venue_section %}
+  {% trans "Staff" %}
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/band.css" media="screen, projection" />
+{% endblock %}
+
+{% block venue_content %}
+
+<div id="venue-management">
+  <div id="venuemembers" class="grid_7 alpha">
+    <h3>{% trans "Current members" %}</h3>
+    
+    {#<a href="{% url venue:membership-add venue.slug %}" class="button-tip minibutton btn-download" title="Add member"><span><span class="icon"></span>{% trans "Add member" %}</span></a>#}
+    
+    <ul>
+      {% for venuemember in venuemember_list %}
+	<li style="height: 80px;">
+	  {% avatar venuemember.user 80 %}
+	  
+	  <a href="{{ venuemember.user.get_profile.get_absolute_url }}">{{ venuemember.user.get_full_name|default:venuemember.user.username }}</a> ({{ venuemember.user.username }})
+	  <span class="venuemember_role" title="{{ member.roles.all|join:', ' }}">{{ venuemember.roles.all|join:', ' }}</span>
+
+	  <a href="{% url venue:membership-remove venue.slug venuemember.user.id %}" class="button-tip minibutton btn-download" title="{% trans "remove member" %}"><span><span class="icon"></span>{% trans "Remove" %}</span></a>
+	</li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <div id="addmember" class="grid_7 omega">
+    <h3>{% blocktrans with venue.name as venue_name %}Add a member to {{ venue_name }}{% endblocktrans %}</h3>
+    
+    <form method='POST' action='{% url venue:membership-add venue.slug %}' class="fuzzyform">
+      {% csrf_token %}
+      {{ memberadd_form.as_p }}
+      <input type='submit' value="{% trans "Add member" %}">
+      </form>
+      
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+{% endblock %}
+
+

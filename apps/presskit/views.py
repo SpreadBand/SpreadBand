@@ -27,9 +27,9 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
         for band in request.user.bands.all():
             record_visit(band, presskit.band)
 
-        # TODO: Venues
-        #for venue in request.user.venues.all():
-        #    record_visit(venue, presskit.band)
+        # Venues
+        for venue in request.user.venues.all():
+            record_visit(venue, presskit.band)
 
     # Check if we can edit this presskit
     can_edit = request.user.has_perm('band.can_manage', presskit.band)
@@ -100,8 +100,6 @@ def presskit_viewrequest_band(request, band_slug, viewrequest_id):
                                           'viewrequest': viewrequest},
                               context_instance=RequestContext(request)
                               )
-    
-
     
 
 

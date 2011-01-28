@@ -1,16 +1,4 @@
-#text ul a div li{
-
-	list-style-type:none;
-	margin-left:0;
-	width:100%;
-	display:block;
-	margin-bottom:5px;
-	padding:4px;
-	height:32px;
-	padding-bottom:0px;
-	
-}
-
+/*
 .presskit-send {
 
 	width:100%;
@@ -130,8 +118,8 @@
     right: 0px;
 }
 
-/*-- latest bands --*/
-#latest-bands ul li {
+/*-- latest venues --*/
+#latest-venues ul li {
     list-style: none;
     margin-left: 0px;
     margin-bottom: 2px;
@@ -173,9 +161,12 @@
     padding-top: 5px;
     padding-bottom: 5px;
     border-bottom: 1px #ddd solid;
+}
 
-    line-height: 130%;
-    margin-left: 0px;
+#venuemembers ul li .minibutton {
+    position: absolute;
+    margin-top: 10px;
+    right: 0px;
 }
 
 #venuemembers ul li img {
@@ -188,21 +179,9 @@
     text-align: right;
     display: block;
     color: #999;
-	position:relative;
-	top:15px;
-}
+    margin-top: 5px;
 
-#venuemembers ul li .venuemember_whois {
-    font-size: 0.9em;
-    text-align: left;
-    display: block;
-    color: #666;
-}
 
-#venuemembers .minibutton {
-    position: absolute;
-    top: 0px;
-    right: 0px;
 }
 
 /*-- upcoming events --*/
@@ -222,3 +201,506 @@
     clear: both;
 }
 
+
+
+#ads a {
+    color: #3B5998;
+}
+
+#ads ul {
+    list-style-type: none
+}
+
+#ads ul li {
+    border-bottom: 1px dashed #eee;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#ads h3 {
+    font-size: 1.4em;
+    margin-bottom: 5px;
+}
+
+#ads h4 {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    text-align: left;
+}
+
+#ads .url {
+    color: #aaa;
+    display: block;
+}
+
+
+#ads .ads-content {
+    border-left: 5px solid #eee;
+    padding-left: 3px;
+    margin-left: 1px;
+}
+
+#ads {
+    text-align: left;
+    font-size: 10px;
+    font-family: Verdana, Arial, Helvetica;
+}
+
+#text ul li {
+    margin: 0px;
+}
+
+
+#venue_avatar {
+    background-color: black;
+    height: 80px;
+    width: 80px;
+    vertical-align: middle;
+}
+
+#venue_avatar img {
+    border: 1px solid black;
+    height: 80px;
+    width: 80px;
+}
+
+
+/*-- navigation tabs --*/
+ul#venue_tabs {
+    list-style: none;
+    border-bottom: 1px #999999 solid;
+    padding-bottom: 9px;
+    padding-left: 15px;
+}
+
+ul#venue_tabs li {
+    display: inline;
+    margin-right: 5px;
+}
+
+ul#venue_tabs li a {
+    color:#999999;
+    text-decoration: none;
+    background: #f7f7f7;
+    border: 1px #CCCCCC solid;
+    padding: 10px 14px;
+}
+
+ul#venue_tabs li a.selected {
+    color:#666666;
+    background:#FFFFFF;
+    border-left: 1px #999999 solid;
+    padding: 14px 14px 10px 14px;
+    border-bottom: 1px white solid;
+}
+
+ul#venue_tabs li a:hover {
+    padding: 14px 14px 10px 14px;
+}
+
+/*-- venue text --*/
+div#venue_text {
+    margin-top: 10px;
+}
+
+/*-- today events --*/
+#today {
+    padding: 10px;
+}
+
+#today ul {
+    list-style: none;
+}
+
+/*-- gig bargains --*/
+
+#gigbargains #latest-activity .date {
+    color: #666;
+}
+
+#gigbargains .more {
+    text-align: right;
+}
+
+#gigbargains ul {
+    list-style: none;
+}
+
+/*-- upcoming events --*/
+#upcoming_events {
+    margin-bottom: 20px;
+}
+
+#upcoming_events ul {
+    list-style: none;
+}
+
+/*-- suggestions --*/
+#suggestions {
+    margin-bottom: 20px;
+}
+
+#suggestions ul li {
+    margin-left: 20px;
+}
+
+/*-- recent visitors --*/
+#recent-visitors {
+    margin-bottom: 20px;
+}
+
+#recent-visitors li {
+    color: #666;
+}
+
+#recent-visitors ul li {
+    list-style: none;
+    margin-left: 0px;
+}
+
+/*-- my venue --*/
+#my-venue {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/*-- venue members --*/
+#venuemembers {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+#venuemembers h3 {
+    display: inline;
+}
+
+#venuemembers > a {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#venuemembers ul {
+    margin-top: 15px;
+    border-top: 1px #ddd solid;    
+}
+
+#venuemembers ul li {
+    list-style: none;
+    height: 50px;
+    padding-right: 3px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ddd solid;
+}
+
+#venuemembers ul li .minibutton {
+    position: absolute;
+    margin-top: 10px;
+    right: 0px;
+}
+
+#venuemembers ul li img {
+    float: left;
+    margin-right: 5px;
+}
+
+#venuemembers ul li .venuemember_role {
+    font-size: 0.9em;
+    text-align: right;
+    display: block;
+    color: #999;
+    margin-top: 5px;
+
+
+}
+
+/*-- agenda --*/
+#agenda .more {
+    text-align: right;
+}
+
+/*-- latest visitors --*/
+#recent-visitors ul {
+    list-style: none;
+}
+
+#recent-visitors ul li {
+    padding: 1px;
+    margin-left: 0px;
+    display: inline-block;
+}
+
+#recent-visitors img {
+    border: 1px solid black;
+}
+
+*/
+
+/*-- presskit tracker --*/
+#presskit-tracker .fullcontent {
+    padding-top: 5px;
+}
+
+#tracker_filter {
+    padding-right: 5px;
+}
+
+#presskit-tracker table tr img {
+    border: 1px solid #666;
+    margin: 5px;
+    vertical-align: middle;
+}
+
+#presskit-tracker table tr td.venue div {
+    vertical-align: middle;
+}
+
+#presskit-tracker table tr td {
+    vertical-align: middle;
+    cursor:pointer;cursor:hand
+}
+
+
+#presskit-tracker table.display tr td.status {
+    padding-left: 55px;
+    vertical-align: middle;
+    margin-right: 2px;
+    padding-right: 1px;
+    font-variant: small-caps;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+}
+
+#presskit-tracker table.display tr.state-s td.status {
+    background-image: url('../images/presskit/seen_ico.png');
+}
+
+#presskit-tracker table.display tr.state-d td.status {
+    background-image: url('../images/presskit/refused_ico.png');
+}
+
+#presskit-tracker table.display tr.state-a td.status {
+    background-image: url('../images/presskit/validated_ico.png');
+}
+
+#presskit-tracker table.display tr.state-c td.status {
+    background-image: url('../images/presskit/cancelled_ico.png');
+}
+
+#presskit-tracker table.display tr.state-p td.status {
+    background-image: url('../images/presskit/waiting_ico.png');
+}
+
+#presskit-tracker table.display tr.state-c td {
+    text-decoration: line-through;
+}
+
+
+/*-- column background color --*/
+#presskit-tracker table.display tbody tr.even:hover, #presskit-tracker table.display tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+#presskit-tracker table.display tbody tr.odd:hover, #presskit-tracker table.display tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
+}
+
+
+#presskit-tracker table.display tbody tr td.sorting_1, td.sorting_2, td.sorting_3, td.sorting_4 {
+    background-color: none;
+}
+
+#presskit-tracker table.display tr.odd.state-p {
+	background-color: #fafafa;
+}
+#presskit-tracker table.display tr.even.state-p {
+	background-color: #eee;
+}
+
+#presskit-tracker table.display tr.odd.state-a {
+	background-color: #b8f291;
+}
+#presskit-tracker table.display tr.even.state-a {
+	background-color: #c2ff99;
+}
+
+#presskit-tracker table.display tr.odd.state-c {
+    background-color: #fafafa;
+}
+#presskit-tracker table.display tr.even.state-c {
+	background-color: #eee;
+}
+
+#presskit-tracker table.display tr.odd.state-d {
+	background-color: #ffcccc;
+}
+#presskit-tracker table.display tr.even.state-d {
+	background-color: #ffbfbf;
+}
+
+#presskit-tracker table.display tr.odd.state-s {
+	background-color: #e2e4ff;
+}
+#presskit-tracker table.display tr.even.state-s {
+	background-color: #d3d6ff;
+}
+
+
+
+/*-- search --*/
+#search {
+    float: left;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#search .go {
+    margin-top: 10px;
+    float: right;
+    font-weight: 600;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin-bottom: 5px;
+}
+
+#search .search-content {
+    float: left;
+    clear: both;
+
+    padding-left: 3px;
+
+    font-size: 0.9em;
+    font-weight: 400;
+    color: #3333;
+    text-align: left;
+    font-famiy: "lucida grande", tahoma, verdana;
+    line-height: 15px;
+}
+
+#search .search-content img {
+    float: left;
+    padding-right: 5px;
+}
+
+#search .search-content {
+}
+
+#venue-tip {
+    float: left;
+    border: 1px solid #b6becc;
+    background-color: #fcfeff;
+
+    padding: 10px;
+    padding-bottom: 20px;
+    width: 598px;
+
+    margin-bottom: 5px;
+
+    overflow: hidden;
+
+}
+
+#venue-tip h3 {
+    margin-bottom: 15px;
+    display: inline;
+    float: left;
+}
+
+#venue-tip .tip-header span.close a {
+    float: right;
+    font-weight: 600;
+    color: #aaa;
+    padding-right: 5px;
+    text-decoration: none;
+}
+
+#venue-tip .tip-header span.close a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+#venue-tip img {
+    float: left;
+    clear: left;
+    margin-left: 5px;
+}
+
+#venue-tip .info {
+    float: left;
+    margin-left: 10px;
+}
+
+#venue-tip .progress {
+    float: left;
+    width: 300px;
+}
+
+#venue-tip .progress .bar {
+    height: 18px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #b6becc;
+}
+
+div.accomplished {
+    background-color: #849abf;
+    height: 100%;
+    vertical-align: middle;
+    font-weight: 600;
+    text-align: right;
+}
+
+div.accomplished span {
+    padding-right: 10px;
+    vertical-align: middle;
+    color: white;
+}
+
+#venue-tip .text {
+    margin-top: 5px;
+    line-height: 15px;
+    font-size: 0.9em;
+}
+
+#venue-tip ul {
+    padding-left: 30px;
+}
+
+#venue-tip ul li {
+    margin-left: 0px;
+    padding-left: 18px;
+    list-style-type: none;
+    font-variant: small-caps;
+    vertical-align: middle;
+}
+
+#venue-tip ul .done {
+    text-decoration: line-through;
+    background-image: url('../images/band/check.png');
+    background-repeat: no-repeat;
+}
+
+#venue-tip ul .notdone {
+    background-image: url('../images/band/uncheck.png');
+    background-repeat: no-repeat;
+}
+
+#venue-tip .steps {
+    float: left;
+}
+
+
+/*-- top notice --*/
+#top-notice {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    font-size: 1.1em;
+}
