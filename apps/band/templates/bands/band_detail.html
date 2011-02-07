@@ -173,15 +173,27 @@
 	      {% staticfile '/images/venue/no_picture.png' as default_picture %}
 	      {% for presskit_view_request in sent_presskits %}
 		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{% url presskit:presskit-viewrequest-band band.slug presskit_view_request.pk %}">
-		  <td class="status">{{ presskit_view_request.get_state_display|capfirst }}</td>
+		  <td class="status">
+		    {% if presskit_view_request.news_for_band %}<strong>{% endif %}
+		    {{ presskit_view_request.get_state_display|capfirst }}
+		    {% if presskit_view_request.news_for_band %}</strong>{% endif %}
+		  </td>
+		  
 		  <td class="venue">
-		    <div><img src="{{ venue.avatar_url|default:default_picture }}" width="40px"/>{{ presskit_view_request.venue.name }}</div>
+		    <div>
+		      <img src="{{ venue.avatar_url|default:default_picture }}" width="40px" height="40px"/>
+		      {% if presskit_view_request.news_for_band %}<strong>{% endif %}
+		      {{ presskit_view_request.venue.name }}
+		      {% if presskit_view_request.news_for_band %}</strong>{% endif %}
+		    </div>
 		  </td>
 		  <td>
+		    {% if presskit_view_request.news_for_band %}<strong>{% endif %}
 		    {% blocktrans with presskit_view_request.sent_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}<br/>
 		    ({% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}updated {{ timestamp }} ago{% endblocktrans %})
+		    {% if presskit_view_request.news_for_band %}</strong>{% endif %}
 		  </td>
-		  <td>{{ presskit_view_request.sent_by.first_name|default:presskit_view_request.sent_by.username }}</td>
+		  <td>{% if presskit_view_request.news_for_band %}<strong>{% endif %}{{ presskit_view_request.sent_by.first_name|default:presskit_view_request.sent_by.username }}{% if presskit_view_request.news_for_band %}</strong>{% endif %}</td>
 		</tr>
 	      {% endfor %}
 	    </tbody>
@@ -199,9 +211,9 @@
       <h3>{% trans "Search for Venues" %}</h3>
       <div class="search-content">
 	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
-	Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et envoyez leur votre <strong>Presskit</strong> !
+	{% blocktrans %}Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et envoyez leur votre <strong>Presskit</strong> !{% endblocktrans %}
 	<span class="go">
-	  <a href="{% url venue:search %}" class="button-tip minibutton btn-edit" title="Search for venues"><span>{% trans "Search for Venues" %}</span></a>
+	  <a href="{% url venue:search %}" class="button-tip minibutton btn-edit" title="{% trans "Search for venues" %}"><span>{% trans "Search for Venues" %}</span></a>
 	</span>
       </div>
     </div>
@@ -224,9 +236,9 @@
       <h3>{% trans "Search for other Bands" %}</h3>
       <div class="search-content">
 	<img src="{% staticfile '/images/band/search_bands.jpg' %}" width="100px"/>
-	Recherchez d'<strong>autres groupes</strong> avec lesquels jouer.
+	{% blocktrans %}Recherchez d'<strong>autres groupes</strong> avec lesquels jouer.{% endblocktrans %}
 	<span class="go">
-	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="Search for bands"><span>{% trans "Search for Bands" %}</span></a>
+	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="{% trans "Search for bands" %}"><span>{% trans "Search for Bands" %}</span></a>
 	</span>
       </div>
     </div>
@@ -235,7 +247,7 @@
     <!-- band members -->
     <div id="bandmembers" class="grid_5 alpha omega">
       <h3>{% trans "Members" %} ({{ band.band_members.count }})</h3>
-      <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="Manage members"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
+      <a href="{% url band:membership-manage band.slug %}" class="minibutton" title="{% trans "Manage members" %}"><span><span class="icon"></span>{% trans "Manage" %}</span></a>
 
       <ul>
 	{% for member in band.band_members.all %}

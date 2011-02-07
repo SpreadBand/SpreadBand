@@ -99,7 +99,7 @@
     margin-left: 0px;
 }
 
-#socialnets ul li img,a {
+#socialnets ul li img, #socialnets ul li a {
     vertical-align: middle;
 }
 

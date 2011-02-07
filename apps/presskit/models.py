@@ -53,6 +53,9 @@ class PresskitViewRequest(models.Model):
 
     seen = models.BooleanField(default=False)
 
+    news_for_band = models.BooleanField(default=False)
+    news_for_venue = models.BooleanField(default=False)
+
     state = models.CharField(max_length=1,
                              choices=state_choices,
                              default='P')
@@ -97,6 +100,11 @@ def on_presskitview_new(sender, **kwargs):
 @signals(presskitview_band_comment)
 def on_presskitview_band_comment(sender, **kwargs):
     presskitview = sender
+
+    # Mark there's something new to see for venue
+    presskitview.news_for_venue = True
+    presskitview.save()
+
     notification.send(presskitview.venue.members.all(),
                       'presskitview_band_comment',
                       {'presskitview': presskitview})
@@ -104,6 +112,11 @@ def on_presskitview_band_comment(sender, **kwargs):
 @signals(presskitview_venue_comment)
 def on_presskitview_venue_comment(sender, **kwargs):
     presskitview = sender
+
+    # Mark there's something new to see for venue
+    presskitview.news_for_band = True
+    presskitview.save()
+
     notification.send(presskitview.presskit.band.members.all(),
                       'presskitview_venue_comment',
                       {'presskitview': presskitview})
@@ -111,6 +124,11 @@ def on_presskitview_venue_comment(sender, **kwargs):
 @signals(presskitview_accepted_by_venue)
 def on_presskitview_accepted_by_venue(sender, **kwargs):
     presskitview = sender
+
+    # Mark there's something new to see for venue
+    presskitview.news_for_band = True
+    presskitview.save()
+
     notification.send(presskitview.presskit.band.members.all(),
                       'presskitview_accepted_by_venue',
                       {'presskitview': presskitview})
@@ -118,6 +136,11 @@ def on_presskitview_accepted_by_venue(sender, **kwargs):
 @signals(presskitview_refused_by_venue)
 def on_presskitview_refused_by_venue(sender, **kwargs):
     presskitview = sender
+
+    # Mark there's something new to see for venue
+    presskitview.news_for_band = True
+    presskitview.save()
+
     notification.send(presskitview.presskit.band.members.all(),
                       'presskitview_refused_by_venue',
                       {'presskitview': presskitview})

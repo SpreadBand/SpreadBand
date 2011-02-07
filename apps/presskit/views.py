@@ -75,14 +75,15 @@ def presskit_send(request, band_slug, venue_slug):
         view_request = PresskitViewRequest(presskit=presskit,
                                            venue=venue,
                                            sent_by=request.user)
-        
+
         view_request.save()
 
         # Notify
         presskitview_new.send(sender=view_request)
 
-        messages.success(request, _("%s presskit was sent to %s") % (band.name,
-                                                                     venue.name))
+        messages.success(request, _("%(band_name)s presskit was sent to %(venue_name)s") % {'band_name': band.name,
+                                                                                            'venue_name': venue.name}
+                         )
 
         return redirect(venue)
 
@@ -97,11 +98,19 @@ def presskit_send(request, band_slug, venue_slug):
 @login_required
 def presskit_viewrequest_band(request, band_slug, viewrequest_id):
     viewrequest = get_object_or_404(PresskitViewRequest, presskit__band__slug=band_slug, pk=viewrequest_id)
+
+    # if there was news, mark it no more
+    has_news = False
+    if viewrequest.news_for_band:
+        viewrequest.news_for_band = False
+        has_news = True
+        viewrequest.save()
     
     return render_to_response(template_name='presskit/presskit_viewrequest_band.html',
                               dictionary={'venue': viewrequest.venue,
                                           'band': viewrequest.presskit.band,
                                           'presskit': viewrequest.presskit,
+                                          'has_news': has_news,
                                           'viewrequest': viewrequest},
                               context_instance=RequestContext(request)
                               )

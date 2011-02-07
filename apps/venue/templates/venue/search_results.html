@@ -27,7 +27,7 @@
 	</div>
 	<div class="book">
 	  {% for band in request.user.bands.all %}
-	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Book {{ band_name }} there{% endblocktrans %}</span></a>
+	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Send {{ band_name }} PressKit{% endblocktrans %}</span></a>
 	  {% endfor %}
 	</div>
       </div>

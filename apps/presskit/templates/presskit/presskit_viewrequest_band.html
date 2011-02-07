@@ -88,22 +88,28 @@
 		{% endif %}
 
 		<div class="text">
-		  <span class="who">{% blocktrans with comment.user.first_name|default:comment.user.username as comment_user and comment.user.get_profile.get_absolute_url as user_url and band.name as band_name %}<a href="{{ user_url }}"><cite>{{ comment_user }}</cite></a> of{% endblocktrans %}
-		  {% if band in comment.user.bands.all %}
-		    {{ band.name }}
-		  {% endif %}
-		  {% if venue in comment.user.venues.all %}
-		    {{ venue.name }}
-		  {% endif %}
-		  {% blocktrans %} said:{% endblocktrans %}</span>
-		  <span class="when">{% blocktrans with comment.submit_date as submit_date and comment.submit_date|timesince as date_ago %}{{ submit_date }} ({{date_ago }} ago){% endblocktrans %}</span>
-		  <div class="message">
-		    <q>{{ comment.comment|linebreaksbr }}</q>
+		  <span class="who">
+		    {% if forloop.last and has_news %}<strong>{% endif %}
+		    {% blocktrans with comment.user.first_name|default:comment.user.username as comment_user and comment.user.get_profile.get_absolute_url as user_url and band.name as band_name %}<a href="{{ user_url }}"><cite>{{ comment_user }}</cite></a> of{% endblocktrans %}
+		    {% if band in comment.user.bands.all %}
+		      {{ band.name }}
+		    {% endif %}
+		    {% if venue in comment.user.venues.all %}
+		      {{ venue.name }}
+		    {% endif %}
+		    
+		    {% blocktrans %} said:{% endblocktrans %}</span>
+		    {% if forloop.last and has_news %}</strong>{% endif %}
+		    <span class="when">{% blocktrans with comment.submit_date as submit_date and comment.submit_date|timesince as date_ago %}{{ submit_date }} ({{date_ago }} ago){% endblocktrans %}</span>
+		    <div class="message">
+		      {% if forloop.last and has_news %}<strong>{% endif %}
+		      <q>{{ comment.comment|linebreaksbr }}</q>
+		      {% if forloop.last and has_news %}</strong>{% endif %}
+		    </div>
 		  </div>
 		</div>
-	      </div>
-	    </li>
-	  {% endfor %}
+	      </li>
+	    {% endfor %}
 	</ul>
 
 

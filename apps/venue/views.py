@@ -34,15 +34,24 @@ def presskit_viewrequest_venue_comment(request, venue_slug, viewrequest_id):
 def presskit_viewrequest_venue(request, venue_slug, viewrequest_id):
     viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
 
+    # if there was news, mark it no more
+    has_news = False
+    if viewrequest.news_for_venue:
+        viewrequest.news_for_venue = False
+        has_news = True
+        viewrequest.save()
+
     # If pending, set it as seen
     if viewrequest.state == 'P':
         viewrequest.state = 'S'
         viewrequest.save()
+
     
     return render_to_response(template_name='presskit/presskit_viewrequest_venue.html',
                               dictionary={'venue': viewrequest.venue,
                                           'band': viewrequest.presskit.band,
                                           'presskit': viewrequest.presskit,
+                                          'has_news': has_news,
                                           'viewrequest': viewrequest},
                               context_instance=RequestContext(request)
                               )

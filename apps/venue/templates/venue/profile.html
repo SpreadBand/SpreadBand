@@ -25,10 +25,17 @@
     {% else %}
       {% trans "No ambiance."%}
     {% endif %}
+
+    {% if is_managed %}
+    [<a href="{% url venue:edit venue.slug %}#id_ambiance">{% trans "edit" %}</a>]
+    {% endif %}
   </div>
 
   <div id="capacity" class="grid_3 alpha omega">
     {% trans "<strong>Capacity</strong>:" %} {{ venue.capacity|default:"??" }}
+    {% if is_managed %}
+    [<a href="{% url venue:edit venue.slug %}#id_capacity">{% trans "edit" %}</a>]
+    {% endif %}
   </div>
 
   {#<div id="website" class="grid_3 alpha omega">#}

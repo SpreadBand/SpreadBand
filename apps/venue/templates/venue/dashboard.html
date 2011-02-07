@@ -173,15 +173,30 @@
 	      {% staticfile '/images/band/no_picture.png' as default_picture %}
 	      {% for presskit_view_request in received_presskits %}
 		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{% url venue:presskit-viewrequest-venue venue.slug presskit_view_request.pk %}">
-		  <td class="status">{{ presskit_view_request.get_state_display|capfirst }}</td>
+		  <td class="status">
+		    {% if presskit_view_request.news_for_venue %}<strong>{% endif %}
+		    {{ presskit_view_request.get_state_display|capfirst }}
+		    {% if presskit_view_request.news_for_venue %}</strong>{% endif %}
+		  </td>
 		  <td class="venue">
-		    <div><img src="{{ band.avatar_url|default:default_picture }}" width="40px"/>{{ presskit_view_request.presskit.band.name }}</div>
+		    <div>
+		      <img src="{{ band.avatar_url|default:default_picture }}" width="40px" height="40px"/>
+		      {% if presskit_view_request.news_for_venue %}<strong>{% endif %}
+		      {{ presskit_view_request.presskit.band.name }}
+		      {% if presskit_view_request.news_for_venue %}</strong>{% endif %}
+		    </div>
 		  </td>
 		  <td>
+		    {% if presskit_view_request.news_for_venue %}<strong>{% endif %}
 		    {% blocktrans with presskit_view_request.sent_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}<br/>
 		    ({% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}updated {{ timestamp }} ago{% endblocktrans %})
+		    {% if presskit_view_request.news_for_venue %}</strong>{% endif %}
 		  </td>
-		  <td>{{ presskit_view_request.sent_by.first_name|default:presskit_view_request.sent_by.username }}</td>
+		  <td>
+		    {% if presskit_view_request.news_for_venue %}<strong>{% endif %}
+		    {{ presskit_view_request.sent_by.first_name|default:presskit_view_request.sent_by.username }}
+		    {% if presskit_view_request.news_for_venue %}</strong>{% endif %}
+		  </td>
 		</tr>
 	      {% endfor %}
 	    </tbody>
@@ -198,9 +213,9 @@
       <h3>{% trans "Search for Bands" %}</h3>
       <div class="search-content">
 	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
-	Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez les</strong> à jouer chez vous !
+	{% blocktrans %}Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez les</strong> à jouer chez vous !{% endblocktrans %}
 	<span class="go">
-	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Bands" %}</span></a>
+	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="{% trans "Search for Bands" %}"><span>{% trans "Search for Bands" %}</span></a>
 	</span>
       </div>
     </div>
