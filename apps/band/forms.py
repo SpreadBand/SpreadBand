@@ -9,7 +9,7 @@ from .models import Band, BandMember, BandRole, BandPicture
 class BandCreateForm(forms.ModelForm):
     class Meta:
         model = Band
-        fields = ('name', 'slug')
+        fields = ('name', 'slug', 'city', 'zipcode', 'country')
 
 class BandUpdateForm(forms.ModelForm):
     class Meta:
