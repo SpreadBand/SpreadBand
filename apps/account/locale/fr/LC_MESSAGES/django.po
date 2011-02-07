@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-11 20:26+0100\n"
-"PO-Revision-Date: 2011-01-04 12:00\n"
-"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
+"POT-Creation-Date: 2011-02-07 17:58+0100\n"
+"PO-Revision-Date: 2011-02-07 19:16\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "Les mots de passe ne correspondent pas"
 msgid "You have to confirm your password"
 msgstr "Vous devez confirmer votre mot de passe"
 
-#: forms.py:73 models.py:24
+#: forms.py:73 models.py:29
 msgid "Birthdate"
 msgstr "Date de naissance"
 
@@ -43,7 +43,7 @@ msgstr "Date de naissance"
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: forms.py:80 models.py:27
+#: forms.py:80 models.py:32
 msgid "Genre"
 msgstr "Sexe"
 
@@ -55,25 +55,33 @@ msgstr "Prénom"
 msgid "Last name"
 msgstr "Nom de famille"
 
-#: models.py:20
+#: models.py:26
 msgid "Male"
 msgstr "Homme"
 
-#: models.py:21
+#: models.py:27
 msgid "Female"
 msgstr "Femme"
 
-#: models.py:31
+#: models.py:36
 msgid "Country"
 msgstr "Pays"
 
-#: models.py:32
+#: models.py:37
 msgid "Timezone"
 msgstr "Fuseau horaire"
 
-#: models.py:34
+#: models.py:39
 msgid "Town"
 msgstr "Ville"
+
+#: views.py:39
+msgid "You have been signed off successfully, see you !"
+msgstr ""
+
+#: views.py:47
+msgid "Your password was successfully updated"
+msgstr "Votre mot de passe a été mis à jour avec succès"
 
 #: templates/account/base.html:16
 #, python-format
@@ -84,8 +92,8 @@ msgstr "paramètres de %(username)s "
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/account/base.html:27 templates/account/password.html:6
-#: templates/account/password.html.py:19
+#: templates/account/base.html:27 templates/userena/password_form.html:6
+#: templates/userena/password_form.html:19
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -94,121 +102,120 @@ msgstr "Mot de passe"
 msgid "Notifications"
 msgstr "Notifications"
 
-#: templates/account/password.html:14
-#: templates/notification/notice_settings.html:45
-#: templates/profiles/edit_profile.html:29
-msgid "Update"
-msgstr "Mise à jour"
-
-#: templates/account/password.html:20
-msgid ""
-"\n"
-"    You can update your password here. Try to use a password with numbers or "
-"special characters. It makes it stronger to attacks.\n"
-"    "
-msgstr ""
-"\n"
-"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot de passe avec des chiffres ou caractères spéciaux. Ca le rend plus fort contre les attaques."
-
-#: templates/account/user_dashboard.html:32
-#, python-format
-msgid "Welcome, %(username)s"
+#: templates/account/user_dashboard.html:43
+#, fuzzy, python-format
+msgid "Heya, %(username)s"
 msgstr "Bienvenue, %(username)s "
 
-#: templates/account/user_dashboard.html:33
+#: templates/account/user_dashboard.html:46
 msgid "Edit Your Profile"
 msgstr "Modifier votre profil"
 
-#: templates/account/user_dashboard.html:40
+#: templates/account/user_dashboard.html:58
 #: templates/contacts_import/select_contacts.html:42
 #: templates/contacts_import/select_contacts.html:66
-#: templates/profiles/profile_detail.html:32
+#: templates/userena/profile_detail.html:39
 msgid "Name"
 msgstr "Nom"
 
-#: templates/account/user_dashboard.html:41
+#: templates/account/user_dashboard.html:59
 #: templates/contacts_import/select_contacts.html:43
 #: templates/contacts_import/select_contacts.html:67
 msgid "E-mail"
 msgstr "E-mail"
 
-#: templates/account/user_dashboard.html:42
-#: templates/profiles/profile_detail.html:33
+#: templates/account/user_dashboard.html:60
+#: templates/userena/profile_detail.html:40
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/account/user_dashboard.html:43
-#: templates/profiles/profile_detail.html:34
+#: templates/account/user_dashboard.html:61
+#: templates/userena/profile_detail.html:41
 msgid "Joined"
 msgstr "Inscrit"
 
-#: templates/account/user_dashboard.html:49
-#: templates/profiles/profile_detail.html:39
+#: templates/account/user_dashboard.html:77
+#, fuzzy
+msgid "My Bands"
+msgstr "Groupes"
+
+#: templates/account/user_dashboard.html:80
+msgid "Create a new band"
+msgstr "Créer un nouveau groupe"
+
+#: templates/account/user_dashboard.html:111
+msgid "There is no activity yet for this band !"
+msgstr "Il n'y encore aucune activité pour ce groupe !"
+
+#: templates/account/user_dashboard.html:131
+#, python-format
+msgid ""
+"\n"
+"\t      You can <a href=\"%(band_create_url)s\">create one now</a> or <a "
+"href=\"%(band_search_url)s\">check if your band is already on SpreadBand</a> "
+"and ask your friends to add you to it.\n"
+"\t      "
+msgstr ""
+
+#: templates/account/user_dashboard.html:149
+#, fuzzy
+msgid "My Venues"
+msgstr "Vos lieux de concerts"
+
+#: templates/account/user_dashboard.html:152
+msgid "Create a new venue"
+msgstr "Créer une nouvelle scène"
+
+#: templates/account/user_dashboard.html:183
+msgid "There is no activity yet for this venue !"
+msgstr "Il n'y a encore aucune activité pour cette scène !"
+
+#: templates/account/user_dashboard.html:203
+#, python-format
+msgid ""
+"\n"
+"\t      You can <a href=\"%(venue_create_url)s\">create one now</a> or <a "
+"href=\"%(venue_search_url)s\">check if your venue is already on SpreadBand</"
+"a>.\n"
+"\t      "
+msgstr ""
+
+#: templates/account/user_dashboard.html:237
+#: templates/userena/profile_detail.html:111
 msgid "Connections since a month"
 msgstr "Connexions du mois"
 
-#: templates/account/user_dashboard.html:68
-msgid "Your Bands"
-msgstr "Vos groupes"
+#: templates/account/user_dashboard.html:246
+#: templates/userena/profile_detail.html:120
+#, fuzzy
+msgid "No connections yet"
+msgstr "Connexions du mois"
 
-#: templates/account/user_dashboard.html:97
-msgid "Your Venues"
-msgstr "Vos lieux de concerts"
-
-#: templates/account/user_dashboard.html:110
-msgid ""
-"\n"
-"      You <strong>play music</strong> or <strong>run a venue</strong> ? \n"
-"      "
+#: templates/account/user_dashboard.html:247
+#: templates/userena/profile_detail.html:121
+msgid "You'll find here connections with other musicians"
 msgstr ""
-"\n"
-"Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un lieu "
-"de concerts</strong> ?"
 
-#: templates/account/user_dashboard.html:114
-#, python-format
-msgid ""
-"\n"
-"      Register <a href=\"%(band_create_url)s\">your band</a> now !\n"
-"      "
-msgstr ""
-"\n"
-"Enregistrez <a href=\"%(band_create_url)s\">votre groupe</a> dès maintenant !"
-
-#: templates/account/user_dashboard.html:123
+#: templates/account/user_dashboard.html:255
 msgid "Latest Notifications"
 msgstr "Dernières notifications"
 
-#: templates/account/user_dashboard.html:125
+#: templates/account/user_dashboard.html:258
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/account/user_dashboard.html:127
+#: templates/account/user_dashboard.html:258
 msgid "Mark all unseen notices seen"
 msgstr "Marquer toutes les alertes comme vues"
 
-#: templates/account/user_dashboard.html:133
-#: templates/account/user_dashboard.html:165
-#: templates/account/user_dashboard.html:167
+#: templates/account/user_dashboard.html:264
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:152
-msgid "No notices."
-msgstr "Aucune notification"
-
-#: templates/account/user_dashboard.html:158
-msgid "Latest Activity"
-msgstr "Activité récente"
-
-#: templates/account/user_dashboard.html:170
-#, python-format
-msgid "%(when)s ago"
+#: templates/account/user_dashboard.html:266
+#, fuzzy, python-format
+msgid "%(time_since)s ago"
 msgstr " il y a %(when)s"
-
-#: templates/account/user_dashboard.html:172
-msgid "No activity"
-msgstr "Pas d'activité"
 
 #: templates/contacts_import/import_contacts.html:15
 msgid "Import contacts"
@@ -224,7 +231,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Veuillez choisir le fournisseur de messagerie à partir duquel vous souhaitez importer vos contacts. Nous <strong>ne conservons pas</strong> votre mot de passe ni vos contacts une fois l'étape d'importation terminée."
+"Veuillez choisir le fournisseur de messagerie à partir duquel vous souhaitez "
+"importer vos contacts. Nous <strong>ne conservons pas</strong> votre mot de "
+"passe ni vos contacts une fois l'étape d'importation terminée."
 
 #: templates/contacts_import/import_contacts.html:25
 msgid ""
@@ -234,7 +243,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Si vous préférez <strong>saisir manuellement</strong> les adresses email de vos amis, veuillez le faire dans le formulaire au bas de cette page."
+"Si vous préférez <strong>saisir manuellement</strong> les adresses email de "
+"vos amis, veuillez le faire dans le formulaire au bas de cette page."
 
 #: templates/contacts_import/import_contacts.html:47
 msgid "Click to import from GMail"
@@ -244,7 +254,9 @@ msgstr "Cliquez pour importer via GMail"
 msgid ""
 "Please split email adresses by a comma. For example: \"user@somewhere.tld, "
 "robert@ac.de, john@doe.org\". "
-msgstr "Veillez à séparer les adresse mails par une virgule. Par exemple: \"user@somewhere.tld, robert@ac.de, john@doe.org\"."
+msgstr ""
+"Veillez à séparer les adresse mails par une virgule. Par exemple: "
+"\"user@somewhere.tld, robert@ac.de, john@doe.org\"."
 
 #: templates/contacts_import/import_contacts.html:61
 msgid "Import"
@@ -264,7 +276,9 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Veuillez <strong>sélectionner les contacts</strong> que vous souhaitez inviter sur SpreadBand. Le message au bas de cette page sera envoyée. Vous pouvez, bien sûr, le changer si le souhaitez."
+"Veuillez <strong>sélectionner les contacts</strong> que vous souhaitez "
+"inviter sur SpreadBand. Le message au bas de cette page sera envoyée. Vous "
+"pouvez, bien sûr, le changer si le souhaitez."
 
 #: templates/contacts_import/import_email_list.html:30
 #: templates/contacts_import/select_contacts.html:87
@@ -326,8 +340,13 @@ msgstr ""
 msgid "Notification Type"
 msgstr "Type de notification"
 
+#: templates/notification/notice_settings.html:45
+#: templates/userena/password_form.html:14
+#: templates/userena/profile_form.html:25
+msgid "Update"
+msgstr "Mise à jour"
+
 #: templates/notification/notice_settings.html:53
-#, fuzzy
 msgid ""
 "\n"
 "  You can tune here how we send you your notifications. Be smart, remember "
@@ -336,27 +355,119 @@ msgid ""
 "  "
 msgstr ""
 
-#: templates/profiles/edit_profile.html:7
+#: templates/userena/disabled.html:4
+msgid "Unconfirmed account"
+msgstr "Compte non confirmé"
+
+#: templates/userena/disabled.html:8
+msgid "Your account is not activated yet!"
+msgstr "Votre compte n'est pas encore activé !"
+
+#: templates/userena/disabled.html:10
+msgid ""
+"Have you confirmed your account by <strong>clicking on the activation link</"
+"strong> in the <strong>e-mail we sent you</strong>?"
+msgstr ""
+
+#: templates/userena/disabled.html:12
+msgid ""
+"Don't forget to check your <strong>spam folder</strong> in case the email "
+"landed there."
+msgstr ""
+
+#: templates/userena/disabled.html:14
+msgid ""
+"We hope you understand you need to confirm your account to prevent robots "
+"from signing up and bothering the SpreadBand community."
+msgstr ""
+
+#: templates/userena/disabled.html:16
+msgid ""
+"Anyway, if you're lost, <strong>feel free to contact us</strong> to find out "
+"why."
+msgstr ""
+
+#: templates/userena/disabled.html:18
+#: templates/userena/signup_complete.html:25
+msgid "Back home"
+msgstr ""
+
+#: templates/userena/email_form.html:5
+#, fuzzy, python-format
+msgid "Account &raquo; %(username)s"
+msgstr "Profil de %(username)s "
+
+#: templates/userena/email_form.html:10
+#, fuzzy
+msgid "Change email address"
+msgstr "Adresse e-mail"
+
+#: templates/userena/email_form.html:15
+#, fuzzy
+msgid "Change email"
+msgstr "Modifiez"
+
+#: templates/userena/password_form.html:20
+msgid ""
+"\n"
+"    You can update your password here. Try to use a password with numbers or "
+"special characters. It makes it stronger to attacks.\n"
+"    "
+msgstr ""
+"\n"
+"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot "
+"de passe avec des chiffres ou caractères spéciaux. Ca le rend plus fort "
+"contre les attaques."
+
+#: templates/userena/profile_detail.html:22
+#, fuzzy
+msgid "Public profile of"
+msgstr "Profil de"
+
+#: templates/userena/profile_detail.html:31
+#, fuzzy, python-format
+msgid "Public profile of %(username)s"
+msgstr "Profil de %(username)s "
+
+#: templates/userena/profile_detail.html:42
+#, fuzzy
+msgid "Last login"
+msgstr "Nom de famille"
+
+#: templates/userena/profile_detail.html:55
+#, fuzzy
+msgid "Her/His Bands"
+msgstr "Vos groupes"
+
+#: templates/userena/profile_detail.html:91
+msgid "Your Venues"
+msgstr "Vos lieux de concerts"
+
+#: templates/userena/profile_form.html:7
 msgid "Profile settings"
 msgstr "Paramètres du profil"
 
-#: templates/profiles/edit_profile.html:18
+#: templates/userena/profile_form.html:13
+msgid "Avatar"
+msgstr "Avatar"
+
+#: templates/userena/profile_form.html:17
 msgid "Change it"
 msgstr "Modifiez"
 
-#: templates/profiles/edit_profile.html:20
-msgid "No avatar is defined."
-msgstr "Aucun avatar n'est défini."
+#: templates/userena/profile_form.html:17
+msgid "or"
+msgstr ""
 
-#: templates/profiles/edit_profile.html:20
-msgid "Set Your Avatar"
-msgstr "Définir son avatar"
+#: templates/userena/profile_form.html:17
+msgid "delete it"
+msgstr ""
 
-#: templates/profiles/edit_profile.html:34
+#: templates/userena/profile_form.html:30
 msgid "Your Profile"
 msgstr "Votre profil"
 
-#: templates/profiles/edit_profile.html:35
+#: templates/userena/profile_form.html:31
 msgid ""
 "\n"
 "    Please describe yourself there. These information are important so that "
@@ -364,20 +475,167 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Veuillez vous décrire ici. Ces informations sont importantes pour que les autres puissent mieux vous connaître."
+"Veuillez vous décrire ici. Ces informations sont importantes pour que les "
+"autres puissent mieux vous connaître."
 
-#: templates/profiles/profile_detail.html:12
-msgid "Profile of"
-msgstr "Profil de"
+#: templates/userena/signin_form.html:17
+msgid "Hi !"
+msgstr ""
 
-#: templates/profiles/profile_detail.html:26
+#: templates/userena/signin_form.html:29
+msgid "Let me in !"
+msgstr ""
+
+#: templates/userena/signin_form.html:30
+msgid "Have you"
+msgstr ""
+
+#: templates/userena/signin_form.html:30
+#, fuzzy
+msgid "forgotten your password"
+msgstr "Confirmez le mot de passe"
+
+#: templates/userena/signin_form.html:43
+msgid "Don't forget"
+msgstr ""
+
+#: templates/userena/signin_form.html:47
+msgid ""
+"Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien "
+"sur le site spreadband.com avant de vous identifier."
+msgstr ""
+
+#: templates/userena/signin_form.html:57
+msgid "New here ?"
+msgstr ""
+
+#: templates/userena/signin_form.html:60
+msgid "Signup now"
+msgstr ""
+
+#: templates/userena/signin_form.html:60
+msgid "for a SpreadBand account, it's free and takes less than a minute !"
+msgstr ""
+
+#: templates/userena/signin_form.html:62
+msgid "What is SpreadBand ?"
+msgstr ""
+
+#: templates/userena/signin_form.html:66
+msgid "Take a tour !"
+msgstr ""
+
+#: templates/userena/signout.html:5
+msgid "Logged out"
+msgstr ""
+
+#: templates/userena/signup_complete.html:7
+msgid "Signup almost done!"
+msgstr ""
+
+#: templates/userena/signup_complete.html:17
+msgid "Check your inbox, you're just one-click away!"
+msgstr ""
+
+#: templates/userena/signup_complete.html:21
 #, python-format
-msgid "Profile of %(username)s"
-msgstr "Profil de %(username)s "
+msgid ""
+"You have been <strong>send an e-mail</strong> with an activation link to "
+"<strong>%(email)s</strong>."
+msgstr ""
 
-#: templates/profiles/profile_detail.html:59
-msgid "Bands"
-msgstr "Groupes"
+#: templates/userena/signup_complete.html:22
+msgid ""
+"Please <strong>click on the activation link in the e-mail</strong> to start "
+"using SpreadBand!"
+msgstr ""
+
+#: templates/userena/signup_complete.html:23
+#, python-format
+msgid ""
+"You have <strong>%(userena_activation_days)s days</strong> to complete the "
+"signup... so <cite>be quick or be dead</cite> :-)"
+msgstr ""
+
+#: templates/userena/signup_complete.html:32
+msgid ""
+"While you're waiting for the e-mail... why not telling your friends about "
+"SpreadBand ?"
+msgstr ""
+
+#: templates/userena/signup_complete.html:39
+msgid ""
+"Musiciens indépendants : trouvez des bars, organisez des concerts et créez "
+"votre réseau grâce à SpreadBand !"
+msgstr ""
+
+#: templates/userena/signup_complete.html:50
+msgid "Share on Facebook"
+msgstr ""
+
+#: templates/userena/signup_complete.html:54
+msgid ""
+"Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de "
+"musique ! http://spreadband.com"
+msgstr ""
+
+#: templates/userena/signup_complete.html:57
+msgid "Share on Twitter"
+msgstr ""
+
+#: templates/userena/signup_form.html:23
+msgid "Signup"
+msgstr ""
+
+#: templates/userena/signup_form.html:31
+msgid "Signup for a SpreadBand Account"
+msgstr ""
+
+#: templates/userena/signup_form.html:84
+msgid "Goooooo ! &raquo;"
+msgstr ""
+
+#: templates/userena/signup_form.html:91
+#, fuzzy
+msgid "Your Band"
+msgstr "Vos groupes"
+
+#: templates/userena/signup_form.html:92
+msgid "You will able to register your band just after your have signed up."
+msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "      You <strong>play music</strong> or <strong>run a venue</strong> ? \n"
+#~ "      "
+#~ msgstr ""
+#~ "\n"
+#~ "Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un "
+#~ "lieu de concerts</strong> ?"
+
+#~ msgid ""
+#~ "\n"
+#~ "      Register <a href=\"%(band_create_url)s\">your band</a> now !\n"
+#~ "      "
+#~ msgstr ""
+#~ "\n"
+#~ "Enregistrez <a href=\"%(band_create_url)s\">votre groupe</a> dès "
+#~ "maintenant !"
+
+#~ msgid "No notices."
+#~ msgstr "Aucune notification"
+
+#~ msgid "Latest Activity"
+#~ msgstr "Activité récente"
+
+#~ msgid "No activity"
+#~ msgstr "Pas d'activité"
+
+#~ msgid "No avatar is defined."
+#~ msgstr "Aucun avatar n'est défini."
+
+#~ msgid "Set Your Avatar"
+#~ msgstr "Définir son avatar"
 
 #~ msgid "Configure your notification settings"
 #~ msgstr "Configurer vos paramètres de notification "
@@ -387,9 +645,6 @@ msgstr "Groupes"
 
 #~ msgid "Infos"
 #~ msgstr "Infos"
-
-#~ msgid "Avatar"
-#~ msgstr "Avatar"
 
 #~ msgid "Change your avatar"
 #~ msgstr "Changer votre avatar"
