@@ -30,17 +30,20 @@ class Venue(Actor):
     ambiance = TagField()
 
     # address
-    address = TextField()
-    city = CharField(max_length=100)
-    zipcode = CharField(max_length=50)
-    country = CountryField()
+    address = TextField(verbose_name=_('address'))
+    city = CharField(verbose_name=_('city'),
+                     max_length=100)
+    zipcode = CharField(verbose_name=_('zipcode'),
+                        max_length=50)
+    country = CountryField(verbose_name=_('country'))
     # pointer to geo informations
     place = ForeignKey(Place, null=True, blank=True)
         
 
-    description = TextField()
+    description = TextField(verbose_name=_('description'),)
 
-    capacity = PositiveSmallIntegerField(default=0,
+    capacity = PositiveSmallIntegerField(verbose_name=_('capacity'),
+                                         default=0,
                                          help_text=_('Capacity of the room'))
 
     members = ManyToManyField(User, through='VenueMember', related_name='venues')
@@ -101,16 +104,21 @@ class VenuePicture(ImageModel):
         image_field = 'original_image'
         spec_module = 'venue.imagespecs'
 
-    original_image = models.ImageField(upload_to=get_venuepicture_path)
+    original_image = models.ImageField(verbose_name=_('image'),
+                                       upload_to=get_venuepicture_path)
     venue = ForeignKey(Venue, related_name='pictures')
 
-    title = CharField(max_length=100,
+    title = CharField(verbose_name=_('title'),
+                      max_length=100,
                       null=True, blank=True)
 
-    description = CharField(max_length=255,
+    description = CharField(verbose_name=_('description'),
+                            max_length=255,
                             null=True, blank=True)
 
-    is_avatar = BooleanField(default=False)
+    is_avatar = BooleanField(verbose_name=_("use as avatar ?"),
+                             default=False,
+                             help_text=_("Check this if you want to use this picture as your avatar"))
 
     def __unicode__(self):
         return _(u"Picture for venue %s") % self.venue.name

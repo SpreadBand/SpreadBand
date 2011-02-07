@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 from django.contrib.contenttypes.models import ContentType
@@ -12,14 +14,30 @@ from django.conf import settings
 
 from band.models import Band
 from presskit.models import PresskitViewRequest
+from visitors.utils import record_visit, get_latest_visits_for
+
+from presskit.signals import presskitview_venue_comment, presskitview_accepted_by_venue, presskitview_refused_by_venue
 
 from .models import Venue
 from .forms import VenueForm, VenueUpdateForm, VenuePictureForm, NewCantFindForm, VenueCreateForm, VenueMemberRequestForm
 
 ## XXX Security
 @login_required
+def presskit_viewrequest_venue_comment(request, venue_slug, viewrequest_id):
+    viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
+    presskitview_venue_comment.send(sender=viewrequest)
+    return redirect('venue:presskit-viewrequest-venue', venue_slug, viewrequest_id)
+    
+
+## XXX Security
+@login_required
 def presskit_viewrequest_venue(request, venue_slug, viewrequest_id):
     viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
+
+    # If pending, set it as seen
+    if viewrequest.state == 'P':
+        viewrequest.state = 'S'
+        viewrequest.save()
     
     return render_to_response(template_name='presskit/presskit_viewrequest_venue.html',
                               dictionary={'venue': viewrequest.venue,
@@ -28,6 +46,41 @@ def presskit_viewrequest_venue(request, venue_slug, viewrequest_id):
                                           'viewrequest': viewrequest},
                               context_instance=RequestContext(request)
                               )
+
+## XXX Security
+@login_required
+def presskit_viewrequest_venue_accept(request, venue_slug, viewrequest_id):
+    viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
+    
+    viewrequest.state = 'A'
+    viewrequest.save()
+
+    # Notify
+    presskitview_accepted_by_venue.send(sender=viewrequest)
+
+    messages.success(request,
+                     _("You have accepted to set up a gig with %s" % viewrequest.presskit.band.name))
+
+
+    return redirect('venue:presskit-viewrequest-venue', venue_slug=venue_slug, viewrequest_id=viewrequest_id)
+
+
+## XXX Security
+@login_required
+def presskit_viewrequest_venue_refuse(request, venue_slug, viewrequest_id):
+    viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
+    
+    viewrequest.state = 'D'
+    viewrequest.save()
+
+    # Notify
+    presskitview_refused_by_venue.send(sender=viewrequest)
+
+    messages.info(request,
+                  _("You have refused to set up a gig with %s" % viewrequest.presskit.band.name))
+
+    return redirect('venue:presskit-viewrequest-venue', venue_slug=venue_slug, viewrequest_id=viewrequest_id)
+
 
 
 
@@ -38,16 +91,24 @@ def dashboard(request, venue_slug):
     """
     venue = get_object_or_404(Venue, slug=venue_slug)
 
-    # Presskit tracker
-    received_presskits = PresskitViewRequest.objects.filter(venue=venue).order_by('modified_on', '-sent_on', 'state')
-
-
+    # Check perms
     if not request.user.has_perm('venue.can_manage', venue):
         return HttpResponseForbidden('You are not allowed to manage this venue')
 
+    # Presskit tracker
+    # Show either 30 latest days or the latest 15 presskits
+    ten_days_ago = datetime.now() - timedelta(days=30)
+    received_presskits = PresskitViewRequest.objects.filter(venue=venue,
+                                                            modified_on__gte=ten_days_ago).order_by('modified_on', '-sent_on', 'state')[:15]
+
+
+    # Get latest visits
+    latest_visits = get_latest_visits_for(venue)
+
     return render_to_response(template_name='venue/dashboard.html',
                               dictionary={'venue': venue,
-                                          'received_presskits': received_presskits},
+                                          'received_presskits': received_presskits,
+                                          'latest_visits': latest_visits},
                               context_instance=RequestContext(request)
                               )
     
@@ -129,6 +190,16 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     # Check if the venue is managed
     is_managed = request.user.has_perm('venue.can_manage', venue)
 
+    # if this is not our venue, then record us as a visitor
+    # Venues
+    if not is_managed:
+        for venue in request.user.venues.all():
+            record_visit(venue, venue)
+            
+        for band in request.user.bands.all():
+            record_visit(band, venue)
+
+
     extra_context = {'latest_bands': latest_bands,
                      'past_events': past_events,
                      'future_events': future_events,
@@ -209,6 +280,22 @@ def edit(request, venue_slug):
 
 
 #--- PICTURES
+
+# XX: Security
+@login_required
+def picture_list(request, venue_slug):
+    venue = get_object_or_404(Venue, slug=venue_slug)
+
+    return object_list(request,
+                       queryset=venue.pictures.all(),
+                       template_name='venue/picture_list.html',
+                       template_object_name='picture',
+                       extra_context={'venue': venue},
+                       )
+
+
+# XX: Security
+@login_required
 def picture_new(request, venue_slug):
     venue = get_object_or_404(Venue, slug=venue_slug)
 
@@ -221,13 +308,24 @@ def picture_new(request, venue_slug):
 
             picture.save()
 
-            return redirect(venue)
+            return redirect('venue:venue-pictures', venue.slug)
 
     return create_object(request,
                          form_class=VenuePictureForm,
                          template_name='venue/picture_new.html',
                          extra_context={'venue': venue}
                          )
+
+
+# XXX: Security
+@login_required
+def picture_delete(request, venue_slug, picture_id):
+    venue = get_object_or_404(Venue, slug=venue_slug)
+    picture = get_object_or_404(venue.pictures, id=picture_id)
+
+    picture.delete()
+
+    return redirect('venue:venue-pictures', venue.slug)
 
 from .filters import VenueFilter
 

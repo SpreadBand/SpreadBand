@@ -4,11 +4,13 @@
 
 {% block content %}
 
-<h3>Upload a picture for {{ venue.name }}</h3>
-
-<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="{% trans "Upload" %}">
-</form>
-
+  <div id="text">
+    
+    <h3>{% blocktrans with venue.name as venue_name %}Upload a picture for {{ venue_name }}{% endblocktrans %}</h3>
+    
+    <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans "Upload" %}">
+    </form>
+  </div>
 {% endblock %}

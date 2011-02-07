@@ -32,11 +32,11 @@
     
     <div>
       <ul id="venue_tabs">
-	{% url venue:detail venue.slug as home_url %}
+	{% url venue:dashboard venue.slug as home_url %}
 	{% url venue:membership-manage venue.slug as membership_url %}
 	{% url venue:myprofile venue.slug as myprofile_url %}
 	<li><a {% if request.path == home_url %}class="selected"{% endif %} href="{{ home_url }}">{% trans "Home" %}</a></li>
-	<li><a {% if request.path == profile_url %}class="selected"{% endif %} href="{{ myprofile_url }}">{% trans "Profile" %}</a></li>
+	<li><a {% if request.path == myprofile_url %}class="selected"{% endif %} href="{{ myprofile_url }}">{% trans "Profile" %}</a></li>
 	<li><a {% if request.path == membership_url %}class="selected"{% endif %} href="{{ membership_url }}">{% trans "Staff" %}</a></li>
       </ul>
     </div>

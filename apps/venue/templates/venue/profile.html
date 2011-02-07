@@ -31,9 +31,9 @@
     {% trans "<strong>Capacity</strong>:" %} {{ venue.capacity|default:"??" }}
   </div>
 
-  <div id="website" class="grid_3 alpha omega">
-    {{ venue.websites.all|first|default:"??" }}
-  </div>
+  {#<div id="website" class="grid_3 alpha omega">#}
+    {#{{ venue.websites.all|first|default:"??" }}#}
+  {#</div>#}
   
   
   </div>
@@ -113,13 +113,13 @@ $(document).ready(function() {
 
       <div class="content">
 	{% if venue.description %}
-	  {{ venue.description|capfirst|safe|truncatewords_html:100 }}[<a href="#">{% trans "Read more" %}</a>]
+	  {{ venue.description|capfirst|safe }}
 	{% else %}
 	  {% trans "No description." %}
 	{% endif %}
 	
 	{% if is_managed %}
-	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	  <a href="{% url venue:edit venue.slug %}#id_description" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
 	{% endif %}
 	
       </div>
@@ -199,7 +199,7 @@ $(document).ready(function() {
 	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
 	<h2>{% trans "Pictures" %}</h2>
 	{% if is_managed %}
-	  <a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	  <a href="{% url venue:venue-pictures venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
 	{% endif %}
       </div>
       <div class="separator"></div>
@@ -223,7 +223,7 @@ $(document).ready(function() {
 	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
 	{% if is_managed %}
-	  <a href="{% url venue:edit venue.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	  <a href="{% url venue:edit venue.slug %}#id_video" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
 	{% endif %}
       </div>
       <div class="separator"></div>
@@ -246,7 +246,7 @@ $(document).ready(function() {
 			<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
 			<h2>{% trans "Location" %}</h2>
 			{% if is_managed %}
-			<a href="{% url venue:edit venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+			<a href="{% url venue:edit venue.slug %}#id_address" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
 			{% endif %}
 		</div>
       <div class="separator"></div>
