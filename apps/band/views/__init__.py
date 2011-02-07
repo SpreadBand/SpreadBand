@@ -20,7 +20,7 @@ from guardian.shortcuts import assign
 from visitors.utils import get_latest_visits_for
 
 from event.views.calendar import GigMonthlyHTMLCalendar
-from gigbargain.models import GigBargain
+# from gigbargain.models import GigBargain
 from world.models import Place
 
 from ..models import Band, BandMember
@@ -178,11 +178,11 @@ def dashboard(request, band_slug):
                                               when=date.today())
 
     # gigbargains
-    gigbargain_invitations = band.gigbargains.invitationsFor(band)
-    gigbargain_drafts = band.gigbargains.draftsFor(band)
+    #gigbargain_invitations = band.gigbargains.invitationsFor(band)
+    #gigbargain_drafts = band.gigbargains.draftsFor(band)
 
     # Get 5 latest gigbargain activities
-    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:3]
+    # latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=band.gigbargains.inprogress_gigbargains())[:3]
 
     # Get 10 latest visits
     latest_visits = get_latest_visits_for(band)
@@ -208,9 +208,9 @@ def dashboard(request, band_slug):
                      'future_events': future_events,
                      'today_events': today_events,
                      'monthly_calendar': monthly_calendar,
-                     'latest_activity': latest_activity,
-                     'gigbargain_invitations': gigbargain_invitations,
-                     'gigbargain_drafts': gigbargain_drafts,
+                     # 'latest_activity': latest_activity,
+                     #'gigbargain_invitations': gigbargain_invitations,
+                     #'gigbargain_drafts': gigbargain_drafts,
                      'latest_visits': latest_visits,
                      'presskit_completion': presskit_completion,
                      'presskit_completion_badge': presskit_completion_badge,

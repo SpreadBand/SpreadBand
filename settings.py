@@ -172,9 +172,9 @@ INSTALLED_APPS = (
     'presskit',
     'venue',
     'album',
-    'gigbargain',
+    # 'gigbargain',
     # 'bigbrother',
-    'api',
+    # 'api',
     'account',
 
     # External

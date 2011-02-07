@@ -16,7 +16,7 @@ from notification.models import Notice
 
 from actstream.models import Action
 from band.models import Band
-from gigbargain.models import GigBargain
+# from gigbargain.models import GigBargain
 from userena.views import signup as userena_signup
 from userena.views import password_change as userena_password_change
 from userena.views import profile_edit, profile_detail
@@ -109,9 +109,9 @@ def detail(request, username):
     else:
         user = get_object_or_404(User, username=username)
         today = date.today()
-        month_gigbargains = GigBargain.objects.filter(bands__in=user.bands.all, date__year=today.year, date__month=today.month).order_by('date')
-        band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=user.bands.all).distinct()
-        user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
+        # month_gigbargains = GigBargain.objects.filter(bands__in=user.bands.all, date__year=today.year, date__month=today.month).order_by('date')
+        # band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=user.bands.all).distinct()
+        # user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
         return profile_detail(request, username,
                               template_name='userena/profile_detail.html',
                               extra_context={'user_connections': user_connections}
@@ -123,17 +123,18 @@ def dashboard(request):
 
     # Get all connections with other users this month
     today = date.today()
-    month_gigbargains = GigBargain.objects.filter(bands__in=request.user.bands.all, date__year=today.year, date__month=today.month).order_by('date')
-    band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=request.user.bands.all).distinct()
-    user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
+    # month_gigbargains = GigBargain.objects.filter(bands__in=request.user.bands.all, date__year=today.year, date__month=today.month).order_by('date')
+    # band_connections = Band.objects.filter(gigbargains__in=month_gigbargains).exclude(pk__in=request.user.bands.all).distinct()
+    # user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
 
     # Latest activity in bargains
-    my_bands_gigbargains = GigBargain.objects.inprogress_gigbargains().filter(bands__in=request.user.bands.all)
-    latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=my_bands_gigbargains)[:10]
+    # my_bands_gigbargains = GigBargain.objects.inprogress_gigbargains().filter(bands__in=request.user.bands.all)
+    # latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=my_bands_gigbargains)[:10]
 
     context = {'notices': notices,
-               'user_connections': user_connections,
-               'latest_activity': latest_activity}
+               #'user_connections': user_connections,
+               #'latest_activity': latest_activity
+               }
 
     return render_to_response(template_name='account/user_dashboard.html',
                               context_instance=RequestContext(request,
