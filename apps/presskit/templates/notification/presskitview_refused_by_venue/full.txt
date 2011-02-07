@@ -1,0 +1,9 @@
+La scène « {{ presskitview.venue.name }} » a refusé votre demande de
+concert.
+
+N'hésitez pas à utiliser l'outil de recherche pour proposer votre
+PressKit à d'autres scènes :
+http://{{ current_site }}/{% url venue:search %}
+
+Vous pouvez toujours consulter le fil de discussion en cliquant sur ce lien :
+http://{{ current_site}}{% url presskit:presskit-viewrequest-band presskitview.presskit.band.slug presskitview.pk %}

@@ -1,0 +1,4 @@
+La Scène « {{ presskitview.venue.name }} » vous a laissé un message.
+
+Consultez le en cliquant sur ce lien :
+http://{{ current_site}}{% url presskit:presskit-viewrequest-band presskitview.presskit.band.slug presskitview.pk %}

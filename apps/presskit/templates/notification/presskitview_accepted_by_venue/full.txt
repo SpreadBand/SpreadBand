@@ -1,0 +1,7 @@
+La scène « {{ presskitview.venue.name }} » vous propose un concert !
+
+N'oubliez pas d'organiser les conditions clairement pour éviter les
+problèmes.
+
+Consultez la proposition en cliquant sur ce lien :
+http://{{ current_site}}{% url presskit:presskit-viewrequest-band presskitview.presskit.band.slug presskitview.pk %}

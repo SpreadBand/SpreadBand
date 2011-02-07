@@ -1,0 +1,4 @@
+Le groupe « {{ presskitview.presskit.band.name }} » vous a laissé un message.
+
+Consultez le en cliquant sur ce lien :
+http://{{ current_site}}{% url venue:presskit-viewrequest-venue presskitview.venue.slug presskitview.pk %}

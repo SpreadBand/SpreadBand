@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div id="text">
+  <h1><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a> &raquo; {% trans "Pictures" %} {% trans "(WIP)" %}</h1>
+
+  <ul>
+    {% for picture in picture_list %}
+      <li><img src="{{ picture.thumbnail_image.url }}"/> {% if picture.is_avatar %}{% trans "THIS IS YOUR AVATAR" %}{% endif %}- ( <a href="{% url venue:venue-picture-delete venue.slug picture.id %}">{% trans "delete" %}</a> )</li>
+    {% endfor %}
+  </ul>
+  
+  <p>
+    <a href="{% url venue:venue-picture-new venue.slug %}">{% trans "Add a new picture" %}</a>
+  </p>
+
+</div>
+
+{% endblock %}
