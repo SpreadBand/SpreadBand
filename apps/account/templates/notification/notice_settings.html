@@ -12,7 +12,7 @@
   
   {% if user.email %}
   <p>
-    {% trans "Primary email:" %} <strong>{{ user.email }}</strong> (<a href="{% url account:edit user %}">{% trans "change" %}</a>)
+    {% trans "Primary email:" %} <strong>{{ user.email }}</strong> (<a href="{% url userena_profile_edit user.username %}">{% trans "change" %}</a>)
   </p>
   {% else %}
   <p>
@@ -51,7 +51,7 @@
 <div id="sidebar" class="grid_4 prefix_1 omega">
   <h2>{% trans "Notifications" %}</h2>
   {% blocktrans %}
-  You can tune here how we send you your notifications. Be smart, remember that getting notifications make you sure you respond fast : other will be waiting shorter and you'll get better results.
+  You can tune here how we send you notifications. Be smart, remember that getting notifications makes you sure you respond fast : other will be waiting shorter and you'll get better results.
   {% endblocktrans %}
 </div>
 
