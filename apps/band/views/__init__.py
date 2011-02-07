@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+from datetime import date, datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -198,7 +198,11 @@ def dashboard(request, band_slug):
         presskit_completion[fn.__name__] = fn(band)
 
     # Presskit tracker
-    sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit).order_by('modified_on', '-sent_on', 'state')
+    # Show either 30 latest days or the latest 15 presskits
+    ten_days_ago = datetime.now() - timedelta(days=30)
+
+    sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit, 
+                                                        modified_on__gte=ten_days_ago).order_by('modified_on', '-sent_on', 'state')[:15]
 
     extra_context = {'past_events': past_events,
                      'future_events': future_events,

@@ -7,11 +7,13 @@
     margin-right: 210px;
 }
 
-.joinus {
-    padding-top: 32px;
+#joinus {
+    position: relative;
+    z-index: 100;
+    top: 25px
 }
 
-.joinus a {
+#joinus a {
     font-weight: 600;
     font-size: 1.7em;
 
@@ -93,17 +95,17 @@ div#video-wrapper {
 }
 
 /* features */
-#features {
+div#features {
     margin-top: 50px;
     margin-left: 8px;
 }
 
 
-#features ul {
+div#features ul {
     list-style: none;
 }
 
-#features ul li {
+div#features ul li {
     margin-left: 0px;
 }
 

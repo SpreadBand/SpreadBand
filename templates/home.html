@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load feeds %}
+{% load cache %}
 {% load i18n %}
 {% load django_static %}
 
@@ -38,149 +40,146 @@
 {% block css %}
   <link rel="stylesheet" type="text/css" media="screen" href="/css/home.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/featurelist/featurelist.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/features.css" />
   <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/signup.css" />
-  <link rel="stylesheet" href="/css/jquery/validationEngine.jquery.css" type="text/css"/>
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/validationEngine.jquery.css"/>
 {% endblock %}
 
 {% block content %}
 
+<div id="text">
 
-  <div class="alpha grid_16 omega">
-    <div id="main">
-      <div id="main-top">
-	<img src="{% staticfile '/images/structure/baseline.png' %}" alt="Spreadband is a place for music addicts" width="377" height="35" id="baseline" />
-	<form id="authentication" action="{% url userena_signin %}" method="post">
-	  <a href="#" id="lost-password">{% trans "Lost password ?" %}</a>
+  <div id="home-header">
+    <h1>Trouvez où et avec qui jouer ? Facile !</h1>
+  </div>
 
-	  {{ auth_form.as_p }}
-	  <input type="submit" id="submit-login" value="OK" />
-	</form>
-      </div>
+  <div id="home-auth">
+    <img src="{% staticfile '/images/home/header_sb.png' %}" alt="Spreadband is a place for music addicts" id="baseline" />
 
-      <div id="feature_list" class="grid_12">
-	<ul id="feature-tabs">
-	  <li>
-	    <a href="javascript:;">
-	      <img src="{% staticfile '/images/featurelist/band_icon.png' %}" alt="Bands"/>
-	      <h3>Learn More</h3>
-	      <span><em>Never miss a gig, discover new bands</em></span>
-	    </a>
-	  </li>
-	  <li>
-	    <a href="javascript:;">
-	      <img src="{% staticfile '/images/featurelist/venue_icon.png' %}" alt="Bands"/>
-	      <h3>Bands</h3>
-	      <span><em>more fans, more gigs</em></span>
-	    </a>
-	  </li>
-	  <li>
-	    <a href="javascript:;">
-	      <img src="{% staticfile '/images/featurelist/fan_icon.png' %}" alt="Bands"/>
-	      <h3>Venues</h3>
-	      <span><em>more fans, more gigs</em></span>
-	    </a>
-	  </li>
-	</ul>
-
-	<ul id="feature-output">
-	  <li>
-	    <img src="{% staticfile '/images/_TEMP/video.png' %}" alt="replace with the good video ;)" />
-	  </li>
-	  <li>
-	    <img src="{% staticfile '/images/featurelist/band.jpg' %}" alt="replace with the good video ;)" />
-	  </li>
-	  <li>
-	    <img src="{% staticfile '/images/featurelist/venue.jpg' %}" alt="replace with the good video ;)" />
-	  </li>
-	</ul>
-	
-	<div id="subscribe">
-	  <a onclick="return signup_box();" class="join-us" href="#"><img src="{% staticfile '/images/structure/subscribe.png' %}" alt="Join Us!" width="250" height="86" /></a>
-	</div>
-      </div>
-    </div>
+    <form id="authentication" action="{% url userena_signin %}" method="post">
+      <a href="#" id="lost-password">{% trans "Un problème ?" %}</a>
+      
+      {{ auth_form.identification }}
+      {{ auth_form.password }}
+      <input type="submit" id="submit-login" value="OK" />
+    </form>
+  </div>
   
-  <div class="prefix_2 grid_12 suffix_2">
-    <div id="last-news" class="grid_6 alpha">
-      <div class="sectionbox bright">
-	<div class="header">
-	  <h2>Lastest News</h2>
-	</div>
-
-	<div class="separator">
-	</div>
-
-	<div class="content">
-	  <ul>
-	  <li>
-	    <em>2010-08-03 <span>:</span></em>
-	    <p>SpreadBand compte maintenant plus de 300 groupes !</p>
-	  </li>
-	  <li>
-	    <em>2010-08-03 <span>:</span></em>
-	    <p>Un mouton à 2 têtes et 31 pattes au canada !</p>
-	  </li>
-	  <li>
-	    <em>2010-08-03 <span>:</span></em>
-	    <p>Ma mère a fait des crêpes !</p>
-	  </li>
-	  </ul>
-	</div>
-      </div>
-    </div>
-
-    <div id="new-members" class="grid_6 omega">
-      <div class="sectionbox bright">
-	<div class="header">
-	  <h2>New members</h2>
-	</div>
-	<div class="separator">
-	</div>
-	
-	<div class="content">
-	  <ul>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	    <li>
-	      <em>2010-08-03 <span>:</span></em>
-	      <strong>Lymbago, Lille</strong>
-	    </li>
-	  </ul>
-	</div>
+  <div id="home-features">
+    <div id="feature_list">
+      <ul id="feature-tabs">
+	<li>
+	  <a href="javascript:;">
+	    <img src="{% staticfile '/images/elements/picto_mic.png' %}" alt="Groupes, DJs, Artistes solo"/>
+	    <h3>Groupes, DJs, ...</h3>
+	    <span><em>Trouvez où et avec qui jouer</em></span>
+	  </a>
+	</li>
+	<li>
+	  <a href="javascript:;">
+	    <img src="{% staticfile '/images/elements/picto_record.png' %}" alt="Faites votre promo"/>
+	    <h3>Faîtes votre promo</h3>
+	    <span><em>Diffusez votre projet</em></span>
+	  </a>
+	</li>
+	<li>
+	  <a href="javascript:;">
+	    <img src="{% staticfile '/images/elements/picto_bubbles.png' %}" alt="Spreadband est une communauté"/>
+	    <h3>Créez votre réseau</h3>
+	    <span><em>Une communauté vous attend</em></span>
+	  </a>
+	</li>
+      </ul>
+      
+      <ul id="feature-output">
+	<li>
+	  <img src="{% staticfile '/images/home/bands_venues.png' %}" alt="Groupes et Lieux de concert" />
+	</li>
+	<li>
+	  <img src="{% staticfile '/images/home/presskit.png' %}" alt="Faîtes votre promotion" />
+	<li>
+	  <img src="{% staticfile '/images/featurelist/venue.jpg' %}" alt="Créez votre réseau" />
+	</li>
+      </ul>
+      
+      <div id="subscribe">
+	<a onclick="return signup_box();" class="join-us" href="#"><img src="{% staticfile '/images/structure/subscribe.png' %}" alt="Join Us!" width="250" height="86" /></a>
       </div>
     </div>
   </div>
-</div>
 
+  <div class="clear"></div>
+  
+  <div id="home-tour" class="grid_15 alpha omega">
+    <div>
+      <a href="{% url discover-band %}">Découvrez en détails</a> &raquo;
+    </div>
+  </div>
+
+  <div id="home-why">
+    <div id="community" class="column grid_4 prefix_1">
+      <h3>Inciter les Échanges</h3>
+      <p>
+	Ici, <strong>pas d'annuaire artificiel</strong> : vous trouvez un correspondant derrière chaque Scène ou Groupe.
+      </p>
+      <p>
+	Oubliez les <strong>frontières géographiques</strong>, il ne tient qu'à vous de faire <strong>naitre des échanges</strong> inattendus.
+      </p>
+    </div>
+
+    <div id="diversity" class="column column-center grid_4">
+      <h3>Stimuler la Diversité Musicale</h3>
+      <p>
+	Marre d'entendre toujours la même soupe à la radio ? Nous aussi. Avec tant de talents dans le monde, ça n'a aucun sens.
+      </p>
+      <p><strong>Faites vous entendre</strong> !</p>
+    </div>
+
+    <div id="economy" class="column grid_4">
+      <h3>Encourager l'Économie Locale</h3>
+      <p>
+	Vous imaginez votre groupe sans les scènes locales, tels que les bars-concerts&nbsp;?
+      </p>
+      <p>
+	C'est aussi grâce à elles que le <strong>paysage musical</strong> et <strong>social</strong> s'enrichit : alors <strong>soutenons les</strong> !
+      </p>
+    </div>
+  </div>
+
+
+  <!-- social -->
+
+  <div id="social" class="grid_15 alpha omega">
+    <div id="facebook" class="grid_4 alpha prefix_1">
+      <h3>Facebook</h3>
+      
+      <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fspreadband&amp;width=220&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=300" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:220px; height:300px;" allowTransparency="true"></iframe>
+      
+    </div>
+        
+    <div id="blog" class="grid_9 omega">
+      <h3>En direct du Blog</h3>
+
+      <div>
+	<img src="{% staticfile '/images/home/blogicon.jpg' %}" width="48" height="48"/>
+	{% cache 1800 blog_feed_home %}
+	{% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_blog_home.html %}
+	{% endcache %}
+      </div>
+    </div>
+
+    <div id="im" class="grid_9 omega">
+      <h3>Twitter</h3>
+      <div>
+	<img src="{% staticfile '/images/home/twitter_box_orange.png' %}" width="48" height="48"/>
+	{% cache 1800 twitter %}
+	{% include_feed "http://twitter.com/statuses/user_timeline/155609766.rss" 3 feed_includes/spreadband_twitter.html %}
+	{% endcache %}
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
 {% endblock %}

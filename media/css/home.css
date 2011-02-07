@@ -1,26 +1,41 @@
-#content #main {
-	width:769px;
-	float:left;
-	margin:69px 0 50px 125px;
-	position:relative;
+#text ul {
+    list-style: none;
 }
 
-#content #main #baseline {
-	float:left;
+#text ul li {
+    padding-left: 0px;
+    margin-left: 0px;
 }
 
-#content #main form#authentication {
-	float:left;
-	margin:9px 0 0 52px;
+/*-- header --*/
+#home-header {
+    text-align: center;
+}
+
+#home-header h1 {
+    font-size: 2.4em;
+    text-shadow: 1px 1px 1px #999999;
+    font-variant: small-caps;
+
+    margin-bottom: 30px;
+}
+
+/*-- Authentication --*/
+#home-auth > img {
+    float: left;
+    padding-left: 65px;
+    margin-bottom: 4px;
 }
 
 
-#content #main #main-top {
-	float:left;
-	width:100%;
+#home-auth form#authentication {
+    float:right;
+    padding-top: 6px;
+    margin-right: 70px;
 }
 
-#content #main form#authentication a#lost-password {
+
+#home-auth form#authentication a#lost-password {
 	background:url("../../images/elements/ico_login.png") no-repeat scroll right center transparent;
 	color:#63605C;
 	font-size:0.85em;
@@ -30,33 +45,159 @@
 }
 
 
-#content #main form#authentication p {
+#home-auth form#authentication p {
     display:inline;
 }
 
-#content #main form#authentication p label {
+#home-auth form#authentication p label {
 	display:none;
 }
 
-
-
-#content #main form#authentication #id_username, #content #main form#authentication #id_password {
+#home-auth form#authentication #id_identification, #home-auth form#authentication #id_password {
 	width:86px;
-	border:1px solid #d87f0d;
-	height:18px;
-	padding:0 2px;
-	font-size:0.9em;
+	border:1px solid #ff960d;
+	height:14px;
+	padding:2px 2px 2px 2px;
+	font-size:0.85em;
 }
 
-#content #main form#authentication #submit-login {
-	background:none repeat scroll 0 0 #D87F0D;
+#home-auth form#authentication #submit-login {
+	background:none repeat scroll 0 0 #e5870d;
 	border:0 none;
 	color:white;
 	font-size:0.9em;
-	height:19px;
+	height:20px;
 	padding:0 0 2px;
 	width:30px;
 }
+
+/* features */
+#home-features #feature_list{
+    width: 840px;
+    margin-bottom: 20px;
+    margin-left: 57px;
+    margin-right: 57px;
+}
+
+/* tour */
+#home-tour div {
+    text-align: left;
+    margin-left: 73px;
+
+    font-family: Helvetica;
+    font-variant: small-caps;
+    font-size: 1.4em;
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+/* why */
+#home-why .column {
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    height: 155px;
+
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+#home-why p {
+    margin-bottom: 4px;
+}
+
+#home-why .column-center {
+    margin-left: 37px;
+    margin-right: 37px;
+}
+
+#home-why .column h3 {
+    color: black;
+    border-bottom: 1px solid #eee;
+}
+
+#home-why #economy {
+    background-image: url('../images/home/economy.png');
+}
+
+#home-why #diversity {
+    background-image: url('../images/home/diversity.png');
+
+}
+
+#home-why #community {
+    background-image: url('../images/home/community.png');
+}
+
+
+/*-- social --*/
+#social {
+    margin-bottom: 50px;
+}
+
+
+#facebook {
+    height: 300px;
+    margin-left: 10px;
+}
+
+#facebook h3 {
+    font-variant: small-caps;
+}
+
+#social #im > div {
+    padding-left: 10px;
+    border-left: 1px solid #eee;
+}
+
+#social #im h3 {
+    text-align: right;
+    font-variant: small-caps;
+}
+
+#social #im {
+    margin-right: 50px;
+}
+
+#social #im .timesince {
+    font-size: 0.95em;
+    color: #aaa;
+}
+
+#social #im img {
+    float: left;
+    margin-top: 4px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+#social #blog {
+    margin-right:  50px;
+    margin-bottom: 20px;
+}
+
+#social #blog .date {
+    color: #666;
+}
+
+#social #blog > div {
+    padding-left: 10px;
+    border-left: 1px solid #eee;
+}
+
+#social #blog h3 {
+    text-align: right;
+    font-variant: small-caps;
+}
+
+#social #blog img {
+    float: left;
+    margin-top: 4px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
 
 #content #box {
 	background:#1b1b1b;

@@ -28,7 +28,7 @@
   <div id="text">
 
     <div id="signform" class="grid_10 alpha">
-      <h2>Signup for a SpreadBand Account</h2>
+      <h2>{% trans "Signup for a SpreadBand Account" %}</h2>
 
       <div class="alpha prefix_1 grid_9">
 	<form id="signup" method="POST" action="{% url userena_signup %}">
@@ -68,14 +68,14 @@
 	  </p>
 	     
 	  <p class="checkbox" id="tos">
-	      <textarea readonly="true">{% include "cgu.txt" %}</textarea>
+	      <textarea id="id_cgu" readonly="true">{% include "cgu.txt" %}</textarea>
 	  </p>
 	  <p>
 	    <div class="valid-wrapper">
 	      {{ form.tos.errors }}
 	      
 	      <input id="id_tos" type="checkbox" class="required validate[required]" name="tos" />
-	      {{ form.tos.label }}
+	      <a onclick="javascript: $('#id_cgu').fadeIn('slow');">{{ form.tos.label }}</a>
 	    </div>
 	  </p>
 	  
@@ -88,8 +88,8 @@
     </div>
 
     <div id="sidebar" class="grid_4 omega">
-      <h3>Your Band</h3>
-      You will able to register your band just after your have signed up.
+      <h3>{% trans "Your Band" %}</h3>
+      {% trans "You will able to register your band just after your have signed up." %}
     </div>
   </div>
 

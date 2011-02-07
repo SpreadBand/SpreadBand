@@ -1,22 +1,29 @@
+#subscribe {
+    position: relative;
+    
+    float: right;
+    top: 210px;
+    right: -20px;
+}
+
 
 .intro {
     font-size: 1.1em;
     margin-bottom: 30px;
 }
 
+
 .feature {
     margin: 10px;
 
     position: relative;
 
-    float: left;
 
 }
 
 .feature .title {
 
     vertical-align: middle;
-    float: left;
 
     border-radius: 100px 100px;
     -webkit-border-radius: 100px 100px;
@@ -48,7 +55,6 @@
 }
 
 .feature .description {
-    float: left;
 
     vertical-align: middle;
 

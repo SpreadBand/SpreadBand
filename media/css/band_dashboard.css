@@ -163,6 +163,7 @@ div#band_text {
 
 /*-- band members --*/
 #bandmembers {
+    margin-top: 20px;
     clear: both;
     margin-bottom: 20px;
 }
@@ -345,13 +346,13 @@ div#band_text {
 
 
 /*-- search --*/
-#search {
+.search {
     float: left;
     margin-bottom: 10px;
     position: relative;
 }
 
-#search .go {
+.search .go {
     margin-top: 10px;
     float: right;
     font-weight: 600;
@@ -361,7 +362,7 @@ div#band_text {
     margin-bottom: 5px;
 }
 
-#search .search-content {
+.search .search-content {
     float: left;
     clear: both;
 
@@ -375,12 +376,12 @@ div#band_text {
     line-height: 15px;
 }
 
-#search .search-content img {
+.search .search-content img {
     float: left;
     padding-right: 5px;
 }
 
-#search .search-content {
+.search .search-content {
 }
 
 #band-tip {

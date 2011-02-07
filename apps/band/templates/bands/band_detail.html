@@ -195,13 +195,13 @@
 
   <div class="grid_5 omega">
 
-    <div id="search">
+    <div class="search">
       <h3>{% trans "Search for Venues" %}</h3>
       <div class="search-content">
 	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
 	Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et envoyez leur votre <strong>Presskit</strong> !
 	<span class="go">
-	  <a href="{% url venue:search %}" class="button-tip minibutton btn-edit" title="Edit"><span>{% trans "Search for Venues" %}</span></a>
+	  <a href="{% url venue:search %}" class="button-tip minibutton btn-edit" title="Search for venues"><span>{% trans "Search for Venues" %}</span></a>
 	</span>
       </div>
     </div>
@@ -219,6 +219,18 @@
 	{% endfor %}
       </ul>
     </div>
+
+    <div class="search">
+      <h3>{% trans "Search for other Bands" %}</h3>
+      <div class="search-content">
+	<img src="{% staticfile '/images/band/search_bands.jpg' %}" width="100px"/>
+	Recherchez d'<strong>autres groupes</strong> avec lesquels jouer.
+	<span class="go">
+	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="Search for bands"><span>{% trans "Search for Bands" %}</span></a>
+	</span>
+      </div>
+    </div>
+
 
     <!-- band members -->
     <div id="bandmembers" class="grid_5 alpha omega">

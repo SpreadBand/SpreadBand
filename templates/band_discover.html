@@ -9,18 +9,27 @@
 
 {% block javascript %}
   <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.colorbox.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.scrollfollow.js" %}"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
 	$('.screenshot').colorbox();
+
+	$('#joinus').scrollFollow({'container': 'content',
+				   'speed': 500,
+				   'offset': 40});
     });
   </script>
+
 {% endblock %}
 
 
 {% block content %}
 
+
+
 <div id="text">
+
 
   <div id="teaser-header">
     <div class="text">
@@ -28,10 +37,12 @@
       <h2>Trouvez des bars, Organisez des concerts, Créez votre réseau.</h2>
     </div>
 
-    <div class="joinus">
+    <div id="joinus">
       <a href="{% url userena_signup %}">Rejoignez nous !</a>
     </div>
 
+
+    <!--
     <div id="video-wrapper">
       <div class="upbot-video"></div>
       <div class="pad-video"></div>
@@ -41,9 +52,9 @@
       <div class="pad-video"></div>
       <div class="upbot-video"></div>
     </div>
+    -->
 
   </div>
-
 
   <div id="features">
 
@@ -132,17 +143,7 @@
 
   </div>
 
-  <div>
-    <div id="bottom-teaser">
-      S'inscrire sur SpreadBand est gratuit et prend 1 minute...
-    </div>
-    <div class="joinus">
-      <a href="{% url userena_signup %}">Rejoignez nous !</a>
-    </div>
-  </div>
-
-
-
 </div>
+
 
 {% endblock %}
