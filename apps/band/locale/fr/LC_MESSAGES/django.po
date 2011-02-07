@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-11 20:27+0100\n"
-"PO-Revision-Date: 2010-12-29 14:16\n"
+"POT-Creation-Date: 2011-02-07 17:59+0100\n"
+"PO-Revision-Date: 2011-02-07 19:41\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr "Vous devez avoir au moins un rôle"
 msgid "The user's nickname you have entered doesn't exist"
 msgstr "Le nom de l'utilisateur que vous avez saisi n'existe pas"
 
-#: forms.py:68 models.py:54
+#: forms.py:68 models.py:55
 msgid "Country"
 msgstr "Pays"
 
-#: forms.py:72 models.py:48
+#: forms.py:72 models.py:49
 msgid "City"
 msgstr "Ville"
 
@@ -39,59 +39,59 @@ msgstr "Ville"
 msgid "Distance"
 msgstr "Distance"
 
-#: models.py:25
+#: models.py:26
 msgid "Can manage this band"
 msgstr "Peut gérer ce groupe"
 
-#: models.py:30 templates/band/band_search.html:57
+#: models.py:31 templates/band/band_search.html:57
 msgid "Name"
 msgstr "Nom"
 
-#: models.py:33
+#: models.py:34
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:36
+#: models.py:37
 msgid "Founded on"
 msgstr "Date de création"
 
-#: models.py:37
+#: models.py:38
 msgid "When the band was founded"
 msgstr "Date de création du groupe"
 
-#: models.py:41 templates/band/band_search.html:49
+#: models.py:42 templates/band/band_search.html:49
 msgid "Genres"
 msgstr "Genres"
 
-#: models.py:43
+#: models.py:44
 msgid "Influences"
 msgstr "Influences"
 
-#: models.py:51
+#: models.py:52
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: models.py:59
+#: models.py:60
 msgid "Biography"
 msgstr "Biographie"
 
-#: models.py:61
+#: models.py:62
 msgid "Band biography"
 msgstr "Biographie du groupe"
 
-#: models.py:68
+#: models.py:69
 msgid "Technical Sheet"
 msgstr "Fiche technique"
 
-#: models.py:171
+#: models.py:177
 msgid "user"
 msgstr "utilisateur"
 
-#: models.py:177
+#: models.py:183
 msgid "Roles"
 msgstr "Rôles"
 
-#: models.py:181
+#: models.py:187
 msgid "Whether the membership has been approved"
 msgstr "Si l'adhésion a été validée"
 
@@ -125,174 +125,127 @@ msgstr "Résultats de la recherche"
 
 #: templates/band/membership_add.html:7 templates/band/membership_add.html:11
 #: templates/band/membership_add.html:21
-#: templates/band/membership_manage.html:19
+#: templates/band/membership_manage.html:48
 msgid "Add member"
 msgstr "Ajouter un membre"
 
 #: templates/band/membership_add.html:17
+#: templates/band/membership_manage.html:43
 #, python-format
 msgid "Add a member to %(band_name)s"
 msgstr "Ajouter un membre à %(band_name)s "
 
-#: templates/band/membership_manage.html:7
+#: templates/band/membership_manage.html:8
 msgid "manage members"
 msgstr "Gérer les membres"
 
-#: templates/band/membership_manage.html:11
-#: templates/bands/band_detail.html:181
+#: templates/band/membership_manage.html:12
+#: templates/bands/band_detail.html:237 templates/bands/base.html:41
 msgid "Members"
 msgstr "Membres"
 
-#: templates/band/membership_manage.html:17
+#: templates/band/membership_manage.html:25
 msgid "Current members"
 msgstr "Les membres actuels"
 
-#: templates/band/membership_manage.html:28
+#: templates/band/membership_manage.html:36
 msgid "Remove"
 msgstr "Supprimer"
 
-#: templates/bands/band_detail.html:9
+#: templates/bands/band_detail.html:11
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: templates/bands/band_detail.html:23
-msgid "Edit Band Infos"
-msgstr "Modifier les informations"
-
-#: templates/bands/band_detail.html:27
-msgid "Recent visitors"
-msgstr "Derniers visiteurs"
-
-#: templates/bands/band_detail.html:29
-msgid ""
-"You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have "
-"visited your profile"
-msgstr ""
-"Vous verrez ici les <strong>groupes</strong> et <strong>lieux de concerts</"
-"strong> qui ont visité votre profil"
-
-#: templates/bands/band_detail.html:35
-msgid "Advertising"
-msgstr "Publicité"
-
-#: templates/bands/band_detail.html:46
-msgid "Today's"
-msgstr "Aujourd'hui"
-
-#: templates/bands/band_detail.html:60 templates/bands/base.html:39
-msgid "Gig Bargains"
-msgstr "Négoces en cours"
-
-#: templates/bands/band_detail.html:61
-msgid "Book A Venue"
-msgstr "Booker une date"
-
-#: templates/bands/band_detail.html:67
-msgid "Invitations"
-msgstr "Invitations"
-
-#: templates/bands/band_detail.html:70 templates/bands/band_detail.html:79
-#: templates/bands/band_detail.html:88
+#: templates/bands/band_detail.html:33
 #, python-format
-msgid "in %(time_until)s"
-msgstr "dans %(time_until)s"
+msgid ""
+"You haven't sent any PressKit yet. Start <a "
+"href='%(venue_search_url)s'>booking a venue now</a> !"
+msgstr "Vous n'avez envoyé aucun PressKit pour l'instant. Commencez <a href='%(venue_search_url)s'> à booker un scène maintenant </a> !"
 
-#: templates/bands/band_detail.html:72
-msgid "You don't have any invitation."
-msgstr "Vous n'avez aucune invitation."
+#: templates/bands/band_detail.html:34
+msgid "Search:"
+msgstr "Rechercher :"
 
-#: templates/bands/band_detail.html:76
-msgid "Drafts"
-msgstr "Brouillons"
+#: templates/bands/band_detail.html:87
+msgid "Hey, don't forget to complete your PressKit !"
+msgstr "Hey, n'oubliez pas de compléter votre PressKit !"
 
-#: templates/bands/band_detail.html:81
-msgid "You haven't started any draft."
-msgstr "Vous n'avez commencé aucun brouillon."
+#: templates/bands/band_detail.html:101
+#, python-format
+msgid ""
+"By filling in your PressKit, you make sure the <strong>Venues will be more "
+"confident</strong>... so this is the best way <strong>to get booked</"
+"strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Do it now</a> &raquo;"
+msgstr "En complétant complètement votre PressKit, vous êtes sûr <strong> que les scènes auront d'avantage confiance </strong>... c'est le meilleur moyen <strong>d'être booké</strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Faites-le maintenant</a> &raquo ;"
 
-#: templates/bands/band_detail.html:85
-msgid "Being negociated"
-msgstr "En cours de négociation"
-
-#: templates/bands/band_detail.html:90
-msgid "You don't have any gig bargain in progress."
-msgstr "Vous n'avez pas de négociation de concert en cours."
-
-#: templates/bands/band_detail.html:96
-msgid "Gig Bargains Dashboard"
-msgstr "Négociation de concerts"
-
-#: templates/bands/band_detail.html:111
-msgid "Agenda"
-msgstr "Agenda"
-
-#: templates/bands/band_detail.html:112
-msgid "Add Gig"
-msgstr "Ajouter un concert"
-
-#: templates/bands/band_detail.html:126 templates/bands/base.html:40
-msgid "Calendar"
-msgstr "Agenda"
-
-#: templates/bands/band_detail.html:137
-msgid "Tip of the day"
-msgstr "Astuce du jour"
-
-#: templates/bands/band_detail.html:139
-msgid "Have you filled your PressKit ? This is the best way to get booked !"
-msgstr ""
-"Avez-vous rempli votre PressKit ? C'est la meilleure façon d'être booké !"
-
-#: templates/bands/band_detail.html:143
+#: templates/bands/band_detail.html:105
 #, python-format
 msgid "Extend your network, <a href=\"%(url)s\">invite your friends</a>."
 msgstr "Etendez votre réseau, <a href=\"%(url)s\"> invitez vos amis</a> ."
 
-#: templates/bands/band_detail.html:154
-msgid "Upcoming events"
-msgstr "Événements à venir"
-
-#: templates/bands/band_detail.html:158
-msgid "You don't have any upcoming event."
-msgstr "Vous n'avez pas encore de concerts prévus."
-
-#: templates/bands/band_detail.html:159
-msgid "Start booking a venue now !"
-msgstr "Commencez à booker dès maintenant !"
-
-#: templates/bands/band_detail.html:173
-msgid "Suggestions"
-msgstr "Suggestions"
-
-#: templates/bands/band_detail.html:173
-msgid "Work in progress, don't expect it to work :)"
+#: templates/bands/band_detail.html:157
+#, fuzzy
+msgid "PressKit Tracker"
 msgstr ""
-"En travaux, ne vous attendez pas à ce que ça fonctionne correctement :)"
 
-#: templates/bands/band_detail.html:174
-msgid "You have to gig more before we can suggest you :"
-msgstr ""
-"Vous devez faire d'avantages de concerts pour que nous puissions vous faire "
-"des suggestions sur :"
+#: templates/bands/band_detail.html:165
+msgid "Status"
+msgstr "Statut"
 
-#: templates/bands/band_detail.html:176
-msgid ""
-"<strong>Bands</strong> that are like you, in your area or not, with whom you "
-"can plan gigs ;"
-msgstr ""
-"<strong>Les groupes</strong> qui vous ressemblent, dans votre région ou non, "
-"avec lesquels vous pouvez organiser des concerts ;"
+#: templates/bands/band_detail.html:166
+msgid "Venue"
+msgstr "Scène"
 
-#: templates/bands/band_detail.html:177
-msgid ""
-"<strong>Venues</strong> that are used to receive bands like you, where you "
-"can play with a good public."
-msgstr ""
-"<strong>Les lieux de concerts</strong> qui ont l'habitude de recevoir des "
-"groupes similaires au vôtre où vous pouvez jouer devant un public adapté."
+#: templates/bands/band_detail.html:167
+msgid "Sent on"
+msgstr "Envoyé le"
+
+#: templates/bands/band_detail.html:168
+msgid "Sent by"
+msgstr "Envoyé par"
+
+#: templates/bands/band_detail.html:181
+#, python-format
+msgid "%(timestamp)s ago"
+msgstr "il y a %(timestamp)s"
 
 #: templates/bands/band_detail.html:182
+#, python-format
+msgid "updated %(timestamp)s ago"
+msgstr "mis à jour il y a %(timestamp)s"
+
+#: templates/bands/band_detail.html:199 templates/bands/band_detail.html:204
+msgid "Search for Venues"
+msgstr "Rechercher un scène"
+
+#: templates/bands/band_detail.html:210
+msgid "Recent visitors"
+msgstr "Derniers visiteurs"
+
+#: templates/bands/band_detail.html:218
+msgid ""
+"You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have "
+"visited your profile."
+msgstr ""
+"Vous verrez ici les <strong>groupes</strong> et <strong>lieux de concerts</"
+"strong> qui ont visité votre profil"
+
+#: templates/bands/band_detail.html:224
+msgid "Search for other Bands"
+msgstr "Rechercher d'autres groupes"
+
+#: templates/bands/band_detail.html:229
+msgid "Search for Bands"
+msgstr "Rechercher des groupes"
+
+#: templates/bands/band_detail.html:238
 msgid "Manage"
 msgstr "Gérer"
+
+#: templates/bands/band_detail.html:253
+msgid "Advertising"
+msgstr "Publicité"
 
 #: templates/bands/band_list.html:14
 msgid "Add new"
@@ -322,19 +275,19 @@ msgstr "Éditer"
 msgid "Update"
 msgstr "Mettre à jour"
 
-#: templates/bands/base.html:19
+#: templates/bands/base.html:17
 msgid "no band avatar"
 msgstr "Aucun avatar du groupe"
 
-#: templates/bands/base.html:19
+#: templates/bands/base.html:17
 msgid "Click here to upload an avatar"
 msgstr "Cliquez ici pour télécharger un avatar"
 
-#: templates/bands/base.html:28 templates/bands/base.html.py:38
+#: templates/bands/base.html:26 templates/bands/base.html.py:37
 msgid "Home"
 msgstr "Tableau de bord"
 
-#: templates/bands/base.html:41
+#: templates/bands/base.html:40
 msgid "PressKit"
 msgstr "PressKit"
 
@@ -354,20 +307,25 @@ msgstr "Annuler"
 msgid "Upload"
 msgstr "Télécharger"
 
-#: views/__init__.py:83 views/__init__.py:268
+#: views/__init__.py:90 views/__init__.py:296
 msgid "Unable to lookup address"
 msgstr "Impossible de trouver l'adresse"
 
-#: views/__init__.py:295
+#: views/__init__.py:111
+#, python-format
+msgid "%s was successfully updated"
+msgstr "%s a été mis à jour avec succès"
+
+#: views/__init__.py:323
 msgid "Unable to find this city. Check the country or be more specific."
 msgstr ""
 "Impossible de trouver cette ville. Vérifiez le pays ou soyez plus précis."
 
-#: views/members.py:53 views/members.py:109
+#: views/members.py:53 views/members.py:112
 msgid "You are not allowed to edit this band"
 msgstr "Vous n'êtes pas autorisé à modifier ce groupe"
 
-#: views/members.py:112
+#: views/members.py:115
 msgid "You can't let this band alone"
 msgstr "Vous ne pouvez pas laisser ce groupe seul"
 
@@ -379,6 +337,97 @@ msgstr "Vous n'êtes pas autorisé à gérer ce groupe"
 #, python-format
 msgid "%(band_name)s was successfully associated with %(service_name)s"
 msgstr " % (band_name)s a été associé à %(service_name)s avec succès"
+
+#: views/socialnets.py:54 views/socialnets.py:67
+msgid "You are not allowed to post a message for this band"
+msgstr "Vous n'êtes pas autorisé à poster un message pour ce groupe"
+
+#~ msgid "Edit Band Infos"
+#~ msgstr "Modifier les informations"
+
+#~ msgid "Today's"
+#~ msgstr "Aujourd'hui"
+
+#~ msgid "Gig Bargains"
+#~ msgstr "Négoces en cours"
+
+#~ msgid "Book A Venue"
+#~ msgstr "Booker une date"
+
+#~ msgid "Invitations"
+#~ msgstr "Invitations"
+
+#~ msgid "in %(time_until)s"
+#~ msgstr "dans %(time_until)s"
+
+#~ msgid "You don't have any invitation."
+#~ msgstr "Vous n'avez aucune invitation."
+
+#~ msgid "Drafts"
+#~ msgstr "Brouillons"
+
+#~ msgid "You haven't started any draft."
+#~ msgstr "Vous n'avez commencé aucun brouillon."
+
+#~ msgid "Being negociated"
+#~ msgstr "En cours de négociation"
+
+#~ msgid "You don't have any gig bargain in progress."
+#~ msgstr "Vous n'avez pas de négociation de concert en cours."
+
+#~ msgid "Gig Bargains Dashboard"
+#~ msgstr "Négociation de concerts"
+
+#~ msgid "Agenda"
+#~ msgstr "Agenda"
+
+#~ msgid "Add Gig"
+#~ msgstr "Ajouter un concert"
+
+#~ msgid "Calendar"
+#~ msgstr "Agenda"
+
+#~ msgid "Tip of the day"
+#~ msgstr "Astuce du jour"
+
+#~ msgid "Have you filled your PressKit ? This is the best way to get booked !"
+#~ msgstr ""
+#~ "Avez-vous rempli votre PressKit ? C'est la meilleure façon d'être booké !"
+
+#~ msgid "Upcoming events"
+#~ msgstr "Événements à venir"
+
+#~ msgid "You don't have any upcoming event."
+#~ msgstr "Vous n'avez pas encore de concerts prévus."
+
+#~ msgid "Start booking a venue now !"
+#~ msgstr "Commencez à booker dès maintenant !"
+
+#~ msgid "Suggestions"
+#~ msgstr "Suggestions"
+
+#~ msgid "Work in progress, don't expect it to work :)"
+#~ msgstr ""
+#~ "En travaux, ne vous attendez pas à ce que ça fonctionne correctement :)"
+
+#~ msgid "You have to gig more before we can suggest you :"
+#~ msgstr ""
+#~ "Vous devez faire d'avantages de concerts pour que nous puissions vous "
+#~ "faire des suggestions sur :"
+
+#~ msgid ""
+#~ "<strong>Bands</strong> that are like you, in your area or not, with whom "
+#~ "you can plan gigs ;"
+#~ msgstr ""
+#~ "<strong>Les groupes</strong> qui vous ressemblent, dans votre région ou "
+#~ "non, avec lesquels vous pouvez organiser des concerts ;"
+
+#~ msgid ""
+#~ "<strong>Venues</strong> that are used to receive bands like you, where "
+#~ "you can play with a good public."
+#~ msgstr ""
+#~ "<strong>Les lieux de concerts</strong> qui ont l'habitude de recevoir des "
+#~ "groupes similaires au vôtre où vous pouvez jouer devant un public adapté."
 
 #~ msgid "New"
 #~ msgstr "Nouvelles"
