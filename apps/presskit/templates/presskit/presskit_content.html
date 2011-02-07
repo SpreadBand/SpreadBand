@@ -119,7 +119,7 @@
 
   <!-- stats -->
   <div id="stats" class="grid_3 alpha omega">
-    <h3>{% trans "A few stats" %} (<acronym title="{% trans "Work-in-progress, don't expect it to work :)" %}">WIP</acronym>)</h3>
+    <h3>{% trans "A few stats" %}</h3>
     <ul>
       {% if band.founded_on %}
 	<li>{% blocktrans with band.founded_on|date:"M Y" as date %} Active since {{ date }}{% endblocktrans %}</li>

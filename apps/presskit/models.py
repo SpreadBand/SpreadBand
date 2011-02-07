@@ -14,6 +14,9 @@ from band.models import Band
 from venue.models import Venue
 from media.models import Track
 
+from .signals import presskitview_new, presskitview_band_comment, presskitview_venue_comment, presskitview_accepted_by_venue, presskitview_refused_by_venue
+
+
 class PressKit(models.Model):
     band = OneToOneField(Band, related_name='presskit')
 
@@ -80,3 +83,41 @@ def check_for_awards(sender, instance, created, **kwargs):
 
 post_save.connect(check_for_awards, sender=PressKit)
 
+
+import notification.models as notification
+from annoying.decorators import signals
+
+@signals(presskitview_new)
+def on_presskitview_new(sender, **kwargs):
+    presskitview = sender
+    notification.send(presskitview.venue.members.all(),
+                      'presskitview_new',
+                      {'presskitview': presskitview})
+
+@signals(presskitview_band_comment)
+def on_presskitview_band_comment(sender, **kwargs):
+    presskitview = sender
+    notification.send(presskitview.venue.members.all(),
+                      'presskitview_band_comment',
+                      {'presskitview': presskitview})
+
+@signals(presskitview_venue_comment)
+def on_presskitview_venue_comment(sender, **kwargs):
+    presskitview = sender
+    notification.send(presskitview.presskit.band.members.all(),
+                      'presskitview_venue_comment',
+                      {'presskitview': presskitview})
+
+@signals(presskitview_accepted_by_venue)
+def on_presskitview_accepted_by_venue(sender, **kwargs):
+    presskitview = sender
+    notification.send(presskitview.presskit.band.members.all(),
+                      'presskitview_accepted_by_venue',
+                      {'presskitview': presskitview})
+
+@signals(presskitview_refused_by_venue)
+def on_presskitview_refused_by_venue(sender, **kwargs):
+    presskitview = sender
+    notification.send(presskitview.presskit.band.members.all(),
+                      'presskitview_refused_by_venue',
+                      {'presskitview': presskitview})

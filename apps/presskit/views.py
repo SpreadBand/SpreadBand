@@ -9,6 +9,7 @@ from visitors.utils import record_visit
 
 from .models import PressKit
 from .forms import PressKitVideoForm
+from .signals import presskitview_new, presskitview_band_comment, presskitview_venue_comment
 
 @login_required
 def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.html'):
@@ -58,6 +59,7 @@ from django.utils.translation import ugettext as _
 from django.contrib import messages
 from venue.models import Venue
 
+
 ## XXX: Security
 ## XXX: Quota
 ## XXX: Notifications
@@ -75,6 +77,9 @@ def presskit_send(request, band_slug, venue_slug):
                                            sent_by=request.user)
         
         view_request.save()
+
+        # Notify
+        presskitview_new.send(sender=view_request)
 
         messages.success(request, _("%s presskit was sent to %s") % (band.name,
                                                                      venue.name))
@@ -100,7 +105,12 @@ def presskit_viewrequest_band(request, band_slug, viewrequest_id):
                                           'viewrequest': viewrequest},
                               context_instance=RequestContext(request)
                               )
-    
+
+@login_required
+def presskit_viewrequest_band_comment(request, band_slug, viewrequest_id):
+    viewrequest = get_object_or_404(PresskitViewRequest, presskit__band__slug=band_slug, pk=viewrequest_id)
+    presskitview_band_comment.send(sender=viewrequest)
+    return redirect('presskit:presskit-viewrequest-band', band_slug, viewrequest_id)
 
 
 ## XXX: Security

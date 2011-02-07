@@ -62,7 +62,34 @@
   {% load threadedcomments_tags %}
   <div class="grid_11 omega">
     <div id="discuss-wrapper">    
-      <h3>{% blocktrans with band.name as band_name %}Discuss about this request with {{ band_name }}{% endblocktrans %}</h3>
+
+      <div id="request-actions-box">
+	{% if viewrequest.state == 'A' %}
+	  <h3>{% blocktrans with band.name as band_name %}You have <span class='accepted'>accepted</span> to set up a gig with {{ band_name }}!{% endblocktrans %}</h3>
+	{% endif %}
+
+	{% if viewrequest.state == 'D' %}
+	  <h3>{% blocktrans with band.name as band_name %}You have <span class='declined'>declined</span> to set up a gig with {{ band_name }}.{% endblocktrans %}</h3>
+	{% endif %}
+
+	{% if viewrequest.state == 'P' or viewrequest.state == 'S' %}
+
+	  <h3>{% trans "Your answer" %}</h3>
+
+	  <p>
+	    {% blocktrans with band.name as band_name and band.get_absolute_url as band_url %}So, are you interested by setting up a gig with <a href="{{  band_url }}"><strong>{{ band_name }}</strong></a> ? If so, then accept and discuss about the conditions (when, fees, ...).{% endblocktrans %}
+	  </p>
+	  
+	  <div class="buttons">
+	    <a href="{% url venue:presskit-viewrequest-venue-accept venue.slug viewrequest.pk %}" class="button-tip minibutton btn-fork" title="{% trans "Accept" %}"><span><span class="icon"></span>{% trans "Let's organize a gig!" %}</span></a>
+	    <a href="{% url venue:presskit-viewrequest-venue-refuse venue.slug viewrequest.pk %}" class="button-tip minibutton btn-kick" title="{% trans "Refuse" %}"><span><span class="icon"></span>{% trans "Sorry, I'm not interested" %}</span></a>
+	  </div>
+
+	{% endif %}
+      </div>
+
+
+      <h3>{% blocktrans with band.get_absolute_url as band_url and band.name as band_name %}Discuss about this request with &laquo;&nbsp;<a href="{{ band_url }}">{{ band_name }}</a>&nbsp;&raquo;{% endblocktrans %}</h3>
       
       {% get_comment_list for viewrequest as comment_list %}
 
@@ -128,7 +155,7 @@
 	    {{ comment_form.timestamp }}
 	    {{ comment_form.security_hash }}
 	    {{ comment_form.parent }}
-	    <input type="hidden" name="next" value="{% url venue:presskit-viewrequest-venue venue.slug viewrequest.id %}" />
+	    <input type="hidden" name="next" value="{% url venue:presskit-viewrequest-venue-comment venue.slug viewrequest.id %}" />
 
 	    <input type="submit" value="{% trans "Send" %}"/>
 	  </form>

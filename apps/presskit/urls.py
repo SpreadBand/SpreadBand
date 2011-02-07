@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     url(r'^(?P<band_slug>[-\w]+)/presskit/send/(?P<venue_slug>[-\w]+)$', views.presskit_send, name='presskit-send'),
     url(r'^(?P<band_slug>[-\w]+)/presskit/viewrequest/(?P<viewrequest_id>\d+)$', views.presskit_viewrequest_band, name='presskit-viewrequest-band'),
+    url(r'^(?P<band_slug>[-\w]+)/presskit/viewrequest/(?P<viewrequest_id>\d+)/band_comment$', views.presskit_viewrequest_band_comment, name='presskit-viewrequest-band-comment'),
 
     url(r'^(?P<band_slug>[-\w]+)/presskit/video$', views.video_edit, name='presskit-video'),
 
