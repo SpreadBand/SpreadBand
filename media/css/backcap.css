@@ -108,3 +108,39 @@
 {
     width: 200px;
 }
+
+form#feedback-new #kind {
+    margin-bottom: 10px;
+}
+
+form#feedback-new ul {
+    display: inline;
+}
+
+form#feedback-new ul li {
+    list-style-type: none;
+    display: inline;
+    vertical-align: middle;
+    padding-left: 0px;
+    margin-left: 5px;
+}
+
+form#feedback-new div#subject {
+    margin-bottom: 10px;
+}
+
+form#feedback-new div#subject input {
+    width: 400px;
+}
+
+form#feedback-new input[type="submit"] {
+    border: 1px solid black;
+    height: 25px;
+    background-color: #eee;
+}
+
+div#feedback-sidebar {
+    border-left: 1px solid #eee;
+    padding-left: 10px;
+    color: #666;
+}
