@@ -24,7 +24,8 @@ class Venue(Actor):
             ('can_manage', _('Can manage this venue')),
         )
 
-    name = CharField(max_length=200)
+    name = CharField(verbose_name=_('name'),
+                     max_length=200)
     slug = SlugField(max_length=100, unique=True)
 
     ambiance = TagField()

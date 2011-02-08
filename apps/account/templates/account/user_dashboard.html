@@ -215,10 +215,16 @@
     {% with user.band_memberships.all|length as band_count %}
       {% with user.venue_memberships.all|length as venue_count %}
 	{% if venue_count and not band_count %}
-	  <div id="register-other-type">Also in a band ? <a href="{% url band:create %}">Register it now</a> !</div>
+	  {% url band:create as band_create_url %}
+	  <div id="register-other-type">
+	    {% blocktrans with band_create_url as url %}Also in a band? <a href="{{ url }}">Register it now</a>!{% endblocktrans %}
+	  </div>
 	{% else %}
 	  {% if band_count and not venue_count %}
-	    <div id="register-other-type">Also running a venue ? <a href="{% url venue:create %}">Register it now</a> !</div>	    
+	    {% url venue:create as venue_create_url %}
+	    <div id="register-other-type">
+	      {% blocktrans with band_create_url as url %}Also running a venue? <a href="{{ url }}">Register it now</a>!{% endblocktrans %}
+	    </div>	    
 	  {% endif %}
 	{% endif %}
     {% endwith %}
@@ -255,7 +261,7 @@
 	  <h3>{% trans "Latest Notifications" %}</h3>
 	</div>
 
-	<span id="mark_as_seen">Actions : <a href="{% url notification_notice_settings %}"><span>{% trans "Settings" %}</span></a> - <a href="{% url notification_mark_all_seen %}">{% trans "Mark all unseen notices seen" %}</a>.</span>
+	<span id="mark_as_seen">{% trans "Actions:" %} <a href="{% url notification_notice_settings %}"><span>{% trans "Settings" %}</span></a> - <a href="{% url notification_mark_all_seen %}">{% trans "Mark all unseen notices seen" %}</a>.</span>
 	
 	{# TODO: get timezone support working with regroup #}
 	{% regroup notices by added.date as notices_by_date %}
@@ -285,7 +291,7 @@
 	  {% endif %}
 
 	  {% empty %}
-	  <p id="no-notices-yet">You have no notices yet.</p>
+	  <p id="no-notices-yet">{% trans "You have no notices yet." %}</p>
 	{% endfor %}
 	</div>
       </div>

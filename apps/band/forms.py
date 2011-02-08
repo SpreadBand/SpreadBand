@@ -49,8 +49,10 @@ class BandMemberAddForm(forms.ModelForm):
         model = BandMember
         fields = ('user', 'roles')
     
-    user = CharField(max_length=50, 
-                     help_text='Enter the username of the person to add')
+    user = CharField(label=_("Username"),
+                     max_length=50, 
+                     help_text=_("Enter the username of the person to add")
+                     )
 
     def clean_user(self):
         value = self.cleaned_data['user']

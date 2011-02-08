@@ -84,8 +84,10 @@ class VenueMemberAddForm(forms.ModelForm):
         model = VenueMember
         fields = ('user', 'roles')
     
-    user = forms.CharField(max_length=50, 
-                           help_text='Enter the username of the person to add')
+    user = forms.CharField(label=_("Username"),
+                           max_length=50, 
+                           help_text=_("Enter the username of the person to add")
+                           )
 
     def clean_user(self):
         value = self.cleaned_data['user']

@@ -111,33 +111,33 @@
 	    <ul>
 	      {% url band:edit band.slug as edit_presskit_url %}
 	      {% if presskit_completion.check_biography %}
-		<li class="done">Biography</li>
+		<li class="done">{% trans "Biography" %}</li>
 	      {% else %}
-		<li class="notdone"><a href="{{ edit_presskit_url }}#id_biography">Biography</a></li>
+		<li class="notdone"><a href="{{ edit_presskit_url }}#id_biography">{% trans "Biography" %}</a></li>
 	      {% endif %}
 
 	      {% if presskit_completion.check_pictures %}
-		<li class="done">Photos</li>
+		<li class="done">{% trans "Photos" %}</li>
 	      {% else %}
-		<li class="notdone"><a href="{% url band:band-pictures band.slug %}">Photos</a></li>
+		<li class="notdone"><a href="{% url band:band-pictures band.slug %}">{% trans "Photos" %}</a></li>
 	      {% endif %}
 		
 	      {% if presskit_completion.check_tracks %}
 		<li class="done">Tracks</li>
 	      {% else %}
-		<li class="notdone"><a href="{% url presskit:presskit-tracks band.slug %}">Tracks</a></li>
+		<li class="notdone"><a href="{% url presskit:presskit-tracks band.slug %}">{% trans "Tracks" %}</a></li>
 	      {% endif %}
 
 	      {% if presskit_completion.check_socialnets %}
-		<li class="done">Social Networks</li>
+		<li class="done">{% trans "Social Networks" %}</li>
 	      {% else %}
-		<li class="notdone"><a href="{% url band:socialnet-edit band.slug %}">Social Networks</a></li>
+		<li class="notdone"><a href="{% url band:socialnet-edit band.slug %}">{% trans "Social Networks" %}</a></li>
 	      {% endif %}
 
 	      {% if presskit_completion.check_techsheet %}
-		<li class="done">Technical Sheet</li>
+		<li class="done">{% trans "Technical Sheet" %}</li>
 	      {% else %}
-		<li class="notdone"><a href="{{ edit_presskit_url }}#id_technical_sheet">Technical Sheet</a></li>		
+		<li class="notdone"><a href="{{ edit_presskit_url }}#id_technical_sheet">{% trans "Technical Sheet" %}</a></li>		
 	      {% endif %}
 	    </ul>
 	  </div>
