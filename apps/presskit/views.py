@@ -1,4 +1,8 @@
+import datetime
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.models import Site
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic.create_update import update_object
@@ -77,6 +81,15 @@ def presskit_send(request, band_slug, venue_slug):
                                            sent_by=request.user)
 
         view_request.save()
+        if presskit_view_request_form.cleaned_data['message']:
+            from threadedcomments.models import ThreadedComment
+            
+            ThreadedComment.objects.create(user=request.user,
+                                           site=Site.objects.get(id=settings.SITE_ID),
+                                           content_object=view_request,
+                                           comment=presskit_view_request_form.cleaned_data['message'],
+                                           submit_date=datetime.datetime.now()
+                                           )
 
         # Notify
         presskitview_new.send(sender=view_request)
