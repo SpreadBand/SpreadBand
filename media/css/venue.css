@@ -149,25 +149,49 @@
 }
 
 .presskit_sharing {
-	background-color:white;
-	padding-left:10px;
-	padding-right:10px;
-	position:relative;
+    background-color:white;
+    padding-left:10px;
+    padding-right:10px;
+    position:relative;
 }
 
-.presskit_sharing ul li a img {
-	position:relative;
-	width:25px;
-	height:25px;
+li.presskit_sharing_item {
+    padding-top: 5px;
+    list-style-type: none;
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.presskit_sharing_item p {
+    width: 110px;
+    margin-left: 5px;
+    display: inline;
+    float: left;
+
+    vertical-align: middle;
+}
+
+.presskit_sharing_item img {
+    width:25px;
+    height:25px;
+    float: left;
+
+    vertical-align: middle;
 }
 
 
 .venue_sharing_title {
 	background-color:white;
-	font-weight:bold;
 	position:relative;
-	text-align:center;
 	width:120px;
+}
+
+.venue_sharing_title span {
+    color: #666;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 1em;
 }
 
 .encart {
