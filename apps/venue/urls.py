@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, url
 from django.conf import settings
 
 import views
@@ -10,7 +10,6 @@ urlpatterns = patterns('django.views.generic.simple',
 urlpatterns += patterns('',                       
     # CRUD
     url(r'^new$', views.new, name='create'),
-    url(r'^list$', views.list, name='list'),
 
     # Search
     url(r'^search$', views.search, name='search'),
@@ -43,6 +42,11 @@ urlpatterns += patterns('',
     url(r'^(?P<venue_slug>[-\w]+)/edit$', views.edit, name='edit'),
 
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+                            url(r'^list$', views.list, name='list'),
+                            )
 
 
 

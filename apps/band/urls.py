@@ -12,7 +12,6 @@ urlpatterns = patterns('django.views.generic.simple',
 urlpatterns += patterns('',                       
     url(r'^new$', views.new, name='create'),
 
-    url(r'^list$', views.list, name='list'),
     url(r'^search$', views.search, name='search'),
 
     url(r'^(?P<band_slug>[-\w]+)/edit$', views.edit, name='edit'),
@@ -46,3 +45,8 @@ urlpatterns += patterns('',
     # Catch-all for the band name
     url(r'^(?P<band_slug>[-\w]+)/$', views.detail, name='detail'),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+                            url(r'^list$', views.list, name='list'),
+                            )
