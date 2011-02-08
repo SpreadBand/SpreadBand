@@ -29,6 +29,9 @@
     {% else %}
       {% trans "No genre."%}
     {% endif %}
+    {% if can_edit %}
+      [<a href="{% url band:edit band.slug %}#id_genres">{% trans "edit" %}</a>]
+    {% endif %}
   </div>
 
   <div id="influences" class="grid_3 alpha omega">
@@ -37,13 +40,16 @@
     {% else %}
       {% trans "No influences." %}
     {% endif %}
+    {% if can_edit %}
+      [<a href="{% url band:edit band.slug %}#id_influences">{% trans "edit" %}</a>]
+    {% endif %}
   </div>
   
   <!-- Band members -->
   <div id="bandmembers" class="grid_3 alpha omega">
     <h3>{% trans "Members" %} ({{ band.band_members.count }})</h3>
     {% if can_edit %}
-    <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="{% trans "Edit" %}"><span>{% trans "Edit" %}</span></a>
     {% endif %}
 
     {% staticfile '/images/account/no_avatar.png' as default_avatar %}
@@ -81,7 +87,7 @@
   <div id="socialnets" class="grid_3 alpha omega">
     <h3>{% trans "Social Networks" %}</h3>
     {% if can_edit %}
-    <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="Edit"><span>{% trans "Edit" %}</span></a>
+    <a href="{% url band:socialnet-edit band.slug %}" class="button-tip minibutton" title="{% trans "Edit" %}"><span>{% trans "Edit" %}</span></a>
     {% endif %}
 
     <ul>
