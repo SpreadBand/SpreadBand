@@ -14,11 +14,11 @@ dajaxice_autodiscover()
 
 # Sitemaps
 # import venue.sitemaps
-# import band.sitemaps
+import band.sitemaps
 # import event.sitemaps
-# sitemaps = {}
+sitemaps = {}
 # sitemaps.update(venue.sitemaps.sitemaps)
-# sitemaps.update(band.sitemaps.sitemaps)
+sitemaps.update(band.sitemaps.sitemaps)
 # sitemaps.update(event.sitemaps.sitemaps)
 
 # For server errors
@@ -137,8 +137,9 @@ if settings.DEBUG:
 
 
 # Sitemaps
-sitemaps = {'flatpages': FlatPageSitemap,
-            'pages': DirectToTemplateSitemap(urlpatterns)}
+sitemaps.update({'flatpages': FlatPageSitemap,
+                 'pages': DirectToTemplateSitemap(urlpatterns)}
+                )
 
 urlpatterns += patterns('',
     # Robots.txt and sitemap

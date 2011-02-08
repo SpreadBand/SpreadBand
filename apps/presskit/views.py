@@ -15,7 +15,6 @@ from .models import PressKit
 from .forms import PressKitVideoForm, PressKitTrackForm
 from .signals import presskitview_new, presskitview_band_comment, presskitview_venue_comment
 
-@login_required
 def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.html'):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
 
@@ -26,15 +25,16 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
                      'presskit': presskit,
                      'latest_gigs': latest_gigs}
 
-    # If we are not in the band, record us as a visitor
-    if not request.user in presskit.band.members.all():
-        # Bands
-        for band in request.user.bands.all():
-            record_visit(band, presskit.band)
-
-        # Venues
-        for venue in request.user.venues.all():
-            record_visit(venue, presskit.band)
+    if not request.user.is_anonymous:
+        # If we are not in the band, record us as a visitor
+        if not request.user in presskit.band.members.all():
+            # Bands
+            for band in request.user.bands.all():
+                record_visit(band, presskit.band)
+                
+            # Venues
+            for venue in request.user.venues.all():
+                record_visit(venue, presskit.band)
 
     # Check if we can edit this presskit
     can_edit = request.user.has_perm('band.can_manage', presskit.band)
