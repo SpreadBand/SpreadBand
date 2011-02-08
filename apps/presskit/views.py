@@ -12,7 +12,7 @@ from badges.models import Badge
 from visitors.utils import record_visit
 
 from .models import PressKit
-from .forms import PressKitVideoForm
+from .forms import PressKitVideoForm, PressKitTrackForm
 from .signals import presskitview_new, presskitview_band_comment, presskitview_venue_comment
 
 @login_required
@@ -152,7 +152,6 @@ from django.views.generic.create_update import create_object, delete_object
 from django.views.generic.list_detail import object_list
 
 from media.models import Track
-from .forms import PressKitTrackForm
 
 # XXX Security
 @login_required
@@ -171,7 +170,7 @@ def track_add(request, band_slug):
             return redirect('presskit:presskit-tracks', presskit.band.slug)
 
     return create_object(request,
-                         model=Track,
+                         form_class=PressKitTrackForm,
                          template_name='presskit/track_add.html',
                          extra_context={'presskit': presskit},
                          )
