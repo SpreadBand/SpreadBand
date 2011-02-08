@@ -107,7 +107,8 @@ $(document).ready(function() {
 				  height: '300px',
 				  initialWidth: '700px',
 				  initialHeight: '300px',
-				  transition: 'elastic'
+				  transition: 'elastic',
+				  opacity: 0.50,
 				 });
 });
 </script>
@@ -137,7 +138,8 @@ $(document).ready(function() {
      {% if not is_managed %}
      <div class="sectionbox presskit_sharing">
        <div class="venue_sharing_title">
-	 <img src="{% staticfile "images/venue/send_presskit.png" %}" alt="Send presskit of" width="150px"/>
+	 <img src="{% staticfile "images/venue/send_presskit.png" %}" alt="{% trans "Send presskit of" %}" width="150px"/>
+	 <span>{% trans "Click to propose a gig to this venue." %}</span>
        </div>
        
        <ul>
@@ -145,7 +147,7 @@ $(document).ready(function() {
 	 {% for band in user.bands.all %}
 	   <a onclick="javascript: return false;" href="{% url presskit:presskit-send band.slug venue.slug %}" class="presskit-send tip" title="{% blocktrans with band.name as band_name %}Send {{ band_name }} PressKit{% endblocktrans %}">
 	     <div>
-	       <li>
+	       <li class="presskit_sharing_item">
 		 <img width="25px" height="25px" src="{{ band.pictures.avatar.small_avatar_image.url|default:default_picture }}" />
 		 <p>{{ band.name }}</p>
 	       </li>
