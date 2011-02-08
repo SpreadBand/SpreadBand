@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="/css/announcements.css" media="screen, projection" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui/ui-darkness/jquery-ui-1.8.4.custom.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" media="screen, projection" />
@@ -99,7 +100,7 @@
 	    position: 'fixed',
 	    triggerTopPos: '150px',
 	    panelTopPos: '0px',
-	    ajax: true,
+	    ajax: false,
 	    ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
 	});
 
@@ -134,12 +135,6 @@
 	});
 
     });
-  </script>
-
-  <!--[if lte IE 6]>
-      <script type="text/javascript" src="{% slimfile '/js/supersleight.js' %}"></script>
-      <![endif]-->
-
   </script>
 
   {% block javascript %}
@@ -211,7 +206,7 @@
 		<img alt="" src="{% staticfile '/images/structure/usermenu/left.png' %}" width="6" height="28"/> 
 		<ul>
 		  <li>
-		    <img class="avatar" src="{% avatar_url user 18 %}" alt="Avatar" width="18" height="18"/> 
+		    <img class="avatar" src="{% avatar_url user 18 %}" alt="{% trans "Avatar" %}" width="18" height="18"/> 
 		    <a class="username" href="{% url account:dashboard %}">{{ user.username }}</a>
 		  </li>
 		  <li class="separator"></li>
@@ -362,8 +357,10 @@
   
     {% if user.is_authenticated %}
       <div>
-	<a href="#" id="feedback-trigger" class="trigger right">Support</a>
-	<div id="feedback" class="panel right"></div>
+	<a href="#" id="feedback-trigger" class="trigger right">{% trans "Feedback" %}</a>
+	<div id="feedback" class="panel right">
+	  {% include 'backcap/feedback_tab.html' %}
+	</div>
       </div>
     {% endif %}
 

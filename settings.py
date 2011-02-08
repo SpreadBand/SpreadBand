@@ -89,6 +89,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'announcements.context_processors.site_wide_announcements',
+    'backcap.context_processors.backcap_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -162,6 +163,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
 
     # Internal
+    'sb_base',
     'world',
     'media',
     # 'minisite',

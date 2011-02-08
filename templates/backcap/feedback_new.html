@@ -1,9 +1,0 @@
-{% load uni_form_tags %}
-{% load i18n %}
-
-<h3>{% trans "Leave feedback" %}</h3>
-
-<form method="POST" action="{% url backcap:feedback-tab %}">
-{{ feedback_form|as_uni_form }}
-<input type="submit" value="Send">
-</form>

@@ -10,7 +10,6 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="/css/jquery/tipsy.css" media="screen, projection" /> 
   <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
 {% endblock %}
 
@@ -132,6 +131,8 @@ $(document).ready(function() {
 	</div>
       </div>
     </li>
+    {% empty %}
+    {% trans "There's no feedback yet." %}
     {% endfor %}
   </ul>
   
