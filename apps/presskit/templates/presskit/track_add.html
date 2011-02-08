@@ -8,7 +8,7 @@
   <h1><a href="{{ presskit.band.get_absolute_url }}">{{ presskit.band.name }}</a> &raquo; <a href="{% url presskit:mypresskit presskit.band.slug %}">{% trans "PressKit" %}</a> &raquo; {% trans "Add track" %}</h1>
 
   <p>
-    {% trans "Sorry, only <strong>MP3</strong> format is supported right now. <strong>Ogg</strong> is coming soon !" %}
+    {% trans "Only <strong>MP3</strong> format is supported at the moment. Sorry for that, <strong>Ogg</strong> support is coming soon !" %}
   </p>
 
   <form method="POST" enctype="multipart/form-data">
