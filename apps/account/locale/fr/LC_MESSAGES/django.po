@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-07 17:58+0100\n"
-"PO-Revision-Date: 2011-02-08 15:08\n"
+"POT-Creation-Date: 2011-02-08 17:27+0100\n"
+"PO-Revision-Date: 2011-02-08 17:54\n"
 "Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,9 @@ msgid ""
 "\t      "
 msgstr ""
 "\n"
-"Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a href=\"%(band_search_url)s\">vérifier si votre groupe est djà sur SpreadBand</a> et demander aux autres membres de vous y ajouter."
+"Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a "
+"href=\"%(band_search_url)s\">vérifier si votre groupe est djà sur "
+"SpreadBand</a> et demander aux autres membres de vous y ajouter."
 
 #: templates/account/user_dashboard.html:149
 msgid "My Venues"
@@ -180,7 +182,9 @@ msgid ""
 "\t      "
 msgstr ""
 "\n"
-"Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou <a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur SpredBand</a>"
+"Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou "
+"<a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur "
+"SpredBand</a>"
 
 #: templates/account/user_dashboard.html:237
 #: templates/userena/profile_detail.html:111
@@ -217,6 +221,155 @@ msgstr "MONTH_DAY_FORMAT"
 #, python-format
 msgid "%(time_since)s ago"
 msgstr " il y a %(time_since)s"
+
+#: templates/avatar/add.html:5
+msgid "Your current avatar: "
+msgstr "Votre avatar actuel :"
+
+#: templates/avatar/add.html:8
+msgid "You haven't uploaded an avatar yet. Please upload one now."
+msgstr "Vous n'avez pas encore téléchargé d'avatar. Veuillez en télécharger un dès maintenant."
+
+#: templates/avatar/add.html:12
+msgid "Upload New Image"
+msgstr "Envoyer une nouvelle image"
+
+#: templates/avatar/change.html:26
+msgid ""
+"\n"
+"      You haven't uploaded an avatar yet. We are therefore using one coming "
+"from the <a href=\"http://gravatar.com\">Gravatar</a> service.\n"
+"      "
+msgstr ""
+"\n"
+"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un provenant de <a href=\"http://gravatar.com\">Gravatar</a> service."
+
+#: templates/avatar/change.html:31
+msgid ""
+"\n"
+"      You can either upload one now below or <a href=\"http://gravatar.com/"
+"gravatars/new\">change your avatar on Gravatar</a>.\n"
+"      "
+msgstr ""
+"\n"
+"Vous pouvez soit en télécharger une maintenant ci-dessous ou <a href=\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
+
+#: templates/avatar/change.html:41
+msgid "Use this avatar"
+msgstr "Utilisez cet avatar"
+
+#: templates/avatar/change.html:42
+msgid "Crop this avatar"
+msgstr "Recadrer cet avatar"
+
+#: templates/avatar/change.html:43
+msgid "Delete this avatar"
+msgstr "Supprimer cet avatar"
+
+#: templates/avatar/change.html:49
+msgid "Upload a new avatar"
+msgstr "Télécharger un nouvel avatar"
+
+#: templates/avatar/change.html:54
+msgid "Upload New Avatar"
+msgstr "Télécharger un nouvel avatar"
+
+#: templates/avatar/change.html:61
+msgid "Your avatars"
+msgstr "Votre avatars"
+
+#: templates/avatar/change.html:63
+msgid ""
+"\n"
+"      Select the avatar you want to use. If you'd like to crop an avatar, "
+"select it, then hit \"Crop\". You can also add or delete avatars by clicking "
+"on the buttons below them.\n"
+"    "
+msgstr ""
+"\n"
+"Sélectionnez l'avatar que vous souhaitez utiliser. Si vous voulez recadrer un avatar, sélectionner-le, puis cliquez sur \"recadrer\". Vous pouvez également ajouter ou supprimer des avatars en cliquant sur les boutons situés en dessous."
+
+#: templates/avatar/change.html:68
+msgid "Gravatar support"
+msgstr "Aide sur Gravatar"
+
+#: templates/avatar/change.html:70
+msgid ""
+"\n"
+"    If you don't have any avatar defined, we'll try to use the Gravatar "
+"(<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</"
+"strong>) service with your email address. <a href=\"http://gravatar.com"
+"\">Learn more about Gravatar &raquo;</a>\n"
+"    "
+msgstr ""
+"\n"
+"Si vous n'avez défini aucun avatar, nous allons essayer d'utiliser le service Gravatar(<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</strong>) avec votre adresse email. <a href=\"http://gravatar.com\">En savoir plus au sujet de Gravatar &raquo;</a>"
+
+#: templates/avatar/confirm_delete.html:27
+msgid "Please select the avatars that you would like to delete."
+msgstr "Veuillez sélectionner les avatars que vous aimeriez effacer."
+
+#: templates/avatar/confirm_delete.html:30
+#, python-format
+msgid ""
+"You have no avatars to delete. Please <a href=\"%(avatar_change_url)s"
+"\">upload one</a> now."
+msgstr "Vous n'avez pas d'avatars à supprimer. Veuillez en <a href=\"%(avatar_change_url)s\">télécharger un</a> maintenant."
+
+#: templates/avatar/confirm_delete.html:37
+msgid "Delete These"
+msgstr "Supprimer ceux là"
+
+#: templates/avatar/confirm_delete.html:44
+msgid ""
+"\n"
+"      Click on the avatars you want to delete. If you delete all your "
+"avatars, we'll try to use the Gravatar (<strong>G</strong>lobally <strong>R</"
+"strong>ecognized <strong>AVATAR</strong>) service with your e-mail address.\n"
+"    "
+msgstr ""
+"\n"
+"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous vos avatars, nous essayerons d'utiliser le service Gravatar <strong>(G</strong> lobally <strong>R AVATAR</strong> ecognized) avec votre adresse e-mail."
+
+#: templates/avatar/crop.html:69
+msgid "Crop"
+msgstr "Recadrer"
+
+#: templates/avatar/crop.html:73
+msgid "Avatar cropping"
+msgstr "Recadrage de l'avatar"
+
+#: templates/avatar/crop.html:75
+msgid ""
+"\n"
+"    Use your mouse to select an area of the picture. You can see a preview "
+"of your avatar below this text.\n"
+"  "
+msgstr ""
+"\n"
+"Utilisez votre souris pour sélectionner une zone de l'image. Vous pouvez voir un aperçu de votre avatar en dessous de ce texte."
+
+#: templates/avatar/crop.html:81
+msgid "Small"
+msgstr "Petit"
+
+#: templates/avatar/crop.html:87
+msgid "Large"
+msgstr "Grand"
+
+#: templates/avatar/crop.html:94
+msgid "Current Cropping"
+msgstr "Cadrage actuel"
+
+#: templates/avatar/crop.html:97
+msgid ""
+"\n"
+"    For reference, here's your current cropping. Your new cropping will "
+"replace this one.\n"
+"    "
+msgstr ""
+"\n"
+"Pour référence, voici votre cadrage actuel. Votre nouveau cadrage remplacera celui là."
 
 #: templates/contacts_import/import_contacts.html:15
 msgid "Import contacts"
@@ -350,13 +503,16 @@ msgstr "Mise à jour"
 #: templates/notification/notice_settings.html:53
 msgid ""
 "\n"
-"  You can tune here how we send you your notifications. Be smart, remember "
-"that getting notifications make you sure you respond fast : other will be "
+"  You can tune here how we send you notifications. Be smart, remember that "
+"getting notifications makes you sure you respond fast : other will be "
 "waiting shorter and you'll get better results.\n"
 "  "
 msgstr ""
 "\n"
-"Vous pouvez régler ici la façon dont nous vous enverrons vos notifications. Soyez malin, rappelez-vous que les notifications vous permettent de réagir plus vite : les autres attendrons moins longtemps et vous aurez de meilleurs résultats."
+"Vous pouvez régler ici la façon dont nous vous enverrons vos notifications. "
+"Soyez malin, rappelez-vous que les notifications vous permettent de réagir "
+"plus vite : les autres attendrons moins longtemps et vous aurez de meilleurs "
+"résultats."
 
 #: templates/userena/disabled.html:4
 msgid "Unconfirmed account"
@@ -370,25 +526,35 @@ msgstr "Votre compte n'est pas encore activé !"
 msgid ""
 "Have you confirmed your account by <strong>clicking on the activation link</"
 "strong> in the <strong>e-mail we sent you</strong>?"
-msgstr "Avez-vous confirmé votre compte en <strong>cliquant sur le lien d'activation</strong> dans <strong>l'e-mail que nous vous avons envoyé</strong> ?"
+msgstr ""
+"Avez-vous confirmé votre compte en <strong>cliquant sur le lien "
+"d'activation</strong> dans <strong>l'e-mail que nous vous avons envoyé</"
+"strong> ?"
 
 #: templates/userena/disabled.html:12
 msgid ""
 "Don't forget to check your <strong>spam folder</strong> in case the email "
 "landed there."
-msgstr "N'oubliez pas de vérifier votre <strong>dossier spam</strong> au cas où l'email serait dedans."
+msgstr ""
+"N'oubliez pas de vérifier votre <strong>dossier spam</strong> au cas où "
+"l'email serait dedans."
 
 #: templates/userena/disabled.html:14
 msgid ""
 "We hope you understand you need to confirm your account to prevent robots "
 "from signing up and bothering the SpreadBand community."
-msgstr "Nous espérons que vous comprenez que vous avez besoin de confirmer votre compte pour éviter que des robots s'inscrivent et ennuient la communauté SpreadBand."
+msgstr ""
+"Nous espérons que vous comprenez que vous avez besoin de confirmer votre "
+"compte pour éviter que des robots s'inscrivent et ennuient la communauté "
+"SpreadBand."
 
 #: templates/userena/disabled.html:16
 msgid ""
 "Anyway, if you're lost, <strong>feel free to contact us</strong> to find out "
 "why."
-msgstr "Quoi qu'il en soit, si vous êtes perdus <strong>n'hésitez pas à nous contacter</strong> !"
+msgstr ""
+"Quoi qu'il en soit, si vous êtes perdus <strong>n'hésitez pas à nous "
+"contacter</strong> !"
 
 #: templates/userena/disabled.html:18
 #: templates/userena/signup_complete.html:25
@@ -500,7 +666,9 @@ msgstr "N'oubliez pas"
 msgid ""
 "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien "
 "sur le site spreadband.com avant de vous identifier."
-msgstr "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien sur le site spreadband.com avant de vous identifier."
+msgstr ""
+"Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien "
+"sur le site spreadband.com avant de vous identifier."
 
 #: templates/userena/signin_form.html:57
 msgid "New here ?"
@@ -512,7 +680,9 @@ msgstr "Inscrivez-vous maintenant"
 
 #: templates/userena/signin_form.html:60
 msgid "for a SpreadBand account, it's free and takes less than a minute !"
-msgstr "pour créer un compte SpreadBand, c'est gratuit et ça prend moins d'une minute !"
+msgstr ""
+"pour créer un compte SpreadBand, c'est gratuit et ça prend moins d'une "
+"minute !"
 
 #: templates/userena/signin_form.html:62
 msgid "What is SpreadBand ?"
@@ -537,34 +707,44 @@ msgstr "Vérifiez votre boîte de réception, vous êtes à un clic de la fin !"
 #: templates/userena/signup_complete.html:21
 #, python-format
 msgid ""
-"You have been <strong>send an e-mail</strong> with an activation link to "
+"You have been <strong>sent an e-mail</strong> with an activation link to "
 "<strong>%(email)s</strong>."
-msgstr " <strong>Un e-mail</strong> vous a été envoyé avec un lien d'activation de <strong>%(email)s</strong>."
+msgstr ""
+" <strong>Un e-mail</strong> vous a été envoyé avec un lien d'activation de "
+"<strong>%(email)s</strong>."
 
 #: templates/userena/signup_complete.html:22
 msgid ""
 "Please <strong>click on the activation link in the e-mail</strong> to start "
 "using SpreadBand!"
-msgstr "Veuillez <strong>cliquer sur le lien d'activation dans l'e-mail</strong> pour commencer à utiliser SpreadBand !"
+msgstr ""
+"Veuillez <strong>cliquer sur le lien d'activation dans l'e-mail</strong> "
+"pour commencer à utiliser SpreadBand !"
 
 #: templates/userena/signup_complete.html:23
 #, python-format
 msgid ""
 "You have <strong>%(userena_activation_days)s days</strong> to complete the "
 "signup... so <cite>be quick or be dead</cite> :-)"
-msgstr "Vous avez <strong>%(userena_activation_days)s  jours</strong> pour finaliser votre inscrpition... alors <cite>soyez rapide ou vous êtes mort</cite> :-)"
+msgstr ""
+"Vous avez <strong>%(userena_activation_days)s  jours</strong> pour finaliser "
+"votre inscrpition... alors <cite>soyez rapide ou vous êtes mort</cite> :-)"
 
 #: templates/userena/signup_complete.html:32
 msgid ""
 "While you're waiting for the e-mail... why not telling your friends about "
 "SpreadBand ?"
-msgstr "Pendant que vous attendez l'email ... pourquoi ne pas parler de SpreadBand à vos amis ?"
+msgstr ""
+"Pendant que vous attendez l'email ... pourquoi ne pas parler de SpreadBand à "
+"vos amis ?"
 
 #: templates/userena/signup_complete.html:39
 msgid ""
 "Musiciens indépendants : trouvez des bars, organisez des concerts et créez "
 "votre réseau grâce à SpreadBand !"
-msgstr "Musiciens indépendants : trouvez des bars, organisez des concerts et créez votre réseau grâce à SpreadBand !"
+msgstr ""
+"Musiciens indépendants : trouvez des scènes, organisez des concerts et créez "
+"votre réseau grâce à SpreadBand !"
 
 #: templates/userena/signup_complete.html:50
 msgid "Share on Facebook"
@@ -574,7 +754,9 @@ msgstr "Partager sur Facebook"
 msgid ""
 "Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de "
 "musique ! http://spreadband.com"
-msgstr "Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de musique ! http://spreadband.com"
+msgstr ""
+"Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de "
+"musique ! http://spreadband.com"
 
 #: templates/userena/signup_complete.html:57
 msgid "Share on Twitter"
@@ -629,9 +811,6 @@ msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
 
 #~ msgid "No avatar is defined."
 #~ msgstr "Aucun avatar n'est défini."
-
-#~ msgid "Set Your Avatar"
-#~ msgstr "Définir son avatar"
 
 #~ msgid "Configure your notification settings"
 #~ msgstr "Configurer vos paramètres de notification "

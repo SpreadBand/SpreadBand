@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-07 17:59+0100\n"
-"PO-Revision-Date: 2011-02-08 12:25\n"
+"POT-Creation-Date: 2011-02-08 17:35+0100\n"
+"PO-Revision-Date: 2011-02-08 17:58\n"
 "Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +140,7 @@ msgid "manage members"
 msgstr "Gérer les membres"
 
 #: templates/band/membership_manage.html:12
-#: templates/bands/band_detail.html:237 templates/bands/base.html:41
+#: templates/bands/band_detail.html:249 templates/bands/base.html:41
 msgid "Members"
 msgstr "Membres"
 
@@ -161,7 +161,9 @@ msgstr "Tableau de bord"
 msgid ""
 "You haven't sent any PressKit yet. Start <a "
 "href='%(venue_search_url)s'>booking a venue now</a> !"
-msgstr "Vous n'avez envoyé aucun PressKit pour l'instant. Commencez <a href='%(venue_search_url)s'> à booker un scène maintenant </a> !"
+msgstr ""
+"Vous n'avez envoyé aucun PressKit pour l'instant. Commencez à<a "
+"href='%(venue_search_url)s'> booker une scène maintenant </a> !"
 
 #: templates/bands/band_detail.html:34
 msgid "Search:"
@@ -177,7 +179,11 @@ msgid ""
 "By filling in your PressKit, you make sure the <strong>Venues will be more "
 "confident</strong>... so this is the best way <strong>to get booked</"
 "strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Do it now</a> &raquo;"
-msgstr "En remplissant complètement votre PressKit, vous êtes sûr <strong>que les scènes auront d'avantage confiance en vous</strong>... c'est le meilleur moyen <strong>d'être booké</strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Faites-le dès maintenant !</a> &raquo "
+msgstr ""
+"En remplissant complètement votre PressKit, vous êtes sûr <strong>que les "
+"scènes auront d'avantage confiance en vous</strong>... c'est le meilleur "
+"moyen <strong>d'être booké</strong>&nbsp! <a href=\"%(edit_presskit_url)s"
+"\">Faites-le dès maintenant !</a>"
 
 #: templates/bands/band_detail.html:105
 #, python-format
@@ -204,25 +210,35 @@ msgstr "Envoyé le"
 msgid "Sent by"
 msgstr "Envoyé par"
 
-#: templates/bands/band_detail.html:181
+#: templates/bands/band_detail.html:192
 #, python-format
 msgid "%(timestamp)s ago"
 msgstr "il y a %(timestamp)s"
 
-#: templates/bands/band_detail.html:182
+#: templates/bands/band_detail.html:193
 #, python-format
 msgid "updated %(timestamp)s ago"
 msgstr "mis à jour il y a %(timestamp)s"
 
-#: templates/bands/band_detail.html:199 templates/bands/band_detail.html:204
+#: templates/bands/band_detail.html:211 templates/bands/band_detail.html:216
 msgid "Search for Venues"
 msgstr "Rechercher une scène"
 
-#: templates/bands/band_detail.html:210
+#: templates/bands/band_detail.html:214
+msgid ""
+"Recherchez des <strong>bars-concerts</strong> où jouer en quelques clics et "
+"envoyez leur votre <strong>Presskit</strong> !"
+msgstr "Recherchez des <strong>scènes</strong> où Jouer en quelques clics et envoyez leur votre <strong>PressKit</strong> !"
+
+#: templates/bands/band_detail.html:216
+msgid "Search for venues"
+msgstr "Rechercher des scènes"
+
+#: templates/bands/band_detail.html:222
 msgid "Recent visitors"
 msgstr "Derniers visiteurs"
 
-#: templates/bands/band_detail.html:218
+#: templates/bands/band_detail.html:230
 msgid ""
 "You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have "
 "visited your profile."
@@ -230,19 +246,31 @@ msgstr ""
 "Vous verrez ici les <strong>groupes</strong> et <strong>lieux de concerts</"
 "strong> qui ont visité votre profil"
 
-#: templates/bands/band_detail.html:224
+#: templates/bands/band_detail.html:236
 msgid "Search for other Bands"
 msgstr "Rechercher d'autres groupes"
 
-#: templates/bands/band_detail.html:229
+#: templates/bands/band_detail.html:239
+msgid "Recherchez d'<strong>autres groupes</strong> avec lesquels jouer."
+msgstr "Recherchez d'<strong>autres groupes</strong> avec lesquels jouer."
+
+#: templates/bands/band_detail.html:241
+msgid "Search for bands"
+msgstr "Rechercher des groupes"
+
+#: templates/bands/band_detail.html:241
 msgid "Search for Bands"
 msgstr "Rechercher des groupes"
 
-#: templates/bands/band_detail.html:238
+#: templates/bands/band_detail.html:250
+msgid "Manage members"
+msgstr "Gérer les membres"
+
+#: templates/bands/band_detail.html:250
 msgid "Manage"
 msgstr "Gérer"
 
-#: templates/bands/band_detail.html:253
+#: templates/bands/band_detail.html:265
 msgid "Advertising"
 msgstr "Publicité"
 
@@ -258,11 +286,11 @@ msgstr "Enregistrez votre groupe"
 msgid "Your Band"
 msgstr "Votre groupe"
 
-#: templates/bands/band_new.html:42
+#: templates/bands/band_new.html:55
 msgid "You, in this band"
 msgstr "Vous, dans ce groupe"
 
-#: templates/bands/band_new.html:46 templates/bands/membership_request.html:11
+#: templates/bands/band_new.html:59 templates/bands/membership_request.html:11
 msgid "Submit"
 msgstr "Soumettre"
 

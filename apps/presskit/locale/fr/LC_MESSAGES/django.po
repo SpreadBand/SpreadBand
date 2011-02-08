@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-08 15:48+0100\n"
-"PO-Revision-Date: 2011-02-08 16:34\n"
+"PO-Revision-Date: 2011-02-08 17:56\n"
 "Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,6 @@ msgid "A venue has commented a presskit view request"
 msgstr "Une scène a commenté un demande de concert"
 
 #: management.py:13
-#, fuzzy
 msgid "venue accepted to setup a gig"
 msgstr "Une scène a accepté d'organiser un concert"
 
@@ -45,7 +44,6 @@ msgid "A venue has accepted to set up a gig"
 msgstr "Une scène a accepté d'organiser un concert"
 
 #: management.py:14
-#, fuzzy
 msgid "venue refused to setup a gig"
 msgstr "Une scène a refusé d'organiser un concert"
 
@@ -54,9 +52,8 @@ msgid "A venue has refused to set up a gig"
 msgstr "Une scène a refusé d'organiser un concert"
 
 #: management.py:16
-#, fuzzy
 msgid "band proposed to set up gig to a venue"
-msgstr "Un groupe a proposé d'organiser un concert avec une scène"
+msgstr "Un groupe a proposé d'organiser un concert à une scène"
 
 #: management.py:16
 msgid "A band has proposed to set up a gig"
@@ -247,9 +244,9 @@ msgid "Latest reviews"
 msgstr "Derniers avis"
 
 #: templates/presskit/presskit_send.html:91
-#, fuzzy, python-format
+#, python-format
 msgid "Send a Gig Request to %(venue_name)s"
-msgstr "Le presskit de %(band_name)s a été envoyé à %(venue_name)s "
+msgstr "Envoyez une demande de concert à %(venue_name)s "
 
 #: templates/presskit/presskit_send.html:92
 msgid ""

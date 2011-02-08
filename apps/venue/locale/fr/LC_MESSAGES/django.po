@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-08 15:48+0100\n"
-"PO-Revision-Date: 2011-02-08 16:32\n"
+"PO-Revision-Date: 2011-02-08 16:44\n"
 "Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,7 @@ msgstr "Rechercher des groupes"
 msgid ""
 "Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez "
 "les</strong> à jouer chez vous !"
-msgstr ""
+msgstr "Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez les</strong> à jouer chez vous !"
 
 #: templates/venue/dashboard.html:224
 msgid "Recent visitors"
@@ -369,11 +369,11 @@ msgstr "Modifier"
 
 #: templates/venue/profile.html:141
 msgid "Send presskit of"
-msgstr ""
+msgstr "Envoyer le PressKit de"
 
 #: templates/venue/profile.html:142
 msgid "Click to propose a gig to this venue."
-msgstr ""
+msgstr "Cliquez pour proposer un concert à cette scène."
 
 #: templates/venue/profile.html:148 templates/venue/search_results.html:30
 #, python-format
