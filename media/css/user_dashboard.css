@@ -170,7 +170,7 @@ ul#band-actions li {
     padding-left: 10px;
     float: left;
     margin-bottom: 20px;
-    width: 525px;
+    width: 490px;
 }
 
 #band-main ul {
@@ -239,7 +239,7 @@ div.band-picture {
 
 .band-activity {
     float: left;
-    min-width: 425px;
+    min-width: 390px;
 
     border-left: 1px solid #eee;
     padding-left: 3px;
