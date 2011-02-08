@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-07 17:58+0100\n"
-"PO-Revision-Date: 2011-02-07 19:16\n"
-"Last-Translator:   <>\n"
+"PO-Revision-Date: 2011-02-08 15:08\n"
+"Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,7 +77,7 @@ msgstr "Ville"
 
 #: views.py:39
 msgid "You have been signed off successfully, see you !"
-msgstr ""
+msgstr "Vous avez été enregistré avec succès !"
 
 #: views.py:47
 msgid "Your password was successfully updated"
@@ -103,7 +103,7 @@ msgid "Notifications"
 msgstr "Notifications"
 
 #: templates/account/user_dashboard.html:43
-#, fuzzy, python-format
+#, python-format
 msgid "Heya, %(username)s"
 msgstr "Bienvenue, %(username)s "
 
@@ -135,9 +135,8 @@ msgid "Joined"
 msgstr "Inscrit"
 
 #: templates/account/user_dashboard.html:77
-#, fuzzy
 msgid "My Bands"
-msgstr "Groupes"
+msgstr "Mes groupes"
 
 #: templates/account/user_dashboard.html:80
 msgid "Create a new band"
@@ -156,11 +155,12 @@ msgid ""
 "and ask your friends to add you to it.\n"
 "\t      "
 msgstr ""
+"\n"
+"Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a href=\"%(band_search_url)s\">vérifier si votre groupe est djà sur SpreadBand</a> et demander aux autres membres de vous y ajouter."
 
 #: templates/account/user_dashboard.html:149
-#, fuzzy
 msgid "My Venues"
-msgstr "Vos lieux de concerts"
+msgstr "Mes scènes"
 
 #: templates/account/user_dashboard.html:152
 msgid "Create a new venue"
@@ -179,6 +179,8 @@ msgid ""
 "a>.\n"
 "\t      "
 msgstr ""
+"\n"
+"Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou <a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur SpredBand</a>"
 
 #: templates/account/user_dashboard.html:237
 #: templates/userena/profile_detail.html:111
@@ -187,14 +189,13 @@ msgstr "Connexions du mois"
 
 #: templates/account/user_dashboard.html:246
 #: templates/userena/profile_detail.html:120
-#, fuzzy
 msgid "No connections yet"
-msgstr "Connexions du mois"
+msgstr "Aucune connexion pour l'instant"
 
 #: templates/account/user_dashboard.html:247
 #: templates/userena/profile_detail.html:121
 msgid "You'll find here connections with other musicians"
-msgstr ""
+msgstr "Vous trouverez ici des liens avec d'autres musiciens"
 
 #: templates/account/user_dashboard.html:255
 msgid "Latest Notifications"
@@ -213,9 +214,9 @@ msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
 #: templates/account/user_dashboard.html:266
-#, fuzzy, python-format
+#, python-format
 msgid "%(time_since)s ago"
-msgstr " il y a %(when)s"
+msgstr " il y a %(time_since)s"
 
 #: templates/contacts_import/import_contacts.html:15
 msgid "Import contacts"
@@ -354,6 +355,8 @@ msgid ""
 "waiting shorter and you'll get better results.\n"
 "  "
 msgstr ""
+"\n"
+"Vous pouvez régler ici la façon dont nous vous enverrons vos notifications. Soyez malin, rappelez-vous que les notifications vous permettent de réagir plus vite : les autres attendrons moins longtemps et vous aurez de meilleurs résultats."
 
 #: templates/userena/disabled.html:4
 msgid "Unconfirmed account"
@@ -367,45 +370,43 @@ msgstr "Votre compte n'est pas encore activé !"
 msgid ""
 "Have you confirmed your account by <strong>clicking on the activation link</"
 "strong> in the <strong>e-mail we sent you</strong>?"
-msgstr ""
+msgstr "Avez-vous confirmé votre compte en <strong>cliquant sur le lien d'activation</strong> dans <strong>l'e-mail que nous vous avons envoyé</strong> ?"
 
 #: templates/userena/disabled.html:12
 msgid ""
 "Don't forget to check your <strong>spam folder</strong> in case the email "
 "landed there."
-msgstr ""
+msgstr "N'oubliez pas de vérifier votre <strong>dossier spam</strong> au cas où l'email serait dedans."
 
 #: templates/userena/disabled.html:14
 msgid ""
 "We hope you understand you need to confirm your account to prevent robots "
 "from signing up and bothering the SpreadBand community."
-msgstr ""
+msgstr "Nous espérons que vous comprenez que vous avez besoin de confirmer votre compte pour éviter que des robots s'inscrivent et ennuient la communauté SpreadBand."
 
 #: templates/userena/disabled.html:16
 msgid ""
 "Anyway, if you're lost, <strong>feel free to contact us</strong> to find out "
 "why."
-msgstr ""
+msgstr "Quoi qu'il en soit, si vous êtes perdus <strong>n'hésitez pas à nous contacter</strong> !"
 
 #: templates/userena/disabled.html:18
 #: templates/userena/signup_complete.html:25
 msgid "Back home"
-msgstr ""
+msgstr "Retour à la page principale"
 
 #: templates/userena/email_form.html:5
-#, fuzzy, python-format
+#, python-format
 msgid "Account &raquo; %(username)s"
-msgstr "Profil de %(username)s "
+msgstr "Compte  &raquo; %(username)s"
 
 #: templates/userena/email_form.html:10
-#, fuzzy
 msgid "Change email address"
-msgstr "Adresse e-mail"
+msgstr "Changer d'adresse email"
 
 #: templates/userena/email_form.html:15
-#, fuzzy
 msgid "Change email"
-msgstr "Modifiez"
+msgstr "Modifiez l'email"
 
 #: templates/userena/password_form.html:20
 msgid ""
@@ -420,28 +421,25 @@ msgstr ""
 "contre les attaques."
 
 #: templates/userena/profile_detail.html:22
-#, fuzzy
 msgid "Public profile of"
-msgstr "Profil de"
+msgstr "Profil publique de "
 
 #: templates/userena/profile_detail.html:31
-#, fuzzy, python-format
+#, python-format
 msgid "Public profile of %(username)s"
-msgstr "Profil de %(username)s "
+msgstr "Profil publique de %(username)s "
 
 #: templates/userena/profile_detail.html:42
-#, fuzzy
 msgid "Last login"
-msgstr "Nom de famille"
+msgstr "Dernière connexion"
 
 #: templates/userena/profile_detail.html:55
-#, fuzzy
 msgid "Her/His Bands"
-msgstr "Vos groupes"
+msgstr "Ses groupes"
 
 #: templates/userena/profile_detail.html:91
 msgid "Your Venues"
-msgstr "Vos lieux de concerts"
+msgstr "Vos scènes"
 
 #: templates/userena/profile_form.html:7
 msgid "Profile settings"
@@ -457,11 +455,11 @@ msgstr "Modifiez"
 
 #: templates/userena/profile_form.html:17
 msgid "or"
-msgstr ""
+msgstr "ou"
 
 #: templates/userena/profile_form.html:17
 msgid "delete it"
-msgstr ""
+msgstr "supprimer"
 
 #: templates/userena/profile_form.html:30
 msgid "Your Profile"
@@ -480,129 +478,127 @@ msgstr ""
 
 #: templates/userena/signin_form.html:17
 msgid "Hi !"
-msgstr ""
+msgstr "Salut !"
 
 #: templates/userena/signin_form.html:29
 msgid "Let me in !"
-msgstr ""
+msgstr "Laissez moi entrer !"
 
 #: templates/userena/signin_form.html:30
 msgid "Have you"
-msgstr ""
+msgstr "Avez-vous"
 
 #: templates/userena/signin_form.html:30
-#, fuzzy
 msgid "forgotten your password"
-msgstr "Confirmez le mot de passe"
+msgstr "oublié votre mot de passe"
 
 #: templates/userena/signin_form.html:43
 msgid "Don't forget"
-msgstr ""
+msgstr "N'oubliez pas"
 
 #: templates/userena/signin_form.html:47
 msgid ""
 "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien "
 "sur le site spreadband.com avant de vous identifier."
-msgstr ""
+msgstr "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien sur le site spreadband.com avant de vous identifier."
 
 #: templates/userena/signin_form.html:57
 msgid "New here ?"
-msgstr ""
+msgstr "Nouveau ici ?"
 
 #: templates/userena/signin_form.html:60
 msgid "Signup now"
-msgstr ""
+msgstr "Inscrivez-vous maintenant"
 
 #: templates/userena/signin_form.html:60
 msgid "for a SpreadBand account, it's free and takes less than a minute !"
-msgstr ""
+msgstr "pour créer un compte SpreadBand, c'est gratuit et ça prend moins d'une minute !"
 
 #: templates/userena/signin_form.html:62
 msgid "What is SpreadBand ?"
-msgstr ""
+msgstr "SpreadBand c'est quoi ?"
 
 #: templates/userena/signin_form.html:66
 msgid "Take a tour !"
-msgstr ""
+msgstr "Faites un tour !"
 
 #: templates/userena/signout.html:5
 msgid "Logged out"
-msgstr ""
+msgstr "Déconnecté"
 
 #: templates/userena/signup_complete.html:7
 msgid "Signup almost done!"
-msgstr ""
+msgstr "L'inscription est presque terminée !"
 
 #: templates/userena/signup_complete.html:17
 msgid "Check your inbox, you're just one-click away!"
-msgstr ""
+msgstr "Vérifiez votre boîte de réception, vous êtes à un clic de la fin !"
 
 #: templates/userena/signup_complete.html:21
 #, python-format
 msgid ""
 "You have been <strong>send an e-mail</strong> with an activation link to "
 "<strong>%(email)s</strong>."
-msgstr ""
+msgstr " <strong>Un e-mail</strong> vous a été envoyé avec un lien d'activation de <strong>%(email)s</strong>."
 
 #: templates/userena/signup_complete.html:22
 msgid ""
 "Please <strong>click on the activation link in the e-mail</strong> to start "
 "using SpreadBand!"
-msgstr ""
+msgstr "Veuillez <strong>cliquer sur le lien d'activation dans l'e-mail</strong> pour commencer à utiliser SpreadBand !"
 
 #: templates/userena/signup_complete.html:23
 #, python-format
 msgid ""
 "You have <strong>%(userena_activation_days)s days</strong> to complete the "
 "signup... so <cite>be quick or be dead</cite> :-)"
-msgstr ""
+msgstr "Vous avez <strong>%(userena_activation_days)s  jours</strong> pour finaliser votre inscrpition... alors <cite>soyez rapide ou vous êtes mort</cite> :-)"
 
 #: templates/userena/signup_complete.html:32
 msgid ""
 "While you're waiting for the e-mail... why not telling your friends about "
 "SpreadBand ?"
-msgstr ""
+msgstr "Pendant que vous attendez l'email ... pourquoi ne pas parler de SpreadBand à vos amis ?"
 
 #: templates/userena/signup_complete.html:39
 msgid ""
 "Musiciens indépendants : trouvez des bars, organisez des concerts et créez "
 "votre réseau grâce à SpreadBand !"
-msgstr ""
+msgstr "Musiciens indépendants : trouvez des bars, organisez des concerts et créez votre réseau grâce à SpreadBand !"
 
 #: templates/userena/signup_complete.html:50
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Partager sur Facebook"
 
 #: templates/userena/signup_complete.html:54
 msgid ""
 "Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de "
 "musique ! http://spreadband.com"
-msgstr ""
+msgstr "Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de musique ! http://spreadband.com"
 
 #: templates/userena/signup_complete.html:57
 msgid "Share on Twitter"
-msgstr ""
+msgstr "Partager sur Twitter"
 
 #: templates/userena/signup_form.html:23
 msgid "Signup"
-msgstr ""
+msgstr "S'inscrire"
 
 #: templates/userena/signup_form.html:31
 msgid "Signup for a SpreadBand Account"
-msgstr ""
+msgstr "Inscription pour un compte SpreadBand"
 
 #: templates/userena/signup_form.html:84
 msgid "Goooooo ! &raquo;"
-msgstr ""
+msgstr "Goooooo ! &raquo;"
 
 #: templates/userena/signup_form.html:91
-#, fuzzy
 msgid "Your Band"
-msgstr "Vos groupes"
+msgstr "Votre groupe"
 
 #: templates/userena/signup_form.html:92
 msgid "You will able to register your band just after your have signed up."
-msgstr ""
+msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
 
 #~ msgid ""
 #~ "\n"

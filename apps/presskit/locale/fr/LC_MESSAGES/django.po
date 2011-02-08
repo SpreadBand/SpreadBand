@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-07 17:58+0100\n"
-"PO-Revision-Date: 2011-02-07 19:20\n"
-"Last-Translator:   <>\n"
+"POT-Creation-Date: 2011-02-08 15:48+0100\n"
+"PO-Revision-Date: 2011-02-08 16:34\n"
+"Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: management.py:10
 msgid "band comment on presskit"
-msgstr "un groupe a laissé un commentaire sur votre presskit"
+msgstr "Un groupe a laissé un commentaire sur votre PressKit"
 
 #: management.py:10
 msgid "A band has commented a presskit view request"
@@ -29,31 +29,34 @@ msgstr "Un groupe a commenté une demande de concert"
 
 #: management.py:11
 msgid "venue comment on presskit"
-msgstr "une scène a laissée un commentaire sur votre presskit"
+msgstr "Commentaire d'une scène sur votre PressKit"
 
 #: management.py:11
 msgid "A venue has commented a presskit view request"
-msgstr "une scène a commenté un demande de concert"
+msgstr "Une scène a commenté un demande de concert"
 
 #: management.py:13
+#, fuzzy
 msgid "venue accepted to setup a gig"
-msgstr ""
+msgstr "Une scène a accepté d'organiser un concert"
 
 #: management.py:13
 msgid "A venue has accepted to set up a gig"
-msgstr "une scène a accepté d'organiser un concert"
+msgstr "Une scène a accepté d'organiser un concert"
 
 #: management.py:14
+#, fuzzy
 msgid "venue refused to setup a gig"
-msgstr ""
+msgstr "Une scène a refusé d'organiser un concert"
 
 #: management.py:14
 msgid "A venue has refused to set up a gig"
-msgstr "une scène a refusé d'organiser un concert"
+msgstr "Une scène a refusé d'organiser un concert"
 
 #: management.py:16
+#, fuzzy
 msgid "band proposed to set up gig to a venue"
-msgstr ""
+msgstr "Un groupe a proposé d'organiser un concert avec une scène"
 
 #: management.py:16
 msgid "A band has proposed to set up a gig"
@@ -179,7 +182,7 @@ msgstr "A joué avec Y autres groupes"
 
 #: templates/presskit/presskit_content.html:129
 msgid "Played at Z venues"
-msgstr "A joué dans Z lieux de concerts"
+msgstr "A joué dans Z scènes"
 
 #: templates/presskit/presskit_content.html:138
 #: templates/presskit/track_add.html:8 templates/presskit/track_list.html:8
@@ -243,14 +246,25 @@ msgstr "Pas de fiche technique."
 msgid "Latest reviews"
 msgstr "Derniers avis"
 
-#: templates/presskit/presskit_send.html:52
+#: templates/presskit/presskit_send.html:91
+#, fuzzy, python-format
+msgid "Send a Gig Request to %(venue_name)s"
+msgstr "Le presskit de %(band_name)s a été envoyé à %(venue_name)s "
+
+#: templates/presskit/presskit_send.html:92
+msgid ""
+"You can add a message if you want. Requests with a message tend to be "
+"<strong>more answered</strong>."
+msgstr "Vous pouvez ajouter un message si vous le souhaitez. Le demandes avec un message ont en général <strong>plus de réponses</strong>."
+
+#: templates/presskit/presskit_send.html:102
 msgid "Submit"
 msgstr "Envoyer"
 
 #: templates/presskit/presskit_viewrequest_band.html:8
 #: templates/presskit/presskit_viewrequest_venue.html:8
-msgid "PressKit View Request"
-msgstr ""
+msgid "Gig Request"
+msgstr "Demande de concert"
 
 #: templates/presskit/presskit_viewrequest_band.html:20
 #: templates/presskit/presskit_viewrequest_venue.html:20
@@ -283,30 +297,30 @@ msgid ""
 "Discuss about this request with &laquo;&nbsp;%(venue_name)s&nbsp;&raquo;"
 msgstr "Discutez de cette demande avec « %(venue_name)s »"
 
-#: templates/presskit/presskit_viewrequest_band.html:91
-#: templates/presskit/presskit_viewrequest_venue.html:120
+#: templates/presskit/presskit_viewrequest_band.html:93
+#: templates/presskit/presskit_viewrequest_venue.html:123
 #, python-format
 msgid "<a href=\"%(user_url)s\"><cite>%(comment_user)s</cite></a> of"
-msgstr ""
+msgstr "<a href=\"%(user_url)s\"><cite>%(comment_user)s</cite></a> de"
 
-#: templates/presskit/presskit_viewrequest_band.html:98
-#: templates/presskit/presskit_viewrequest_venue.html:127
+#: templates/presskit/presskit_viewrequest_band.html:101
+#: templates/presskit/presskit_viewrequest_venue.html:130
 msgid " said:"
 msgstr "a déclaré :"
 
-#: templates/presskit/presskit_viewrequest_band.html:99
-#: templates/presskit/presskit_viewrequest_venue.html:128
+#: templates/presskit/presskit_viewrequest_band.html:103
+#: templates/presskit/presskit_viewrequest_venue.html:134
 #, python-format
 msgid "%(submit_date)s (%(date_ago)s ago)"
 msgstr " %(submit_date)s  ( il y a %(date_ago)s )"
 
-#: templates/presskit/presskit_viewrequest_band.html:120
+#: templates/presskit/presskit_viewrequest_band.html:126
 #, python-format
 msgid "%(band_name)s says:"
 msgstr " %(band_name)s  dit :"
 
-#: templates/presskit/presskit_viewrequest_band.html:130
-#: templates/presskit/presskit_viewrequest_venue.html:160
+#: templates/presskit/presskit_viewrequest_band.html:136
+#: templates/presskit/presskit_viewrequest_venue.html:167
 msgid "Send"
 msgstr "Envoyer"
 
@@ -315,14 +329,18 @@ msgstr "Envoyer"
 msgid ""
 "You have <span class='accepted'>accepted</span> to set up a gig with "
 "%(band_name)s!"
-msgstr "Vous avez <span class='accepted'>accepté</span> d'organiser un concert avec %(band_name)s !"
+msgstr ""
+"Vous avez <span class='accepted'>accepté</span> d'organiser un concert avec "
+"%(band_name)s !"
 
 #: templates/presskit/presskit_viewrequest_venue.html:72
 #, python-format
 msgid ""
 "You have <span class='declined'>declined</span> to set up a gig with "
 "%(band_name)s."
-msgstr "Vous avez <span class='declined'>refusé</span> d'organiser un concert avec %(band_name)s."
+msgstr ""
+"Vous avez <span class='declined'>refusé</span> d'organiser un concert avec "
+"%(band_name)s."
 
 #: templates/presskit/presskit_viewrequest_venue.html:77
 msgid "Your answer"
@@ -334,7 +352,10 @@ msgid ""
 "So, are you interested by setting up a gig with <a href=\"%(band_url)s"
 "\"><strong>%(band_name)s</strong></a> ? If so, then accept and discuss about "
 "the conditions (when, fees, ...)."
-msgstr " Êtes-vous intéressé par l'organisation d'un concert avec <strong><a href=\"%(band_url)s\"> %(band_name)s </a></strong> ? Si oui, veuillez accepter et participer aux discussions sur les conditions (quand, frais, ...)."
+msgstr ""
+" Êtes-vous intéressé par l'organisation d'un concert avec <strong><a href="
+"\"%(band_url)s\"> %(band_name)s </a></strong> ? Si oui, veuillez accepter et "
+"participer aux discussions sur les conditions (quand, frais, ...)."
 
 #: templates/presskit/presskit_viewrequest_venue.html:84
 msgid "Accept"
@@ -357,9 +378,29 @@ msgstr "Désolé, je ne suis pas intéressé"
 msgid ""
 "Discuss about this request with &laquo;&nbsp;<a href=\"%(band_url)s\">"
 "%(band_name)s</a>&nbsp;&raquo;"
-msgstr "Discutez de cette demande avec « <a href=\"%(band_url)s\">%(band_name)s </a>  »"
+msgstr ""
+"Discutez de cette demande avec « <a href=\"%(band_url)s\">%(band_name)s </"
+"a>  »"
 
-#: templates/presskit/presskit_viewrequest_venue.html:150
+#: templates/presskit/presskit_viewrequest_venue.html:104
+msgid "band avatar"
+msgstr "Avatar du groupe"
+
+#: templates/presskit/presskit_viewrequest_venue.html:106
+msgid "no band avatar"
+msgstr "Aucun avatar de groupe"
+
+#: templates/presskit/presskit_viewrequest_venue.html:112
+#: templates/presskit/presskit_viewrequest_venue.html:151
+msgid "venue avatar"
+msgstr "Avatar de la scène"
+
+#: templates/presskit/presskit_viewrequest_venue.html:114
+#: templates/presskit/presskit_viewrequest_venue.html:153
+msgid "no venue avatar"
+msgstr "Aucun avatar de scène"
+
+#: templates/presskit/presskit_viewrequest_venue.html:157
 #, python-format
 msgid "%(venue_name)s says:"
 msgstr " %(venue_name)s  dit :"
