@@ -164,7 +164,7 @@
 	      <tr>
 		<th>{% trans "Status" %}</th>
 		<th>{% trans "Band" %}</th>
-		<th>{% trans "Sent on" %}</th>
+		<th>{% trans "Latest activity" %}</th>
 		<th>{% trans "Sent by" %}</th>
 	      </tr>
 	    </thead>
@@ -188,8 +188,7 @@
 		  </td>
 		  <td>
 		    {% if presskit_view_request.news_for_venue %}<strong>{% endif %}
-		    {% blocktrans with presskit_view_request.sent_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}<br/>
-		    ({% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}updated {{ timestamp }} ago{% endblocktrans %})
+		    {% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}
 		    {% if presskit_view_request.news_for_venue %}</strong>{% endif %}
 		  </td>
 		  <td>

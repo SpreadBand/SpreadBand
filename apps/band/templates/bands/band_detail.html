@@ -123,7 +123,7 @@
 	      {% endif %}
 		
 	      {% if presskit_completion.check_tracks %}
-		<li class="done">Tracks</li>
+		<li class="done">{% trans "Tracks" %}</li>
 	      {% else %}
 		<li class="notdone"><a href="{% url presskit:presskit-tracks band.slug %}">{% trans "Tracks" %}</a></li>
 	      {% endif %}
@@ -164,7 +164,7 @@
 	      <tr>
 		<th>{% trans "Status" %}</th>
 		<th>{% trans "Venue" %}</th>
-		<th>{% trans "Sent on" %}</th>
+		<th>{% trans "Latest activity" %}</th>
 		<th>{% trans "Sent by" %}</th>
 	      </tr>
 	    </thead>
@@ -189,8 +189,7 @@
 		  </td>
 		  <td>
 		    {% if presskit_view_request.news_for_band %}<strong>{% endif %}
-		    {% blocktrans with presskit_view_request.sent_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}<br/>
-		    ({% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}updated {{ timestamp }} ago{% endblocktrans %})
+		    {% blocktrans with presskit_view_request.modified_on|timesince|capfirst as timestamp %}{{ timestamp }} ago{% endblocktrans %}
 		    {% if presskit_view_request.news_for_band %}</strong>{% endif %}
 		  </td>
 		  <td>{% if presskit_view_request.news_for_band %}<strong>{% endif %}{{ presskit_view_request.sent_by.first_name|default:presskit_view_request.sent_by.username }}{% if presskit_view_request.news_for_band %}</strong>{% endif %}</td>

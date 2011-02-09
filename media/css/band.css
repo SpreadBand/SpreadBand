@@ -124,4 +124,8 @@
     color: #444;
 }
 
+#search #side-options {
+    border-left: 1px solid #eee;
+    padding-left: 18px;
+}
 
