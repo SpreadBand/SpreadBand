@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load django_static %}
+{% load tagging_tags %}
 
 {% block title %}
 {% trans "Find Bands" %}
@@ -10,6 +11,37 @@
 
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/css/band.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+{% endblock %}
+
+
+{% block javascript %}
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tinysort.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tagcloud.js" %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	var tags = $("#genres_tags").tagit({
+	    itemName: 'genres',
+	    //availableTags: ["c++", "java"],
+	    //afterTagAdded: function(tag) { search_venues(); },
+	    //afterTagRemoved: function(tag) { search_venues(); }
+	});
+
+	$("#tag_list").tagcloud({type:"sphere", sizemin:10, height: 200}).find("li").tsort();
+
+	$("#tag_list li").click(function($this) {
+	    $.fn.tagit.create_tag($(this).text());
+	});
+
+	// restore tags in get
+	{% for tag in genres_tags %}
+	$.fn.tagit.create_tag("{{ tag }}");
+	{% endfor %}
+    });
+  </script>
 {% endblock %}
 
 
@@ -18,54 +50,87 @@
   <div id="text">
     
     <h1>{% trans "Find Bands" %}</h1>
-    <div id="search">
-      <form method="GET" class="uniForm" action="">
-	<div class="grid_6 alpha">
+    <div id="search" class="sectionbox">
+      <div class="header">
+	<img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="{% trans "band name" %}"/>
+	<h2>{% trans "Your search" %}</h2>
+      </div>
+      <div class="separator"></div>
 
-	  <img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
-	  <h2>{% trans "Location" %}</h2>
-	  <div id="div_id_country" class="ctrlHolder {% if geosearch_form.country.errors %}error{%endif%}">
-	    {{ geosearch_form.country.label_tag }} {{ geosearch_form.country }}
-	    <br/>
-	    {{ geosearch_form.country.errors }}
+      <div class="content">
+	
+	<form method="GET" action="">
+	  <div class="grid_6 alpha">
+
+	    <h3>{% trans "Location" %}</h3>
+	    <p class="help">
+	      {% blocktrans %}
+		Select a <strong>country</strong> and <strong>city</strong> to filter the bands. If you want to select an area around a city, you can <strong>type a radius</strong> just below.
+	      {% endblocktrans %}
+	    </p>
+
+	    <div id="div_id_country" class="ctrlHolder {% if geosearch_form.country.errors %}error{%endif%}">
+	      {{ geosearch_form.country.label_tag }} {{ geosearch_form.country }}
+	      <br/>
+	      {{ geosearch_form.country.errors }}
+	    </div>
+	    
+	    <div id="div_id_city" class="ctrlHolder {% if geosearch_form.city.errors %}error{%endif%}">
+	      {{ geosearch_form.city.label_tag }} {{ geosearch_form.city }}
+	      <br/>
+	      {{ geosearch_form.city.errors }}
+	    </div>
+	    
+	    <div id="div_id_distance" class="ctrlHolder {% if geosearch_form.distance.errors %}error{%endif%}">
+	      {% trans "Extends" %} {{ geosearch_form.distance }} {% trans "kilometers around this city" %}.
+	      <br/>
+	      {{ geosearch_form.distance.errors }}
+	    </div>
+	    
+	    <button id="submit" class="large orange awesome" type="submit">{% trans "Search" %}</button>
+	    
 	  </div>
+	  <div class="grid_7">
+	    <h3>{% trans "Genres" %} {% trans "(Optional)" %}</h3>
+	    
+	    <p class="help">
+	      {% blocktrans %}
+		By default, all the bands are selected. If you want to select only bands that have a given style, select them by <strong>clicking on the terms in the cloud</strong> below:
+	      {% endblocktrans %}
+	    </p>
 
-	  <div id="div_id_city" class="ctrlHolder {% if geosearch_form.city.errors %}error{%endif%}">
-	    {{ geosearch_form.city.label_tag }} {{ geosearch_form.city }}
-	    <br/>
-	    {{ geosearch_form.city.errors }}
-	  </div>
+	    <div id="div_id_genres" class="ctrlHolder {% if band_filter.form.genres.errors %}error{%endif%}">
+	      <ul id="tag_list">
+		{% tags_for_model band.Band as band_tags with counts %}
+		  
+		  {% for tag in band_tags %}
+		    <li value="{{ tag.count }}"><a href="javascript:;">{{ tag }}</a></li>
+		  {% endfor %}
+	      </ul>
+	      
+	      <ul id="genres_tags">
+	      </ul>
+	    </div>
+	    
+	    <h3>{% trans "Band name" %} {% trans "(Optional)" %}</h3>
+	    
+	    <p class="help">
+	      {% blocktrans %}
+		If you already know the name of the band you're looking for, just type it below.
+	      {% endblocktrans %}
+	    </p>
+	    
+	    <div id="div_id_name" class="ctrlHolder {% if band_filter.form.name.errors %}error{%endif%}">
+	      {{ band_filter.form.name }}
+	      <br/>
+	      {{ band_filter.form.name.errors }}
+	    </div>
 
-	  <div id="div_id_distance" class="ctrlHolder {% if geosearch_form.distance.errors %}error{%endif%}">
-	    <br/>
-	     {% trans "Extends" %} {{ geosearch_form.distance }} {% trans "kilometers around this city" %}
-	    <br/>
-	    {{ geosearch_form.distance.errors }}
-	  </div>
-
-
-	</div>
-	<div class="grid_7">
-	  <h2>{% trans "Genres" %}</h2>
-
-	  <div id="div_id_genres" class="ctrlHolder {% if band_filter.form.genres.errors %}error{%endif%}">
-	     {{ band_filter.form.genres }} {% trans "e.g. 'punk, rock'" %}
-	    <br/>
-	    {{ band_filter.form.genres.errors }}
 	  </div>
 	  
-	  <h2>{% trans "Name" %}</h2>
-
-	  <div id="div_id_name" class="ctrlHolder {% if band_filter.form.name.errors %}error{%endif%}">
-	      {{ band_filter.form.name }}
-	    <br/>
-	    {{ band_filter.form.name.errors }}
-	  </div>
-
-	</div>
-	<div class="clear"></div>
-	<input id="submit" type="submit" value="{% trans "Search" %}">
-      </form>
+	  <div class="clear"></div>
+	</form>
+      </div>
     </div>
 
     <h2>{% trans "Search results" %} ({{ band_filter.queryset|length }})</h2>
@@ -77,7 +142,7 @@
 	  <li class="band">
 	    <div class="{% cycle 'odd' 'even' %}">
 	      <div>
-		<img src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}"/>
+		<img src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" width="80px" height="80px"/>
 	      </div>
 	      <div class="info">
 		<a class="name" href="{{ band.get_absolute_url }}">{{ band }}</a>
@@ -86,6 +151,7 @@
 		  <span class="locality">{{ band.city }}</span>
 		  <span class="country-name">{{ band.country.name }}</span>
 		  {% if band.country %}<img src="{{ band.country.flag }}" title="{{ band.country.name }}" alt="{{ band.country }}"/>{% endif %}
+		  <span class="tags">{{ band.genres }}</span>
 		</div>
 		<br/>
 		<div class="tags">

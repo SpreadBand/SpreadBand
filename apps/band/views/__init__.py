@@ -306,6 +306,9 @@ def lookup_place(city, country):
 
 @login_required
 def search(request):
+    # Reconstruct the ambiance list since we use a multivariable trick
+    genres_tags = request.GET.getlist("genres") or []
+
     band_filter = BandFilter(request.GET, queryset=Band.objects.all())
     geosearch_form = BandGeoSearchForm(request.GET or {'country': request.user.get_profile().country,
                                                        'city': request.user.get_profile().town})
@@ -333,6 +336,7 @@ def search(request):
 
     return render_to_response(template_name='band/band_search.html',
                               dictionary={'band_filter': band_filter,
-                                          'geosearch_form': geosearch_form},
+                                          'geosearch_form': geosearch_form,
+                                          'genres_tags': genres_tags},
                               context_instance=RequestContext(request)
                               )

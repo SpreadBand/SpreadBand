@@ -1,6 +1,5 @@
 #search {
     border: 1px solid #eee;
-    padding: 20px;
     background-color: #f8f8f8;
     margin-bottom: 20px;
 }
@@ -64,6 +63,7 @@
 }
 
 #search-results .band .tags {
+    display: block;
     color: #666;
 }
 
@@ -75,4 +75,53 @@
 #band-management {
     margin-top: 30px;
 }
+
+/*-- search --*/
+#div_id_genres {
+    margin-bottom: 20px;
+}
+
+#search form button {
+    float: right;
+}
+
+#search form div label {
+    float: left;
+    width: 80px;
+}
+
+#search form div select, #id_city {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#search form input[type='text'] {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+#search form input.tagit-input {
+    border: none;
+}
+
+#search ul {
+    background-color: white;
+    padding 5px;
+    width: 100%;
+}
+
+#search ul.tagit {
+    border: 1px solid black;
+}
+
+#search ul li {
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+#search p.help {
+    font-size: 0.9em;
+    color: #444;
+}
+
 
