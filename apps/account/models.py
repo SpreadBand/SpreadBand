@@ -52,7 +52,7 @@ class UserProfile(UserenaLanguageBaseProfile):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("account:detail", (self.user,), {})
+        return ("userena_profile_detail", (self.user,), {})
 
     def __unicode__(self):
         return "Profile for %s" % self.user
