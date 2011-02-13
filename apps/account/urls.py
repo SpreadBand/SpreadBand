@@ -22,7 +22,7 @@ urlpatterns += patterns('',
 
     url(r'^(?P<username>[-\w]+)/$', views.detail, name='userena_profile_detail'),
     url(r'^(?P<username>[-\w]+)/edit/$', views.edit, name='userena_profile_edit'),
-    url(r'^(?P<username>\w+)/password/complete/$', views.password_change_complete, name='userena_password_change_complete'),
+    url(r'^(?P<username>[-\w]+)/password/complete/$', views.password_change_complete, name='userena_password_change_complete'),
 
 
 
