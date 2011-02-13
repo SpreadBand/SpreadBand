@@ -17,7 +17,7 @@
   <div class="grid_2 alpha">
     <div id="venue_avatar">
       {% if not venue.pictures.avatar %}
-	<a href="{# url venue:venue-picture-new venue.slug #}?is_avatar=1"><img src="{% staticfile '/images/venue/no_picture.png' %}" alt="{% trans "no venue avatar" %}" title="{% trans "Click here to upload an avatar" %}"/></a>
+	<a href="{% url venue:venue-picture-new venue.slug %}?is_avatar=1"><img src="{% staticfile '/images/venue/no_picture.png' %}" alt="{% trans "no venue avatar" %}" title="{% trans "Click here to upload an avatar" %}"/></a>
       {% else %}
 	<img src="{{ venue.pictures.avatar.avatar_image.url }}" alt="venue avatar"/>
       {% endif %}
