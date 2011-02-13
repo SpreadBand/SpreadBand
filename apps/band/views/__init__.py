@@ -12,6 +12,7 @@ from django.utils.translation import gettext as _
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.list_detail import object_list, object_detail
 
+from tagging.models import TaggedItem
 from geopy import geocoders
 
 from actstream.models import Action
@@ -71,7 +72,7 @@ def edit(request, band_slug):
 
     # Check if we're allowed to edit this band
     if not request.user.has_perm('band.can_manage', band):
-        return HttpResponseForbidden('You are not allowed to edit this band')
+        return HttpResponseForbidden('You are not allowed to manage this band')
 
 
     if request.method == 'POST':
@@ -159,13 +160,18 @@ def detail(request, band_slug):
     else:
         return redirect('presskit:presskit-detail', band.slug)
 
-# XXX: Security
+
 @login_required
 def dashboard(request, band_slug):
     """
     Show details about a band
     """
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to view this dashboard band')
+    
 
     past_events = band.gigs.past_events()[:1]
     future_events = band.gigs.future_events()[0:5]
@@ -228,11 +234,13 @@ def dashboard(request, band_slug):
     
 
 #--- PICTURES
-
-# XX: Security
 @login_required
 def picture_list(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to manage this band')
 
     return object_list(request,
                        queryset=band.pictures.all(),
@@ -241,10 +249,13 @@ def picture_list(request, band_slug):
                        extra_context={'band': band},
                        )
 
-# XX: Security
 @login_required
 def picture_new(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to manage this band')
 
     if request.method == 'POST':
         picture_form = BandPictureForm(request.POST, request.FILES)
@@ -264,10 +275,14 @@ def picture_new(request, band_slug):
                          )
 
 
-# XXX: Security
 @login_required
 def picture_delete(request, band_slug, picture_id):
     band = get_object_or_404(Band, slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden('You are not allowed to manage this band')
+
     picture = get_object_or_404(band.pictures, id=picture_id)
 
     picture.delete()
@@ -333,6 +348,12 @@ def search(request):
                 band_filter.queryset = band_filter.queryset.filter(city__iexact=city)
             if country:
                 band_filter.queryset = band_filter.queryset.filter(country__iexact=country)
+
+        # Restrict by filtering by genre
+        if genres_tags:
+            # Filter bands that match one of these tags
+            band_filter.queryset = TaggedItem.objects.get_union_by_model(band_filter.queryset, genres_tags)
+
 
     return render_to_response(template_name='band/band_search.html',
                               dictionary={'band_filter': band_filter,

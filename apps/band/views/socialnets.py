@@ -77,6 +77,10 @@ def socialnet_add(request, band_slug):
 def socialnet_edit(request, band_slug):
     band = get_object_or_404(Band, slug=band_slug)
 
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
+
     if request.method == 'POST':
         new_data = request.POST.copy()
 

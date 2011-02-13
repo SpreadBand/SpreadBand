@@ -9,8 +9,9 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
-
 from django.conf import settings
+
+from tagging.models import TaggedItem
 
 from band.models import Band
 from presskit.models import PresskitViewRequest
@@ -25,6 +26,8 @@ from .forms import VenueForm, VenueUpdateForm, VenuePictureForm, NewCantFindForm
 @login_required
 def presskit_viewrequest_venue_comment(request, venue_slug, viewrequest_id):
     viewrequest = get_object_or_404(PresskitViewRequest, venue__slug=venue_slug, pk=viewrequest_id)
+
+    # Notify
     presskitview_venue_comment.send(sender=viewrequest)
     return redirect('venue:presskit-viewrequest-venue', venue_slug, viewrequest_id)
     
@@ -224,7 +227,7 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
                          extra_context=extra_context,
                          )
                           
-def list(request):
+def venue_list(request):
     """
     list all venues
     """
@@ -290,10 +293,13 @@ def edit(request, venue_slug):
 
 #--- PICTURES
 
-# XX: Security
 @login_required
 def picture_list(request, venue_slug):
     venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Permissions
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden(_("You are not allowed to manage this venue"))
 
     return object_list(request,
                        queryset=venue.pictures.all(),
@@ -303,10 +309,13 @@ def picture_list(request, venue_slug):
                        )
 
 
-# XX: Security
 @login_required
 def picture_new(request, venue_slug):
     venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Permissions
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden(_("You are not allowed to manage this venue"))
 
     if request.method == 'POST':
         picture_form = VenuePictureForm(request.POST, request.FILES)
@@ -326,10 +335,14 @@ def picture_new(request, venue_slug):
                          )
 
 
-# XXX: Security
 @login_required
 def picture_delete(request, venue_slug, picture_id):
     venue = get_object_or_404(Venue, slug=venue_slug)
+
+    # Permissions
+    if not request.user.has_perm('venue.can_manage', venue):
+        return HttpResponseForbidden(_("You are not allowed to manage this venue"))
+
     picture = get_object_or_404(venue.pictures, id=picture_id)
 
     picture.delete()
@@ -380,6 +393,17 @@ def search_venue_atomic(data, center, distance, ambiance):
     
     places_in_range = Place.objects.filter(geom__distance_lte=(center, D(m=distance)))
     venue_filter.queryset = venue_filter.queryset.filter(place__in=places_in_range.all())
+
+    if ambiance:
+        # we assume if no ambiance is specified, then we are
+        # compatible with everything
+        eclectic_venues_qs = venue_filter.queryset.filter(ambiance='')
+        
+        # Filter venue that matches one of these tags
+        matching_venues_qs = TaggedItem.objects.get_union_by_model(venue_filter.queryset, ambiance)
+
+        venue_filter.queryset = matching_venues_qs | eclectic_venues_qs
+
     # else:
     # if city:
     #     venue_filter.queryset = venue_filter.queryset.filter(city__iexact=city)
@@ -460,6 +484,7 @@ def reverse_geocode(latitude, longitude):
     else:
         return data['results'][0]['formatted_address']
 
+@login_required
 def search_cantfind(request):   
     newcantfind_form = NewCantFindForm(request.GET)
 

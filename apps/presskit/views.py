@@ -3,9 +3,12 @@ import datetime
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic.create_update import update_object
+
+from threadedcomments.models import ThreadedComment
 
 from badges.models import Badge
 
@@ -64,14 +67,16 @@ from django.contrib import messages
 from venue.models import Venue
 
 
-## XXX: Security
 ## XXX: Quota
-## XXX: Notifications
 @login_required
 def presskit_send(request, band_slug, venue_slug):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
     venue = get_object_or_404(Venue, slug=venue_slug)
     band = presskit.band
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
 
     presskit_view_request_form = PresskitViewRequestForm(request.POST or None)
 
@@ -81,9 +86,7 @@ def presskit_send(request, band_slug, venue_slug):
                                            sent_by=request.user)
 
         view_request.save()
-        if presskit_view_request_form.cleaned_data['message']:
-            from threadedcomments.models import ThreadedComment
-            
+        if presskit_view_request_form.cleaned_data['message']:         
             ThreadedComment.objects.create(user=request.user,
                                            site=Site.objects.get(id=settings.SITE_ID),
                                            content_object=view_request,
@@ -107,10 +110,15 @@ def presskit_send(request, band_slug, venue_slug):
                               context_instance=RequestContext(request)
                               )
 
-## XXX Security
+
 @login_required
 def presskit_viewrequest_band(request, band_slug, viewrequest_id):
     viewrequest = get_object_or_404(PresskitViewRequest, presskit__band__slug=band_slug, pk=viewrequest_id)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', viewrequest.presskit.band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
+
 
     # if there was news, mark it no more
     has_news = False
@@ -131,14 +139,22 @@ def presskit_viewrequest_band(request, band_slug, viewrequest_id):
 @login_required
 def presskit_viewrequest_band_comment(request, band_slug, viewrequest_id):
     viewrequest = get_object_or_404(PresskitViewRequest, presskit__band__slug=band_slug, pk=viewrequest_id)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', viewrequest.presskit.band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
+
     presskitview_band_comment.send(sender=viewrequest)
     return redirect('presskit:presskit-viewrequest-band', band_slug, viewrequest_id)
 
 
-## XXX: Security
 @login_required
 def video_edit(request, band_slug):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', presskit.band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
     
     return update_object(request,
                          template_name='presskit/video_edit.html',
@@ -153,10 +169,13 @@ from django.views.generic.list_detail import object_list
 
 from media.models import Track
 
-# XXX Security
 @login_required
 def track_add(request, band_slug):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', presskit.band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
 
     track_form = PressKitTrackForm(request.POST or None, request.FILES or None)
 
@@ -176,10 +195,13 @@ def track_add(request, band_slug):
                          )
     
 
-# XXX Security
 @login_required
 def track_list(request, band_slug):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', presskit.band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
 
     return object_list(request,
                        queryset=presskit.tracks.all(),
@@ -188,13 +210,16 @@ def track_list(request, band_slug):
                        extra_context={'presskit': presskit}
                        )
 
-# XXX: Security
 @login_required
 def track_delete(request, band_slug, track_id):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
+
+    # Permissions
+    if not request.user.has_perm('band.can_manage', presskit.band):
+        return HttpResponseForbidden(_("You are not allowed to manage this band"))
+
     track = get_object_or_404(presskit.tracks, id=track_id)
 
     track.delete()
 
     return redirect('presskit:presskit-tracks', presskit.band.slug)
-
