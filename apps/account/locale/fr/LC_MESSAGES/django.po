@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-08 17:27+0100\n"
-"PO-Revision-Date: 2011-02-08 17:54\n"
+"PO-Revision-Date: 2011-02-09 19:12\n"
 "Last-Translator: Bob Iboob <bob@bob.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -199,7 +199,7 @@ msgstr "Aucune connexion pour l'instant"
 #: templates/account/user_dashboard.html:247
 #: templates/userena/profile_detail.html:121
 msgid "You'll find here connections with other musicians"
-msgstr "Vous trouverez ici des liens avec d'autres musiciens"
+msgstr "Vous trouverez ici vos connexions avec d'autres musiciens"
 
 #: templates/account/user_dashboard.html:255
 msgid "Latest Notifications"
