@@ -4,7 +4,6 @@
 {% load django_static %}
 {% load i18n %}
 {% load band_tags %}
-{% load event_tags %}
 
   <div id="venue-sidebar" class="grid_3 alpha">
     <div id="venueavatar" class="grid_3 alpha omega">
@@ -180,7 +179,7 @@ $(document).ready(function() {
 	  <h3>{% trans "Upcoming events" %}</h3>
 	  <ul id="upcoming-events">
 	    {% for event in future_events %}
-	      <li class="{% cycle "odd" "even" %}">{% gig_vevent event %}</li>
+	      <li class="{% cycle "odd" "even" %}">{# gig_vevent event #}</li>
 	    {% empty %}
 	      {% trans "No upcoming event." %}
             {% endfor %}
@@ -189,7 +188,7 @@ $(document).ready(function() {
 
 	<div class="grid_12 alpha omega">
 	  <div class="more">
-	    &rarr; <a href="{% url event:venue-calendar venue.slug %}">{% trans "See full calendar" %}</a>
+	    &rarr; <a href="{# url event:venue-calendar venue.slug #}">{% trans "See full calendar" %}</a>
 	  </div>
 	</div>
       </div>
@@ -231,7 +230,7 @@ $(document).ready(function() {
 	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
 	{% if is_managed %}
-	  <a href="{% url venue:edit venue.slug %}#id_video" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	  <a href="{% url venue:edit venue.slug %}#id_video" class="modal-popup button-tip minibutton btn-edit" title="{% trans "Edit" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
 	{% endif %}
       </div>
       <div class="separator"></div>
@@ -265,26 +264,4 @@ $(document).ready(function() {
     </div>
 	
 	
- 
-
-  
-   <!--  
-  <div class="grid_12 alpha omega">
-    <div id="location" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/reviews_ico.png' %}" alt="reviews"/>
-	<h2>{% trans "Latest reviews" %} ({% average_for_instance venue %}) (WIP)</h2>
-      </div>
-
-      <div class="separator"></div>
-
-      <div class="content">
-        {% reviews_for_instance venue %}
-      </div>
-    </div>
-  </div>
-  
-  
-	-->
-
 </div>

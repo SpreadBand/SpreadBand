@@ -1,4 +1,5 @@
 {% extends "bands/base.html" %}
+
 {% load i18n %}
 {% load uni_form_tags %}
 {% load wysiwyg %}
@@ -6,40 +7,55 @@
 
 
 {% block title %}
-{{ band.name }} &raquo; {% trans "Edit" %}
+  {{ band.name }} &raquo; {% trans "Edit" %}
 {% endblock %}
 
 {% block band_section %}
-Update
+  {% trans "Update" %}
 {% endblock %}
 
 {% block css %}
+  {{ block.super }}
 
-{{ block.super }}
+  <link rel="stylesheet" type="text/css" src="/css/ckeditor/sample.css" />
 
-<link rel="stylesheet" type="text/css" src="{% staticfile '/css/ckeditor/sample.css' %}" />
-
+  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
-{{ block.super }}
+  {{ block.super }}
 
+  <script type="text/javascript" src="{% staticfile '/js/ckeditor/ckeditor.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/ckeditor/config.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/ckeditor/adapters/jquery.js' %}"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('#id_biography').ckeditor();
+	$('#id_technical_sheet').ckeditor();
+    });
+  </script>
 
-<script type="text/javascript" src="{% staticfile '/js/ckeditor/ckeditor.js' %}"></script>
-<script type="text/javascript" src="{% staticfile '/js/ckeditor/config.js' %}"></script>
-<script type="text/javascript" src="{% staticfile '/js/ckeditor/adapters/jquery.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
 
-<script type="text/javascript" src="{% staticfile '/js/jquery/jquery.slugify.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$("#id_genres").remove();
+	$("#div_id_genres").append("<ul id='genres_tags'></ul>");
+	var tags = $("#genres_tags").tagit({
+	    itemName: 'genres',
+	    //availableTags: ["c++", "java"],
+	    //afterTagAdded: function(tag) { search_venues(); },
+	    //afterTagRemoved: function(tag) { search_venues(); }
+	});
 
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#id_name").slugify("#id_slug");
-
-      $('#id_biography').ckeditor();
-      $('#id_technical_sheet').ckeditor();
-  });
-</script>
+	// restore tags in get
+	{% for tag in band.genres %}
+	$.fn.tagit.create_tag("{{ tag }}");
+	{% endfor %}
+    });
+  </script>
 
 
 
@@ -51,7 +67,7 @@ Update
 <div class="grid_10">
   <form action="" method="POST" class="uniForm">
     {{ form|as_uni_form }}
-    <input type="submit" value="{% trans "Update" %}" />
+    <input type="submit" value="{% trans "Update" %}" class="awesome medium orange" />
   </form>
 </div>
 

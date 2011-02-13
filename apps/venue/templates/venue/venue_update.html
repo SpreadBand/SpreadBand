@@ -1,22 +1,37 @@
 {% extends "venue/base.html" %}
 
 {% load uni_form_tags %}
+{% load django_static %}
+{% load i18n %}
 
 {% block title %}
-{{ venue.name }} - Edit
+  {{ venue.name }} - {% trans "Edit" %}
 {% endblock %}
 
 {% block venue_section %}
-Edit
+  {% trans "Edit" %}
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% staticfile '/js/ckeditor/ckeditor.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/ckeditor/config.js' %}"></script>
+  <script type="text/javascript" src="{% staticfile '/js/ckeditor/adapters/jquery.js' %}"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('#id_description').ckeditor();
+    });
+  </script>
 {% endblock %}
 
 {% block venue_content %}
 
-<div class="grid_14">
-  <form method="POST" class="uniForm">
-    {{ form|as_uni_form }}
-    <input type="submit" value="Update" />
-  </form>
-</div>
+  <div class="grid_14">
+    <form method="POST" class="uniForm">
+      {{ form|as_uni_form }}
+      <input type="submit" value="{% trans "Update" %}" class="awesome orange medium"/>
+    </form>
+  </div>
 
 {% endblock %}
