@@ -39,14 +39,18 @@ class Band(Actor):
                            blank=True,
                            null=True)
     
-    genres = TagField(verbose_name=_('Genres'))
+    genres = TagField(verbose_name=_('genres'),
+                      help_text=_("Describe your music using tags such as: rock metal progressive.")
+                      )
 
-    influences = CharField(verbose_name=_('Influences'),
-                           max_length=200, 
+    influences = CharField(verbose_name=_('influences'),
+                           help_text=_("The other artists that make your band what it is."),
+                           max_length=200,
                            blank=True,
                            null=True)
 
-    city = CharField(verbose_name=_('City'),
+    city = CharField(verbose_name=_('city'),
+                     help_text=_("Where is your band from ?"),
                      max_length=100)
 
     zipcode = CharField(verbose_name=_('Zipcode'),
@@ -59,7 +63,8 @@ class Band(Actor):
 
     biography = TextField(verbose_name=_('Biography'),
                           blank=True,
-                          help_text=_('Band biography'))
+                          help_text=_('Who are the people inside your band ? How was it created ? Why are you doing this ?...')
+                          )
 
 
     # website = ForeignKey(Minisite, blank=True, null=True)
@@ -67,11 +72,14 @@ class Band(Actor):
     members = ManyToManyField(User, through='BandMember', related_name='bands')
 
     technical_sheet = TextField(verbose_name=_('Technical Sheet'),
-                                blank=True, null=True)
+                                help_text=_("What kind of gear do you need on stage ? What do you bring ? What do you expect from the venue ?"),
+                                blank=True, null=True
+                                )
 
     socialnetworks = generic.GenericRelation(SocialNetworkProfile,
                                              object_id_field="object_id",
-                                             content_type_field="content_type")
+                                             content_type_field="content_type"
+                                             )
 
 
     websites = generic.GenericRelation(WebsiteProfile,

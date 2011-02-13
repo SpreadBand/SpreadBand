@@ -28,10 +28,12 @@ class Venue(Actor):
                      max_length=200)
     slug = SlugField(max_length=100, unique=True)
 
-    ambiance = TagField()
+    ambiance = TagField(verbose_name=_("ambiance"),
+                        help_text=("Describe the style of music or atmosphere that represents your venue."))
 
     # address
-    address = TextField(verbose_name=_('address'))
+    address = TextField(verbose_name=_('address'),
+                        help_text=_("Street name and number. Don't enter your postal code, city and country (see below)."))
     city = CharField(verbose_name=_('city'),
                      max_length=100)
     zipcode = CharField(verbose_name=_('zipcode'),
@@ -41,11 +43,12 @@ class Venue(Actor):
     place = ForeignKey(Place, null=True, blank=True)
         
 
-    description = TextField(verbose_name=_('description'),)
+    description = TextField(verbose_name=_('description'),
+                            help_text=_("Describe the ambiance of your venue: what kind of music do you usually play, what kind of people come, ..."))
 
     capacity = PositiveSmallIntegerField(verbose_name=_('capacity'),
                                          default=0,
-                                         help_text=_('Capacity of the room'))
+                                         help_text=_('How many people can you welcome during a gig ?'))
 
     members = ManyToManyField(User, through='VenueMember', related_name='venues')
 
@@ -57,7 +60,9 @@ class Venue(Actor):
                                        object_id_field="object_id",
                                        content_type_field="content_type")
 
-    video = URLField(max_length=500,
+    video = URLField(verbose_name=_("video"),
+                     help_text=_("Paste an URL from Youtube, Dailymotion, Vimeo or another video provider."),
+                     max_length=500,
                      null=True,
                      blank=True)
 
