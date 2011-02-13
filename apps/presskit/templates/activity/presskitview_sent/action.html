@@ -1,0 +1,4 @@
+{% load django_static %}
+{% load i18n %}
+<img src="{% staticfile '/images/gigbargain/entered_16.png' %}" alt="{% trans "Sent" %}" />
+<a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> {% trans "sent its PressKit to" %} <a href="{{ action.target.venue.get_absolute_url }}">{{ action.target.venue.name|capfirst }}</a>
