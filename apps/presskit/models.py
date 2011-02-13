@@ -90,9 +90,15 @@ post_save.connect(check_for_awards, sender=PressKit)
 import notification.models as notification
 from annoying.decorators import signals
 
+from actstream.models import action
+
 @signals(presskitview_new)
 def on_presskitview_new(sender, **kwargs):
     presskitview = sender
+
+    # Log the action
+    action.send(presskitview.presskit.band, verb='presskitview_sent', target=presskitview, public=False)
+
     notification.send(presskitview.venue.members.all(),
                       'presskitview_new',
                       {'presskitview': presskitview})
@@ -101,7 +107,10 @@ def on_presskitview_new(sender, **kwargs):
 def on_presskitview_band_comment(sender, **kwargs):
     presskitview = sender
 
-    # Mark there's something new to see for venue
+    # Log the action
+    action.send(presskitview.presskit.band, verb='presskitview_commented_on', target=presskitview, public=False)
+
+    # Mark there's something new to see for the venue
     presskitview.news_for_venue = True
     presskitview.save()
 
@@ -113,7 +122,10 @@ def on_presskitview_band_comment(sender, **kwargs):
 def on_presskitview_venue_comment(sender, **kwargs):
     presskitview = sender
 
-    # Mark there's something new to see for venue
+    # Log the action
+    action.send(presskitview.venue, verb='presskitview_commented_on', target=presskitview, public=False)
+
+    # Mark there's something new to see for the band
     presskitview.news_for_band = True
     presskitview.save()
 
@@ -125,7 +137,10 @@ def on_presskitview_venue_comment(sender, **kwargs):
 def on_presskitview_accepted_by_venue(sender, **kwargs):
     presskitview = sender
 
-    # Mark there's something new to see for venue
+    # Log the action
+    action.send(presskitview.venue, verb='presskitview_accepted', target=presskitview, public=False)
+
+    # Mark there's something new to see for the band
     presskitview.news_for_band = True
     presskitview.save()
 
@@ -137,7 +152,10 @@ def on_presskitview_accepted_by_venue(sender, **kwargs):
 def on_presskitview_refused_by_venue(sender, **kwargs):
     presskitview = sender
 
-    # Mark there's something new to see for venue
+    # Log the action
+    action.send(presskitview.venue, verb='presskitview_refused', target=presskitview, public=False)
+
+    # Mark there's something new to see for the band
     presskitview.news_for_band = True
     presskitview.save()
 
