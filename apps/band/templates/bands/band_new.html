@@ -2,9 +2,42 @@
 
 {% load i18n %}
 {% load uni_form_tags %}
+{% load django_static %}
+{% load tagging_tags %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/band_new.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+{% endblock %}
 
 {% block javascript %}
 {{ block.super }}
+
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tinysort.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tagcloud.js" %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	var tags = $("#genres_tags").tagit({
+	    itemName: 'genres',
+	});
+
+	$("#tag_list").tagcloud({type:"sphere", sizemin:10, height: 200}).find("li").tsort();
+
+	$("#tag_list li").click(function($this) {
+	    $.fn.tagit.create_tag($(this).text());
+	});
+
+	// restore tags in get
+	{% for tag in genres_tags %}
+	$.fn.tagit.create_tag("{{ tag }}");
+	{% endfor %}
+    });
+  </script>
+
+
 
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slugify.js"></script>
 <script type="text/javascript">
@@ -21,44 +54,84 @@
 <div id="text">
   <div class="alpha grid_16 omega">
     <h1>{% trans "Register Your Band" %}</h1>
-  </div>
   
-  <div class="alpha grid_10">
-    <h2>{% trans "Your Band" %}</h2>
-    <form method="POST" class="uniForm">{% csrf_token %}
+    <div class="alpha grid_11 band-new">
+      <h2>{% trans "First, who's your Band ?" %}</h2>
+      <form method="POST">{% csrf_token %}
 
-    <div id="div_id_name" class="ctrlHolder {% if form.name.errors %}error{% endif %}">
-      <strong>{{ form.name.label }} :</strong>
-      {{ form.name }}
-      {{ form.name.errors }}
+      <p>
+	<strong>{{ form.name.label }} :</strong>
+	{{ form.name }}
+	{{ form.name.errors }}
+      </p>
+
+      <p id="slug">
+	{{ form.slug }}
+	<label for="id_slug">{% trans "Your address on SpreadBand:" %} <strong>http://spreadband.com/b/</strong></label>
+	{{ form.slug.errors }}
+      </p>
+
+      <div class="clear"></div>
+
+      <p>
+	{{ form.zipcode.label }}: {{ form.zipcode }}
+      </p>
+
+      <p>
+	{{ form.city.label }}: {{ form.city }}
+      </p>
+      
+      <p>
+	{{ form.country.label }}: {{ form.country }}
+      </p>
+      
+
+      <h2>{% trans "Now, what's your style ?" %}</h2>
+      <p>
+	<p class="help">
+	  {% blocktrans %}
+	    Please describe your music style by using tags. You can <strong>click on the existing tags</strong> or <strong>type new ones</strong> in the field below. Try to be precise, Venues and Bands will find you more easily.
+	  {% endblocktrans %}
+	</p>
+
+	<ul id="tag_list">
+	  {% tags_for_model band.Band as band_tags with counts %}
+	    
+	    {% for tag in band_tags %}
+	      <li value="{{ tag.count }}"><a href="javascript:;">{{ tag }}</a></li>
+	    {% endfor %}
+	</ul>
+	
+	<ul id="genres_tags">
+	</ul>
+      </p>
+      
+      <h2>{% trans "Finnaly, what's your role(s) in this Band ?" %}</h2>
+      
+      <p class="help">{{ member_form.roles.help_text }}</p>
+      <p>
+	{{ member_form.roles.label_tag }}
+	{{ member_form.roles.errors }}
+	{{ member_form.roles }}
+      </p>
+      
+      <div class="clear"></div>
+      
+      <button class="awesome orange medium" type="submit">{% trans "Let's go!" %}</button>
+
+      </form>
     </div>
-    <div id="div_id_slug" class="ctrlHolder {% if form.slug.errors %}error{% endif %}">
-      Votre adresse sur spreadband : <strong>http://spreadband.com/b/</strong>{{ form.slug }}
-      {{ form.slug.errors }}
+    <div id="band-new-sidebar" class="grid_4 omega">
+      <h3>{% trans "Registering your band" %}</h3>
+      
+      <img src="{% staticfile '/images/band/search_bands.jpg' %}" alt="{% trans "band" %}"/>
+      
+      <p>
+	{% blocktrans %}
+	By registering your band, you will be able to send your PressKit to venues to get booked!
+	{% endblocktrans %}
+      </p>
     </div>
-
-    <div id="div_id_zipcode" class="ctrlHolder">
-      {{ form.zipcode.label }}: {{ form.zipcode }}
-    </div>
-
-    <div id="div_id_city" class="ctrlHolder">
-      {{ form.city.label }}: {{ form.city }}
-    </div>
-
-    <div id="div_id_country" class="ctrlHolder">
-      {{ form.country.label }}: {{ form.country }}
-    </div>
-
-
-    <br/>
-
-    <h2>{% trans "You, in this band" %}</h2>
-    {{ member_form|as_uni_form }}
-    
-
-    <input type="submit" value="{% trans "Submit" %}" />
-
-    </form>
   </div>
 </div>
 

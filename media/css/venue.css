@@ -207,3 +207,116 @@ li.presskit_sharing_item {
 	float:left;
 }
 
+
+/* Venue creation */
+.venue-new h1 {
+    padding-top: 3px;
+    padding-left: 34px;
+    height: 30px;
+    background-image: url('../images/gigbargain/calendar_ico.png');
+    background-repeat: no-repeat;
+}
+
+.venue-new form label{
+	width:33%;
+	display:inline-block;
+	vertical-align:top;
+	font-weight:bold;
+	
+	font-size:18px;
+	font-style:italic;
+	font-weight:bold;
+	color:#ed6234;
+	
+	margin-top:3px;
+	margin-bottom:3px;
+	margin-right:2px;
+}
+
+
+.venue-new form  .error_msg, .errorlist{
+    color:red;
+    font-style:italic;
+}
+
+
+
+
+.venue-new form input{
+	width:64%;
+	
+	border:1px solid grey;
+	-moz-border-radius:4px; 
+	-webkit-border-radius:4px;
+	-khtml-border-radius:4px;
+	
+	font-size:11px;
+	height:12px;
+	padding:4px;
+	
+	margin-top:3px;
+	margin-bottom:3px;
+
+ float: right;
+	
+	/*
+	box-shadow: 0 0 6px #353535;
+	-moz-box-shadow: 0 0 6px #353535;  
+	-webkit-box-shadow: 0 0 6px #353535;  
+	*/
+
+}
+
+.venue-new h2 {
+    margin-top: 20px;
+}
+
+.venue-new form button{
+	float:right;
+	position:relative;
+ margin-top: 20px;
+}
+
+#venue-new-sidebar {
+    border-left: 1px solid #eee;
+    padding-left: 10px;
+    min-height: 100px;
+}
+
+#venue-new-sidebar img {
+    margin-bottom: 10px;
+}
+
+
+.venue-new form p#slug {
+    top: -10px;
+    position: relative;
+}
+
+.venue-new form p#slug label {
+    width: 300px;
+    color: #666;
+    font-size: 0.9em;
+    text-align: left;
+    font-weight: normal;
+    float: right;
+}
+
+.venue-new form select {
+    float: right;
+    width: 450px;
+}
+
+.venue-new form p#slug input {
+    float: right;
+    width: 200px;
+}
+
+.venue-new form p {
+    color: #666;
+    font-size: 0.95em;
+}
+
+
+
+

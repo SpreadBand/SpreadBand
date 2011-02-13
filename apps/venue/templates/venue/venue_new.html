@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load uni_form_tags %}
+{% load django_static %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/venue.css" media="screen, projection" />
+{% endblock %}
 
 {% block javascript %}
 {{ block.super }}
@@ -20,33 +24,53 @@
 
 <div id="text">
   <div class="alpha grid_16 omega">
-    <h1>{% trans "Register Your Venue" %}</h1>
+    <div class="alpha grid_11 venue-new">
+      <h1>{% trans "Register Your Venue" %}</h1>
+      
+      <h2>{% trans "Your Venue" %}</h2>
+      <form method="POST" class="">{% csrf_token %}
+      
+      <p>
+	{{ form.name.label_tag }}
+	{{ form.name.errors }}
+	{{ form.name }}
+      </p>
+      
+      <p id="slug">
+	{{ form.slug }}
+	<label for="id_slug">{% trans "Your address on SpreadBand:" %} <strong>http://spreadband.com/v/</strong></label>
+	{{ form.slug.errors }}
+      </p>
+      
+      <div class="clear"></div>
+
+      <h2>{% trans "Your role(s) in this Venue" %}</h2>
+      
+      <p class="help">{{ member_form.roles.help_text }}</p>
+      <p>
+	{{ member_form.roles.label_tag }}
+	{{ member_form.roles.errors }}
+	{{ member_form.roles }}
+      </p>
+      
+      <div class="clear"></div>
+      
+      <button class="awesome orange medium" type="submit">{% trans "Submit" %}</button>
+      
+      </form>
+    </div>
+
+    <div id="venue-new-sidebar" class="grid_4 omega">
+      <h3>Registering your venue</h3>
+      
+      <img src="{% staticfile "/images/venue/venue_new.jpg" %}" alt="{% trans "venue stage" %}"/>
+      
+      <p>
+	{% blocktrans %}
+	By registering your venue, bands will be able to send their PressKit so that you can set up a gig with them.
+	{% endblocktrans %}
+      </p>
+    </div>
   </div>
   
-  <div class="alpha grid_10">
-    <h2>{% trans "Your Venue" %}</h2>
-    <form method="POST" class="uniForm">{% csrf_token %}
-
-    <div id="div_id_name" class="ctrlHolder {% if form.name.errors %}error{% endif %}">
-      <strong>{{ form.name.label }} :</strong>
-      {{ form.name }}
-      {{ form.name.errors }}
-    </div>
-    <div id="div_id_slug" class="ctrlHolder {% if form.slug.errors %}error{% endif %}">
-      Votre adresse sur spreadband : <strong>http://spreadband.com/v/</strong>{{ form.slug }}
-      {{ form.slug.errors }}
-    </div>
-
-    <br/>
-
-    <h2>{% trans "You, in this venue" %}</h2>
-    {{ member_form|as_uni_form }}
-    
-
-    <input type="submit" value="{% trans "Submit" %}" />
-
-    </form>
-  </div>
-</div>
-
 {% endblock %}
