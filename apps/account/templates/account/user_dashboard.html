@@ -7,6 +7,8 @@
 {% load activity_tags %}
 {% load avatar_tags %}
 
+{% load sb_filters %}
+
 {% block head %}
   <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url notification_feed_for_user %}" />
 {% endblock %}
@@ -105,7 +107,7 @@
 		<!-- Latest activity -->
 		<div class="band-activity">
 		    <ul>
-		      {% for action in latest_activity %}
+		      {% for action in band_latest_activity|hash:band.slug %}
 			<li>{% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
 			{% empty %}
 			<li>{% trans "There is no activity yet for this band !" %}</li>
@@ -177,7 +179,7 @@
 		<!-- Latest activity -->
 		<div class="band-activity">
 		    <ul>
-		      {% for action in latest_activity %}
+		      {% for action in venue_latest_activity|hash:venue.slug %}
 			<li>{% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
 			{% empty %}
 			<li>{% trans "There is no activity yet for this venue !" %}</li>
