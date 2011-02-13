@@ -21,6 +21,8 @@
 .awesome:active { top: 1px; }
 .small.awesome, .small.awesome:visited { font-size: 11px; padding: ; }
 
+.tiny.awesome, .tiny.awesome:visited { font-size: 8px; padding: 3px; }
+
 .awesome, .awesome:visited, .medium.awesome, .medium.awesome:visited {
     font-size: 13px;
     font-weight: bold; 
