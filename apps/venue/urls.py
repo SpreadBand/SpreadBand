@@ -3,11 +3,7 @@ from django.conf import settings
 
 import views
 
-urlpatterns = patterns('django.views.generic.simple',
-    (r'^$', 'redirect_to', {'url': 'list'}),
-)
-
-urlpatterns += patterns('',                       
+urlpatterns = patterns('',                       
     # CRUD
     url(r'^new$', views.new, name='create'),
 
@@ -44,8 +40,12 @@ urlpatterns += patterns('',
 )
 
 if settings.DEBUG:
+    urlpatterns += patterns('django.views.generic.simple',
+                            (r'^$', 'redirect_to', {'url': 'list'}),
+                            )
+
     urlpatterns += patterns('',
-                            url(r'^list$', views.list, name='list'),
+                            url(r'^list$', views.venue_list, name='list'),
                             )
 
 
