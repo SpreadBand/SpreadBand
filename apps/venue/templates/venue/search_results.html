@@ -27,13 +27,13 @@
 	</div>
 	<div class="book">
 	  {% for band in request.user.bands.all %}
-	  <a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Send {{ band_name }} PressKit{% endblocktrans %}</span></a>
+	  {#<a href="{% url gigbargain:gigbargain-new-from-band band.slug %}?venue={{ venue.slug }}" class="button-tip minibutton" title="{% trans "Book This Venue" %}"><span><span class="icon"></span>{% blocktrans with band.name as band_name %}Send {{ band_name }} PressKit{% endblocktrans %}</span></a>#}
 	  {% endfor %}
 	</div>
       </div>
     </li>
     {% empty %}
-    Aucun résultat. Essayer d'élargir la zone de recherche à l'aide du cercle ou ajoutez des tags d'ambiance.
+    {% trans "No result" %}. {% trans "Try to extends the range of search by using the circle or try to remove some ambiance tags." %}
     {% endfor %}
   </ul>
 </div>
