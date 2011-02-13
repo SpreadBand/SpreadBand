@@ -9,14 +9,16 @@ from .models import Band, BandMember, BandRole, BandPicture
 class BandCreateForm(forms.ModelForm):
     class Meta:
         model = Band
-        fields = ('name', 'slug', 'city', 'zipcode', 'country')
+        fields = ('name', 'slug', 'city', 'zipcode', 'country', 'genres')
 
 class BandUpdateForm(forms.ModelForm):
     class Meta:
         model = Band
         fields = ('name', 'founded_on', 'zipcode', 'city', 'country', 'genres', 'influences', 'biography', 'technical_sheet',)
 
-    founded_on = forms.DateField(required=True,
+    founded_on = forms.DateField(label=_("founded on"),
+                                 help_text=_("When have your started this band ?"),
+                                 required=True,
                                  widget=MonthYearWidget(years=xrange(date.today().year-50, date.today().year+1))
                                  )
 
