@@ -68,10 +68,10 @@ urlpatterns = patterns('',
     (r'^v/', include('venue.urls', namespace='venue')),
 
     # Events
-    (r'^e/', include('event.urls', namespace='event')),
+    # (r'^e/', include('event.urls', namespace='event')),
 
     # bargain
-    (r'^e/gigbargain/', include('gigbargain.urls', namespace='gigbargain')),
+    # (r'^e/gigbargain/', include('gigbargain.urls', namespace='gigbargain')),
 
     # static pages
     ('^pages/', include('django.contrib.flatpages.urls')),
