@@ -131,9 +131,23 @@ def dashboard(request):
     # my_bands_gigbargains = GigBargain.objects.inprogress_gigbargains().filter(bands__in=request.user.bands.all)
     # latest_activity = Action.objects.stream_for_model(GigBargain).filter(target_object_id__in=my_bands_gigbargains)[:10]
 
+    # Latest activity for presskitview requests
+    from presskit.models import PresskitViewRequest
+
+    band_latest_activity = {}
+    for band in request.user.bands.all():
+        this_band_presskitviews = PresskitViewRequest.objects.filter(presskit__band=band)
+        band_latest_activity[band.slug] = Action.objects.stream_for_model(PresskitViewRequest).filter(target_object_id__in=this_band_presskitviews)[:5]
+
+    venue_latest_activity = {}
+    for venue in request.user.venues.all():
+        this_venue_presskitviews = PresskitViewRequest.objects.filter(venue=venue)
+        venue_latest_activity[venue.slug] = Action.objects.stream_for_model(PresskitViewRequest).filter(target_object_id__in=this_venue_presskitviews)[:5]
+
     context = {'notices': notices,
                #'user_connections': user_connections,
-               #'latest_activity': latest_activity
+               'band_latest_activity': band_latest_activity,
+               'venue_latest_activity': venue_latest_activity
                }
 
     return render_to_response(template_name='account/user_dashboard.html',
