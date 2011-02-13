@@ -487,3 +487,45 @@ div.accomplished span {
 #band-tip .steps {
     float: left;
 }
+
+/* social net edit */
+#socialnets-edit {
+    margin-top: 10px;
+}
+
+#socialnets-edit h2 {
+    display: inline-block;
+}
+
+#socialnet-list {
+    margin-bottom: 10px;
+}
+
+#socialnet-list li {
+    list-style-type: none;
+}
+
+#socialnet-list form {
+    display: inline;
+}
+
+/* websites edit */
+#websites-edit {
+    margin-top: 10px;
+}
+
+#websites-edit h2 {
+    display: inline-block;
+}
+
+#website-list {
+    margin-bottom: 10px;
+}
+
+#website-list li {
+    list-style-type: none;
+}
+
+#website-list form {
+    display: inline;
+}
