@@ -114,7 +114,7 @@ def detail(request, username):
         # user_connections = User.objects.filter(bands__in=band_connections).distinct()[:20]
         return profile_detail(request, username,
                               template_name='userena/profile_detail.html',
-                              extra_context={'user_connections': user_connections}
+                              #extra_context={'user_connections': user_connections}
                               )
 
 @login_required
