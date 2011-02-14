@@ -57,7 +57,7 @@
     <img src="{% staticfile '/images/home/header_sb.png' %}" alt="Spreadband is a place for music addicts" id="baseline" />
 
     <form id="authentication" action="{% url userena_signin %}" method="post">
-      <a href="#" id="lost-password">{% trans "Un problème ?" %}</a>
+      <a href="#" id="lost-password">{% trans "Login" %}</a>
       
       {{ auth_form.identification }}
       {{ auth_form.password }}
@@ -112,7 +112,7 @@
   
   <div id="home-tour" class="grid_15 alpha omega">
     <div>
-      <a href="{% url discover-band %}">Découvrez en détails</a> &raquo;
+      Découvrez en détails <a href="{% url discover-band %}">pour les artistes</a> et <a href="{% url discover-venue %}">pour les scènes</a> &raquo;
     </div>
   </div>
 

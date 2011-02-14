@@ -34,7 +34,8 @@
   <div id="teaser-header">
     <div class="text">
       <h1>Spreadband pour les artistes</h1>
-      <h2>Trouvez des bars, Organisez des concerts, Créez votre réseau.</h2>
+      <h2>Trouvez des scènes, Organisez des concerts, Créez votre réseau.</h2>
+      <p>Vous dirigez plutôt une scène de spectacle ? <a href="{% url discover-venue %}">Cliquez ici</a></p>
     </div>
 
     <div id="joinus">
@@ -65,7 +66,7 @@
 	<div class="text alpha grid_8">
 	  <h3>Créez votre Presskit et lancez vous</h3>
 	  
-	  <p>Composez votre kit de promotion à l'aide de vos photos, musiques, biographie, genres musicaux, fiche technique et influences. Présentez les membres de votre groupe et définissez votre style musical à l'aide de tags appropriés. Donnez ainsi l'envie aux bars-concerts de vous programmer.</p>
+	  <p>Composez votre kit de promotion à l'aide de vos photos, musiques, biographie, genres musicaux, fiche technique et influences. Présentez les membres de votre groupe et définissez votre style musical à l'aide de tags appropriés. Donnez ainsi l'envie aux scènes de vous programmer.</p>
 	</div>
 	
 	<div class="picture grid_7 omega">
@@ -86,16 +87,16 @@
 	<div class="text grid_9 omega">
 	  <h3>Jouez partout grâce à la recherche intelligente</h3>
 	  
-	  <p>Vous souhaitez sortir de votre zone géographique mais vous n'avez pas suffisamment de réseau, vous ne savez pas où aller et avec qui jouer. Recherchez facilement des lieux de concerts, trouvez des groupes avec qui jouer, contactez-les et organisez vos concerts grâce à notre outil de recherche intelligent et innovant.  Une localisation et quelques tags suffiront pour répondre à vos attentes les plus pertinentes et jouer hors de vos bases. Avec SpreadBand, les frontières s'estompent.</p>
+	  <p>Vous souhaitez sortir de votre zone géographique mais vous n'avez pas suffisamment de réseau, vous ne savez pas où aller et avec qui jouer ? Recherchez facilement des lieux de concerts, trouvez des groupes avec qui jouer, contactez-les et organisez vos concerts grâce à notre outil de recherche intelligent et innovant.  Une localisation et quelques tags suffiront pour répondre à vos attentes les plus pertinentes et jouer hors de vos bases. Avec SpreadBand, les frontières s'estompent.</p>
 	</div>
       </li>
 
-      <!-- Créez votre réseau -->
+      <!-- Organisez vos concerts -->
       <li class="feature alpha grid_15 omega">
 	<div class="text grid_8 alpha">
-	  <h3>Créez votre réseau</h3>
+	  <h3>Organisez vos concerts</h3>
 	  
-	  <p>Créez votre réseau, étendez-le et entretenez-le en gardant contact avec les groupes avec qui vous jouez et les bars dans lesquels vous passez.</p>
+	  <p>Contactez d'autres groupes, recherchez les scènes qui vous intéressent et envoyez leurs votre PressKit. Un fois entré en contact, dialoguez avec tous les intervenants et mettez vous d'accord sur les termes de la soirée (Date, ordre et heures de passage, …) afin de planifier et d'organiser au mieux vos soirées de concert.</p>
 	</div>
 
 	<div class="picture prefix_1 grid_6 omega">
@@ -104,16 +105,26 @@
 	
       </li>
 
+
       <!-- Créez votre réseau -->
       <li class="feature alpha grid_15 omega">
 	<div class="picture grid_6 alpha">
-	  <a class="screenshot" href="{% staticfile '/images/discover/band/multiband.jpg' %}" title="Gérez vos dates">
-	    <img src="{% staticfile '/images/discover/band/multiband_preview.jpg' %}" width="350px" height="195px"/>
-	  </a>
+	  <img src="{% staticfile '/images/discover/band/network_preview.jpg' %}" width="300px" height="198px"/>
 	</div>
 
 
 	<div class="text grid_9 omega">
+	  <h3>Créez votre réseau</h3>
+	  
+	  <p>Créez votre réseau, étendez-le et entretenez-le en gardant contact avec les groupes avec qui vous jouez et les scènes dans lesquels vous passez.</p>
+	</div>
+
+	
+      </li>
+
+      <!-- Plusieurs groupes ? -->
+      <li class="feature alpha grid_15 omega">
+	<div class="text grid_9 alpha">
 	  <h3>Plusieurs groupes ?</h3>
 	  
 	  <p>Si vous jouez dans plusieurs groupes, ou que vous gérez, en tant qu'association ou manager plusieurs artistes, ça n'est pas un problème !</p>
@@ -121,23 +132,30 @@
 	</div>
 
 
+	<div class="picture grid_6 omega">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/multiband.jpg' %}" title="Gérez vos dates">
+	    <img src="{% staticfile '/images/discover/band/multiband_preview.jpg' %}" width="350px" height="195px"/>
+	  </a>
+	</div>
+
+
+
       </li>
 
-
-      <!-- Gérez vos dates -->
       <li class="feature alpha grid_15 omega">
-	<div class="text alpha grid_8">
+
+	<div class="picture grid_7 alpha">
+	  <img src="{% staticfile '/images/discover/band/agenda_preview.jpg' %}" width="381px" height="198px"/>
+	</div>
+
+	<div class="text omega grid_8">
 	  <h3>Gérez vos dates</h3>
 	  
 	  <p>Consultez et organisez votre calendrier d'activité, diffusez vos dates de concerts sur votre compte et au sein de vos principaux réseau sociaux pour tenir informer vos fans et faire votre promotion.</p>
 	</div>
 
-	<div class="picture grid_7 omega">
-	  <img src="{% staticfile '/images/discover/band/agenda_preview.jpg' %}" width="381px" height="198px"/>
-	</div>
 
       </li>
-
 
     </ul>
 

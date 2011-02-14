@@ -7,6 +7,16 @@
     margin-right: 210px;
 }
 
+#teaser-header .text h2 {
+    margin-bottom: 5px;
+}
+
+#teaser-header .text p {
+    color: #888;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
 #joinus {
     position: relative;
     z-index: 100;

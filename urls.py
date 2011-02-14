@@ -125,6 +125,7 @@ urlpatterns += patterns('django.views.generic.simple',
 # Static pages
 urlpatterns += patterns('django.views.generic',
         url(r'^discover/band$', 'simple.direct_to_template', {'template': 'band_discover.html'}, name='discover-band'),
+        url(r'^discover/venue$', 'simple.direct_to_template', {'template': 'venue_discover.html'}, name='discover-venue'),
 )
 
 if settings.DEBUG:
