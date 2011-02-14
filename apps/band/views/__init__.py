@@ -325,8 +325,26 @@ def search(request):
     genres_tags = request.GET.getlist("genres") or []
 
     band_filter = BandFilter(request.GET, queryset=Band.objects.all())
-    geosearch_form = BandGeoSearchForm(request.GET or {'country': request.user.get_profile().country,
-                                                       'city': request.user.get_profile().town})
+
+
+    # Try to find the default place
+    default_country = request.user.get_profile().country
+    default_city = request.user.get_profile().town
+
+    if len(request.user.bands.all()) == 1:
+        band = request.user.bands.all()[0]
+        if band.city and band.country:
+            default_country = band.country
+            default_city = band.city
+
+    elif len(request.user.venues.all()) == 1:
+        venue = request.user.venues.all()[0]
+        if venue.city and venue.country:
+            default_city = venue.city
+            default_country = venue.country
+
+    geosearch_form = BandGeoSearchForm(request.GET or {'country': default_country,
+                                                       'city': default_city})
     
     if geosearch_form.is_valid():
         city = geosearch_form.cleaned_data.get('city')

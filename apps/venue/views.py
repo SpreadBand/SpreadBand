@@ -422,11 +422,27 @@ def search(request):
     # if we haven't specified anything, use the user place as a starting point
     if not request.GET:
         center = Point(0, 0)
+
+        # Try to find the default place
+        default_country = request.user.get_profile().country
+        default_city = request.user.get_profile().town
+        
+        if len(request.user.bands.all()) == 1:
+            band = request.user.bands.all()[0]
+            if band.city and band.country:
+                default_country = band.country
+                default_city = band.city
+
+        elif len(request.user.venues.all()) == 1:
+            venue = request.user.venues.all()[0]
+            if venue.city and venue.country:
+                default_city = venue.city
+                default_country = venue.country
+
         try:
-            country = countries.OFFICIAL_COUNTRIES[request.user.get_profile().country or 'FR']
-            town = request.user.get_profile().town
-            if country and town:
-                center = lookup_place(town, country)
+            country = countries.OFFICIAL_COUNTRIES[default_country]
+            if country and default_city:
+                center = lookup_place(default_city, country)
         except geocoders.google.GQueryError, e:
             pass
         
