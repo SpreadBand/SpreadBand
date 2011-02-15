@@ -13,7 +13,7 @@ from elsewhere.models import SocialNetworkProfile, WebsiteProfile
 from actors.models import Actor
 from badges.models import BadgeToLaureate
 from django_countries import CountryField
-from minisite.models.minisite import Minisite
+# from minisite.models.minisite import Minisite
 from world.models import Place
 
 

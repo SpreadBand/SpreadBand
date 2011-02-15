@@ -94,7 +94,8 @@ def deploy_bootstrap():
     "Deploy the project the first time."
     build_env()
     clonehgcmd = "hg clone %(hgrepo)s %(projectname)s" % env
-    venvcmd(clonehgcmd)
+    with cd(env.venvfullpath):
+        sudo(clonehgcmd, user="spreadband")
     fixperms()
     update_requirements()
     syncdb()
