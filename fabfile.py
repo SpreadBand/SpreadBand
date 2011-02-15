@@ -11,6 +11,7 @@ def commonenv():
     env.venvname = "spreadband.com"
     env.projectname = "spreadband"
     env.hgrepo = "/var/www/code/hg/private/spreadband/"
+    env.database_name = 'spreadband'
 
 def reloadapp():
     "Touch the wsgi"
@@ -30,6 +31,7 @@ def syncdb():
     venvcmd('./manage.py syncdb --noinput')
     venvcmd('./manage.py migrate')
 
+#-- Environments
 def prodenv():
     "production environment - Will need some work when moving to seperate server"
     commonenv()
@@ -38,6 +40,8 @@ def prodenv():
     env.urlhost = "preview.spreadband.com"
     require('venvname', provided_by=('commonenv',))
     env.hosts = ['preview.spreadband.com']
+
+    env.database_name = 'preview_sb'
 
     env.venvbasepath = "/home/spreadband/virtualenvs"
     env.venvfullpath = env.venvbasepath + '/' + env.venvname + '/'
@@ -169,13 +173,16 @@ def meta_full_bootstrap():
     """
     install_webserver()
     install_buildeps()
+    setup_pg_database()
     deploy_bootstrap()
     configure_webserver()
     reload_webserver()
 
     
-    
-    
-    
+def setup_pg_database():
+    sudo('createdb %(database_name)s -O spreadband' % env, user='postgres')
+    sudo('createlang -d%(database_name)s plpgsql' % env, user='postgres')
+    sudo('psql -U spreadband -d %(database_name)s -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql' % env, user='postgres')
+    sudo('psql -U spreadband -d %(database_name)s -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql' % env, user='postgres')
     
     
