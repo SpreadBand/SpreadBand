@@ -424,10 +424,14 @@ def search(request):
         center = Point(0, 0)
 
         # Try to find the default place
-        default_country = request.user.get_profile().country
-        default_city = request.user.get_profile().town
-        
-        if len(request.user.bands.all()) == 1:
+        default_country = None
+        default_city = None
+
+        if request.user.get_profile().town and request.user.get_profile().country: 
+            default_city = request.user.get_profile().town
+            default_country = request.user.get_profile().country
+
+        elif len(request.user.bands.all()) == 1:
             band = request.user.bands.all()[0]
             if band.city and band.country:
                 default_country = band.country
@@ -438,7 +442,6 @@ def search(request):
             if venue.city and venue.country:
                 default_city = venue.city
                 default_country = venue.country
-
         try:
             country = countries.OFFICIAL_COUNTRIES[default_country]
             if country and default_city:

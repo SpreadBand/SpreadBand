@@ -328,10 +328,14 @@ def search(request):
 
 
     # Try to find the default place
-    default_country = request.user.get_profile().country
-    default_city = request.user.get_profile().town
+    default_country = None
+    default_city = None
+    
+    if request.user.get_profile().town and request.user.get_profile().country: 
+        default_city = request.user.get_profile().town
+        default_country = request.user.get_profile().country
 
-    if len(request.user.bands.all()) == 1:
+    elif len(request.user.bands.all()) == 1:
         band = request.user.bands.all()[0]
         if band.city and band.country:
             default_country = band.country
