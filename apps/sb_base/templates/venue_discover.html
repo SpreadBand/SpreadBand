@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% load django_static %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/css/discover.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/colorbox/colorbox.css" />
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.colorbox.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.scrollfollow.js" %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$('.screenshot').colorbox();
+
+	$('#joinus').scrollFollow({'container': 'content',
+				   'speed': 500,
+				   'offset': 40});
+    });
+  </script>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div id="text">
+
+
+  <div id="teaser-header">
+    <div class="text">
+      <h1>Spreadband pour les Scènes</h1>
+      <h2>Organisez-vous, Gagnez du temps, Étendez votre réseau.</h2>
+      <p>Vous faîtes de la musique ? <a href="{% url discover-band %}">Cliquez ici</a></p>
+    </div>
+
+    <div id="joinus">
+      <a href="{% url userena_signup %}">Rejoignez nous !</a>
+    </div>
+
+
+    <!--
+    <div id="video-wrapper">
+      <div class="upbot-video"></div>
+      <div class="pad-video"></div>
+      <div class="video">
+	<img src="{% staticfile '/images/discover/video.png' %}" width="800px" height="450px"/>
+      </div>
+      <div class="pad-video"></div>
+      <div class="upbot-video"></div>
+    </div>
+    -->
+
+  </div>
+
+  <div id="features">
+
+    <ul>
+
+      <!-- Donnez envie -->
+      <li class="feature alpha grid_15 omega">
+	<div class="text alpha grid_8">
+	  <h3>Donnez envie</h3>
+	  
+	  <p>Créez votre profil, définissez votre ambiance et mettez en valeur votre scène grâce à un description personnalisée de votre lieu. 
+Donnez aux groupes l'envie de jouer chez vous. Grâce à SpreadBand, les groupes viendront de tous les horizons.</p>
+
+	</div>
+	
+	<div class="picture grid_7 omega">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/presskit.jpg' %}" title="Le Presskit">
+	    <img src="{% staticfile '/images/discover/band/presskit_preview.jpg' %}" width="374px" height="231px"/>
+	  </a>
+	</div>
+      </li>
+
+      <!-- Facilitez vous la vie -->
+      <li class="feature alpha grid_15 omega">
+	<div class="picture grid_6 alpha">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/search.jpg' %}" title="La recherche intelligente">
+	    <img src="{% staticfile '/images/discover/band/search_preview.jpg' %}" width="350px" height="212px"/>
+	  </a>
+	</div>
+
+	<div class="text grid_9 omega">
+	  <h3>Facilitez vous la vie</h3>
+	  
+	  <p>Les groupes vous trouveront en quelques clics et vice versa. Ils seront adaptés à votre ambiance et aux styles musicaux de votre programmation.
+Découvrez leur univers, écoutez leurs titres, invitez-les à vous appeler et/ou vous rencontrer et bookez-les !</p>
+
+	</div>
+      </li>
+
+      <!-- Étendez votre réseau -->
+      <li class="feature alpha grid_15 omega">
+	<div class="text grid_8 alpha">
+	  <h3>Étendez votre réseau</h3>
+	  
+	  <p>Créez votre réseau, étendez-le et entretenez-le en gardant contact avec les groupes avec qui vous contactent et viennent jouer chez vous.</p>
+	</div>
+
+	<div class="picture prefix_1 grid_6 omega">
+	  <img src="{% staticfile '/images/discover/band/network_preview.jpg' %}" width="300px" height="198px"/>
+	</div>
+	
+      </li>
+
+      <!-- Organisez vos concerts -->
+      <li class="feature alpha grid_15 omega">
+	<div class="picture grid_6 alpha">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/multiband.jpg' %}" title="Gérez vos dates">
+	    <img src="{% staticfile '/images/discover/band/multiband_preview.jpg' %}" width="350px" height="195px"/>
+	  </a>
+	</div>
+
+
+	<div class="text grid_9 omega">
+	  <h3>Organisez vos concerts</h3>
+	  
+	  <p>Recevez les PressKit des groupes désireux de jouer chez vous ou recherchez-les via l'outil de recherche de groupes. Une fois entré en contact, dialoguez avec tous les intervenants et mettez vous d'accord sur les termes de la soirée (Date, ordre et heures de passage, …) afin de planifier  et d'organiser au mieux vos soirées de concert.</p>
+	</div>
+
+
+      </li>
+
+
+      <!-- Gagnez du temps -->
+      <li class="feature alpha grid_15 omega">
+	<div class="text alpha grid_8">
+	  <h3>Gagnez du temps</h3>
+	  
+	  <p>Plus besoin d'empiler les cds et de les laisser prendre la poussière. Grâce à un tableau de bord simple à utiliser, organisez vos concerts à venir et marquez vos groupes favoris pour ne pas les oublier.</p>
+	</div>
+
+	<div class="picture grid_7 omega">
+	  <img src="{% staticfile '/images/discover/band/agenda_preview.jpg' %}" width="381px" height="198px"/>
+	</div>
+
+      </li>
+
+
+      <!-- Communiquez -->
+      <li class="feature alpha grid_15 omega">
+	<div class="picture grid_6 alpha">
+	  <a class="screenshot" href="{% staticfile '/images/discover/band/multiband.jpg' %}" title="Gérez vos dates">
+	    <img src="{% staticfile '/images/discover/band/multiband_preview.jpg' %}" width="350px" height="195px"/>
+	  </a>
+	</div>
+
+
+	<div class="text grid_9 omega">
+	  <h3>Communiquez</h3>
+	  
+	  <p>Informez votre clientèle des prochaines dates de concerts. Diffusez votre programmation tout en gardant le contrôle de ce que vous voulez diffuser, à qui et sur quels réseaux.</p>
+	</div>
+
+
+      </li>
+
+
+
+    </ul>
+
+  </div>
+
+</div>
+
+
+{% endblock %}
