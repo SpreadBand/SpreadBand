@@ -244,7 +244,7 @@
 
 		  {% for venue in user.venues.all %}
 		    <li>
-		      <img class="avatar" src="{{ banvenue.pictures.avatar.small_avatar_image.url|default:default_avatar }}" width="20" height="20" alt="venue avatar"/>
+		      <img class="avatar" src="{{ venue.pictures.avatar.small_avatar_image.url|default:default_avatar }}" width="20" height="20" alt="venue avatar"/>
 		      <a href="#">{{ venue.name|capfirst }}</a>
 			<img src="{% staticfile '/images/structure/more.png' %}" alt="more" width="11" height="7" />
 
