@@ -125,12 +125,12 @@
 	      {{ user.first_name|default:user.username|capfirst }},
 	    </p>
 	    <p>
-	      You are <strong>not in a band yet</strong> :-(
+	      {% trans "You are <strong>not in a band yet</strong> :-(" %}
 	    </p>
 	    <p>
 	      {% url band:create as band_create_url %}
 	      {% url band:search as band_search_url %}
-	      {% blocktrans with band_create_url as band_create_url and band_search_url as band_create_url %}
+	      {% blocktrans with band_create_url as band_create_url and band_search_url as band_search_url %}
 	      You can <a href="{{ band_create_url }}">create one now</a> or <a href="{{ band_search_url }}">check if your band is already on SpreadBand</a> and ask your friends to add you to it.
 	      {% endblocktrans %}
 	    </p>
@@ -197,7 +197,7 @@
 	      {{ user.first_name|default:user.username|capfirst }},
 	    </p>
 	    <p>
-	      You are <strong>not managing a venue</strong>.
+	      {% trans "You are <strong>not managing a venue</strong>." %}
 	    </p>
 	    <p>
 	      {% url venue:create as venue_create_url %}
