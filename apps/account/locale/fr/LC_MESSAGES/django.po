@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-16 13:40+0100\n"
-"PO-Revision-Date: 2011-02-16 13:41\n"
+"PO-Revision-Date: 2011-02-16 14:09\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -148,7 +148,7 @@ msgstr "Il n'y encore aucune activité pour ce groupe !"
 
 #: templates/account/user_dashboard.html:128
 msgid "You are <strong>not in a band yet</strong> :-("
-msgstr ""
+msgstr "Vous n'êtes <strong>pas encore dans un groupe</strong> :-("
 
 #: templates/account/user_dashboard.html:133
 #, python-format
@@ -161,7 +161,7 @@ msgid ""
 msgstr ""
 "\n"
 "Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a "
-"href=\"%(band_search_url)s\">vérifier si votre groupe est djà sur "
+"href=\"%(band_search_url)s\">vérifier si votre groupe est dejà sur "
 "SpreadBand</a> et demander aux autres membres de vous y ajouter."
 
 #: templates/account/user_dashboard.html:151
@@ -178,7 +178,7 @@ msgstr "Il n'y a encore aucune activité pour cette scène !"
 
 #: templates/account/user_dashboard.html:200
 msgid "You are <strong>not managing a venue</strong>."
-msgstr ""
+msgstr "Vous ne vous <strong>occupez d'aucune scène.</strong>"
 
 #: templates/account/user_dashboard.html:205
 #, python-format
@@ -192,7 +192,7 @@ msgstr ""
 "\n"
 "Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou "
 "<a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur "
-"SpredBand</a>"
+"SpreadBand</a>"
 
 #: templates/account/user_dashboard.html:222
 #, python-format
@@ -205,7 +205,7 @@ msgstr ""
 #, python-format
 msgid "Also running a venue? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
-"Vous vous occupez également d'un scène ? <a href=\"%(url)s\">Enregistrez-la "
+"Vous vous occupez également d'une scène ? <a href=\"%(url)s\">Enregistrez-la "
 "maintenant</a> !"
 
 #: templates/account/user_dashboard.html:245
