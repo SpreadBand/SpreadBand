@@ -225,7 +225,7 @@
 	  {% if band_count and not venue_count %}
 	    {% url venue:create as venue_create_url %}
 	    <div id="register-other-type">
-	      {% blocktrans with band_create_url as url %}Also running a venue? <a href="{{ url }}">Register it now</a>!{% endblocktrans %}
+	      {% blocktrans with venue_create_url as url %}Also running a venue? <a href="{{ url }}">Register it now</a>!{% endblocktrans %}
 	    </div>	    
 	  {% endif %}
 	{% endif %}
