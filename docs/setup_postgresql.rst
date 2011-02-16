@@ -1,1 +1,1 @@
-dropdb spreadband && createdb spreadband -O spreadband && createlang -dspreadband plpgsql && psql -U spreadband -d spreadband -f /usr/share/postgresql/8.4/contrib/postgis.sql  && psql -U spreadband -d spreadband -f /usr/share/postgresql/8.4/contrib/spatial_ref_sys.sql
+dropdb spreadband && createdb spreadband -O spreadband && createlang -dspreadband plpgsql && psql -U spreadband -d spreadband -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql  && psql -U spreadband -d spreadband -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
