@@ -181,7 +181,7 @@
 		  
 		  <td class="venue">
 		    <div>
-		      <img src="{{ venue.avatar_url|default:default_picture }}" width="40px" height="40px"/>
+		      <img src="{{ presskit_view_request.venue.avatar_url|default:default_picture }}" width="40px" height="40px"/>
 		      {% if presskit_view_request.news_for_band %}<strong>{% endif %}
 		      {{ presskit_view_request.venue.name }}
 		      {% if presskit_view_request.news_for_band %}</strong>{% endif %}

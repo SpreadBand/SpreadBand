@@ -180,7 +180,7 @@
 		  </td>
 		  <td class="venue">
 		    <div>
-		      <img src="{{ band.avatar_url|default:default_picture }}" width="40px" height="40px"/>
+		      <img src="{{ presskit_view_request.presskit.band.avatar_url|default:default_picture }}" width="40px" height="40px"/>
 		      {% if presskit_view_request.news_for_venue %}<strong>{% endif %}
 		      {{ presskit_view_request.presskit.band.name }}
 		      {% if presskit_view_request.news_for_venue %}</strong>{% endif %}
