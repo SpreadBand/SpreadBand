@@ -1,37 +1,231 @@
+Le site http://spreadband.com est une plateforme équitable de booking, dédiée aux Groupes de musique et aux lieux de concerts.
 
-END-USER LICENSE AGREEMENT FOR {INSERT PRODUCT NAME} IMPORTANT PLEASE READ THE TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT CAREFULLY BEFORE CONTINUING WITH THIS PROGRAM INSTALL: {INSERT COMPANY NAME's } End-User License Agreement ("EULA") is a legal agreement between you (either an individual or a single entity) and {INSERT COMPANY NAME}. for the {INSERT COMPANY NAME} software product(s) identified above which may include associated software components, media, printed materials, and "online" or electronic documentation ("SOFTWARE PRODUCT"). By installing, copying, or otherwise using the SOFTWARE PRODUCT, you agree to be bound by the terms of this EULA. This license agreement represents the entire agreement concerning the program between you and {INSERT COMPANY NAME}, (referred to as "licenser"), and it supersedes any prior proposal, representation, or understanding between the parties. If you do not agree to the terms of this EULA, do not install or use the SOFTWARE PRODUCT.
+Il est proposé par la société :
 
-The SOFTWARE PRODUCT is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties. The SOFTWARE PRODUCT is licensed, not sold.
+Nom : FuzzyFrequency/Grands Ensemble
+Forme juridique, Capital social : SA SCOP		
+Siège social : 9, rue des Agaches 62000 ARRAS
 
-1. GRANT OF LICENSE.
-The SOFTWARE PRODUCT is licensed as follows:
-(a) Installation and Use.
-{INSERT COMPANY NAME} grants you the right to install and use copies of the SOFTWARE PRODUCT on your computer running a validly licensed copy of the operating system for which the SOFTWARE PRODUCT was designed [e.g., Windows 95, Windows NT, Windows 98, Windows 2000, Windows 2003, Windows XP, Windows ME, Windows Vista].
-(b) Backup Copies.
-You may also make copies of the SOFTWARE PRODUCT as may be necessary for backup and archival purposes.
 
-2. DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS.
-(a) Maintenance of Copyright Notices.
-You must not remove or alter any copyright notices on any and all copies of the SOFTWARE PRODUCT.
-(b) Distribution.
-You may not distribute registered copies of the SOFTWARE PRODUCT to third parties. Evaluation versions available for download from {INSERT COMPANY NAME}'s websites may be freely distributed.
-(c) Prohibition on Reverse Engineering, Decompilation, and Disassembly.
-You may not reverse engineer, decompile, or disassemble the SOFTWARE PRODUCT, except and only to the extent that such activity is expressly permitted by applicable law notwithstanding this limitation.
-(d) Rental.
-You may not rent, lease, or lend the SOFTWARE PRODUCT.
-(e) Support Services.
-{INSERT COMPANY NAME} may provide you with support services related to the SOFTWARE PRODUCT ("Support Services"). Any supplemental software code provided to you as part of the Support Services shall be considered part of the SOFTWARE PRODUCT and subject to the terms and conditions of this EULA.
-(f) Compliance with Applicable Laws.
-You must comply with all applicable laws regarding use of the SOFTWARE PRODUCT.
+Ci-après dénommée « FUZZY FREQUENCY »
 
-3. TERMINATION
-Without prejudice to any other rights, {INSERT COMPANY NAME} may terminate this EULA if you fail to comply with the terms and conditions of this EULA. In such event, you must destroy all copies of the SOFTWARE PRODUCT in your possession.
 
-4. COPYRIGHT
-All title, including but not limited to copyrights, in and to the SOFTWARE PRODUCT and any copies thereof are owned by {INSERT COMPANY NAME} or its suppliers. All title and intellectual property rights in and to the content which may be accessed through use of the SOFTWARE PRODUCT is the property of the respective content owner and may be protected by applicable copyright or other intellectual property laws and treaties. This EULA grants you no rights to use such content. All rights not expressly granted are reserved by {INSERT COMPANY NAME}.
+Toute utilisation des services proposés par « FUZZY FREQUENCY » ou par le biais du site Internet http://spreadband.com, implique l’acceptation pleine et entière par les Groupes de musique et lieux de concert, des présentes conditions générales d’utilisation.
 
-5. NO WARRANTIES
-{INSERT COMPANY NAME} expressly disclaims any warranty for the SOFTWARE PRODUCT. The SOFTWARE PRODUCT is provided 'As Is' without any express or implied warranty of any kind, including but not limited to any warranties of merchantability, noninfringement, or fitness of a particular purpose. {INSERT COMPANY NAME} does not warrant or assume responsibility for the accuracy or completeness of any information, text, graphics, links or other items contained within the SOFTWARE PRODUCT. {INSERT COMPANY NAME} makes no warranties respecting any harm that may be caused by the transmission of a computer virus, worm, time bomb, logic bomb, or other such computer program. {INSERT COMPANY NAME} further expressly disclaims any warranty or representation to Authorized Users or to any third party.
+Les conditions générales d’utilisation applicables sont celles en vigueur à la date d’utilisation des services par les Groupes de musique et lieux de concert sur le site http://spreadband.com.
 
-6. LIMITATION OF LIABILITY
-In no event shall {INSERT COMPANY NAME} be liable for any damages (including, without limitation, lost profits, business interruption, or lost information) rising out of 'Authorized Users' use of or inability to use the SOFTWARE PRODUCT, even if {INSERT COMPANY NAME} has been advised of the possibility of such damages. In no event will {INSERT COMPANY NAME} be liable for loss of data or for indirect, special, incidental, consequential (including lost profit), or other damages based in contract, tort or otherwise. {INSERT COMPANY NAME} shall have no liability with respect to the content of the SOFTWARE PRODUCT or any part thereof, including but not limited to errors or omissions contained therein, libel, infringements of rights of publicity, privacy, trademark rights, business interruption, personal injury, loss of privacy, moral rights or the disclosure of confidential information. 
+FUZZY FREQUENCY se réserve le droit de modifier à tout moment les présentes conditions générales d’utilisation, sans préjudice du droit de résiliation existant au bénéfice des Groupes de musique et lieux de concert.
+
+
+DEFINITION
+
+Groupes de musique :  un petit ensemble musical comprenant en général moins de dix musiciens, chanteurs ou instrumentistes. 
+
+Lieux de concert : lieu public pouvant généralement accueillir une grande quantité de personnes et proposant des spectacles variés liés à la musique. Ils sont dédiées à des événements éphémères tel les concerts et tournées de musiciens ou groupes de musique. Ils sont spécifiquement conçues pour ce type de manifestations avec une acoustique étudiée aux normes, un minimum de matériel de sonorisation, une scène ou un espace pour les les artistes.
+ARTICLE 1	OBJET
+
+Les présentes Conditions Générales d’Utilisation ont pour objet de préciser les modalités d’utilisation des services proposés sur le site http://spreadband.com.
+
+
+ARTICLE 2	PROCESSUS D’INSCRIPTION
+
+2.1 – Inscription des Groupes de musique
+
+Le Groupe de musique souhaitant s’inscrire sur le site http://spreadband.com et bénéficier des services proposés, doit préalablement s’inscrire par l’intermédiaire de ses membres et communiquer, s’il le souhaite, les informations suivantes :
+
+- le nom de son Groupe, son représentant,
+- une biographie des membres du Groupe,
+- une présentation du Groupe,
+- éventuellement des photographies / vidéos /extraits musicaux / liens hypertextes vers le propre site Internet du Groupe, etc
+- coordonnées téléphoniques, postales ou de courrier électronique permettant d’entrer effectivement en contact avec le Groupe.
+
+Le Groupe choisit un identifiant et un mot de passe lui permettant de se connecter à son espace, de modifier les données saisies, et d’accéder aux espaces des autres Groupes et lieux de concert inscrits sur le site http://spreadband.com.
+
+Le Groupe déclare et garantit que les informations communiquées sont exactes et s’engage à les mettre à jour en cas de modification de celles-ci et à veiller à la sécurité de ses données.
+
+FUZZY FREQUENCY se réserve la faculté de ne pas donner de suite à toute demande présentant un caractère fantaisiste, contraire aux lois et règlements en vigueur, à l’ordre public, aux bonne mœurs ou aux droit et intérêts de FUZZY FREQUENCY ou de tiers.
+
+Le Groupe autorise, par son inscription, la diffusion sur le site Internet http://spreadband.com des informations communiquées lors de son inscription.
+
+L’inscription sur le site Internet http://spreadband.com n’emporte aucune exclusivité dans la mise en relation avec des lieux de concert.
+
+Le Groupe demeure entièrement libre d’accepter ou de refuser toute demande de mise en relation formée par un lieu de concert.
+
+Lors de son inscription, le Groupe a également l’obligation de communiquer le nom et les coordonnées de son représentant, qui sera considéré comme responsable de l’ensemble des informations communiquées au nom du Groupe.
+
+Le nom de cet interlocuteur sera conservé exclusivement par FUZZY FREQUENCY et ne sera pas sauf accord du Groupe, diffusé dans le profil du Groupe.
+
+Le représentant doit être majeur au jour de son inscription.
+
+
+
+2.2 – Inscription des lieux de concert
+
+Le lieu de concert souhaitant s’inscrire sur le site http://spreadband.com et bénéficier des services proposés, doit préalablement s’inscrire en communiquant s'il le souhaite :
+
+- le nom et coordonnées du lieu de concert, 
+- description du lieu,
+- équipement disponible,
+- éventuellement des photographies / vidéos / liens hypertextes vers le propre site Internet du lieu de concert, etc
+- coordonnées téléphoniques, postales ou de courrier électronique permettant d’entrer effectivement en contact avec le lieu de concert.
+
+Le lieu de concert choisit un identifiant et un mot de passe lui permettant de se connecter à son espace et de modifier les données saisies, et d’accéder aux espaces des autres lieux de concert et groupes de musique inscrits sur le site http://spreadband.com.
+
+Le lieu de concert déclare et garantit que les informations communiquées sont exactes et s’engage à les mettre à jour en cas de modification de celles-ci, et à veiller à la sécurité de ses données.
+
+FUZZY FREQUENCY se réserve la faculté de ne pas donner de suite à toute demande présentant un caractère fantaisiste, contraire aux lois et règlements en vigueur, à l’ordre public, aux bonne mœurs ou aux droit et intérêts de FUZZY FREQUENCY ou de tiers.
+
+Le lieu de concert autorise, par son inscription, la diffusion sur le site Internet http://spreadband.com des informations communiquées lors de son inscription.
+
+L’inscription sur le site Internet http://spreadband.com n’emporte aucune exclusivité dans la mise en relation avec des groupes de musiques.
+
+Le lieu de concert demeure entièrement libre d’accepter ou de refuser toute demande de mise en relation formée par un groupe de musique.
+
+Lors de son inscription, le lieu de concert a également l’obligation de communiquer le nom et les coordonnées de son représentant légal, qui sera considéré comme responsable de l’ensemble des informations communiquées au nom du lieu de concert.
+
+Le nom de cet interlocuteur sera conservé exclusivement par FUZZY FREQUENCY et ne sera pas, sauf accord du lieu de concert, diffusé dans le profil du lieu de concert.
+
+
+ARTICLE 3	DESCRIPTION DES SERVICES
+
+3.1 – Services gratuits
+
+FUZZY FREQUENCY propose par le biais de son site Internet http://spreadband.com les services suivants :
+
+Espace de présentation des groupes de musiques et des lieux de concert reprenant les informations communiquées par ceux-ci lors de leur inscription,
+
+Outils de booking permettant d’organiser une soirée musicale grâce à un outil de communication performant,
+
+Tableau de bord permettant un contrôle de l’activité des groupes et lieux de concert et mise à jour de leurs données grâce à un tableau de bord clair et ergonomique,
+
+Des outils de recherche d'autres groupes et/ou lieux de concerts,
+
+
+3.2 – Services payants
+
+A VENIR
+
+
+ARTICLE 4	DONNEES PERSONNELLES
+	
+FUZZY FREQUENCY informe les Groupes de musique et lieux de concert que leur données sont enregistrées et font l’objet d’une déclaration auprès de la CNIL sous le n° [A COMPLETER] conformément aux dispositions de la loi Informatique et Libertés du 6 janvier 1978.
+
+En conséquence, ceux-ci disposent d’un droit d’accès, de modification, de rectification ou de suppression de leurs données collectées en contactant simplement FUZZY FREQUENCY à l’adresse figurant en tête des présentes.
+
+Les données transmises sont conservées le temps légal nécessaire à l’administration de la preuve.
+
+
+ARTICLE 5	COUT DES SERVICES
+
+5.1 – Services gratuits
+
+L’inscription au site http://spreadband.com est gratuite.
+
+5.2 – Services payants
+
+FUZZY FREQUENCY se réserve la possibilité de faire évoluer ces services vers un modèle payant qui donnera lie, le cas échéant, à de nouvelles conditions générales d’utilisation soumises aux groupes de musique et lieux de concert, sans obligation pour leur part, de poursuivre l’utilisation des services proposés.
+
+
+ARTICLE 6	MISE EN RELATION
+
+FUZZY FREQUENCY se contente de proposer un outil ou une plateforme de mise en relation à destination des groupes de musique et lieux de concert inscrits sur le site http://spreadband.com.
+
+FUZZY FREQUENCY n’intervient en aucune manière dans la négociation, la conclusion ou l’exécution du contrat éventuellement conclu entre les groupes de musique et les lieux de concert et ne répond d’aucune obligation à ce titre.
+
+Les groupes de musique et lieux de concert sont entièrement libres de choisir leur interlocuteur.
+
+Il leur appartient de vérifier les conditions d’exercice par l’autre partie de son activité.
+
+Les groupes de musique et lieux de concert s’engagent à exercer leur activité légalement, à respecter l’ensemble des règles légales et sociales en vigueur et à réaliser la prestation convenue dans les conditions convenues entre eux.
+
+FUZZY FREQUENCY décline toute responsabilité quant aux conséquences directes ou indirectes du contact pris entre le groupe de musique et le lieu de concert.
+
+FUZZY FREQUENCY n’exerce aucun contrôle sur l’exactitude des éléments communiqués par les groupes de musique et lieux de concert, leur capacité ou leur intention réelle de s’engager, et n’assure aucun contrôle des offres faites par l’une ou l’autre des parties.
+
+En cas de litige entre groupe de musique et lieu de concert, ceux-ci s’engagent à ne pas rechercher la responsabilité de FUZZY FREQUENCY.
+
+L’ensemble des droits et obligations afférents à la transaction conclue entre groupe de musique et lieu de concert, relève de la responsabilité exclusive des parties et n’est pas susceptible d’engager la responsabilité de FUZZY FREQUENCY.
+
+FUZZY FREQUENCY doit être regardé comme hébergeur au sens de la Loi pour la Confiance dans l’Economie Numérique (LCEN) du 21 juin 2004, des éléments communiqués par les groupes de musique et lieux de concert.
+
+Sa responsabilité ne peut être recherchée qu’en cas de contenu manifestement illicite qui lui serait notifié dans les conditions de la LCEN, à défaut de réaction prompte de sa part.
+
+
+
+ARTICLE 7 GARANTIES
+
+Les groupes de musique et lieux de concert déclarent être titulaires de l’ensemble des droits et autorisations leur permettant la diffusion sur le site http://spreadband.com des éléments communiqués (photographies, vidéos, extraits musicaux, etc).
+
+Ils garantissent, en outre, que ces éléments sont originaux et ne portent en aucune manière atteinte aux droits de tiers.
+
+Dans l’hypothèse où la responsabilité de FUZZY FREQUENCY devait être engagée sur le fondement des éléments ainsi diffusés par les groupes de musique et lieux de concert, ces derniers relèveront FUZZY FREQUENCY indemne de toute condamnation susceptible d’être prononcée à son encontre.
+
+
+ARTICLE 8	NOTIFICATION
+
+Toutes les notifications, communications, mises en demeure prévues aux présentes seront réputées avoir été valablement délivrées et seront adressées par lettre recommandée avec accusé de réception à :
+
+Pour les groupes de musique au représentant du groupe tel qu’indiqué à l’article 2.1 ;
+Pour FUZZY FREQUENCY, à l’adresse figurant en tête des présentes ;
+Pour les lieux de concert, à l’adresse figurant à l’article 2.2.
+
+Et sous réserve du respect des conditions de notification imposées par la LCEN, en cas de notification sur ce fondement (cf article 6).
+
+ARTICLE 9	RESPONSABILITE
+
+FUZZY FREQUENCY ne sera, en aucun cas, tenu responsable de tout manquement aux obligations résultant des présentes, du fait d’un cas de force majeure, d’une faute,  négligence ou omission d’un tiers sur lequel elle n’a aucun pouvoir de contrôle ou de surveillance d’une demande d’interruption temporaire ou définitive du service émanant d’une autorité administrative ou judiciaire compétente, d’une défaillance des réseaux de transmission, du non respect par les groupes de musique ou lieux de concert des présentes conditions générales d’utilisation.
+
+FUZZY FREQUENCY, en sa qualité d’hébergeur, ne pourra être responsable du contenu hébergé.
+
+Les groupes de musique et lieux de concert reconnaissent et acceptent formellement que la responsabilité de FUZZY FREQUENCY ne saurait être directement ou indirectement retenue à quelque titre que ce soit pour les dommages : 
+
+Liés à une interruption de la délivrance des services indépendant de sa volonté et /ou modifié par un quelconque comportement fautif dans un groupe de musique, d’un lieu de concert ou d’un tiers,
+
+Liés à tout préjudice commercial, trouble commercial, perte de bénéfice, atteinte à l’image ou action dirigée contre l’utilisation par qui que ce soit du fait de la fourniture des services proposés par le site http://spreadband.com,
+
+En cas de perturbation ou d’interruption dans la fourniture ou l’exploitation des moyens de télécommunication fournis par le ou les exploitants des réseaux auxquels sont raccordés les installations de FUZZY FREQUENCY, notamment en cas de dysfonctionnement du réseau de l’opérateur local,
+
+Liés à la perte de toutes données présentes sur le site, subie par un groupe de musique ou lieu de concert ou un tiers, du fait de ces derniers, y compris identifiants et mots de passe.
+
+
+L’accès au site http://spreadband.com est accessible 365 jours par an, 24h/24, 7 jours sur 7, à l’exception des cas de force majeure, des difficultés techniques et/ou informatiques et/ou de télécommunication et/ou des périodes de maintenance.
+
+FYZZY FREQUENCY met à la disposition des groupes de musique et lieux de concert un dispositif d’alerte permettant d’attirer l’attention de FUZZY FREQUENCY sur un contenu diffusé sur le site Internet http://spreadband.com leur apparaissant comme illicite ou portant atteinte à leurs droits.
+
+
+ARTICLE 10 LIMITATION DU SERVICE
+
+FUZZY FREQUENCY se réserve le droit d’interrompre immédiatement et sans préavis l’accès au site Internet http://spreadband.com:
+
+Afin de procéder à une intervention technique, d’améliorer le fonctionnement du site ou pour toute opération de maintenance de son fait ou du fait de son prestataire d’hébergement et/ou d’infrastructure technique.
+Dans la mesure du possible, FUZZY FREQUENCY en informera préalablement des groupes de musique et lieux de concert
+
+Si FUZZY FREQUENCY reçoit un avis notifié par une autorité compétente, administrative, arbitrale, judiciaire, conformément aux lois applicables appropriées ou par un tiers et notamment, conformément à la loi pour la Confiance dans l’Economie Numérique du 21 juin 2004.
+
+En cas d’utilisation du site contraire aux présentes, aux lois et règlements en vigueur, aux bonnes mœurs ou à l’ordre public, aux droits et intérêts de FUZZY FREQUENCY ou de tiers.
+
+
+ARTICLE 11 PROPRIETE INTELLECTUELLE
+
+L’ensemble des éléments présentés sur le site Internet http://spreadband.com reste la propriété exclusive de FUZZY FREQUENCY et ne peut en aucun cas, faire l’objet d’une exploitation par les groupes de musique et lieux de concert sans autorisation préalable de FUZZY FREQUENCY, à l’exception des éléments diffusés par les groupes de musique et lieux de concert.
+
+
+ARTICLE 12 RESILIATION
+
+Les groupes de musique et lieux de concert sont libres de mettre fin sans motif ni pénalité à leur inscription sur le site Internet http://spreadband.com par simple notification à cet effet adressée à FUZZY FREQUENCY.
+
+L’ensemble des éléments communiqués lors de leur inscription au cours de l’utilisation des services, sera alors immédiatement supprimé.
+
+
+ARTICLE 13 RENONCIATION ET TOLERANCE
+
+Il est formellement convenu entre les parties que toute tolérance ou renonciation de l'une des parties dans l'application de tout ou partie des engagements prévus au présent accord, quelles qu'en aient pu être la fréquence et la durée, ne saurait valoir modification du présent accord, ni générer un droit quelconque.
+
+
+ARTICLE 14 DROIT APPLICABLE
+
+Les présentes Conditions Générales d’Utilisation sont soumises au droit français.
+
+Pour le cas où un litige naîtrait entre les parties du fait de l’exécution ou de l’interprétation des présentes, les parties conviennent préalablement à toute action en justice que toute réclamation fera l’objet d’une mise en demeure préalable par courrier recommandé avec demande d’avis de réception.
+
+Toute partie pourra ensuite, après un délai de 10 jours suivant l’envoi du courrier visé à l’alinéa précédent, engager toute procédure utile, compétence expresse étant attribuée aux juridictions de la ville de Lille.
