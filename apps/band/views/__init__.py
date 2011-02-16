@@ -84,14 +84,14 @@ def edit(request, band_slug):
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
 
             # Ugly hack to get a place from geocoders -_-
-            where = '%s %s, %s' % (band.zipcode,
-                                   band.city,
-                                   band.country.name)
+            where = u'%s %s, %s' % (band.zipcode,
+                                    band.city,
+                                    band.country.name)
 
             geoplace = _("Unable to lookup address")
             lat = lng = 0
             for match in g.geocode(where.encode('utf-8'),
-                               exactly_one=False):
+                                   exactly_one=False):
                 geoplace, (lat, lng) = match
                 # Get the first result
                 break
@@ -109,7 +109,7 @@ def edit(request, band_slug):
             band.place = place
             band.save()
 
-            messages.success(request, _("%s was successfully updated") % band.name)
+            messages.success(request, _(u"%s was successfully updated" % band.name))
 
             return redirect('presskit:mypresskit', band.slug)
 

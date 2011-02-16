@@ -256,12 +256,14 @@ def edit(request, venue_slug):
 
         if venue_form.is_valid():
             venue = venue_form.save(commit=False)
+
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
             try:
-                geoplace, (lat, lng) = g.geocode('%s, %s, %s, %s' % (venue.address,
-                                                                     venue.zipcode,
-                                                                     venue.city,
-                                                                     venue.country),
+                request_str = u'%s, %s, %s, %s' % (venue.address,
+                                                   venue.zipcode,
+                                                   venue.city,
+                                                   venue.country)
+                geoplace, (lat, lng) = g.geocode(request_str.encode('utf-8'),
                                                  exactly_one=True,
                                                  )
             except geocoders.google.GQueryError, e:
@@ -281,7 +283,7 @@ def edit(request, venue_slug):
             venue.place = place
             venue.save()
 
-            return redirect(venue)
+            return redirect('venue:myprofile', venue_slug=venue.slug)
 
     return update_object(request,
                          form_class=VenueUpdateForm,
@@ -364,8 +366,8 @@ def lookup_place(city, country):
     g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
 
     # Ugly hack to get a place from geocoders -_-
-    where = '%s, %s' % (city,
-                        country)
+    where = u'%s, %s' % (city,
+                         country)
 
     geoplace = _("Unable to lookup address")
     lat = lng = 0
