@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-08 17:27+0100\n"
-"PO-Revision-Date: 2011-02-09 19:12\n"
-"Last-Translator: Bob Iboob <bob@bob.fr>\n"
+"POT-Creation-Date: 2011-02-16 12:24+0100\n"
+"PO-Revision-Date: 2011-02-16 13:17\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,51 +102,51 @@ msgstr "Mot de passe"
 msgid "Notifications"
 msgstr "Notifications"
 
-#: templates/account/user_dashboard.html:43
+#: templates/account/user_dashboard.html:45
 #, python-format
 msgid "Heya, %(username)s"
 msgstr "Bienvenue, %(username)s "
 
-#: templates/account/user_dashboard.html:46
+#: templates/account/user_dashboard.html:48
 msgid "Edit Your Profile"
 msgstr "Modifier votre profil"
 
-#: templates/account/user_dashboard.html:58
+#: templates/account/user_dashboard.html:60
 #: templates/contacts_import/select_contacts.html:42
 #: templates/contacts_import/select_contacts.html:66
 #: templates/userena/profile_detail.html:39
 msgid "Name"
 msgstr "Nom"
 
-#: templates/account/user_dashboard.html:59
+#: templates/account/user_dashboard.html:61
 #: templates/contacts_import/select_contacts.html:43
 #: templates/contacts_import/select_contacts.html:67
 msgid "E-mail"
 msgstr "E-mail"
 
-#: templates/account/user_dashboard.html:60
+#: templates/account/user_dashboard.html:62
 #: templates/userena/profile_detail.html:40
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/account/user_dashboard.html:61
+#: templates/account/user_dashboard.html:63
 #: templates/userena/profile_detail.html:41
 msgid "Joined"
 msgstr "Inscrit"
 
-#: templates/account/user_dashboard.html:77
+#: templates/account/user_dashboard.html:79
 msgid "My Bands"
 msgstr "Mes groupes"
 
-#: templates/account/user_dashboard.html:80
+#: templates/account/user_dashboard.html:82
 msgid "Create a new band"
 msgstr "Créer un nouveau groupe"
 
-#: templates/account/user_dashboard.html:111
+#: templates/account/user_dashboard.html:113
 msgid "There is no activity yet for this band !"
 msgstr "Il n'y encore aucune activité pour ce groupe !"
 
-#: templates/account/user_dashboard.html:131
+#: templates/account/user_dashboard.html:133
 #, python-format
 msgid ""
 "\n"
@@ -160,19 +160,19 @@ msgstr ""
 "href=\"%(band_search_url)s\">vérifier si votre groupe est djà sur "
 "SpreadBand</a> et demander aux autres membres de vous y ajouter."
 
-#: templates/account/user_dashboard.html:149
+#: templates/account/user_dashboard.html:151
 msgid "My Venues"
 msgstr "Mes scènes"
 
-#: templates/account/user_dashboard.html:152
+#: templates/account/user_dashboard.html:154
 msgid "Create a new venue"
 msgstr "Créer une nouvelle scène"
 
-#: templates/account/user_dashboard.html:183
+#: templates/account/user_dashboard.html:185
 msgid "There is no activity yet for this venue !"
 msgstr "Il n'y a encore aucune activité pour cette scène !"
 
-#: templates/account/user_dashboard.html:203
+#: templates/account/user_dashboard.html:205
 #, python-format
 msgid ""
 "\n"
@@ -186,41 +186,59 @@ msgstr ""
 "<a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur "
 "SpredBand</a>"
 
-#: templates/account/user_dashboard.html:237
+#: templates/account/user_dashboard.html:222
+#, python-format
+msgid "Also in a band? <a href=\"%(url)s\">Register it now</a>!"
+msgstr "Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le maintenant</a> !"
+
+#: templates/account/user_dashboard.html:228
+#, python-format
+msgid "Also running a venue? <a href=\"%(url)s\">Register it now</a>!"
+msgstr "Vous vous occupez également d'un scène ? <a href=\"%(url)s\">Enregistrez-la maintenant</a> !"
+
+#: templates/account/user_dashboard.html:245
 #: templates/userena/profile_detail.html:111
 msgid "Connections since a month"
 msgstr "Connexions du mois"
 
-#: templates/account/user_dashboard.html:246
+#: templates/account/user_dashboard.html:254
 #: templates/userena/profile_detail.html:120
 msgid "No connections yet"
 msgstr "Aucune connexion pour l'instant"
 
-#: templates/account/user_dashboard.html:247
+#: templates/account/user_dashboard.html:255
 #: templates/userena/profile_detail.html:121
 msgid "You'll find here connections with other musicians"
 msgstr "Vous trouverez ici vos connexions avec d'autres musiciens"
 
-#: templates/account/user_dashboard.html:255
+#: templates/account/user_dashboard.html:263
 msgid "Latest Notifications"
 msgstr "Dernières notifications"
 
-#: templates/account/user_dashboard.html:258
+#: templates/account/user_dashboard.html:266
+msgid "Actions:"
+msgstr "Actions :"
+
+#: templates/account/user_dashboard.html:266
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/account/user_dashboard.html:258
+#: templates/account/user_dashboard.html:266
 msgid "Mark all unseen notices seen"
 msgstr "Marquer toutes les alertes comme vues"
 
-#: templates/account/user_dashboard.html:264
+#: templates/account/user_dashboard.html:272
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:266
+#: templates/account/user_dashboard.html:274
 #, python-format
 msgid "%(time_since)s ago"
 msgstr " il y a %(time_since)s"
+
+#: templates/account/user_dashboard.html:296
+msgid "You have no notices yet."
+msgstr "Vous n'avez pas de commentaires pour le moment."
 
 #: templates/avatar/add.html:5
 msgid "Your current avatar: "
@@ -228,7 +246,9 @@ msgstr "Votre avatar actuel :"
 
 #: templates/avatar/add.html:8
 msgid "You haven't uploaded an avatar yet. Please upload one now."
-msgstr "Vous n'avez pas encore téléchargé d'avatar. Veuillez en télécharger un dès maintenant."
+msgstr ""
+"Vous n'avez pas encore téléchargé d'avatar. Veuillez en télécharger un dès "
+"maintenant."
 
 #: templates/avatar/add.html:12
 msgid "Upload New Image"
@@ -242,7 +262,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un provenant de <a href=\"http://gravatar.com\">Gravatar</a> service."
+"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un "
+"provenant de <a href=\"http://gravatar.com\">Gravatar</a> service."
 
 #: templates/avatar/change.html:31
 msgid ""
@@ -252,7 +273,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Vous pouvez soit en télécharger une maintenant ci-dessous ou <a href=\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
+"Vous pouvez soit en télécharger une maintenant ci-dessous ou <a href="
+"\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
 
 #: templates/avatar/change.html:41
 msgid "Use this avatar"
@@ -287,7 +309,10 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Sélectionnez l'avatar que vous souhaitez utiliser. Si vous voulez recadrer un avatar, sélectionner-le, puis cliquez sur \"recadrer\". Vous pouvez également ajouter ou supprimer des avatars en cliquant sur les boutons situés en dessous."
+"Sélectionnez l'avatar que vous souhaitez utiliser. Si vous voulez recadrer "
+"un avatar, sélectionner-le, puis cliquez sur \"recadrer\". Vous pouvez "
+"également ajouter ou supprimer des avatars en cliquant sur les boutons "
+"situés en dessous."
 
 #: templates/avatar/change.html:68
 msgid "Gravatar support"
@@ -303,7 +328,10 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Si vous n'avez défini aucun avatar, nous allons essayer d'utiliser le service Gravatar(<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</strong>) avec votre adresse email. <a href=\"http://gravatar.com\">En savoir plus au sujet de Gravatar &raquo;</a>"
+"Si vous n'avez défini aucun avatar, nous allons essayer d'utiliser le "
+"service Gravatar(<strong>G</strong>lobally <strong>R</strong>ecognized "
+"<strong>AVATAR</strong>) avec votre adresse email. <a href=\"http://gravatar."
+"com\">En savoir plus au sujet de Gravatar &raquo;</a>"
 
 #: templates/avatar/confirm_delete.html:27
 msgid "Please select the avatars that you would like to delete."
@@ -314,7 +342,9 @@ msgstr "Veuillez sélectionner les avatars que vous aimeriez effacer."
 msgid ""
 "You have no avatars to delete. Please <a href=\"%(avatar_change_url)s"
 "\">upload one</a> now."
-msgstr "Vous n'avez pas d'avatars à supprimer. Veuillez en <a href=\"%(avatar_change_url)s\">télécharger un</a> maintenant."
+msgstr ""
+"Vous n'avez pas d'avatars à supprimer. Veuillez en <a href="
+"\"%(avatar_change_url)s\">télécharger un</a> maintenant."
 
 #: templates/avatar/confirm_delete.html:37
 msgid "Delete These"
@@ -329,7 +359,10 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous vos avatars, nous essayerons d'utiliser le service Gravatar <strong>(G</strong> lobally <strong>R AVATAR</strong> ecognized) avec votre adresse e-mail."
+"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous "
+"vos avatars, nous essayerons d'utiliser le service Gravatar <strong>(G</"
+"strong> lobally <strong>R AVATAR</strong> ecognized) avec votre adresse e-"
+"mail."
 
 #: templates/avatar/crop.html:69
 msgid "Crop"
@@ -347,7 +380,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"Utilisez votre souris pour sélectionner une zone de l'image. Vous pouvez voir un aperçu de votre avatar en dessous de ce texte."
+"Utilisez votre souris pour sélectionner une zone de l'image. Vous pouvez "
+"voir un aperçu de votre avatar en dessous de ce texte."
 
 #: templates/avatar/crop.html:81
 msgid "Small"
@@ -369,7 +403,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Pour référence, voici votre cadrage actuel. Votre nouveau cadrage remplacera celui là."
+"Pour référence, voici votre cadrage actuel. Votre nouveau cadrage remplacera "
+"celui là."
 
 #: templates/contacts_import/import_contacts.html:15
 msgid "Import contacts"

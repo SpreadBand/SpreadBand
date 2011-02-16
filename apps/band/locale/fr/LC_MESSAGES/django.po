@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-09 18:18+0100\n"
-"PO-Revision-Date: 2011-02-09 19:33\n"
-"Last-Translator: Bob Iboob <bob@bob.fr>\n"
+"POT-Creation-Date: 2011-02-16 12:23+0100\n"
+"PO-Revision-Date: 2011-02-16 13:10\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,11 +43,11 @@ msgstr "Entrez le nom d'utilisateur de la personne à ajouter"
 msgid "The user's nickname you have entered doesn't exist"
 msgstr "Le nom de l'utilisateur que vous avez saisi n'existe pas"
 
-#: forms.py:72 models.py:57
+#: forms.py:72 models.py:59
 msgid "Country"
 msgstr "Pays"
 
-#: forms.py:76 models.py:50
+#: forms.py:76
 msgid "City"
 msgstr "Ville"
 
@@ -75,57 +75,69 @@ msgstr "Date de création"
 msgid "When the band was founded"
 msgstr "Date de création du groupe"
 
-#: models.py:42 templates/band/band_search.html:94
-msgid "Genres"
-msgstr "Genres"
+#: models.py:42
+msgid "genres"
+msgstr "genres"
 
-#: models.py:44
-msgid "Influences"
-msgstr "Influences"
+#: models.py:43
+msgid "Describe your music using tags such as: rock metal progressive."
+msgstr "Décrivez votre musique en utilisant des tags telles que : métal, rock, progressif, reggae, ..."
 
-#: models.py:45
+#: models.py:46
+msgid "influences"
+msgstr "influences"
+
+#: models.py:47
 msgid "The other artists that make your band what it is."
-msgstr ""
+msgstr "Les autres artistes qui font de votre groupe ce qu'il est"
 
-#: models.py:51
+#: models.py:52
+msgid "city"
+msgstr "ville"
+
+#: models.py:53
 msgid "Where is your band from ?"
 msgstr "D'où vient votre groupe ?"
 
-#: models.py:54
+#: models.py:56
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: models.py:62 templates/bands/band_detail.html:114
+#: models.py:64 templates/bands/band_detail.html:114
 #: templates/bands/band_detail.html:116
 msgid "Biography"
 msgstr "Biographie"
 
-#: models.py:64
+#: models.py:66
 msgid ""
 "Who are the people inside your band ? How was it created ? Why are you doing "
 "this ?..."
-msgstr "Qui sont les personnes qui composent votre groupe ? Comment a-t-il créé ? Pourquoi faites-vous cela ? ..."
+msgstr ""
+"Qui sont les personnes qui composent votre groupe ? Comment a-t-il créé ? "
+"Pourquoi faites-vous cela ? ..."
 
-#: models.py:71 templates/bands/band_detail.html:138
+#: models.py:74 templates/bands/band_detail.html:138
 #: templates/bands/band_detail.html:140
 msgid "Technical Sheet"
 msgstr "Fiche technique"
 
-#: models.py:72
+#: models.py:75
 msgid ""
 "What kind of gear do you need on stage ? What do you bring ? What do you "
 "expect from the venue ?"
-msgstr "De quel équipement avez-vous besoin sur scène ? Qu'allez-vous apporter ? Qu'attendez-vous du lieu ?"
+msgstr ""
+"De quel équipement avez-vous besoin sur scène ? Qu'allez-vous apporter ? "
+"Qu'attendez-vous du lieu ?"
 
-#: models.py:180
+#: models.py:185
 msgid "user"
 msgstr "utilisateur"
 
-#: models.py:186
+#: models.py:191
 msgid "Roles"
 msgstr "Rôles"
 
-#: models.py:190
+#: models.py:195
 msgid "Whether the membership has been approved"
 msgstr "Si l'adhésion a été validée"
 
@@ -154,7 +166,9 @@ msgid ""
 "\t      "
 msgstr ""
 "\n"
-"Sélectionnez un <strong>pays</strong> et la <strong>ville</strong> pour filtrer les groupes. Si vous voulez sélectionner une zone autour d'une ville, vous pouvez <strong>taper un rayon</strong> juste en dessous."
+"Sélectionnez un <strong>pays</strong> et la <strong>ville</strong> pour "
+"filtrer les groupes. Si vous voulez sélectionner une zone autour d'une "
+"ville, vous pouvez <strong>taper un rayon</strong> juste en dessous."
 
 #: templates/band/band_search.html:85
 msgid "Extends"
@@ -167,6 +181,10 @@ msgstr "kilomètres autour de cette ville"
 #: templates/band/band_search.html:90
 msgid "Search"
 msgstr "Rechercher"
+
+#: templates/band/band_search.html:94
+msgid "Genres"
+msgstr "Genres"
 
 #: templates/band/band_search.html:94 templates/band/band_search.html:115
 msgid "(Optional)"
@@ -181,7 +199,9 @@ msgid ""
 "\t      "
 msgstr ""
 "\n"
-"Par défaut, tous les groupes sont sélectionnés. Si vous voulez sélectionner uniquement les groupes qui ont référencé leur(s) style(s), sélectionnez-les en <strong>cliquant sur les tags dans le nuage</strong> ci-dessous:"
+"Par défaut, tous les groupes sont sélectionnés. Si vous voulez sélectionner "
+"uniquement les groupes qui ont référencé leur(s) style(s), sélectionnez-les "
+"en <strong>cliquant sur les tags dans le nuage</strong> ci-dessous:"
 
 #: templates/band/band_search.html:115
 msgid "Band name"
@@ -195,7 +215,8 @@ msgid ""
 "\t      "
 msgstr ""
 "\n"
-"Si vous connaissez déjà le nom du groupe que vous recherchez, il suffit vous suffit de le taper ci-dessous."
+"Si vous connaissez déjà le nom du groupe que vous recherchez, il suffit vous "
+"suffit de le taper ci-dessous."
 
 #: templates/band/band_search.html:136
 msgid "Search results"
@@ -229,6 +250,50 @@ msgstr "Les membres actuels"
 #: templates/band/membership_manage.html:36
 msgid "Remove"
 msgstr "Supprimer"
+
+#: templates/band/socialnets_edit.html:7
+#: templates/band/socialnets_edit.html:18 templates/bands/band_detail.html:132
+#: templates/bands/band_detail.html:134
+msgid "Social Networks"
+msgstr "Réseaux sociaux"
+
+#: templates/band/socialnets_edit.html:17
+#: templates/band/socialnets_edit.html:49
+msgid "social networks"
+msgstr "réseaux sociaux"
+
+#: templates/band/socialnets_edit.html:29
+#: templates/band/socialnets_edit.html:59
+msgid "X"
+msgstr "X"
+
+#: templates/band/socialnets_edit.html:36
+msgid "No social network profiles."
+msgstr "Pas de profils de réseau social."
+
+#: templates/band/socialnets_edit.html:39
+msgid "Add a Social Network"
+msgstr "Ajouter un un réseau social"
+
+#: templates/band/socialnets_edit.html:43
+msgid "Add this Social Network"
+msgstr "Ajouter ce réseau social"
+
+#: templates/band/socialnets_edit.html:50
+msgid "Websites"
+msgstr "Sites web"
+
+#: templates/band/socialnets_edit.html:65
+msgid "No website registered."
+msgstr "Aucun site enregistré."
+
+#: templates/band/socialnets_edit.html:68
+msgid "Add a Website"
+msgstr "Ajouter un membre"
+
+#: templates/band/socialnets_edit.html:71
+msgid "Add this Website"
+msgstr "Ajouter ce site Web"
 
 #: templates/bands/band_detail.html:11
 msgid "Dashboard"
@@ -266,7 +331,7 @@ msgstr ""
 #: templates/bands/band_detail.html:105
 #, python-format
 msgid "Extend your network, <a href=\"%(url)s\">invite your friends</a>."
-msgstr "Etendez votre réseau, <a href=\"%(url)s\"> invitez vos amis</a> ."
+msgstr "Etendez votre réseau, <a href=\"%(url)s\"> invitez vos amis</a>."
 
 #: templates/bands/band_detail.html:120 templates/bands/band_detail.html:122
 msgid "Photos"
@@ -275,10 +340,6 @@ msgstr "Photos"
 #: templates/bands/band_detail.html:126 templates/bands/band_detail.html:128
 msgid "Tracks"
 msgstr "Pistes"
-
-#: templates/bands/band_detail.html:132 templates/bands/band_detail.html:134
-msgid "Social Networks"
-msgstr "Réseaux sociaux"
 
 #: templates/bands/band_detail.html:157
 msgid "PressKit Tracker"
@@ -365,27 +426,64 @@ msgstr "Publicité"
 msgid "Add new"
 msgstr "Ajouter un nouveau"
 
-#: templates/bands/band_new.html:23
+#: templates/bands/band_new.html:56
 msgid "Register Your Band"
 msgstr "Enregistrez votre groupe"
 
-#: templates/bands/band_new.html:27
-msgid "Your Band"
-msgstr "Votre groupe"
+#: templates/bands/band_new.html:59
+msgid "First, who's your Band ?"
+msgstr "Tout d'abord, quel est votre groupe ?"
 
-#: templates/bands/band_new.html:55
-msgid "You, in this band"
-msgstr "Vous, dans ce groupe"
+#: templates/bands/band_new.html:70
+msgid "Your address on SpreadBand:"
+msgstr "Votre adresse sur SpreadBand :"
 
-#: templates/bands/band_new.html:59 templates/bands/membership_request.html:11
-msgid "Submit"
-msgstr "Soumettre"
+#: templates/bands/band_new.html:89
+msgid "Now, what's your style ?"
+msgstr "Maintenant, quel est votre style ?"
 
-#: templates/bands/band_update.html:9
+#: templates/bands/band_new.html:92
+msgid ""
+"\n"
+"\t    Please describe your music style by using tags. You can <strong>click "
+"on the existing tags</strong> or <strong>type new ones</strong> in the field "
+"below. Try to be precise, Venues and Bands will find you more easily.\n"
+"\t  "
+msgstr ""
+"\n"
+"Veuillez décrire votre style de musique en utilisant des tags. Vous pouvez <strong>cliquer sur les tags existants</strong> ou <strong>en taper de nouveaux</strong> dans le champ ci-dessous. Essayez d'être précis, les groupes et les scènes vous trouveront plus facilement."
+
+#: templates/bands/band_new.html:109
+msgid "Finnaly, what's your role(s) in this Band ?"
+msgstr "Finalement, quel est votre rôle(s) dans ce groupe ?"
+
+#: templates/bands/band_new.html:120
+msgid "Let's go!"
+msgstr "Let's go !"
+
+#: templates/bands/band_new.html:125
+msgid "Registering your band"
+msgstr "Enregistrez votre groupe"
+
+#: templates/bands/band_new.html:127
+msgid "band"
+msgstr "groupe"
+
+#: templates/bands/band_new.html:130
+msgid ""
+"\n"
+"\tBy registering your band, you will be able to send your PressKit to venues "
+"to get booked!\n"
+"\t"
+msgstr ""
+"\n"
+"En inscrivant votre groupe, vous pourrez envoyer votre PressKit aux scènes pour être booké !"
+
+#: templates/bands/band_update.html:10
 msgid "Edit"
 msgstr "Éditer"
 
-#: templates/bands/band_update.html:80
+#: templates/bands/band_update.html:14 templates/bands/band_update.html:70
 msgid "Update"
 msgstr "Mettre à jour"
 
@@ -417,20 +515,24 @@ msgstr "Sauvegarder"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: templates/bands/membership_request.html:11
+msgid "Submit"
+msgstr "Soumettre"
+
 #: templates/bands/picture_new.html:11
 msgid "Upload"
 msgstr "Télécharger"
 
-#: views/__init__.py:90 views/__init__.py:310
+#: views/__init__.py:91 views/__init__.py:311
 msgid "Unable to lookup address"
 msgstr "Impossible de trouver l'adresse"
 
-#: views/__init__.py:111
+#: views/__init__.py:112
 #, python-format
 msgid "%s was successfully updated"
 msgstr "%s a été mis à jour avec succès"
 
-#: views/__init__.py:340
+#: views/__init__.py:363
 msgid "Unable to find this city. Check the country or be more specific."
 msgstr ""
 "Impossible de trouver cette ville. Vérifiez le pays ou soyez plus précis."
@@ -450,11 +552,17 @@ msgstr "Vous n'êtes pas autorisé à gérer ce groupe"
 #: views/socialnets.py:28
 #, python-format
 msgid "%(band_name)s was successfully associated with %(service_name)s"
-msgstr " % (band_name)s a été associé à %(service_name)s avec succès"
+msgstr " %(band_name)s a été associé à %(service_name)s avec succès"
 
 #: views/socialnets.py:54 views/socialnets.py:67
 msgid "You are not allowed to post a message for this band"
 msgstr "Vous n'êtes pas autorisé à poster un message pour ce groupe"
+
+#~ msgid "Your Band"
+#~ msgstr "Votre groupe"
+
+#~ msgid "You, in this band"
+#~ msgstr "Vous, dans ce groupe"
 
 #~ msgid "Band biography"
 #~ msgstr "Biographie du groupe"

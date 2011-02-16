@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-09 18:18+0100\n"
-"PO-Revision-Date: 2011-02-13 19:30\n"
-"Last-Translator:   <pl@plop.fr>\n"
+"POT-Creation-Date: 2011-02-16 12:24+0100\n"
+"PO-Revision-Date: 2011-02-16 13:13\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,7 +75,9 @@ msgstr "Adresse"
 msgid ""
 "Street name and number. Don't enter your postal code, city and country (see "
 "below)."
-msgstr "Nom de la rue et numéro. Ne pas entrer votre code postal, ville et pays (voir ci-dessous)."
+msgstr ""
+"Nom de la rue et numéro. Ne pas entrer votre code postal, ville et pays "
+"(voir ci-dessous)."
 
 #: models.py:37
 msgid "city"
@@ -97,7 +99,9 @@ msgstr "Description"
 msgid ""
 "Describe the ambiance of your venue: what kind of music do you usually play, "
 "what kind of people come, ..."
-msgstr "Décrire l'ambiance de votre salle : quel genre de musique diffusez-vous, type de public, ..."
+msgstr ""
+"Décrire l'ambiance de votre salle : quel genre de musique diffusez-vous, "
+"type de public, ..."
 
 #: models.py:49
 msgid "capacity"
@@ -114,7 +118,9 @@ msgstr "vidéo"
 #: models.py:64
 msgid ""
 "Paste an URL from Youtube, Dailymotion, Vimeo or another video provider."
-msgstr "Coller une URL provenant de Youtube, Dailymotion, Vimeo ou un autre fournisseur de vidéo."
+msgstr ""
+"Coller une URL provenant de Youtube, Dailymotion, Vimeo ou un autre "
+"fournisseur de vidéo."
 
 #: models.py:113
 msgid "image"
@@ -149,41 +155,41 @@ msgstr "Rôles"
 msgid "Whether the membership has been approved"
 msgstr "Si l'adhésion a été approuvée"
 
-#: views.py:71
+#: views.py:74
 #, python-format
 msgid "You have accepted to set up a gig with %s"
 msgstr "Vous avez accepté d'organiser un concert avec %s"
 
-#: views.py:89
+#: views.py:92
 #, python-format
 msgid "You have refused to set up a gig with %s"
 msgstr "Vous avez refusé d'organiser un concert avec %s"
 
-#: views.py:299 views.py:315 views.py:341
+#: views.py:302 views.py:318 views.py:344
 msgid "You are not allowed to manage this venue"
 msgstr "Vous n'êtes pas autorisé à gérer cette scène"
 
-#: views.py:367
+#: views.py:370
 msgid "Unable to lookup address"
 msgstr "Impossible de recherche l'adresse"
 
-#: views.py:494
+#: views.py:527
 msgid "Une nouvelle mission pour SuperLaurent"
 msgstr "Une nouvelle mission pour SuperLaurent"
 
-#: views.py:500
+#: views.py:533
 msgid "A new mission was successfully sent to SuperLaurent !"
 msgstr "Une nouvelle mission a été envoyée à SuperLaurent!"
 
-#: views.py:521
+#: views.py:554
 msgid "Type your text here !"
 msgstr "Tapez votre texte ici !"
 
-#: views.py:560 views.py:619
+#: views.py:593 views.py:652
 msgid "You are not allowed to edit this venue"
 msgstr "Vous n'êtes pas autorisé à modifier cette scène"
 
-#: views.py:622
+#: views.py:655
 msgid "You can't let this venue alone"
 msgstr "Vous ne pouvez pas laisser cette scène seule"
 
@@ -402,6 +408,7 @@ msgstr "Pas de description."
 
 #: templates/venue/profile.html:128 templates/venue/profile.html.py:209
 #: templates/venue/profile.html:233 templates/venue/profile.html.py:256
+#: templates/venue/venue_update.html:8 templates/venue/venue_update.html:12
 msgid "Edit"
 msgstr "Modifier"
 
@@ -449,10 +456,6 @@ msgstr "Localisation"
 #: templates/venue/profile.html:261
 msgid "Address:"
 msgstr "Adresse :"
-
-#: templates/venue/profile.html:275
-msgid "Latest reviews"
-msgstr "Dernières critiques"
 
 #: templates/venue/search.html:8
 msgid "Find a Venue"
@@ -539,7 +542,9 @@ msgstr "Pas de résultat"
 msgid ""
 "Try to extends the range of search by using the circle or try to remove some "
 "ambiance tags."
-msgstr "Essayez d'agrandir la zone de recherche en utilisant le cercle ou retirez quelques tags."
+msgstr ""
+"Essayez d'agrandir la zone de recherche en utilisant le cercle ou retirez "
+"quelques tags."
 
 #: templates/venue/venue_list.html:7
 msgid "Venues"
@@ -549,21 +554,46 @@ msgstr "Scènes"
 msgid "Add new"
 msgstr "Ajouter un nouveau"
 
-#: templates/venue/venue_new.html:23
+#: templates/venue/venue_new.html:28
 msgid "Register Your Venue"
 msgstr "Enregistrer votre scène"
 
-#: templates/venue/venue_new.html:27
+#: templates/venue/venue_new.html:30
 msgid "Your Venue"
 msgstr "Votre scène"
 
-#: templates/venue/venue_new.html:42
-msgid "You, in this venue"
-msgstr "Vous, dans cette scène"
+#: templates/venue/venue_new.html:41
+msgid "Your address on SpreadBand:"
+msgstr "Votre adresse sur SpreadBand :"
 
-#: templates/venue/venue_new.html:46
+#: templates/venue/venue_new.html:47
+msgid "Your role(s) in this Venue"
+msgstr "Votre rôle(s) dans cette scène"
+
+#: templates/venue/venue_new.html:58
 msgid "Submit"
 msgstr "Envoyer"
+
+#: templates/venue/venue_new.html:66
+msgid "venue stage"
+msgstr "scène"
+
+#: templates/venue/venue_new.html:69
+msgid ""
+"\n"
+"\tBy registering your venue, bands will be able to send their PressKit so "
+"that you can set up a gig with them.\n"
+"\t"
+msgstr ""
+"\n"
+"En inscrivant votre scène, les groupes pourront vous envoyer leur PressKit afin que vous puissiez organiser un concert avec eux."
+
+#: templates/venue/venue_update.html:33
+msgid "Update"
+msgstr "Mise à jour"
+
+#~ msgid "Latest reviews"
+#~ msgstr "Dernières critiques"
 
 #~ msgid "Capacity of the room"
 #~ msgstr "Capacité de la salle"
