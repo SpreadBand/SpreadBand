@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-16 12:24+0100\n"
-"PO-Revision-Date: 2011-02-16 13:17\n"
+"POT-Creation-Date: 2011-02-16 13:40+0100\n"
+"PO-Revision-Date: 2011-02-16 13:41\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,10 @@ msgstr "Créer un nouveau groupe"
 msgid "There is no activity yet for this band !"
 msgstr "Il n'y encore aucune activité pour ce groupe !"
 
+#: templates/account/user_dashboard.html:128
+msgid "You are <strong>not in a band yet</strong> :-("
+msgstr ""
+
 #: templates/account/user_dashboard.html:133
 #, python-format
 msgid ""
@@ -172,6 +176,10 @@ msgstr "Créer une nouvelle scène"
 msgid "There is no activity yet for this venue !"
 msgstr "Il n'y a encore aucune activité pour cette scène !"
 
+#: templates/account/user_dashboard.html:200
+msgid "You are <strong>not managing a venue</strong>."
+msgstr ""
+
 #: templates/account/user_dashboard.html:205
 #, python-format
 msgid ""
@@ -189,12 +197,16 @@ msgstr ""
 #: templates/account/user_dashboard.html:222
 #, python-format
 msgid "Also in a band? <a href=\"%(url)s\">Register it now</a>!"
-msgstr "Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le maintenant</a> !"
+msgstr ""
+"Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le "
+"maintenant</a> !"
 
 #: templates/account/user_dashboard.html:228
 #, python-format
 msgid "Also running a venue? <a href=\"%(url)s\">Register it now</a>!"
-msgstr "Vous vous occupez également d'un scène ? <a href=\"%(url)s\">Enregistrez-la maintenant</a> !"
+msgstr ""
+"Vous vous occupez également d'un scène ? <a href=\"%(url)s\">Enregistrez-la "
+"maintenant</a> !"
 
 #: templates/account/user_dashboard.html:245
 #: templates/userena/profile_detail.html:111

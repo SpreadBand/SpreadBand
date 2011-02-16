@@ -14,7 +14,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('Guillame Libersat', 'guillaume@spreadband.com'),
+     ('Guillaume Libersat', 'guillaume@spreadband.com'),
 )
 
 MANAGERS = ADMINS
@@ -364,11 +364,7 @@ OAUTH_ACCESS_SETTINGS = {
 HAYSTACK_SITECONF = 'spreadband.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 
-if DEBUG:
-    HAYSTACK_WHOOSH_PATH = 'spreadband_index'
-else:
-    HAYSTACK_WHOOSH_PATH = '/home/spreadband/virtualenvs/spreadband.com/spreadband/spreadband_index'
-
+HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_PATH, 'spreadband_index')
 
 # PRIVATE ALPHA/BETA
 PRIVATEBETA_REDIRECT_URL = "/beta"
