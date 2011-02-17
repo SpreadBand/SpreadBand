@@ -158,6 +158,7 @@ def new(request):
                               context_instance=RequestContext(request)
                               )
 
+@login_required
 def detail(request, venue_slug):
     """
     A view to route to the dashboard or the public depending on the
@@ -173,12 +174,14 @@ def detail(request, venue_slug):
     else:
         return redirect('venue:profile', venue.slug)
 
+@login_required
 def my_public_view(request, venue_slug):
     """
     Public profile when seen by the owner
     """
     return public_view(request, venue_slug, template_name='venue/myprofile.html')
 
+@login_required
 def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     """
     Show public page of a Venue
@@ -204,12 +207,12 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
 
     # if this is not our venue, then record us as a visitor
     # Venues
-    if not is_managed:
-        for venue in request.user.venues.all():
-            record_visit(venue, venue)
-            
-        for band in request.user.bands.all():
-            record_visit(band, venue)
+    if not is_managed and not request.user.is_anonymous:
+            for venue in request.user.venues.all():
+                record_visit(venue, venue)
+                
+            for band in request.user.bands.all():
+                record_visit(band, venue)
 
 
     extra_context = {'latest_bands': latest_bands,
@@ -448,7 +451,7 @@ def search(request):
             country = countries.OFFICIAL_COUNTRIES[default_country]
             if country and default_city:
                 center = lookup_place(default_city, country)
-        except geocoders.google.GQueryError, e:
+        except (geocoders.google.GQueryError, KeyError), e:
             pass
         
     geosearch_form = VenueGeoSearchForm(request.GET or {'circle_x': center.x,
