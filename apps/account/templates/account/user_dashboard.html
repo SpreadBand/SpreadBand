@@ -57,9 +57,10 @@
     </div>
     <div id="user-infos">
       {% with user.get_profile as profile %}
-	<label for="name">{% trans "Name" %}</label><span id="name">{{ user.get_full_name|default:"John Doe" }}</span>
+	{% url userena_profile_edit user as edit_user_url %}
+	<label for="name">{% trans "Name" %}</label><span id="name">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}[<a href="{% url userena_profile_edit user %}">{% trans "Click to set your name" %}</a>]{% endif %}</span>
 	<label for="email">{% trans "E-mail" %}</label><span id="email"><a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
-	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} {% if profile.country %}<img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/>{% endif %}</span>
+	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"????" }}, {{ profile.country|default:"Earth" }} {% if profile.country %}<img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/>{% endif %}</span>
 	<label for="joined">{% trans "Joined" %}</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
       {% endwith %}
     </div>
