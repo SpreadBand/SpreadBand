@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-16 12:24+0100\n"
-"PO-Revision-Date: 2011-02-16 13:13\n"
+"PO-Revision-Date: 2011-02-21 18:30\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,11 +61,11 @@ msgstr "Peut gérer cette scène"
 
 #: models.py:27
 msgid "name"
-msgstr "nom"
+msgstr "Nom"
 
 #: models.py:31
 msgid "ambiance"
-msgstr "ambiance"
+msgstr "Ambiance"
 
 #: models.py:35
 msgid "address"
@@ -81,11 +81,11 @@ msgstr ""
 
 #: models.py:37
 msgid "city"
-msgstr "ville"
+msgstr "Ville"
 
 #: models.py:39
 msgid "zipcode"
-msgstr "code postal"
+msgstr "Code postal"
 
 #: models.py:41
 msgid "country"
@@ -105,7 +105,7 @@ msgstr ""
 
 #: models.py:49
 msgid "capacity"
-msgstr "capacité"
+msgstr "Capacité"
 
 #: models.py:51
 msgid "How many people can you welcome during a gig ?"
@@ -113,7 +113,7 @@ msgstr "Combien de personnes peuvent vous accueillir lors d'un concert ?"
 
 #: models.py:63
 msgid "video"
-msgstr "vidéo"
+msgstr "Vidéo"
 
 #: models.py:64
 msgid ""
@@ -124,15 +124,15 @@ msgstr ""
 
 #: models.py:113
 msgid "image"
-msgstr "image"
+msgstr "Image"
 
 #: models.py:117
 msgid "title"
-msgstr "titre"
+msgstr "Titre"
 
 #: models.py:125
 msgid "use as avatar ?"
-msgstr "utiliser comme avatar ?"
+msgstr "Utiliser comme avatar ?"
 
 #: models.py:127
 msgid "Check this if you want to use this picture as your avatar"
@@ -195,7 +195,7 @@ msgstr "Vous ne pouvez pas laisser cette scène seule"
 
 #: templates/venue/base.html:20
 msgid "no venue avatar"
-msgstr "aucun avatar de scène"
+msgstr "Aucun avatar de scène"
 
 #: templates/venue/base.html:20
 msgid "Click here to upload an avatar"
@@ -380,7 +380,7 @@ msgstr "<strong>Ambiance</strong> :"
 
 #: templates/venue/profile.html:25
 msgid "No ambiance."
-msgstr "Éclectique. "
+msgstr "Variée. "
 
 #: templates/venue/profile.html:29 templates/venue/profile.html.py:36
 msgid "edit"

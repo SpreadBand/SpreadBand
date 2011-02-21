@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-08 15:48+0100\n"
-"PO-Revision-Date: 2011-02-08 17:56\n"
-"Last-Translator: Bob Iboob <bob@bob.fr>\n"
+"POT-Creation-Date: 2011-02-21 18:04+0100\n"
+"PO-Revision-Date: 2011-02-21 18:23\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,9 +19,19 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
+#: forms.py:17
+msgid "I have all the rights to upload this track"
+msgstr "J'ai tous les droits pour télécharger ce titre"
+
+#: forms.py:18
+msgid ""
+"By checking this box, you certify that you have the rights to upload this "
+"track and that you are not belonging to a company that denies this."
+msgstr "En cochant cette case, vous certifiez que vous avez les droits pour télécharger ce titre et que vous n'appartenez pas à une société qui refuse la diffusion de celui-ci."
+
 #: management.py:10
 msgid "band comment on presskit"
-msgstr "Un groupe a laissé un commentaire sur votre PressKit"
+msgstr "commentaire d'un groupe sur votre PressKit"
 
 #: management.py:10
 msgid "A band has commented a presskit view request"
@@ -29,11 +39,11 @@ msgstr "Un groupe a commenté une demande de concert"
 
 #: management.py:11
 msgid "venue comment on presskit"
-msgstr "Commentaire d'une scène sur votre PressKit"
+msgstr "commentaire d'une scène sur votre PressKit"
 
 #: management.py:11
 msgid "A venue has commented a presskit view request"
-msgstr "Une scène a commenté un demande de concert"
+msgstr "Une scène a commenté une demande de concert"
 
 #: management.py:13
 msgid "venue accepted to setup a gig"
@@ -59,30 +69,73 @@ msgstr "Un groupe a proposé d'organiser un concert à une scène"
 msgid "A band has proposed to set up a gig"
 msgstr "Un groupe a proposé d'organiser un concert"
 
-#: models.py:39
+#: models.py:39 models_flymake.py:39
 msgid "Pending"
 msgstr "En attente"
 
-#: models.py:40
+#: models.py:40 models_flymake.py:40
 msgid "Seen"
 msgstr "Vue"
 
-#: models.py:41
+#: models.py:41 models_flymake.py:41
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: models.py:42
+#: models.py:42 models_flymake.py:42
 msgid "Declined"
 msgstr "Refusée"
 
-#: models.py:43
+#: models.py:43 models_flymake.py:43
 msgid "Canceled"
 msgstr "Annulée"
 
-#: views.py:84
+#: views.py:79 views.py:120 views.py:145 views.py:157 views.py:178
+#: views.py:204 views.py:219
+msgid "You are not allowed to manage this band"
+msgstr "Vous n'êtes pas autorisé à gérer ce groupe"
+
+#: views.py:100
 #, python-format
 msgid "%(band_name)s presskit was sent to %(venue_name)s"
 msgstr "Le presskit de %(band_name)s a été envoyé à %(venue_name)s "
+
+#: templates/activity/presskitview_accepted/action.html:3
+msgid "accepted"
+msgstr "acceptée"
+
+#: templates/activity/presskitview_accepted/action.html:4
+msgid "accepted to set up a gig with"
+msgstr "accepté d'organiser un concert avec"
+
+#: templates/activity/presskitview_accepted/action.html:4
+#: templates/activity/presskitview_commented_on/action.html:4
+#: templates/activity/presskitview_refused/action.html:4
+msgid "request"
+msgstr "demande"
+
+#: templates/activity/presskitview_commented_on/action.html:3
+msgid "Commented on"
+msgstr "Commentée sur"
+
+#: templates/activity/presskitview_commented_on/action.html:4
+msgid "commented on"
+msgstr "commentée sur"
+
+#: templates/activity/presskitview_refused/action.html:3
+msgid "refused"
+msgstr "refusée"
+
+#: templates/activity/presskitview_refused/action.html:4
+msgid "refused to set up a gig with"
+msgstr "refusé d'organisé un concert avec"
+
+#: templates/activity/presskitview_sent/action.html:3
+msgid "Sent"
+msgstr "Envoyée"
+
+#: templates/activity/presskitview_sent/action.html:4
+msgid "sent its PressKit to"
+msgstr "a envoyé son PressKit à"
 
 #: templates/presskit/mypresskit.html:24
 msgid "Presskit"
@@ -112,105 +165,110 @@ msgstr "<strong>Genres</strong> :"
 msgid "No genre."
 msgstr "Aucun genre."
 
-#: templates/presskit/presskit_content.html:36
+#: templates/presskit/presskit_content.html:33
+#: templates/presskit/presskit_content.html:44
+msgid "edit"
+msgstr "modifier"
+
+#: templates/presskit/presskit_content.html:39
 msgid "<strong>Influences</strong>:"
 msgstr "<strong>Influences</strong> :"
 
-#: templates/presskit/presskit_content.html:38
+#: templates/presskit/presskit_content.html:41
 msgid "No influences."
 msgstr "Aucune influence."
 
-#: templates/presskit/presskit_content.html:44
+#: templates/presskit/presskit_content.html:50
 msgid "Members"
 msgstr "Membres"
 
-#: templates/presskit/presskit_content.html:46
-#: templates/presskit/presskit_content.html:84
-#: templates/presskit/presskit_content.html:104
-#: templates/presskit/presskit_content.html:151
-#: templates/presskit/presskit_content.html:244
-#: templates/presskit/presskit_content.html:290
-#: templates/presskit/presskit_content.html:319
-#: templates/presskit/presskit_content.html:347
-#: templates/presskit/presskit_content.html:371
+#: templates/presskit/presskit_content.html:52
+#: templates/presskit/presskit_content.html:90
+#: templates/presskit/presskit_content.html:110
+#: templates/presskit/presskit_content.html:157
+#: templates/presskit/presskit_content.html:250
+#: templates/presskit/presskit_content.html:296
+#: templates/presskit/presskit_content.html:325
+#: templates/presskit/presskit_content.html:353
+#: templates/presskit/presskit_content.html:377
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/presskit/presskit_content.html:65
+#: templates/presskit/presskit_content.html:71
 msgid "Latest Gigs"
 msgstr "Derniers concerts"
 
-#: templates/presskit/presskit_content.html:75
+#: templates/presskit/presskit_content.html:81
 msgid "This band has no recent gigs."
 msgstr "Ce groupe n'a aucun concert récent."
 
-#: templates/presskit/presskit_content.html:82
+#: templates/presskit/presskit_content.html:88
 msgid "Social Networks"
 msgstr "Réseaux sociaux"
 
-#: templates/presskit/presskit_content.html:94
+#: templates/presskit/presskit_content.html:100
 msgid "No social profile"
 msgstr "Aucun profil dans les réseaux sociaux"
 
-#: templates/presskit/presskit_content.html:102
+#: templates/presskit/presskit_content.html:108
 msgid "Websites"
 msgstr "Sites web"
 
-#: templates/presskit/presskit_content.html:114
+#: templates/presskit/presskit_content.html:120
 msgid "No website"
 msgstr "Aucun site web"
 
-#: templates/presskit/presskit_content.html:122
+#: templates/presskit/presskit_content.html:128
 msgid "A few stats"
 msgstr "Quelques statistiques"
 
-#: templates/presskit/presskit_content.html:125
+#: templates/presskit/presskit_content.html:131
 #, python-format
 msgid " Active since %(date)s"
 msgstr "Actif depuis %(date)s "
 
-#: templates/presskit/presskit_content.html:127
+#: templates/presskit/presskit_content.html:133
 msgid "Already played X gigs"
 msgstr "Déjà joué X concerts"
 
-#: templates/presskit/presskit_content.html:128
+#: templates/presskit/presskit_content.html:134
 msgid "Played with Y other bands"
 msgstr "A joué avec Y autres groupes"
 
-#: templates/presskit/presskit_content.html:129
+#: templates/presskit/presskit_content.html:135
 msgid "Played at Z venues"
 msgstr "A joué dans Z scènes"
 
-#: templates/presskit/presskit_content.html:138
+#: templates/presskit/presskit_content.html:144
 #: templates/presskit/track_add.html:8 templates/presskit/track_list.html:8
 msgid "PressKit"
 msgstr "PressKit"
 
-#: templates/presskit/presskit_content.html:141
+#: templates/presskit/presskit_content.html:147
 msgid "This PressKit has been fully completed"
 msgstr "Ce Presskit a été complètement rempli"
 
-#: templates/presskit/presskit_content.html:149
+#: templates/presskit/presskit_content.html:155
 msgid "Biography"
 msgstr "Biographie"
 
-#: templates/presskit/presskit_content.html:157
+#: templates/presskit/presskit_content.html:163
 msgid "Read more"
 msgstr "Lire la suite"
 
-#: templates/presskit/presskit_content.html:159
+#: templates/presskit/presskit_content.html:165
 msgid "No biography."
 msgstr "Aucune biographie."
 
-#: templates/presskit/presskit_content.html:242
+#: templates/presskit/presskit_content.html:248
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/presskit/presskit_content.html:288
+#: templates/presskit/presskit_content.html:294
 msgid "Featured Tracks"
 msgstr "Morceaux en écoutes"
 
-#: templates/presskit/presskit_content.html:307
+#: templates/presskit/presskit_content.html:313
 msgid ""
 "You have not uploaded any tracks yet. You should do so if you want the "
 "venues to book you !"
@@ -218,43 +276,45 @@ msgstr ""
 "Vous n'avez pas encore téléchargé de morceaux. Vous devriez le faire pour "
 "que les lieux de concerts vous programme !"
 
-#: templates/presskit/presskit_content.html:317
+#: templates/presskit/presskit_content.html:323
 msgid "Pictures"
 msgstr "Photos"
 
-#: templates/presskit/presskit_content.html:345
+#: templates/presskit/presskit_content.html:351
 #: templates/presskit/video_edit.html:18
 msgid "Video"
 msgstr "Vidéos"
 
-#: templates/presskit/presskit_content.html:357
+#: templates/presskit/presskit_content.html:363
 msgid "No video has been set."
 msgstr "Aucune vidéo n'a été ajoutée."
 
-#: templates/presskit/presskit_content.html:369
+#: templates/presskit/presskit_content.html:375
 msgid "Technical Sheet"
 msgstr "Fiche technique"
 
-#: templates/presskit/presskit_content.html:379
+#: templates/presskit/presskit_content.html:385
 msgid "No technical sheet."
 msgstr "Pas de fiche technique."
 
-#: templates/presskit/presskit_content.html:390
+#: templates/presskit/presskit_content.html:396
 msgid "Latest reviews"
 msgstr "Derniers avis"
 
-#: templates/presskit/presskit_send.html:91
+#: templates/presskit/presskit_send.html:90
 #, python-format
 msgid "Send a Gig Request to %(venue_name)s"
 msgstr "Envoyez une demande de concert à %(venue_name)s "
 
-#: templates/presskit/presskit_send.html:92
+#: templates/presskit/presskit_send.html:91
 msgid ""
 "You can add a message if you want. Requests with a message tend to be "
 "<strong>more answered</strong>."
-msgstr "Vous pouvez ajouter un message si vous le souhaitez. Le demandes avec un message ont en général <strong>plus de réponses</strong>."
+msgstr ""
+"Vous pouvez ajouter un message si vous le souhaitez. Le demandes avec un "
+"message ont en général <strong>plus de réponses</strong>."
 
-#: templates/presskit/presskit_send.html:102
+#: templates/presskit/presskit_send.html:101
 msgid "Submit"
 msgstr "Envoyer"
 
@@ -408,11 +468,15 @@ msgstr "Ajouter une piste"
 
 #: templates/presskit/track_add.html:11
 msgid ""
-"Sorry, only <strong>MP3</strong> format is supported right now. <strong>Ogg</"
-"strong> is coming soon !"
+"Only <strong>MP3</strong> format is supported at the moment. Sorry for that, "
+"<strong>Ogg</strong> support is coming soon !"
 msgstr ""
 "Désolé, seulement le format <strong>MP3</strong> est supporté pour le "
 "moment. <strong>Ogg</strong> arrive bientôt!"
+
+#: templates/presskit/track_add.html:16
+msgid "Add"
+msgstr "Ajouter"
 
 #: templates/presskit/track_list.html:8
 msgid "Featured tracks"
