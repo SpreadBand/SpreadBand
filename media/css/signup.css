@@ -3,6 +3,18 @@
     position: relative;
 }
 
+.help {
+    font-size: 0.9em;
+    color: #666;
+    width: 400px;
+    padding-bottom: 5px;
+}
+
+form#signup input.example {
+    font-style: italic;
+    color: #888;
+}
+
 #signform h2 {
     background-image: url('../images/presskit/validated_ico.png');
     background-repeat: no-repeat;

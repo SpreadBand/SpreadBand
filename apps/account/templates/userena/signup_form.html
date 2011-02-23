@@ -12,9 +12,13 @@
   <script src="{% staticfile '/js/jquery/jquery.validationEngine-fr.js' %}" type="text/javascript" charset="utf-8"></script>
   <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
 
+  <script src="{% staticfile '/js/jquery/jquery.example.js' %}" type="text/javascript" charset="utf-8"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
 	$('form#signup').validationEngine();
+
+        $(".example").example(function() { return $(this).attr('title'); });
     });
   </script>
 {% endblock %}
@@ -34,12 +38,13 @@
 	<form id="signup" method="POST" action="{% url userena_signup %}">
 	  {% csrf_token %}
 
-           
+	  <p class="help">{% trans "This is a <strong>personnal</strong> account." %} {% trans "You will be registering your Band or Venue <strong>after</strong>." %}</p>
+
 	  <p>
 	    {{ form.username.errors }}
 	    <div class="valid-wrapper">
 	      {{ form.username.label_tag }}
-	      <input id="id_username" type="text" class="required validate[required,custom[onlyLetterNumber]]" name="username" maxlength="30" />
+	      <input id="id_username" title="{% trans "e.g: johndoe" %}" type="text" class="example required validate[required,custom[onlyLetterNumber]]" name="username" maxlength="30" />
 	    </div>
 	  </p>
            
@@ -47,7 +52,7 @@
 	    {{ form.email.errors }}
 	    <div class="valid-wrapper">
 	      {{ form.email.label_tag }}
-	      <input name="email" class="validate[required,custom[email]]" value="{{ form.email.value }}" class="required" maxlength="75" type="text" id="id_email" />
+	      <input name="email" title="{% trans "e.g. john@gmail.com" %}" class="example validate[required,custom[email]]" value="{{ form.email.value }}" class="required" maxlength="75" type="text" id="id_email" />
 	    </div>
 	  </p>
            

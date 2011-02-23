@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-16 13:40+0100\n"
-"PO-Revision-Date: 2011-02-18 17:33\n"
-"Last-Translator:   <>\n"
+"POT-Creation-Date: 2011-02-23 13:38+0100\n"
+"PO-Revision-Date: 2011-02-23 13:41\n"
+"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
-"X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Translated-Using: django-rosetta 0.5.9\n"
 
 #: forms.py:32
 msgid "New password"
@@ -111,7 +111,7 @@ msgstr "Bienvenue, %(username)s "
 msgid "Edit Your Profile"
 msgstr "Modifier votre profil"
 
-#: templates/account/user_dashboard.html:60
+#: templates/account/user_dashboard.html:61
 #: templates/contacts_import/select_contacts.html:42
 #: templates/contacts_import/select_contacts.html:66
 #: templates/userena/profile_detail.html:39
@@ -119,136 +119,132 @@ msgid "Name"
 msgstr "Nom"
 
 #: templates/account/user_dashboard.html:61
+msgid "Click to set your name"
+msgstr "Cliquez pour définir votre nom"
+
+#: templates/account/user_dashboard.html:62
 #: templates/contacts_import/select_contacts.html:43
 #: templates/contacts_import/select_contacts.html:67
 msgid "E-mail"
 msgstr "E-mail"
 
-#: templates/account/user_dashboard.html:62
+#: templates/account/user_dashboard.html:63
 #: templates/userena/profile_detail.html:40
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/account/user_dashboard.html:63
+#: templates/account/user_dashboard.html:64
 #: templates/userena/profile_detail.html:41
 msgid "Joined"
 msgstr "Inscrit"
 
-#: templates/account/user_dashboard.html:79
+#: templates/account/user_dashboard.html:80
 msgid "My Bands"
 msgstr "Mes groupes"
 
-#: templates/account/user_dashboard.html:82
+#: templates/account/user_dashboard.html:83
 msgid "Create a new band"
 msgstr "Créer un nouveau groupe"
 
-#: templates/account/user_dashboard.html:113
+#: templates/account/user_dashboard.html:114
 msgid "There is no activity yet for this band !"
 msgstr "Il n'y encore aucune activité pour ce groupe !"
 
-#: templates/account/user_dashboard.html:128
+#: templates/account/user_dashboard.html:129
 msgid "You are <strong>not in a band yet</strong> :-("
 msgstr "Vous n'êtes <strong>pas encore dans un groupe</strong> :-("
 
-#: templates/account/user_dashboard.html:133
+#: templates/account/user_dashboard.html:134
 #, python-format
 msgid ""
 "\n"
-"\t      You can <a href=\"%(band_create_url)s\">create one now</a> or <a "
-"href=\"%(band_search_url)s\">check if your band is already on SpreadBand</a> "
-"and ask your friends to add you to it.\n"
+"\t      You can <a href=\"%(band_create_url)s\">create one now</a> or <a href=\"%(band_search_url)s\">check if your band is already on SpreadBand</a> and ask your friends to add you to it.\n"
 "\t      "
 msgstr ""
 "\n"
-"Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a "
-"href=\"%(band_search_url)s\">vérifier si votre groupe est dejà sur "
-"SpreadBand</a> et demander aux autres membres de vous y ajouter."
+"Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a href=\"%(band_search_url)s\">vérifier si votre groupe est dejà sur SpreadBand</a> et demander aux autres membres de vous y ajouter."
 
-#: templates/account/user_dashboard.html:151
+#: templates/account/user_dashboard.html:152
 msgid "My Venues"
 msgstr "Mes scènes"
 
-#: templates/account/user_dashboard.html:154
+#: templates/account/user_dashboard.html:155
 msgid "Create a new venue"
 msgstr "Créer une nouvelle scène"
 
-#: templates/account/user_dashboard.html:185
+#: templates/account/user_dashboard.html:186
 msgid "There is no activity yet for this venue !"
 msgstr "Il n'y a encore aucune activité pour cette scène !"
 
-#: templates/account/user_dashboard.html:200
+#: templates/account/user_dashboard.html:201
 msgid "You are <strong>not managing a venue</strong>."
 msgstr "Vous ne vous <strong>occupez d'aucune scène.</strong>"
 
-#: templates/account/user_dashboard.html:205
+#: templates/account/user_dashboard.html:206
 #, python-format
 msgid ""
 "\n"
-"\t      You can <a href=\"%(venue_create_url)s\">create one now</a> or <a "
-"href=\"%(venue_search_url)s\">check if your venue is already on SpreadBand</"
-"a>.\n"
+"\t      You can <a href=\"%(venue_create_url)s\">create one now</a> or <a href=\"%(venue_search_url)s\">check if your venue is already on SpreadBand</a>.\n"
 "\t      "
 msgstr ""
 "\n"
-"Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou "
-"<a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur "
-"SpreadBand</a>"
+"Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou <a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur SpreadBand</a>"
 
-#: templates/account/user_dashboard.html:222
+#: templates/account/user_dashboard.html:223
 #, python-format
 msgid "Also in a band? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
-"Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le "
-"maintenant</a> !"
+"Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le"
+" maintenant</a> !"
 
-#: templates/account/user_dashboard.html:228
+#: templates/account/user_dashboard.html:229
 #, python-format
 msgid "Also running a venue? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
-"Vous vous occupez également d'une scène ? <a href=\"%(url)s\">Enregistrez-la "
-"maintenant</a> !"
+"Vous vous occupez également d'une scène ? <a href=\"%(url)s"
+"\">Enregistrez-la maintenant</a> !"
 
-#: templates/account/user_dashboard.html:245
+#: templates/account/user_dashboard.html:246
 #: templates/userena/profile_detail.html:111
 msgid "Connections since a month"
 msgstr "Connexions du mois"
 
-#: templates/account/user_dashboard.html:254
+#: templates/account/user_dashboard.html:255
 #: templates/userena/profile_detail.html:120
 msgid "No connections yet"
 msgstr "Aucune connexion pour l'instant"
 
-#: templates/account/user_dashboard.html:255
+#: templates/account/user_dashboard.html:256
 #: templates/userena/profile_detail.html:121
 msgid "You'll find here connections with other musicians"
 msgstr "Vous trouverez ici vos connexions avec d'autres musiciens"
 
-#: templates/account/user_dashboard.html:263
+#: templates/account/user_dashboard.html:264
 msgid "Latest Notifications"
 msgstr "Derniers commentaires"
 
-#: templates/account/user_dashboard.html:266
+#: templates/account/user_dashboard.html:267
 msgid "Actions:"
 msgstr "Actions :"
 
-#: templates/account/user_dashboard.html:266
+#: templates/account/user_dashboard.html:267
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/account/user_dashboard.html:266
+#: templates/account/user_dashboard.html:267
 msgid "Mark all unseen notices seen"
 msgstr "Marquer toutes les alertes comme vues"
 
-#: templates/account/user_dashboard.html:272
+#: templates/account/user_dashboard.html:273
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:274
+#: templates/account/user_dashboard.html:275
 #, python-format
 msgid "%(time_since)s ago"
 msgstr " il y a %(time_since)s"
 
-#: templates/account/user_dashboard.html:296
+#: templates/account/user_dashboard.html:297
 msgid "You have no notices yet."
 msgstr "Vous n'avez pas de commentaires pour le moment."
 
@@ -259,8 +255,8 @@ msgstr "Votre avatar actuel :"
 #: templates/avatar/add.html:8
 msgid "You haven't uploaded an avatar yet. Please upload one now."
 msgstr ""
-"Vous n'avez pas encore téléchargé d'avatar. Veuillez en télécharger un dès "
-"maintenant."
+"Vous n'avez pas encore téléchargé d'avatar. Veuillez en télécharger un"
+" dès maintenant."
 
 #: templates/avatar/add.html:12
 msgid "Upload New Image"
@@ -269,24 +265,20 @@ msgstr "Envoyer une nouvelle image"
 #: templates/avatar/change.html:26
 msgid ""
 "\n"
-"      You haven't uploaded an avatar yet. We are therefore using one coming "
-"from the <a href=\"http://gravatar.com\">Gravatar</a> service.\n"
+"      You haven't uploaded an avatar yet. We are therefore using one coming from the <a href=\"http://gravatar.com\">Gravatar</a> service.\n"
 "      "
 msgstr ""
 "\n"
-"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un "
-"provenant de <a href=\"http://gravatar.com\">Gravatar</a> service."
+"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un provenant de <a href=\"http://gravatar.com\">Gravatar</a> service."
 
 #: templates/avatar/change.html:31
 msgid ""
 "\n"
-"      You can either upload one now below or <a href=\"http://gravatar.com/"
-"gravatars/new\">change your avatar on Gravatar</a>.\n"
+"      You can either upload one now below or <a href=\"http://gravatar.com/gravatars/new\">change your avatar on Gravatar</a>.\n"
 "      "
 msgstr ""
 "\n"
-"Vous pouvez soit en télécharger une maintenant ci-dessous ou <a href="
-"\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
+"Vous pouvez soit en télécharger une maintenant ci-dessous ou <a href=\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
 
 #: templates/avatar/change.html:41
 msgid "Use this avatar"
@@ -315,16 +307,11 @@ msgstr "Votre avatars"
 #: templates/avatar/change.html:63
 msgid ""
 "\n"
-"      Select the avatar you want to use. If you'd like to crop an avatar, "
-"select it, then hit \"Crop\". You can also add or delete avatars by clicking "
-"on the buttons below them.\n"
+"      Select the avatar you want to use. If you'd like to crop an avatar, select it, then hit \"Crop\". You can also add or delete avatars by clicking on the buttons below them.\n"
 "    "
 msgstr ""
 "\n"
-"Sélectionnez l'avatar que vous souhaitez utiliser. Si vous voulez recadrer "
-"un avatar, sélectionner-le, puis cliquez sur \"recadrer\". Vous pouvez "
-"également ajouter ou supprimer des avatars en cliquant sur les boutons "
-"situés en dessous."
+"Sélectionnez l'avatar que vous souhaitez utiliser. Si vous voulez recadrer un avatar, sélectionner-le, puis cliquez sur \"recadrer\". Vous pouvez également ajouter ou supprimer des avatars en cliquant sur les boutons situés en dessous."
 
 #: templates/avatar/change.html:68
 msgid "Gravatar support"
@@ -333,17 +320,11 @@ msgstr "Aide sur Gravatar"
 #: templates/avatar/change.html:70
 msgid ""
 "\n"
-"    If you don't have any avatar defined, we'll try to use the Gravatar "
-"(<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</"
-"strong>) service with your email address. <a href=\"http://gravatar.com"
-"\">Learn more about Gravatar &raquo;</a>\n"
+"    If you don't have any avatar defined, we'll try to use the Gravatar (<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</strong>) service with your email address. <a href=\"http://gravatar.com\">Learn more about Gravatar &raquo;</a>\n"
 "    "
 msgstr ""
 "\n"
-"Si vous n'avez défini aucun avatar, nous allons essayer d'utiliser le "
-"service Gravatar(<strong>G</strong>lobally <strong>R</strong>ecognized "
-"<strong>AVATAR</strong>) avec votre adresse email. <a href=\"http://gravatar."
-"com\">En savoir plus au sujet de Gravatar &raquo;</a>"
+"Si vous n'avez défini aucun avatar, nous allons essayer d'utiliser le service Gravatar(<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</strong>) avec votre adresse email. <a href=\"http://gravatar.com\">En savoir plus au sujet de Gravatar &raquo;</a>"
 
 #: templates/avatar/confirm_delete.html:27
 msgid "Please select the avatars that you would like to delete."
@@ -352,11 +333,11 @@ msgstr "Veuillez sélectionner les avatars que vous aimeriez effacer."
 #: templates/avatar/confirm_delete.html:30
 #, python-format
 msgid ""
-"You have no avatars to delete. Please <a href=\"%(avatar_change_url)s"
-"\">upload one</a> now."
+"You have no avatars to delete. Please <a "
+"href=\"%(avatar_change_url)s\">upload one</a> now."
 msgstr ""
-"Vous n'avez pas d'avatars à supprimer. Veuillez en <a href="
-"\"%(avatar_change_url)s\">télécharger un</a> maintenant."
+"Vous n'avez pas d'avatars à supprimer. Veuillez en <a "
+"href=\"%(avatar_change_url)s\">télécharger un</a> maintenant."
 
 #: templates/avatar/confirm_delete.html:37
 msgid "Delete These"
@@ -365,16 +346,11 @@ msgstr "Supprimer ceux là"
 #: templates/avatar/confirm_delete.html:44
 msgid ""
 "\n"
-"      Click on the avatars you want to delete. If you delete all your "
-"avatars, we'll try to use the Gravatar (<strong>G</strong>lobally <strong>R</"
-"strong>ecognized <strong>AVATAR</strong>) service with your e-mail address.\n"
+"      Click on the avatars you want to delete. If you delete all your avatars, we'll try to use the Gravatar (<strong>G</strong>lobally <strong>R</strong>ecognized <strong>AVATAR</strong>) service with your e-mail address.\n"
 "    "
 msgstr ""
 "\n"
-"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous "
-"vos avatars, nous essayerons d'utiliser le service Gravatar <strong>(G</"
-"strong> lobally <strong>R AVATAR</strong> ecognized) avec votre adresse e-"
-"mail."
+"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous vos avatars, nous essayerons d'utiliser le service Gravatar <strong>(G</strong> lobally <strong>R AVATAR</strong> ecognized) avec votre adresse e-mail."
 
 #: templates/avatar/crop.html:69
 msgid "Crop"
@@ -387,13 +363,11 @@ msgstr "Recadrage de l'avatar"
 #: templates/avatar/crop.html:75
 msgid ""
 "\n"
-"    Use your mouse to select an area of the picture. You can see a preview "
-"of your avatar below this text.\n"
+"    Use your mouse to select an area of the picture. You can see a preview of your avatar below this text.\n"
 "  "
 msgstr ""
 "\n"
-"Utilisez votre souris pour sélectionner une zone de l'image. Vous pouvez "
-"voir un aperçu de votre avatar en dessous de ce texte."
+"Utilisez votre souris pour sélectionner une zone de l'image. Vous pouvez voir un aperçu de votre avatar en dessous de ce texte."
 
 #: templates/avatar/crop.html:81
 msgid "Small"
@@ -410,13 +384,11 @@ msgstr "Cadrage actuel"
 #: templates/avatar/crop.html:97
 msgid ""
 "\n"
-"    For reference, here's your current cropping. Your new cropping will "
-"replace this one.\n"
+"    For reference, here's your current cropping. Your new cropping will replace this one.\n"
 "    "
 msgstr ""
 "\n"
-"Pour référence, voici votre cadrage actuel. Votre nouveau cadrage remplacera "
-"celui là."
+"Pour référence, voici votre cadrage actuel. Votre nouveau cadrage remplacera celui là."
 
 #: templates/contacts_import/import_contacts.html:15
 msgid "Import contacts"
@@ -425,27 +397,21 @@ msgstr "Importer des contacts"
 #: templates/contacts_import/import_contacts.html:19
 msgid ""
 "\n"
-"\tPlease select your email provider from which you'd like to import your "
-"contacts.\n"
-"\tWe <strong>do not</strong> keep your password nor your contacts once the "
-"import step is finished.\n"
+"\tPlease select your email provider from which you'd like to import your contacts.\n"
+"\tWe <strong>do not</strong> keep your password nor your contacts once the import step is finished.\n"
 "      "
 msgstr ""
 "\n"
-"Veuillez choisir le fournisseur de messagerie à partir duquel vous souhaitez "
-"importer vos contacts. Nous <strong>ne conservons pas</strong> votre mot de "
-"passe ni vos contacts une fois l'étape d'importation terminée."
+"Veuillez choisir le fournisseur de messagerie à partir duquel vous souhaitez importer vos contacts. Nous <strong>ne conservons pas</strong> votre mot de passe ni vos contacts une fois l'étape d'importation terminée."
 
 #: templates/contacts_import/import_contacts.html:25
 msgid ""
 "\n"
-"\tIf you prefer to <strong>enter manually</strong> your friends email "
-"adresses, please do so in the form at the bottom of this page.\n"
+"\tIf you prefer to <strong>enter manually</strong> your friends email adresses, please do so in the form at the bottom of this page.\n"
 "      "
 msgstr ""
 "\n"
-"Si vous préférez <strong>saisir manuellement</strong> les adresses email de "
-"vos amis, veuillez le faire dans le formulaire au bas de cette page."
+"Si vous préférez <strong>saisir manuellement</strong> les adresses email de vos amis, veuillez le faire dans le formulaire au bas de cette page."
 
 #: templates/contacts_import/import_contacts.html:47
 msgid "Click to import from GMail"
@@ -453,8 +419,8 @@ msgstr "Cliquez pour importer via GMail"
 
 #: templates/contacts_import/import_contacts.html:56
 msgid ""
-"Please split email adresses by a comma. For example: \"user@somewhere.tld, "
-"robert@ac.de, john@doe.org\". "
+"Please split email adresses by a comma. For example: "
+"\"user@somewhere.tld, robert@ac.de, john@doe.org\". "
 msgstr ""
 "Veillez à séparer les adresse mails par une virgule. Par exemple: "
 "\"user@somewhere.tld, robert@ac.de, john@doe.org\"."
@@ -471,15 +437,11 @@ msgstr "Importer des adresses e-mail"
 #: templates/contacts_import/select_contacts.html:30
 msgid ""
 "\n"
-"    Please <strong>select your contacts</strong> you'd like to invite on "
-"SpreadBand. The message at the bottom of this page will be sent. You can, of "
-"course, change it if you want.\n"
+"    Please <strong>select your contacts</strong> you'd like to invite on SpreadBand. The message at the bottom of this page will be sent. You can, of course, change it if you want.\n"
 "    "
 msgstr ""
 "\n"
-"Veuillez <strong>sélectionner les contacts</strong> que vous souhaitez "
-"inviter sur SpreadBand. Le message au bas de cette page sera envoyée. Vous "
-"pouvez, bien sûr, le changer si le souhaitez."
+"Veuillez <strong>sélectionner les contacts</strong> que vous souhaitez inviter sur SpreadBand. Le message au bas de cette page sera envoyée. Vous pouvez, bien sûr, le changer si le souhaitez."
 
 #: templates/contacts_import/import_email_list.html:30
 #: templates/contacts_import/select_contacts.html:87
@@ -530,12 +492,12 @@ msgstr "Note"
 #: templates/notification/notice_settings.html:20
 #, python-format
 msgid ""
-"You do not have a verified email address to which notices can be sent. You "
-"can add one by going to <a href=\"%(email_url)s\">Account</a>."
+"You do not have a verified email address to which notices can be sent. "
+"You can add one by going to <a href=\"%(email_url)s\">Account</a>."
 msgstr ""
-"Vous n'avez pas d'adresse e-mail valide sur laquelle les notifications "
-"peuvent être envoyées. Vous pouvez en ajouter une en allant à <a href="
-"\"%(email_url)s\">compte</a> ."
+"Vous n'avez pas d'adresse e-mail valide sur laquelle les notifications"
+" peuvent être envoyées. Vous pouvez en ajouter une en allant à <a "
+"href=\"%(email_url)s\">compte</a> ."
 
 #: templates/notification/notice_settings.html:28
 msgid "Notification Type"
@@ -550,16 +512,11 @@ msgstr "Mise à jour"
 #: templates/notification/notice_settings.html:53
 msgid ""
 "\n"
-"  You can tune here how we send you notifications. Be smart, remember that "
-"getting notifications makes you sure you respond fast : other will be "
-"waiting shorter and you'll get better results.\n"
+"  You can tune here how we send you notifications. Be smart, remember that getting notifications makes you sure you respond fast : other will be waiting shorter and you'll get better results.\n"
 "  "
 msgstr ""
 "\n"
-"Vous pouvez régler ici la façon dont nous vous enverrons vos notifications. "
-"Soyez malin, rappelez-vous que les notifications vous permettent de réagir "
-"plus vite : les autres attendrons moins longtemps et vous aurez de meilleurs "
-"résultats."
+"Vous pouvez régler ici la façon dont nous vous enverrons vos notifications. Soyez malin, rappelez-vous que les notifications vous permettent de réagir plus vite : les autres attendrons moins longtemps et vous aurez de meilleurs résultats."
 
 #: templates/userena/disabled.html:4
 msgid "Unconfirmed account"
@@ -571,40 +528,40 @@ msgstr "Votre compte n'est pas encore activé !"
 
 #: templates/userena/disabled.html:10
 msgid ""
-"Have you confirmed your account by <strong>clicking on the activation link</"
-"strong> in the <strong>e-mail we sent you</strong>?"
+"Have you confirmed your account by <strong>clicking on the activation "
+"link</strong> in the <strong>e-mail we sent you</strong>?"
 msgstr ""
 "Avez-vous confirmé votre compte en <strong>cliquant sur le lien "
-"d'activation</strong> dans <strong>l'e-mail que nous vous avons envoyé</"
-"strong> ?"
+"d'activation</strong> dans <strong>l'e-mail que nous vous avons "
+"envoyé</strong> ?"
 
 #: templates/userena/disabled.html:12
 msgid ""
-"Don't forget to check your <strong>spam folder</strong> in case the email "
-"landed there."
+"Don't forget to check your <strong>spam folder</strong> in case the "
+"email landed there."
 msgstr ""
-"N'oubliez pas de vérifier votre <strong>dossier spam</strong> au cas où "
-"l'email serait dedans."
+"N'oubliez pas de vérifier votre <strong>dossier spam</strong> au cas "
+"où l'email serait dedans."
 
 #: templates/userena/disabled.html:14
 msgid ""
-"We hope you understand you need to confirm your account to prevent robots "
-"from signing up and bothering the SpreadBand community."
+"We hope you understand you need to confirm your account to prevent "
+"robots from signing up and bothering the SpreadBand community."
 msgstr ""
-"Nous espérons que vous comprenez que vous avez besoin de confirmer votre "
-"compte pour éviter que des robots s'inscrivent et ennuient la communauté "
-"SpreadBand."
+"Nous espérons que vous comprenez que vous avez besoin de confirmer "
+"votre compte pour éviter que des robots s'inscrivent et ennuient la "
+"communauté SpreadBand."
 
 #: templates/userena/disabled.html:16
 msgid ""
-"Anyway, if you're lost, <strong>feel free to contact us</strong> to find out "
-"why."
+"Anyway, if you're lost, <strong>feel free to contact us</strong> to "
+"find out why."
 msgstr ""
 "Quoi qu'il en soit, si vous êtes perdus <strong>n'hésitez pas à nous "
 "contacter</strong> !"
 
 #: templates/userena/disabled.html:18
-#: templates/userena/signup_complete.html:25
+#: templates/userena/signup_complete.html:28
 msgid "Back home"
 msgstr "Retour à la page principale"
 
@@ -624,14 +581,11 @@ msgstr "Modifiez l'email"
 #: templates/userena/password_form.html:20
 msgid ""
 "\n"
-"    You can update your password here. Try to use a password with numbers or "
-"special characters. It makes it stronger to attacks.\n"
+"    You can update your password here. Try to use a password with numbers or special characters. It makes it stronger to attacks.\n"
 "    "
 msgstr ""
 "\n"
-"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot "
-"de passe avec des chiffres ou caractères spéciaux. Ca le rend plus fort "
-"contre les attaques."
+"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot de passe avec des chiffres ou caractères spéciaux. Ca le rend plus fort contre les attaques."
 
 #: templates/userena/profile_detail.html:22
 msgid "Public profile of"
@@ -681,13 +635,11 @@ msgstr "Votre profil"
 #: templates/userena/profile_form.html:31
 msgid ""
 "\n"
-"    Please describe yourself there. These information are important so that "
-"others can better know who you are.\n"
+"    Please describe yourself there. These information are important so that others can better know who you are.\n"
 "    "
 msgstr ""
 "\n"
-"Veuillez vous décrire ici. Ces informations sont importantes pour que les "
-"autres puissent mieux vous connaître."
+"Veuillez vous décrire ici. Ces informations sont importantes pour que les autres puissent mieux vous connaître."
 
 #: templates/userena/signin_form.html:17
 msgid "Hi !"
@@ -711,11 +663,11 @@ msgstr "N'oubliez pas"
 
 #: templates/userena/signin_form.html:47
 msgid ""
-"Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien "
-"sur le site spreadband.com avant de vous identifier."
+"Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes "
+"bien sur le site spreadband.com avant de vous identifier."
 msgstr ""
-"Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien "
-"sur le site spreadband.com avant de vous identifier."
+"Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes "
+"bien sur le site spreadband.com avant de vous identifier."
 
 #: templates/userena/signin_form.html:57
 msgid "New here ?"
@@ -728,8 +680,8 @@ msgstr "Inscrivez-vous maintenant"
 #: templates/userena/signin_form.html:60
 msgid "for a SpreadBand account, it's free and takes less than a minute !"
 msgstr ""
-"pour créer un compte SpreadBand, c'est gratuit et ça prend moins d'une "
-"minute !"
+"pour créer un compte SpreadBand, c'est gratuit et ça prend moins d'une"
+" minute !"
 
 #: templates/userena/signin_form.html:62
 msgid "What is SpreadBand ?"
@@ -754,78 +706,103 @@ msgstr "Vérifiez votre boîte de réception, vous êtes à un clic de la fin !"
 #: templates/userena/signup_complete.html:21
 #, python-format
 msgid ""
-"You have been <strong>sent an e-mail</strong> with an activation link to "
-"<strong>%(email)s</strong>."
+"You have been <strong>sent an e-mail</strong> with an activation link "
+"to <strong>%(email)s</strong>."
 msgstr ""
-" <strong>Un e-mail</strong> vous a été envoyé avec un lien d'activation de "
-"<strong>%(email)s</strong>."
+"<strong>Un e-mail</strong> contenant un lien d'activation vous a été "
+"envoyé à <strong>%(email)s</strong>."
 
 #: templates/userena/signup_complete.html:22
 msgid ""
-"Please <strong>click on the activation link in the e-mail</strong> to start "
-"using SpreadBand!"
+"Please <strong>click on the activation link in the e-mail</strong> to "
+"start using SpreadBand!"
 msgstr ""
-"Veuillez <strong>cliquer sur le lien d'activation dans l'e-mail</strong> "
-"pour commencer à utiliser SpreadBand !"
+"Veuillez <strong>cliquer sur le lien d'activation dans "
+"l'e-mail</strong> pour commencer à utiliser SpreadBand !"
 
-#: templates/userena/signup_complete.html:23
+#: templates/userena/signup_complete.html:24
+msgid ""
+"Also, don't forget to <strong>check your spam folder</strong> in case "
+"the email landed there..."
+msgstr ""
+"N'oubliez pas de vérifier votre <strong>dossier de spams</strong> au "
+"cas où l'email serait dedans..."
+
+#: templates/userena/signup_complete.html:26
 #, python-format
 msgid ""
-"You have <strong>%(userena_activation_days)s days</strong> to complete the "
-"signup... so <cite>be quick or be dead</cite> :-)"
+"You have <strong>%(userena_activation_days)s days</strong> to complete "
+"the signup... so <cite>be quick or be dead</cite> :-)"
 msgstr ""
-"Vous avez <strong>%(userena_activation_days)s  jours</strong> pour finaliser "
-"votre inscrpition... alors <cite>soyez rapide ou vous êtes mort</cite> :-)"
+"Vous avez <strong>%(userena_activation_days)s  jours</strong> pour "
+"finaliser votre inscription... alors <cite>be quick or be dead</cite> "
+":-)"
 
-#: templates/userena/signup_complete.html:32
+#: templates/userena/signup_complete.html:35
 msgid ""
-"While you're waiting for the e-mail... why not telling your friends about "
-"SpreadBand ?"
+"While you're waiting for the e-mail... why not telling your friends "
+"about SpreadBand ?"
 msgstr ""
-"Pendant que vous attendez l'email ... pourquoi ne pas parler de SpreadBand à "
-"vos amis ?"
+"Pendant que vous attendez l'email ... pourquoi ne pas parler de "
+"SpreadBand à vos amis ?"
 
-#: templates/userena/signup_complete.html:39
+#: templates/userena/signup_complete.html:42
 msgid ""
-"Musiciens indépendants : trouvez des bars, organisez des concerts et créez "
-"votre réseau grâce à SpreadBand !"
+"Musiciens indépendants : trouvez des bars, organisez des concerts et "
+"créez votre réseau grâce à SpreadBand !"
 msgstr ""
-"Musiciens indépendants : trouvez des scènes, organisez des concerts et créez "
-"votre réseau grâce à SpreadBand !"
+"Musiciens indépendants : trouvez des scènes, organisez des concerts et"
+" créez votre réseau grâce à SpreadBand !"
 
-#: templates/userena/signup_complete.html:50
+#: templates/userena/signup_complete.html:53
 msgid "Share on Facebook"
 msgstr "Partager sur Facebook"
 
-#: templates/userena/signup_complete.html:54
-msgid ""
-"Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de "
-"musique ! http://spreadband.com"
-msgstr ""
-"Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de "
-"musique ! http://spreadband.com"
-
 #: templates/userena/signup_complete.html:57
+msgid ""
+"Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de"
+" musique ! http://spreadband.com"
+msgstr ""
+"Musiciens indépendants : découvrez SpreadBand et bookez votre groupe "
+"de musique ! http://spreadband.com"
+
+#: templates/userena/signup_complete.html:60
 msgid "Share on Twitter"
 msgstr "Partager sur Twitter"
 
-#: templates/userena/signup_form.html:23
+#: templates/userena/signup_form.html:27
 msgid "Signup"
 msgstr "S'inscrire"
 
-#: templates/userena/signup_form.html:31
+#: templates/userena/signup_form.html:35
 msgid "Signup for a SpreadBand Account"
-msgstr "Inscription pour un compte SpreadBand"
+msgstr "Inscrivez vous sur SpreadBand"
 
-#: templates/userena/signup_form.html:84
+#: templates/userena/signup_form.html:41
+msgid "This is a <strong>personnal</strong> account."
+msgstr "Ceci est un compte <strong>perso</strong>."
+
+#: templates/userena/signup_form.html:41
+msgid "You will be registering your Band or Venue <strong>after</strong>."
+msgstr "Vous enregistrerez votre Groupe ou Scène <strong>après</strong>."
+
+#: templates/userena/signup_form.html:47
+msgid "e.g: johndoe"
+msgstr "ex: david"
+
+#: templates/userena/signup_form.html:55
+msgid "e.g. john@gmail.com"
+msgstr "ex: david@gmail.com"
+
+#: templates/userena/signup_form.html:89
 msgid "Goooooo ! &raquo;"
 msgstr "Goooooo ! &raquo;"
 
-#: templates/userena/signup_form.html:91
+#: templates/userena/signup_form.html:96
 msgid "Your Band"
 msgstr "Votre groupe"
 
-#: templates/userena/signup_form.html:92
+#: templates/userena/signup_form.html:97
 msgid "You will able to register your band just after your have signed up."
 msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
 
@@ -835,8 +812,7 @@ msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
 #~ "      "
 #~ msgstr ""
 #~ "\n"
-#~ "Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un "
-#~ "lieu de concerts</strong> ?"
+#~ "Vous <strong> jouez de la musique</strong> ou vous <strong>dirigez un lieu de concerts</strong> ?"
 
 #~ msgid ""
 #~ "\n"
@@ -844,8 +820,7 @@ msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
 #~ "      "
 #~ msgstr ""
 #~ "\n"
-#~ "Enregistrez <a href=\"%(band_create_url)s\">votre groupe</a> dès "
-#~ "maintenant !"
+#~ "Enregistrez <a href=\"%(band_create_url)s\">votre groupe</a> dès maintenant !"
 
 #~ msgid "No notices."
 #~ msgstr "Aucune notification"

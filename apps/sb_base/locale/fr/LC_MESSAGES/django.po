@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-16 12:24+0100\n"
+"POT-Creation-Date: 2011-02-23 12:59+0100\n"
 "PO-Revision-Date: 2011-02-16 13:27\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
@@ -270,7 +270,9 @@ msgstr "Laissez un commentaire"
 msgid ""
 "We are very eager you leave feedback to help us improve the website, thank "
 "you !"
-msgstr "Nous vous sommes vraiment reconnaissant de nous laisser un commentaire pour nous aider à améliorer le site, merci !"
+msgstr ""
+"Nous vous sommes vraiment reconnaissant de nous laisser un commentaire pour "
+"nous aider à améliorer le site, merci !"
 
 #: templates/backcap/feedback_new_form.html:6
 msgid "I have a:"

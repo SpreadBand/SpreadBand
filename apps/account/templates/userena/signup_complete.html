@@ -20,6 +20,9 @@
   <div class="grid_10 alpha">
     <p>{% blocktrans with account.email as email %}You have been <strong>sent an e-mail</strong> with an activation link to <strong>{{ email }}</strong>.{% endblocktrans %}</p>
     <p>{% blocktrans %}Please <strong>click on the activation link in the e-mail</strong> to start using SpreadBand!{% endblocktrans %}</p>
+    
+    <p>{% blocktrans %}Also, don't forget to <strong>check your spam folder</strong> in case the email landed there...{% endblocktrans %}
+
     <p>{% blocktrans %}You have <strong>{{ userena_activation_days }} days</strong> to complete the signup... so <cite>be quick or be dead</cite> :-){% endblocktrans %}</p>
 
     <a href="{% url home %}">&larr; {% trans "Back home" %}</a>

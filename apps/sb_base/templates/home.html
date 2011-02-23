@@ -14,6 +14,8 @@
   <script src="{% staticfile '/js/jquery/jquery.validationEngine-en.js' %}" type="text/javascript" charset="utf-8"></script>
   <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
 
+  <script src="{% staticfile '/js/jquery/jquery.example.js' %}" type="text/javascript" charset="utf-8"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
 	$('#feature-tabs li a').featureList({
@@ -33,6 +35,7 @@
 					       afterShow: function() {
 						   $('form#signup').validationEngine({isOverflown: true,
 										      overfownDIV: ".inputContainer"});
+                                                   $(".example").example(function() { return $(this).attr('title'); });
 					       }
 					      }
 		 );
