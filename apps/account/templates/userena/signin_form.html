@@ -18,7 +18,7 @@
       
       <form class="fuzzyform" method="post" action=".">
 	{{ form.as_p }}
-	<input type="hidden" name="next" value="{{ next }}" />
+	<input type="hidden" name="next" value="{{ request.REQUEST.next }}" />
 	
 	<div class="grid_7 alpha omega">
 
