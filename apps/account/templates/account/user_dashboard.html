@@ -203,7 +203,7 @@
 	    <p>
 	      {% url venue:create as venue_create_url %}
 	      {% url venue:search as venue_search_url %}
-	      {% blocktrans with venue_create_url as venue_create_url and venue_search_url as venue_create_url %}
+	      {% blocktrans with venue_create_url as venue_create_url and venue_search_url as venue_search_url %}
 	      You can <a href="{{ venue_create_url }}">create one now</a> or <a href="{{ venue_search_url }}">check if your venue is already on SpreadBand</a>.
 	      {% endblocktrans %}
 	    </p>
