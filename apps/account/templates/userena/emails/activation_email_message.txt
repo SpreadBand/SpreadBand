@@ -1,0 +1,15 @@
+{% load i18n %}{% autoescape off %}
+Cher(e) {{ user.username }},
+
+Merci de votre inscription sur {{ site.name }}
+
+Pour activer votre compte, cliquez sur le lien suivant :
+
+{{ protocol }}://{{ site.domain }}{% url userena_activate user.username activation_key %}
+
+A bienôt sur SpreadBand !
+
+Musicalement,
+
+L'équipe SpreadBand
+{% endautoescape %}
