@@ -17,9 +17,9 @@ vobject==0.8.1c
 python-dateutil==1.5
 django-countries==1.0.4
 docutils
-geopy
+geopy==0.94
 whoosh==1.1.1
-django-haystack
+django-haystack==1.1.0
 pytz
 psycopg2
 PIL
@@ -30,7 +30,7 @@ beautifulsoup
 nose
 django-nose
 gdata
-tweepy
+tweepy==1.7.1
 lettuce
 werkzeug
 feedparser
@@ -39,24 +39,26 @@ feedparser
 -e git+https://github.com/SpreadBand/django-backcap.git#egg=django-backcap
 -e git+https://github.com/SpreadBand/django-elsewhere.git#egg=django-elsewhere
 -e git+https://github.com/SpreadBand/django-agenda.git#egg=django-agenda
-# -e git+http://github.com/SpreadBand/django-notification.git#egg=django-notification
 -e git+https://github.com/SpreadBand/django-durationfield.git#egg=django-durationfield
 -e git+https://github.com/SpreadBand/django-faq.git#egg=django-faq
 -e git+https://github.com/SpreadBand/django-fsm.git#egg=django-fsm
 -e git+https://github.com/SpreadBand/django-avatar.git#egg=django-avatar
 -e hg+https://bitbucket.org/glibersat/django-timedelta-field#egg=django-timedelta-field
-#-e git+https://github.com/SpreadBand/django-friends.git#egg=django-friends
 -e git+https://github.com/SpreadBand/django-contacts-import.git#egg=django-contacts-import
 -e git+https://github.com/SpreadBand/django-oauth-access.git#egg=django-oauth-access
 -e git+https://github.com/SpreadBand/django-socialbridge.git#egg=django-socialbridge
 -e git+https://github.com/SpreadBand/django-visitors.git#egg=django-visitors
+-e git+https://github.com/SpreadBand/django-badges.git#egg=django-badges
+
+# Temp
+-e git+https://github.com/SpreadBand/django-userena.git#egg=django-userena
+
 
 # Other repositories
 -e git+https://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 -e git+https://github.com/alex/django-filter.git#egg=django-filter
 -e git+https://github.com/stephanpoetschner/django-announcements.git#egg=django-announcements
 -e git+https://github.com/jtauber/django-notification.git#egg=django-notification
-#-e git+http://github.com/zen4ever/django-avatar-crop.git#egg=django-avatar-crop
 -e git+https://github.com/pydanny/django-wysiwyg.git#egg=django-wysiwyg
 -e svn+http://django-rosetta.googlecode.com/svn/trunk#egg=django-rosetta
 -e git+https://github.com/jezdez/django-robots.git#egg=django-robots
@@ -65,7 +67,6 @@ feedparser
 -e git+https://github.com/ericflo/django-threadedcomments.git#egg=django-threadedcomments
 -e hg+http://bitbucket.org/ubernostrum/django-registration#egg=django-registration
 -e git+https://github.com/peterbe/django-static.git#egg=django-static
--e git+https://github.com/pydanny/django-uni-form.git#egg=django-uni-form
 -e git+https://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
 -e git+https://github.com/justquick/django-activity-stream.git#egg=django-activity-stream
 -e git+https://github.com/jezdez/django-oembed.git#egg=django-oembed
@@ -76,6 +77,6 @@ feedparser
 -e git+https://github.com/jorgebastida/django-dajaxice.git#egg=django-dajaxice
 -e git+https://github.com/jorgebastida/django-dajax.git#egg=django-dajax
 -e git+https://github.com/justquick/django-template-utils.git#egg=django-template-utils
--e git+https://github.com/SpreadBand/django-badges.git#egg=django-badges
--e git+https://github.com/bread-and-pepper/django-userena.git#egg=django-userena
 
+# Still needed ?
+-e git+https://github.com/pydanny/django-uni-form.git#egg=django-uni-form
