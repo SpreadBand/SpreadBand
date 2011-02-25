@@ -36,7 +36,7 @@
       {% avatar profile.user 80 %}
     </div>
     <div id="user-infos">
-	<label for="name">{% trans "Name" %}</label><span id="name">{{ profile.user.get_full_name|default:"John Doe" }}</span>
+	<label for="name">{% trans "Name" %}</label><span id="name">{{ profile.user.get_full_name|default:"???" }}</span>
 	<label for="location">{% trans "Location" %}</label><span id="location">{{ profile.town|default:"Somewhere" }}, {{ profile.country|default:"Earth" }} {% if profile.country %}<img src="{{ profile.country.flag }}" alt="{{ profile.country.name }}" title="{{ profile.country.name }}"/>{% endif %}</span>
 	<label for="joined">{% trans "Joined" %}</label><span id="joined">{{ user.date_joined|date:"d M Y" }}</span>
 	<label for="last-login">{% trans "Last login" %}</label><span id="last-login">{{ user.last_login|naturalday }}</span>
@@ -49,6 +49,7 @@
 
   <div class="alpha grid_11">
 
+    {% if profile.user.bands.all|length %}
     <div id="band-list">
       <div id="band-side">
 	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands" width="90px" height="90px"/>
@@ -82,22 +83,45 @@
 	{% endif %}
       </div>
     </div>
-    
+    {% endif %}
 
-    {% if request.user.venue_memberships.all %}
-      <div id="your-venues" class="sectionbox">
-	<div class="header">
-	  <img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands"/>
-	  <h2>{% trans "Your Venues" %}</h2>
-	</div>
-	
-	<div class="separator"></div>
-	
-	<div class="content">
-	  <strong>WIP</strong>
-	</div>
-	
+    <div class="clear"></div>
+
+    {% if profile.user.venues.all|length %}
+    <div id="band-list">
+      <div id="band-side">
+	<img src="{% staticfile "/images/account/venues_ico.png" %}" alt="venues" width="90px" height="90px"/>
+	<h2>{% trans "Her/His Venues" %}</h2>
       </div>
+
+      <div id="band-main">
+        {% if profile.user.venue_memberships.all %}
+	  <ul id="bands">
+	    {% for venue in profile.user.venues.all %}
+	      <li>
+		<div class="band-picture">
+		  {% staticfile '/images/venue/no_picture.png' as default_pic %}
+		  <a href="{% url venue:detail venue.slug %}">
+		    <img id="photo" height="80px" width="80px" src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}" class="photo"/>
+		  </a>
+		</div>
+		
+		<div class="band-info">
+		  <a href="{% url venue:detail venue.slug %}">
+		    <span class="band-name">{{ venue.name|capfirst }}</span>
+		  </a>
+		  <span class="band-location">{{ venue.city }} {% if venue.country %}<img src="{{ venue.country.flag }}" alt="{{ venue.country.name }}" title="{{ venue.country.name }}"/>{% endif %}</span>
+		  <span class="band-style">{{ venue.genres|truncatewords:3 }}</span>
+		</div>
+	      </li>
+	    {% endfor %}
+	  </ul>
+
+	  <div class="clear"></div>
+	{% endif %}
+      </div>
+    </div>
+
     {% endif %}
   </div>
 
