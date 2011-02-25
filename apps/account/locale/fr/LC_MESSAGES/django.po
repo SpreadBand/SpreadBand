@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-23 13:38+0100\n"
-"PO-Revision-Date: 2011-02-23 13:41\n"
+"PO-Revision-Date: 2011-02-25 15:14\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -589,7 +589,7 @@ msgstr ""
 
 #: templates/userena/profile_detail.html:22
 msgid "Public profile of"
-msgstr "Profil publique de "
+msgstr "Profil public de "
 
 #: templates/userena/profile_detail.html:31
 #, python-format
