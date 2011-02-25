@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-23 13:38+0100\n"
-"PO-Revision-Date: 2011-02-25 15:14\n"
+"POT-Creation-Date: 2011-02-25 17:04+0100\n"
+"PO-Revision-Date: 2011-02-25 17:05\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -205,23 +205,23 @@ msgstr ""
 "\">Enregistrez-la maintenant</a> !"
 
 #: templates/account/user_dashboard.html:246
-#: templates/userena/profile_detail.html:111
+#: templates/userena/profile_detail.html:135
 msgid "Connections since a month"
 msgstr "Connexions du mois"
 
 #: templates/account/user_dashboard.html:255
-#: templates/userena/profile_detail.html:120
+#: templates/userena/profile_detail.html:144
 msgid "No connections yet"
 msgstr "Aucune connexion pour l'instant"
 
 #: templates/account/user_dashboard.html:256
-#: templates/userena/profile_detail.html:121
+#: templates/userena/profile_detail.html:145
 msgid "You'll find here connections with other musicians"
 msgstr "Vous trouverez ici vos connexions avec d'autres musiciens"
 
 #: templates/account/user_dashboard.html:264
 msgid "Latest Notifications"
-msgstr "Derniers commentaires"
+msgstr "Dernières alertes"
 
 #: templates/account/user_dashboard.html:267
 msgid "Actions:"
@@ -246,7 +246,7 @@ msgstr " il y a %(time_since)s"
 
 #: templates/account/user_dashboard.html:297
 msgid "You have no notices yet."
-msgstr "Vous n'avez pas de commentaires pour le moment."
+msgstr "Vous n'avez pas d'alertes pour le moment."
 
 #: templates/avatar/add.html:5
 msgid "Your current avatar: "
@@ -600,13 +600,13 @@ msgstr "Profil publique de %(username)s "
 msgid "Last login"
 msgstr "Dernière connexion"
 
-#: templates/userena/profile_detail.html:55
+#: templates/userena/profile_detail.html:56
 msgid "Her/His Bands"
-msgstr "Ses groupes"
+msgstr "Ses Groupes"
 
-#: templates/userena/profile_detail.html:91
-msgid "Your Venues"
-msgstr "Vos scènes"
+#: templates/userena/profile_detail.html:94
+msgid "Her/His Venues"
+msgstr "Ses Scènes"
 
 #: templates/userena/profile_form.html:7
 msgid "Profile settings"
@@ -805,6 +805,9 @@ msgstr "Votre groupe"
 #: templates/userena/signup_form.html:97
 msgid "You will able to register your band just after your have signed up."
 msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
+
+#~ msgid "Your Venues"
+#~ msgstr "Vos scènes"
 
 #~ msgid ""
 #~ "\n"
