@@ -50,9 +50,10 @@ feedparser
 -e git+https://github.com/SpreadBand/django-visitors.git#egg=django-visitors
 -e git+https://github.com/SpreadBand/django-badges.git#egg=django-badges
 
+-e git+https://github.com/SpreadBand/django-userena.git#egg=django-userena
 
 # Other repositories
--e git+https://github.com/bread-and-pepper/django-userena.git#egg=django-userena
+
 -e git+https://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 -e git+https://github.com/alex/django-filter.git#egg=django-filter
 -e git+https://github.com/stephanpoetschner/django-announcements.git#egg=django-announcements
