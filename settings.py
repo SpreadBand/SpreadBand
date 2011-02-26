@@ -275,7 +275,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 ### LOGIN, AUTHENTICATION
 AUTHENTICATION_BACKENDS = (
     'userena.backends.UserenaAuthenticationBackend',
-    'utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
+#    'utils.auth.backends.CaseInsensitiveUsernameEmailBackend',
     'guardian.backends.ObjectPermissionBackend',
     )
 
