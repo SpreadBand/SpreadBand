@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -587,42 +588,6 @@ from .forms import VenueMemberAddForm
 from .models import Venue, VenueMember
 
 @login_required
-def membership_add(request, venue_slug):
-    """
-    Add a member in the venue
-    """
-    venue = get_object_or_404(Venue, slug=venue_slug)
-
-    # Permissions
-    if not request.user.has_perm('venue.can_manage', venue):
-        return HttpResponseForbidden(_("You are not allowed to edit this venue"))
-
-    if request.method == 'POST':
-        addform = VenueMemberAddForm(request.POST)
-
-        if addform.is_valid():
-            # Set venue
-            venuemember = addform.save(commit=False)
-            
-            venuemember.venue = venue
-
-            # Save to DB
-            venuemember.save()
-            addform.save_m2m()
-
-            # Assign rights to the user
-            assign('venue.can_manage', venuemember.user, venue)
-            
-
-            return redirect(venuemember)
-
-    return create_object(request,
-                         form_class=VenueMemberAddForm,
-                         template_name='venue/membership_add.html',
-                         extra_context={'venue': venue},
-                         )
-
-@login_required
 def membership_manage(request, venue_slug):
     """
     Manage members in the venue
@@ -633,7 +598,27 @@ def membership_manage(request, venue_slug):
     if not request.user.has_perm('venue.can_manage', venue):
         return HttpResponseForbidden('You are not allowed to edit this venue')
 
-    memberadd_form = VenueMemberAddForm()
+    memberadd_form = VenueMemberAddForm(request.POST or None)
+
+    if request.method == 'POST':
+        if memberadd_form.is_valid():
+            # Set venue
+            venuemember = memberadd_form.save(commit=False)
+            
+            venuemember.venue = venue
+
+            # Save to DB
+            venuemember.save()
+            memberadd_form.save_m2m()
+
+            # Assign rights to the user
+            assign('venue.can_manage', venuemember.user, venue)
+
+            messages.success(request,
+                             _("%(username)s was successfully added to %(venue_name)s") % {'username': venuemember.user.username,
+                                                                                           'venue_name': venue.name}
+                             )
+
 
     return object_list(request,
                        queryset=VenueMember.objects.filter(venue__id=venue.id),
@@ -668,7 +653,7 @@ def membership_remove(request, venue_slug, member_id):
                          object_id=venuemember.id,
                          template_name='venue/venuemember_confirm_delete.html',
                          template_object_name='venuemember',
-                         post_delete_redirect=venuemember.get_absolute_url(),
+                         post_delete_redirect=reverse('venue:membership-manage', args=[venue.slug]),
                          extra_context={'venue': venue}
                          )
 

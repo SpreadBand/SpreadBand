@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-16 12:24+0100\n"
-"PO-Revision-Date: 2011-02-21 18:30\n"
-"Last-Translator:   <>\n"
+"POT-Creation-Date: 2011-03-07 12:36+0100\n"
+"PO-Revision-Date: 2011-03-07 12:36\n"
+"Last-Translator:   <venu@man.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
-"X-Translated-Using: django-rosetta 0.5.6\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Translated-Using: django-rosetta 0.5.9\n"
 
 #: forms.py:33
 msgid "Country"
@@ -44,8 +44,12 @@ msgid "Username"
 msgstr "Nom d'utilisateur"
 
 #: forms.py:89
-msgid "Enter the username of the person to add"
-msgstr "Entrez le nom de la personne à ajouter"
+msgid ""
+"Enter the username of the person to add. She/he must be registered on "
+"SpreadBand."
+msgstr ""
+"Entrez le nom d'utilisateur de la personne à ajouter. Elle/il doit "
+"avoir un compte sur SpreadBand."
 
 #: forms.py:97
 msgid "The user's nickname you have entered doesn't exist"
@@ -73,11 +77,11 @@ msgstr "Adresse"
 
 #: models.py:36
 msgid ""
-"Street name and number. Don't enter your postal code, city and country (see "
-"below)."
+"Street name and number. Don't enter your postal code, city and country "
+"(see below)."
 msgstr ""
-"Nom de la rue et numéro. Ne pas entrer votre code postal, ville et pays "
-"(voir ci-dessous)."
+"Nom de la rue et numéro. Ne pas entrer votre code postal, ville et "
+"pays (voir ci-dessous)."
 
 #: models.py:37
 msgid "city"
@@ -97,11 +101,11 @@ msgstr "Description"
 
 #: models.py:47
 msgid ""
-"Describe the ambiance of your venue: what kind of music do you usually play, "
-"what kind of people come, ..."
+"Describe the ambiance of your venue: what kind of music do you usually "
+"play, what kind of people come, ..."
 msgstr ""
-"Décrire l'ambiance de votre salle : quel genre de musique diffusez-vous, "
-"type de public, ..."
+"Décrire l'ambiance de votre salle : quel genre de musique diffusez-"
+"vous, type de public, ..."
 
 #: models.py:49
 msgid "capacity"
@@ -117,7 +121,8 @@ msgstr "Vidéo"
 
 #: models.py:64
 msgid ""
-"Paste an URL from Youtube, Dailymotion, Vimeo or another video provider."
+"Paste an URL from Youtube, Dailymotion, Vimeo or another video "
+"provider."
 msgstr ""
 "Coller une URL provenant de Youtube, Dailymotion, Vimeo ou un autre "
 "fournisseur de vidéo."
@@ -155,41 +160,46 @@ msgstr "Rôles"
 msgid "Whether the membership has been approved"
 msgstr "Si l'adhésion a été approuvée"
 
-#: views.py:74
+#: views.py:75
 #, python-format
 msgid "You have accepted to set up a gig with %s"
 msgstr "Vous avez accepté d'organiser un concert avec %s"
 
-#: views.py:92
+#: views.py:93
 #, python-format
 msgid "You have refused to set up a gig with %s"
 msgstr "Vous avez refusé d'organiser un concert avec %s"
 
-#: views.py:302 views.py:318 views.py:344
+#: views.py:308 views.py:324 views.py:350
 msgid "You are not allowed to manage this venue"
 msgstr "Vous n'êtes pas autorisé à gérer cette scène"
 
-#: views.py:370
+#: views.py:376
 msgid "Unable to lookup address"
 msgstr "Impossible de recherche l'adresse"
 
-#: views.py:527
+#: views.py:533
 msgid "Une nouvelle mission pour SuperLaurent"
 msgstr "Une nouvelle mission pour SuperLaurent"
 
-#: views.py:533
+#: views.py:539
 msgid "A new mission was successfully sent to SuperLaurent !"
 msgstr "Une nouvelle mission a été envoyée à SuperLaurent!"
 
-#: views.py:554
+#: views.py:560
 msgid "Type your text here !"
 msgstr "Tapez votre texte ici !"
 
-#: views.py:593 views.py:652
+#: views.py:618
+#, python-format
+msgid "%(username)s was successfully added to %(venue_name)s"
+msgstr ""
+
+#: views.py:642
 msgid "You are not allowed to edit this venue"
 msgstr "Vous n'êtes pas autorisé à modifier cette scène"
 
-#: views.py:655
+#: views.py:645
 msgid "You can't let this venue alone"
 msgstr "Vous ne pouvez pas laisser cette scène seule"
 
@@ -210,7 +220,7 @@ msgid "Profile"
 msgstr "Profil"
 
 #: templates/venue/base.html:40 templates/venue/membership_manage.html:12
-#: templates/venue/profile.html:61
+#: templates/venue/profile.html:62
 msgid "Staff"
 msgstr "Personnel"
 
@@ -233,14 +243,15 @@ msgstr "Hey, n'oubliez pas de compléter votre PressKit !"
 #: templates/venue/dashboard.html:101
 #, python-format
 msgid ""
-"By filling in your PressKit, you make sure the <strong>Venues will be more "
-"confident</strong>... so this is the best way <strong>to get booked</"
-"strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Do it now</a> &raquo;"
+"By filling in your PressKit, you make sure the <strong>Venues will be "
+"more confident</strong>... so this is the best way <strong>to get "
+"booked</strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Do it now</a> "
+"&raquo;"
 msgstr ""
-"En complétant votre PressKit, vous êtes sûr que les <strong> scènes auront "
-"d'avantage confiance</strong>... c'est le meilleur moyen <strong>d'être "
-"booké</strong>&nbsp! <a href=\"%(edit_presskit_url)s\">Faites-le dès "
-"maintenant</a> &raquo;"
+"En complétant votre PressKit, vous êtes sûr que les <strong> scènes "
+"auront d'avantage confiance</strong>... c'est le meilleur moyen "
+"<strong>d'être booké</strong>&nbsp! <a href=\"%(edit_presskit_url)s"
+"\">Faites-le dès maintenant</a> &raquo;"
 
 #: templates/venue/dashboard.html:105
 #, python-format
@@ -278,11 +289,11 @@ msgstr "Rechercher des groupes"
 
 #: templates/venue/dashboard.html:215
 msgid ""
-"Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez "
-"les</strong> à jouer chez vous !"
+"Recherchez des <strong>groupes</strong> en quelques clics et "
+"<strong>invitez les</strong> à jouer chez vous !"
 msgstr ""
-"Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez "
-"les</strong> à jouer chez vous !"
+"Recherchez des <strong>groupes</strong> en quelques clics et "
+"<strong>invitez les</strong> à jouer chez vous !"
 
 #: templates/venue/dashboard.html:223
 msgid "Recent visitors"
@@ -290,17 +301,17 @@ msgstr "Derniers visiteurs"
 
 #: templates/venue/dashboard.html:230
 msgid ""
-"You'll see here <strong>Bands</strong> and <strong>Venues</strong> that have "
-"visited your profile."
+"You'll see here <strong>Bands</strong> and <strong>Venues</strong> that"
+" have visited your profile."
 msgstr ""
-"Vous verrez ici <strong>les groupes</strong> et les <strong>scènes</strong> "
-"qui ont visité votre profil."
+"Vous verrez ici <strong>les groupes</strong> et les "
+"<strong>scènes</strong> qui ont visité votre profil."
 
 #: templates/venue/dashboard.html:237
 msgid "Members"
 msgstr "Membres"
 
-#: templates/venue/dashboard.html:238 templates/venue/profile.html:63
+#: templates/venue/dashboard.html:238 templates/venue/profile.html:64
 msgid "Manage"
 msgstr "Gérer"
 
@@ -336,16 +347,13 @@ msgstr "Ajouter un membre"
 #: templates/venue/myprofile.html:100
 msgid ""
 "\n"
-"      This is a <strong>preview</strong> of how bands and venues will see "
-"your venue. Make sure to <strong>edit all parts</strong> !\n"
+"      This is a <strong>preview</strong> of how bands and venues will see your venue. Make sure to <strong>edit all parts</strong> !\n"
 "      "
 msgstr ""
 "\n"
-"Ceci est un <strong>aperçu</strong> de la façon dont les groupes et les "
-"autres scènes verront votre scène. Assurez-vous d'avoir <strong>modifié "
-"toutes les parties !</strong>"
+"Ceci est un <strong>aperçu</strong> de la façon dont les groupes et les autres scènes verront votre scène. Assurez-vous d'avoir <strong>modifié toutes les parties !</strong>"
 
-#: templates/venue/picture_list.html:8 templates/venue/profile.html:207
+#: templates/venue/picture_list.html:8 templates/venue/profile.html:208
 msgid "Pictures"
 msgstr "Photos"
 
@@ -374,86 +382,86 @@ msgstr "Télécharger une image pour %(venue_name)s"
 msgid "Upload"
 msgstr "Télécharger"
 
-#: templates/venue/profile.html:23
+#: templates/venue/profile.html:24
 msgid "<strong>Ambiance</strong>:"
 msgstr "<strong>Ambiance</strong> :"
 
-#: templates/venue/profile.html:25
+#: templates/venue/profile.html:26
 msgid "No ambiance."
 msgstr "Variée. "
 
-#: templates/venue/profile.html:29 templates/venue/profile.html.py:36
+#: templates/venue/profile.html:30 templates/venue/profile.html.py:37
 msgid "edit"
 msgstr "modifier"
 
-#: templates/venue/profile.html:34
+#: templates/venue/profile.html:35
 msgid "<strong>Capacity</strong>:"
 msgstr "<strong>Capacité</strong> :"
 
-#: templates/venue/profile.html:83
+#: templates/venue/profile.html:84
 msgid "Latest Bands"
 msgstr "Derniers groupes"
 
-#: templates/venue/profile.html:88
+#: templates/venue/profile.html:89
 msgid "No bands have played there yet."
 msgstr "Aucun groupe n'a encore joué là."
 
-#: templates/venue/profile.html:115 templates/venue/venue_detail.html:100
+#: templates/venue/profile.html:116 templates/venue/venue_detail.html:100
 msgid "Venue"
 msgstr "Scène"
 
-#: templates/venue/profile.html:124
+#: templates/venue/profile.html:125
 msgid "No description."
 msgstr "Pas de description."
 
-#: templates/venue/profile.html:128 templates/venue/profile.html.py:209
-#: templates/venue/profile.html:233 templates/venue/profile.html.py:256
+#: templates/venue/profile.html:129 templates/venue/profile.html.py:210
+#: templates/venue/profile.html:234 templates/venue/profile.html.py:257
 #: templates/venue/venue_update.html:8 templates/venue/venue_update.html:12
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/venue/profile.html:139
+#: templates/venue/profile.html:140
 msgid "Send presskit of"
 msgstr "Envoyer le PressKit de"
 
-#: templates/venue/profile.html:140
+#: templates/venue/profile.html:141
 msgid "Click to propose a gig to this venue."
 msgstr "Cliquez pour proposer un concert à cette scène."
 
-#: templates/venue/profile.html:146
+#: templates/venue/profile.html:147
 #, python-format
 msgid "Send %(band_name)s PressKit"
 msgstr "Envoyer le PressKit de %(band_name)s"
 
-#: templates/venue/profile.html:169
+#: templates/venue/profile.html:170
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: templates/venue/profile.html:179
+#: templates/venue/profile.html:180
 msgid "Upcoming events"
 msgstr "Événements à venir"
 
-#: templates/venue/profile.html:184
+#: templates/venue/profile.html:185
 msgid "No upcoming event."
 msgstr "Aucun événement à venir."
 
-#: templates/venue/profile.html:191
+#: templates/venue/profile.html:192
 msgid "See full calendar"
 msgstr "Voir le calendrier complet"
 
-#: templates/venue/profile.html:231
+#: templates/venue/profile.html:232
 msgid "Video"
 msgstr "Vidéo"
 
-#: templates/venue/profile.html:243
+#: templates/venue/profile.html:244
 msgid "No video has been set."
 msgstr "Aucune vidéo n'a été ajoutée."
 
-#: templates/venue/profile.html:254 templates/venue/search.html:304
+#: templates/venue/profile.html:255 templates/venue/search.html:304
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/venue/profile.html:261
+#: templates/venue/profile.html:262
 msgid "Address:"
 msgstr "Adresse :"
 
@@ -472,16 +480,11 @@ msgstr "Votre recherche"
 #: templates/venue/search.html:306
 msgid ""
 "\n"
-"\t\tThe circle represents the area that is searched for venues. Click on it "
-"to edit, <strong>drag from the center to move it</strong> and <strong>click "
-"on the edge to resize it</strong>.\n"
+"\t\tThe circle represents the area that is searched for venues. Click on it to edit, <strong>drag from the center to move it</strong> and <strong>click on the edge to resize it</strong>.\n"
 "\t    "
 msgstr ""
 "\n"
-"Le cercle représente la zone de recherche des scènes. Cliquez dessus pour le "
-"modifier, <strong>faites le glisser à partir du centre pour le déplacer</"
-"strong> et <strong>cliquer sur le bord pour l'agrandir ou le reduire</"
-"strong>."
+"Le cercle représente la zone de recherche des scènes. Cliquez dessus pour le modifier, <strong>faites le glisser à partir du centre pour le déplacer</strong> et <strong>cliquer sur le bord pour l'agrandir ou le reduire</strong>."
 
 #: templates/venue/search.html:319
 msgid "Ambiance"
@@ -490,16 +493,11 @@ msgstr "Ambiance"
 #: templates/venue/search.html:323
 msgid ""
 "\n"
-"\t\tBy default, all the venues are selected. If you want to select only "
-"venues that have a given ambiance, select them by <strong>clicking on the "
-"terms in the cloud</strong> below:\n"
+"\t\tBy default, all the venues are selected. If you want to select only venues that have a given ambiance, select them by <strong>clicking on the terms in the cloud</strong> below:\n"
 "\t      "
 msgstr ""
 "\n"
-"Par défaut, toutes les scènes sont sélectionnées. Si vous souhaitez "
-"sélectionner uniquement les scènes avec une ambiance particulière, "
-"sélectionnez-les en <strong>cliquant sur les tags dans le nuage</strong> ci-"
-"dessous :"
+"Par défaut, toutes les scènes sont sélectionnées. Si vous souhaitez sélectionner uniquement les scènes avec une ambiance particulière, sélectionnez-les en <strong>cliquant sur les tags dans le nuage</strong> ci-dessous :"
 
 #: templates/venue/search.html:343
 msgid "Name"
@@ -520,15 +518,11 @@ msgstr "Envoyer SuperLaurent"
 #: templates/venue/search_cantfind.html:22
 msgid ""
 "\n"
-"      Vous n'avez pas <strong>réussi à trouver votre bar idéal</strong> ou "
-"vous connaissez <strong>un lieu non référencé</strong> ? Donnez du taff à "
-"<strong>SuperLaurent</strong>, il est là rien que pour vous !\n"
+"      Vous n'avez pas <strong>réussi à trouver votre bar idéal</strong> ou vous connaissez <strong>un lieu non référencé</strong> ? Donnez du taff à <strong>SuperLaurent</strong>, il est là rien que pour vous !\n"
 "    "
 msgstr ""
 "\n"
-"Vous n'avez pas <strong>réussi à trouver votre bar idéal</strong> ou vous "
-"connaissez <strong>un lieu non référencé</strong> ? Donnez du taff à "
-"<strong>SuperLaurent</strong>, il est là rien que pour vous !"
+"Vous n'avez pas <strong>réussi à trouver votre bar idéal</strong> ou vous connaissez <strong>un lieu non référencé</strong> ? Donnez du taff à <strong>SuperLaurent</strong>, il est là rien que pour vous !"
 
 #: templates/venue/search_results.html:5
 msgid "Search results"
@@ -540,11 +534,11 @@ msgstr "Pas de résultat"
 
 #: templates/venue/search_results.html:36
 msgid ""
-"Try to extends the range of search by using the circle or try to remove some "
-"ambiance tags."
+"Try to extends the range of search by using the circle or try to remove"
+" some ambiance tags."
 msgstr ""
-"Essayez d'agrandir la zone de recherche en utilisant le cercle ou retirez "
-"quelques tags."
+"Essayez d'agrandir la zone de recherche en utilisant le cercle ou "
+"retirez quelques tags."
 
 #: templates/venue/venue_list.html:7
 msgid "Venues"
@@ -581,8 +575,7 @@ msgstr "scène"
 #: templates/venue/venue_new.html:69
 msgid ""
 "\n"
-"\tBy registering your venue, bands will be able to send their PressKit so "
-"that you can set up a gig with them.\n"
+"\tBy registering your venue, bands will be able to send their PressKit so that you can set up a gig with them.\n"
 "\t"
 msgstr ""
 "\n"
@@ -612,7 +605,8 @@ msgstr "Mise à jour"
 
 #~ msgid "Unable to find this city. Check the country or be more specific."
 #~ msgstr ""
-#~ "Impossible de trouver cette ville. Vérifiez le pays ou soyez plus précis."
+#~ "Impossible de trouver cette ville. Vérifiez le pays ou soyez plus "
+#~ "précis."
 
 #~ msgid "Extends"
 #~ msgstr "Elargir à "

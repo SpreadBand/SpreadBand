@@ -86,7 +86,7 @@ class VenueMemberAddForm(forms.ModelForm):
     
     user = forms.CharField(label=_("Username"),
                            max_length=50, 
-                           help_text=_("Enter the username of the person to add")
+                           help_text=_("Enter the username of the person to add. She/he must be registered on SpreadBand.")
                            )
 
     def clean_user(self):

@@ -43,7 +43,7 @@
   <div id="addmember" class="grid_7 omega">
     <h3>{% blocktrans with venue.name as venue_name %}Add a member to {{ venue_name }}{% endblocktrans %}</h3>
     
-    <form method='POST' action='{% url venue:membership-add venue.slug %}' class="fuzzyform">
+    <form method='POST' action='{% url venue:membership-manage venue.slug %}' class="fuzzyform">
       {% csrf_token %}
       {{ memberadd_form.as_p }}
       <input type='submit' value="{% trans "Add member" %}">

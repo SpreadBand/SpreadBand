@@ -29,7 +29,6 @@ urlpatterns = patterns('',
 
     # membership
     #  url(r'^(?P<venue_slug>[-\w]+)/members/request$', views.members.membership_request, name='membership-request'),
-    url(r'^(?P<venue_slug>[-\w]+)/members/add$', views.membership_add, name='membership-add'),
     url(r'^(?P<venue_slug>[-\w]+)/members/(?P<member_id>\d+)/remove$', views.membership_remove, name='membership-remove'),
     url(r'^(?P<venue_slug>[-\w]+)/members/manage$', views.membership_manage, name='membership-manage'),
 
