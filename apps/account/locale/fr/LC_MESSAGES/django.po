@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-25 17:04+0100\n"
-"PO-Revision-Date: 2011-03-07 12:37\n"
-"Last-Translator:   <venu@man.com>\n"
+"POT-Creation-Date: 2011-03-08 18:44+0100\n"
+"PO-Revision-Date: 2011-03-08 18:55\n"
+"Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -669,25 +669,29 @@ msgstr ""
 "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes "
 "bien sur le site spreadband.com avant de vous identifier."
 
+#: templates/userena/signin_form.html:48
+msgid "Learn more"
+msgstr "En apprendre plus"
+
 #: templates/userena/signin_form.html:57
 msgid "New here ?"
 msgstr "Nouveau ici ?"
 
 #: templates/userena/signin_form.html:60
 msgid "Signup now"
-msgstr "Inscrivez-vous maintenant"
+msgstr "Inscrivez vous maintenant"
 
 #: templates/userena/signin_form.html:60
 msgid "for a SpreadBand account, it's free and takes less than a minute !"
 msgstr ""
-"pour créer un compte SpreadBand, c'est gratuit et ça prend moins d'une"
-" minute !"
+"pour un compte SpreadBand, c'est gratuit et ça prend moins d'une "
+"minute !"
 
 #: templates/userena/signin_form.html:62
 msgid "What is SpreadBand ?"
 msgstr "SpreadBand c'est quoi ?"
 
-#: templates/userena/signin_form.html:66
+#: templates/userena/signin_form.html:67
 msgid "Take a tour !"
 msgstr "Faites un tour !"
 

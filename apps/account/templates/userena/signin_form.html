@@ -45,7 +45,7 @@
 	</div>
 	<div id="attentiontext">
 	  {% trans "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien sur le site spreadband.com avant de vous identifier." %}
-	  <a href="#">Learn more</a>&nbsp;&raquo;
+	  <!-- <a href="#">{% trans "Learn more" %}</a>&nbsp;&raquo; -->
 	</div>
       </div>
     </div>
@@ -60,10 +60,11 @@
     <p id="registernow"><a href="{% url userena_signup %}">{% trans "Signup now" %}</a> {% trans "for a SpreadBand account, it's free and takes less than a minute !" %}</p>
 
     <h3>{% trans "What is SpreadBand ?" %}</h3>
-    <p>FIXME
+    <p>
+      SpreadBand est une plate-forme de <strong>booking</strong> équitable et intelligente pour <strong>musiciens amateurs</strong> et <strong>scènes indépendantes</strong>. Créez votre PressKit, <strong>trouvez des scènes</strong> adaptées à votre style musical, contactez-les et négociez les premiers termes de vos soirées-concerts !
     </p>
 
-    <p id="tour"><a href="">{% trans "Take a tour !" %}</a>&nbsp;&raquo;</p>
+    <p id="tour"><a href="{% url discover-band %}">{% trans "Take a tour !" %}</a>&nbsp;&raquo;</p>
 
   </div>
 </div>
