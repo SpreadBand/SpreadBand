@@ -5,11 +5,9 @@
     {% staticall %}
     <script type="text/javascript" src="/js/XMLHttpRequest.js"></script>
     <script type="text/javascript" src="/js/jquery/jquery.ba-serializeobject.js"></script>
-    <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
     {% endstaticall %}
 
-    {# Dynamically generated, should be repalced ! #}
-    <script type="text/javascript" src="/js/dajax/dajaxice.core.js"></script>
+    <script type="text/javascript" src="{% staticfile "/js/dajaxice.core.js" %}"></script>
 
     {% staticall %}
     <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/uni_form/default.uni-form.css" />
