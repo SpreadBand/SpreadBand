@@ -181,3 +181,7 @@ from django.db.models.signals import post_save
 from actors.models import actor_after_save
 
 post_save.connect(actor_after_save, sender=Venue)
+
+# Reversions
+import reversion
+reversion.register(Venue)

@@ -162,3 +162,9 @@ def on_presskitview_refused_by_venue(sender, **kwargs):
     notification.send(presskitview.presskit.band.members.all(),
                       'presskitview_refused_by_venue',
                       {'presskitview': presskitview})
+
+
+# Reversions
+import reversion
+reversion.register(PressKit)
+reversion.register(PresskitViewRequest)

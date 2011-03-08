@@ -240,3 +240,7 @@ def add_band_socialnetwork_on_auth_assoc(sender, instance, created, **kwargs):
 
 
 import meta_badges
+
+# Reversions
+import reversion
+reversion.register(Band)
