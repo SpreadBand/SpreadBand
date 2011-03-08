@@ -4,6 +4,7 @@
 {% load uni_form_tags %}
 {% load wysiwyg %}
 {% load django_static %}
+{% load tagging_tags %}
 
 
 {% block title %}
@@ -51,9 +52,10 @@
 	});
 
 	// restore tags in get
-	{% for tag in band.genres %}
-	$.fn.tagit.create_tag("{{ tag }}");
-	{% endfor %}
+        {% tags_for_object band as band_tags %}
+      	{% for tag in band_tags %}
+          $.fn.tagit.create_tag("{{ tag }}");
+        {% endfor %}
     });
   </script>
 

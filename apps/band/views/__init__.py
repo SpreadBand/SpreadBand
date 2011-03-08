@@ -24,11 +24,12 @@ from event.views.calendar import GigMonthlyHTMLCalendar
 # from gigbargain.models import GigBargain
 from world.models import Place
 
+from presskit.models import PresskitViewRequest
+
 from ..models import Band, BandMember
 from ..forms import BandCreateForm, BandUpdateForm
 from ..forms import BandPictureForm, BandMemberRequestForm
 
-from presskit.models import PresskitViewRequest
 
 @login_required
 def new(request):
@@ -42,7 +43,38 @@ def new(request):
         if member_form.is_valid():
             if create_form.is_valid():
                 # Create the band
-                band = create_form.save()
+                band = create_form.save(commit=False)
+                band.genres = ", ".join(request.POST.getlist('genres') or [])
+
+                # Lookup Geo (duplicated from edit, fix this!)
+                g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
+                
+                # Ugly hack to get a place from geocoders -_-
+                where = u'%s %s, %s' % (band.zipcode,
+                                        band.city,
+                                        band.country.name)
+                
+                geoplace = _("Unable to lookup address")
+                lat = lng = 0
+                for match in g.geocode(where.encode('utf-8'),
+                                       exactly_one=False):
+                    geoplace, (lat, lng) = match
+                    # Get the first result
+                    break
+
+                # Edit
+                point = Point(lng, lat)
+                if band.place:
+                    place = band.place
+                    place.address = geoplace
+                    place.geom = point
+                    place.save()
+                else:
+                    place = Place.objects.create(address=geoplace, geom=point)
+
+                band.place = place
+
+                band.save()
                 
                 # Add this user into the band
                 bandmember = BandMember(band=band,
@@ -81,6 +113,9 @@ def edit(request, band_slug):
 
         if band_form.is_valid():
             band = band_form.save(commit=False)
+            band.genres = ", ".join(request.POST.getlist('genres') or [])
+
+            # Lookup Geo
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
 
             # Ugly hack to get a place from geocoders -_-
