@@ -88,3 +88,7 @@ def create_profile(sender, instance, created, **kwargs):
         profile.save()
 
 #post_save.connect(create_profile, sender=User)
+
+# Reversions
+import reversion
+reversion.register(UserProfile)
