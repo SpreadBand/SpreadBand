@@ -132,7 +132,7 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
         (r'^styles$',             'django.views.generic.simple.direct_to_template', {'template': 'band_new_styles.html'}),
-
+        (r'^500$', handler500),
         url(r'^rosetta/', include('rosetta.urls')),
     )
 

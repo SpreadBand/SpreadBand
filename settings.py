@@ -126,7 +126,11 @@ MIDDLEWARE_CLASSES = (
     # 403
     'utils.middleware.403.Django403Middleware',
 
+    # Locale for user
     'userena.middleware.UserenaLocaleMiddleware',
+
+    # Redirects
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 if not DEBUG:
@@ -161,6 +165,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.sitemaps',
     'django.contrib.flatpages',
+    'django.contrib.redirects',
 
     # Internal
     'sb_base',
@@ -399,6 +404,7 @@ AVATAR_CROP_VIEW_SIZE = 450
 AVATAR_MAX_AVATARS_PER_USER = 10
 AVATAR_HASH_FILENAMES = True
 AUTO_GENERATE_AVATAR_SIZES = (80, 48, 36, 30, 18)
+AVATAR_GRAVATAR_DEFAULT = 'monsterid'
 
 # CONTACTS IMPORT
 CONTACTS_IMPORT_CALLBACK = 'account.views.contacts'

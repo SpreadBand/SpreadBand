@@ -3,6 +3,9 @@ import datetime
 from django.contrib.sitemaps import Sitemap
 
 class DirectToTemplateSitemap(Sitemap):
+  priority = 1
+  changefreq = "weekly"
+  
   def __init__(self, patterns):
     self.patterns = patterns
 
