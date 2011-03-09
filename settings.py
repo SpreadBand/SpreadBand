@@ -410,3 +410,8 @@ VENUE_CANTFIND_EMAIL = 'laurent@spreadband.com'
 BADGE_LEVEL_CHOICES = (
     ('P', "PressKit completed"),
 )
+
+# REQUESTS (ANALYTICS)
+REQUEST_IGNORE_PATHS = (
+    r'^admin/',
+)
