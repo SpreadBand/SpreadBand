@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-08 18:44+0100\n"
-"PO-Revision-Date: 2011-03-08 18:55\n"
+"PO-Revision-Date: 2011-03-09 15:41\n"
 "Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -269,7 +269,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un provenant de <a href=\"http://gravatar.com\">Gravatar</a> service."
+"Vous n'avez pas encore téléchargé un avatar. Nous en utilisons donc un provenant de <a href=\"http://gravatar.com\">Gravatar</a>."
 
 #: templates/avatar/change.html:31
 msgid ""
@@ -278,7 +278,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Vous pouvez soit en télécharger une maintenant ci-dessous ou <a href=\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
+"Vous pouvez soit en télécharger un maintenant ci-dessous ou <a href=\"http://gravatar.com/gravatars/new\">changer votre avatar sur Gravatar</a>."
 
 #: templates/avatar/change.html:41
 msgid "Use this avatar"
@@ -315,7 +315,7 @@ msgstr ""
 
 #: templates/avatar/change.html:68
 msgid "Gravatar support"
-msgstr "Aide sur Gravatar"
+msgstr "Support de Gravatar"
 
 #: templates/avatar/change.html:70
 msgid ""
@@ -350,7 +350,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous vos avatars, nous essayerons d'utiliser le service Gravatar <strong>(G</strong> lobally <strong>R AVATAR</strong> ecognized) avec votre adresse e-mail."
+"Cliquez sur les avatars que vous souhaitez supprimer. Si vous supprimez tous vos avatars, nous essayerons d'utiliser le service Gravatar (<strong>G</strong>lobally <strong>R</strong>ecognized <strong> AVATAR</strong>) avec votre adresse e-mail."
 
 #: templates/avatar/crop.html:69
 msgid "Crop"
