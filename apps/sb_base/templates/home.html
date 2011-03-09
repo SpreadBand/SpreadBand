@@ -22,6 +22,8 @@
             output		: '#feature-output li',
 	    start_item	: 1
 	});
+
+        $("#id_identification").example("pseudonyme");
     });
   </script>
 
@@ -64,7 +66,7 @@
     <img src="{% staticfile '/images/home/header_sb.png' %}" alt="Spreadband is a place for music addicts" id="baseline" />
 
     <form id="authentication" action="{% url userena_signin %}" method="post">
-      <a href="#" id="lost-password">{% trans "Login" %}</a>
+      <a href="{% url userena_signin %}" id="lost-password">{% trans "Login" %}</a>
       
       {{ auth_form.identification }}
       {{ auth_form.password }}

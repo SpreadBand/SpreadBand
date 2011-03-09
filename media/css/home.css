@@ -71,6 +71,12 @@
 	width:30px;
 }
 
+#home-auth form#authentication input.example {
+    font-style: italic;
+    color: #888;
+}
+
+
 /* features */
 #home-features #feature_list{
     width: 840px;
