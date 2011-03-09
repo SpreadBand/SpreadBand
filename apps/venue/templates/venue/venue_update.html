@@ -2,6 +2,7 @@
 
 {% load uni_form_tags %}
 {% load django_static %}
+{% load tagging_tags %}
 {% load i18n %}
 
 {% block title %}
@@ -10,6 +11,11 @@
 
 {% block venue_section %}
   {% trans "Edit" %}
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
@@ -23,6 +29,29 @@
 	$('#id_description').ckeditor();
     });
   </script>
+
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
+  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+	$("#id_ambiance").remove();
+	$("#div_id_ambiance").append("<ul id='ambiance_tags'></ul>");
+	var tags = $("#ambiance_tags").tagit({
+	    itemName: 'ambiance',
+	    //availableTags: ["c++", "java"],
+	    //afterTagAdded: function(tag) { search_venues(); },
+	    //afterTagRemoved: function(tag) { search_venues(); }
+	});
+
+	// restore tags in get
+        {% tags_for_object venue as venue_tags %}
+      	{% for tag in venue_tags %}
+          $.fn.tagit.create_tag("{{ tag }}");
+        {% endfor %}
+    });
+  </script>
+
 {% endblock %}
 
 {% block venue_content %}

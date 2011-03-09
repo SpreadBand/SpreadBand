@@ -260,6 +260,7 @@ def edit(request, venue_slug):
 
         if venue_form.is_valid():
             venue = venue_form.save(commit=False)
+            venue.ambiance = ", ".join(request.POST.getlist('ambiance') or [])
 
             g = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
             try:
