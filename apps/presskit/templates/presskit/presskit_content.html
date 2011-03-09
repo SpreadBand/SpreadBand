@@ -160,7 +160,7 @@
       <div class="separator"></div>
       <div class="content">
 	{% if band.biography %}
-	  {{ band.biography|capfirst|safe|truncatewords_html:100 }}[<a href="#">{% trans "Read more" %}</a>]
+	  {{ band.biography|capfirst|linebreaks|truncatewords_html:100 }}[<a href="#">{% trans "Read more" %}</a>]
 	{% else %}
 	  {% trans "No biography." %}
 	{% endif %}
@@ -380,7 +380,7 @@
       <div class="separator"></div>
       <div class="content">
 	{% if band.technical_sheet %}
-	  {{ band.technical_sheet|safe }}
+	  {{ band.technical_sheet|linebreaks }}
 	{% else %}
 	  {% trans "No technical sheet." %}
 	{% endif %}
