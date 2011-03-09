@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-08 18:44+0100\n"
-"PO-Revision-Date: 2011-03-09 15:41\n"
+"PO-Revision-Date: 2011-03-09 15:43\n"
 "Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -302,7 +302,7 @@ msgstr "Télécharger un nouvel avatar"
 
 #: templates/avatar/change.html:61
 msgid "Your avatars"
-msgstr "Votre avatars"
+msgstr "Vos avatars"
 
 #: templates/avatar/change.html:63
 msgid ""
