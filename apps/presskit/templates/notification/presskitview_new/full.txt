@@ -1,4 +1,4 @@
 Le Groupe « {{ presskitview.presskit.band.name }} » vous propose un concert !
 
 Discutez des termes et acceptez ou refusez cette proposition en cliquant sur le lien suivant :
-http://{{ current_site}}{% url presskit:presskit-viewrequest-band presskitview.presskit.band.slug presskitview.pk %}
+http://{{ current_site}}{% url venue:presskit-viewrequest-venue presskitview.venue.slug presskitview.pk %}
