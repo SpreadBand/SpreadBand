@@ -28,7 +28,7 @@ def presskit_detail(request, band_slug, template_name='presskit/presskit_detail.
                      'presskit': presskit,
                      'latest_gigs': latest_gigs}
 
-    if not request.user.is_anonymous:
+    if not request.user.is_anonymous():
         # If we are not in the band, record us as a visitor
         if not request.user in presskit.band.members.all():
             # Bands

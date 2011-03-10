@@ -208,7 +208,7 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
 
     # if this is not our venue, then record us as a visitor
     # Venues
-    if not is_managed and not request.user.is_anonymous:
+    if not is_managed and not request.user.is_anonymous():
             for venue in request.user.venues.all():
                 record_visit(venue, venue)
                 
