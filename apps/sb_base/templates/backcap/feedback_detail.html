@@ -95,7 +95,7 @@
 	    </p>
 	  {% endif %}
 
-	  <p>{% trans "Description:" %} {{ feedback.text }}</p>
+	  <p>{% trans "Description:" %} {{ feedback.text|linebreaks }}</p>
 
 	  <hr/>
 
@@ -103,7 +103,7 @@
 	  <ul>
 	    {% get_comment_list for feedback as feedback_comments %}
 	      {% for comment in feedback_comments %}
-		<li>{{ comment.user.get_full_name|default:comment.user.username }} said "{{ comment.comment }}"</li>
+		<li>{{ comment.user.get_full_name|default:comment.user.username }} said "{{ comment.comment|linebreaks }}"</li>
 	      {% endfor %}
 	  </ul>
 

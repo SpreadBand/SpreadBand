@@ -15,7 +15,7 @@ django-ajax-selects==1.1.3
 django-request==0.3
 vobject==0.8.1c
 python-dateutil==1.5
-django-countries==1.0.4
+django-countries==1.0.5
 docutils
 geopy==0.94
 whoosh==1.1.1
