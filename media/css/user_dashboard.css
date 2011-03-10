@@ -132,6 +132,25 @@
     padding: 8px;
 }
 
+/*-- new user, band and venue creation --*/
+#first-time p.instructions {
+    border-top: 1px dashed #eee;
+    padding-top: 4px;
+}
+
+
+#first-time > div {
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    float: left;
+}
+
+#first-time h2 {
+    text-align: center;
+    margin-top: 10px;
+}
+
 /*-- band listing --*/
 #band-list {
     margin-left: 10px;

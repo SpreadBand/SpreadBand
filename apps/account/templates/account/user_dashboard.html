@@ -72,6 +72,47 @@
 
   <div class="alpha grid_11">
 
+    {% if user.venue_memberships.all|length == 0 and user.band_memberships.all|length == 0 and user == request.user %}
+    <h3>{% trans "Welcome to SpreadBand ! Now, it's time to register your Band or Venue:" %}</h3>
+    <div id="first-time">
+      <div id="band-new">
+	{% url band:create as band_create_url %}
+	<a href="{{ band_create_url }}">
+	  <img src="{% staticfile "/images/account/bands_add_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	</a>
+	<h2><a href="{{ band_create_url }}">{% trans "Register your Band" %}</a></h2>
+
+	<p class="instructions">
+
+	  {% url band:search as band_search_url %}
+	  {% blocktrans with band_create_url as band_create_url and band_search_url as band_search_url %}
+	    You can also <a href="{{ band_search_url }}">check if your band is already on SpreadBand</a> and ask your friends to add you to it.
+	  {% endblocktrans %}
+	</p>
+
+      </div>
+
+      <div id="venue-new">
+	{% url venue:create as venue_create_url %}
+	<a href="{{ venue_create_url }}">
+	  <img src="{% staticfile "/images/account/venues_add_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	</a>
+
+	<h2><a href="{{ venue_create_url }}">{% trans "Register your Venue" %}</a></h2>
+
+	<p class="instructions">
+	  {% url venue:search as venue_search_url %}
+	  {% blocktrans with venue_create_url as venue_create_url and venue_search_url as venue_search_url %}
+	  You can also <a href="{{ venue_search_url }}">check if your venue is already on SpreadBand</a>.
+	  {% endblocktrans %}
+	</p>
+
+      </div>
+    </div>
+    <div class="clear">
+    </div>
+    {% else %}
+
     {% if user.venue_memberships.all|length == 0 or user.band_memberships.all|length > 0 %}
 
     <div id="band-list">
@@ -232,6 +273,8 @@
 	{% endif %}
     {% endwith %}
     {% endwith %}
+
+    {% endif %}
 
 
   </div>

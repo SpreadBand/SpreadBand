@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 18:44+0100\n"
-"PO-Revision-Date: 2011-03-09 15:43\n"
+"POT-Creation-Date: 2011-03-10 14:53+0100\n"
+"PO-Revision-Date: 2011-03-10 14:57\n"
 "Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,23 +138,57 @@ msgstr "Localisation"
 msgid "Joined"
 msgstr "Inscrit"
 
-#: templates/account/user_dashboard.html:80
+#: templates/account/user_dashboard.html:76
+msgid "Welcome to SpreadBand ! Now, it's time to register your Band or Venue:"
+msgstr ""
+"Bienvenue sur SpreadBand ! C'est le moment d'enregistrer votre Groupe "
+"ou votre Scène :"
+
+#: templates/account/user_dashboard.html:83
+msgid "Register your Band"
+msgstr "Enregistrez votre Groupe"
+
+#: templates/account/user_dashboard.html:88
+#, python-format
+msgid ""
+"\n"
+"\t    You can also <a href=\"%(band_search_url)s\">check if your band is already on SpreadBand</a> and ask your friends to add you to it.\n"
+"\t  "
+msgstr ""
+"\n"
+"Vous pouvez aussi <a href=\"%(band_search_url)s\">vérifier si votre groupe est dejà sur SpreadBand</a> et demander aux autres membres de vous y ajouter."
+
+#: templates/account/user_dashboard.html:101
+msgid "Register your Venue"
+msgstr "Enregistez votre Scène"
+
+#: templates/account/user_dashboard.html:105
+#, python-format
+msgid ""
+"\n"
+"\t  You can also <a href=\"%(venue_search_url)s\">check if your venue is already on SpreadBand</a>.\n"
+"\t  "
+msgstr ""
+"\n"
+"Vous pouvez aussi <a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur SpreadBand</a>"
+
+#: templates/account/user_dashboard.html:121
 msgid "My Bands"
 msgstr "Mes groupes"
 
-#: templates/account/user_dashboard.html:83
+#: templates/account/user_dashboard.html:124
 msgid "Create a new band"
 msgstr "Créer un nouveau groupe"
 
-#: templates/account/user_dashboard.html:114
+#: templates/account/user_dashboard.html:155
 msgid "There is no activity yet for this band !"
 msgstr "Il n'y encore aucune activité pour ce groupe !"
 
-#: templates/account/user_dashboard.html:129
+#: templates/account/user_dashboard.html:170
 msgid "You are <strong>not in a band yet</strong> :-("
 msgstr "Vous n'êtes <strong>pas encore dans un groupe</strong> :-("
 
-#: templates/account/user_dashboard.html:134
+#: templates/account/user_dashboard.html:175
 #, python-format
 msgid ""
 "\n"
@@ -164,23 +198,23 @@ msgstr ""
 "\n"
 "Vous pouvez en <a href=\"%(band_create_url)s\">créer un maintenant</a> ou <a href=\"%(band_search_url)s\">vérifier si votre groupe est dejà sur SpreadBand</a> et demander aux autres membres de vous y ajouter."
 
-#: templates/account/user_dashboard.html:152
+#: templates/account/user_dashboard.html:193
 msgid "My Venues"
 msgstr "Mes scènes"
 
-#: templates/account/user_dashboard.html:155
+#: templates/account/user_dashboard.html:196
 msgid "Create a new venue"
 msgstr "Créer une nouvelle scène"
 
-#: templates/account/user_dashboard.html:186
+#: templates/account/user_dashboard.html:227
 msgid "There is no activity yet for this venue !"
 msgstr "Il n'y a encore aucune activité pour cette scène !"
 
-#: templates/account/user_dashboard.html:201
+#: templates/account/user_dashboard.html:242
 msgid "You are <strong>not managing a venue</strong>."
 msgstr "Vous ne vous <strong>occupez d'aucune scène.</strong>"
 
-#: templates/account/user_dashboard.html:206
+#: templates/account/user_dashboard.html:247
 #, python-format
 msgid ""
 "\n"
@@ -190,61 +224,61 @@ msgstr ""
 "\n"
 "Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou <a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur SpreadBand</a>"
 
-#: templates/account/user_dashboard.html:223
+#: templates/account/user_dashboard.html:264
 #, python-format
 msgid "Also in a band? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
 "Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le"
 " maintenant</a> !"
 
-#: templates/account/user_dashboard.html:229
+#: templates/account/user_dashboard.html:270
 #, python-format
 msgid "Also running a venue? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
 "Vous vous occupez également d'une scène ? <a href=\"%(url)s"
 "\">Enregistrez-la maintenant</a> !"
 
-#: templates/account/user_dashboard.html:246
+#: templates/account/user_dashboard.html:289
 #: templates/userena/profile_detail.html:135
 msgid "Connections since a month"
 msgstr "Connexions du mois"
 
-#: templates/account/user_dashboard.html:255
+#: templates/account/user_dashboard.html:298
 #: templates/userena/profile_detail.html:144
 msgid "No connections yet"
 msgstr "Aucune connexion pour l'instant"
 
-#: templates/account/user_dashboard.html:256
+#: templates/account/user_dashboard.html:299
 #: templates/userena/profile_detail.html:145
 msgid "You'll find here connections with other musicians"
 msgstr "Vous trouverez ici vos connexions avec d'autres musiciens"
 
-#: templates/account/user_dashboard.html:264
+#: templates/account/user_dashboard.html:307
 msgid "Latest Notifications"
 msgstr "Dernières alertes"
 
-#: templates/account/user_dashboard.html:267
+#: templates/account/user_dashboard.html:310
 msgid "Actions:"
 msgstr "Actions :"
 
-#: templates/account/user_dashboard.html:267
+#: templates/account/user_dashboard.html:310
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/account/user_dashboard.html:267
+#: templates/account/user_dashboard.html:310
 msgid "Mark all unseen notices seen"
 msgstr "Marquer toutes les alertes comme vues"
 
-#: templates/account/user_dashboard.html:273
+#: templates/account/user_dashboard.html:316
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:275
+#: templates/account/user_dashboard.html:318
 #, python-format
 msgid "%(time_since)s ago"
 msgstr " il y a %(time_since)s"
 
-#: templates/account/user_dashboard.html:297
+#: templates/account/user_dashboard.html:340
 msgid "You have no notices yet."
 msgstr "Vous n'avez pas d'alertes pour le moment."
 
@@ -809,9 +843,6 @@ msgstr "Votre groupe"
 #: templates/userena/signup_form.html:97
 msgid "You will able to register your band just after your have signed up."
 msgstr "Vous pourrez enregistrer votre groupe dès que vous vous serez inscrit."
-
-#~ msgid "Your Venues"
-#~ msgstr "Vos scènes"
 
 #~ msgid ""
 #~ "\n"
