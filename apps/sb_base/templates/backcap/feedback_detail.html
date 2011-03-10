@@ -103,7 +103,7 @@
 	  <ul>
 	    {% get_comment_list for feedback as feedback_comments %}
 	      {% for comment in feedback_comments %}
-		<li>{{ comment.user.get_full_name|default:comment.user.username }} said "{{ comment.comment|linebreaks }}"</li>
+		<li><a href="{% url userena_profile_detail comment.user %}">{{ comment.user.get_full_name|default:comment.user.username }}</a> said "{{ comment.comment|linebreaks }}"</li>
 	      {% endfor %}
 	  </ul>
 
