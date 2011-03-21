@@ -425,3 +425,7 @@ BADGE_LEVEL_CHOICES = (
 REQUEST_IGNORE_PATHS = (
     r'^admin/',
 )
+
+# ELSEWHERE
+ELSEWHERE_MEDIA_DIR = 'images/elsewhere/'
+ELSEWHERE_ICON_PACK = ''
