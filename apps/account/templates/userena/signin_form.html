@@ -3,6 +3,10 @@
 {% load django_static %}
 {% load i18n %}
 
+{% block title %}
+  {% trans "Signin" %}
+{% endblock %}
+
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/css/login.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
