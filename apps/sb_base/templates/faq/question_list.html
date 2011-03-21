@@ -27,7 +27,7 @@
 {% block faq_content %}
   <h1>FAQs</h1>
 
-  <p>{% blocktrans with updated_on|date:"M d, Y" as updated_on %}Last updated on: {{ updated_on }}{% endblocktrans %}</p>
+  <p>{% blocktrans with last_update_on|date:"M d, Y" as last_update_on %}Last updated on: {{ last_update_on }}{% endblocktrans %}</p>
 
   <h2 id="questions">{% trans "Questions" %}</h2>
     {% for question in object_list %}
@@ -42,9 +42,9 @@
       {% endifchanged %}
 
       {% if question.is_header %}
-	<h3>{{ question.text|capfirst }}</h3>
+	<h3>{{ question.question|capfirst }}</h3>
       {% else %}
-	<li><a href="#{{ question.slug }}" title="{{ question.text }}">{{ question.text }}</a></li>
+	<li><a href="#{{ question.slug }}" title="{{ question.question }}">{{ question.question }}</a></li>
       {% endif %}
 
     {% endfor %}
@@ -63,7 +63,7 @@
       {% if question.is_active %}
 	<li>
 	  <a id="{{ question.slug }}">
-	    <h4><a href="{{ question.get_absolute_url }}">{{ question.text|capfirst }}</a></h4>
+	    <h4><a href="{{ question.get_absolute_url }}">{{ question.question|capfirst }}</a></h4>
 	  </a>
 	  <div class="answer">
 	    {{ question.answer|capfirst|restructuredtext }}

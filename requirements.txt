@@ -53,7 +53,7 @@ feedparser
 -e git+https://github.com/SpreadBand/django-userena.git#egg=django-userena
 
 # Other repositories
-
+-e git+https://github.com/sorl/django-cbv.git#egg=django-cbv
 -e git+https://github.com/pragmaticbadger/django-privatebeta.git#egg=django-privatebeta
 -e git+https://github.com/alex/django-filter.git#egg=django-filter
 -e git+https://github.com/stephanpoetschner/django-announcements.git#egg=django-announcements

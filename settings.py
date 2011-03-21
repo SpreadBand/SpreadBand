@@ -110,6 +110,9 @@ MIDDLEWARE_CLASSES = (
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
+    # For CBV, remove before upgrading to 1.3
+    'cbv.middleware.DeferredRenderingMiddleware',
+
     # reversion
     'reversion.middleware.RevisionMiddleware',
 
@@ -183,12 +186,12 @@ INSTALLED_APPS = (
     # 'bigbrother',
     # 'api',
     'account',
+    'haystack',
 
     # External
     'userena',
     'oauth_access',
     'privatebeta',
-    'haystack',
     'dajaxice',
     'dajax',
     'django_static',
@@ -231,6 +234,7 @@ INSTALLED_APPS = (
     'template_utils',
     'visitors',
     'badges',
+    'cbv',
 )
 
 if DEBUG:
