@@ -4,6 +4,10 @@
 {% load voting_tags %}
 {% load i18n %}
 
+{% block title %}
+  {% trans "Feedback" %} &raquo; {{ feedback.title|capfirst|truncatewords:7 }}
+{% endblock %}
+
 {% block css %}
   {{ block.super }}
   

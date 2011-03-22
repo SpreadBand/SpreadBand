@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-25 17:04+0100\n"
-"PO-Revision-Date: 2011-03-08 16:49\n"
-"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
+"POT-Creation-Date: 2011-03-22 16:22+0100\n"
+"PO-Revision-Date: 2011-03-22 16:26\n"
+"Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,71 +19,71 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-Translated-Using: django-rosetta 0.5.9\n"
 
-#: templates/base.html:211
+#: templates/base.html:210
 msgid "Avatar"
 msgstr "Avatar"
 
-#: templates/base.html:215
+#: templates/base.html:214
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/base.html:217
+#: templates/base.html:216
 msgid "Help"
 msgstr "Aide"
 
-#: templates/base.html:221
+#: templates/base.html:220
 msgid "Staff Panel"
 msgstr "Panneau d'Admin"
 
-#: templates/base.html:224
+#: templates/base.html:223
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: templates/base.html:241
+#: templates/base.html:240
 msgid "Search a Venue"
 msgstr "Rechercher une scène"
 
-#: templates/base.html:242 templates/base.html.py:258
+#: templates/base.html:241 templates/base.html.py:257
 msgid "Search a Band"
 msgstr "Recherche un groupe"
 
-#: templates/base.html:243
+#: templates/base.html:242
 msgid "My PressKit"
 msgstr "Mon PressKit"
 
-#: templates/base.html:245 templates/base.html.py:261
+#: templates/base.html:244 templates/base.html.py:260
 msgid "Go to dashboard"
 msgstr "Aller au tableau de bord"
 
-#: templates/base.html:259
+#: templates/base.html:258
 msgid "My Profile"
 msgstr "Mon profil"
 
-#: templates/base.html:368
+#: templates/base.html:367 templates/backcap/feedback_detail.html:8
 msgid "Feedback"
 msgstr "Commentaires"
 
-#: templates/base.html:386
+#: templates/base.html:385
 msgid "Ok"
 msgstr "Ok"
 
-#: templates/home.html:32
+#: templates/home.html:34
 msgid "Join the community now, it's free !"
 msgstr "Rejoignez la communauté maintenant, c'est gratuit !"
 
-#: templates/home.html:34
+#: templates/home.html:36
 msgid "Close"
 msgstr "Fermer"
 
-#: templates/home.html:67
+#: templates/home.html:69
 msgid "Login"
 msgstr "Connectez-vous"
 
-#: templates/backcap/feedback_detail.html:23
+#: templates/backcap/feedback_detail.html:27
 msgid "This issue is closed."
 msgstr "Cette question est fermée."
 
-#: templates/backcap/feedback_detail.html:63
+#: templates/backcap/feedback_detail.html:67
 #, python-format
 msgid ""
 "\n"
@@ -93,63 +93,63 @@ msgstr ""
 "\n"
 "Posté il y a %(since)s  par"
 
-#: templates/backcap/feedback_detail.html:83
+#: templates/backcap/feedback_detail.html:87
 msgid "is working on this. Poke him if you think it's taking too long !"
 msgstr ""
 "travaille sur cette question. Interpellez le si vous pensez que c'est "
 "trop long !"
 
-#: templates/backcap/feedback_detail.html:91
+#: templates/backcap/feedback_detail.html:95
 msgid "This issue is a duplicate of"
 msgstr "Cette question est un double de"
 
-#: templates/backcap/feedback_detail.html:92
+#: templates/backcap/feedback_detail.html:96
 msgid "Please don't comment on this issue anymore."
 msgstr "Veuillez ne plus commenter cette question."
 
-#: templates/backcap/feedback_detail.html:98
+#: templates/backcap/feedback_detail.html:102
 msgid "Description:"
 msgstr "Description :"
 
-#: templates/backcap/feedback_detail.html:102
+#: templates/backcap/feedback_detail.html:106
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/backcap/feedback_detail.html:111
+#: templates/backcap/feedback_detail.html:115
 msgid "Post a new comment"
 msgstr "Poster un nouveau commentaire"
 
-#: templates/backcap/feedback_detail.html:120
+#: templates/backcap/feedback_detail.html:124
 #: templates/socialbridge/broadcast_message.html:175
 #: templates/socialbridge/post_message.html:13
 msgid "Post"
 msgstr "Poster"
 
-#: templates/backcap/feedback_detail.html:124
+#: templates/backcap/feedback_detail.html:128
 msgid "Comments closed."
 msgstr "Commentaires fermés."
 
-#: templates/backcap/feedback_detail.html:129
+#: templates/backcap/feedback_detail.html:133
 msgid "This issue is"
 msgstr "Cette question est"
 
-#: templates/backcap/feedback_detail.html:130
+#: templates/backcap/feedback_detail.html:134
 msgid "Close issue"
 msgstr "Fermer cette question"
 
-#: templates/backcap/feedback_detail.html:132
+#: templates/backcap/feedback_detail.html:136
 msgid "Reported from:"
 msgstr "Signalé par :"
 
-#: templates/backcap/feedback_detail.html:136
+#: templates/backcap/feedback_detail.html:140
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/backcap/feedback_detail.html:137
+#: templates/backcap/feedback_detail.html:141
 msgid "Ping observers"
 msgstr "Notifier les observateurs"
 
-#: templates/backcap/feedback_detail.html:142
+#: templates/backcap/feedback_detail.html:146
 #: templates/backcap/feedback_tab.html:11
 msgid "See all feedbacks"
 msgstr "Voir tous les commentaires"
@@ -168,7 +168,16 @@ msgstr ""
 "Voici la liste de tous les commentaires qui ont été envoyés par les "
 "utilisateurs. Merci à tous !"
 
-#: templates/backcap/feedback_list.html:65
+#: templates/backcap/feedback_list.html:66
+#, python-format
+msgid ""
+"Before posting a feedback, make sure to <a href=\"%(faq_url)s\">read the "
+"FAQ</a>."
+msgstr ""
+"Avant de poster un commentaire, assurez vous d'avoir <a "
+"href=\"%(faq_url)s\">lu la FAQ</a>."
+
+#: templates/backcap/feedback_list.html:70
 msgid ""
 "If you think one of these entries is important for you, then "
 "<strong>click on the '+' button</strong>. If you disagree or think this"
@@ -179,7 +188,7 @@ msgstr ""
 "ou pensez que ce n'est pas important du tout, <strong>cliquez sur "
 "'-'</strong>."
 
-#: templates/backcap/feedback_list.html:69
+#: templates/backcap/feedback_list.html:74
 msgid ""
 "The <strong>highest the score</strong> an issue will get, the "
 "<strong>earlier we'll work on</strong> it."
@@ -187,28 +196,28 @@ msgstr ""
 "Plus <strong>haut le score</strong> d'une question sera, plus "
 "<strong>tôt nous travaillerons</strong> sur le problème."
 
-#: templates/backcap/feedback_list.html:73
+#: templates/backcap/feedback_list.html:78
 msgid "New feedback"
 msgstr "Nouveau commentaire"
 
-#: templates/backcap/feedback_list.html:96
-#: templates/backcap/feedback_list.html:106
+#: templates/backcap/feedback_list.html:101
+#: templates/backcap/feedback_list.html:111
 msgid "Clear my vote"
 msgstr "Effacer mon vote"
 
-#: templates/backcap/feedback_list.html:96
+#: templates/backcap/feedback_list.html:101
 msgid "Vote for"
 msgstr "Voter pour"
 
-#: templates/backcap/feedback_list.html:106
+#: templates/backcap/feedback_list.html:111
 msgid "Vote against"
 msgstr "Voter contre"
 
-#: templates/backcap/feedback_list.html:121
+#: templates/backcap/feedback_list.html:126
 msgid "Assigned to"
 msgstr "Assigné à"
 
-#: templates/backcap/feedback_list.html:126
+#: templates/backcap/feedback_list.html:131
 #, python-format
 msgid ""
 "\n"
@@ -218,48 +227,48 @@ msgstr ""
 "\n"
 "Posté il y a %(since)s par"
 
-#: templates/backcap/feedback_list.html:135
+#: templates/backcap/feedback_list.html:140
 msgid "There's no feedback yet."
 msgstr "Il n'y a pas encore de commentaires."
 
-#: templates/backcap/feedback_list.html:140
+#: templates/backcap/feedback_list.html:145
 msgid "previous"
 msgstr "précédente"
 
-#: templates/backcap/feedback_list.html:156
+#: templates/backcap/feedback_list.html:161
 msgid "next"
 msgstr "suivante"
 
-#: templates/backcap/feedback_list.html:160
+#: templates/backcap/feedback_list.html:165
 msgid "Display"
 msgstr "Affichage"
 
-#: templates/backcap/feedback_list.html:163
+#: templates/backcap/feedback_list.html:168
 msgid "All"
 msgstr "Tous"
 
-#: templates/backcap/feedback_list.html:164
-#: templates/faq/faq_list_by_group.html:32
+#: templates/backcap/feedback_list.html:169
+#: templates/faq/faq_list_by_group.html:32 templates/faq/question_list.html:32
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/backcap/feedback_list.html:165
+#: templates/backcap/feedback_list.html:170
 msgid "Problems"
 msgstr "Problèmes"
 
-#: templates/backcap/feedback_list.html:166
+#: templates/backcap/feedback_list.html:171
 msgid "Ideas"
 msgstr "Idées"
 
-#: templates/backcap/feedback_list.html:169
+#: templates/backcap/feedback_list.html:174
 msgid "Order by"
 msgstr "Trier par"
 
-#: templates/backcap/feedback_list.html:171
+#: templates/backcap/feedback_list.html:176
 msgid "Score"
 msgstr "Score"
 
-#: templates/backcap/feedback_list.html:172
+#: templates/backcap/feedback_list.html:177
 msgid "Newest"
 msgstr "Le plus récent"
 
@@ -291,16 +300,16 @@ msgstr "Je veux vous dire que :"
 msgid "Send"
 msgstr "Envoyer"
 
-#: templates/faq/faq_list_by_group.html:6
+#: templates/faq/faq_list_by_group.html:6 templates/faq/question_list.html:6
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/faq/faq_list_by_group.html:30
+#: templates/faq/faq_list_by_group.html:30 templates/faq/question_list.html:30
 #, python-format
-msgid "Last updated on: %(updated_on)s"
-msgstr "Dernière mise à jour : %(updated_on)s "
+msgid "Last updated on: %(last_update_on)s"
+msgstr "Dernière mise à jour : %(last_update_on)s "
 
-#: templates/faq/faq_list_by_group.html:55
+#: templates/faq/faq_list_by_group.html:55 templates/faq/question_list.html:55
 msgid "Answers"
 msgstr "Réponses"
 

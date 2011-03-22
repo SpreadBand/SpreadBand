@@ -60,6 +60,11 @@ $(document).ready(function() {
   <p>
     {% trans "This is all the feedbacks submitted by you, the users. Thanks for that." %}
   </p>
+
+  <p>
+    {% url faq:question-list as faq %}
+    {% blocktrans with faq as faq_url %}Before posting a feedback, make sure to <a href="{{ faq_url }}">read the FAQ</a>.{% endblocktrans %}
+  </p>
   
   <p>
     {% trans "If you think one of these entries is important for you, then <strong>click on the '+' button</strong>. If you disagree or think this is not important at all, then <strong>click on '-'</strong>." %}
