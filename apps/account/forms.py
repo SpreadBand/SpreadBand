@@ -80,7 +80,7 @@ class ProfileEditForm(forms.ModelForm):
     genre = forms.ChoiceField(label=_("Genre"),
                               choices=(('', '----'),) + UserProfile.genre_choices,
                               widget=forms.Select(),
-                              required=True)
+                              required=False)
 
     first_name = forms.CharField(label=_("First name"), 
                                  max_length=30,
