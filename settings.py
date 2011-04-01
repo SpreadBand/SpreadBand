@@ -136,12 +136,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
-if not DEBUG:
-    MIDDLEWARE_CLASSES += (
-        # Private beta
-        'privatebeta.middleware.PrivateBetaMiddleware',
-        )
-
 ROOT_URLCONF = 'spreadband.urls'
 
 if DEBUG:
@@ -191,7 +185,6 @@ INSTALLED_APPS = (
     # External
     'userena',
     'oauth_access',
-    'privatebeta',
     'dajaxice',
     'dajax',
     'django_static',
@@ -376,12 +369,6 @@ HAYSTACK_SITECONF = 'spreadband.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 
 HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_PATH, 'spreadband_index')
-
-# PRIVATE ALPHA/BETA
-PRIVATEBETA_REDIRECT_URL = "/beta"
-PRIVATEBETA_ALWAYS_ALLOW_VIEWS = ("django.contrib.flatpages.views.flatpage",
-                                  "django.contrib.sitemaps.views.sitemap",
-                                  "robots.views.rules_list",)
 
 # STATIC FILES
 DJANGO_STATIC = True

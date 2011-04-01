@@ -30,11 +30,6 @@ urlpatterns = patterns('',
     # temporary index page
     url(r'^$', home_spreadband, name='home'),
 
-    # Private beta
-    url(r'^beta/$', 'privatebeta.views.invite', name='privatebeta_invite'),
-    url(r'^beta/bars$', 'privatebeta.views.invite', {'template_name': 'privatebeta/invite-bars.html'}, name='privatebeta_invite_bars'),
-    url(r'^beta/sent/$', 'privatebeta.views.sent', name='privatebeta_sent'),
-
     # auth + profile
     # (r'^user/', include('socialregistration.urls')),
 
