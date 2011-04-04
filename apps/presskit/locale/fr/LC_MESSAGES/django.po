@@ -2,22 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 18:04+0100\n"
-"PO-Revision-Date: 2011-03-09 22:52\n"
-"Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
+"POT-Creation-Date: 2011-04-02 14:22+0200\n"
+"PO-Revision-Date: 2011-04-01 15:55\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Translated-Using: django-rosetta 0.5.9\n"
+"X-Translated-Using: django-rosetta 0.6.0\n"
 
 #: forms.py:17
 msgid "I have all the rights to upload this track"
@@ -25,13 +25,12 @@ msgstr "J'ai tous les droits pour télécharger ce titre"
 
 #: forms.py:18
 msgid ""
-"By checking this box, you certify that you have the rights to upload "
-"this track and that you are not belonging to a company that denies "
-"this."
+"By checking this box, you certify that you have the rights to upload this "
+"track and that you are not belonging to a company that denies this."
 msgstr ""
 "En cochant cette case, vous certifiez que vous avez les droits pour "
-"télécharger ce titre et que vous n'appartenez pas à une société qui "
-"refuse la diffusion gratuite de celui-ci (ex: SACEM)."
+"télécharger ce titre et que vous n'appartenez pas à une société qui refuse "
+"la diffusion gratuite de celui-ci (ex: SACEM)."
 
 #: management.py:10
 msgid "band comment on presskit"
@@ -73,23 +72,23 @@ msgstr "Un groupe a proposé d'organiser un concert à une scène"
 msgid "A band has proposed to set up a gig"
 msgstr "Un groupe a proposé d'organiser un concert"
 
-#: models.py:39 models_flymake.py:39
+#: models.py:39
 msgid "Pending"
 msgstr "En attente"
 
-#: models.py:40 models_flymake.py:40
+#: models.py:40
 msgid "Seen"
 msgstr "Vue"
 
-#: models.py:41 models_flymake.py:41
+#: models.py:41
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: models.py:42 models_flymake.py:42
+#: models.py:42
 msgid "Declined"
 msgstr "Refusée"
 
-#: models.py:43 models_flymake.py:43
+#: models.py:43
 msgid "Canceled"
 msgstr "Annulée"
 
@@ -102,6 +101,11 @@ msgstr "Vous n'êtes pas autorisé à gérer ce groupe"
 #, python-format
 msgid "%(band_name)s presskit was sent to %(venue_name)s"
 msgstr "Le presskit de %(band_name)s a été envoyé à %(venue_name)s "
+
+#: management/commands/remind_venues_pkview.py:31
+#, python-format
+msgid "%(prefix)sReminder: You have pending gig requests for '%(venue_name)s'!"
+msgstr ""
 
 #: templates/activity/presskitview_accepted/action.html:3
 msgid "accepted"
@@ -119,11 +123,11 @@ msgstr "demande"
 
 #: templates/activity/presskitview_commented_on/action.html:3
 msgid "Commented on"
-msgstr "Commentée sur"
+msgstr "Commentaire sur"
 
 #: templates/activity/presskitview_commented_on/action.html:4
 msgid "commented on"
-msgstr "commentée sur"
+msgstr "Commentaire sur"
 
 #: templates/activity/presskitview_refused/action.html:3
 msgid "refused"
@@ -152,11 +156,14 @@ msgstr "Mon PressKit"
 #: templates/presskit/mypresskit.html:35
 msgid ""
 "\n"
-"      This is a <strong>preview</strong> of how venues and bands will see your band. Make sure to <strong>edit all parts</strong> !\n"
+"      This is a <strong>preview</strong> of how venues and bands will see "
+"your band. Make sure to <strong>edit all parts</strong> !\n"
 "      "
 msgstr ""
 "\n"
-"Ceci est un <strong>aperçu</strong> de ce que les lieux de concerts et les autres groupes verrons de votre groupe. Assurez-vous <strong> d'avoir rempli toutes les zones !</strong>"
+"Ceci est un <strong>aperçu</strong> de ce que les lieux de concerts et les "
+"autres groupes verrons de votre groupe. Assurez-vous <strong> d'avoir rempli "
+"toutes les zones !</strong>"
 
 #: templates/presskit/presskit_content.html:28
 msgid "<strong>Genres</strong>:"
@@ -164,7 +171,7 @@ msgstr "<strong>Genres</strong> :"
 
 #: templates/presskit/presskit_content.html:30
 msgid "No genre."
-msgstr "Aucun genre."
+msgstr "Pas de genre particulier."
 
 #: templates/presskit/presskit_content.html:33
 #: templates/presskit/presskit_content.html:44
@@ -177,7 +184,7 @@ msgstr "<strong>Influences</strong> :"
 
 #: templates/presskit/presskit_content.html:41
 msgid "No influences."
-msgstr "Aucune influence."
+msgstr "Pas d'influence particulière."
 
 #: templates/presskit/presskit_content.html:50
 msgid "Members"
@@ -274,8 +281,8 @@ msgid ""
 "You have not uploaded any tracks yet. You should do so if you want the "
 "venues to book you !"
 msgstr ""
-"Vous n'avez pas encore téléchargé de morceaux. Vous devriez le faire "
-"pour que les lieux de concerts vous programme !"
+"Vous n'avez pas encore téléchargé de morceaux. Vous devriez le faire pour "
+"que les lieux de concerts vous programme !"
 
 #: templates/presskit/presskit_content.html:323
 msgid "Pictures"
@@ -312,8 +319,8 @@ msgid ""
 "You can add a message if you want. Requests with a message tend to be "
 "<strong>more answered</strong>."
 msgstr ""
-"Vous pouvez ajouter un message si vous le souhaitez. Le demandes avec "
-"un message ont en général <strong>plus de réponses</strong>."
+"Vous pouvez ajouter un message si vous le souhaitez. Le demandes avec un "
+"message ont en général <strong>plus de réponses</strong>."
 
 #: templates/presskit/presskit_send.html:101
 msgid "Submit"
@@ -352,8 +359,7 @@ msgstr "Envoyée par :"
 #: templates/presskit/presskit_viewrequest_band.html:64
 #, python-format
 msgid ""
-"Discuss about this request with "
-"&laquo;&nbsp;%(venue_name)s&nbsp;&raquo;"
+"Discuss about this request with &laquo;&nbsp;%(venue_name)s&nbsp;&raquo;"
 msgstr "Discutez de cette demande avec « %(venue_name)s »"
 
 #: templates/presskit/presskit_viewrequest_band.html:93
@@ -389,8 +395,8 @@ msgid ""
 "You have <span class='accepted'>accepted</span> to set up a gig with "
 "%(band_name)s!"
 msgstr ""
-"Vous avez <span class='accepted'>accepté</span> d'organiser un concert"
-" avec %(band_name)s !"
+"Vous avez <span class='accepted'>accepté</span> d'organiser un concert avec "
+"%(band_name)s !"
 
 #: templates/presskit/presskit_viewrequest_venue.html:72
 #, python-format
@@ -398,8 +404,8 @@ msgid ""
 "You have <span class='declined'>declined</span> to set up a gig with "
 "%(band_name)s."
 msgstr ""
-"Vous avez <span class='declined'>refusé</span> d'organiser un concert "
-"avec %(band_name)s."
+"Vous avez <span class='declined'>refusé</span> d'organiser un concert avec "
+"%(band_name)s."
 
 #: templates/presskit/presskit_viewrequest_venue.html:77
 msgid "Your answer"
@@ -408,14 +414,13 @@ msgstr "Votre réponse"
 #: templates/presskit/presskit_viewrequest_venue.html:80
 #, python-format
 msgid ""
-"So, are you interested by setting up a gig with <a "
-"href=\"%(band_url)s\"><strong>%(band_name)s</strong></a> ? If so, then "
-"accept and discuss about the conditions (when, fees, ...)."
+"So, are you interested by setting up a gig with <a href=\"%(band_url)s"
+"\"><strong>%(band_name)s</strong></a> ? If so, then accept and discuss about "
+"the conditions (when, fees, ...)."
 msgstr ""
-" Êtes-vous intéressé par l'organisation d'un concert avec <strong><a "
-"href=\"%(band_url)s\"> %(band_name)s </a></strong> ? Si oui, veuillez "
-"accepter et participer aux discussions sur les conditions (quand, "
-"frais, ...)."
+" Êtes-vous intéressé par l'organisation d'un concert avec <strong><a href="
+"\"%(band_url)s\"> %(band_name)s </a></strong> ? Si oui, veuillez accepter et "
+"participer aux discussions sur les conditions (quand, frais, ...)."
 
 #: templates/presskit/presskit_viewrequest_venue.html:84
 msgid "Accept"
@@ -436,11 +441,11 @@ msgstr "Désolé, je ne suis pas intéressé"
 #: templates/presskit/presskit_viewrequest_venue.html:92
 #, python-format
 msgid ""
-"Discuss about this request with &laquo;&nbsp;<a "
-"href=\"%(band_url)s\">%(band_name)s</a>&nbsp;&raquo;"
+"Discuss about this request with &laquo;&nbsp;<a href=\"%(band_url)s\">"
+"%(band_name)s</a>&nbsp;&raquo;"
 msgstr ""
-"Discutez de cette demande avec « <a href=\"%(band_url)s\">%(band_name)s "
-"</a>  »"
+"Discutez de cette demande avec « <a href=\"%(band_url)s\">%(band_name)s </"
+"a>  »"
 
 #: templates/presskit/presskit_viewrequest_venue.html:104
 msgid "band avatar"
@@ -471,8 +476,8 @@ msgstr "Ajouter une piste"
 
 #: templates/presskit/track_add.html:11
 msgid ""
-"Only <strong>MP3</strong> format is supported at the moment. Sorry for "
-"that, <strong>Ogg</strong> support is coming soon !"
+"Only <strong>MP3</strong> format is supported at the moment. Sorry for that, "
+"<strong>Ogg</strong> support is coming soon !"
 msgstr ""
 "Désolé, seulement le format <strong>MP3</strong> est supporté pour le "
 "moment. <strong>Ogg</strong> arrive bientôt!"
@@ -497,12 +502,15 @@ msgstr "Ajouter une nouvelle piste"
 msgid ""
 "\n"
 "    Paste here any link that points to a video resource. For example:\n"
-"    <a href=\"http://www.youtube.com/watch?v=uBZbhrm05qI\">http://www.youtube.com/watch?v=uBZbhrm05qI</a>\n"
+"    <a href=\"http://www.youtube.com/watch?v=uBZbhrm05qI\">http://www."
+"youtube.com/watch?v=uBZbhrm05qI</a>\n"
 "    is a valid URL.\n"
 "    "
 msgstr ""
 "\n"
-"Coller un lien ici qui mène à une ressource vidéo. Par exemple: <a href=\"http://www.youtube.com/watch?v=uBZbhrm05qI\">http://www.youtube.com/watch?v=uBZbhrm05qI</a> est une URL valide."
+"Coller un lien ici qui mène à une ressource vidéo. Par exemple: <a href="
+"\"http://www.youtube.com/watch?v=uBZbhrm05qI\">http://www.youtube.com/watch?"
+"v=uBZbhrm05qI</a> est une URL valide."
 
 #: templates/presskit/video_edit.html:30
 msgid "Update"
