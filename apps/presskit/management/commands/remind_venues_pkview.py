@@ -6,6 +6,7 @@ from django.core.mail import send_mail, send_mass_mail
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.utils import translation
 
 from presskit.models import PresskitViewRequest
 
@@ -28,19 +29,26 @@ class Command(BaseCommand):
         # Prepare an email for each venue
         messages = []
         for venue, viewrequests in venues_to_remind.iteritems():
-            message = (_("%(prefix)sReminder: You have pending gig requests for '%(venue_name)s'!" % {'prefix': settings.EMAIL_SUBJECT_PREFIX,
-                                                                                                      'venue_name': venue.name}
-                         ), 
-                       render_to_string(template_name='presskit/venue_gigrequests_reminder.txt',
-                                        dictionary={'venue': venue,
-                                                    'viewrequests': viewrequests
-                                                    },
-                                        ),
-                       settings.SERVER_EMAIL,
-                       [member.email for member in venue.members.all()]
-                       )
+            # For each member, switch language and make an email
+            for member in venue.members.all():
+                # Use French as default language
+                member_language = member.get_profile().language or 'fr'
+                
+                translation.activate(member_language)
 
-            messages.append(message)
+                message = (_("%(prefix)sReminder: You have pending gig requests for '%(venue_name)s'!" % {'prefix': settings.EMAIL_SUBJECT_PREFIX,
+                                                                                                          'venue_name': venue.name}
+                             ), 
+                           render_to_string(template_name='presskit/venue_gigrequests_reminder.txt',
+                                            dictionary={'venue': venue,
+                                                        'viewrequests': viewrequests
+                                                        },
+                                            ),
+                           settings.SERVER_EMAIL,
+                           [member.email],
+                           )
+                
+                messages.append(message)
 
 
         # Spam 'em all !

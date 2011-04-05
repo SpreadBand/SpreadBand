@@ -228,6 +228,7 @@ INSTALLED_APPS = (
     'visitors',
     'badges',
     'cbv',
+    'chronograph',
 )
 
 if DEBUG:
@@ -259,6 +260,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 ### Mailer
 SERVER_EMAIL = 'noreply@spreadband.com'
+EMAIL_SENDER = SERVER_EMAIL
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 EMAIL_SUBJECT_PREFIX = '[SpreadBand] '
 # Write emails to console if in development mode
@@ -269,6 +271,8 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'localhost'
     EMAIL_PORT = 25
+
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 
 
 ### Registration
