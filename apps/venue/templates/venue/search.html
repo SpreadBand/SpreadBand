@@ -368,7 +368,7 @@
 	    }
 
 	    function search_venues() {
-		$('#search').block({message: 'Recherche en cours, patientez svp...'});
+		$('#search').block({message: 'Recherche en cours, patientez svp...', applyPlatformOpacityRules: false});
 		$('#search-results').fadeTo('fast', 0.3);
 		$('#search-results-wrapper').activity({width: 6, valign: 'center', padding: '20'});
 
