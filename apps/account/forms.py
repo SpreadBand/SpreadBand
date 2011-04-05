@@ -68,7 +68,7 @@ class AccountEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name', 'genre', 'birthdate', 'email', 'country', 'timezone', 'town')
+        fields = ('first_name', 'last_name', 'genre', 'birthdate', 'email', 'country', 'language', 'timezone', 'town')
 
     birthdate = forms.DateField(label=_("Birthdate"),
                                 widget=SelectDateWidget(years=range(datetime.date.today().year-10, 1900, -1))
