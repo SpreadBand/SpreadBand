@@ -260,6 +260,7 @@ DEBUG_TOOLBAR_CONFIG = {
 ### Mailer
 SERVER_EMAIL = 'noreply@spreadband.com'
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
+EMAIL_SUBJECT_PREFIX = '[SpreadBand] '
 # Write emails to console if in development mode
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -268,7 +269,6 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'localhost'
     EMAIL_PORT = 25
-    EMAIL_SUBJECT_PREFIX = '[SpreadBand] '
 
 
 ### Registration
@@ -367,7 +367,6 @@ OAUTH_ACCESS_SETTINGS = {
 ### HAYSTACK
 HAYSTACK_SITECONF = 'spreadband.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
-
 HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_PATH, 'spreadband_index')
 
 # STATIC FILES
