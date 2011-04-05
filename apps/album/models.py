@@ -5,7 +5,7 @@ from django.db.models import CharField, FileField, ForeignKey, ImageField, Boole
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 
-from band.models import Band
+from apps.band.models import Band
 
 ###-- Album
 

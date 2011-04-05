@@ -30,7 +30,6 @@ from ..models import Band, BandMember
 from ..forms import BandCreateForm, BandUpdateForm
 from ..forms import BandPictureForm, BandMemberRequestForm
 
-
 @login_required
 def new(request):
     """

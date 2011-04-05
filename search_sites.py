@@ -3,6 +3,3 @@ import haystack
 haystack.autodiscover()
 
 
-
-
-

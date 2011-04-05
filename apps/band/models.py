@@ -9,12 +9,12 @@ from django.contrib.contenttypes import generic
 from tagging.fields import TagField
 from imagekit.models import ImageModel
 from elsewhere.models import SocialNetworkProfile, WebsiteProfile
-
-from actors.models import Actor
 from badges.models import BadgeToLaureate
 from django_countries import CountryField
-# from minisite.models.minisite import Minisite
+
+from apps.actors.models import Actor
 from world.models import Place
+# from minisite.models.minisite import Minisite
 
 
 class Band(Actor):
@@ -111,6 +111,7 @@ class Band(Actor):
     @models.permalink
     def get_absolute_url(self):
         return ('band:detail',  (self.slug,))
+
 
 # This should be in actors.models, but django currently doesn't deal
 # well with signals and inheritance
@@ -241,6 +242,3 @@ def add_band_socialnetwork_on_auth_assoc(sender, instance, created, **kwargs):
 
 import meta_badges
 
-# Reversions
-import reversion
-reversion.register(Band)
