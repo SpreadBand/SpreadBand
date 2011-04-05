@@ -222,7 +222,8 @@
 		<div class="band-activity">
 		    <ul>
 		      {% for action in venue_latest_activity|hash:venue.slug %}
-			<li>{% display_action_short action %}. <span class="date">{{ action.timestamp|timesince }} ago</span></li>
+
+			<li>{% display_action_short action %}. <span class="date">{% blocktrans with action.timestamp|timesince as time_ago %}{{ time_ago }} ago{% endblocktrans %}</span></li>
 			{% empty %}
 			<li>{% trans "There is no activity yet for this venue !" %}</li>
 		      {% endfor %}

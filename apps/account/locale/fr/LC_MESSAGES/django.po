@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-10 14:53+0100\n"
-"PO-Revision-Date: 2011-03-10 14:57\n"
-"Last-Translator: Guillaumeuh Libersat <guillaume@spreadband.com>\n"
+"POT-Creation-Date: 2011-04-01 16:07+0200\n"
+"PO-Revision-Date: 2011-04-01 16:10\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Translated-Using: django-rosetta 0.5.9\n"
+"X-Translated-Using: django-rosetta 0.6.0\n"
 
 #: forms.py:32
 msgid "New password"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: templates/account/user_dashboard.html:101
 msgid "Register your Venue"
-msgstr "Enregistez votre Scène"
+msgstr "Enregistrez votre Scène"
 
 #: templates/account/user_dashboard.html:105
 #, python-format
@@ -206,15 +206,20 @@ msgstr "Mes scènes"
 msgid "Create a new venue"
 msgstr "Créer une nouvelle scène"
 
-#: templates/account/user_dashboard.html:227
+#: templates/account/user_dashboard.html:226
+#, python-format
+msgid "%(time_ago)s ago"
+msgstr " il y a %(time_ago)s"
+
+#: templates/account/user_dashboard.html:228
 msgid "There is no activity yet for this venue !"
 msgstr "Il n'y a encore aucune activité pour cette scène !"
 
-#: templates/account/user_dashboard.html:242
+#: templates/account/user_dashboard.html:243
 msgid "You are <strong>not managing a venue</strong>."
 msgstr "Vous ne vous <strong>occupez d'aucune scène.</strong>"
 
-#: templates/account/user_dashboard.html:247
+#: templates/account/user_dashboard.html:248
 #, python-format
 msgid ""
 "\n"
@@ -224,61 +229,61 @@ msgstr ""
 "\n"
 "Vous pouvez <a href=\"%(venue_create_url)s\">en créer une maintenant</a> ou <a href=\"%(venue_search_url)s\">vérifier si votre scène est déjà sur SpreadBand</a>"
 
-#: templates/account/user_dashboard.html:264
+#: templates/account/user_dashboard.html:265
 #, python-format
 msgid "Also in a band? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
 "Vous faites aussi parti d'un groupe ? <a href=\"%(url)s\">Enregistrez-le"
 " maintenant</a> !"
 
-#: templates/account/user_dashboard.html:270
+#: templates/account/user_dashboard.html:271
 #, python-format
 msgid "Also running a venue? <a href=\"%(url)s\">Register it now</a>!"
 msgstr ""
 "Vous vous occupez également d'une scène ? <a href=\"%(url)s"
 "\">Enregistrez-la maintenant</a> !"
 
-#: templates/account/user_dashboard.html:289
+#: templates/account/user_dashboard.html:290
 #: templates/userena/profile_detail.html:135
 msgid "Connections since a month"
 msgstr "Connexions du mois"
 
-#: templates/account/user_dashboard.html:298
+#: templates/account/user_dashboard.html:299
 #: templates/userena/profile_detail.html:144
 msgid "No connections yet"
 msgstr "Aucune connexion pour l'instant"
 
-#: templates/account/user_dashboard.html:299
+#: templates/account/user_dashboard.html:300
 #: templates/userena/profile_detail.html:145
 msgid "You'll find here connections with other musicians"
 msgstr "Vous trouverez ici vos connexions avec d'autres musiciens"
 
-#: templates/account/user_dashboard.html:307
+#: templates/account/user_dashboard.html:308
 msgid "Latest Notifications"
 msgstr "Dernières alertes"
 
-#: templates/account/user_dashboard.html:310
+#: templates/account/user_dashboard.html:311
 msgid "Actions:"
 msgstr "Actions :"
 
-#: templates/account/user_dashboard.html:310
+#: templates/account/user_dashboard.html:311
 msgid "Settings"
 msgstr "Paramètres"
 
-#: templates/account/user_dashboard.html:310
+#: templates/account/user_dashboard.html:311
 msgid "Mark all unseen notices seen"
 msgstr "Marquer toutes les alertes comme vues"
 
-#: templates/account/user_dashboard.html:316
+#: templates/account/user_dashboard.html:317
 msgid "MONTH_DAY_FORMAT"
 msgstr "MONTH_DAY_FORMAT"
 
-#: templates/account/user_dashboard.html:318
+#: templates/account/user_dashboard.html:319
 #, python-format
 msgid "%(time_since)s ago"
 msgstr " il y a %(time_since)s"
 
-#: templates/account/user_dashboard.html:340
+#: templates/account/user_dashboard.html:341
 msgid "You have no notices yet."
 msgstr "Vous n'avez pas d'alertes pour le moment."
 
@@ -619,7 +624,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot de passe avec des chiffres ou caractères spéciaux. Ca le rend plus fort contre les attaques."
+"Vous pouvez mettre à jour votre mot de passe ici. Essayez d'utiliser un mot de passe avec des chiffres ou caractères spéciaux. Ça le rend plus fort contre les attaques."
 
 #: templates/userena/profile_detail.html:22
 msgid "Public profile of"
@@ -675,27 +680,31 @@ msgstr ""
 "\n"
 "Veuillez vous décrire ici. Ces informations sont importantes pour que les autres puissent mieux vous connaître."
 
-#: templates/userena/signin_form.html:17
+#: templates/userena/signin_form.html:7
+msgid "Signin"
+msgstr "Inscrivez-vous"
+
+#: templates/userena/signin_form.html:21
 msgid "Hi !"
 msgstr "Salut !"
 
-#: templates/userena/signin_form.html:29
+#: templates/userena/signin_form.html:33
 msgid "Let me in !"
 msgstr "Laissez moi entrer !"
 
-#: templates/userena/signin_form.html:30
+#: templates/userena/signin_form.html:34
 msgid "Have you"
 msgstr "Avez-vous"
 
-#: templates/userena/signin_form.html:30
+#: templates/userena/signin_form.html:34
 msgid "forgotten your password"
 msgstr "oublié votre mot de passe"
 
-#: templates/userena/signin_form.html:43
+#: templates/userena/signin_form.html:47
 msgid "Don't forget"
 msgstr "N'oubliez pas"
 
-#: templates/userena/signin_form.html:47
+#: templates/userena/signin_form.html:51
 msgid ""
 "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes "
 "bien sur le site spreadband.com avant de vous identifier."
@@ -703,29 +712,29 @@ msgstr ""
 "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes "
 "bien sur le site spreadband.com avant de vous identifier."
 
-#: templates/userena/signin_form.html:48
+#: templates/userena/signin_form.html:52
 msgid "Learn more"
 msgstr "En apprendre plus"
 
-#: templates/userena/signin_form.html:57
+#: templates/userena/signin_form.html:61
 msgid "New here ?"
 msgstr "Nouveau ici ?"
 
-#: templates/userena/signin_form.html:60
+#: templates/userena/signin_form.html:64
 msgid "Signup now"
 msgstr "Inscrivez vous maintenant"
 
-#: templates/userena/signin_form.html:60
+#: templates/userena/signin_form.html:64
 msgid "for a SpreadBand account, it's free and takes less than a minute !"
 msgstr ""
 "pour un compte SpreadBand, c'est gratuit et ça prend moins d'une "
 "minute !"
 
-#: templates/userena/signin_form.html:62
+#: templates/userena/signin_form.html:66
 msgid "What is SpreadBand ?"
 msgstr "SpreadBand c'est quoi ?"
 
-#: templates/userena/signin_form.html:67
+#: templates/userena/signin_form.html:71
 msgid "Take a tour !"
 msgstr "Faites un tour !"
 
