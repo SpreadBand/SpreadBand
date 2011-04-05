@@ -2,9 +2,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.db.models import DateTimeField, BooleanField, OneToOneField
 
-from agenda.models import Calendar
-from annoying.fields import AutoOneToOneField
-
 class Actor(models.Model):
     """
     An actor is an entity playing a role in your system. It can be anything that
@@ -27,8 +24,7 @@ class Actor(models.Model):
                          help_text=_('Wether this actor is owned by at least one user')
                          )
 
-    calendar = OneToOneField(Calendar, null=True, blank=True, editable=False)
-
+    
 def actor_after_save(sender, instance, created, **kwargs):
     """
     Called to ensure the calendar is created for a given actor
