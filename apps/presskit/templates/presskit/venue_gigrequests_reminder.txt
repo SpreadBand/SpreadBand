@@ -1,0 +1,14 @@
+{% load i18n %}
+{% blocktrans with viewrequests|length as viewrequest_count %}Remember to answer to the following {{ viewrequest_count }} gig requests:{% endblocktrans %}
+
+{% for viewrequest in viewrequests %}
+  - {{ viewrequest.presskit.band.name }} {% blocktrans with viewrequest.modified_on|timesince as timesince %}(Sent {{ timesince }} ago){% endblocktrans %}
+    {% trans "Answer there:" %} http://spreadband.com/{% url venue:presskit-viewrequest-venue venue.slug viewrequest.pk %}
+
+{% endfor %}
+
+{% blocktrans %}The fastest you will answer, the more bands will book you !{% endblocktrans %}
+
+{% trans "Cheers," %}
+
+{% trans "SpreadBand Team" %}
