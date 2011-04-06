@@ -318,5 +318,16 @@ li.presskit_sharing_item {
 }
 
 
+#venuestats ul li {
+    list-style: none;
+}
+
+#venuestats .red {
+    color: red;
+}
+
+#venuestats .green {
+    color: green;
+}
 
 

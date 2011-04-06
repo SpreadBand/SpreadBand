@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-07 12:36+0100\n"
-"PO-Revision-Date: 2011-03-08 16:50\n"
+"POT-Creation-Date: 2011-04-06 16:40+0200\n"
+"PO-Revision-Date: 2011-04-06 16:41\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Translated-Using: django-rosetta 0.5.9\n"
+"X-Translated-Using: django-rosetta 0.6.0\n"
 
 #: forms.py:33
 msgid "Country"
@@ -170,36 +170,36 @@ msgstr "Vous avez accepté d'organiser un concert avec %s"
 msgid "You have refused to set up a gig with %s"
 msgstr "Vous avez refusé d'organiser un concert avec %s"
 
-#: views.py:308 views.py:324 views.py:350
+#: views.py:316 views.py:332 views.py:358
 msgid "You are not allowed to manage this venue"
 msgstr "Vous n'êtes pas autorisé à gérer cette scène"
 
-#: views.py:376
+#: views.py:384
 msgid "Unable to lookup address"
 msgstr "Impossible de recherche l'adresse"
 
-#: views.py:533
+#: views.py:541
 msgid "Une nouvelle mission pour SuperLaurent"
 msgstr "Une nouvelle mission pour SuperLaurent"
 
-#: views.py:539
+#: views.py:547
 msgid "A new mission was successfully sent to SuperLaurent !"
 msgstr "Une nouvelle mission a été envoyée à SuperLaurent!"
 
-#: views.py:560
+#: views.py:568
 msgid "Type your text here !"
 msgstr "Tapez votre texte ici !"
 
-#: views.py:618
+#: views.py:626
 #, python-format
 msgid "%(username)s was successfully added to %(venue_name)s"
 msgstr "%(username)s a bien été ajouté à %(venue_name)s"
 
-#: views.py:642
+#: views.py:650
 msgid "You are not allowed to edit this venue"
 msgstr "Vous n'êtes pas autorisé à modifier cette scène"
 
-#: views.py:645
+#: views.py:653
 msgid "You can't let this venue alone"
 msgstr "Vous ne pouvez pas laisser cette scène seule"
 
@@ -353,7 +353,7 @@ msgstr ""
 "\n"
 "Ceci est un <strong>aperçu</strong> de la façon dont les groupes et les autres scènes verront votre scène. Assurez-vous d'avoir <strong>modifié toutes les parties !</strong>"
 
-#: templates/venue/picture_list.html:8 templates/venue/profile.html:208
+#: templates/venue/picture_list.html:8 templates/venue/profile.html:221
 msgid "Pictures"
 msgstr "Photos"
 
@@ -398,70 +398,78 @@ msgstr "modifier"
 msgid "<strong>Capacity</strong>:"
 msgstr "<strong>Capacité</strong> :"
 
-#: templates/venue/profile.html:84
+#: templates/venue/profile.html:83
+msgid "Trust indexes"
+msgstr "Indices de confiance"
+
+#: templates/venue/profile.html:90
+msgid "Response rate:"
+msgstr "Taux de réponses :"
+
+#: templates/venue/profile.html:97
 msgid "Latest Bands"
 msgstr "Derniers groupes"
 
-#: templates/venue/profile.html:89
+#: templates/venue/profile.html:102
 msgid "No bands have played there yet."
 msgstr "Aucun groupe n'a encore joué là."
 
-#: templates/venue/profile.html:116 templates/venue/venue_detail.html:100
+#: templates/venue/profile.html:129 templates/venue/venue_detail.html:100
 msgid "Venue"
 msgstr "Scène"
 
-#: templates/venue/profile.html:125
+#: templates/venue/profile.html:138
 msgid "No description."
 msgstr "Pas de description."
 
-#: templates/venue/profile.html:129 templates/venue/profile.html.py:210
-#: templates/venue/profile.html:234 templates/venue/profile.html.py:257
-#: templates/venue/venue_update.html:8 templates/venue/venue_update.html:12
+#: templates/venue/profile.html:142 templates/venue/profile.html.py:223
+#: templates/venue/profile.html:247 templates/venue/profile.html.py:270
+#: templates/venue/venue_update.html:9 templates/venue/venue_update.html:13
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/venue/profile.html:140
+#: templates/venue/profile.html:153
 msgid "Send presskit of"
 msgstr "Envoyer le PressKit de"
 
-#: templates/venue/profile.html:141
+#: templates/venue/profile.html:154
 msgid "Click to propose a gig to this venue."
 msgstr "Cliquez pour proposer un concert à cette scène."
 
-#: templates/venue/profile.html:147
+#: templates/venue/profile.html:160
 #, python-format
 msgid "Send %(band_name)s PressKit"
 msgstr "Envoyer le PressKit de %(band_name)s"
 
-#: templates/venue/profile.html:170
+#: templates/venue/profile.html:183
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: templates/venue/profile.html:180
+#: templates/venue/profile.html:193
 msgid "Upcoming events"
 msgstr "Événements à venir"
 
-#: templates/venue/profile.html:185
+#: templates/venue/profile.html:198
 msgid "No upcoming event."
 msgstr "Aucun événement à venir."
 
-#: templates/venue/profile.html:192
+#: templates/venue/profile.html:205
 msgid "See full calendar"
 msgstr "Voir le calendrier complet"
 
-#: templates/venue/profile.html:232
+#: templates/venue/profile.html:245
 msgid "Video"
 msgstr "Vidéo"
 
-#: templates/venue/profile.html:244
+#: templates/venue/profile.html:257
 msgid "No video has been set."
 msgstr "Aucune vidéo n'a été ajoutée."
 
-#: templates/venue/profile.html:255 templates/venue/search.html:304
+#: templates/venue/profile.html:268 templates/venue/search.html:304
 msgid "Location"
 msgstr "Localisation"
 
-#: templates/venue/profile.html:262
+#: templates/venue/profile.html:275
 msgid "Address:"
 msgstr "Adresse :"
 
@@ -581,7 +589,7 @@ msgstr ""
 "\n"
 "En inscrivant votre scène, les groupes pourront vous envoyer leur PressKit afin que vous puissiez organiser un concert avec eux."
 
-#: templates/venue/venue_update.html:33
+#: templates/venue/venue_update.html:62
 msgid "Update"
 msgstr "Mise à jour"
 

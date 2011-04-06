@@ -206,6 +206,13 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     # Check if the venue is managed
     is_managed = request.user.has_perm('venue.can_manage', venue)
 
+    # Compute the response rate
+    total_presskitviewrequests = PresskitViewRequest.objects.filter(venue__slug=venue_slug).count()
+    unanswered_presskitviewrequests = PresskitViewRequest.objects.filter(venue__slug=venue_slug, state__in=('P', 'S')).count()
+
+    response_rate = 100 - int(unanswered_presskitviewrequests / float(total_presskitviewrequests) * 100)
+    
+
     # if this is not our venue, then record us as a visitor
     # Venues
     if not is_managed and not request.user.is_anonymous():
@@ -220,9 +227,9 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
                      'past_events': past_events,
                      'future_events': future_events,
                      'monthly_calendar': monthly_calendar,
+                     'response_rate': response_rate,
                      'is_managed': is_managed}
 
-    # Get the bargains we're involved into
     return object_detail(request,
                          queryset=Venue.objects.all(),
                          slug=venue_slug,

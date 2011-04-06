@@ -77,6 +77,19 @@
     </ul>
 	
   </div>
+
+  <!-- Stats -->
+  <div id="venuestats" class="grid_3 alpha omega">
+    <h3>{% trans "Trust indexes" %}</h3>
+    <ul>
+      {% if response_rate < 40 %}
+      <li class="red">
+	{% else %}
+	{% if response_rate > 80 %}<li class="green">{% endif %}
+      {% endif %}
+      {% trans "Response rate:" %} {{ response_rate }}%</li>
+    </ul>
+  </div>  
   
 	<!--
 	
@@ -134,7 +147,7 @@ $(document).ready(function() {
   </div>
   
    <div class="grid_3 omega">
-     {% if not is_managed %}
+     {% if not is_managed or user.is_superuser %}
      <div class="sectionbox presskit_sharing">
        <div class="venue_sharing_title">
 	 <img src="{% staticfile "images/venue/send_presskit.png" %}" alt="{% trans "Send presskit of" %}" width="150px"/>
