@@ -15,4 +15,8 @@ def create_notice_types(app, created_models, verbosity, **kwargs):
 
     notification.create_notice_type("presskitview_new", _("band proposed to set up gig to a venue"), _("A band has proposed to set up a gig"))
 
-    
+
+
+
+
+
