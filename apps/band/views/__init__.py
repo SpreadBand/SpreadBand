@@ -207,15 +207,15 @@ def dashboard(request, band_slug):
         return HttpResponseForbidden('You are not allowed to view this dashboard band')
     
 
-    past_events = band.gigs.past_events()[:1]
-    future_events = band.gigs.future_events()[0:5]
+    #past_events = band.gigs.past_events()[:1]
+    #future_events = band.gigs.future_events()[0:5]
 
-    today_events = band.gigs.future_events().filter(event_date=date.today())
+    #today_events = band.gigs.future_events().filter(event_date=date.today())
 
     # make a calendar
-    monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
-                                              aQueryset=band.gigs.all(),
-                                              when=date.today())
+    #monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
+    #                                          aQueryset=band.gigs.all(),
+    #                                          when=date.today())
 
     # gigbargains
     #gigbargain_invitations = band.gigbargains.invitationsFor(band)
@@ -247,7 +247,7 @@ def dashboard(request, band_slug):
     extra_context = {'past_events': past_events,
                      'future_events': future_events,
                      'today_events': today_events,
-                     'monthly_calendar': monthly_calendar,
+                     #'monthly_calendar': monthly_calendar,
                      # 'latest_activity': latest_activity,
                      #'gigbargain_invitations': gigbargain_invitations,
                      #'gigbargain_drafts': gigbargain_drafts,

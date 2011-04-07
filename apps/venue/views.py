@@ -196,11 +196,11 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     future_events = venue.gigs.future_events()[0:5]
 
     # make a calendar
-    from datetime import date
-    from event.views.calendar import GigMonthlyHTMLCalendar
-    monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
-                                              aQueryset=venue.gigs.all(),
-                                              when=date.today())
+    #from datetime import date
+    #from event.views.calendar import GigMonthlyHTMLCalendar
+    #monthly_calendar = GigMonthlyHTMLCalendar(firstweekday=0,
+    #                                          aQueryset=venue.gigs.all(),
+    #                                          when=date.today())
 
 
     # Check if the venue is managed
@@ -226,7 +226,7 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     extra_context = {'latest_bands': latest_bands,
                      'past_events': past_events,
                      'future_events': future_events,
-                     'monthly_calendar': monthly_calendar,
+                     #'monthly_calendar': monthly_calendar,
                      'response_rate': response_rate,
                      'is_managed': is_managed}
 
