@@ -244,9 +244,9 @@ def dashboard(request, band_slug):
     sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit, 
                                                         modified_on__gte=ten_days_ago).order_by('modified_on', '-sent_on', 'state')[:15]
 
-    extra_context = {'past_events': past_events,
-                     'future_events': future_events,
-                     'today_events': today_events,
+    extra_context = {#'past_events': past_events,
+                     #'future_events': future_events,
+                     #'today_events': today_events,
                      #'monthly_calendar': monthly_calendar,
                      # 'latest_activity': latest_activity,
                      #'gigbargain_invitations': gigbargain_invitations,

@@ -190,10 +190,10 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     venue = get_object_or_404(Venue, slug=venue_slug)
     
     # Five latest gigs
-    latest_bands = Band.objects.filter(id__in=venue.gigs.past_events()[:5]).distinct()
+    #latest_bands = Band.objects.filter(id__in=venue.gigs.past_events()[:5]).distinct()
 
-    past_events = venue.gigs.past_events()[:1]
-    future_events = venue.gigs.future_events()[0:5]
+    #past_events = venue.gigs.past_events()[:1]
+    #future_events = venue.gigs.future_events()[0:5]
 
     # make a calendar
     #from datetime import date
@@ -223,9 +223,9 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
                 record_visit(band, venue)
 
 
-    extra_context = {'latest_bands': latest_bands,
-                     'past_events': past_events,
-                     'future_events': future_events,
+    extra_context = {#'latest_bands': latest_bands,
+                     #'past_events': past_events,
+                     #'future_events': future_events,
                      #'monthly_calendar': monthly_calendar,
                      'response_rate': response_rate,
                      'is_managed': is_managed}
