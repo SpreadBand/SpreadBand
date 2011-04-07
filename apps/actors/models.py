@@ -30,10 +30,11 @@ def actor_after_save(sender, instance, created, **kwargs):
     Called to ensure the calendar is created for a given actor
     """
     if created:
-        cal = Calendar(name='%s' % instance.name)
-        cal.save()
-        instance.calendar = cal
-        instance.save()
+	pass
+        #cal = Calendar(name='%s' % instance.name)
+        #cal.save()
+        #instance.calendar = cal
+        #instance.save()
 
 
 
