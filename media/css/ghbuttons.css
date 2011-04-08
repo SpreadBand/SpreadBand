@@ -13,6 +13,8 @@ a.minibutton {
     overflow:visible;
     cursor:pointer;
     text-decoration:none;
+    font-style: normal;
+    font-family: Helvetica, Arial;
 }
 
 a.disabled {

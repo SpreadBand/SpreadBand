@@ -133,7 +133,7 @@ $(document).ready(function() {
 
       <div class="content">
 	{% if venue.description %}
-	  {{ venue.description|capfirst|safe }}
+	  {{ venue.description|capfirst|linebreaksbr }}
 	{% else %}
 	  {% trans "No description." %}
 	{% endif %}

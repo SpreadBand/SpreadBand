@@ -11,8 +11,8 @@
     $(document).ready(function() {
 	$('.tip').tipsy({gravity: 's'});
 	
-	$('#biography > .content > p').readmore({substr_len: 500,
-						 more_link: '[<a class="more">{% trans 'Read&nbsp;More' %}</a>]'});
+	$('#biography > blockquote > div.text').readmore({substr_len: 850,
+							  more_link: '<a class="more">[{% trans 'Read&nbsp;More' %}]</a>'});
     });
 </script>
 
@@ -151,55 +151,33 @@
     {% endif %}
   </div>
 
-  <div class="grid_7 alpha">
-    <div id="biography" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="biography"/>
-	<h2>{% trans "Biography" %}</h2>
-	{% if can_edit %}
-	<a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
-	{% endif %}
-      </div>
-      <div class="separator"></div>
-      <div class="content">
+  <div class="grid_12 alpha omega">
+    <div id="biography">
 	{% if band.biography %}
-	<p>
-	  {{ band.biography|capfirst|linebreaksbr }}
-	</p>
-	{% else %}
-	  {% trans "No biography." %}
-	{% endif %}
-      </div>
+	<blockquote>
+	  <div class="text">
+	    {% if can_edit %}
+	      <a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit">
+		<span><span class="icon"></span>{% trans "Edit" %}</span>
+	      </a>
+	    {% endif %}
+
+	    <div id="location">
+	      {% if can_edit %}
+		<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="{% trans "Change Your Location" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
+	      {% endif %}
+	
+	      <div style="height: 150px; width: 200px" id="map" class="smallmap"></div>
+	    </div>
+	    {{ band.biography|capfirst|linebreaksbr }}
+	  </div>
+	</blockquote>
+      {% else %}
+	{% trans "No biography." %}
+      {% endif %}
     </div>
   </div>
-
-  <script type="text/javascript">
-    var map;
-
-    function init(){
-        map = new OpenLayers.Map('map', {controls: []});
-	map.addControl(new OpenLayers.Control.MouseToolbar());
-
-        var layer = new OpenLayers.Layer.OSM()
-        map.addLayer(layer);
-
-	var venue = new OpenLayers.LonLat({{ band.place.geom.x|stringformat:"0.5f" }}, {{ band.place.geom.y|stringformat:"0.5f" }}) // Center of the map
-            .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-		       new OpenLayers.Projection("EPSG:900913"));
-
-	var markers = new OpenLayers.Layer.Markers("Markers")
-	map.addLayer(markers)
-	markers.addMarker(new OpenLayers.Marker(venue));
-
-	map.setCenter(venue,
-		      4 // Zoom level
-		     );
-
-    };
-
-    $(document).ready(init);
-  </script>
-
+ 
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -230,120 +208,245 @@
             }
 	});
 
-
-	function changeTrack(e) {
-	    $("#trackname").text($(this).text());
-	    $("#audio_player").jPlayer("setFile", $(this).attr("mp3"), $(this).attr("ogg")).jPlayer("play");
-	    $(this).blur();
-	    return false;
-	};
-
-
-	$(".track").click( changeTrack );
-
-
     });
   </script>
 
 
-  <div class="grid_5 omega">
-    <div id="location" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
-	<h2>{% trans "Location" %}</h2>
-	{% if can_edit %}
-	<a href="{% url band:edit band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
-	{% endif %}
-      </div>
-      <div class="separator"></div>
-      <div class="content">
-	<div style="height: 200px; width: 100%" id="map" class="smallmap"></div>
-      </div>
-    </div>
-  </div>
 
   <div class="grid_12 alpha omega">
 
     <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.jplayer.js' %}"></script>
 
     <script type="text/javascript">
+      var Playlist = function(instance, playlist, options) {
+		var self = this;
+
+		this.instance = instance; // String: To associate specific HTML with this playlist
+		this.playlist = playlist; // Array of Objects: The playlist
+		this.options = options; // Object: The jPlayer constructor options for this playlist
+
+		this.current = 0;
+
+		this.cssId = {
+			jPlayer: "jquery_jplayer_",
+			interface: "jp_interface_",
+			playlist: "jp_playlist_"
+		};
+		this.cssSelector = {};
+
+		$.each(this.cssId, function(entity, id) {
+			self.cssSelector[entity] = "#" + id + self.instance;
+		});
+
+		if(!this.options.cssSelectorAncestor) {
+			this.options.cssSelectorAncestor = this.cssSelector.interface;
+		}
+
+		$(this.cssSelector.jPlayer).jPlayer(this.options);
+
+		$(this.cssSelector.interface + " .jp-previous").click(function() {
+			self.playlistPrev();
+			$(this).blur();
+			return false;
+		});
+
+		$(this.cssSelector.interface + " .jp-next").click(function() {
+			self.playlistNext();
+			$(this).blur();
+			return false;
+		});
+	};
+
+	Playlist.prototype = {
+		displayPlaylist: function() {
+			var self = this;
+			$(this.cssSelector.playlist + " ul").empty();
+			for (i=0; i < this.playlist.length; i++) {
+				var listItem = (i === this.playlist.length-1) ? "<li class='jp-playlist-last'>" : "<li>";
+				listItem += "<a href='#' id='" + this.cssId.playlist + this.instance + "_item_" + i +"' tabindex='1'>"+ this.playlist[i].name +"</a>";
+
+				// Create links to free media
+				if(this.playlist[i].free) {
+					var first = true;
+					listItem += "<div class='jp-free-media'>(";
+					$.each(this.playlist[i], function(property,value) {
+						if($.jPlayer.prototype.format[property]) { // Check property is a media format.
+							if(first) {
+								first = false;
+							} else {
+								listItem += " | ";
+							}
+							listItem += "<a id='" + self.cssId.playlist + self.instance + "_item_" + i + "_" + property + "' href='" + value + "' tabindex='1'>" + property + "</a>";
+						}
+					});
+					listItem += ")</span>";
+				}
+
+				listItem += "</li>";
+
+				// Associate playlist items with their media
+				$(this.cssSelector.playlist + " ul").append(listItem);
+				$(this.cssSelector.playlist + "_item_" + i).data("index", i).click(function() {
+					var index = $(this).data("index");
+					if(self.current !== index) {
+						self.playlistChange(index);
+					} else {
+						$(self.cssSelector.jPlayer).jPlayer("play");
+					}
+					$(this).blur();
+					return false;
+				});
+
+				// Disable free media links to force access via right click
+				if(this.playlist[i].free) {
+					$.each(this.playlist[i], function(property,value) {
+						if($.jPlayer.prototype.format[property]) { // Check property is a media format.
+							$(self.cssSelector.playlist + "_item_" + i + "_" + property).data("index", i).click(function() {
+								var index = $(this).data("index");
+								$(self.cssSelector.playlist + "_item_" + index).click();
+								$(this).blur();
+								return false;
+							});
+						}
+					});
+				}
+			}
+		},
+		playlistInit: function(autoplay) {
+			if(autoplay) {
+				this.playlistChange(this.current);
+			} else {
+				this.playlistConfig(this.current);
+			}
+		},
+		playlistConfig: function(index) {
+			$(this.cssSelector.playlist + "_item_" + this.current).removeClass("jp-playlist-current").parent().removeClass("jp-playlist-current");
+			$(this.cssSelector.playlist + "_item_" + index).addClass("jp-playlist-current").parent().addClass("jp-playlist-current");
+			this.current = index;
+			$(this.cssSelector.jPlayer).jPlayer("setMedia", this.playlist[this.current]);
+		},
+		playlistChange: function(index) {
+			this.playlistConfig(index);
+			$(this.cssSelector.jPlayer).jPlayer("play");
+		},
+		playlistNext: function() {
+			var index = (this.current + 1 < this.playlist.length) ? this.current + 1 : 0;
+			this.playlistChange(index);
+		},
+		playlistPrev: function() {
+			var index = (this.current - 1 >= 0) ? this.current - 1 : this.playlist.length - 1;
+			this.playlistChange(index);
+		}
+	};
+
       $(document).ready(function() {
-	  function changeTrack(e) {
-	      $("#player-status").text("Playing " + $(this).text() + "...");
-	      $("#audio_player").jPlayer("setFile", $(this).attr("href")).jPlayer("play");
-	      $(this).blur();
-	      return false;
-	  }
-
-
-	  // Local copy of jQuery selectors, for performance.
-	  var jpPlayTime = $("#jplayer_play_time");
-	  var jpTotalTime = $("#jplayer_total_time");
-
-	  $("#audio_player").jPlayer({
-	      // oggSupport: true,
-	      nativesupport: true,
-	      preload: 'auto',
-	      swfPath: '{{ MEDIA_URL }}/flash/',
-	      customCssIds: true
-	  }).jPlayer("cssId", "stop", "player-stop");
-
-	  $(".track").click(changeTrack)
+	  var audioPlaylist = new Playlist("2", [
+	      {% for track in presskit.tracks.all %}
+	      { name: "{{ track.title }}",
+		mp3: "{{ track.file.url }}"
+	      }
+	      {% if not forloop.last %},{% endif %}
+	      {% endfor %}
+	  ], { // oggSupport: true,
+	       //nativesupport: true,
+	       preload: 'false',
+	       swfPath: '{{ MEDIA_URL }}/flash/',
+	        ready: function() {
+		    audioPlaylist.displayPlaylist();
+		    audioPlaylist.playlistInit(false);
+		},
+	      	ended: function() {
+			audioPlaylist.playlistNext();
+		},
+		play: function() {
+			$(this).jPlayer("pauseOthers");
+		},
+	      supplied: "mp3"
+	  });
       });
     </script>
 
 
-    <div id="tracks" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/tracks_ico.png' %}" alt="tracks"/>
-	<h2>{% trans "Featured Tracks" %} (WIP)</h2>
-	{% if can_edit %}
-	<a href="{% url presskit:presskit-tracks band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
-	{% endif %}
-      </div>
-      <div class="separator"></div>
-      <div class="content">
+    <div id="tracks" class="grid_12 alpha">
+      {% if can_edit %}
+	<a href="{% url presskit:presskit-tracks band.slug %}" class="button-tip minibutton btn-edit tip" title="{% trans "Click here to add or delete tracks" %}"><span><span class="icon"></span>{% trans "Manage Tracks" %}</span></a>
+      {% endif %}
 
-	<div id="audio_player"></div>
+      {% if presskit.tracks.all.count > 0 %}
+	
+	<div id="jquery_jplayer_2" class="jp-jplayer"></div>
+	
+	<div class="jp-audio">
+	  
+	  <div class="jp-type-playlist">
+	    <div id="jp_interface_2" class="jp-interface">
+	      <ul class="jp-controls">
+		<li><a href="#" class="jp-play" tabindex="1">play</a></li>
+		<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>
+		<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>
+		
+		<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>
+		<li><a href="#" class="jp-previous" tabindex="1">previous</a></li>
+		<li><a href="#" class="jp-next" tabindex="1">next</a></li>
+	      </ul>
 
-	{% if presskit.tracks.count %}
-	  <ul>
-	    {% for track in presskit.tracks.all %}
-	      <li><a class="track" href="{{ track.file.url }}">{{ track.title }}</a> {% if track.albumtrack %}(Album: <a href="{{ track.albumtrack.album.get_absolute_url }}">{{ track.albumtrack.album.name }}</a>){% endif %}</li>
-	    {% endfor %}
-	  </ul>
+	      <div class="jp-progress">
+		<div class="jp-seek-bar">
+		  <div class="jp-play-bar"></div>
+		</div>
+	      </div>
 
-	  <span id="player-status">Not playing</span> - (<a id="player-stop" href="#">Stop</a>) <strong>(WIP)</strong>
+	      <div class="jp-volume-bar">
+		<div class="jp-volume-bar-value"></div>
+	      </div>
+
+	      <div class="jp-current-time"></div>
+	      <div class="jp-duration"></div>
+	    </div>
+
+	    <div id="jp_playlist_2" class="jp-playlist">
+	      
+	      <ul>
+		<!-- The method Playlist.displayPlaylist() uses this unordered list -->
+		<li></li>
+	      </ul>
+	    </div>
+	    
 	{% else %}
-	  {% trans "You have not uploaded any tracks yet. You should do so if you want the venues to book you !" %}
+	{% trans "You have not uploaded any tracks yet. You should do so if you want the venues to book you !" %}
 	{% endif %}
-      </div>
+	  </div>
+	</div>
     </div>
-  </div>
 
-  <div class="grid_6 alpha">
-    <div id="pictures" class="sectionbox">
+
+   <div id="pictures" class="grid_12 alpha omega">
+	{% if can_edit %}
+	<a href="{% url band:band-pictures band.slug %}" class="button-tip minibutton btn-edit" title="{% trans "Manage pictures" %}"><span><span class="icon"></span>{% trans "Manage Pictures" %}</span></a>
+	{% endif %}
+	
+    <!--<div id="pictures" class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
 	<h2>{% trans "Pictures" %}</h2>
-	{% if can_edit %}
-	<a href="{% url band:band-pictures band.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
-	{% endif %}
       </div>
       <div class="separator"></div>
       <div class="content">
-	<div id="gallery" style="height: 300px;">
+	-->
+	<div id="gallery" style="height: 400px;">
 	  {% for picture in band.pictures.all %}
 	    <a href="{{ picture.original_image.url }}">
 	      <img src="{{ picture.thumbnail_image.url }}" alt="image" />
 	    </a>
 	  {% endfor %}
 	</div>
-      </div>
+	<!--
     </div>
+    </div>
+    -->
   </div>
 
-  <div class="grid_6 omega">
+  <div class="grid_6 alpha">
     <script type="text/javascript">
       $(document).ready(function() {
 	  $('.modal-popup').boxy({draggable: false, modal: true});
@@ -371,9 +474,7 @@
     </div>
   </div>
 
-  <div class="clear"></div>
-
-  <div class="grid_6 alpha">
+  <div class="grid_6 omega">
     <div id="techsheet" class="sectionbox">
       <div class="header">
 	<img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" alt="tech sheet"/>
@@ -393,20 +494,35 @@
     </div>
   </div>
 
-  <!--
-  <div class="grid_6 omega">
-    <div id="reviews" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/reviews_ico.png' %}" alt="reviews"/>
-	<h2>{% trans "Latest reviews" %} (WIP)</h2>
-      </div>
-      <div class="separator"></div>
-      <div class="content">
-	({% average_for_instance band %})
-	{% reviews_for_instance band %}
-      </div>
-    </div>
-  </div>
-  -->
+</div>
 
 </div>
+
+
+  <script type="text/javascript">
+    var map;
+
+    function init(){
+        map = new OpenLayers.Map('map', {controls: []});
+	map.addControl(new OpenLayers.Control.MouseToolbar());
+
+        var layer = new OpenLayers.Layer.OSM()
+        map.addLayer(layer);
+
+	var venue = new OpenLayers.LonLat({{ band.place.geom.x|stringformat:"0.5f" }}, {{ band.place.geom.y|stringformat:"0.5f" }}) // Center of the map
+            .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+		       new OpenLayers.Projection("EPSG:900913"));
+
+	var markers = new OpenLayers.Layer.Markers("Markers")
+	map.addLayer(markers)
+	markers.addMarker(new OpenLayers.Marker(venue));
+
+	map.setCenter(venue,
+		      4 // Zoom level
+		     );
+
+    };
+
+    $(document).ready(init);
+  </script>
+

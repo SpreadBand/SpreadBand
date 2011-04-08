@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-08 16:03+0200\n"
-"PO-Revision-Date: 2011-04-08 16:04\n"
+"PO-Revision-Date: 2011-04-08 19:17\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -274,7 +274,7 @@ msgstr "Localisation"
 
 #: templates/presskit/presskit_content.html:299
 msgid "Featured Tracks"
-msgstr "Morceaux en écoutes"
+msgstr "Morceaux en écoute"
 
 #: templates/presskit/presskit_content.html:318
 msgid ""
