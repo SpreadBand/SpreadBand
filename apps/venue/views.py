@@ -210,7 +210,10 @@ def public_view(request, venue_slug, template_name='venue/venue_detail.html'):
     total_presskitviewrequests = PresskitViewRequest.objects.filter(venue__slug=venue_slug).count()
     unanswered_presskitviewrequests = PresskitViewRequest.objects.filter(venue__slug=venue_slug, state__in=('P', 'S')).count()
 
-    response_rate = 100 - int(unanswered_presskitviewrequests / float(total_presskitviewrequests) * 100)
+    if total_presskitviewrequests > 0:
+        response_rate = 100 - int(unanswered_presskitviewrequests / float(total_presskitviewrequests) * 100)
+    else:
+        response_rate = 100
     
 
     # if this is not our venue, then record us as a visitor
