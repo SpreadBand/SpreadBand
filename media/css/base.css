@@ -368,7 +368,7 @@ a {
     padding: 0px;
 }
 
-.sectionbox .more {
+.sectionbox > .more {
     text-align: right;
     margin-right: 20px;
     padding-bottom: 10px;

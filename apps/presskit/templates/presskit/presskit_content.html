@@ -10,6 +10,9 @@
 <script type="text/javascript">
     $(document).ready(function() {
 	$('.tip').tipsy({gravity: 's'});
+	
+	$('#biography > .content > p').readmore({substr_len: 500,
+						 more_link: '[<a class="more">{% trans 'Read&nbsp;More' %}</a>]'});
     });
 </script>
 
@@ -160,7 +163,9 @@
       <div class="separator"></div>
       <div class="content">
 	{% if band.biography %}
-	  {{ band.biography|capfirst|linebreaks|truncatewords_html:100 }}[<a href="#">{% trans "Read more" %}</a>]
+	<p>
+	  {{ band.biography|capfirst|linebreaksbr }}
+	</p>
 	{% else %}
 	  {% trans "No biography." %}
 	{% endif %}
