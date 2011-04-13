@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-08 16:03+0200\n"
-"PO-Revision-Date: 2011-04-08 19:17\n"
+"POT-Creation-Date: 2011-04-13 18:24+0200\n"
+"PO-Revision-Date: 2011-04-13 18:26\n"
 "Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,8 +53,8 @@ msgstr "Refusée"
 msgid "Canceled"
 msgstr "Annulée"
 
-#: views.py:79 views.py:120 views.py:145 views.py:157 views.py:178
-#: views.py:204 views.py:219
+#: views.py:79 views.py:120 views.py:145 views.py:157 views.py:176
+#: views.py:202 views.py:217
 msgid "You are not allowed to manage this band"
 msgstr "Vous n'êtes pas autorisé à gérer ce groupe"
 
@@ -148,15 +148,15 @@ msgstr "Envoyée"
 msgid "sent its PressKit to"
 msgstr "a envoyé son PressKit à"
 
-#: templates/presskit/mypresskit.html:26
+#: templates/presskit/mypresskit.html:28
 msgid "Presskit"
 msgstr "PressKit"
 
-#: templates/presskit/mypresskit.html:30
+#: templates/presskit/mypresskit.html:32
 msgid "My PressKit"
 msgstr "Mon PressKit"
 
-#: templates/presskit/mypresskit.html:37
+#: templates/presskit/mypresskit.html:39
 msgid ""
 "\n"
 "      This is a <strong>preview</strong> of how venues and bands will see your band. Make sure to <strong>edit all parts</strong> !\n"
@@ -197,12 +197,11 @@ msgstr "Membres"
 #: templates/presskit/presskit_content.html:55
 #: templates/presskit/presskit_content.html:93
 #: templates/presskit/presskit_content.html:113
-#: templates/presskit/presskit_content.html:160
-#: templates/presskit/presskit_content.html:255
-#: templates/presskit/presskit_content.html:301
-#: templates/presskit/presskit_content.html:330
-#: templates/presskit/presskit_content.html:358
-#: templates/presskit/presskit_content.html:382
+#: templates/presskit/presskit_content.html:161
+#: templates/presskit/presskit_content.html:167
+#: templates/presskit/presskit_content.html:179
+#: templates/presskit/presskit_content.html:458
+#: templates/presskit/presskit_content.html:480
 msgid "Edit"
 msgstr "Modifier"
 
@@ -260,54 +259,50 @@ msgstr "PressKit"
 msgid "This PressKit has been fully completed"
 msgstr "Ce Presskit a été complètement rempli"
 
-#: templates/presskit/presskit_content.html:158
-msgid "Biography"
-msgstr "Biographie"
+#: templates/presskit/presskit_content.html:167
+msgid "Change Your Location"
+msgstr "Changer Votre Localisation"
 
-#: templates/presskit/presskit_content.html:170
+#: templates/presskit/presskit_content.html:176
 msgid "No biography."
 msgstr "Aucune biographie."
 
-#: templates/presskit/presskit_content.html:253
-msgid "Location"
-msgstr "Localisation"
+#: templates/presskit/presskit_content.html:378
+msgid "Click here to add or delete tracks"
+msgstr "Cliquez ici pour ajouter ou supprimer des pistes"
 
-#: templates/presskit/presskit_content.html:299
-msgid "Featured Tracks"
-msgstr "Morceaux en écoute"
+#: templates/presskit/presskit_content.html:378
+msgid "Manage Tracks"
+msgstr "Gérer les Pistes"
 
-#: templates/presskit/presskit_content.html:318
-msgid ""
-"You have not uploaded any tracks yet. You should do so if you want the "
-"venues to book you !"
-msgstr ""
-"Vous n'avez pas encore téléchargé de morceaux. Vous devriez le faire "
-"pour que les lieux de concerts vous programme !"
+#: templates/presskit/presskit_content.html:428
+msgid "Manage pictures"
+msgstr "Gérer les photos"
 
-#: templates/presskit/presskit_content.html:328
-msgid "Pictures"
-msgstr "Photos"
+#: templates/presskit/presskit_content.html:428
+msgid "Manage Pictures"
+msgstr "Gérer les Photos"
 
-#: templates/presskit/presskit_content.html:356
+#: templates/presskit/presskit_content.html:433
+msgid "default picture"
+msgstr "Image par défaut"
+
+#: templates/presskit/presskit_content.html:456
 #: templates/presskit/video_edit.html:18
 msgid "Video"
 msgstr "Vidéos"
 
-#: templates/presskit/presskit_content.html:368
+#: templates/presskit/presskit_content.html:468
 msgid "No video has been set."
 msgstr "Aucune vidéo n'a été ajoutée."
 
-#: templates/presskit/presskit_content.html:380
+#: templates/presskit/presskit_content.html:478
 msgid "Technical Sheet"
 msgstr "Fiche technique"
 
-#: templates/presskit/presskit_content.html:390
+#: templates/presskit/presskit_content.html:488
 msgid "No technical sheet."
 msgstr "Pas de fiche technique."
-
-#: templates/presskit/presskit_content.html:401
-msgid "Latest reviews"
-msgstr "Derniers avis"
 
 #: templates/presskit/presskit_send.html:90
 #, python-format
@@ -542,6 +537,22 @@ msgstr ""
 #: templates/presskit/video_edit.html:30
 msgid "Update"
 msgstr "Mettre à jour"
+
+#~ msgid "Biography"
+#~ msgstr "Biographie"
+
+#~ msgid "Location"
+#~ msgstr "Localisation"
+
+#~ msgid ""
+#~ "You have not uploaded any tracks yet. You should do so if you want the "
+#~ "venues to book you !"
+#~ msgstr ""
+#~ "Vous n'avez pas encore téléchargé de morceaux. Vous devriez le faire "
+#~ "pour que les lieux de concerts vous programme !"
+
+#~ msgid "Latest reviews"
+#~ msgstr "Derniers avis"
 
 #~ msgid "Work-in-progress, don't expect it to work :)"
 #~ msgstr "En travaux, n'espérez pas le faire fonctionner:)"

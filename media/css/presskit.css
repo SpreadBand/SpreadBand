@@ -225,7 +225,6 @@
 /*-- tracks --*/
 #tracks {
     margin-top: 3px;
-    margin-left: 9px;
 }
 
 #tracks .minibutton {
@@ -236,6 +235,10 @@
 }
 
 /*-- pictures --*/
+#default_picture {
+    margin-bottom: 10px;
+}
+
 #pictures {
     margin-top: 15px;
 }

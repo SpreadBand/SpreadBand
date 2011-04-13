@@ -174,6 +174,12 @@
 	</blockquote>
       {% else %}
 	{% trans "No biography." %}
+	{% if can_edit %}
+	  <a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit">
+	    <span><span class="icon"></span>{% trans "Edit" %}</span>
+	  </a>
+	{% endif %}
+	
       {% endif %}
     </div>
   </div>
@@ -367,12 +373,12 @@
     </script>
 
 
-    <div id="tracks" class="grid_12 alpha">
+    <div id="tracks" class="grid_12 alpha omega">
       {% if can_edit %}
 	<a href="{% url presskit:presskit-tracks band.slug %}" class="button-tip minibutton btn-edit tip" title="{% trans "Click here to add or delete tracks" %}"><span><span class="icon"></span>{% trans "Manage Tracks" %}</span></a>
       {% endif %}
 
-      {% if presskit.tracks.all.count > 0 %}
+      {% if presskit.tracks.all.count > 0 or can_edit %}
 	
 	<div id="jquery_jplayer_2" class="jp-jplayer"></div>
 	
@@ -411,10 +417,7 @@
 		<li></li>
 	      </ul>
 	    </div>
-	    
-	{% else %}
-	{% trans "You have not uploaded any tracks yet. You should do so if you want the venues to book you !" %}
-	{% endif %}
+	  {% endif %}
 	  </div>
 	</div>
     </div>
@@ -424,15 +427,12 @@
 	{% if can_edit %}
 	<a href="{% url band:band-pictures band.slug %}" class="button-tip minibutton btn-edit" title="{% trans "Manage pictures" %}"><span><span class="icon"></span>{% trans "Manage Pictures" %}</span></a>
 	{% endif %}
-	
-    <!--<div id="pictures" class="sectionbox">
-      <div class="header">
-	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
-	<h2>{% trans "Pictures" %}</h2>
-      </div>
-      <div class="separator"></div>
-      <div class="content">
-	-->
+
+	{% if band.pictures.all.count == 0 %}
+	<div id="default_picture">
+	  <img src="{% staticfile "images/presskit/default_picture.jpg" %}" alt="{% trans "default picture" %}"/>
+	</div>
+	{% else %}
 	<div id="gallery" style="height: 400px;">
 	  {% for picture in band.pictures.all %}
 	    <a href="{{ picture.original_image.url }}">
@@ -440,10 +440,7 @@
 	    </a>
 	  {% endfor %}
 	</div>
-	<!--
-    </div>
-    </div>
-    -->
+	{% endif %}
   </div>
 
   <div class="grid_6 alpha">
