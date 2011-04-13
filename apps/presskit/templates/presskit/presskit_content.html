@@ -153,7 +153,6 @@
 
   <div class="grid_12 alpha omega">
     <div id="biography">
-	{% if band.biography %}
 	<blockquote>
 	  <div class="text">
 	    {% if can_edit %}
@@ -169,18 +168,13 @@
 	
 	      <div style="height: 150px; width: 200px" id="map" class="smallmap"></div>
 	    </div>
-	    {{ band.biography|capfirst|linebreaksbr }}
+	    {% if band.biography %}
+	      {{ band.biography|capfirst|linebreaksbr }}
+	    {% else %}
+	      {% trans "No biography." %}
+	    {% endif %}
 	  </div>
 	</blockquote>
-      {% else %}
-	{% trans "No biography." %}
-	{% if can_edit %}
-	  <a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit">
-	    <span><span class="icon"></span>{% trans "Edit" %}</span>
-	  </a>
-	{% endif %}
-	
-      {% endif %}
     </div>
   </div>
  
