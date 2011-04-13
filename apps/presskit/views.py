@@ -167,8 +167,6 @@ def video_edit(request, band_slug):
 from django.views.generic.create_update import create_object, delete_object
 from django.views.generic.list_detail import object_list
 
-from media.models import Track
-
 @login_required
 def track_add(request, band_slug):
     presskit = get_object_or_404(PressKit, band__slug=band_slug)
