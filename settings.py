@@ -416,6 +416,21 @@ REQUEST_IGNORE_PATHS = (
     r'^admin/',
 )
 
+REQUEST_IGNORE_USERNAME = (
+    'laurent',
+    'glibersat',
+    )
+
+REQUEST_TRAFFIC_MODULES = (
+    'request.traffic.UniqueVisitor',
+    'request.traffic.UniqueVisit',
+    'request.traffic.Hit',
+    'request.traffic.Error',
+    'request.traffic.Search',
+    'request.traffic.UniqueUser',
+    'request.traffic.User',
+)
+
 # ELSEWHERE
 ELSEWHERE_MEDIA_DIR = 'images/elsewhere/'
 ELSEWHERE_ICON_PACK = ''
