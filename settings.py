@@ -417,7 +417,7 @@ REQUEST_IGNORE_PATHS = (
 )
 
 REQUEST_IGNORE_USERNAME = (
-    'laurent',
+    'Laurent',
     'glibersat',
     )
 
