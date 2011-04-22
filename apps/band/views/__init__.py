@@ -238,11 +238,18 @@ def dashboard(request, band_slug):
         presskit_completion[fn.__name__] = fn(band)
 
     # Presskit tracker
-    # Show either 30 latest days or the latest 15 presskits
-    ten_days_ago = datetime.now() - timedelta(days=30)
+    show_pktracker_history = request.GET.get('pktracker_history', False) # Switch if we need to show *all* gig requests or limited history
 
-    sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit, 
-                                                        modified_on__gte=ten_days_ago).order_by('modified_on', '-sent_on', 'state')[:15]
+    if not show_pktracker_history:
+        # Show either 30 latest days or the latest 15 presskits
+        ten_days_ago = datetime.now() - timedelta(days=30)
+
+        sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit, 
+                                                            modified_on__gte=ten_days_ago).order_by('modified_on', '-sent_on', 'state')[:15]
+    else:
+        # Show 50 latest presskits
+        sent_presskits = PresskitViewRequest.objects.filter(presskit=band.presskit).order_by('modified_on', '-sent_on', 'state')[:50]
+
 
     extra_context = {#'past_events': past_events,
                      #'future_events': future_events,

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-16 12:23+0100\n"
-"PO-Revision-Date: 2011-04-01 15:58\n"
-"Last-Translator:   <>\n"
+"POT-Creation-Date: 2011-04-22 16:15+0200\n"
+"PO-Revision-Date: 2011-04-22 16:16\n"
+"Last-Translator: Guillaume Libersat <guillaume@spreadband.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,15 +131,15 @@ msgstr ""
 "De quel équipement avez-vous besoin sur scène ? Qu'allez-vous apporter"
 " ? Qu'attendez-vous du lieu ?"
 
-#: models.py:185
+#: models.py:186
 msgid "user"
 msgstr "utilisateur"
 
-#: models.py:191
+#: models.py:192
 msgid "Roles"
 msgstr "Rôles"
 
-#: models.py:195
+#: models.py:196
 msgid "Whether the membership has been approved"
 msgstr "Si l'adhésion a été validée"
 
@@ -231,7 +231,7 @@ msgid "manage members"
 msgstr "Gérer les membres"
 
 #: templates/band/membership_manage.html:12
-#: templates/bands/band_detail.html:248 templates/bands/base.html:41
+#: templates/bands/band_detail.html:249 templates/bands/base.html:41
 msgid "Members"
 msgstr "Membres"
 
@@ -359,11 +359,15 @@ msgstr "Envoyé par"
 msgid "%(timestamp)s ago"
 msgstr "il y a %(timestamp)s"
 
-#: templates/bands/band_detail.html:210 templates/bands/band_detail.html:215
+#: templates/bands/band_detail.html:203
+msgid "Show gig requests older than a month"
+msgstr "Afficher les demandes de concerts de plus d'un mois"
+
+#: templates/bands/band_detail.html:211 templates/bands/band_detail.html:216
 msgid "Search for Venues"
 msgstr "Rechercher une scène"
 
-#: templates/bands/band_detail.html:213
+#: templates/bands/band_detail.html:214
 msgid ""
 "Recherchez des <strong>bars-concerts</strong> où jouer en quelques "
 "clics et envoyez leur votre <strong>Presskit</strong> !"
@@ -371,15 +375,15 @@ msgstr ""
 "Recherchez des <strong>scènes</strong> où Jouer en quelques clics et "
 "envoyez leur votre <strong>PressKit</strong> !"
 
-#: templates/bands/band_detail.html:215
+#: templates/bands/band_detail.html:216
 msgid "Search for venues"
 msgstr "Rechercher des scènes"
 
-#: templates/bands/band_detail.html:221
+#: templates/bands/band_detail.html:222
 msgid "Recent visitors"
 msgstr "Derniers visiteurs"
 
-#: templates/bands/band_detail.html:229
+#: templates/bands/band_detail.html:230
 msgid ""
 "You'll see here <strong>Bands</strong> and <strong>Venues</strong> that"
 " have visited your profile."
@@ -387,31 +391,31 @@ msgstr ""
 "Vous verrez ici les <strong>groupes</strong> et <strong>lieux de "
 "concerts</strong> qui ont visité votre profil"
 
-#: templates/bands/band_detail.html:235
+#: templates/bands/band_detail.html:236
 msgid "Search for other Bands"
 msgstr "Rechercher d'autres groupes"
 
-#: templates/bands/band_detail.html:238
+#: templates/bands/band_detail.html:239
 msgid "Recherchez d'<strong>autres groupes</strong> avec lesquels jouer."
 msgstr "Recherchez d'<strong>autres groupes</strong> avec lesquels jouer."
 
-#: templates/bands/band_detail.html:240
+#: templates/bands/band_detail.html:241
 msgid "Search for bands"
 msgstr "Rechercher des groupes"
 
-#: templates/bands/band_detail.html:240
+#: templates/bands/band_detail.html:241
 msgid "Search for Bands"
 msgstr "Rechercher des groupes"
 
-#: templates/bands/band_detail.html:249
+#: templates/bands/band_detail.html:250
 msgid "Manage members"
 msgstr "Gérer les membres"
 
-#: templates/bands/band_detail.html:249
+#: templates/bands/band_detail.html:250
 msgid "Manage"
 msgstr "Gérer"
 
-#: templates/bands/band_detail.html:264
+#: templates/bands/band_detail.html:265
 msgid "Advertising"
 msgstr "Publicité"
 
@@ -469,11 +473,11 @@ msgstr ""
 "\n"
 "En inscrivant votre groupe, vous pourrez envoyer votre PressKit aux scènes pour être booké !"
 
-#: templates/bands/band_update.html:10
+#: templates/bands/band_update.html:11
 msgid "Edit"
 msgstr "Éditer"
 
-#: templates/bands/band_update.html:14 templates/bands/band_update.html:70
+#: templates/bands/band_update.html:15 templates/bands/band_update.html:72
 msgid "Update"
 msgstr "Mettre à jour"
 
@@ -513,16 +517,16 @@ msgstr "Soumettre"
 msgid "Upload"
 msgstr "Télécharger"
 
-#: views/__init__.py:91 views/__init__.py:311
+#: views/__init__.py:56 views/__init__.py:125 views/__init__.py:352
 msgid "Unable to lookup address"
 msgstr "Impossible de trouver l'adresse"
 
-#: views/__init__.py:112
+#: views/__init__.py:146
 #, python-format
 msgid "%s was successfully updated"
 msgstr "%s a été mis à jour avec succès"
 
-#: views/__init__.py:363
+#: views/__init__.py:404
 msgid "Unable to find this city. Check the country or be more specific."
 msgstr ""
 "Impossible de trouver cette ville. Vérifiez le pays ou soyez plus "
