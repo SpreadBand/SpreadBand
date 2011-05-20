@@ -13,6 +13,7 @@
   <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.featureList-1.0.0.js" %}"></script>
   <script src="{% staticfile '/js/jquery/jquery.validationEngine-en.js' %}" type="text/javascript" charset="utf-8"></script>
   <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{% staticfile '/js/jquery/jquery.tipsy.js' %}" type="text/javascript" charset="utf-8"></script>
 
   <script src="{% staticfile '/js/jquery/jquery.example.js' %}" type="text/javascript" charset="utf-8"></script>
 
@@ -24,6 +25,8 @@
 	});
 
         $("#id_identification").example("pseudonyme");
+
+        $('.tip').tipsy();
     });
   </script>
 
@@ -48,6 +51,7 @@
 
 {% block css %}
   <link rel="stylesheet" type="text/css" media="screen" href="/css/home.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/tipsy.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/featurelist/featurelist.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/css/features.css" />
   <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/signup.css" />
@@ -60,6 +64,7 @@
 
   <div id="home-header">
     <h1>Trouver où et avec qui jouer ? Facile !</h1>
+    <h2>SpreadBand permet aux groupes de musique de se mettre en relation avec les scènes indépendantes</h2>
   </div>
 
   <div id="home-auth">
@@ -165,22 +170,47 @@
       <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fspreadband&amp;width=220&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=300" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:220px; height:300px;" allowTransparency="true"></iframe>
       
     </div>
+
+    <div id="latest-bands" class="grid_9 omega">
+      <h3>Les derniers groupes inscrits</h3>
+
+      <div>
+	<ul class="pict-list">
+	{% for band in latest_bands %}
+	  <li><a class="tip" title="{{ band.name|capfirst }} ({{ band.city }}, {{ band.country }})" href="{{ band.get_absolute_url }}"><img src="{{ band.avatar_url }}" width="48" height="48" alt="{{ band.name }}"/></a></li>
+      {% endfor %}
+	</ul>
+	<br/>
+	<div class="clear"></div>
+	<ul>
+	{% for band in latest_bands %}
+	  <li>
+	  <span class="date">{{ band.registered_on|date:"d M" }}</span> : <a href="{{ band.get_absolute_url }}">{{ band.name|capfirst }}</a> ({{ band.genres|default:"style inconnu"|truncatewords:5 }})  {% if band.city %} de {{ band.city }}, {{ band.country }}{% endif %}</li>
+	{% endfor %}
+	</ul>
+	<div class="clear"></div>
+      </div>
+    </div>
+
+    <div class="clear"></div>
         
-    <div id="blog" class="grid_9 omega">
+    <div id="blog" class="prefix_5 grid_9 omega">
       <h3>En direct du Blog</h3>
 
       <div>
-	<img src="{% staticfile '/images/home/blogicon.jpg' %}" width="48" height="48"/>
+	<img src="{% staticfile '/images/home/blogicon.jpg' %}" width="48" height="48" alt="le blog"/>
 	{% cache 1800 blog_feed_home %}
 	{% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_blog_home.html %}
 	{% endcache %}
       </div>
     </div>
 
-    <div id="im" class="grid_9 omega">
+    <div class="clear"></div>
+
+    <div id="im" class="prefix_5 grid_9 omega">
       <h3>Twitter</h3>
       <div>
-	<img src="{% staticfile '/images/home/twitter_box_orange.png' %}" width="48" height="48"/>
+	<img src="{% staticfile '/images/home/twitter_box_orange.png' %}" width="48" height="48" alt="Twitter"/>
 	{% cache 1800 twitter %}
 	{% include_feed "http://twitter.com/statuses/user_timeline/155609766.rss" 3 feed_includes/spreadband_twitter.html %}
 	{% endcache %}

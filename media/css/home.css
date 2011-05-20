@@ -17,7 +17,13 @@
     text-shadow: 1px 1px 1px #999999;
     font-variant: small-caps;
 
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+#home-header h2 {
+    margin-top: 5px;
+    color: #444;
+    font-size: 1.1em;
 }
 
 /*-- Authentication --*/
@@ -202,6 +208,28 @@
     margin-top: 4px;
     margin-right: 8px;
     margin-bottom: 8px;
+    clear: both;
+}
+
+#social #latest-bands ul.pict-list li {
+    display: inline;
+    float: left;
+}
+
+
+#social #latest-bands h3 {
+    text-align: right;
+    font-variant: small-caps;
+}
+
+#social #latest-bands > div {
+    padding-left: 10px;
+    border-left: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+#social #latest-bands .date {
+    color: #666;
 }
 
 

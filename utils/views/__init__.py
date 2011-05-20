@@ -2,7 +2,10 @@ from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
+
 from userena.forms import AuthenticationForm
+
+from band.models import Band
 
 def home_spreadband(request):
     """
@@ -27,8 +30,11 @@ def home_spreadband(request):
     else:
         auth_form = AuthenticationForm()
 
+        latest_bands = Band.objects.order_by('-registered_on')[:11]
+
         return render_to_response('home.html',
-                                  dictionary={'auth_form': auth_form},
+                                  dictionary={'auth_form': auth_form,
+                                              'latest_bands': latest_bands},
                                   context_instance=RequestContext(request),
                                   )
                               
