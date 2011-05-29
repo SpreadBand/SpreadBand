@@ -21,6 +21,7 @@
       <h1>{% trans "Hi !" %}</h1>
       
       <form class="fuzzyform" method="post" action=".">
+	{% csrf_token %}
 	{{ form.as_p }}
 	<input type="hidden" name="next" value="{{ request.REQUEST.next }}" />
 	

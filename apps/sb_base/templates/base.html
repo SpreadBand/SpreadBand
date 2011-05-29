@@ -25,7 +25,6 @@
     {% block head %}
     {% endblock %}
 
-    <!--[if !IE]>CSS by media or page type<![endif]-->
     {% slimall %}
     <link rel="stylesheet" type="text/css" href="/css/reset_of_death.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="/css/960.css" media="screen, projection" />
@@ -56,7 +55,7 @@
   <link rel="icon" type="image/png" href="{% staticfile '/images/favicon.png' %}" />
   {# <link rel="apple-touch-icon" href="{% staticfile '/iphone_icon.png' %}" /> #}
 
-  <!--[if !IE]>Digest links<![endif]-->
+
   <link rel="index" title="Actualité" href="#" />
   <link rel="help" title="Aide" href="#" />
   <link rel="glossary" title="Plan du site" href="#" />
@@ -102,7 +101,7 @@
 	    triggerTopPos: '150px',
 	    panelTopPos: '0px',
 	    ajax: false,
-	    ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
+	    ajaxSource: '{% url feedback-tab %}?referer={{ request.get_full_path }}'
 	});
 
 
@@ -213,7 +212,7 @@
 		  <li class="separator"></li>
 		  <li><a href="{% url userena_profile_edit user %}">{% trans "Settings" %}</a></li>
 		  <li class="separator"></li>
-		  <li><a href="{% url backcap:feedback-list %}">{% trans "Help" %}</a></li>
+		  <li><a href="{% url feedback-list %}">{% trans "Help" %}</a></li>
 		  
 		  {% if request.user.is_staff %}
 		  <li class="separator"></li>
@@ -341,7 +340,7 @@
 
 	  <ul>
 	    <li><a href="{% url faq:question-list %}">FAQ</a></li>
-	    <li><a href="{% url backcap:feedback-list %}">Centre d'aide</a></li>
+	    <li><a href="{% url feedback-list %}">Centre d'aide</a></li>
 	  </ul>
 	</div>
 

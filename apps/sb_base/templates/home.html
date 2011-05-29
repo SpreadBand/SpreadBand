@@ -71,6 +71,7 @@
     <img src="{% staticfile '/images/home/header_sb.png' %}" alt="Spreadband is a place for music addicts" id="baseline" />
 
     <form id="authentication" action="{% url userena_signin %}" method="post">
+      {% csrf_token %}
       <a href="{% url userena_signin %}" id="lost-password">{% trans "Login" %}</a>
       
       {{ auth_form.identification }}

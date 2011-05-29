@@ -52,7 +52,7 @@ urlpatterns = patterns('',
     (r'^reviews/', include('reviews.urls')),
 
     # Feedback
-    (r'^feedback/', include('backcap.urls', namespace='backcap')),
+    (r'^feedback/', include('backcap.urls')),
 
     # Bands
     (r'^b/', include('band.urls', namespace='band')),

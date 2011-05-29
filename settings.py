@@ -75,18 +75,18 @@ SECRET_KEY = 'k93k=6s8%hc5xg5l4pt%+#!6^wp=+elxmq4c9xf7j&$#a42col'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
     'django.template.loaders.eggs.load_template_source',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.csrf',
     'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
     'announcements.context_processors.site_wide_announcements',
     'backcap.context_processors.backcap_forms',
@@ -102,16 +102,12 @@ MIDDLEWARE_CLASSES = (
 
     # CSRF Attacks
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.csrf.CsrfResponseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-
-    # For CBV, remove before upgrading to 1.3
-    'cbv.middleware.DeferredRenderingMiddleware',
 
     # reversion
     'reversion.middleware.RevisionMiddleware',
@@ -164,23 +160,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.redirects',
 
-    # Internal
+    # Base templates and stuff. Keep this here for resolution precedence
     'sb_base',
-    'world',
-    'media',
-    # 'minisite',
-#    'minisite-portlets', <-- bug avec pgsql..
-    'actors',
-    'event',
-    'band',
-    'presskit',
-    'venue',
-    'album',
-    # 'gigbargain',
-    # 'bigbrother',
-    # 'api',
-    'account',
-    'haystack',
 
     # External
     'userena',
@@ -227,8 +208,25 @@ INSTALLED_APPS = (
     'template_utils',
     'visitors',
     'badges',
-    'cbv',
     'chronograph',
+
+    # Internal
+    'world',
+    'media',
+    # 'minisite',
+#    'minisite-portlets', <-- bug avec pgsql..
+    'actors',
+    'event',
+    'band',
+    'presskit',
+    'venue',
+    'album',
+    # 'gigbargain',
+    # 'bigbrother',
+    # 'api',
+    'account',
+    'haystack',
+
 )
 
 if DEBUG:

@@ -92,7 +92,7 @@
   </div>
 
   <form method="POST" action="{% url presskit:presskit-send band.slug venue.slug %}">
-
+    {% csrf_token %}
     <div id="form-data">
       {{ presskit_view_request_form.as_p }}
     </div>

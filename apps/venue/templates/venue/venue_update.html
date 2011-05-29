@@ -58,6 +58,7 @@
 
   <div class="grid_14">
     <form method="POST" class="uniForm">
+      {% csrf_token %}
       {{ form|as_uni_form }}
       <input type="submit" value="{% trans "Update" %}" class="awesome orange medium"/>
     </form>

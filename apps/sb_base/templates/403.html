@@ -10,7 +10,7 @@ Si vous pensez que vous auriez du pouvoir y accéder... prévenez nous, c'est ce
 </p>
 
 {% if not request.user.is_authenticated %}
-Maybe you can try to <a href="{% url auth_login %}?next={{ request.get_full_path }}">login</a>
+Maybe you can try to <a href="{% url userena_signin %}?next={{ request.get_full_path }}">login</a>
 {% endif %}
 
 {% endblock %}

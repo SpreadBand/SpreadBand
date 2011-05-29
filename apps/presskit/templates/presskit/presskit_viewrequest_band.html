@@ -125,6 +125,7 @@
 
 	  <span class="who">{% blocktrans with band.name as band_name %}{{ band_name }} says:{% endblocktrans %}
 	  <form id="comment-form" method="POST" action="{% comment_form_target %}">
+	    {% csrf_token %}
 	    {{ comment_form.comment }}
 	    {{ comment_form.content_type }}
 	    {{ comment_form.object_pk }}

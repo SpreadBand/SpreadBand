@@ -231,7 +231,8 @@
 		
 					<div class="content">
 
-						<FORM METHOD="POST" ou "GET" ACTION="url" ENCTYPE="x-www-form-urlencoded">
+						<FORM METHOD="POST" ACTION="url" ENCTYPE="x-www-form-urlencoded">
+						  {% csrf_token %}
 							<TEXTAREA rows="3" name="commentaires"></TEXTAREA>
 							<INPUT type="submit" value="send">
 						</FORM>

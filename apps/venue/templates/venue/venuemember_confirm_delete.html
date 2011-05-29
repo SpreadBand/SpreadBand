@@ -1,16 +1,19 @@
 {% extends 'venue/base.html' %}
+{% load i18n %}
 
 {% block venue_content %}
 
-<h3>Remove a member</h3>
+<h3>{% trans "Remove a member" %}</h3>
 
 Are you sure you want to remove <b>{{ venuemember.user.get_full_name }} ({{ venuemember.user.username }})</b> from <b>{{ venue.name }}</b> ?
 
 <form method='POST' action='{% url venue:membership-remove venue.slug venuemember.user.id %}'>
+  {% csrf_token %}
   <input type="submit" value="yes">
 </form>
 
 <form method="GET" action="{% url venue:membership-manage venue.slug %}">
+  {% csrf_token %}
   <input type="submit" value="no">
 </form>
 

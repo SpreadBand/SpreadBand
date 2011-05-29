@@ -3,7 +3,8 @@
 {% block content %}
 
 <form method="POST" action="" enctype="multipart/form-data">
-{{ avatar_form.as_p }}
+  {% csrf_token %}
+  {{ avatar_form.as_p }}
 <input type="submit">
 </form>
 

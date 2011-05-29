@@ -64,6 +64,7 @@ $(window).load(function () {
       {% render_orig_avatar avatar display_size %}
     </div>
     <form id="crop_form" action="." method="post" class="fuzzyform">
+      {% csrf_token %}
         {{ crop_avatar_form.as_p }}
 	<input type="hidden" name="next" value="{% url avatar_change %}"/>
         <input type="submit" value="{% trans "Crop" %}" />
