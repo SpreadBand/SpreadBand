@@ -84,11 +84,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
+    'django.core.context_processors.static',
     'django.core.context_processors.csrf',
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
     'announcements.context_processors.site_wide_announcements',
+
+    # For the feedback form
     'backcap.context_processors.backcap_forms',
 )
 
@@ -159,11 +162,13 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.flatpages',
     'django.contrib.redirects',
+    'django.contrib.staticfiles',
 
     # Base templates and stuff. Keep this here for resolution precedence
     'sb_base',
 
     # External
+    'compressor',
     'userena',
     'oauth_access',
     'dajaxice',
@@ -372,10 +377,32 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_PATH, 'spreadband_index')
 
 # STATIC FILES
-DJANGO_STATIC = True
-DJANGO_STATIC_MEDIA_URL = MEDIA_URL
-#if not DEBUG:
-# DJANGO_STATIC_SAVE_PREFIX = "/tmp/sb-media-cache"
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+STATICFILES_DIRS = (
+    ('js', os.path.join(MEDIA_ROOT, 'js')),
+    ('css', os.path.join(MEDIA_ROOT, 'css')),
+    ('images', os.path.join(MEDIA_ROOT, 'images')),
+    ('flash', os.path.join(MEDIA_ROOT, 'flash')),
+)
+
+STATIC_URL = MEDIA_URL + 'static/'
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static/')
+
+# COMPRESS
+COMPRESS = DEBUG
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+)
+
+COMPRESS_JS_FILTERS = (
+    'compressor.filters.jsmin.JSMinFilter',
+)
 
 # ROSETTA
 if DEBUG:

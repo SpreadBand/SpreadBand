@@ -42,7 +42,7 @@
 
 
 #home-auth form#authentication a#lost-password {
-	background:url("../../images/elements/ico_login.png") no-repeat scroll right center transparent;
+	background:url("../images/elements/ico_login.png") no-repeat scroll right center transparent;
 	color:#63605C;
 	font-size:0.85em;
 	line-height:15px;

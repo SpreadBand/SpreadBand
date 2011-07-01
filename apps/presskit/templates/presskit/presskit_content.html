@@ -147,7 +147,7 @@
     <h1>{% trans "PressKit" %} &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city|default:"Somewhere" }}, {{ band.country|default:"Earth" }})</h1>
 
     {% if presskit_completion_badge|number_awarded:band %}
-      <img class="badge tip" title="{% trans "This PressKit has been fully completed" %}" src="{% staticfile "/images/presskit/completion_badge.png" %}" width="40px" height="40px"/>
+      <img class="badge tip" title="{% trans "This PressKit has been fully completed" %}" src="{{ STATIC_URL }}images/presskit/completion_badge.png" width="40px" height="40px"/>
     {% endif %}
   </div>
 

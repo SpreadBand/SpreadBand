@@ -4,10 +4,10 @@
 {% load django_static %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.charCount.js" %}" ></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.blockUI.js" %}" ></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.ezmark.js" %}" ></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tipsy.js" %}" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.charCount.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.blockUI.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ezmark.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tipsy.js" ></script>
   
   <script type="text/javascript">
     $(document).ready(function() {

@@ -52,7 +52,7 @@
     {% if profile.user.bands.all|length %}
     <div id="band-list">
       <div id="band-side">
-	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	<img src="{{ STATIC_URL }}images/account/bands_ico.png" alt="bands" width="90px" height="90px"/>
 	<h2>{% trans "Her/His Bands" %}</h2>
       </div>
 
@@ -90,7 +90,7 @@
     {% if profile.user.venues.all|length %}
     <div id="band-list">
       <div id="band-side">
-	<img src="{% staticfile "/images/account/venues_ico.png" %}" alt="venues" width="90px" height="90px"/>
+	<img src="{{ STATIC_URL }}images/account/venues_ico.png" alt="venues" width="90px" height="90px"/>
 	<h2>{% trans "Her/His Venues" %}</h2>
       </div>
 
@@ -131,7 +131,7 @@
 
       <div id="user-connections">
 	<div class="header">
-	  <img class="icon" src="{% staticfile "/images/account/connections_ico.png" %}" width="20px"/>	  
+	  <img class="icon" src="{{ STATIC_URL }}images/account/connections_ico.png" width="20px"/>	  
 	  <h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
 	</div>
 	{% if user_connections %}
@@ -141,7 +141,7 @@
 	  {% endfor %}
 	</ul>
 	{% else %}
-	  <img src="{% staticfile "/images/account/no_connection_yet.png" %}" alt="{% trans "No connections yet" %}"/>
+	  <img src="{{ STATIC_URL }}images/account/no_connection_yet.png" alt="{% trans "No connections yet" %}"/>
 	  <span>{% trans "You'll find here connections with other musicians" %}<span>
 	{% endif %}
       </div>

@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url, include
 
 from django.conf import settings
 from django.contrib.gis import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.sitemaps import FlatPageSitemap
 
 from dajaxice.core import dajaxice_autodiscover
@@ -123,14 +124,16 @@ urlpatterns += patterns('django.views.generic',
         url(r'^discover/venue$', 'simple.direct_to_template', {'template': 'venue_discover.html'}, name='discover-venue'),
 )
 
+# Static files
+urlpatterns += staticfiles_urlpatterns()
+
 if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+        # (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
         (r'^styles$',             'django.views.generic.simple.direct_to_template', {'template': 'band_new_styles.html'}),
         (r'^500$', handler500),
         url(r'^rosetta/', include('rosetta.urls')),
     )
-
 
 # Sitemaps
 sitemaps.update({'flatpages': FlatPageSitemap,

@@ -7,7 +7,7 @@ a.minibutton {
     font-weight:bold;
     color:#333;
     text-shadow:1px 1px 0 #fff; 
-    background:url(/images/buttons/minibutton_matrix.png) 0 0 no-repeat;
+    background:url(../images/buttons/minibutton_matrix.png) 0 0 no-repeat;
     white-space:nowrap;
     border:none;
     overflow:visible;
@@ -26,7 +26,7 @@ a.minibutton>span {
     height:23px;
     padding:0 10px 0 8px;
     line-height:23px;
-    background:url(/images/buttons/minibutton_matrix.png) 100% 0 no-repeat;
+    background:url(../images/buttons/minibutton_matrix.png) 100% 0 no-repeat;
 }
 
 a.minibutton:hover, a.minibutton:focus {
