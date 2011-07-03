@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load django_static %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/signup.css" media="screen, projection" />
-  <link rel="stylesheet" href="/css/jquery/validationEngine.jquery.css" type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/signup.css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery/validationEngine.jquery.css" type="text/css"/>
 {% endblock %}
 
 {% block javascript %}
-  <script src="{% staticfile '/js/jquery/jquery.validationEngine-fr.js' %}" type="text/javascript" charset="utf-8"></script>
-  <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{{ STATIC_URL }}js/jquery/jquery.validationEngine-fr.js" type="text/javascript" charset="utf-8"></script>
+  <script src="{{ STATIC_URL }}js/jquery/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 
-  <script src="{% staticfile '/js/jquery/jquery.example.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script src="{{ STATIC_URL }}js/jquery/jquery.example.js" type="text/javascript" charset="utf-8"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {

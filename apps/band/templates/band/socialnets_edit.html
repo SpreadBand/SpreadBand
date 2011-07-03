@@ -1,7 +1,6 @@
 {% extends 'bands/base.html' %}
 
 {% load i18n %}
-{% load django_static %}
 
 {% block title %}
   {{ band.slug }} &raquo; {% trans "Social Networks" %}
@@ -14,7 +13,7 @@
 
     <div class="alpha grid_7">
 
-      <img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="{% trans "social networks" %}" width="22px"/>
+      <img src="{{ STATIC_URL }}images/presskit/pictures_ico.png" alt="{% trans "social networks" %}" width="22px"/>
       <h2>{% trans "Social Networks" %}</h2>
       {% if band.socialnetworks.all %}
 	<ul id="socialnet-list">
@@ -46,7 +45,7 @@
     </div>
     <div class="grid_7 omega">
       
-    <img src="{% staticfile '/images/presskit/biography_ico.png' %}" alt="{% trans "social networks" %}" width="22px"/>
+    <img src="{{ STATIC_URL }}images/presskit/biography_ico.png" alt="{% trans "social networks" %}" width="22px"/>
     <h2>{% trans "Websites" %}</h2>
     {% if band.websites.all %}
       <ul id="website-list">

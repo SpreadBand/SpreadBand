@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
-{% load django_static %}
-
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/textpage.css" media="screen, projection" />
 {% endblock %}
 
 {% block content %}
@@ -15,7 +13,7 @@
     <h3>Veuillez l'excuser, nous sommes partis le rattraper.</h3>
 
     <div align="center">
-      <img src="{% staticfile "images/crash.jpg" %}" alt="crash"/>
+      <img src="{{ STATIC_URL }}images/crash.jpg" alt="crash"/>
     </div>
 
     <p>Vous pouvez essayer de revenir en arrière ou de recharger la page.</p>

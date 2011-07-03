@@ -1,7 +1,6 @@
 {% extends "venue/base.html" %}
 
 {% load uni_form_tags %}
-{% load django_static %}
 {% load tagging_tags %}
 {% load i18n %}
 
@@ -15,14 +14,14 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
   {{ block.super }}
-  <script type="text/javascript" src="{% staticfile '/js/ckeditor/ckeditor.js' %}"></script>
-  <script type="text/javascript" src="{% staticfile '/js/ckeditor/config.js' %}"></script>
-  <script type="text/javascript" src="{% staticfile '/js/ckeditor/adapters/jquery.js' %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/config.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/adapters/jquery.js"></script>
   
   <script type="text/javascript">
     $(document).ready(function() {
@@ -30,8 +29,8 @@
     });
   </script>
 
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.iecompat.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {

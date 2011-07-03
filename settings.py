@@ -173,7 +173,6 @@ INSTALLED_APPS = (
     'oauth_access',
     'dajaxice',
     'dajax',
-    'django_static',
     'debug_toolbar',
     'django_extensions',
     'django_nose',

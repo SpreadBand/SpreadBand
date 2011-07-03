@@ -1,5 +1,4 @@
 {% load i18n %}
-{% load django_static %}
 
 <html>
 <head>
@@ -12,7 +11,7 @@
 
 
 #form-header h1 {
-    background-image: url('{% staticfile '/images/icons/32x32/calendar.png' %}');
+    background-image: url('{{ STATIC_URL }}images/icons/32x32/calendar.png');
     background-repeat: no-repeat;
     padding-top: 7px;
     height: 25px;

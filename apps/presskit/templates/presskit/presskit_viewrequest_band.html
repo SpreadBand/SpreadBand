@@ -1,6 +1,5 @@
 {% extends "bands/base.html" %}
 
-{% load django_static %}
 {% load i18n %}
 {% load humanize %}
 
@@ -11,7 +10,7 @@
 {% block css %}
   {{ block.super }}
 
-  <link rel="stylesheet" type="text/css" href="/css/presskit_viewrequest.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/presskit_viewrequest.css" media="screen, projection" />
 {% endblock %}
 
 {% block band_content %}
@@ -23,7 +22,7 @@
       {% if venue.pictures.avatar %}
 	<img class="avatar" src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="80px" alt="venue avatar" />
       {% else %}
-	<img class="avatar" src="{% staticfile '/images/venue/no_picture.png' %}" width="80px" alt="no venue avatar" />
+	<img class="avatar" src="{{ STATIC_URL }}images/venue/no_picture.png" width="80px" alt="no venue avatar" />
       {% endif %}
       
       <div class="infos">
@@ -75,7 +74,7 @@
 		  {% if band.pictures.avatar %}
 		    <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="band avatar" />
 		  {% else %}
-		    <img src="{% staticfile '/images/band/no_picture.png' %}" width="40px" height="40px" alt="no band avatar" />
+		    <img src="{{ STATIC_URL }}images/band/no_picture.png" width="40px" height="40px" alt="no band avatar" />
 		  {% endif %}
 		{% endif %}
 
@@ -83,7 +82,7 @@
 		  {% if venue.pictures.avatar %}
 		    <img src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="venue avatar" />
 		  {% else %}
-		    <img src="{% staticfile '/images/venue/no_picture.png' %}" width="40px" height="40px" alt="no venue avatar" />
+		    <img src="{{ STATIC_URL }}images/venue/no_picture.png" width="40px" height="40px" alt="no venue avatar" />
 		  {% endif %}
 		{% endif %}
 
@@ -119,7 +118,7 @@
 	    {% if band.pictures.avatar %}
 	      <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="40px" height="40px" alt="band avatar" />
 	    {% else %}
-	      <img src="{% staticfile '/images/band/no_picture.png' %}" width="40px" alt="no band avatar" />
+	      <img src="{{ STATIC_URL }}images/band/no_picture.png" width="40px" alt="no band avatar" />
 	    {% endif %}
 	  </div>
 
