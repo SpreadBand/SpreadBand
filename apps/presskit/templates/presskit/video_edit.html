@@ -26,6 +26,7 @@
   </p>
 
   <form id="video-edit-form" method="POST" action="{% url presskit:presskit-video presskit.band.slug %}">
+    {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="{% trans "Update" %}" onclick="return video_edit();"/>
   </form>

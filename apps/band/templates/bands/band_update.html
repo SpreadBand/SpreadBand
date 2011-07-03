@@ -3,7 +3,6 @@
 {% load i18n %}
 {% load uni_form_tags %}
 {% load wysiwyg %}
-{% load django_static %}
 {% load tagging_tags %}
 
 
@@ -18,17 +17,17 @@
 {% block css %}
   {{ block.super }}
 
-  <link rel="stylesheet" type="text/css" src="/css/ckeditor/sample.css" />
+  <link rel="stylesheet" type="text/css" src="{{ STATIC_URL }}css/ckeditor/sample.css" />
 
-  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
   {{ block.super }}
 
-  <script type="text/javascript" src="{% staticfile '/js/ckeditor/ckeditor.js' %}"></script>
-  <script type="text/javascript" src="{% staticfile '/js/ckeditor/config.js' %}"></script>
-  <script type="text/javascript" src="{% staticfile '/js/ckeditor/adapters/jquery.js' %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/config.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/adapters/jquery.js"></script>
   
   <script type="text/javascript">
     $(document).ready(function() {
@@ -37,8 +36,8 @@
     });
   </script>
 
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.iecompat.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -68,6 +67,7 @@
 
 <div class="grid_10">
   <form action="" method="POST" class="uniForm">
+    {% csrf_token %}
     {{ form|as_uni_form }}
     <input type="submit" value="{% trans "Update" %}" class="awesome medium orange" />
   </form>

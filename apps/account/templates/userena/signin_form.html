@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load django_static %}
 {% load i18n %}
 
 {% block title %}
@@ -8,8 +7,8 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/login.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/login.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fuzzyform.css" media="screen, projection" />
 {% endblock %}
 
 {% block content %}
@@ -21,13 +20,14 @@
       <h1>{% trans "Hi !" %}</h1>
       
       <form class="fuzzyform" method="post" action=".">
+	{% csrf_token %}
 	{{ form.as_p }}
 	<input type="hidden" name="next" value="{{ request.REQUEST.next }}" />
 	
 	<div class="grid_7 alpha omega">
 
 	  <div class="grid_4 alpha">
-	    <img id="bandillu" src="{% staticfile "images/structure/login/band.png" %}" width="236px" />
+	    <img id="bandillu" src="{{ STATIC_URL }}images/structure/login/band.png" width="236px" />
 	  </div>
 	  <div class="grid_3 omega">
 	    <input type="submit" value="{% trans 'Let me in !' %}" />
@@ -45,7 +45,7 @@
       <div id="attentionbox">
 	<div>
 	  <span id="attention">{% trans "Don't forget" %}</span>
-	  <img src="{% staticfile "images/structure/login/addressbar.png" %}"/>
+	  <img src="{{ STATIC_URL }}images/structure/login/addressbar.png"/>
 	</div>
 	<div id="attentiontext">
 	  {% trans "Vérifiez toujours dans la barre d'adresse du navigateur que vous êtes bien sur le site spreadband.com avant de vous identifier." %}
@@ -60,7 +60,7 @@
   <div id="rightcol" class="grid_6">
     <h2>{% trans "New here ?" %}</h2>
 
-    <img src="{% staticfile "images/structure/login/new.png" %}" width="300px" />
+    <img src="{{ STATIC_URL }}images/structure/login/new.png" width="300px" />
     <p id="registernow"><a href="{% url userena_signup %}">{% trans "Signup now" %}</a> {% trans "for a SpreadBand account, it's free and takes less than a minute !" %}</p>
 
     <h3>{% trans "What is SpreadBand ?" %}</h3>

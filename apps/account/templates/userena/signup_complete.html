@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
-{% load django_static %}
 
 {% block title %}
   {% trans "Signup almost done!" %}
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/signup.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/signup.css" media="screen, projection" />
 {% endblock %}
 
 {% block content %}
@@ -49,13 +48,13 @@
 	  <li>
 	    
 	    <a rel="nofollow" href="#" title="SpreadBand" onclick="return fbs_click();" target="_blank">
-	      <img src="{% staticfile '/images/icons/64x64/facebook.png' %}" width="32px" height="32px" alt="Facebook" />
+	      <img src="{{ STATIC_URL }}images/icons/64x64/facebook.png" width="32px" height="32px" alt="Facebook" />
 	      <span class="service-name">{% trans "Share on Facebook" %}</span>
 	    </a>
 	  </li>
 	  <li>
 	    <a rel="nofollow" href="http://twitter.com/home?status={% trans "Musiciens indépendants : découvrez SpreadBand et bookez votre groupe de musique ! http://spreadband.com" %}" title="SpreadBand" target="_blank">
-	      <img src="{% staticfile '/images/icons/64x64/twitter.png' %}" width="32px" height="32px" alt="Twitter" />
+	      <img src="{{ STATIC_URL }}images/icons/64x64/twitter.png" width="32px" height="32px" alt="Twitter" />
 	      
 	      <span class="service-name">{% trans "Share on Twitter" %}</span>
 	    </a>

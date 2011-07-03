@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-{% load django_static %}
+{% load compress %}
 {% load dajaxice_templatetags %}
 {% load i18n %}
 {% load avatar_tags %}
@@ -25,38 +25,39 @@
     {% block head %}
     {% endblock %}
 
-    <!--[if !IE]>CSS by media or page type<![endif]-->
-    {% slimall %}
-    <link rel="stylesheet" type="text/css" href="/css/reset_of_death.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="/css/960.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="/css/base.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="/css/textpage.css" media="screen, projection" />
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset_of_death.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/960.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/textpage.css" media="screen, projection" />
 
-    <link rel="stylesheet" type="text/css" href="/css/ghbuttons.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="/css/announcements.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ghbuttons.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/announcements.css" media="screen, projection" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/support-panel.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui/ui-darkness/jquery-ui-1.8.4.custom.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/ui.notify.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/niceforms.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/uni_form/uni-form.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/uni_form/default.uni-form.css" />
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/boxy.css" />
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/tipsy.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/support-panel.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/backcap.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/jquery/ui/ui-darkness/jquery-ui-1.8.4.custom.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/jquery/ui.notify.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/niceforms.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/uni_form/uni-form.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/uni_form/default.uni-form.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/jquery/boxy.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/jquery/tipsy.css" />
 
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/awesomebuttons.css" /> 
-    {% endslimall %}
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/awesomebuttons.css" /> 
 
-    {% staticall %}
+    {% endcompress %}
+
+
+    {% compress css %}
     {% block css %}{% endblock %}
-    {% endstaticall %}
+    {% endcompress %}
 
-  <link rel="shortcut icon" type="image/x-icon" href="{% staticfile '/images/favicon.ico' %}" />
-  <link rel="icon" type="image/png" href="{% staticfile '/images/favicon.png' %}" />
-  {# <link rel="apple-touch-icon" href="{% staticfile '/iphone_icon.png' %}" /> #}
+  <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}images/favicon.ico" />
+  <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" />
+  {# <link rel="apple-touch-icon" href="{{ STATIC_URL }}iphone_icon.png" /> #}
 
-  <!--[if !IE]>Digest links<![endif]-->
+
   <link rel="index" title="Actualité" href="#" />
   <link rel="help" title="Aide" href="#" />
   <link rel="glossary" title="Plan du site" href="#" />
@@ -65,30 +66,31 @@
   {# <link rel="alternate" title="titre de la section" href="#" type="application/rss+xml" /> #}
 
   <!--[if !IE]>scripts library<![endif]-->
-  <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.js"></script>
 
-  {% staticall %}
-  <script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.jeditable.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.slidePanel.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.notify.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.uni-form.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.boxy.js"></script>
+  {% compress js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.js"></script>
 
-  <script type="text/javascript" src="/js/XMLHttpRequest.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.ba-serializeobject.js"></script>
-  <script type="text/javascript" src="/js/dajax/jquery.dajax.core.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.maskedinput-1.2.2.js"></script>
-  <script type="text/javascript" src="/js/jquery/jquery.oauthpopup.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery-ui.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.jeditable.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.slidePanel.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.notify.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.uni-form.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.boxy.js"></script>
+
+  <script type="text/javascript" src="{{ STATIC_URL }}js/XMLHttpRequest.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ba-serializeobject.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/dajax/jquery.dajax.core.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.maskedinput-1.2.2.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.oauthpopup.js"></script>
   
-  <script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
-  {% endstaticall %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tipsy.js"></script>
 
-  <script type="text/javascript" src="{% staticfile "/js/dajaxice.core.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/dajaxice.core.js"></script>
 
+  {% endcompress %}
 
   <script type="text/javascript">
-    var CKEDITOR_BASEPATH = '{{ MEDIA_URL }}/js/ckeditor/';
+    var CKEDITOR_BASEPATH = '{{ STATIC_URL }}js/ckeditor/';
   </script>
 
   <!--[if !IE]>scripts behaviours<![endif]-->
@@ -102,7 +104,7 @@
 	    triggerTopPos: '150px',
 	    panelTopPos: '0px',
 	    ajax: false,
-	    ajaxSource: '{% url backcap:feedback-tab %}?referer={{ request.get_full_path }}'
+	    ajaxSource: '{% url feedback-tab %}?referer={{ request.get_full_path }}'
 	});
 
 
@@ -138,6 +140,7 @@
     });
   </script>
 
+  {% if not debug %}
   <!-- Google analytics -->
   <script type="text/javascript">
 
@@ -151,6 +154,7 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+  {% endif %}
 
 </script>
 
@@ -182,7 +186,7 @@
 	$(document).ready(function() {
 	    $('#message-container').notify('create', 'withIcon',
 					   { text: '{{ message }}',
-					     icon: '{{ MEDIA_URL }}/images/{{ message.tags|lower }}.png',
+					     icon: '{{ STATIC_URL }}images/{{ message.tags|lower }}.png',
 					   },
 					   { expires: 10000 }
               				  );
@@ -206,7 +210,7 @@
 
 	  <!-- logo -->
 	  <div id="logo">
-	    <h1><a href="{% url home %}"><img src="{% staticfile '/images/structure/sb_header_beta.png' %}" alt="SpreadBand" width="332" height="89" /></a></h1>
+	    <h1><a href="{% url home %}"><img src="{{ STATIC_URL }}images/structure/sb_header_beta.png" alt="SpreadBand" width="332" height="89" /></a></h1>
 	  </div>
 
 	  <!-- right of the logo -->
@@ -220,7 +224,7 @@
 
 	      <!-- User menu -->
 	      <div id="user-menu">
-		<img alt="left" src="{% staticfile '/images/structure/usermenu/left.png' %}" width="6" height="28"/> 
+		<img alt="left" src="{{ STATIC_URL }}images/structure/usermenu/left.png" width="6" height="28"/> 
 		<ul>
 		  <li>
 		    <img class="avatar" src="{% avatar_url user 18 %}" alt="{% trans "Avatar" %}" width="18" height="18"/> 
@@ -229,7 +233,7 @@
 		  <li class="separator"></li>
 		  <li><a href="{% url userena_profile_edit user %}">{% trans "Settings" %}</a></li>
 		  <li class="separator"></li>
-		  <li><a href="{% url backcap:feedback-list %}">{% trans "Help" %}</a></li>
+		  <li><a href="{% url feedback-list %}">{% trans "Help" %}</a></li>
 		  
 		  {% if request.user.is_staff %}
 		  <li class="separator"></li>
@@ -238,46 +242,46 @@
 
 		  <li class="logout"><a href="{% url userena_signout %}">{% trans "Logout" %}</a></li>
 		</ul>
-		<img alt="" src="{% staticfile '/images/structure/usermenu/right.png' %}" width="6" height="28"/> 
+		<img alt="" src="{{ STATIC_URL }}images/structure/usermenu/right.png" width="6" height="28"/> 
 	      </div>
 
 	      <div id="user-things">
 		<ul class="topnav">
-		  {% staticfile '/images/band/no_picture.png' as default_avatar %}
+		  {% with default_avatar=STATIC_URL|add:"images/band/no_picture.png" %}
 		  {% for band in user.bands.all %}
 		    <li>
 		      <img class="avatar" src="{{ band.pictures.avatar.small_avatar_image.url|default:default_avatar }}" width="20" height="20" alt="band avatar"/>
 		      <a href="#">{{ band.name|capfirst }}</a>
-			<img src="{% staticfile '/images/structure/more.png' %}" alt="more" width="11" height="7" />
+			<img src="{{ STATIC_URL }}images/structure/more.png" alt="more" width="11" height="7" />
 
 		      <ul class="subnav">
-			{# <li><a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}"><img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" width="16" height="16" alt="negociations" />{% trans "Negociations" %}</a></li> #}
-			{# <li><a href="{% url event:band-calendar band.slug %}"><img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" width="16" height="16" alt="agenda" />{% trans "Agenda" %}</a></li> #}
-			<li><a href="{% url venue:search %}"><img src="{% staticfile '/images/presskit/location_ico.png' %}" width="16" height="16" alt="search venue" />{% trans "Search a Venue" %}</a></li>
-			<li><a href="{% url band:search %}"><img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" width="16" height="16" alt="search bands" />{% trans "Search a Band" %}</a></li>
-			<li><a href="{% url presskit:mypresskit band.slug %}"><img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" width="16" height="16" alt="presskit" />{% trans "My PressKit" %}</a></li>
+			{# <li><a href="{% url gigbargain:gigbargain-band-dashboard band.slug %}"><img src="{{ STATIC_URL }}images/gigbargain/negociation_ico.png" width="16" height="16" alt="negociations" />{% trans "Negociations" %}</a></li> #}
+			{# <li><a href="{% url event:band-calendar band.slug %}"><img src="{{ STATIC_URL }}images/gigbargain/calendar_ico.png" width="16" height="16" alt="agenda" />{% trans "Agenda" %}</a></li> #}
+			<li><a href="{% url venue:search %}"><img src="{{ STATIC_URL }}images/presskit/location_ico.png" width="16" height="16" alt="search venue" />{% trans "Search a Venue" %}</a></li>
+			<li><a href="{% url band:search %}"><img src="{{ STATIC_URL }}images/gigbargain/bands_ico.png" width="16" height="16" alt="search bands" />{% trans "Search a Band" %}</a></li>
+			<li><a href="{% url presskit:mypresskit band.slug %}"><img src="{{ STATIC_URL }}images/presskit/techsheet_ico.png" width="16" height="16" alt="presskit" />{% trans "My PressKit" %}</a></li>
 			<hr/>
 			<li class="more"><a href="{% url band:detail band.slug %}">{% trans "Go to dashboard" %} &rarr;</a></li>
 		      </ul>
 		    </li>
 		  {% endfor %}
 
-
 		  {% for venue in user.venues.all %}
 		    <li>
 		      <img class="avatar" src="{{ venue.pictures.avatar.small_avatar_image.url|default:default_avatar }}" width="20" height="20" alt="venue avatar"/>
 		      <a href="#">{{ venue.name|capfirst }}</a>
-			<img src="{% staticfile '/images/structure/more.png' %}" alt="more" width="11" height="7" />
+			<img src="{{ STATIC_URL }}images/structure/more.png" alt="more" width="11" height="7" />
 
 		      <ul class="subnav">
-			<li><a href="{% url band:search %}"><img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" width="16" height="16" alt="search venue" />{% trans "Search a Band" %}</a></li>
-			<li><a href="{% url venue:myprofile venue.slug %}"><img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" width="16" height="16" alt="my profile" />{% trans "My Profile" %}</a></li>
+			<li><a href="{% url band:search %}"><img src="{{ STATIC_URL }}images/gigbargain/bands_ico.png" width="16" height="16" alt="search venue" />{% trans "Search a Band" %}</a></li>
+			<li><a href="{% url venue:myprofile venue.slug %}"><img src="{{ STATIC_URL }}images/presskit/techsheet_ico.png" width="16" height="16" alt="my profile" />{% trans "My Profile" %}</a></li>
 			<hr/>
 			<li class="more"><a href="{% url venue:dashboard venue.slug %}">{% trans "Go to dashboard" %} &rarr;</a></li>
 		      </ul>
 		    </li>
 		  {% endfor %}
 
+		  {% endwith %}
 
 		</ul>
 	      </div>
@@ -331,10 +335,10 @@
 	  <h5>Nébuleuse SpreadBand</h5>
 
 	  <ul id="elsewhere">
-	    <li><a target="_new" href="http://facebook.com/spreadband"><img src="{% staticfile "images/icons/32x32/facebook.png" %}" width="32px" height="32px" alt="Facebook"/></a></li>
-	    <li><a target="_new" href="http://twitter.com/spreadband"><img src="{% staticfile "images/icons/32x32/twitter.png" %}" width="32px" height="32px" alt="Twitter"/></a></li>
-	    <li><a target="_new" href="http://identi.ca/spreadband"><img src="{% staticfile "images/icons/32x32/identica.png" %}" width="32px" height="32px" alt="Identi.ca"/></a></li>
-	    <li><a target="_new" href="http://www.last.fm/group/SpreadBand"><img src="{% staticfile "images/icons/32x32/lastfm.png" %}" width="32px" height="32px" alt="Last.fm"/></a></li>
+	    <li><a target="_new" href="http://facebook.com/spreadband"><img src="{{ STATIC_URL }}images/icons/32x32/facebook.png" width="32px" height="32px" alt="Facebook"/></a></li>
+	    <li><a target="_new" href="http://twitter.com/spreadband"><img src="{{ STATIC_URL }}images/icons/32x32/twitter.png" width="32px" height="32px" alt="Twitter"/></a></li>
+	    <li><a target="_new" href="http://identi.ca/spreadband"><img src="{{ STATIC_URL }}images/icons/32x32/identica.png" width="32px" height="32px" alt="Identi.ca"/></a></li>
+	    <li><a target="_new" href="http://www.last.fm/group/SpreadBand"><img src="{{ STATIC_URL }}images/icons/32x32/lastfm.png" width="32px" height="32px" alt="Last.fm"/></a></li>
 	  </ul>
 
 	  
@@ -357,12 +361,13 @@
 
 	  <ul>
 	    <li><a href="{% url faq:question-list %}">FAQ</a></li>
-	    <li><a href="{% url backcap:feedback-list %}">Centre d'aide</a></li>
+	    <li><a href="{% url feedback-list %}">Centre d'aide</a></li>
 	  </ul>
 	</div>
 
 	<div class="grid_16 legals">
-	  <strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - &copy; 2010
+	  <a href="http://grandsensemble.org"><img src="{{ STATIC_URL }}images/ge.jpg" alt="Grands Ensemble"/></a>
+	  <strong>SpreadBand</strong>, par <a href="http://fuzzyfrequency.com">FuzzyFrequency</a> - &copy; 2011
 	  
 	  &nbsp;|&nbsp;
 	  {% if not user.is_staff %}

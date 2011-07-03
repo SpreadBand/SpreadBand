@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load django_static %}
 
 {% block title %}
 {% trans "I can't find a Venue" %}
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/venue_cantfind.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/venue_cantfind.css" media="screen, projection" />
 {% endblock %}
 
 {% block content %}
@@ -27,12 +26,13 @@
   <div class="grid_15 alpha omega">
 
     <form method="POST" action="">
+      {% csrf_token %}
       <div class="grid_11 alpha omega">
 	
 	<div id="letter">
 	  <div id="letter-header">
 	    <div class="grid_6 alpha">
-	      <img src="{% staticfile "/images/venue/spreadstamp.png" %}" width="150px"/>
+	      <img src="{{ STATIC_URL }}images/venue/spreadstamp.png" width="150px"/>
 	    </div>
 	    
 	    <div id="to" class="grid_3 omega">
@@ -53,7 +53,7 @@
       </div>
       
       <div id="send" class="grid_4 omega">
-	<img src="{% staticfile "/images/venue/superlaurent.png" %}"/>
+	<img src="{{ STATIC_URL }}images/venue/superlaurent.png"/ alt="{% trans "SuperLaurent" %}>
 	<input type="submit" name="submit" />
       </div>
 

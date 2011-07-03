@@ -3,7 +3,6 @@
 {% load humanize %}
 {% load i18n %}
 {% load timezone_filters %}
-{% load django_static %}
 {% load activity_tags %}
 {% load avatar_tags %}
 
@@ -14,7 +13,7 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/user_dashboard.css" media="screen, projection" />
 {% endblock %}
 
 {% block title %}
@@ -78,7 +77,7 @@
       <div id="band-new">
 	{% url band:create as band_create_url %}
 	<a href="{{ band_create_url }}">
-	  <img src="{% staticfile "/images/account/bands_add_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	  <img src="{{ STATIC_URL }}images/account/bands_add_ico.png" alt="bands" width="90px" height="90px"/>
 	</a>
 	<h2><a href="{{ band_create_url }}">{% trans "Register your Band" %}</a></h2>
 
@@ -95,7 +94,7 @@
       <div id="venue-new">
 	{% url venue:create as venue_create_url %}
 	<a href="{{ venue_create_url }}">
-	  <img src="{% staticfile "/images/account/venues_add_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	  <img src="{{ STATIC_URL }}images/account/venues_add_ico.png" alt="bands" width="90px" height="90px"/>
 	</a>
 
 	<h2><a href="{{ venue_create_url }}">{% trans "Register your Venue" %}</a></h2>
@@ -117,7 +116,7 @@
 
     <div id="band-list">
       <div id="band-side">
-	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	<img src="{{ STATIC_URL }}images/account/bands_ico.png" alt="bands" width="90px" height="90px"/>
 	<h2>{% trans "My Bands" %}</h2>
 
 	<ul id="band-actions">
@@ -132,10 +131,11 @@
 	    {% for band in user.bands.all %}
 	      <li>
 		<div class="band-picture">
-		  {% staticfile '/images/band/no_picture.png' as default_pic %}
+		  {% with STATIC_URL|add:'/images/band/no_picture.png' as default_pic %}
 		  <a href="{% url band:detail band.slug %}">
 		    <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
 		  </a>
+		  {% endwith %}
 		</div>
 		
 		<div class="band-info">
@@ -189,7 +189,7 @@
     {% if user.band_memberships.all|length == 0 or user.venue_memberships.all|length > 0 %}
     <div id="band-list">
       <div id="band-side">
-	<img src="{% staticfile "/images/account/venues_ico.png" %}" alt="venues" width="90px" height="90px"/>
+	<img src="{{ STATIC_URL }}images/account/venues_ico.png" alt="venues" width="90px" height="90px"/>
 	<h2>{% trans "My Venues" %}</h2>
 
 	<ul id="band-actions">
@@ -204,10 +204,11 @@
 	    {% for venue in user.venues.all %}
 	      <li>
 		<div class="band-picture">
-		  {% staticfile '/images/venue/no_picture.png' as default_pic %}
+		  {% with STATIC_URL|add:'images/venue/no_picture.png' as default_pic %}
 		  <a href="{% url venue:detail venue.slug %}">
 		    <img id="photo" height="80px" width="80px" src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}" class="photo"/>
 		  </a>
+		  {% endwith %}
 		</div>
 		
 		<div class="band-info">
@@ -286,7 +287,7 @@
 
       <div id="user-connections">
 	<div class="header">
-	  <img class="icon" src="{% staticfile "/images/account/connections_ico.png" %}" width="20px"/>	  
+	  <img class="icon" src="{{ STATIC_URL }}images/account/connections_ico.png" width="20px"/>	  
 	  <h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
 	</div>
 	{% if user_connections %}
@@ -296,15 +297,16 @@
 	  {% endfor %}
 	</ul>
 	{% else %}
-	  <img src="{% staticfile "/images/account/no_connection_yet.png" %}" alt="{% trans "No connections yet" %}"/>
+	  <img src="{{ STATIC_URL }}images/account/no_connection_yet.png" alt="{% trans "No connections yet" %}/>
 	  <span>{% trans "You'll find here connections with other musicians" %}<span>
 	{% endif %}
       </div>
       
+      <div class="clear"></div>
       
       <div id="notifications">
 	<div>
-	  <img class="icon" src="{% staticfile "/images/account/alert.png" %}" width="20px"/>
+	  <img class="icon" src="{{ STATIC_URL }}images/account/alert.png" width="20px"/>
 	  <h3>{% trans "Latest Notifications" %}</h3>
 	</div>
 

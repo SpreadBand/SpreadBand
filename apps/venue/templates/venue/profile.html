@@ -1,7 +1,7 @@
+{% load compress %}
 {% load elsewhere_tags %}
 {% load oembed_tags %}
 {% load reviews_tags %}
-{% load django_static %}
 {% load i18n %}
 {% load band_tags %}
 {% load avatar_tags %}
@@ -11,7 +11,7 @@
       {% if venue.pictures.avatar %}
 	<img src="{{ venue.pictures.avatar.thumbnail_image.url }}" width="100%" alt="venue avatar" />
       {% else %}
-	<img src="{% staticfile '/images/venue/no_picture.png' %}" width="100%" alt="no venue avatar" />
+	<img src="{{ STATIC_URL }}images/venue/no_picture.png" width="100%" alt="no venue avatar" />
       {% endif %}
     </div>
     
@@ -65,7 +65,7 @@
     {% endif %}
 
 	
-    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
+    {% with STATIC_URL|add:'/images/account/no_avatar.png' as default_avatar %}
     <ul>
     {% for member in venue.venue_members.all %}
 	<li>
@@ -75,6 +75,7 @@
       </li>
     {% endfor %}
     </ul>
+    {% endwith %}
 	
   </div>
 
@@ -111,7 +112,9 @@
 
 </div>
 
-<script type="text/javascript" src="{% staticfile "/js/jquery/jquery.colorbox.js" %}"></script>
+{% compress js %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.colorbox.js"></script>
+{% endcompress %}
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -150,12 +153,12 @@ $(document).ready(function() {
      {% if not is_managed or user.is_superuser %}
      <div class="sectionbox presskit_sharing">
        <div class="venue_sharing_title">
-	 <img src="{% staticfile "images/venue/send_presskit.png" %}" alt="{% trans "Send presskit of" %}" width="150px"/>
+	 <img src="{{ STATIC_URL }}images/venue/send_presskit.png" alt="{% trans "Send presskit of" %}" width="150px"/>
 	 <span>{% trans "Click to propose a gig to this venue." %}</span>
        </div>
        
        <ul>
-	 {% staticfile '/images/band/no_picture.png' as default_picture %}
+	 {% with STATIC_URL|add:'/images/band/no_picture.png' as default_picture %}
 	 {% for band in user.bands.all %}
 	   <a onclick="javascript: return false;" href="{% url presskit:presskit-send band.slug venue.slug %}" class="presskit-send tip" title="{% blocktrans with band.name as band_name %}Send {{ band_name }} PressKit{% endblocktrans %}">
 	     <div>
@@ -167,6 +170,7 @@ $(document).ready(function() {
 	   </a>					
 	 {% endfor %} 
        </ul>
+       {% endwith %}
      </div>
      {% endif %}
    </div>
@@ -179,7 +183,7 @@ $(document).ready(function() {
   <div id="venue-calendar" class="grid_12 alpha omega">
     <div class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/gigbargain/calendar_ico.png' %}" alt="calendar"/>
+	<img src="{{ STATIC_URL }}images/gigbargain/calendar_ico.png" alt="calendar"/>
 	<h2>{% trans "Calendar" %} (WIP)</h2>
       </div>
 	
@@ -217,7 +221,7 @@ $(document).ready(function() {
   <div class="grid_7 alpha">
     <div id="pictures" class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/presskit/pictures_ico.png' %}" alt="pictures"/>
+	<img src="{{ STATIC_URL }}images/presskit/pictures_ico.png" alt="pictures"/>
 	<h2>{% trans "Pictures" %}</h2>
 	{% if is_managed %}
 	  <a href="{% url venue:venue-pictures venue.slug %}" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
@@ -241,7 +245,7 @@ $(document).ready(function() {
 	  
 	  <div id="video" class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
+	<img src="{{ STATIC_URL }}images/presskit/video_ico.png" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
 	{% if is_managed %}
 	  <a href="{% url venue:edit venue.slug %}#id_video" class="modal-popup button-tip minibutton btn-edit" title="{% trans "Edit" %}"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
@@ -264,7 +268,7 @@ $(document).ready(function() {
 	
 	<div id="location" class="sectionbox grid_12 alpha omega">
 		<div class="header">
-			<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>
+			<img src="{{ STATIC_URL }}images/presskit/location_ico.png" alt="location"/>
 			<h2>{% trans "Location" %}</h2>
 			{% if is_managed %}
 			<a href="{% url venue:edit venue.slug %}#id_address" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>

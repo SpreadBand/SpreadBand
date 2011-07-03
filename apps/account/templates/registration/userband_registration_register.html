@@ -5,6 +5,7 @@
 <h1>Signup</h1>
 
 <form method='POST'>
+  {% csrf_token %}
 
 {{ form.non_field_errors }}
 

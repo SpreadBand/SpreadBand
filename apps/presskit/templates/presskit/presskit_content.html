@@ -1,5 +1,4 @@
 {% load avatar_tags %}
-{% load django_static %}
 {% load elsewhere_tags %}
 {% load oembed_tags %}
 {% load markup %}
@@ -22,7 +21,7 @@
     {% if band.pictures.avatar %}
       <img src="{{ band.pictures.avatar.thumbnail_image.url }}" width="172px" alt="band avatar" />
     {% else %}
-      <img src="{% staticfile '/images/band/no_picture.png' %}" width="172px" alt="no band avatar" />
+      <img src="{{ STATIC_URL }}images/band/no_picture.png" width="172px" alt="no band avatar" />
     {% endif %}
   </div>
 
@@ -55,7 +54,7 @@
     <a href="{% url band:membership-manage band.slug %}" class="button-tip minibutton" title="{% trans "Edit" %}"><span>{% trans "Edit" %}</span></a>
     {% endif %}
 
-    {% staticfile '/images/account/no_avatar.png' as default_avatar %}
+    {% with STATIC_URL|add:'/images/account/no_avatar.png' as default_avatar %}
     <ul>
       {% for member in band.band_members.all %}
 	<li>
@@ -64,8 +63,9 @@
 	  <span class="bandmember_whois">{{ member.user.get_profile.genre|default:"?" }}, {{ member.user.get_profile.age|default:"-" }} y-o.</span>
 	  <span class="bandmember_role" title="{{ member.roles.all|join:", " }}">{{ member.roles.all|join:", "|truncatewords:3 }}</span>
       </li>
-    {% endfor %}
+    {% endfor %} 
     </ul>
+    {% endwith %}
   </div>
 
   <!-- Latest gigs -->
@@ -147,7 +147,7 @@
     <h1>{% trans "PressKit" %} &raquo; <a href="{{ band.get_absolute_url }}">{{ band.name }}</a> ({{ band.city|default:"Somewhere" }}, {{ band.country|default:"Earth" }})</h1>
 
     {% if presskit_completion_badge|number_awarded:band %}
-      <img class="badge tip" title="{% trans "This PressKit has been fully completed" %}" src="{% staticfile "/images/presskit/completion_badge.png" %}" width="40px" height="40px"/>
+      <img class="badge tip" title="{% trans "This PressKit has been fully completed" %}" src="{{ STATIC_URL }}images/presskit/completion_badge.png" width="40px" height="40px"/>
     {% endif %}
   </div>
 
@@ -182,7 +182,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
 	// run galleria and add some options
-	Galleria.loadTheme('{{ MEDIA_URL }}/css/galleria/themes/classic/galleria.classic.js');
+	Galleria.loadTheme('{{ STATIC_URL }}css/galleria/themes/classic/galleria.classic.js');
 
 	$('#gallery').galleria({
             image_crop: true, // crop all images to fit
@@ -214,8 +214,6 @@
 
 
   <div class="grid_12 alpha omega">
-
-    <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.jplayer.js' %}"></script>
 
     <script type="text/javascript">
       var Playlist = function(instance, playlist, options) {
@@ -350,7 +348,7 @@
 	  ], { // oggSupport: true,
 	       //nativesupport: true,
 	       preload: 'false',
-	       swfPath: '{{ MEDIA_URL }}/flash/',
+	       swfPath: '{{ STATIC_URL }}flash/',
 	        ready: function() {
 		    audioPlaylist.displayPlaylist();
 		    audioPlaylist.playlistInit(false);
@@ -423,7 +421,7 @@
 
 	{% if band.pictures.all.count == 0 %}
 	<div id="default_picture">
-	  <img src="{% staticfile "images/presskit/default_picture.jpg" %}" alt="{% trans "default picture" %}"/>
+	  <img src="{{ STATIC_URL }}images/presskit/default_picture.jpg" alt="{% trans "default picture" %}"/>
 	</div>
 	{% else %}
 	<div id="gallery" style="height: 400px;">
@@ -445,7 +443,7 @@
 
     <div id="video" class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/presskit/video_ico.png' %}" alt="video"/>
+	<img src="{{ STATIC_URL }}images/presskit/video_ico.png" alt="video"/>
 	<h2>{% trans "Video" %}</h2>
 	{% if can_edit %}
 	<a href="{% url presskit:presskit-video band.slug %}" class="modal-popup button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>
@@ -467,7 +465,7 @@
   <div class="grid_6 omega">
     <div id="techsheet" class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/presskit/techsheet_ico.png' %}" alt="tech sheet"/>
+	<img src="{{ STATIC_URL }}images/presskit/techsheet_ico.png" alt="tech sheet"/>
 	<h2>{% trans "Technical Sheet" %}</h2>
 	{% if can_edit %}
 	<a href="{% url band:edit band.slug %}#id_technical_sheet" class="button-tip minibutton btn-edit" title="Edit"><span><span class="icon"></span>{% trans "Edit" %}</span></a>

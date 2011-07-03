@@ -35,6 +35,7 @@
   <h3>{% trans "First, choose who you want to invite" %}</h3>
 
   <form method="POST">
+    {% csrf_token %}
     <table id="contact-list">
       <thead>
 	<tr>

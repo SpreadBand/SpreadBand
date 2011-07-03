@@ -44,7 +44,7 @@
     <li>
       <div>
 	<a href="{{ google_url }}">
-	  <img src="{% staticfile "/images/logos/gmail.jpg" %}" width="250px" height="118px" alt="Gmail" title="{% trans "Click to import from GMail" %}"/>	
+	  <img src="{{ STATIC_URL }}images/logos/gmail.jpg" width="250px" height="118px" alt="Gmail" title="{% trans "Click to import from GMail" %}"/>	
 	</a>
       </div>
     </li>
@@ -56,6 +56,7 @@
     {% blocktrans %}Please split email adresses by a comma. For example: "user@somewhere.tld, robert@ac.de, john@doe.org". {% endblocktrans %}
   </p>
   <form id="email_adresses" method="POST" action="{% url import_email_list %}">
+    {% csrf_token %}
     {{ email_list_form.emails }}
 
     <input type="submit" value="{% trans "Import" %}"/>

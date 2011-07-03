@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-{% load django_static %}
 {% load i18n %}
 {% load avatar_tags %}
 {% load humanize %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/user_dashboard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/user_dashboard.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
@@ -52,7 +51,7 @@
     {% if profile.user.bands.all|length %}
     <div id="band-list">
       <div id="band-side">
-	<img src="{% staticfile "/images/account/bands_ico.png" %}" alt="bands" width="90px" height="90px"/>
+	<img src="{{ STATIC_URL }}images/account/bands_ico.png" alt="bands" width="90px" height="90px"/>
 	<h2>{% trans "Her/His Bands" %}</h2>
       </div>
 
@@ -62,10 +61,11 @@
 	    {% for band in profile.user.bands.all %}
 	      <li>
 		<div class="band-picture">
-		  {% staticfile '/images/band/no_picture.png' as default_pic %}
+		  {% with STATIC_URL|add:'/images/band/no_picture.png' as default_pic %}
 		  <a href="{% url band:detail band.slug %}">
 		    <img id="photo" height="80px" width="80px" src="{{ band.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ band.name }}" class="photo"/>
 		  </a>
+		  {% endwith %}
 		</div>
 		
 		<div class="band-info">
@@ -90,7 +90,7 @@
     {% if profile.user.venues.all|length %}
     <div id="band-list">
       <div id="band-side">
-	<img src="{% staticfile "/images/account/venues_ico.png" %}" alt="venues" width="90px" height="90px"/>
+	<img src="{{ STATIC_URL }}images/account/venues_ico.png" alt="venues" width="90px" height="90px"/>
 	<h2>{% trans "Her/His Venues" %}</h2>
       </div>
 
@@ -100,10 +100,11 @@
 	    {% for venue in profile.user.venues.all %}
 	      <li>
 		<div class="band-picture">
-		  {% staticfile '/images/venue/no_picture.png' as default_pic %}
+		  {% with STATIC_URL|add'/images/venue/no_picture.png' as default_pic %}
 		  <a href="{% url venue:detail venue.slug %}">
 		    <img id="photo" height="80px" width="80px" src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}" class="photo"/>
 		  </a>
+		  {% endwith %}
 		</div>
 		
 		<div class="band-info">
@@ -131,7 +132,7 @@
 
       <div id="user-connections">
 	<div class="header">
-	  <img class="icon" src="{% staticfile "/images/account/connections_ico.png" %}" width="20px"/>	  
+	  <img class="icon" src="{{ STATIC_URL }}images/account/connections_ico.png" width="20px"/>	  
 	  <h3>{% trans "Connections since a month" %} ({{ user_connections|length }})</h3>
 	</div>
 	{% if user_connections %}
@@ -141,7 +142,7 @@
 	  {% endfor %}
 	</ul>
 	{% else %}
-	  <img src="{% staticfile "/images/account/no_connection_yet.png" %}" alt="{% trans "No connections yet" %}"/>
+	  <img src="{{ STATIC_URL }}images/account/no_connection_yet.png" alt="{% trans "No connections yet" %}"/>
 	  <span>{% trans "You'll find here connections with other musicians" %}<span>
 	{% endif %}
       </div>

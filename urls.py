@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url, include
 
 from django.conf import settings
 from django.contrib.gis import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.sitemaps import FlatPageSitemap
 
 from dajaxice.core import dajaxice_autodiscover
@@ -52,7 +53,7 @@ urlpatterns = patterns('',
     (r'^reviews/', include('reviews.urls')),
 
     # Feedback
-    (r'^feedback/', include('backcap.urls', namespace='backcap')),
+    (r'^feedback/', include('backcap.urls')),
 
     # Bands
     (r'^b/', include('band.urls', namespace='band')),
@@ -130,6 +131,9 @@ if settings.DEBUG:
         (r'^500$', handler500),
         url(r'^rosetta/', include('rosetta.urls')),
     )
+
+# Static files
+urlpatterns += staticfiles_urlpatterns()
 
 
 # Sitemaps

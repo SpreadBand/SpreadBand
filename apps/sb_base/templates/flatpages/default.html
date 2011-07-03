@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load django_static %}
-
 {% block title %}
   {{ flatpage.title }}
 {% endblock %}
@@ -11,9 +9,7 @@
 <div id="text">
   <h1>{{ flatpage.title }}</h1>
   
-  {% staticall %}
   {{ flatpage.content }}
-  {% endstaticall %}
 
 </div>
 

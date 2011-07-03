@@ -1,21 +1,26 @@
 {% extends "base.html" %}
 
-{% load feeds %}
+
 {% load cache %}
+{% load compress %}
+{% load feeds %}
 {% load i18n %}
-{% load django_static %}
+{% load thumbnail %}
 
 {% block title %}
   Bookez votre groupe, Créez votre réseau - version bêta
 {% endblock %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.featureList-1.0.0.js" %}"></script>
-  <script src="{% staticfile '/js/jquery/jquery.validationEngine-en.js' %}" type="text/javascript" charset="utf-8"></script>
-  <script src="{% staticfile '/js/jquery/jquery.validationEngine.js' %}" type="text/javascript" charset="utf-8"></script>
-  <script src="{% staticfile '/js/jquery/jquery.tipsy.js' %}" type="text/javascript" charset="utf-8"></script>
 
-  <script src="{% staticfile '/js/jquery/jquery.example.js' %}" type="text/javascript" charset="utf-8"></script>
+  {% compress js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.featureList-1.0.0.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="{{ STATIC_URL }}js/jquery/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+  <script src="{{ STATIC_URL }}js/jquery/jquery.tipsy.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="{{ STATIC_URL }}js/jquery/jquery.example.js" type="text/javascript" charset="utf-8"></script>
+  {% endcompress %}
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -50,12 +55,12 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/home.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/tipsy.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/featurelist/featurelist.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/features.css" />
-  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/signup.css" />
-  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/validationEngine.jquery.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/home.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/jquery/tipsy.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/jquery/featurelist/featurelist.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/features.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/signup.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/jquery/validationEngine.jquery.css"/>
 {% endblock %}
 
 {% block content %}
@@ -68,9 +73,10 @@
   </div>
 
   <div id="home-auth">
-    <img src="{% staticfile '/images/home/header_sb.png' %}" alt="Spreadband is a place for music addicts" id="baseline" />
+    <img src="{{ STATIC_URL }}images/home/header_sb.png" alt="Spreadband is a place for music addicts" id="baseline" />
 
     <form id="authentication" action="{% url userena_signin %}" method="post">
+      {% csrf_token %}
       <a href="{% url userena_signin %}" id="lost-password">{% trans "Login" %}</a>
       
       {{ auth_form.identification }}
@@ -84,21 +90,21 @@
       <ul id="feature-tabs">
 	<li>
 	  <a href="javascript:;">
-	    <img src="{% staticfile '/images/elements/picto_mic.png' %}" alt="Groupes, DJs, Artistes solo"/>
+	    <img src="{{ STATIC_URL }}images/elements/picto_mic.png" alt="Groupes, DJs, Artistes solo"/>
 	    <h3>Groupes, DJs, ...</h3>
 	    <span><em>Trouvez où et avec qui jouer</em></span>
 	  </a>
 	</li>
 	<li>
 	  <a href="javascript:;">
-	    <img src="{% staticfile '/images/elements/picto_record.png' %}" alt="Faites votre promo"/>
+	    <img src="{{ STATIC_URL }}images/elements/picto_record.png" alt="Faites votre promo"/>
 	    <h3>Faîtes votre promo</h3>
 	    <span><em>Diffusez votre projet</em></span>
 	  </a>
 	</li>
 	<li>
 	  <a href="javascript:;">
-	    <img src="{% staticfile '/images/elements/picto_bubbles.png' %}" alt="Spreadband est une communauté"/>
+	    <img src="{{ STATIC_URL }}images/elements/picto_bubbles.png" alt="Spreadband est une communauté"/>
 	    <h3>Créez votre réseau</h3>
 	    <span><em>Une communauté vous attend</em></span>
 	  </a>
@@ -107,17 +113,19 @@
       
       <ul id="feature-output">
 	<li>
-	  <img src="{% staticfile '/images/home/bands_venues.jpg' %}" alt="Groupes et Lieux de concert" />
+	  <img src="{{ STATIC_URL }}images/home/bands_venues.jpg" alt="Groupes et Lieux de concert" />
 	</li>
 	<li>
-	  <img src="{% staticfile '/images/home/presskit.png' %}" alt="Faîtes votre promotion" />
+	  {% thumbnail "images/home/presskit.png" "537x240" as img %}
+	  <img src="{{ img.url }}" alt="Faîtes votre promotion" width="{{ img.x }}" height="{{ img.y }}"/>
+	  {% endthumbnail %}
 	<li>
-	  <img src="{% staticfile '/images/home/network.jpg' %}" alt="Créez votre réseau" />
+	  <img src="{{ STATIC_URL }}images/home/network.jpg" alt="Créez votre réseau" />
 	</li>
       </ul>
       
       <div id="subscribe">
-	<a onclick="return signup_box();" class="join-us" href="{% url userena_signin %}"><img src="{% staticfile '/images/structure/subscribe.png' %}" alt="Join Us!" width="250" height="86" /></a>
+	<a onclick="return signup_box();" class="join-us" href="{% url userena_signin %}"><img src="{{ STATIC_URL }}images/structure/subscribe.png" alt="Join Us!" width="250" height="86" /></a>
       </div>
     </div>
   </div>
@@ -198,7 +206,7 @@
       <h3>En direct du Blog</h3>
 
       <div>
-	<img src="{% staticfile '/images/home/blogicon.jpg' %}" width="48" height="48" alt="le blog"/>
+	<img src="{{ STATIC_URL }}images/home/blogicon.jpg" width="48" height="48" alt="le blog"/>
 	{% cache 1800 blog_feed_home %}
 	{% include_feed "http://blog.spreadband.com/feed/rss2" 3 feed_includes/spreadband_blog_home.html %}
 	{% endcache %}
@@ -210,7 +218,7 @@
     <div id="im" class="prefix_5 grid_9 omega">
       <h3>Twitter</h3>
       <div>
-	<img src="{% staticfile '/images/home/twitter_box_orange.png' %}" width="48" height="48" alt="Twitter"/>
+	<img src="{{ STATIC_URL }}images/home/twitter_box_orange.png" width="48" height="48" alt="Twitter"/>
 	{% cache 1800 twitter %}
 	{% include_feed "http://twitter.com/statuses/user_timeline/155609766.rss" 3 feed_includes/spreadband_twitter.html %}
 	{% endcache %}

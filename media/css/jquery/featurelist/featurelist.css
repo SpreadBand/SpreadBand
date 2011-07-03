@@ -84,7 +84,7 @@ ul#feature-tabs li a:hover {
 }
 
 ul#feature-tabs li a.current {
-    background:url('../../images/featurelist/feature-tab-current.png');
+    background:url('../../../images/featurelist/feature-tab-current.png');
     color: #FFF;
 }
 

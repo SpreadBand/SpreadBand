@@ -1,9 +1,9 @@
 {% extends "venue/base.html" %}
 
+{% load compress %}
 {% load i18n %}
 {% load badges_tags %}
 {% load humanize %}
-{% load django_static %}
 {% load activity_tags %}
 {% load avatar_tags %}
 
@@ -14,8 +14,10 @@
 {% block javascript %}
   {{ block.super }}
 
-  <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.dataTables.js' %}"></script>
-  <script type="text/javascript" src="{% staticfile '/js/jquery/jquery.cookie.js' %}"></script>
+  {% compress js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.cookie.js"></script>
+  {% endcompress %}
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -70,8 +72,8 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery/jquery.dataTables.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/calendar.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/jquery/jquery.dataTables.css" media="screen, projection" />
 {% endblock %}
 
 {% block venue_content %}
@@ -87,7 +89,7 @@
 	  <h3>{% trans "Hey, don't forget to complete your PressKit !" %}</h3>
 	  <span class="close"><a href="#">&uarr;</a></span>
 	</div>
-	<img src="{% staticfile '/images/venue/fill_presskit.png' %}" height="90px"/>	
+	<img src="{{ STATIC_URL }}images/venue/fill_presskit.png" height="90px"/>	
 	
 	<div class="info">
 	  <div class="progress">
@@ -153,7 +155,7 @@
     <div id="presskit-tracker">
       <div class="sectionbox">
 	<div class="header">
-	  <img src="{% staticfile '/images/gigbargain/negociation_ico.png' %}" alt="bargains"/>
+	  <img src="{{ STATIC_URL }}images/gigbargain/negociation_ico.png" alt="bargains"/>
 	  <h2>{% trans "PressKit Tracker" %}</h2>
 	</div>
 	<div class="separator"></div>
@@ -170,7 +172,7 @@
 	    </thead>
 
 	    <tbody>
-	      {% staticfile '/images/band/no_picture.png' as default_picture %}
+	      {% with STATIC_URL|add:'images/band/no_picture.png' as default_picture %}
 	      {% for presskit_view_request in received_presskits %}
 		<tr class="state-{{ presskit_view_request.state|lower }} {% cycle "odd" "even" %}" href="{% url venue:presskit-viewrequest-venue venue.slug presskit_view_request.pk %}">
 		  <td class="status">
@@ -198,6 +200,7 @@
 		  </td>
 		</tr>
 	      {% endfor %}
+	      {% endwith %}
 	    </tbody>
 	  </table>
 	  
@@ -211,7 +214,7 @@
     <div id="search">
       <h3>{% trans "Search for Bands" %}</h3>
       <div class="search-content">
-	<img src="{% staticfile '/images/band/search.png' %}" width="100px"/>
+	<img src="{{ STATIC_URL }}images/band/search.png" width="100px"/>
 	{% blocktrans %}Recherchez des <strong>groupes</strong> en quelques clics et <strong>invitez les</strong> à jouer chez vous !{% endblocktrans %}
 	<span class="go">
 	  <a href="{% url band:search %}" class="button-tip minibutton btn-edit" title="{% trans "Search for Bands" %}"><span>{% trans "Search for Bands" %}</span></a>

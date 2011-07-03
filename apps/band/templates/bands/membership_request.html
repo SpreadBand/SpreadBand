@@ -4,9 +4,10 @@
 
 {% block content %}
 
-<h3>Join {{ band.name }}  as</h3>
+<h3>Join {{ band.name }} as</h3>
 
 <form action="request" method="POST">
+  {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="{% trans "Submit" %}" />
 </form>

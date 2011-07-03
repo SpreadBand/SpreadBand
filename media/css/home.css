@@ -42,7 +42,7 @@
 
 
 #home-auth form#authentication a#lost-password {
-	background:url("../../images/elements/ico_login.png") no-repeat scroll right center transparent;
+	background:url("../images/elements/ico_login.png") no-repeat scroll right center transparent;
 	color:#63605C;
 	font-size:0.85em;
 	line-height:15px;
@@ -281,7 +281,7 @@
 #content #box ul#tabs-box li a:hover, #content #box ul#tabs-box li.current a {
 	height:75px;
 	width:337px;
-	background:url('/images/structure/background/box_rollover_bg.png') no-repeat top left;
+	background:url('../images/structure/background/box_rollover_bg.png') no-repeat top left;
 	position:absolute;
 	left:0;
 	top:-1px;
@@ -290,15 +290,15 @@
 } 
 
 #content #box ul#tabs-box li#tab1 a span {
-	background:url('/images/elements/picto_question.png') no-repeat 14px 15px;
+	background:url('../images/elements/picto_question.png') no-repeat 14px 15px;
 }
 
 #content #box ul#tabs-box li#tab2 a span {
-	background:url('/images/elements/picto_mic.png') no-repeat 14px 15px;
+	background:url('../images/elements/picto_mic.png') no-repeat 14px 15px;
 }
 
 #content #box ul#tabs-box li#tab3 a span {
-	background:url('/images/elements/picto_record.png') no-repeat 14px 15px;
+	background:url('../images/elements/picto_record.png') no-repeat 14px 15px;
 }
 
 #content #box ul#tabs-box li a span strong {

@@ -4,10 +4,10 @@
 {% load django_static %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.charCount.js" %}" ></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.blockUI.js" %}" ></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.ezmark.js" %}" ></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tipsy.js" %}" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.charCount.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.blockUI.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ezmark.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tipsy.js" ></script>
   
   <script type="text/javascript">
     $(document).ready(function() {
@@ -128,6 +128,7 @@
   <h1>{% trans "Broadcast a message" %}</h1>
 
   <form method="POST" class="fuzzyform" action="">
+    {% csrf_token %}
     <div id="where-to-post" class="alpha grid_4">
       <h2>{% trans "1. Choose where to post" %}</h2>
 

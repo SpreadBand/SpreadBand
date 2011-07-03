@@ -1,17 +1,11 @@
-{% load django_static %}
-
 <html>
   <head>
-    {% staticall %}
-    <script type="text/javascript" src="/js/XMLHttpRequest.js"></script>
-    <script type="text/javascript" src="/js/jquery/jquery.ba-serializeobject.js"></script>
-    {% endstaticall %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/XMLHttpRequest.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ba-serializeobject.js"></script>
 
-    <script type="text/javascript" src="{% staticfile "/js/dajaxice.core.js" %}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/dajaxice.core.js"></script>
 
-    {% staticall %}
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/uni_form/default.uni-form.css" />
-    {% endstaticall %}
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/uni_form/default.uni-form.css" />
 
     {% block js %}
   {% endblock %}

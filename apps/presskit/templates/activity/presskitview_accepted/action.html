@@ -1,4 +1,3 @@
-{% load django_static %}
 {% load i18n %}
-<img src="{% staticfile '/images/gigbargain/padlock-locked_16.png' %}" alt="{% trans "accepted" %}" />
+<img src="{{ STATIC_URL }}images/gigbargain/padlock-locked_16.png" alt="{% trans "accepted" %}" />
 <a href="{{ action.actor.get_absolute_url }}">{{ action.actor|capfirst }}</a> {% trans "accepted to set up a gig with" %} <a href="{{ action.target.presskit.band.get_absolute_url }}">{{ action.target.presskit.band.name|capfirst }}</a> {% trans "request" %}
