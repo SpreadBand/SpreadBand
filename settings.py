@@ -7,7 +7,7 @@ DEFAULT_CHARSET = 'utf-8'
 
 PROJECT_PATH = os.path.abspath('%s' % os.path.dirname(__file__))
 
-DEBUG = True
+DEBUG = False
 
 INTERNAL_IPS = ('127.0.0.1',)
 
