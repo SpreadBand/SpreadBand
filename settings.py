@@ -394,7 +394,7 @@ STATIC_URL = MEDIA_URL + 'static/'
 STATIC_ROOT = os.path.join(PROJECT_PATH, 'static/')
 
 # COMPRESS
-COMPRESS = DEBUG
+COMPRESS = not DEBUG
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',
