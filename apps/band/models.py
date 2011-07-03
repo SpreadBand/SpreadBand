@@ -1,3 +1,6 @@
+import uuid
+import os
+
 from django.utils.translation import ugettext
 _ = lambda u: unicode(ugettext(u))
 
@@ -121,8 +124,17 @@ from actors.models import actor_after_save
 post_save.connect(actor_after_save, sender=Band)
 
 def get_bandpicture_path(aBandPicture, filename):
-    dst = 'bands/%d/pictures/%s' % (aBandPicture.band.id,
-                                    filename)
+    """
+    Generate a random UUID for a picture,
+    use the uuid as the picture name
+    """
+    picture_uuid = uuid.uuid4()
+    name, extension = os.path.splitext(filename)
+
+    dst = 'bands/%d/pictures/%s%s' % (aBandPicture.band.id,
+                                      picture_uuid,
+                                      extension)
+
     return dst
 
 

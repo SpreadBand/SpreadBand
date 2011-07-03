@@ -1,3 +1,6 @@
+import uuid
+import os
+
 from django.utils.translation import ugettext
 _ = lambda u: unicode(ugettext(u))
 
@@ -88,8 +91,16 @@ class Venue(Actor):
 
 
 def get_venuepicture_path(aVenuePicture, filename):
-    dst = 'venue/%d/pictures/%s' % (aVenuePicture.venue.id,
-                                    filename)
+    """
+    Generate a random UUID for a picture,
+    use the uuid as the picture name
+    """
+    picture_uuid = uuid.uuid4()
+    name, extension = os.path.splitext(filename)
+
+    dst = 'venue/%d/pictures/%s%s' % (aVenuePicture.venue.id,
+                                      picture_uuid,
+                                      extension)
     return dst
 
 
