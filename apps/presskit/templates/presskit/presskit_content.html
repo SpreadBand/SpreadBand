@@ -186,7 +186,7 @@
 	Galleria.loadTheme('{{ STATIC_URL }}css/galleria/themes/classic/galleria.classic.js');
 
 	$('#gallery').galleria({
-            image_crop: false, // crop all images to fit
+            image_crop: true, // crop all images to fit
             thumb_crop: true, // crop all thumbnails to fit
             transition: 'fade', // crossfade photos
             transition_speed: 700, // slow down the crossfade
@@ -427,7 +427,7 @@
 	{% else %}
 	<div id="gallery" style="height: 400px;">
 	  {% for picture in band.pictures.all %}
-	  {% thumbnail picture.original_image "1456" upscale="false" as img %}
+	  {% thumbnail picture.original_image "1024" upscale="false" as img %}
 	    <a href="{{ img.url }}">
 	  {% endthumbnail %}
 	      <img src="{{ picture.thumbnail_image.url }}" alt="image" />
