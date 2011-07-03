@@ -2,7 +2,6 @@
 
 {% load i18n %}
 {% load voting_tags %}
-{% load django_static %}
 
 {% block title %}
   {% trans "Help Center" %}
@@ -10,14 +9,10 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/backcap.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/backcap.css" />
 {% endblock %}
 
 {% block javascript %}
-
-{% staticall %}
-<script type="text/javascript" src="/js/jquery/jquery.tipsy.js"></script>
-{% endstaticall %}
 
 <script type="text/javascript">
 $(document).ready(function() {

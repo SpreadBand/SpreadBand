@@ -2,21 +2,20 @@
 
 {% load i18n %}
 {% load uni_form_tags %}
-{% load django_static %}
 {% load tagging_tags %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/band_new.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/band_new.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
 
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tinysort.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tagcloud.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.iecompat.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tinysort.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tagcloud.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -124,7 +123,7 @@
     <div id="band-new-sidebar" class="grid_4 omega">
       <h3>{% trans "Registering your band" %}</h3>
       
-      <img src="{% staticfile '/images/band/search_bands.jpg' %}" alt="{% trans "band" %}"/>
+      <img src="{{ STATIC_URL }}images/band/search_bands.jpg" alt="{% trans "band" %}"/>
       
       <p>
 	{% blocktrans %}

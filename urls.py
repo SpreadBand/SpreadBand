@@ -124,16 +124,17 @@ urlpatterns += patterns('django.views.generic',
         url(r'^discover/venue$', 'simple.direct_to_template', {'template': 'venue_discover.html'}, name='discover-venue'),
 )
 
-# Static files
-urlpatterns += staticfiles_urlpatterns()
-
 if settings.DEBUG:
     urlpatterns += patterns('',
-        # (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
         (r'^styles$',             'django.views.generic.simple.direct_to_template', {'template': 'band_new_styles.html'}),
         (r'^500$', handler500),
         url(r'^rosetta/', include('rosetta.urls')),
     )
+
+# Static files
+urlpatterns += staticfiles_urlpatterns()
+
 
 # Sitemaps
 sitemaps.update({'flatpages': FlatPageSitemap,

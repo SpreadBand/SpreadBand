@@ -54,7 +54,7 @@ a.btn-download .icon {
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(../images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-download .icon {
@@ -72,7 +72,7 @@ a.btn-fork .icon {
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(../images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-fork .icon {
@@ -89,7 +89,7 @@ a.btn-edit .icon {
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(../images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-edit .icon {
@@ -107,7 +107,7 @@ a.btn-kick .icon {
     margin-left:-4px;
     width:18px;
     height:22px;
-    background:url(/images/buttons/minibutton_icons.png) 0 0 no-repeat;
+    background:url(../images/buttons/minibutton_icons.png) 0 0 no-repeat;
 }
 
 a.btn-kick .icon {

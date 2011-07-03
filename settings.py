@@ -137,10 +137,10 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'spreadband.urls'
 
-if DEBUG:
-    TEMPLATE_DIRS = ('templates/',)
-else:
-    TEMPLATE_DIRS = ('/home/spreadband/virtualenvs/spreadband.com/spreadband/templates/',)
+# TEMPLATE DIR PRIORITY
+TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, 'apps/account/templates'),
+                 os.path.join(PROJECT_PATH, 'templates/')
+                 )
 
 INSTALLED_APPS = (
     'south',

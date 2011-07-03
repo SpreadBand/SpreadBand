@@ -1,11 +1,10 @@
 {% load i18n %}
-{% load django_static %}
 
 <div id="search-results" class="grid_10 alpha">
   <h2>{% trans "Search results" %} ({{ venue_filter.queryset|length }})</h2>
   
   <ul>
-    {% staticfile '/images/venue/no_picture.png' as default_pic %}
+    {% with STATIC_URL|add:'/images/venue/no_picture.png' as default_pic %}
     {% for venue in venue_filter %}
     <li id="{{ venue.slug }}" class="venue">
       <div class="{% cycle 'odd' 'even' %}">
@@ -36,4 +35,5 @@
     {% trans "No result" %}. {% trans "Try to extends the range of search by using the circle or try to remove some ambiance tags." %}
     {% endfor %}
   </ul>
+  {% endwith %}
 </div>

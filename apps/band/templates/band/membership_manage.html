@@ -14,8 +14,8 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="/css/fuzzyform.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" href="/css/band.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fuzzyform.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/band.css" media="screen, projection" />
 {% endblock %}
 
 {% block band_content %}

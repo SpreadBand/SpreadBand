@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load django_static %}
 {% load tagging_tags %}
 
 {% block title %}
@@ -9,17 +8,17 @@
 {% endblock %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tinysort.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tagcloud.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.activity-indicator-1.0.0.js" %}"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.blockUI.js" ></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.iecompat.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tinysort.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tagcloud.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.activity-indicator-1.0.0.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.blockUI.js"></script>
 
 
-  <script type="text/javascript" src="{% staticfile "/js/XMLHttpRequest.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.ba-serializeobject.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/dajaxice.core.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/XMLHttpRequest.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ba-serializeobject.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/dajaxice.core.js"></script>
   
 
   <script type="text/javascript">
@@ -179,7 +178,7 @@
 
 	dragresizer.collectDragHandle = function() {
 	    style_img = OpenLayers.Util.extend({}, layer_style);
-	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/cursor-move.png" %}';
+	    style_img.externalGraphic = '{{ STATIC_URL }}icons/64x64/cursor-move.png';
 	    style_img.graphicWidth = 60;
 	    style_img.graphicHeight = 60;
 	    
@@ -201,7 +200,7 @@
 
 	dragresizer.collectRadiusHandle = function() {
 	    style_img = OpenLayers.Util.extend({}, layer_style);
-	    style_img.externalGraphic = '{% staticfile "/images/icons/64x64/cursor-size.png" %}';
+	    style_img.externalGraphic = '{{ STATIC_URL }}images/icons/64x64/cursor-size.png';
 	    style_img.graphicWidth = 30;
 	    style_img.graphicHeight = 30;
 	    style_img.rotation = -30;
@@ -265,10 +264,8 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/venue.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
-
-  
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/venue.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 
   <style type="text/css">
   .venuemarker_popup {
@@ -292,7 +289,7 @@
 
     <div id="search" class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/presskit/location_ico.png' %}" alt="location"/>	
+	<img src="{{ STATIC_URL }}images/presskit/location_ico.png" alt="{% trans "location" %}"/>	
 	<h2>{% trans "Your search" %}</h2>
       </div>
       <div class="separator"></div>

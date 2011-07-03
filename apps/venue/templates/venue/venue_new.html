@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load django_static %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/venue.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/venue.css" media="screen, projection" />
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
 
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.slugify.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.slugify.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#id_name").slugify("#id_slug");

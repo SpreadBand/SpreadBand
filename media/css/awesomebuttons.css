@@ -1,7 +1,7 @@
 .awesome, .awesome:visited {
 
     border: none;
-    background: #222 url(/images/alert-overlay.png) repeat-x; 
+    background: #222 url(../images/alert-overlay.png) repeat-x; 
     display: inline-block; 
     padding: 5px 10px 6px; 
     color: #fff; 

@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load django_static %}
 
 {% block title %}
 {% trans "I can't find a Venue" %}
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/venue_cantfind.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/venue_cantfind.css" media="screen, projection" />
 {% endblock %}
 
 {% block content %}
@@ -20,7 +19,7 @@
 
   <div id="instructions">
     {% blocktrans %}
-      Vous n'avez pas <strong>rÃ©ussi Ã  trouver votre bar idÃ©al</strong> ou vous connaissez <strong>un lieu non rÃ©fÃ©rencÃ©</strong> ? Donnez du taff Ã  <strong>SuperLaurent</strong>, il est lÃ  rien que pour vous !
+      Vous n'avez pas <strong>réussi à trouver votre bar idéal</strong> ou vous connaissez <strong>un lieu non référencé</strong> ? Donnez du taff à <strong>SuperLaurent</strong>, il est là rien que pour vous !
     {% endblocktrans %}
   </div>
 
@@ -54,7 +53,7 @@
       </div>
       
       <div id="send" class="grid_4 omega">
-	<img src="{% staticfile "/images/venue/superlaurent.png" %}"/>
+	<img src="{{ STATIC_URL }}images/venue/superlaurent.png"/ alt="{% trans "SuperLaurent" %}>
 	<input type="submit" name="submit" />
       </div>
 

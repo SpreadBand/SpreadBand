@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load django_static %}
 {% load tagging_tags %}
 
 {% block title %}
@@ -10,16 +9,16 @@
 
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/band.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" href="/css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/band.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery/jquery.ui.autocomplete.tagit.css" media="screen, projection" />
 {% endblock %}
 
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tag-it.iecompat.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tinysort.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.tagcloud.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.iecompat.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}/js/jquery/jquery.tinysort.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tagcloud.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -52,7 +51,7 @@
     <h1>{% trans "Find Bands" %}</h1>
     <div id="search" class="sectionbox">
       <div class="header">
-	<img src="{% staticfile '/images/gigbargain/bands_ico.png' %}" alt="{% trans "band name" %}"/>
+	<img src="{{ STATIC_URL }}images/gigbargain/bands_ico.png" alt="{% trans "band name" %}"/>
 	<h2>{% trans "Your search" %}</h2>
       </div>
       <div class="separator"></div>
@@ -137,7 +136,7 @@
     <div id="search-results">
 
       <ul>
-	{% staticfile '/images/band/no_picture.png' as default_pic %}
+	{% with STATIC_URL|add:'/images/band/no_picture.png' as default_pic %}
 	{% for band in band_filter %}
 	  <li class="band">
 	    <div class="{% cycle 'odd' 'even' %}">
@@ -161,6 +160,7 @@
 	    </div>
 	  </li>
 	{% endfor %}
+	{% endwith %}
       </ul>
 
 

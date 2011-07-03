@@ -3,27 +3,24 @@
 {% load elsewhere_tags %}
 {% load oembed_tags %}
 {% load reviews_tags %}
-{% load django_static %}
 {% load i18n %}
 {% load band_tags %}
 {% load event_tags %}
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/venue_dashboard.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/venue.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/band_vcard.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/calendar.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/gig_vevent.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/colorbox/colorbox.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/venue_dashboard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/venue.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/band_vcard.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/calendar.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/gig_vevent.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/jquery/colorbox/colorbox.css" />
 {% endblock %}
 
 {% block javascript %}
   {{ block.super }}
 
-  {% staticall %}
-  <script type="text/javascript" src="/js/galleria.js"></script>
-  {% endstaticall %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/galleria.js"></script>
 
   <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
 
@@ -59,7 +56,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
 	// run galleria and add some options
-	Galleria.loadTheme('{{ MEDIA_URL }}/css/galleria/themes/classic/galleria.classic.js');
+	Galleria.loadTheme('{{ STATIC_URL }}css/galleria/themes/classic/galleria.classic.js');
 
 	$('#gallery').galleria({
             image_crop: true, // crop all images to fit

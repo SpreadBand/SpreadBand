@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 
-{% load django_static %}
-
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="/css/discover.css" media="screen, projection" />
-  <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/jquery/colorbox/colorbox.css" />
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/discover.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/jquery/colorbox/colorbox.css" />
 {% endblock %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.colorbox.js" %}"></script>
-  <script type="text/javascript" src="{% staticfile "/js/jquery/jquery.scrollfollow.js" %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.colorbox.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.scrollfollow.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -48,7 +46,7 @@
       <div class="upbot-video"></div>
       <div class="pad-video"></div>
       <div class="video">
-	<img src="{% staticfile '/images/discover/video.png' %}" width="800px" height="450px"/>
+	<img src="{{ STATIC_URL }}images/discover/video.png" width="800px" height="450px"/>
       </div>
       <div class="pad-video"></div>
       <div class="upbot-video"></div>
@@ -70,8 +68,8 @@
 	</div>
 	
 	<div class="picture grid_7 omega">
-	  <a class="screenshot" href="{% staticfile '/images/discover/band/presskit.jpg' %}" title="Le Presskit">
-	    <img src="{% staticfile '/images/discover/band/presskit_preview.jpg' %}" width="374px" height="231px"/>
+	  <a class="screenshot" href="{{ STATIC_URL }}images/discover/band/presskit.jpg" title="Le Presskit">
+	    <img src="{{ STATIC_URL }}images/discover/band/presskit_preview.jpg" width="374px" height="231px"/>
 	  </a>
 	</div>
       </li>
@@ -79,8 +77,8 @@
       <!-- Jouez partout -->
       <li class="feature alpha grid_15 omega">
 	<div class="picture grid_6 alpha">
-	  <a class="screenshot" href="{% staticfile '/images/discover/band/search.jpg' %}" title="La recherche intelligente">
-	    <img src="{% staticfile '/images/discover/band/search_preview.jpg' %}" width="350px" height="212px"/>
+	  <a class="screenshot" href="{{ STATIC_URL }}images/discover/band/search.jpg" title="La recherche intelligente">
+	    <img src="{{ STATIC_URL }}images/discover/band/search_preview.jpg" width="350px" height="212px"/>
 	  </a>
 	</div>
 
@@ -100,8 +98,8 @@
 	</div>
 
 	<div class="picture prefix_1 grid_6 omega">
-	  <a class="screenshot" href="{% staticfile '/images/discover/band/negociating.jpg' %}" title="Négociez vos soirées">
-	    <img src="{% staticfile '/images/discover/band/negociating_preview.jpg' %}" width="350px" height="194px"/>
+	  <a class="screenshot" href="{{ STATIC_URL }}images/discover/band/negociating.jpg" title="Négociez vos soirées">
+	    <img src="{{ STATIC_URL }}images/discover/band/negociating_preview.jpg" width="350px" height="194px"/>
 	  </a>
 	</div>
 	
@@ -111,7 +109,7 @@
       <!-- Créez votre réseau -->
       <li class="feature alpha grid_15 omega">
 	<div class="picture grid_6 alpha">
-	  <img src="{% staticfile '/images/discover/band/network_preview.jpg' %}" width="300px" height="198px"/>
+	  <img src="{{ STATIC_URL }}images/discover/band/network_preview.jpg" width="300px" height="198px"/>
 	</div>
 
 
@@ -135,8 +133,8 @@
 
 
 	<div class="picture grid_6 omega">
-	  <a class="screenshot" href="{% staticfile '/images/discover/band/multiband.jpg' %}" title="Gérez vos dates">
-	    <img src="{% staticfile '/images/discover/band/multiband_preview.jpg' %}" width="350px" height="195px"/>
+	  <a class="screenshot" href="{{ STATIC_URL }}images/discover/band/multiband.jpg" title="Gérez vos dates">
+	    <img src="{{ STATIC_URL }}images/discover/band/multiband_preview.jpg" width="350px" height="195px"/>
 	  </a>
 	</div>
 
@@ -148,7 +146,7 @@
       <li class="feature alpha grid_15 omega">
 
 	<div class="picture grid_7 alpha">
-	  <img src="{% staticfile '/images/discover/band/agenda_preview.jpg' %}" width="381px" height="198px"/>
+	  <img src="{{ STATIC_URL }}images/discover/band/agenda_preview.jpg" width="381px" height="198px"/>
 	</div>
 
 	<div class="text omega grid_8">
