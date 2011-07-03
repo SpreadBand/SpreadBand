@@ -169,6 +169,7 @@ INSTALLED_APPS = (
 
     # External
     'compressor',
+    'sorl.thumbnail',
     'userena',
     'oauth_access',
     'dajaxice',
@@ -458,3 +459,6 @@ REQUEST_TRAFFIC_MODULES = (
 # ELSEWHERE
 ELSEWHERE_MEDIA_DIR = 'images/elsewhere/'
 ELSEWHERE_ICON_PACK = ''
+
+# SOLR THUMBNAIL
+THUMBNAIL_DEBUG = DEBUG

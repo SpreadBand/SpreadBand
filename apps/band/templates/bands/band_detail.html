@@ -1,5 +1,6 @@
 {% extends "bands/base.html" %}
 
+{% load compress %}
 {% load i18n %}
 {% load badges_tags %}
 {% load humanize %}
@@ -13,8 +14,10 @@
 {% block javascript %}
   {{ block.super }}
 
+  {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.dataTables.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.cookie.js"></script>
+  {% endcompress %}
 
   <script type="text/javascript">
     $(document).ready(function() {

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load compress %}
 {% load i18n %}
 {% load tagging_tags %}
 
@@ -8,18 +9,17 @@
 {% endblock %}
 
 {% block javascript %}
+  {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tag-it.iecompat.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tinysort.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.tagcloud.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.activity-indicator-1.0.0.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.blockUI.js"></script>
-
-
   <script type="text/javascript" src="{{ STATIC_URL }}js/XMLHttpRequest.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.ba-serializeobject.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/dajaxice.core.js"></script>
-  
+  {% endcompress %}
 
   <script type="text/javascript">
     $(document).ready(function() {

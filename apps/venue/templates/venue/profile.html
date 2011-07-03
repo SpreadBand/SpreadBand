@@ -1,3 +1,4 @@
+{% load compress %}
 {% load elsewhere_tags %}
 {% load oembed_tags %}
 {% load reviews_tags %}
@@ -111,7 +112,9 @@
 
 </div>
 
+{% compress js %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.colorbox.js"></script>
+{% endcompress %}
 
 <script type="text/javascript">
 $(document).ready(function() {

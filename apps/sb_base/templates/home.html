@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 
-{% load feeds %}
+
 {% load cache %}
+{% load compress %}
+{% load feeds %}
 {% load i18n %}
+{% load thumbnail %}
 
 {% block title %}
   Bookez votre groupe, Créez votre réseau - version bêta
 {% endblock %}
 
 {% block javascript %}
+
+  {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.featureList-1.0.0.js"></script>
   <script src="{{ STATIC_URL }}js/jquery/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
   <script src="{{ STATIC_URL }}js/jquery/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
   <script src="{{ STATIC_URL }}js/jquery/jquery.tipsy.js" type="text/javascript" charset="utf-8"></script>
 
   <script src="{{ STATIC_URL }}js/jquery/jquery.example.js" type="text/javascript" charset="utf-8"></script>
+  {% endcompress %}
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -110,7 +116,9 @@
 	  <img src="{{ STATIC_URL }}images/home/bands_venues.jpg" alt="Groupes et Lieux de concert" />
 	</li>
 	<li>
-	  <img src="{{ STATIC_URL }}images/home/presskit.png" alt="Faîtes votre promotion" />
+	  {% thumbnail "images/home/presskit.png" "537x240" as img %}
+	  <img src="{{ img.url }}" alt="Faîtes votre promotion" width="{{ img.x }}" height="{{ img.y }}"/>
+	  {% endthumbnail %}
 	<li>
 	  <img src="{{ STATIC_URL }}images/home/network.jpg" alt="Créez votre réseau" />
 	</li>

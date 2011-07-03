@@ -37,6 +37,7 @@ werkzeug
 feedparser
 cssmin
 jsmin
+sorl-thumbnail
 
 # SpreadBand repositories
 -e git+https://github.com/SpreadBand/django-backcap.git#egg=django-backcap

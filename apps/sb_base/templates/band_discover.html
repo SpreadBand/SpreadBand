@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 
+{% load compress %}
+
 {% block css %}
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/discover.css" media="screen, projection" />
   <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/jquery/colorbox/colorbox.css" />
 {% endblock %}
 
 {% block javascript %}
+  {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.colorbox.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.scrollfollow.js"></script>
+  {% endcompress %}
 
   <script type="text/javascript">
     $(document).ready(function() {

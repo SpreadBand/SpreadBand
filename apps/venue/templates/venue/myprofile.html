@@ -1,5 +1,6 @@
 {% extends "venue/base.html" %}
 
+{% load compress %}
 {% load i18n %}
 
 {% block css %}
@@ -15,11 +16,13 @@
 {% block javascript %}
   {{ block.super }}
 
+  {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/galleria.js"></script>
+  {% endcompress %}
 
   <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
 
-  <script type="text/javascript">
+  <script defer="defer" type="text/javascript">
     var map;
   
     function init(){

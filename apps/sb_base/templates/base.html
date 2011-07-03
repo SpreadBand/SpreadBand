@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+{% load compress %}
 {% load dajaxice_templatetags %}
 {% load i18n %}
 {% load avatar_tags %}
@@ -24,6 +25,7 @@
     {% block head %}
     {% endblock %}
 
+    {% compress css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset_of_death.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/960.css" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" media="screen, projection" />
@@ -44,7 +46,12 @@
 
     <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/awesomebuttons.css" /> 
 
+    {% endcompress %}
+
+
+    {% compress css %}
     {% block css %}{% endblock %}
+    {% endcompress %}
 
   <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}images/favicon.ico" />
   <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" />
@@ -59,6 +66,8 @@
   {# <link rel="alternate" title="titre de la section" href="#" type="application/rss+xml" /> #}
 
   <!--[if !IE]>scripts library<![endif]-->
+
+  {% compress js %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.js"></script>
 
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery-ui.js"></script>
@@ -78,6 +87,7 @@
 
   <script type="text/javascript" src="{{ STATIC_URL }}js/dajaxice.core.js"></script>
 
+  {% endcompress %}
 
   <script type="text/javascript">
     var CKEDITOR_BASEPATH = '{{ STATIC_URL }}js/ckeditor/';
