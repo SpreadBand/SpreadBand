@@ -100,7 +100,7 @@
 	    {% for venue in profile.user.venues.all %}
 	      <li>
 		<div class="band-picture">
-		  {% with STATIC_URL|add'/images/venue/no_picture.png' as default_pic %}
+		  {% with STATIC_URL|add:'/images/venue/no_picture.png' as default_pic %}
 		  <a href="{% url venue:detail venue.slug %}">
 		    <img id="photo" height="80px" width="80px" src="{{ venue.pictures.avatar.avatar_image.url|default:default_pic }}" alt="Picture of {{ venue.name }}" class="photo"/>
 		  </a>
