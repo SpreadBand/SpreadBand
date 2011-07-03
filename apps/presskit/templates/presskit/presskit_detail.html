@@ -2,8 +2,13 @@
 
 {% load compress %}
 
+{% block head_title %}
+  {{ band.name }} 
+{% endblock %}
 {% block title %}
-  {{ band.name }}
+{% if band.city and band.country %}
+  ({{ band.city }}, {{ band.country }})
+{% endif %} | Presskit SpreadBand
 {% endblock %}
 
 {% block meta_description %}Presskit du groupe {{ band.name }} : photos, vidéos, biographie, morceaux en écoute, fiche technique...{% endblock %}
