@@ -390,7 +390,7 @@ STATICFILES_DIRS = (
     ('flash', os.path.join(MEDIA_ROOT, 'flash')),
 )
 
-STATIC_URL = MEDIA_URL + 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_PATH, 'static/')
 
 # COMPRESS
