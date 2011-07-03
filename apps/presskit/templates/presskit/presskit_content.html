@@ -5,6 +5,7 @@
 {% load reviews_tags %}
 {% load i18n %}
 {% load badges_tags %}
+{% load thumbnail %}
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -426,7 +427,9 @@
 	{% else %}
 	<div id="gallery" style="height: 400px;">
 	  {% for picture in band.pictures.all %}
-	    <a href="{{ picture.original_image.url }}">
+	  {% thumbnail picture.original_image "1456" upscale="false" as img %}
+	    <a href="{{ img.url }}">
+	  {% endthumbnail %}
 	      <img src="{{ picture.thumbnail_image.url }}" alt="image" />
 	    </a>
 	  {% endfor %}
